@@ -35,12 +35,12 @@ Español:
  
 ```{r}
 library(tidyverse)
-library(datos)
+#library(datos)
 
 tibble(
-  secuencia = c(1:8),
-  edad = c(23,26, 24,26,27, 11,20,21),
-  nombre = c("Jose", "Maria", "Carol", "Moncho", "Liz", "Maria", "Jorge", "Miguel")
+  secuencia = c(1:6),
+  edad = c(23,26, 24,26,27, NA),
+  nombre = c("Jose", "Maria", "Carol", "Moncho", "Liz", "Maria")
 )
 
 ```

@@ -1,0 +1,47 @@
+---
+title: "QUARTO_presentation"
+format: revealjs
+editor: visual
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+
+## Bullets
+
+When you click the **Render** button a document will be generated that includes:
+
+-   Content authored with markdown
+-   Output from executable code
+
+## Code
+
+When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+## MY next slide
+
+```{r}
+library(tidyverse)
+
+ggplot(diamonds, aes(price, carat))+
+         geom_point()
+```
+
+## New photo
+
+```{r}
+print(getwd()) 
+```
+
+```         
+![cat](/Users/raymondtremblay/Library/CloudStorage/Dropbox/GitHub_Dropbox_Drive/GitHub/Ciencia_Datos_R/CAT.png)
+```
+
+```         
+![](https://upload.wikimedia.org/wikipedia/commons/d/d0/RStudio_logo_flat.svg){.center}
+```

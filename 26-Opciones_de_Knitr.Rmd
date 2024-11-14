@@ -13,7 +13,7 @@ el paquete **knitr** fue desiñado para ser transparente para generar reporte de
 
 
 
-Hay muchas opciones para determinar lo que have un **chunk**
+Hay muchas opciones para determinar lo que hace un **chunk**
 
  - Code evaluation: evaluación de código
  - Text output: Formateo de texto
@@ -32,7 +32,10 @@ Hay muchas opciones para determinar lo que have un **chunk**
  
 
 
-Este **chunk** es para que la información de los chunk and la parte de **knitr** se vea.   
+## Para ver las opciones de **knitr** de los chunk 
+
+
+Este **chunk** es para que la información de los chunk en la parte de **knitr** se vea.   
 
 
 
@@ -70,13 +73,14 @@ Los ejemplos aquí serán limitado a las alternativas para los documentos **.Rmd
  
 | Opción     | Ejecuta | Muestra | Output | Gráficos | Mensajes | Advertencias |
 |:--------|:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|
-|eval=FASLE|   -   |   |   -   | - |  - | -| 
+|eval=FALSE|   -   |   |   -   | - |  - | -| 
 |include=FALSE|      |  - |   -   | - |  - | -|
 |echo=FALSE|     |  - |      |  |   |  |
 |results="hide"|     |   |  -    |  |   |  |
 |fig.show ="hide"|     |   |      |-  |   |  |
 |message=FALSE|     |   |      |  |  - |  |
 |warning=FALSE|     |   |      |  |   | - |
+|error=FALSE|     |   |      |  |   |  - |
  
  
  
@@ -86,18 +90,19 @@ Los ejemplos aquí serán limitado a las alternativas para los documentos **.Rmd
 
 
 ```{r activar_tidyverse, echo=TRUE}
+
 library(tidyverse)
 ```
 
 
-algun_nombre, echo=TRUE
+**algun_nombre, echo=TRUE**
 
 
 
 
 
 ***
-***
+
  Eso es lo que va a ver cuando hace el knit 
  
 
@@ -106,9 +111,9 @@ algun_nombre, echo=TRUE
 
 
 ***
-***
 
-Nota aqui tengo include=FALSE, por consecuencia cuando se hace un knit, no se ve lo que hay en el chunk.  
+
+Nota aquí tengo include=FALSE, por consecuencia cuando se hace un knit, no se ve lo que hay en el chunk.  
   - Ahora cambialo a TRUE
 
 ```{r include_false, include=FALSE, echo_opts=TRUE}
@@ -122,7 +127,7 @@ head(cars)
 
 
 ***
-***
+
 
 Añade una figura 
 
@@ -134,15 +139,15 @@ plot(cars)
 
  
 ***
-***
 
 
-```{r position_caption, fig.cap='El nombre de mi figure.', fig.topcaption=TRUE, echo_opts=TRUE}
+
+```{r fig.cap='El nombre de mi figure.', fig.topcaption=TRUE, echo_opts=TRUE}
 plot(cars)
 ```
 
 
-***
+
 ***
 ```{r fig.cap= "An incredible figure", echo_opts=TRUE}
 library(ggplot2)
@@ -154,7 +159,7 @@ ggplot(df, aes(letters, value, fill = letters)) +
 ```
 
 
-***
+
 ***
 
 ```{r ggplot, fig.cap= "An incredible figure", fig.width = 3, fig.height = 3, echo_opts=TRUE, echo=FALSE}
@@ -167,7 +172,7 @@ ggplot(df, aes(letters, value, fill = letters)) +
 ```
 
 ***
-***
+
 
 Figure aligment: default, left, right, and center
 
@@ -183,7 +188,7 @@ ggplot(df, aes(letters, value, fill = letters)) +
 ```
 
 ***
-***
+
 
 Wrap text around figure
 
@@ -248,8 +253,8 @@ library(MASS)
 
 ```{r, results='asis'}
 cat("I'm raw **Markdown** content.\n",
-    
-                         "My poetry of Puerto Rico\n")
+    "\n",
+               "➪ My poetry of Puerto Rico\n")
 ```
 
 
@@ -265,7 +270,7 @@ cat("I'm raw **Markdown** content.\n",
 ##### Remember you can add emoji's to your document
 
 
-Sometimes you want to 🙈 around a bit and add some ⭐️⭐️ to your
+Sometimes you want to 🙈 around a bit and add some ⭐️⭐️ to your document. 
 🎈🎈 Well we have a gift for you if you add interesting emoji's to your document.
 
 

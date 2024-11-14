@@ -1,8 +1,9 @@
 eq:reaction
 eq:promedio
 fig:unnamed-chunk-360
-fig:ggplot
 fig:unnamed-chunk-361
+fig:ggplot
+fig:unnamed-chunk-362
 fig:pressure
 ciencia-de-datos-con-r
 horario-de-clase
@@ -285,6 +286,7 @@ intervalos
 resumen
 time-zones
 opciones-de-knitr
+para-ver-las-opciones-de-knitr-de-los-chunk
 tablas-de-opciones-principales
 r-markdown-wrapping
 otras-funciones-de-knitr

@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2024-11-07" />
+<meta name="date" content="2024-11-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -528,13 +528,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="25" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html"><i class="fa fa-check"></i><b>25</b> Opciones de Knitr</a>
 <ul>
-<li class="chapter" data-level="25.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#tablas-de-opciones-principales"><i class="fa fa-check"></i><b>25.1</b> Tablas de opciones principales</a>
+<li class="chapter" data-level="25.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#para-ver-las-opciones-de-knitr-de-los-chunk"><i class="fa fa-check"></i><b>25.1</b> Para ver las opciones de <strong>knitr</strong> de los chunk</a></li>
+<li class="chapter" data-level="25.2" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#tablas-de-opciones-principales"><i class="fa fa-check"></i><b>25.2</b> Tablas de opciones principales</a>
 <ul>
-<li class="chapter" data-level="25.1.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#otras-funciones-de-knitr"><i class="fa fa-check"></i><b>25.1.1</b> OTRAS funciones de knitr</a></li>
+<li class="chapter" data-level="25.2.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#otras-funciones-de-knitr"><i class="fa fa-check"></i><b>25.2.1</b> OTRAS funciones de knitr</a></li>
 </ul></li>
-<li class="chapter" data-level="25.2" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#emoji-or-symbols"><i class="fa fa-check"></i><b>25.2</b> Emoji or Symbols</a>
+<li class="chapter" data-level="25.3" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#emoji-or-symbols"><i class="fa fa-check"></i><b>25.3</b> Emoji or Symbols</a>
 <ul>
-<li class="chapter" data-level="25.2.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#select-under-the-edit-emoji-symbols."><i class="fa fa-check"></i><b>25.2.1</b> Select Under the Edit ➡ Emoji &amp; Symbols.</a></li>
+<li class="chapter" data-level="25.3.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#select-under-the-edit-emoji-symbols."><i class="fa fa-check"></i><b>25.3.1</b> Select Under the Edit ➡ Emoji &amp; Symbols.</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="26" data-path="nubes-de-palabra-en-r.html"><a href="nubes-de-palabra-en-r.html"><i class="fa fa-check"></i><b>26</b> Nubes de palabra en R</a>
@@ -625,7 +626,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="tibbles" class="section level1 hasAnchor" number="15">
 <h1><span class="header-section-number">Capítulo15</span> Tibbles<a href="tibbles.html#tibbles" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2024-11-07&quot;</code></pre>
+<pre><code>## [1] &quot;2024-11-14&quot;</code></pre>
 <hr />
 <p>El tema proviene de los siguientes sitios.</p>
 <p>English:
@@ -647,14 +648,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Crear un tibble con la siguiente información. Una columna que tiene los valores del 1 al 8 que se llama “secuencia”, una segunda columna que tiene los siguientes valores 23,26, 24,26,27, 11,20,21 que se llama edad y una tercera columna con la siguiente información, Jose, Maria, Carol, Moncho, Liz, Maria, Jorge, Miguel, que ser llama Nombre</p>
 <div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="tibbles.html#cb418-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb418-2"><a href="tibbles.html#cb418-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb418-2"><a href="tibbles.html#cb418-2" tabindex="-1"></a><span class="co">#library(datos)</span></span>
 <span id="cb418-3"><a href="tibbles.html#cb418-3" tabindex="-1"></a></span>
 <span id="cb418-4"><a href="tibbles.html#cb418-4" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb418-5"><a href="tibbles.html#cb418-5" tabindex="-1"></a>  <span class="at">secuencia =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>),</span>
-<span id="cb418-6"><a href="tibbles.html#cb418-6" tabindex="-1"></a>  <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">23</span>,<span class="dv">26</span>, <span class="dv">24</span>,<span class="dv">26</span>,<span class="dv">27</span>, <span class="dv">11</span>,<span class="dv">20</span>,<span class="dv">21</span>),</span>
-<span id="cb418-7"><a href="tibbles.html#cb418-7" tabindex="-1"></a>  <span class="at">nombre =</span> <span class="fu">c</span>(<span class="st">&quot;Jose&quot;</span>, <span class="st">&quot;Maria&quot;</span>, <span class="st">&quot;Carol&quot;</span>, <span class="st">&quot;Moncho&quot;</span>, <span class="st">&quot;Liz&quot;</span>, <span class="st">&quot;Maria&quot;</span>, <span class="st">&quot;Jorge&quot;</span>, <span class="st">&quot;Miguel&quot;</span>)</span>
+<span id="cb418-5"><a href="tibbles.html#cb418-5" tabindex="-1"></a>  <span class="at">secuencia =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>),</span>
+<span id="cb418-6"><a href="tibbles.html#cb418-6" tabindex="-1"></a>  <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">23</span>,<span class="dv">26</span>, <span class="dv">24</span>,<span class="dv">26</span>,<span class="dv">27</span>, <span class="cn">NA</span>),</span>
+<span id="cb418-7"><a href="tibbles.html#cb418-7" tabindex="-1"></a>  <span class="at">nombre =</span> <span class="fu">c</span>(<span class="st">&quot;Jose&quot;</span>, <span class="st">&quot;Maria&quot;</span>, <span class="st">&quot;Carol&quot;</span>, <span class="st">&quot;Moncho&quot;</span>, <span class="st">&quot;Liz&quot;</span>, <span class="st">&quot;Maria&quot;</span>)</span>
 <span id="cb418-8"><a href="tibbles.html#cb418-8" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## # A tibble: 8 × 3
+<pre><code>## # A tibble: 6 × 3
 ##   secuencia  edad nombre
 ##       &lt;int&gt; &lt;dbl&gt; &lt;chr&gt; 
 ## 1         1    23 Jose  
@@ -662,9 +663,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 3         3    24 Carol 
 ## 4         4    26 Moncho
 ## 5         5    27 Liz   
-## 6         6    11 Maria 
-## 7         7    20 Jorge 
-## 8         8    21 Miguel</code></pre>
+## 6         6    NA Maria</code></pre>
 <hr />
 </div>
 <div id="crear-un-tribble" class="section level2 hasAnchor" number="15.3">
@@ -702,31 +701,31 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 100 × 5
 ##    a                   b              c      d e    
 ##    &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;
-##  1 2024-11-07 14:26:53 2024-11-25     1 0.559  o    
-##  2 2024-11-07 20:56:07 2024-11-07     2 0.250  o    
-##  3 2024-11-07 15:49:44 2024-11-09     3 0.0653 d    
-##  4 2024-11-08 13:35:58 2024-11-08     4 0.573  v    
-##  5 2024-11-07 21:08:13 2024-11-29     5 0.651  k    
-##  6 2024-11-08 05:20:03 2024-11-18     6 0.581  p    
-##  7 2024-11-08 09:58:08 2024-12-01     7 0.0175 x    
-##  8 2024-11-08 08:58:07 2024-11-18     8 0.0133 f    
-##  9 2024-11-08 03:12:51 2024-11-21     9 0.661  c    
-## 10 2024-11-08 09:21:04 2024-11-30    10 0.380  y    
+##  1 2024-11-14 11:03:14 2024-12-02     1 0.559  o    
+##  2 2024-11-14 17:32:28 2024-11-14     2 0.250  o    
+##  3 2024-11-14 12:26:05 2024-11-16     3 0.0653 d    
+##  4 2024-11-15 10:12:19 2024-11-15     4 0.573  v    
+##  5 2024-11-14 17:44:34 2024-12-06     5 0.651  k    
+##  6 2024-11-15 01:56:24 2024-11-25     6 0.581  p    
+##  7 2024-11-15 06:34:29 2024-12-08     7 0.0175 x    
+##  8 2024-11-15 05:34:28 2024-11-25     8 0.0133 f    
+##  9 2024-11-14 23:49:12 2024-11-28     9 0.661  c    
+## 10 2024-11-15 05:57:25 2024-12-07    10 0.380  y    
 ## # ℹ 90 more rows</code></pre>
 <div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="tibbles.html#cb424-1" tabindex="-1"></a>tb <span class="sc">%&gt;%</span></span>
 <span id="cb424-2"><a href="tibbles.html#cb424-2" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="at">width =</span> <span class="cn">Inf</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 100 × 5
 ##   a                   b              c      d e    
 ##   &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;
-## 1 2024-11-07 14:26:53 2024-11-25     1 0.559  o    
-## 2 2024-11-07 20:56:07 2024-11-07     2 0.250  o    
-## 3 2024-11-07 15:49:44 2024-11-09     3 0.0653 d    
-## 4 2024-11-08 13:35:58 2024-11-08     4 0.573  v    
+## 1 2024-11-14 11:03:14 2024-12-02     1 0.559  o    
+## 2 2024-11-14 17:32:28 2024-11-14     2 0.250  o    
+## 3 2024-11-14 12:26:05 2024-11-16     3 0.0653 d    
+## 4 2024-11-15 10:12:19 2024-11-15     4 0.573  v    
 ## # ℹ 96 more rows</code></pre>
 <div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="tibbles.html#cb426-1" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">now</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;2024-11-07 13:39:11 AST&quot;</code></pre>
+<pre><code>## [1] &quot;2024-11-14 10:15:32 AST&quot;</code></pre>
 <div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="tibbles.html#cb428-1" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">today</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;2024-11-07&quot;</code></pre>
+<pre><code>## [1] &quot;2024-11-14&quot;</code></pre>
 <ul>
 <li><p>To convert a data frame to a tibble use <strong>as.tibble</strong></p></li>
 <li><p>To convert a tibble to a data frame use <strong>as.data.frame</strong></p></li>

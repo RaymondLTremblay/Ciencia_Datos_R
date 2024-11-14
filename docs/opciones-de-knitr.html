@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2024-11-07" />
+<meta name="date" content="2024-11-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -528,13 +528,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="25" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html"><i class="fa fa-check"></i><b>25</b> Opciones de Knitr</a>
 <ul>
-<li class="chapter" data-level="25.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#tablas-de-opciones-principales"><i class="fa fa-check"></i><b>25.1</b> Tablas de opciones principales</a>
+<li class="chapter" data-level="25.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#para-ver-las-opciones-de-knitr-de-los-chunk"><i class="fa fa-check"></i><b>25.1</b> Para ver las opciones de <strong>knitr</strong> de los chunk</a></li>
+<li class="chapter" data-level="25.2" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#tablas-de-opciones-principales"><i class="fa fa-check"></i><b>25.2</b> Tablas de opciones principales</a>
 <ul>
-<li class="chapter" data-level="25.1.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#otras-funciones-de-knitr"><i class="fa fa-check"></i><b>25.1.1</b> OTRAS funciones de knitr</a></li>
+<li class="chapter" data-level="25.2.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#otras-funciones-de-knitr"><i class="fa fa-check"></i><b>25.2.1</b> OTRAS funciones de knitr</a></li>
 </ul></li>
-<li class="chapter" data-level="25.2" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#emoji-or-symbols"><i class="fa fa-check"></i><b>25.2</b> Emoji or Symbols</a>
+<li class="chapter" data-level="25.3" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#emoji-or-symbols"><i class="fa fa-check"></i><b>25.3</b> Emoji or Symbols</a>
 <ul>
-<li class="chapter" data-level="25.2.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#select-under-the-edit-emoji-symbols."><i class="fa fa-check"></i><b>25.2.1</b> Select Under the Edit ➡ Emoji &amp; Symbols.</a></li>
+<li class="chapter" data-level="25.3.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#select-under-the-edit-emoji-symbols."><i class="fa fa-check"></i><b>25.3.1</b> Select Under the Edit ➡ Emoji &amp; Symbols.</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="26" data-path="nubes-de-palabra-en-r.html"><a href="nubes-de-palabra-en-r.html"><i class="fa fa-check"></i><b>26</b> Nubes de palabra en R</a>
@@ -624,10 +625,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="opciones-de-knitr" class="section level1 hasAnchor" number="25">
 <h1><span class="header-section-number">Capítulo25</span> Opciones de Knitr<a href="opciones-de-knitr.html#opciones-de-knitr" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<pre><code>## [1] &quot;2024-11-07&quot;</code></pre>
+<pre><code>## [1] &quot;2024-11-14&quot;</code></pre>
 <p>La mayoria de los ejemplos y ideas de esta seccieon proviene de <strong>yihui</strong> en el siguiente website &lt;<a href="https://yihui.org/knitr/" class="uri">https://yihui.org/knitr/</a>&gt;</p>
 <p>el paquete <strong>knitr</strong> fue desiñado para ser transparente para generar reporte de R, añadiendo componente de animación y Latex (Ecuaciones) y otras funciones.</p>
-<p>Hay muchas opciones para determinar lo que have un <strong>chunk</strong></p>
+<p>Hay muchas opciones para determinar lo que hace un <strong>chunk</strong></p>
 <ul>
 <li>Code evaluation: evaluación de código</li>
 <li>Text output: Formateo de texto</li>
@@ -644,7 +645,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>Package Options:</li>
 <li>Global R Options:</li>
 </ul>
-<p>Este <strong>chunk</strong> es para que la información de los chunk and la parte de <strong>knitr</strong> se vea.</p>
+<div id="para-ver-las-opciones-de-knitr-de-los-chunk" class="section level2 hasAnchor" number="25.1">
+<h2><span class="header-section-number">25.1</span> Para ver las opciones de <strong>knitr</strong> de los chunk<a href="opciones-de-knitr.html#para-ver-las-opciones-de-knitr-de-los-chunk" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este <strong>chunk</strong> es para que la información de los chunk en la parte de <strong>knitr</strong> se vea.</p>
 <div class="sourceCode" id="cb1016"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1016-1"><a href="opciones-de-knitr.html#cb1016-1" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
 <span id="cb1016-2"><a href="opciones-de-knitr.html#cb1016-2" tabindex="-1"></a>hook_chunk <span class="ot">=</span> knit_hooks<span class="sc">$</span><span class="fu">get</span>(<span class="st">&#39;chunk&#39;</span>)</span>
 <span id="cb1016-3"><a href="opciones-de-knitr.html#cb1016-3" tabindex="-1"></a>knit_hooks<span class="sc">$</span><span class="fu">set</span>(<span class="at">chunk =</span> <span class="cf">function</span>(x, options) {</span>
@@ -663,8 +666,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>Opciones de bloques</p>
 <p>Se personaliza los bloques con “opeciones” <strong>options</strong> de los chunks.</p>
 <p>En la rueda de a la derecha de cada <strong>chunk</strong> hay opciones para seleccionar opciones.</p>
-<div id="tablas-de-opciones-principales" class="section level2 hasAnchor" number="25.1">
-<h2><span class="header-section-number">25.1</span> Tablas de opciones principales<a href="opciones-de-knitr.html#tablas-de-opciones-principales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="tablas-de-opciones-principales" class="section level2 hasAnchor" number="25.2">
+<h2><span class="header-section-number">25.2</span> Tablas de opciones principales<a href="opciones-de-knitr.html#tablas-de-opciones-principales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <table style="width:100%;">
 <colgroup>
 <col width="13%" />
@@ -688,7 +692,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">eval=FASLE</td>
+<td align="left">eval=FALSE</td>
 <td align="center">-</td>
 <td align="center"></td>
 <td align="center">-</td>
@@ -750,19 +754,26 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <td align="center"></td>
 <td align="center">-</td>
 </tr>
+<tr class="even">
+<td align="left">error=FALSE</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">-</td>
+</tr>
 </tbody>
 </table>
 <ul>
 <li>Comenzando con dandole un nombre al chunk “mi-chunk”</li>
 </ul>
 <div class="sourceCode" id="cb1017"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1017-1"><a href="opciones-de-knitr.html#cb1017-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<p>algun_nombre, echo=TRUE</p>
-<hr />
+<p><strong>algun_nombre, echo=TRUE</strong></p>
 <hr />
 <p>Eso es lo que va a ver cuando hace el knit</p>
 <hr />
-<hr />
-<p>Nota aqui tengo include=FALSE, por consecuencia cuando se hace un knit, no se ve lo que hay en el chunk.<br />
+<p>Nota aquí tengo include=FALSE, por consecuencia cuando se hace un knit, no se ve lo que hay en el chunk.<br />
 - Ahora cambialo a TRUE</p>
 <p><code>```{r include_true, include=TRUE, echo_opts=TRUE}</code></p>
 <div class="sourceCode" id="cb1018"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1018-1"><a href="opciones-de-knitr.html#cb1018-1" tabindex="-1"></a><span class="fu">head</span>(cars)</span></code></pre></div>
@@ -775,23 +786,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 6     9   10</code></pre>
 <p><code>```</code></p>
 <hr />
-<hr />
 <p>Añade una figura</p>
 <p><code>```{r cars, echo=TRUE, echo_opts=TRUE}</code></p>
 <div class="sourceCode" id="cb1020"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1020-1"><a href="opciones-de-knitr.html#cb1020-1" tabindex="-1"></a><span class="fu">plot</span>(cars)</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/cars-1.png" width="672" /><code>```</code></p>
 <hr />
-<hr />
-<p><code>```{r position_caption, fig.cap='El nombre de mi figure.', fig.topcaption=TRUE, echo_opts=TRUE}</code></p>
+<p><code>```{r fig.cap='El nombre de mi figure.', fig.topcaption=TRUE, echo_opts=TRUE}</code></p>
 <div class="sourceCode" id="cb1021"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1021-1"><a href="opciones-de-knitr.html#cb1021-1" tabindex="-1"></a><span class="fu">plot</span>(cars)</span></code></pre></div>
-<div class="figure">
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-360"></span>
 <p class="caption">
-(#fig:position_caption)El nombre de mi figure.
+Figure 25.1: El nombre de mi figure.
 </p>
-<img src="Ciencia-Datos-con-R_files/figure-html/position_caption-1.png" alt="El nombre de mi figure." width="672" />
+<img src="Ciencia-Datos-con-R_files/figure-html/unnamed-chunk-360-1.png" alt="El nombre de mi figure." width="672" />
 </div>
 <p><code>```</code></p>
-<hr />
 <hr />
 <p><code>```{r fig.cap= "An incredible figure", echo_opts=TRUE}</code></p>
 <div class="sourceCode" id="cb1022"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1022-1"><a href="opciones-de-knitr.html#cb1022-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -799,24 +807,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1022-3"><a href="opciones-de-knitr.html#cb1022-3" tabindex="-1"></a></span>
 <span id="cb1022-4"><a href="opciones-de-knitr.html#cb1022-4" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(letters, value, <span class="at">fill =</span> letters)) <span class="sc">+</span></span>
 <span id="cb1022-5"><a href="opciones-de-knitr.html#cb1022-5" tabindex="-1"></a> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-360"></span>
-<img src="Ciencia-Datos-con-R_files/figure-html/unnamed-chunk-360-1.png" alt="An incredible figure" width="672" />
-<p class="caption">
-Figure 25.1: An incredible figure
-</p>
-</div>
-<p><code>```</code></p>
-<hr />
-<hr />
-<code>```{r ggplot, fig.cap= "An incredible figure", fig.width = 3, fig.height = 3, echo_opts=TRUE, echo=FALSE}</code>
-<div class="figure"><span style="display:block;" id="fig:ggplot"></span>
-<img src="Ciencia-Datos-con-R_files/figure-html/ggplot-1.png" alt="An incredible figure" width="288" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-361"></span>
+<img src="Ciencia-Datos-con-R_files/figure-html/unnamed-chunk-361-1.png" alt="An incredible figure" width="672" />
 <p class="caption">
 Figure 25.2: An incredible figure
 </p>
 </div>
 <p><code>```</code></p>
 <hr />
+<code>```{r ggplot, fig.cap= "An incredible figure", fig.width = 3, fig.height = 3, echo_opts=TRUE, echo=FALSE}</code>
+<div class="figure"><span style="display:block;" id="fig:ggplot"></span>
+<img src="Ciencia-Datos-con-R_files/figure-html/ggplot-1.png" alt="An incredible figure" width="288" />
+<p class="caption">
+Figure 25.3: An incredible figure
+</p>
+</div>
+<p><code>```</code></p>
 <hr />
 <p>Figure aligment: default, left, right, and center</p>
 <p>fig.align</p>
@@ -826,22 +832,21 @@ Figure 25.2: An incredible figure
 <span id="cb1023-3"><a href="opciones-de-knitr.html#cb1023-3" tabindex="-1"></a></span>
 <span id="cb1023-4"><a href="opciones-de-knitr.html#cb1023-4" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(letters, value, <span class="at">fill =</span> letters)) <span class="sc">+</span></span>
 <span id="cb1023-5"><a href="opciones-de-knitr.html#cb1023-5" tabindex="-1"></a> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: right"><span style="display:block;" id="fig:unnamed-chunk-361"></span>
-<img src="Ciencia-Datos-con-R_files/figure-html/unnamed-chunk-361-1.png" alt="caption" width="288" />
+<div class="figure" style="text-align: right"><span style="display:block;" id="fig:unnamed-chunk-362"></span>
+<img src="Ciencia-Datos-con-R_files/figure-html/unnamed-chunk-362-1.png" alt="caption" width="288" />
 <p class="caption">
-Figure 25.3: caption
+Figure 25.4: caption
 </p>
 </div>
 <p><code>```</code></p>
-<hr />
 <hr />
 <p>Wrap text around figure</p>
 <p>Use ese código para que el texto “wraps” alrededor de las figura (ese código es de otro idioma de computadora de se llama <strong>css</strong>)</p>
 <div style="float:right;position: relative; top: -80px;">
 <p>AQUI el CHUNK</p>
 </div>
-<div id="r-markdown-wrapping" class="section level5 hasAnchor" number="25.1.0.0.1">
-<h5><span class="header-section-number">25.1.0.0.1</span> R Markdown wrapping<a href="opciones-de-knitr.html#r-markdown-wrapping" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="r-markdown-wrapping" class="section level5 hasAnchor" number="25.2.0.0.1">
+<h5><span class="header-section-number">25.2.0.0.1</span> R Markdown wrapping<a href="opciones-de-knitr.html#r-markdown-wrapping" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <div style="float:right;position: relative; top: -20px;">
 <div class="sourceCode" id="cb1024"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1024-1"><a href="opciones-de-knitr.html#cb1024-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">letters =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">value =</span> <span class="dv">1</span>)</span>
 <span id="cb1024-2"><a href="opciones-de-knitr.html#cb1024-2" tabindex="-1"></a></span>
@@ -850,7 +855,7 @@ Figure 25.3: caption
 <div class="figure" style="text-align: right"><span style="display:block;" id="fig:pressure"></span>
 <img src="Ciencia-Datos-con-R_files/figure-html/pressure-1.png" alt="caption" width="249.6" />
 <p class="caption">
-Figure 25.4: caption
+Figure 25.5: caption
 </p>
 </div>
 </div>
@@ -860,8 +865,8 @@ Figure 25.4: caption
 <hr />
 <hr />
 </div>
-<div id="otras-funciones-de-knitr" class="section level3 hasAnchor" number="25.1.1">
-<h3><span class="header-section-number">25.1.1</span> OTRAS funciones de knitr<a href="opciones-de-knitr.html#otras-funciones-de-knitr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="otras-funciones-de-knitr" class="section level3 hasAnchor" number="25.2.1">
+<h3><span class="header-section-number">25.2.1</span> OTRAS funciones de knitr<a href="opciones-de-knitr.html#otras-funciones-de-knitr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>eval= to evaluate the code FALSE or TRUE</li>
 <li>echo = TO show the code FALSE or TRUE</li>
@@ -875,21 +880,21 @@ Figure 25.4: caption
 <div class="sourceCode" id="cb1027"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1027-1"><a href="opciones-de-knitr.html#cb1027-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1027-2"><a href="opciones-de-knitr.html#cb1027-2" tabindex="-1"></a><span class="fu">library</span>(MASS)</span></code></pre></div>
 <div class="sourceCode" id="cb1028"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1028-1"><a href="opciones-de-knitr.html#cb1028-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;I&#39;m raw **Markdown** content.</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
-<span id="cb1028-2"><a href="opciones-de-knitr.html#cb1028-2" tabindex="-1"></a>    </span>
-<span id="cb1028-3"><a href="opciones-de-knitr.html#cb1028-3" tabindex="-1"></a>                         <span class="st">&quot;My poetry of Puerto Rico</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
-<p>I’m raw <strong>Markdown</strong> content.
-My poetry of Puerto Rico</p>
+<span id="cb1028-2"><a href="opciones-de-knitr.html#cb1028-2" tabindex="-1"></a>    <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb1028-3"><a href="opciones-de-knitr.html#cb1028-3" tabindex="-1"></a>               <span class="st">&quot;➪ My poetry of Puerto Rico</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p>I’m raw <strong>Markdown</strong> content.</p>
+<p>➪ My poetry of Puerto Rico</p>
 <hr />
 <hr />
 </div>
 </div>
-<div id="emoji-or-symbols" class="section level2 hasAnchor" number="25.2">
-<h2><span class="header-section-number">25.2</span> Emoji or Symbols<a href="opciones-de-knitr.html#emoji-or-symbols" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="select-under-the-edit-emoji-symbols." class="section level3 hasAnchor" number="25.2.1">
-<h3><span class="header-section-number">25.2.1</span> Select Under the Edit ➡ Emoji &amp; Symbols.<a href="opciones-de-knitr.html#select-under-the-edit-emoji-symbols." class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="remember-you-can-add-emojis-to-your-document" class="section level5 hasAnchor" number="25.2.1.0.1">
-<h5><span class="header-section-number">25.2.1.0.1</span> Remember you can add emoji’s to your document<a href="opciones-de-knitr.html#remember-you-can-add-emojis-to-your-document" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<p>Sometimes you want to 🙈 around a bit and add some ⭐️⭐️ to your
+<div id="emoji-or-symbols" class="section level2 hasAnchor" number="25.3">
+<h2><span class="header-section-number">25.3</span> Emoji or Symbols<a href="opciones-de-knitr.html#emoji-or-symbols" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="select-under-the-edit-emoji-symbols." class="section level3 hasAnchor" number="25.3.1">
+<h3><span class="header-section-number">25.3.1</span> Select Under the Edit ➡ Emoji &amp; Symbols.<a href="opciones-de-knitr.html#select-under-the-edit-emoji-symbols." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="remember-you-can-add-emojis-to-your-document" class="section level5 hasAnchor" number="25.3.1.0.1">
+<h5><span class="header-section-number">25.3.1.0.1</span> Remember you can add emoji’s to your document<a href="opciones-de-knitr.html#remember-you-can-add-emojis-to-your-document" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Sometimes you want to 🙈 around a bit and add some ⭐️⭐️ to your document.
 🎈🎈 Well we have a gift for you if you add interesting emoji’s to your document.</p>
 
 </div>
