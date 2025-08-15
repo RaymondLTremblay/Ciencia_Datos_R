@@ -9,7 +9,7 @@ Sys.Date()
 
 Fecha de la ultima revisión
 
-```{r}
+```{r TFV1}
 library(tidyverse)
 library(datos)
 ```
@@ -22,7 +22,7 @@ library(datos)
 
 ### ¿Qué pasa con los valores faltantes y resultados de analisis sin sentido?
 
-```{r}
+```{r TFV2}
 
 2^2
 1^2
@@ -41,6 +41,8 @@ NA * 0
 NA * 1
 12 * 3
 NA - 3
+
+
 ```
 
 
@@ -52,7 +54,7 @@ NA - 3
 -   ¿Qué otras variables tienen valores faltantes?
 -   ¿Qué representan estas filas?
 
-```{r}
+```{r TFV2a}
 vuelos %>%
 dplyr::select(horario_salida) %>%
 is.na() %>% 
@@ -64,7 +66,7 @@ is.na() %>%
 
 ## Seleccionar solamente los vuelos donde el "horario de salida" es desconocido
 
-```{r}
+```{r TVF3}
 vuelos %>% 
   dplyr::select(anio, mes, dia, horario_salida, aerolinea) |> 
 filter(is.na(horario_salida))
@@ -79,7 +81,7 @@ filter(is.na(horario_salida))
 -   na.rm=TRUE
 -   !is.na() = is not NA, pq al frente tiene "!"
 
-```{r}
+```{r TVF4}
 no_cancelados <- vuelos %>% 
   filter(!is.na(atraso_salida), !is.na(atraso_llegada))
 no_cancelados
@@ -101,16 +103,16 @@ vuelos %>%
 Reemplazar los NA por "0" en el archivo de datos
 
 
-```{r}
+```{r TFV5}
 
 
 datos_NA=c(1:8, NA, 10:20)
 
 datos_NA=as.data.frame(datos_NA)
 
-datos_NA %>%  # Cual es el problema de replace_na(datos_NA, 0) para los analisis?
-  mutate(Prom_cum=cummean(replace_na(datos_NA, 0))) %>% 
-  mutate(Var_cum=cumstats::cumvar(replace_na(datos_NA, 0)))
+#datos_NA %>%  # Cual es el problema de replace_na(datos_NA, 0) para los analisis?
+#  mutate(Prom_cum=cummean(replace_na(datos_NA, 0))) %>% 
+#  mutate(Var_cum=cumstats::cumvar(replace_na(datos_NA, 0)))
 
 ```
 
@@ -119,11 +121,11 @@ Remover las filas que tienen NA con la función drop_na()
 
 
 
-```{r}
-datos_NA %>% 
-  drop_na() |> 
-  mutate(Prom_cum=cummean(datos_NA)) %>% 
-  mutate(Var_cum=cumstats::cumvar(datos_NA))
+```{r TFV6}
+#datos_NA %>% 
+ # drop_na() |> 
+#  mutate(Prom_cum=cummean(datos_NA)) %>% 
+#  mutate(Var_cum=cumstats::cumvar(datos_NA))
 
 ```
 

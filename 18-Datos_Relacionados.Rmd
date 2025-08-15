@@ -22,38 +22,38 @@ Español:
 ***
 
 
-```{r}
+```{r DR1}
 library(tidyverse)
 library(datos)
 ```
 
-```{r}
+```{r DR2}
 vuelos # data set #1
 names(vuelos)
 aerolineas # data set #2
 names(aerolineas)
 ```
 
-```{r}
+```{r DR3}
 aeropuertos
 names(aeropuertos)
 ```
 
-```{r}
+```{r DR4}
 aviones
 ```
 
 
-```{r}
+```{r DR5}
 clima
 ```
 
 
-```{r}
+```{r DR6}
 vuelos
 ```
 
-```{r}
+```{r DR7}
 aviones
 
 aviones %>%
@@ -91,7 +91,7 @@ fueleconomy::vehicles
 ggplot2::diamonds
 
 
-```{r}
+```{r DR8}
 head(Lahman::Batting)
 head(datos::bateadores)
 
@@ -108,7 +108,7 @@ filter(n > 1) |>
   head()
 ```
 
-```{r}
+```{r DR9}
 Lahman::Batting %>% 
   count(playerID, yearID, stint) %>% 
   filter(n>1) |> 
@@ -117,11 +117,11 @@ Lahman::Batting %>%
 
 
 
-```{r}
+```{r DR10}
 #babynames::babynames
 ```
 
-```{r}
+```{r DR11}
 babynames::babynames %>% 
   count(year, name, sex) %>% 
   filter(n>1)
@@ -129,7 +129,7 @@ babynames::babynames %>%
 
 Cual fue el primer año que su nombre aparece en la base de datos
 
-```{r}
+```{r DR12}
 babynames::babynames %>% 
 filter(name =="Abimelys")
 
@@ -138,39 +138,39 @@ max(babynames::babynames$year)
 
 
 
-```{r}
+```{r DR13}
 nasaweather::atmos
 
 ```
 
 
 
-```{r}
+```{r DR14}
 nasaweather::atmos %>% 
   count(lat, long, year, month) %>% 
   filter(n>1)
 ```
 
 
-```{r}
+```{r DR15}
 fueleconomy::vehicles
 ```
 
 
 
-```{r}
+```{r DR16}
 fueleconomy::vehicles %>% 
     count(id) %>% 
   filter(n>1)
 ```
 
-```{r}
+```{r DR17}
 ggplot2::diamonds
 ```
 
 
 
-```{r}
+```{r DR18}
 ggplot2::diamonds %>% 
       count(carat, cut, color, clarity, depth, price, x, y, z) %>% 
   filter(n>1)
@@ -182,7 +182,7 @@ Draw a diagram illustrating the connections between the Batting, People, and Sal
 
 Dibuja un diagrama que ilustre las conexiones entre las tablas bateadores, personas y salarios incluidas en el paquete datos. Dibuja otro diagrama que muestre la relación entre personas, dirigentes y premios_dirigentes.
 
-```{r}
+```{r DR19}
 names(Lahman::Batting)
 names(Lahman::Salaries)
 names(Lahman::People)
@@ -197,13 +197,13 @@ names(Lahman::People)
 
  - mutating join
  
-```{r}
+```{r DR20}
 vuelos2 <- vuelos %>%
   dplyr::select(anio, dia, hora, origen, destino, codigo_cola, aerolinea)
 vuelos2
 ```
  
-```{r}
+```{r DR21}
 names(aerolineas)
 aerolineas
 
@@ -214,7 +214,7 @@ vuelos2 %>%
 ```
  
  
-```{r}
+```{r DR22} 
 x <- tribble(
   ~key, ~val_x,
   1, "x1",
@@ -238,7 +238,7 @@ x %>%
  
  
  
-```{r}
+```{r DR23}
 #left_join
 
 x %>% 
@@ -258,7 +258,7 @@ x %>%
 left_join
 
 
-```{r}
+```{r DR24}
 x <- tribble(
   ~key, ~nombre_x,
   1, "Juan",
@@ -283,7 +283,7 @@ x %>%
 ```
 
 
-```{r}
+```{r DR25}
 x %>% 
   left_join(y, by="key")
 
@@ -300,7 +300,7 @@ x %>%
  
  START HERE!!!!
  
-```{r}
+```{r DR26}
 
 vuelos2 %>%
   dplyr::select(-origen, -destino) %>%
@@ -311,7 +311,7 @@ names(vuelos2)
 names(clima)
 ```
 
-```{r}
+```{r DR27}
 
 vuelos2 %>%
 left_join(clima)
@@ -323,7 +323,7 @@ left_join(clima, by = c("anio", "dia", "hora", "origen"))
  
  
  
-```{r}
+```{r DR28}
 
 names(vuelos2)
 names(aeropuertos)
@@ -339,7 +339,7 @@ vuelos2 %>%
  right_join(aeropuertos, c("origen" = "codigo_aeropuerto"))
 ```
  
-```{r}
+```{r DR29}
 library(maps)
 
 aeropuertos %>%

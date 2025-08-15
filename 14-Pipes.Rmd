@@ -43,7 +43,7 @@ Los pipes que vamos a evaluar son los siguientes:
 
 Función basica para calcular el precio básico de de diamantes por quilates 
 
-```{r}
+```{r P1}
 head(diamonds, n=3)
 
 diamonds$Precio_q = diamonds$price/diamonds$carat # crear una nueva variable
@@ -53,7 +53,7 @@ head(diamonds, n=3)
 
 
 
-```{r}
+```{r P2}
 diamonds2 <- diamonds %>% 
   dplyr::mutate(price_per_carat = price / carat)
 ```
@@ -62,7 +62,7 @@ diamonds2 <- diamonds %>%
 
 Calcular el promedio de precio por la calidad de los diamantes usando pipes
 
-```{r}
+```{r P3}
 diamonds %>% 
   group_by(cut) %>% 
   summarize(Precio_color= mean(price))
@@ -73,7 +73,7 @@ diamonds %>%
 
 Calcular el promedio de precio por color de los diamantes usando pipes
 
-```{r, eval=FALSE, echo=FALSE}
+```{r P4, eval=FALSE, echo=FALSE}
 diamonds %>% 
   group_by(color) %>% 
   summarize(Precio_color= mean(price))
@@ -89,7 +89,7 @@ diamonds %>%
 
 Un ejemplo básico del pipe
 
-```{r}
+```{r P5}
 car_data <- 
   mtcars %>%
   subset(hp > 100) %>%
@@ -101,7 +101,7 @@ car_data <-
 
 Un ejemplo sin usar el pipe para calcular la misma información
 
-```{r}
+```{r P6}
 car_data <- 
   transform(aggregate(. ~ cyl, 
                       data = subset(mtcars, hp > 100), 
@@ -114,7 +114,7 @@ car_data
 
 
 
-```{r}
+```{r P7}
 car_data <- 
   mtcars %>%
   subset(hp > 100) %>%
@@ -146,7 +146,7 @@ car_data <-
 
 ## %$%
  
-```{r}
+```{r P8}
 library(magrittr)
 
 #iris %>%
@@ -167,7 +167,7 @@ iris %>%
  
 ### Otro ejemplo de Pipe: %$%
  
-```{r}
+```{r P9}
 data.frame(z = rnorm(100)) %$% 
   ts.plot(z)
 
@@ -202,7 +202,7 @@ z1|>
 
  
  
-```{r}
+```{r P10}
 
 # Example 1
 head(iris)
@@ -229,7 +229,7 @@ head(x, 20)
  - Filter for values specific values within a variable
  
  
-```{r}
+```{r P11}
 
 # Example 1
 names(iris)
@@ -253,7 +253,7 @@ https://stackoverflow.com/questions/61196304/magrittr-tee-pipe-t-equivalent
 
 
  
-```{r}
+```{r P12}
 rnorm(200) %>%
 matrix(ncol = 2) %T>%
 plot %>%  # plot usually does not return anything. 

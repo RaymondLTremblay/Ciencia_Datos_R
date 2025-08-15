@@ -28,7 +28,7 @@ library(data.table)
 ```
 
 
-```{r eval=FALSE, include=FALSE}
+```{r ID1, eval=FALSE, include=FALSE}
 library(tidyverse)
 library(data.table)
 COVID_DATA<-fread("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/us_state_vaccinations.csv")
@@ -42,7 +42,7 @@ head(COVID_DATA)
 
 Seleccionar solamente los datos de Puerto Rico
 
-```{r eval=FALSE, include=FALSE}
+```{r ID2,eval=FALSE, include=FALSE}
 COVID_DATA %>% 
   filter(location=="Puerto Rico") %>%
   arrange(date) %>% 
@@ -53,7 +53,7 @@ COVID_DATA %>%
 
 Otro website de datos de COVID, estos representa los datos de todos los paises del mundo
 
-```{r eval=FALSE, include=FALSE}
+```{r ID3,eval=FALSE, include=FALSE}
 url_COVID=fread("https://covid.ourworldindata.org/data/owid-covid-data.csv")
 head(url_COVID)
 
@@ -80,7 +80,7 @@ Nota que para leer los datos de un archivo CSV, se usa la función "fread()" del
 - Copie y pegue en el script.
   
   
-```{r, echo=FALSE, eval=FALSE}
+```{r ID4, echo=FALSE, eval=FALSE}
 library(data.table)
 musica=fread("https://datos.estadisticas.pr/dataset/dcb39773-3056-4d3d-91f8-a6ad6884ef52/resource/a632a85a-0d6d-4828-8a24-cbbdee4cec8f/download/facultad_-_conservatorio_de_musica-1.csv")
 
@@ -91,7 +91,7 @@ head(musica)
 
 
 
-```{r, echo=FALSE, eval=FALSE}
+```{r ID5, echo=FALSE, eval=FALSE}
 
 library(data.table)
 birth=fread("https://datos.estadisticas.pr/dataset/87620d17-bf63-445c-bb71-aca1a41c9077/resource/92728670-42cb-49d4-8fd3-cffdb6e54372/download/natlterr2014.csv")
@@ -106,7 +106,7 @@ Otra alternativa es bajar los datos en formato .csv o Excel y subirlo a su proye
  
 
 
-```{r, echo=FALSE, eval=FALSE}
+```{r ID6, echo=FALSE, eval=FALSE}
 
 library(readr)
 nchs_births_2001 <- read_csv("nchs_births_2001.csv")
@@ -118,7 +118,7 @@ head(nchs_births_2001)
 ## Ejercicio
  -  Selecciona solamente los datos de los bebes que nacieron primer mes del año, pero agrupado por el día de la semana y contabilizado
 
-```{r, eval=FALSE, echo=FALSE}
+```{r ID7, eval=FALSE, echo=FALSE}
 
 nchs_births_2001 %>%
   group_by(WEEKDAY) %>% 
@@ -129,7 +129,7 @@ nchs_births_2001 %>%
 
 
 
-```{r, echo=FALSE, eval=FALSE}
+```{r ID8, echo=FALSE, eval=FALSE}
 nchs_births_2001 |> dplyr::select(BIRMON, CSEX) |> 
   group_by()
 unique(nchs_births_2001$STATENAT)
@@ -144,7 +144,7 @@ unique(nchs_births_2001$RB)
 
 COVID_PR
 
-```{r, DatosMortandad20, echo=FALSE, eval=FALSE}
+```{r ID9, DatosMortandad20, echo=FALSE, eval=FALSE}
 library(data.table)
 url_COVID_PR=fread("https://raw.githubusercontent.com/rafalab/pr-covid/master/dashboard/data/DatosMortalidad.csv")
 
@@ -163,7 +163,7 @@ dim(url_COVID)
 
 -   Calcula la cantidad de muertes por día en PR, y el máximo de muerto en un día por COVID
 
-```{r, echo=FALSE, eval=FALSE}
+```{r ID10, echo=FALSE, eval=FALSE}
  url_COVID_PR %>% 
   dplyr::select(IncrementoMuertes) %>% 
   summarise(Prom_muerte_dia = mean(IncrementoMuertes, na.rm = TRUE),
@@ -189,7 +189,7 @@ dim(url_COVID)
 
  
  
-```{r}
+```{r ID11}
 library(tidyverse)
 library(readr)
 Newborn_Karn_Penrose <- read_csv("Datos/Newborn_Karn_Penrose.csv")
@@ -218,7 +218,7 @@ mutate(Perc_sobrevivieron = Count_Non_survivors/Count_Total_Birth)
 
 
 
-```{r}
+```{r ID12}
 
 Newborn_Karn_Penrose %>% 
   mutate(Percent_Decease = Count_Non_survivors/Count_Total_Birth)
@@ -237,7 +237,7 @@ geom_point()+
 geom_smooth()
 
 
-```{r}
+```{r ID13}
 Newborn_Karn_Penrose %>% 
   mutate(Percent_Decease = Count_Non_survivors/Count_Total_Birth) %>% 
   ggplot(aes(Birth_weight, Percent_Decease)) + 
@@ -248,7 +248,7 @@ Newborn_Karn_Penrose %>%
 
 
 
-```{r, warning=FALSE, message=FALSE}
+```{r ID14, warning=FALSE, message=FALSE}
 Newborn_Karn_Penrose %>% 
   mutate(Percent_Decease = Count_Non_survivors/Count_Total_Birth) %>% 
   ggplot(aes(Birth_weight, Percent_Decease)) + 
@@ -257,7 +257,7 @@ Newborn_Karn_Penrose %>%
   facet_wrap(~Mother_age)
 ```  
 
-```{r, warning=FALSE, message=FALSE}
+```{r ID15, warning=FALSE, message=FALSE}
 
 Newborn_Karn_Penrose %>% 
   mutate(Percent_Decease = Count_Non_survivors/Count_Total_Birth) %>% 
@@ -286,7 +286,7 @@ Hacer los ejercicios en la sección 11.2.2 del libro en español
  - str(parse_logical())
  
  
-```{r}
+```{r ID16}
 
 x= c("TRUE", "FALSE", "NA")
 x   
@@ -314,7 +314,7 @@ str(parse_date(c("2010-01-01", "1979-10-14")))
 
 ```
 
-```{r}
+```{r ID17}
 m=c("$4000", "$500" )
 parse_number(m)
 
@@ -350,14 +350,14 @@ parse_number("It cost $123.45")
   - charToRaw()
   
   
-```{r}
+```{r ID18}
 charToRaw("Ramn")
 
 ```
   
   
 
-```{r} 
+```{r ID19} 
 x1 <- "El Ni\xf1o was particularly bad this year"
 x2 <- "\x82\xb1\x82\xf1\x82\xc9\x82\xbf\x82\xcd"
 x3 <- "The boy was particularly bad this year"
@@ -376,7 +376,7 @@ parse_character(x, locale = locale(encoding = "Shift-JIS"))
   - guess_encoding(charToRaw())
   
   
-```{r}
+```{r ID20}
 guess_encoding(charToRaw(x3))
 ```
   

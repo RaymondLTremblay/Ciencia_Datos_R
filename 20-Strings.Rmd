@@ -1,0 +1,603 @@
+# Cadena de Carácteres = STRINGS
+
+Fecha de la ultima revisión
+```{r echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+Sys.Date()
+```
+
+***
+
+El tema proviene de los siguientes sitios.
+
+English:
+ <https://r4ds.had.co.nz/strings.html>
+ 
+Español:
+ <https://es.r4ds.hadley.nz/14-strings.html>
+ 
+
+
+```{r}
+library(tidyverse)
+library(datos)
+library(stringr)
+
+```
+
+
+***
+
+```{r SR1}
+string1 <- "El Pequeño Principe; Saint Exupery"
+string2 <- "El segundo sexo: Simone de Beauvoir"
+string3 <- "El segundo sexo \\ Simone de Beauvoir"
+
+
+string1
+string2
+string3
+```
+
+
+```{r SR2}
+comilla_doble <- '\"' # ó '"'
+comilla_simple <- '\'' # ó "'"
+
+comilla_ampersand <- "&"
+
+comilla_doble
+comilla_simple
+comilla_ampersand
+
+```
+& 
+
+```{r SR3} 
+x <- c("\"", "\\")
+x
+
+writeLines(x)
+```
+
+
+## Caracteres especiales
+
+```{r SR4}
+"\n"
+"\t"
+```
+
+
+
+
+
+
+## Para ver las opciones de caracteres y como trabajar cadenas de caracteres use **?"'"** para ver 
+
+```{r SR5}
+?"'"
+```
+
+
+‘⁠\n⁠’	newline (aka ‘line feed’)
+‘⁠\r⁠’	carriage return
+‘⁠\t⁠’	tab
+‘⁠\b⁠’	backspace
+‘⁠\a⁠’	alert (bell)
+‘⁠\f⁠’	form feed
+‘⁠\v⁠’	vertical tab
+‘⁠\\⁠’	backslash ‘⁠\⁠’
+‘⁠\'⁠’	ASCII apostrophe ‘⁠'⁠’
+‘⁠\"⁠’	ASCII quotation mark ‘⁠"⁠’
+‘⁠\`⁠’	ASCII grave accent (backtick) ‘⁠`⁠’
+
+⁠
+## Lista de caracteres especiales (unicodes)
+
+
+Vea el siguiente enlace para los unicodes
+
+<https://en.wikipedia.org/wiki/List_of_Unicode_characters>
+
+
+
+```{r SR6}
+x <- "\u00b5" # mu
+x
+
+y <- "\u00b6" # pilcrow
+y
+
+z <- "\u00A1" # ¡
+z
+
+w <- "\u01FC\u00b6" # Ǽ¶
+w
+```
+
+
+
+Escribir si nombre en el alfabeto Cyrilico
+
+ -  Vea este enlace para conocer el alfabeto cyrilico
+
+
+
+<<https://www.google.com/search?client=safari&rls=en&q=cyrillic+alphabet&ie=UTF-8&oe=UTF-8#vhid=cMLOx1fN0Zg5UM&vssid=l>>
+
+```{r SR7}
+Raymond = "\u048E\u0430\u042B\u043C\u043E\u043D\u0434, Asi se escribe mi nombre en ruso"
+Raymond
+```
+
+
+
+
+## Temas: Cadenas de Caracteres
+
+ - library(stringr)
+ 
+Solamente trabajermos con el paquete stringr, donde las funciones escrita de forma que sean más intuitivos para recordar.  Todas las funciones conmienzan con **str_**
+
+
+### El largo de una cadena de caracteres con **str_length**
+
+```{r SR8}
+library(stringr)
+str_length("Yo quiero un Lamborghini")
+```
+
+
+
+
+### Combinar cadenas con **str_c**
+
+Nota aqui que une la primera oración con la segunda oración
+
+
+```{r SR9}
+
+
+str_c("Es una oración con muchas letras y palabras", 
+      "Mi pelicula favorita es Cinema Paraiso")
+
+
+```
+
+
+Usa el argumento **sep = "xxx  "** para controlar cómo separar las oraciones
+
+
+```{r SR10}
+
+
+str_c("Es una oración con muchas letras y palabras", 
+      "Mi pelicula favorita es Cinema Paraiso", sep = ", ")
+
+
+```
+
+
+  
+  
+  - str_replace_na()
+
+```{r SR11} 
+x <- c("Mi pelicula favorita es Cinema Paraiso", NA)
+x
+str_c("|-", x, "-|")
+```
+  
+  
+## Dividir cadenas basado en la posición de los caracteres en la cadena
+
+  - str_sub()
+  
+  
+```{r SR12}
+x= c( "Piña", "Manzana", "Toronja")
+str_sub(x, 1,1)
+
+```
+  
+### Seleccionar los caracteres al último de la palabra
+
+```{r SR13}
+x= c( "Piña", "Manzana", "Toronja")
+str_sub(x, -2,-1)
+
+
+```
+  
+  
+
+### Cambiar a todo minuscula
+
+
+```{r SR14}
+x= c( "Piña", "Manzana", "Toronja", "HAPPY")
+str_to_lower(x)
+```
+
+
+### Cambiar a mayuscula
+
+```{r SR15}
+x= c( "Piña", "Manzana", "Toronja")
+str_to_upper(x)
+```
+  
+## Locales
+
+  - ¿Qué es un locale?
+  - str_to_lower()
+  - str_to_upper()
+  - str_order() # que hace esta función?
+  - str_sort() # que hace esta función?
+  
+
+```{r SR16}
+x
+str_order(x) # regresa el orden de las palabras
+
+str_sort(x) # reorganiza las palabras en orden alfabético
+```
+
+
+  
+1.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 14.2.5 del libro en español
+
+***  
+  
+## Buscar patrones
+
+## Coincidencia básica
+
+Para visualizar patrones de letras
+
+ - str_view()
+ - str_view( , .x.)
+
+```{r SR17}
+
+library(stringr)
+x <- c("manzana", "banana", "pera")
+str_view(x, "er")
+```
+
+
+Ejemplo de como uno puede utiliza esas funciones
+
+
+ 
+```{r SR18}
+x= c( "Piña", "Manzana", "Toronja", "Jugo", "Monique", "Raymond")
+str_detect(x, "a") # detectar la a
+str_detect(x, "i") # detectar la i
+str_detect(x, "ñ")
+``` 
+
+
+### Detectar las palabras que comienzan con una letra específica con "^"
+
+
+```{r R19}
+# ¿Cuántas palabras comunes empiezan con m o M?
+# str_detect(x, "^M")
+x
+sum(str_detect(x, "^m"))
+sum(str_detect(x, "^M"))
+```
+
+
+### Detectar las palabras que terminan con una letra específica con "$"
+
+
+```{r R20}
+# ¿Qué proporción de palabras comunes terminan con una vocal?
+mean(str_detect(palabras, "[aáeéiíoóuú]$"))
+
+# ¿Qué proporción de palabras comunes terminan con una vocal especifica?
+mean(str_detect(x, "[o]$"))
+```
+
+
+- Comienza para mirar el archivo palabras
+ 
+- Cuentas palabras tiene ese archivo?
+
+```{r R21}
+library(stringr)
+library(datos)
+palabras
+```
+
+
+
+```{r R22}
+# Encuentra todas las palabras que contengan al menos una vocal, y luego niégalo
+sin_vocales_1 <- !str_detect(palabras, "[aáeéiíoóuúúü]")
+
+
+sin_vocales_1
+
+# Encuentra todas las palabras consistentes solo en consonantes (no vocales)
+sin_vocales_2 <- str_detect(palabras, "^[^aáeéiíoóuúúü]+$")
+
+identical(sin_vocales_1, sin_vocales_2)
+
+
+
+```
+
+
+
+Suma la cantidad de palabras que no tienen vocales?
+
+
+
+```{r R23}
+library(tidyverse)
+df <- tibble(
+  palabra = palabras, 
+  i = seq_along(palabra)
+) ## poner los datos en un dataframe 
+
+
+df %>% 
+  filter(str_detect(palabras, "x$")) # filtrar todas la palabras para solamente las terminan en **x**
+
+df %>% 
+  filter(str_detect(palabras, "z$")) # filtrar todas la palabras para solamente las terminan en **z**
+```
+
+
+
+
+Contar cuantas "a" hay en cada palabra
+
+```{r R24}
+x= c( "Piña", "Manzana", "Toronja", "Jugo")
+str_count(x, "a")
+```
+
+
+```{r R25}
+# En promedio, ¿cuántas vocales hay por palabra?
+mean(str_count(palabras, "[aáeéiíoóuúü]"))
+
+mean(str_count(palabras, "[x]"))
+```
+
+
+
+```{r R26}
+df %>% 
+  mutate(
+    vocales = str_count(palabra, "[aáeéiíoóuúü]"), # Cuenta cuantas vocales 
+    consonantes = str_count(palabra, "[^aáeéiíoóuúü]") # cuenta cuantos consonantes
+  )
+```
+
+ - los puntos y caracteres especiales
+ 
+ 
+ 
+2.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 14.2.7.1 del libro en español
+
+***  
+
+
+## Anclas
+
+ - ^ al principio
+ - $ al final
+ 
+
+3.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 14.2.8.1 del libro en español
+
+***  
+
+## Clases de caracteres y alternativas
+
+ - \d
+ - \s
+ - [abc]
+ - [^abc]
+ 
+ - $ . | ? * + ( ) [ {
+ 
+
+```{r SR27}
+str_view(c("cómo", "como", "Raymond"), "c(ó|o)mo")
+
+
+```
+ 
+4.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 14.2.9.1 del libro en español
+
+***
+ 
+ 
+
+
+## Repetición
+
+ - ?, 0 o 1, precencia o auscencia
+ - +, 1 o más
+ - *, 0 o más
+ - str_view()
+ - {n} : exactamente n
+ - {n, }: n o más
+ - { , m}: no más de m
+ - {n, m}: entre n y m
+ - {n, m}?: la cadena más larga
+ - {n, m}+?: la cadena más corta
+ 
+ 
+5.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 14.2.10.1 del libro en español
+
+***
+
+ 
+## Agrupamiento y referencias previas
+
+ - str_view(frutas, "(..)\\1", match=TRUE)
+ 
+
+6.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 14.2.11.1 del libro en español
+
+***
+ 
+
+
+## Herramientas: Objetivos
+
+ - Determinar qué cadenas coinciden con un patrón.
+ - Encontrar la posición de una coincidencia.
+ - Extraer el contenido de las coincidencias.
+ - Remplazar coincidencias con nuevos valores.
+ - Dividir una cadena de acuerdo a una coincidencia.
+ 
+ 
+### Detectar coincidencias
+
+ - str_detect(x, "e")
+
+ 
+```{r SR28}
+library(datos) 
+#fruit
+head(palabras)
+```
+ 
+ 
+ 
+```{r SR29}
+# Encuentra todas las palabras que contengan al menos una vocal, y luego niégalo
+sin_vocales_1 <- !str_detect(palabras, "[aáeéiíoóuúúü]")
+
+#sin_vocales_1
+# Encuentra todas las palabras consistentes solo en consonantes (no vocales)
+sin_vocales_2 <- str_detect(palabras, "^[^aáeéiíoóuúúü]+$")
+#sin_vocales_1
+identical(sin_vocales_1, sin_vocales_2)
+#> [1] TRUE
+```
+ 
+ - str_subset()
+ - seq_along()
+ - str_count()
+ 
+ 
+ 
+7.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 14.3.2 del libro en español
+
+***
+
+
+## Extraer coincidencias
+
+ - str_extract()
+ - str_extract_all()
+ 
+
+
+8.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 14.3.3.1 del libro en español
+
+***
+ 
+## Coincidencias agrupadas:
+
+ - str_match*
+```{r SR30}
+sustantivo <- "(el|la|los|las|lo|un|una|unos|unas) ([^ ]+)"
+
+tiene_sustantivo <- oraciones %>%
+  str_subset(sustantivo)
+
+#tiene_sustantivo
+tiene_sustantivo %>% 
+  str_extract(sustantivo)
+#>  [1] "los de"      "el camión"   "la mejor"    "la cuenta"   "las ruinas."
+#>  [6] "la hoja"     "la cocina."  "la taza"     "el tanque."  "el calor"
+```
+
+
+8.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 14.3.4.1 del libro en español
+
+***
+
+## Remplazar coincidencias
+
+
+ - str_replace()
+ - str_replace_all()
+ 
+ 
+9.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 14.3.5.1 del libro en español
+
+***
+
+
+## Divisiones
+
+
+  - str_split()
+  - str_split(" ", simplify=TRUE)
+  - str_split(x, boundery("word"))[[1]]
+  
+
+10.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 14.3.6.1 del libro en español
+
+***  
+  
+  
+## Otro tipos de patrones
+
+ - regex("x", ignore_case=TRUE)
+ - seperar números telefonicos
+ 
+## stringi: 
+
+10.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 14.3.6.1 del libro en español
+Buscar 3 funciones en stringi y aplica y explica las funciones con un set de datos.
+
+
+
+
+
+*** 
+ 
+
+ 
+  
+  
+
+ 

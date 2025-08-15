@@ -30,7 +30,7 @@ Español: <https://es.r4ds.hadley.nz/06-workflow-scripts.html>
 
 Hacer los ejercicios en la sección 6.3 del libro en español
 
-```{r}
+```{r SC1}
 library(dplyr)
 library(datos)
 library(nycflights13)
@@ -45,7 +45,7 @@ no_cancelado %>%
   summarise(media = mean(atraso_salida))
 ```
 
-```{r}
+```{r SC2}
 x <- 10 
 ```
 

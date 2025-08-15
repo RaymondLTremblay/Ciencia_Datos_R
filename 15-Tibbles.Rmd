@@ -33,7 +33,7 @@ Español:
  
  Crear un tibble con la siguiente información.  Una columna que tiene los valores del 1 al 8 que se llama "secuencia", una segunda columna que tiene los siguientes valores 23,26, 24,26,27, 11,20,21 que se llama edad y una tercera columna con la siguiente información, Jose, Maria, Carol, Moncho, Liz, Maria, Jorge, Miguel, que ser llama Nombre 
  
-```{r}
+```{r T1}
 library(tidyverse)
 #library(datos)
 
@@ -54,7 +54,7 @@ tibble(
  
  Haga un tribble con las primera 3 lineas del tibble anterior
  
-```{r}
+```{r T2}
 tribble(
   ~secuencia, ~edad, ~nombre,
   1, 23, "Jose",
@@ -71,21 +71,25 @@ tribble(
 ## tibble vs. data.frame
 
 
-```{r}
+```{r T3}
 tb = tibble(
   a = lubridate::now() + runif(1e2) * 86400,
   b = lubridate::today() + runif(1e2) * 30,
-  c = 1:1e2,
+  c = 1:100,
   d = runif(1e2),
   e = sample(letters, 1e2, replace = TRUE)
 )
 tb
-
+as.data.frame(tb)
+x=rnorm(100000, 5, 2)
+x
+mean(x)
+sd(x)
 ```
 
 
 
-```{r}
+```{r T4}
 tb %>%
   print(n = 4, width = Inf)
 
@@ -120,21 +124,23 @@ A diferencia de los data frame, los tibbles NO admiten operaciones aritméticas 
 
 
 
-```{r}
+```{r T5}
 
 tbl <- tibble(a = 1:3, b = 4:6)
 result=tbl * 2
 
 is_tibble(result)
+
+is.data.frame(result)
 ```
 
 
 
-```{r}
+```{r T6}
 
 result2=tbl |> mutate(c=b*2)
-
-is.tibble(result2)
+result2
+is_tibble(result2)
 
 ```
 
@@ -142,23 +148,26 @@ is.tibble(result2)
 - Los tibbles también son más estrictos con $. Tibbles nunca realiza coincidencias parciales y generará una advertencia y devolverá NULL si la columna no existe:
 
 
-```{r}
+```{r T7}
 df <- data.frame(abc = 1)
 df$a
 #> [1] 1
 
 df2 <- tibble(abc = 1)
-df2$a # nota el error
+df2$abc # nota el error
 ```
 
 - Para extraer una columna de un tibble, use [[. Esto es más seguro que $ porque nunca realiza coincidencias parciales:
 
 ## Selección de subconjuntos de datos
 
-```{r}
-
+```{r T8}
+library(datos)
 
 head(vuelos$salida_programada, n=20) 
+
+
+
 vuelos[["salida_programada"]] |> head(n=20)
 
 #Alternativas usar esta función dentro de pipe

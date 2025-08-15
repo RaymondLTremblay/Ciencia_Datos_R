@@ -34,7 +34,7 @@ library(datos)
 ``` 
  
  
-```{r}
+```{r DO1}
 tabla1
 
 tabla2

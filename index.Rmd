@@ -13,7 +13,7 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 
 description: |
-  Este libro digital es una introdución al estudio de Biometría
+  Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto.  El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación.  El libro es un trabajo en progreso y se actualizará periódicamente.
 link-citations: yes
 
 editor_options: 
@@ -44,7 +44,7 @@ Sys.Date()
 
 **Hora de consulta con Estudiantes**:  
 
-- Lunes y miercoles de 1:00 a 4:00pm (NL 104).    
+- Lunes y miercoles de 1:00 a 5:30pm (NL 104).    
 
 ***
 
@@ -70,10 +70,12 @@ Sys.Date()
 Ninguno 
 
 ***
-### Descripción del curso  
+### Descripción del curso 
+
 Estudio de diferentes técnicas estadísticas con aplicación a la Biología. Se enfatizará en la estadística descriptiva, análisis de regresiones y correlaciones, pruebas de hipótesis paramétricas y no paramétricas y análisis de frecuencias y varianza. Se hará énfasis en los supuestos de las pruebas, para seleccionar cual método estadístico es adecuado para el diseño experimental y la distribución de los datos. Además, se utilizarán las computadoras como mecanismos para facilitar y agilizar el cómputo y análisis estadístico.
 
 ***
+
 ### Objetivos del curso
 
 Tema general del curso
@@ -89,7 +91,7 @@ Este curso sera evaluado con los siguiente items:
 
 |Item                    |     Valor              |
 |:--------------------|-------------------:|
-|Ejercicios práctico (10-15 total) |	  80%|     
+| Ejercicios práctico (10-15 total) |	  80%|     
 | Participación en clase |10%|
 | Asistencia a clase |10%|
 
@@ -104,21 +106,23 @@ Escala de Notas:
 
 ***
 ### Examenes:
-Habrá dos examen parciales y un examen final *comprensivo*.  Estos exámenes serán de selecciones múltiples, pareo, respuesta corta, y análisis de conceptos.  El examen final será comprensivo (incluye todos los temas del semestre).  En este examen final se hará énfasis en la comprensión y aplicaciones de los supuestos de las pruebas y la capacidad de seleccionar la prueba correcta basado en el diseño experimental y los supuestos. 
 
-
-### Es obligatorio tener la camera prendida durante **todo el exámen**. No es permitido usar el celular, Ud. tendrá que demostrar que el celular este detrás de uds antes de comenzar el examen   
+Ninguno 
 
 ***
 ### Conferencias
+
 En la clase las notas serán basado primeramente en la participación y algunas pruebas cortas.  Su participación es esencial para el aprendizaje (y para un ambiente positivo). Aprender *NO* es un proceso pasivo: los estudiantes deben participar haciendo preguntas y discutir el material con su conocimiento anterior (Su bagaje de conocimiento).  
 
 ***
+
 ### Ejercicios  
+
 Los ejercicios están enfocado en la aplicación de conceptos y métodos discutido en la clase y solución de problemas. Se hará un esfuerza de usar datos reales para demostrar como trabajar con los análisis, tablas, y gráficos en R, RStudio y RMarkdown.  Típicamente, tendrán solamente una semana para hacer los ejercicios y entregarlos en formato *.html*.   
 
 ***
 ### Faltar a clase y examen:
+
 *Los trabajos cortos y pruebas cortas NO se reponen*.  Si falta a la clase es su responsabilidad hablar con los otros estudiantes para saber lo que se discutió en la clase. Los examen se reponen solamente por una escusa valida.    
 
 ***

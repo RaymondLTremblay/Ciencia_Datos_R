@@ -39,7 +39,7 @@ Español:
 
 ### Los paquetes
 
-```{r}
+```{r VD1}
 library(tidyverse)
 library(ggversa)
 library(datos)
@@ -50,7 +50,7 @@ library(datos)
 ### Facet_wrap
 
 
-```{r}
+```{r VD2}
 ggplot(data = Anolis) +
   geom_point(mapping = aes(x = SVL, y = TAIL, color=SEX_AGE))+
   facet_wrap(~SEX_AGE, ncol=1)
@@ -59,7 +59,7 @@ ggplot(data = Anolis) +
 ### Regresión lineal
 
 
-```{r}
+```{r VD3} 
 # izquierda
 ggplot(data = millas) +
   geom_point(mapping = aes(x = cilindrada, y = autopista))
@@ -79,7 +79,7 @@ Vea este enlace para información sobre la regresión LOESS
 
 
 
-```{r, warning=FALSE}
+```{r VD4, warning=FALSE}
 names(millas)
 
 ggplot(data = millas) +
@@ -88,7 +88,7 @@ ggplot(data = millas) +
 
 ### Regresión LOESS de un grupo
 
-```{r}
+```{r VD5}
 ggplot(data = millas, mapping = aes(x = cilindrada, y = autopista)) +
   geom_point(mapping = aes(color = clase)) +
   geom_smooth(data = filter(millas, clase == "suv"), se =TRUE)
@@ -96,7 +96,7 @@ ggplot(data = millas, mapping = aes(x = cilindrada, y = autopista)) +
 
 ### Regresión LOESS: dos alternativas
 
-```{r}
+```{r VD6}
 ggplot(data = millas, mapping = aes(x = cilindrada, y = autopista)) +
   geom_point() +
   geom_smooth()
@@ -110,7 +110,7 @@ ggplot() +
 
 
 
-```{r}
+```{r VD7}
 ggplot(data = millas, mapping = aes(x = cilindrada, y = autopista)) +
   geom_point(mapping = aes(color = clase)) +
   geom_smooth(method=lm)
@@ -118,7 +118,7 @@ ggplot(data = millas, mapping = aes(x = cilindrada, y = autopista)) +
 
 ### geom_bar()
 
-```{r}
+```{r VD8}
 ggplot(data = diamantes) +
   geom_bar(mapping = aes(x = corte))
 ```
@@ -127,7 +127,7 @@ ggplot(data = diamantes) +
 ### Puntos con intervalo mínimo y máximo
 
 
-```{r}
+```{r VD9}
 ggplot(data = diamantes) +
   stat_summary(
     mapping = aes(x = corte, y = profundidad),
@@ -141,7 +141,7 @@ ggplot(data = diamantes) +
 ### geom_boxplot
 
 
-```{r}
+```{r V10}
 ggplot(data = millas, mapping = aes(x = clase, y = autopista)) +
   geom_boxplot()
 
@@ -156,7 +156,7 @@ ggplot(data = millas, mapping = aes(x = clase, y = autopista)) +
 
 
 
-```{r}
+```{r VD11}
 bar <- ggplot(data = diamantes) +
   geom_bar(
     mapping = aes(x = corte, fill = corte),
@@ -169,19 +169,19 @@ bar <- ggplot(data = diamantes) +
 
 #### geom_bar
 
-```{r}
+```{r VD12}
 bar
 ```
 
 #### geom_bar & flip coordinates
 
-```{r}
+```{r VD13}
 bar + coord_flip()
 ```
 
 
 #### geom_bar & circular distribution
-```{r}
+```{r VD14}
 bar + coord_polar()
 ```
 
@@ -278,7 +278,7 @@ Someter las tres gráficas en formato .jpeg o .png en el portal.
 
 
 
-```{r}
+```{r VD15}
 library(ggplot2)
 library(tidyverse)
 library(ggversa)
@@ -286,12 +286,12 @@ library(ggversa)
 ```
 
 
-```{r}
+```{r VD16}
 head(PartosInfantes)
 #unique(PartosInfantes$Pais)
 ```
 Hacer un grafico de puntos entre el numero de muertes por infante y la cantidad la cantidad de madres que mueren en el parto
-```{r eval=FALSE, include=FALSE}
+```{r VD17, eval=FALSE, include=FALSE}
 ggplot(PartosInfantes, aes(NMI, NMP))+
   geom_point()
 ```
@@ -300,7 +300,7 @@ ggplot(PartosInfantes, aes(NMI, NMP))+
 Añadir al grafico anterior un modelo lineal (linear model)
 
 
-```{r eval=FALSE, include=FALSE}
+```{r VD18, eval=FALSE, include=FALSE}
 ggplot(PartosInfantes, aes(NMI, NMP))+
   geom_point()+
   geom_smooth(method=lm)
@@ -309,14 +309,14 @@ ggplot(PartosInfantes, aes(NMI, NMP))+
 
 Añadir un color a los puntos por grupo "region". AM=America, EU= Union Europea, AF= Africa, O=Oceania, AS=Asia, Medio Oriente, 
 
-```{r eval=FALSE, include=FALSE}
+```{r VD19, eval=FALSE, include=FALSE}
 #PartosInfantes
 unique(PartosInfantes$Grupo)
 ```
 
 Demostrando todos los datos con un color por region geografica, enseña el modelo de regresion lineal solamente para AFRICA
 
-```{r eval=FALSE, include=FALSE}
+```{r VD20, eval=FALSE, include=FALSE}
 ggplot(PartosInfantes, aes(NMI, NMP, colour=Grupo))+
   geom_point()+
   geom_smooth(method=lm, data = filter(PartosInfantes, Grupo == "AF"), se=FALSE)+
@@ -333,7 +333,7 @@ Buscar el error en el código.
 
 1. ¿Qué no va bien en este código? ¿Por qué hay puntos que no son azules en el siguiente codigo?
 
-```{r, eval=FALSE, echo=TRUE}
+```{r VD21, eval=FALSE, echo=TRUE}
 ggplot(data = millas) +
    geom_point(mapping = aes(x = cilindrada, y = autopista, color = "blue"))
 ```
@@ -342,7 +342,7 @@ ggplot(data = millas) +
 
 2. Por que la gráfica no se produce en el siguiente código
 
-```{r, eval=FALSE}
+```{r VD22, eval=FALSE}
 ggplot(data = millas)
 + geom_point(mapping = aes(x = cilindrada, y = autopista))
 
@@ -351,7 +351,7 @@ ggplot(data = millas)
 ```
 ## Vea el siguiente gráfico
 
-```{r}
+```{r VD23}
 ggplot(data = millas) +
   geom_point(mapping = aes(x = cilindrada, y = autopista)) +
   facet_grid(traccion ~ cilindros)
@@ -363,7 +363,7 @@ ggplot(data = millas) +
 
 4. Explica que hace "."? en estas funciones
 
-```{r}
+```{r VD24}
 ggplot(data = millas) +
   geom_point(mapping = aes(x = cilindrada, y = autopista)) +
   facet_grid(traccion ~ .)
@@ -376,7 +376,7 @@ ggplot(data = millas) +
 5. Qué hace **nrow** en este código
 
 
-```{r}
+```{r VD25}
 ggplot(data = millas) +
   geom_point(mapping = aes(x = cilindrada, y = autopista)) +
   facet_wrap(~ clase, nrow = 2)

@@ -18,7 +18,7 @@ Español: <https://es.r4ds.hadley.nz/05-transform.html>
 
 ------------------------------------------------------------------------
 
-```{r}
+```{r TF1}
 library(tidyverse)
 library(datos)
 head(vuelos)
@@ -41,7 +41,7 @@ Mirar el archivo y entender la información antes de hacer cualquier analisis/
 
 Evalua en este archivo los tipos de variables que se encuentra.
 
-```{r}
+```{r TF2}
 vuelos
 ```
 
@@ -49,21 +49,21 @@ vuelos
 
 -   cual función usará
 
-```{r}
+```{r TF3}
 unique(vuelos$destino)
 
 ```
 
 ### Seleciona los vuelos donde el destino es San Juan
 
-```{r}
+```{r TF4}
 vuelos %>%
   filter(destino=="SJU")
 ```
 
 ### Selecciona los vuelos donde el destino es San Juan el dia de navidad
 
-```{r}
+```{r TF5}
 vuelos %>%
   filter(destino=="SJU") %>%
   filter(mes==12, dia==25) %>% 
@@ -72,7 +72,7 @@ vuelos %>%
 
 ### Selecciona los vuelos que salen de San Juan en el dia de ti cumpleaños y contabiliza cuanto hubo
 
-```{r}
+```{r TF6}
 df_dia_cumpl=vuelos %>%  
 filter(destino =="SJU") %>% 
   filter(mes== 8, dia== 1) |> 
@@ -88,7 +88,7 @@ df_dia_cumpl
 -   Selecciona solamente los vuelos a destino de a San Juan
 -   oraganiza los datos en orden de más atraso_salido de mayor a menor
 
-```{r}
+```{r TF7}
 names(vuelos)
 
 vuelos %>% 
@@ -120,7 +120,7 @@ filter(destino =="SJU") %>%
     -   summarize(): resumir conjuntos de datos
     -   group_by(): agrupar por variables
 
-```{r}
+```{r TF8}
 library(datos)
 library(tidyverse)
 por_dia <- vuelos %>% # pipe
@@ -130,7 +130,7 @@ por_dia
 
 ```
 
-```{r}
+```{r TF9}
 ## The median of the data set by day of the month
 
 
@@ -153,7 +153,7 @@ por_dia_2
 -   operaciones boolean
 -   
 
-```{r}
+```{r TF10}
 # El valor más común en un conjunto de datos
 # Crear una función: no existe en los paquetes de R
 
@@ -180,7 +180,7 @@ por_dia_3
 Añadir el promedio, mediana y moda al mismo data frame
 
 
-```{r}
+```{r TF11}
 ## The mode of the value
 library(DescTools)
 
@@ -199,7 +199,7 @@ por_dia_4
 Aquí se agrupar por día y mes
 
 
-```{r}
+```{r TF12}
 vuelos %>% 
   dplyr::select(anio, mes, dia, atraso_llegada, destino) %>% 
   filter(destino =="SJU") %>% 

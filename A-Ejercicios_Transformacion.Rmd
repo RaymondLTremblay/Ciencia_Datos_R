@@ -12,7 +12,7 @@
 
 ### Para tener los puntos tiene que enseñar TODOS los scripts, los resultados y explicar en palabra los que encontró dentro de un documento bien organizado. {.unnumbered}
 
-```{r}
+```{r AA1}
 library(datos)
 attach(bateadores)
 library(tidyverse)
@@ -21,7 +21,7 @@ library(gt)
 
 Use el data frame de "bateadores" en el paquete "datos".
 
-```{r}
+```{r AA2}
 
 gt(head(bateadores, n=3))
 
@@ -31,11 +31,10 @@ gt(head(bateadores, n=3))
 
 ## 1. Busca el bateador que tuvo más carreras en cualquier año {.unnumbered}
 
-```{r, eval=FALSE, echo=FALSE}
-
+```{r AA3}
 max(bateadores$carreras)
 
-bateadores |> select(id_jugador, carreras) |> 
+bateadores |> dplyr::select(id_jugador, carreras) |> 
   arrange(desc(carreras)) |> 
   slice_max(carreras)
 
@@ -45,7 +44,7 @@ bateadores |> select(id_jugador, carreras) |>
 
 ## 2. ¿Cual es el nombre del bateador (id_jugador) que estuvo más veces "al_bate"? Prepara una lista del bateador más frecuente al bate al menos {.unnumbered}
 
-```{r, eval=FALSE, echo=FALSE}
+```{r AA4, eval=FALSE, echo=FALSE}
 
 bateadores |> select(id_jugador, al_bate) |> 
   arrange(desc(al_bate))
@@ -57,7 +56,7 @@ bateadores |> select(id_jugador, al_bate) |>
 ## 3. ¿Cuales son las "ligas" de baseball (pelota) que estan incluida en este archivo? {.unnumbered}
 
 
-```{r, eval=FALSE, echo=FALSE}
+```{r AA5, eval=FALSE, echo=FALSE}
 
 unique(bateadores$id_liga)
 ```
@@ -68,7 +67,7 @@ unique(bateadores$id_liga)
 
 ¿Cual fue el máximo de jonrones por año para los años selecionado? Haga una lista.
 
-```{r, eval=FALSE, echo=FALSE}
+```{r AA6, eval=FALSE, echo=FALSE}
 unique(bateadores$id_anio)
 bateadores |> select(id_anio, cuadrangulares) |> 
   filter(id_anio %in% c(1900, 1950, 2000, 2020)) |> 
@@ -83,7 +82,7 @@ bateadores |> select(id_anio, cuadrangulares) |>
 
 -   ¿Cual es el jugador que ha jugado más años?
 
-```{r, eval=FALSE, echo=FALSE}
+```{r AA7, eval=FALSE, echo=FALSE}
 bateadores |> select(id_jugador, id_anio) |> 
   group_by(id_jugador) |> 
   summarise(count_years= sum(duplicated(id_jugador))) |> 
@@ -101,7 +100,7 @@ bateadores |> select(id_jugador, id_anio) |>
 -   c)  Como explica que ese equipo tiene tan poca carreras.
         Piensa en un tipo de "Data wrangling", que podria explicar esto (BONO), si lo resuelve tendrá un bono
 
-```{r, eval=FALSE, echo=FALSE}
+```{r AA8, eval=FALSE, echo=FALSE}
 bateadores |> select(id_liga, id_anio, id_equipo, carreras) |> 
   filter(id_liga == "AL") |> 
   filter(id_anio %in% c(2000:2020)) |> 
@@ -111,7 +110,7 @@ bateadores |> select(id_liga, id_anio, id_equipo, carreras) |>
 
 ------------------------------------------------------------------------
 
-```{r, eval=FALSE, echo=FALSE}
+```{r AA9, eval=FALSE, echo=FALSE}
 bateadores |> select(id_liga, id_anio, id_equipo) |> 
   filter(id_liga == "AL") |> 
   filter(id_anio %in% c(2000:2020)) |> 

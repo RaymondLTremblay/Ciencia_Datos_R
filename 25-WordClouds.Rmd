@@ -1,0 +1,382 @@
+# Nubes de palabra en R
+
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+Sys.Date()
+```
+
+## Ejemplo #1
+
+
+
+
+
+Para generar nubes de palabras con R. Se necesita los paquetes **wordcloud**, **RColorBrewer** y **wordcloud2**
+
+
+Ese ejemplo es una copia de la siguiente pagina de web
+
+<http://www.sthda.com/english/wiki/word-cloud-generator-in-r-one-killer-function-to-do-everything-you-need>
+
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(tm, SnowballC, wordcloud, RColorBrewer, wordcloud2)
+
+library(wordcloud) # Un paquete para hacer word cloud
+library(wordcloud2) # paquete más sencillo para hacer word cloud2
+library(RColorBrewer) # paquete para cambiar los colores 
+library(tm)  # paquete de text mining
+library(SnowballC) # paquete para trabajar en otro idioma aparte de ingles
+
+```
+
+
+
+## Usando los datos en el paquete wordcloud2 que se llama **demoFreq**
+
+
+```{r}
+
+demoFreq
+library(wordcloud2)
+head(demoFreq, n=10)
+wordcloud2(data = demoFreq)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Paso 1 
+
+Importar los datos de la web
+
+```{r, echo=TRUE}
+filePath <- "http://www.sthda.com/sthda/RDoc/example-files/martin-luther-king-i-have-a-dream-speech.txt"
+text <- readLines(filePath)
+text
+```
+
+
+
+Importar un texto de su computadora en formato **.txt** No va a funcionar el formato **.doc** de MSWord. 
+
+
+```{r, echo=TRUE, eval=FALSE}
+#mi_texto <- readLines(file.choose())
+
+```
+
+
+## Subir el texto en formato **Corpus**
+
+```{r, echo=TRUE}
+
+mi_texto=iconv(text,"WINDOWS-1252","UTF-8") # Use this for removing accents and non - english characters
+
+# Load the data as a corpus
+docs <- Corpus(VectorSource(mi_texto))
+
+docs
+```
+
+
+## Mirar el documento, para evaluar su contenido
+
+```{r, echo=TRUE}
+# inspect(docs) # quita el hashtag para ver el documento
+```
+
+
+
+## Transformar el texto para reemplazar algunos caracteres especiales, y remplazarlos por espacio en blanco
+
+```{r, echo=TRUE}
+toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "-")
+docs <- tm_map(docs, toSpace, "@")
+docs <- tm_map(docs, toSpace, "\\|")
+```
+
+
+## el paquete **tm** es para **text mining**
+
+```{r, echo=TRUE}
+# Convert the text to lower case
+docs <- tm_map(docs, content_transformer(tolower))
+
+# Remove numbers
+docs <- tm_map(docs, removeNumbers)
+
+# Remove english common stopwords
+stopwords("english") # list of common english stopwords that are often removed
+docs <- tm_map(docs, removeWords, stopwords("english"))
+
+# Remove your own stop word
+# specify your stopwords as a character vector
+docs <- tm_map(docs, removeWords, c("blabla1", "blabla2")) 
+
+# Remove punctuations
+docs <- tm_map(docs, removePunctuation)
+
+# Eliminate extra white spaces
+docs <- tm_map(docs, stripWhitespace)
+# Text stemming
+# docs <- tm_map(docs, stemDocument)
+
+#stopwords() # Here are all the stopwords in the function **stopwords**
+```
+
+## Crear una matriz de las palabras de mi documento
+
+```{r}
+dtm <- TermDocumentMatrix(docs) # convirtir el texto en una lista de palabras
+m <- as.matrix(dtm) # convertir en una matriz
+v <- sort(rowSums(m),decreasing=TRUE) # ordenar las palabras por frecuencia
+d <- data.frame(word = names(v),freq=v) # crea un nuevo data frame de las palabras y su frecuencia
+head(d, n=10) # las primeras 10 palabras más comunes
+```
+
+
+
+### Check your words and remove unwanted words individually
+
+
+
+"òó"
+
+òorchid
+
+pollinators
+
+
+### How would you remove from the data frame all words that have less or equal to 3 counts
+
+
+***
+
+Del paquete **wordcloud**
+
+```{r WC1, echo=TRUE,  warning=FALSE}
+#head(d)
+wordcloud(words = d$word, # las palabras
+          freq = d$freq, # la frecuencia
+          min.freq = 10, # la frecuencia mínima
+          max.words=200, # el número máximo de palabras
+          random.order=TRUE, # orden aleatorio
+          rot.per=0.35, # rotación de las palabras
+          colors=brewer.pal(8, "Dark2")) # colores
+```
+
+
+***
+
+
+## Ejemplo 2
+
+
+
+Del paquete **wordcloud2**
+
+
+```{r WC2, echo=TRUE}
+wordcloud2(data = d)
+```
+
+
+
+## Como remover palabras de otra idioma
+
+### Vea este enlace para los "stopwords" de muchos idiomas
+
+<https://cran.r-project.org/web/packages/stopwords/readme/README.html>
+
+
+
+
+
+## En español
+
+```{r WC3, echo=TRUE, eval=FALSE}
+# from CRAN
+install.packages("stopwords")
+
+# Or get the development version from GitHub:
+# install.packages("devtools")
+# devtools::install_github("quanteda/stopwords")
+```
+
+
+### Las 30 primeras palabras en la lista de stopword del paquete "stopwords" en español 
+
+```{r WC4}
+head(stopwords::stopwords("es", source = "snowball"), 30)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+***
+
+
+Ejemplos #3
+
+Aqui un tercer ejemplo 
+
+
+
+```{r WC5}
+# install.packages("pacman") # Si no tiene instalada la Biblioteca Pacman ejecutar esta línea de código
+library("pacman")
+
+
+p_load("tm") # Biblioteca para realizar el preprocesado del texto,
+p_load("tidyverse") # Biblioteca con funciones para manipular datos.
+p_load("wordcloud") # Biblioteca para graficar nuestra nube de palabras.
+p_load("RColorBrewer") # Biblioteca para seleccionar una paleta de colores de nuestra nube de palabras.
+```
+
+
+## Un documento para hacer un word cloud "La intelegencia artifical"
+
+```{r WC6}
+library(readr)
+articulo_IA <- "https://gist.github.com/EverVino/7bdbbe7ebdff5987970036f52f0e384f/raw/3a1997b6f9e3471555a941f8812ada0cef84977d/gistfile1.txt"
+texto <- read_file(articulo_IA)
+#texto
+```
+
+
+## Convertir su documento en **Corpus** y identificar que es en español
+
+```{r WC7}
+texto2 <- VCorpus(VectorSource(texto), 
+      readerControl = list(reader = readPlain, language = "es", load=TRUE))
+texto2
+
+#inspect(texto2)
+```
+
+## Limpieza del documento
+
+- remover los números
+- remover las puntuaciones
+- cambiar a letras minúsculas
+- remover las palabras comunes en español
+- usar solamente la base de las palabres ("stem") por ejemplo remover las conjugaciones **espero**, **esparas**, **espera**, **esperamos**... se convierte en "esper"
+- remover espacios blancos
+
+
+
+```{r WC8}
+texto2 <- tm_map(texto2, removeNumbers)
+texto2 <- tm_map(texto2, removePunctuation)
+texto2 <- tm_map(texto2, tolower)
+texto2 <- tm_map(texto2, removeWords, stopwords::stopwords("es", source = "snowball"))
+#texto2 <- tm_map(texto2, stemDocument, language="spanish")
+texto2 <- tm_map(texto2, stripWhitespace)
+
+
+```
+
+
+## Transformar el texto en un documento de texto sencillo (Plain Text)
+
+```{r WC9}
+texto2 <- tm_map(texto2, PlainTextDocument)
+```
+
+
+
+
+
+## Transformar el texto para reemplazar algunos caracteres especiales
+
+```{r WC10, echo=TRUE, eval=FALSE}
+toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
+#texto2 <- tm_map(texto2, toSpace, "-")
+texto2 <- tm_map(texto2, toSpace, "@")
+texto2 <- tm_map(texto2, toSpace, "\\|")
+```
+
+
+## Crear una matriz de las palabras
+
+```{r WC11}
+tabla_frecuencia <- DocumentTermMatrix(texto2)
+```
+
+## Calcular la frecuencia de de cada palabra
+
+
+```{r WC12}
+tabla_frecuencia <- cbind(palabras = tabla_frecuencia$dimnames$Terms, 
+                          frecuencia = tabla_frecuencia$v)
+```
+
+
+
+
+```{r WC13}
+# Convertimos los valores enlazados con cbind a un objeto dataframe.
+tabla_frecuencia<-as.data.frame(tabla_frecuencia) 
+
+# Forzamos a que la columna de frecuencia contenga valores numéricos.
+tabla_frecuencia$frecuencia<-as.numeric(tabla_frecuencia$frecuencia)
+
+# Ordenamos muestra tabla de frecuencias de acuerdo a sus valores numéricos.
+tabla_frecuencia<-tabla_frecuencia[order(tabla_frecuencia$frecuencia, decreasing=TRUE),]
+
+
+head(tabla_frecuencia) # aqui vemos las 6 palabras más comunes en el texto
+
+```
+
+```{r WC14}
+wordcloud(words = tabla_frecuencia$palabras, 
+          freq = tabla_frecuencia$frecuencia,
+          min.freq = 5, 
+          max.words = 100, 
+          random.order = FALSE, 
+          colors = brewer.pal(8,"Paired"))
+
+
+
+
+```
+
+
+
+
+
+***
+
+Como ver la figuras en la pestaña "Plots"
+
+De esa forma puede bajar los WordClouds como  .pdf o otro formato.   
+
+
+<<https://stackoverflow.com/questions/40570621/rstudio-how-to-show-plot-output-in-bottom-right-pane>>
+

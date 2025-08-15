@@ -1,6 +1,6 @@
 # Transformación: Indices parametricos y no parametricos
 
-```{r echo=FALSE}
+```{r TFE1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()

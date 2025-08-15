@@ -11,7 +11,7 @@ Sys.Date()
 
 Activar los siguientes packetes
 
-```{r}
+```{r CS1}
 library(tidyverse)
 library(datos)
 ```
@@ -39,20 +39,20 @@ Español:
   
 ### Sumar  
   
-```{r}
+```{r CS2}
 2+2
 ```
 
 ### Exactamente como una calculadora
 
-```{r}
+```{r CS3}
 (23+3+3)^2+2
 ```
 
 
 ### Trigonometria
 
-```{r}
+```{r CS4}
 sin(pi/3)
 ```
 
@@ -60,14 +60,14 @@ sin(pi/3)
 ### Log natural y a base 10
 
 
-```{r}
+```{r CS5}
 log(100)
 log10(100)
 ```
 
 ### Asignaciones de variables
 
-```{r}
+```{r CS6}
 x<- 4
 x
 y=3
@@ -82,27 +82,27 @@ x/y
 
 - la función "seq" para secuencia
 
-```{r}
+```{r CS7}
 edad_nd=seq(101, 110)
 edad_nd
 ```
 
 - variables asignada
 
-```{r}
+```{r CS8}
 edad_uprh=c(11:20)
 edad_uprh
 ```
 
 ### Unir variables en un data frame
 
-```{r}
+```{r CS9}
 edad=data.frame(edad_nd, edad_uprh)
 edad
 ```
 
 
-```{r}
+```{r CS10}
 edad$diff=edad$edad_nd-edad$edad_uprh
 edad
 
@@ -115,21 +115,21 @@ edad
 ### Errores cuando a variables no tienen la misma cantidad de entradas
 
 
-```{r}
+```{r CS11}
 edad_nd_1=base::seq(101, 111)
 edad_nd_1
 ```
 
 - variables asignada
 
-```{r}
+```{r CS12}
 edad_uprh_1=c(11:20, NA)
 edad_uprh_1
 ```
 
 ### Unir variables en un data frame
 
-```{r}
+```{r CS13}
 edad_1=data.frame(edad_nd_1, edad_uprh_1)
 edad_1
 ```
@@ -137,7 +137,7 @@ edad_1
 
 ### Cuantos valores hay en una variable
 
-```{r}
+```{r CS14}
 length(edad_uprh)
 
 length(edad$tres)
@@ -149,7 +149,7 @@ length(edad)
 
 - Primero visualizar los datos
 
-```{r}
+```{r CS15}
 library(datos)
 millas
 ```
@@ -160,7 +160,7 @@ La función de Pipe.    %>% o |>
 
 
 
-```{r}
+```{r CS16}
 library(tidyverse)
 millas
 names(millas)
@@ -176,7 +176,7 @@ millas |> dplyr::select(cilindros) |>
 
 #### Selecionar los diamantes mayor de 3 quilate
 
-```{r}
+```{r CS17}
 diamantes |> dplyr::select(quilate) |> 
   filter(quilate > 3)
 ```
@@ -184,7 +184,7 @@ diamantes |> dplyr::select(quilate) |>
 
 #### Selecionar los diamantes con igual o mayor de 4000 precio
 
-```{r, echo=FALSE}
+```{r CS18, echo=FALSE}
 #unique(diamantes$precio)
 
 dia_4000 = diamantes |> dplyr::select(precio) |> 
@@ -198,7 +198,7 @@ head(dia_4000)
 #### Contabiliza cuantos diamantes tienen un valor de $4000 o más
 
 
-```{r, contar las cantidad lineas}
+```{r CS19, contar las cantidad lineas}
 
 nrow(dia_4000) 
 
