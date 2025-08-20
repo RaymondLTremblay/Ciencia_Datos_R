@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-08-15" />
+<meta name="date" content="2025-08-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -621,7 +621,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="fechas-horas-y-minutas" class="section level1 hasAnchor" number="23">
 <h1><span class="header-section-number">Capítulo23</span> Fechas, horas y minutas<a href="fechas-horas-y-minutas.html#fechas-horas-y-minutas" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2025-08-15&quot;</code></pre>
+<pre><code>## [1] &quot;2025-08-20&quot;</code></pre>
 <hr />
 <p>El tema proviene de los siguientes sitios.</p>
 <p>English:
@@ -662,7 +662,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">23.3</span> El paquete <code>lubridate</code><a href="fechas-horas-y-minutas.html#el-paquete-lubridate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La función <code>today()</code> regresa la fecha de hoy, similar a <code>Sys.date()</code></p>
 <div class="sourceCode" id="cb809"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb809-1"><a href="fechas-horas-y-minutas.html#cb809-1" tabindex="-1"></a><span class="fu">today</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;2025-08-15&quot;</code></pre>
+<pre><code>## [1] &quot;2025-08-20&quot;</code></pre>
 <p>Use la función de <code>tribble()</code>, del paquete <code>tibble</code>, para crear una tabla manualmente</p>
 <div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb811-1"><a href="fechas-horas-y-minutas.html#cb811-1" tabindex="-1"></a>fechas <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
 <span id="cb811-2"><a href="fechas-horas-y-minutas.html#cb811-2" tabindex="-1"></a>  <span class="sc">~</span> codigo, <span class="sc">~</span> fecha,</span>
@@ -751,11 +751,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 5 × 3
 ##   codigo fecha               intervalo                              
 ##   &lt;chr&gt;  &lt;dttm&gt;              &lt;Interval&gt;                             
-## 1 001    2019-01-01 00:00:00 2019-01-01 00:00:00 UTC--2025-08-15 UTC
-## 2 002    2019-03-31 01:05:00 2019-03-31 01:05:00 UTC--2025-08-15 UTC
-## 3 003    2019-06-14 20:00:00 2019-06-14 20:00:00 UTC--2025-08-15 UTC
-## 4 004    1859-12-01 11:32:13 1859-12-01 11:32:13 UTC--2025-08-15 UTC
-## 5 005    0501-01-01 05:04:33 0501-01-01 05:04:33 UTC--2025-08-15 UTC</code></pre>
+## 1 001    2019-01-01 00:00:00 2019-01-01 00:00:00 UTC--2025-08-20 UTC
+## 2 002    2019-03-31 01:05:00 2019-03-31 01:05:00 UTC--2025-08-20 UTC
+## 3 003    2019-06-14 20:00:00 2019-06-14 20:00:00 UTC--2025-08-20 UTC
+## 4 004    1859-12-01 11:32:13 1859-12-01 11:32:13 UTC--2025-08-20 UTC
+## 5 005    0501-01-01 05:04:33 0501-01-01 05:04:33 UTC--2025-08-20 UTC</code></pre>
 <p><code>int_length()</code> regresa el número de segundos dentro del intervalo</p>
 <div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb823-1"><a href="fechas-horas-y-minutas.html#cb823-1" tabindex="-1"></a>nueva_fechas <span class="sc">%&gt;%</span></span>
 <span id="cb823-2"><a href="fechas-horas-y-minutas.html#cb823-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -765,11 +765,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 5 × 4
 ##   codigo fecha               intervalo                                  segundos
 ##   &lt;chr&gt;  &lt;dttm&gt;              &lt;Interval&gt;                                    &lt;dbl&gt;
-## 1 001    2019-01-01 00:00:00 2019-01-01 00:00:00 UTC--2025-08-15 UTC   208915200
-## 2 002    2019-03-31 01:05:00 2019-03-31 01:05:00 UTC--2025-08-15 UTC   201221700
-## 3 003    2019-06-14 20:00:00 2019-06-14 20:00:00 UTC--2025-08-15 UTC   194673600
-## 4 004    1859-12-01 11:32:13 1859-12-01 11:32:13 UTC--2025-08-15 UTC  5229145667
-## 5 005    0501-01-01 05:04:33 0501-01-01 05:04:33 UTC--2025-08-15 UTC 48112340127</code></pre>
+## 1 001    2019-01-01 00:00:00 2019-01-01 00:00:00 UTC--2025-08-20 UTC   209347200
+## 2 002    2019-03-31 01:05:00 2019-03-31 01:05:00 UTC--2025-08-20 UTC   201653700
+## 3 003    2019-06-14 20:00:00 2019-06-14 20:00:00 UTC--2025-08-20 UTC   195105600
+## 4 004    1859-12-01 11:32:13 1859-12-01 11:32:13 UTC--2025-08-20 UTC  5229577667
+## 5 005    0501-01-01 05:04:33 0501-01-01 05:04:33 UTC--2025-08-20 UTC 48112772127</code></pre>
 </div>
 <div id="el-operador----simplifica-el-cálculo-del-intervalo" class="section level2 hasAnchor" number="23.5">
 <h2><span class="header-section-number">23.5</span> El operador <code>%--%</code> simplifica el cálculo del intervalo<a href="#el-operador----simplifica-el-c%C3%A1lculo-del-intervalo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -779,11 +779,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 5 × 3
 ##   codigo fecha               intervalo                              
 ##   &lt;chr&gt;  &lt;dttm&gt;              &lt;Interval&gt;                             
-## 1 001    2019-01-01 00:00:00 2019-01-01 00:00:00 UTC--2025-08-15 UTC
-## 2 002    2019-03-31 01:05:00 2019-03-31 01:05:00 UTC--2025-08-15 UTC
-## 3 003    2019-06-14 20:00:00 2019-06-14 20:00:00 UTC--2025-08-15 UTC
-## 4 004    1859-12-01 11:32:13 1859-12-01 11:32:13 UTC--2025-08-15 UTC
-## 5 005    0501-01-01 05:04:33 0501-01-01 05:04:33 UTC--2025-08-15 UTC</code></pre>
+## 1 001    2019-01-01 00:00:00 2019-01-01 00:00:00 UTC--2025-08-20 UTC
+## 2 002    2019-03-31 01:05:00 2019-03-31 01:05:00 UTC--2025-08-20 UTC
+## 3 003    2019-06-14 20:00:00 2019-06-14 20:00:00 UTC--2025-08-20 UTC
+## 4 004    1859-12-01 11:32:13 1859-12-01 11:32:13 UTC--2025-08-20 UTC
+## 5 005    0501-01-01 05:04:33 0501-01-01 05:04:33 UTC--2025-08-20 UTC</code></pre>
 <p>Para saber el número del días en el intervalo, divida el intervalo por la función que corresponde a días, <code>days()</code></p>
 <div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb827-1"><a href="fechas-horas-y-minutas.html#cb827-1" tabindex="-1"></a>nueva_fechas <span class="sc">%&gt;%</span></span>
 <span id="cb827-2"><a href="fechas-horas-y-minutas.html#cb827-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dias =</span> fecha <span class="sc">%--%</span> <span class="fu">today</span>() <span class="sc">/</span> <span class="fu">days</span>(),</span>
@@ -791,11 +791,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 5 × 4
 ##   codigo fecha                  dias    anio
 ##   &lt;chr&gt;  &lt;dttm&gt;                &lt;dbl&gt;   &lt;dbl&gt;
-## 1 001    2019-01-01 00:00:00   2418     6.62
-## 2 002    2019-03-31 01:05:00   2329.    6.38
-## 3 003    2019-06-14 20:00:00   2253.    6.17
-## 4 004    1859-12-01 11:32:13  60523.  166.  
-## 5 005    0501-01-01 05:04:33 556856. 1525.</code></pre>
+## 1 001    2019-01-01 00:00:00   2423     6.63
+## 2 002    2019-03-31 01:05:00   2334.    6.39
+## 3 003    2019-06-14 20:00:00   2258.    6.18
+## 4 004    1859-12-01 11:32:13  60528.  166.  
+## 5 005    0501-01-01 05:04:33 556861. 1525.</code></pre>
 <div class="sourceCode" id="cb829"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb829-1"><a href="fechas-horas-y-minutas.html#cb829-1" tabindex="-1"></a><span class="co">#Cuantos años de diferencia en el intervalo?</span></span></code></pre></div>
 <p>Intervalo entre una lista de fecha y otra fecha y hora</p>
 <div class="sourceCode" id="cb830"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb830-1"><a href="fechas-horas-y-minutas.html#cb830-1" tabindex="-1"></a>nueva_fechas <span class="sc">%&gt;%</span></span>
@@ -814,11 +814,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>Usa esta función y calcula el número de día que ha transcurido entre el día de su nacimiento y el dia de hoy</p>
 <div class="sourceCode" id="cb832"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb832-1"><a href="fechas-horas-y-minutas.html#cb832-1" tabindex="-1"></a> dias <span class="ot">=</span> <span class="st">&quot;2018-08-14 00:00:00&quot;</span> <span class="sc">%--%</span> <span class="fu">today</span>() <span class="sc">/</span>  <span class="fu">days</span>()</span>
 <span id="cb832-2"><a href="fechas-horas-y-minutas.html#cb832-2" tabindex="-1"></a>dias</span></code></pre></div>
-<pre><code>## [1] 2558</code></pre>
+<pre><code>## [1] 2563</code></pre>
 <div class="sourceCode" id="cb834"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb834-1"><a href="fechas-horas-y-minutas.html#cb834-1" tabindex="-1"></a>millisecond <span class="ot">=</span> <span class="st">&quot;2018-08-14 00:00:00&quot;</span> <span class="sc">%--%</span> <span class="fu">today</span>() <span class="sc">/</span>  <span class="fu">milliseconds</span>()</span>
 <span id="cb834-2"><a href="fechas-horas-y-minutas.html#cb834-2" tabindex="-1"></a></span>
 <span id="cb834-3"><a href="fechas-horas-y-minutas.html#cb834-3" tabindex="-1"></a>millisecond</span></code></pre></div>
-<pre><code>## [1] 221011200000</code></pre>
+<pre><code>## [1] 221443200000</code></pre>
 <p>Los resultados se pueden visualizar usando <code>ggplot2</code></p>
 <div class="sourceCode" id="cb836"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb836-1"><a href="fechas-horas-y-minutas.html#cb836-1" tabindex="-1"></a>nueva_fechas <span class="sc">%&gt;%</span></span>
 <span id="cb836-2"><a href="fechas-horas-y-minutas.html#cb836-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dias =</span> fecha <span class="sc">%--%</span> <span class="fu">today</span>() <span class="sc">/</span> <span class="fu">years</span>()) <span class="sc">%&gt;%</span></span>
@@ -849,13 +849,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb837-1"><a href="fechas-horas-y-minutas.html#cb837-1" tabindex="-1"></a>nueva_fechas <span class="sc">%&gt;%</span></span>
 <span id="cb837-2"><a href="fechas-horas-y-minutas.html#cb837-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">desde_hoy =</span> <span class="fu">as.duration</span>(fecha <span class="sc">%--%</span> <span class="fu">today</span>())) <span class="co"># duración desde la fecha hasta hoy</span></span></code></pre></div>
 <pre><code>## # A tibble: 5 × 3
-##   codigo fecha               desde_hoy                    
-##   &lt;chr&gt;  &lt;dttm&gt;              &lt;Duration&gt;                   
-## 1 001    2019-01-01 00:00:00 208915200s (~6.62 years)     
-## 2 002    2019-03-31 01:05:00 201221700s (~6.38 years)     
-## 3 003    2019-06-14 20:00:00 194673600s (~6.17 years)     
-## 4 004    1859-12-01 11:32:13 5229145667s (~165.7 years)   
-## 5 005    0501-01-01 05:04:33 48112340127s (~1524.59 years)</code></pre>
+##   codigo fecha               desde_hoy                   
+##   &lt;chr&gt;  &lt;dttm&gt;              &lt;Duration&gt;                  
+## 1 001    2019-01-01 00:00:00 209347200s (~6.63 years)    
+## 2 002    2019-03-31 01:05:00 201653700s (~6.39 years)    
+## 3 003    2019-06-14 20:00:00 195105600s (~6.18 years)    
+## 4 004    1859-12-01 11:32:13 5229577667s (~165.72 years) 
+## 5 005    0501-01-01 05:04:33 48112772127s (~1524.6 years)</code></pre>
 <p>El objeto de duración de tiempo se puede filtrar fácilmente basado en una variedad de tipo de tiempos. En este caso, semanas <code>dweeks()</code> crea un objeto de duración de la largura especificada</p>
 <div class="sourceCode" id="cb839"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb839-1"><a href="fechas-horas-y-minutas.html#cb839-1" tabindex="-1"></a>nueva_fechas <span class="sc">%&gt;%</span></span>
 <span id="cb839-2"><a href="fechas-horas-y-minutas.html#cb839-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">desde_hoy =</span> <span class="fu">as.duration</span>(fecha <span class="sc">%--%</span> <span class="fu">today</span>())) <span class="sc">%&gt;%</span></span>
@@ -871,9 +871,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 3 × 3
 ##   codigo fecha               desde_hoy               
 ##   &lt;chr&gt;  &lt;dttm&gt;              &lt;Duration&gt;              
-## 1 001    2019-01-01 00:00:00 208915200s (~6.62 years)
-## 2 002    2019-03-31 01:05:00 201221700s (~6.38 years)
-## 3 003    2019-06-14 20:00:00 194673600s (~6.17 years)</code></pre>
+## 1 001    2019-01-01 00:00:00 209347200s (~6.63 years)
+## 2 002    2019-03-31 01:05:00 201653700s (~6.39 years)
+## 3 003    2019-06-14 20:00:00 195105600s (~6.18 years)</code></pre>
 <div id="funciones-1" class="section level3 hasAnchor" number="23.8.1">
 <h3><span class="header-section-number">23.8.1</span> Funciones<a href="fechas-horas-y-minutas.html#funciones-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
@@ -881,9 +881,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>now()</li>
 </ul>
 <div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb845-1"><a href="fechas-horas-y-minutas.html#cb845-1" tabindex="-1"></a><span class="fu">today</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;2025-08-15&quot;</code></pre>
+<pre><code>## [1] &quot;2025-08-20&quot;</code></pre>
 <div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb847-1"><a href="fechas-horas-y-minutas.html#cb847-1" tabindex="-1"></a><span class="fu">now</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;2025-08-15 10:39:33 AST&quot;</code></pre>
+<pre><code>## [1] &quot;2025-08-20 15:58:21 AST&quot;</code></pre>
 </div>
 <div id="fechas-con-años-meses-y-días" class="section level3 hasAnchor" number="23.8.2">
 <h3><span class="header-section-number">23.8.2</span> Fechas con años, meses y días<a href="#fechas-con-a%C3%B1os-meses-y-d%C3%ADas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1174,9 +1174,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb917-2"><a href="fechas-horas-y-minutas.html#cb917-2" tabindex="-1"></a>edad_h <span class="ot">&lt;-</span> <span class="fu">today</span>() <span class="sc">-</span> <span class="fu">ymd</span>(<span class="st">&quot;1809-02-12&quot;</span>)</span>
 <span id="cb917-3"><a href="fechas-horas-y-minutas.html#cb917-3" tabindex="-1"></a>edad_h <span class="ot">&lt;-</span> <span class="fu">today</span>() <span class="sc">-</span> <span class="fu">ymd</span>(<span class="dv">18090212</span>)</span>
 <span id="cb917-4"><a href="fechas-horas-y-minutas.html#cb917-4" tabindex="-1"></a>edad_h</span></code></pre></div>
-<pre><code>## Time difference of 79077 days</code></pre>
+<pre><code>## Time difference of 79082 days</code></pre>
 <div class="sourceCode" id="cb919"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb919-1"><a href="fechas-horas-y-minutas.html#cb919-1" tabindex="-1"></a><span class="fu">as.duration</span>(edad_h)</span></code></pre></div>
-<pre><code>## [1] &quot;6832252800s (~216.5 years)&quot;</code></pre>
+<pre><code>## [1] &quot;6832684800s (~216.51 years)&quot;</code></pre>
 <div class="sourceCode" id="cb921"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb921-1"><a href="fechas-horas-y-minutas.html#cb921-1" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">as.duration</span>(edad_h)</span></code></pre></div>
 <p>Otras funciones de duración</p>
 <div class="sourceCode" id="cb922"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb922-1"><a href="fechas-horas-y-minutas.html#cb922-1" tabindex="-1"></a><span class="fu">dseconds</span>(<span class="dv">15</span>)</span></code></pre></div>
@@ -1203,9 +1203,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb938-2"><a href="fechas-horas-y-minutas.html#cb938-2" tabindex="-1"></a>anio_pasado <span class="ot">&lt;-</span> <span class="fu">today</span>() <span class="sc">-</span> <span class="fu">dyears</span>(<span class="dv">1</span>)</span>
 <span id="cb938-3"><a href="fechas-horas-y-minutas.html#cb938-3" tabindex="-1"></a></span>
 <span id="cb938-4"><a href="fechas-horas-y-minutas.html#cb938-4" tabindex="-1"></a>ayer</span></code></pre></div>
-<pre><code>## [1] &quot;2025-08-14&quot;</code></pre>
+<pre><code>## [1] &quot;2025-08-19&quot;</code></pre>
 <div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb940-1"><a href="fechas-horas-y-minutas.html#cb940-1" tabindex="-1"></a>anio_pasado</span></code></pre></div>
-<pre><code>## [1] &quot;2024-08-14 18:00:00 UTC&quot;</code></pre>
+<pre><code>## [1] &quot;2024-08-19 18:00:00 UTC&quot;</code></pre>
 </div>
 <div id="períodos" class="section level2 hasAnchor" number="23.16">
 <h2><span class="header-section-number">23.16</span> períodos<a href="#per%C3%ADodos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
