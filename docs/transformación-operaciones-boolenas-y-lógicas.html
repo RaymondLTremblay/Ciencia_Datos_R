@@ -748,7 +748,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="section-1" class="section level2" number="6.4">
 <h2><span class="header-section-number">6.4</span> </h2>
-<p>!, excluye algo, En este caso estamos excluyendo los días del 1 al 10</p>
+<p>!, <strong>excluye algo</strong>, En este caso estamos excluyendo las aerolinea “AA” y “DL”</p>
 <div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
 <span id="cb172-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb172-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-3" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
@@ -777,21 +777,24 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Ejercicios</strong>:</p>
 <p>Hacer los ejercicios en la sección 5.2.4 del libro en español</p>
 <p>5.2.4 Ejercicios</p>
-<ul>
-<li><p>Encuentra todos los vuelos que:</p></li>
+<ol style="list-style-type: decimal">
+<li>Encuentra todos los vuelos que:</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
 <li><p>Tuvieron un retraso de llegada de dos o más horas</p></li>
 <li><p>Volaron a Houston (IAH o HOU)</p></li>
-</ul>
+</ol>
 <p>Cual son estos aeropuertos, Hou == Houston, IAH == George Bush, Texas</p>
-<ul>
+<ol start="2" style="list-style-type: decimal">
 <li><p>Seleciona solamente los vuelos que fueron operados por United, American o Delta</p></li>
 <li><p>Selecciona solamente los vuelos que partieron en invierno del hemisferio sur (julio, agosto y septiembre)</p></li>
+<li><p>Selecciona solamente los vuelos excluyendo los dias del 2 al 29 de cualquier mes</p></li>
 <li><p>Selecciona solamente los vuelos que llegaron más de dos horas tarde, pero no salieron tarde</p></li>
 <li><p>Selecciona solamente los vuelos que se retrasaron por lo menos una hora, pero repusieron más de 30 minutos en vuelo</p></li>
 <li><p>Selecciona solamente los vuelos que partieron entre la medianoche y las 6a.m. (incluyente)</p></li>
 <li><p>Otra función de dplyr que es útil para usar filtros es between(). ¿Qué hace? ¿Puedes usarla para simplificar el código necesario para responder a los desafíos anteriores?</p></li>
 <li><p>Determinar cual “aerolinea” tiene más vuelos</p></li>
-</ul>
+</ol>
 <hr />
 <div id="la-función-arrange" class="section level3 hasAnchor" number="6.4.1">
 <h3><span class="header-section-number">6.4.1</span> La función arrange()<a href="#la-funci%C3%B3n-arrange" class="anchor-section" aria-label="Anchor link to header"></a></h3>

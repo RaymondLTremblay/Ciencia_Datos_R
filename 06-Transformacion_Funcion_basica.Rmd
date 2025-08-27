@@ -107,7 +107,7 @@ Como se seleccionaría los meses de diciembre pero desde la del 25 o más
 
 ## 
 
-!, excluye algo, En este caso estamos excluyendo los días del 1 al 10
+!, **excluye algo**, En este caso estamos excluyendo las aerolinea "AA" y "DL"
 
 ```{r TFB6}
 library(datos)
@@ -128,9 +128,9 @@ Hacer los ejercicios en la sección 5.2.4 del libro en español
 
 5.2.4 Ejercicios
 
- -  Encuentra todos los vuelos que:
+ 1.   Encuentra todos los vuelos que:
 
- -  Tuvieron un retraso de llegada de dos o más horas
+ a.   Tuvieron un retraso de llegada de dos o más horas
 
 ```{r TFB7, echo=FALSE, eval=FALSE}
 #names(vuelos)
@@ -140,7 +140,7 @@ vuelos %>%
   filter(destino == "HOU" | destino == "IAH")
 ```
 
- - Volaron a Houston (IAH o HOU)
+ b. Volaron a Houston (IAH o HOU)
 
 Cual son estos aeropuertos, Hou == Houston, IAH == George Bush, Texas
 
@@ -154,7 +154,7 @@ dplyr::select(anio, mes, dia, destino, aerolinea, atraso_llegada) %>%
 filter(destino %in% c("IAH", "HOU"))
 ```
 
- - Seleciona solamente los vuelos que fueron operados por United, American o Delta
+ 2. Seleciona solamente los vuelos que fueron operados por United, American o Delta
 
 ```{r TFB9, echo=FALSE, eval=FALSE}
 unique(vuelos$aerolinea)
@@ -163,7 +163,10 @@ vuelos %>%
   filter(aerolinea %in% c("UA", "AA","DL"))
 ```
 
- -  Selecciona solamente los vuelos que partieron en invierno del hemisferio sur (julio, agosto y septiembre)
+ 3.  Selecciona solamente los vuelos que partieron en invierno del hemisferio sur (julio, agosto y septiembre)
+ 
+ 
+
 
 ```{r TFB10, echo=FALSE, eval=FALSE}
 vuelos %>% 
@@ -173,7 +176,17 @@ vuelos %>%
 filter(mes %in% c(7, 8, 9))
 ```
 
- - Selecciona solamente los vuelos que llegaron más de dos horas tarde, pero no salieron tarde
+
+ 4. Selecciona solamente los vuelos excluyendo los dias del 2 al 29 de cualquier mes
+ 
+```{r, eval=FALSE, echo=FALSE}
+vuelos %>% 
+  filter(!dia %in% c(2:29))
+```
+ 
+
+
+ 5.  Selecciona solamente los vuelos que llegaron más de dos horas tarde, pero no salieron tarde
 
 ```{r TFB11, echo=FALSE, eval=FALSE}
 names(vuelos)
@@ -186,7 +199,7 @@ filter(atraso_llegada > 120 & atraso_salida <= 0)
          
 ```
 
- - Selecciona solamente los vuelos que se retrasaron por lo menos una hora, pero repusieron más de 30 minutos en vuelo
+ 6.  Selecciona solamente los vuelos que se retrasaron por lo menos una hora, pero repusieron más de 30 minutos en vuelo
 
 ```{r TFB12, echo=FALSE, eval=FALSE}
 
@@ -198,7 +211,7 @@ filter(atraso_salida >= 60 & atraso_llegada <= -30)
 filter(atraso_salida >= 60 & atraso_salida - atraso_llegada <= 30 )
 ```
 
- - Selecciona solamente los vuelos que partieron entre la medianoche y las 6a.m. (incluyente)
+ 7.  Selecciona solamente los vuelos que partieron entre la medianoche y las 6a.m. (incluyente)
 
 ```{r TFB13, echo=FALSE, eval=FALSE}
 names(vuelos) # 360 minutos
@@ -209,7 +222,7 @@ dplyr::select(horario_salida) %>%
 filter(horario_salida <=600)
 ```
 
- -  Otra función de dplyr que es útil para usar filtros es between(). ¿Qué hace? ¿Puedes usarla para simplificar el código necesario para responder a los desafíos anteriores?
+ 8.   Otra función de dplyr que es útil para usar filtros es between(). ¿Qué hace? ¿Puedes usarla para simplificar el código necesario para responder a los desafíos anteriores?
 
 ```{r TFB14, echo=FALSE, eval=FALSE}
 vuelos %>%
@@ -225,7 +238,7 @@ filter(between(horario_salida, 00, 360))
 
 
 
- - Determinar cual "aerolinea" tiene más vuelos
+ 9.  Determinar cual "aerolinea" tiene más vuelos
 
 ```{r TFB15, echo=FALSE, eval=FALSE}
 vuelos %>% select(anio, mes, dia, horario_salida, horario_llegada, aerolinea) |> 
