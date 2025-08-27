@@ -52,19 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="libs/wordcloud2-0.0.1/wordcloud.css" rel="stylesheet" />
-<script src="libs/wordcloud2-0.0.1/wordcloud2-all.js"></script>
-<script src="libs/wordcloud2-0.0.1/hover.js"></script>
-<script src="libs/wordcloud2-binding-0.2.1/wordcloud2.js"></script>
-<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/proj4-2.6.2/proj4.min.js"></script>
-<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -328,11 +315,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.1" data-path="pipes.html"><a href="pipes.html#temas-el-paquete-magrittr-y-sus-funciones"><i class="fa fa-check"></i><b>14.1</b> Temas: El paquete “magrittr” y sus funciones</a></li>
 <li class="chapter" data-level="14.2" data-path="pipes.html"><a href="pipes.html#pipes-1"><i class="fa fa-check"></i><b>14.2</b> %&gt;% pipes</a></li>
 <li class="chapter" data-level="14.3" data-path="pipes.html"><a href="pipes.html#alternativas-a-los-pipes"><i class="fa fa-check"></i><b>14.3</b> Alternativas a los pipes</a></li>
-<li class="chapter" data-level="14.4" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>14.4</b> %$%</a>
-<ul>
-<li class="chapter" data-level="14.4.1" data-path="pipes.html"><a href="pipes.html#otro-ejemplo-de-pipe"><i class="fa fa-check"></i><b>14.4.1</b> Otro ejemplo de Pipe: %$%</a></li>
-</ul></li>
-<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-3"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
+<li><a href="pipes.html#otro-ejemplo-de-pipe" id="toc-otro-ejemplo-de-pipe"><span class="toc-section-number">14.4</span> %<span class="math inline">\(%
+### Otro ejemplo de Pipe: %\)</span>%</a></li>
+<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
 <li class="chapter" data-level="14.6" data-path="pipes.html"><a href="pipes.html#in"><i class="fa fa-check"></i><b>14.6</b> %in%</a></li>
 <li class="chapter" data-level="14.7" data-path="pipes.html"><a href="pipes.html#t"><i class="fa fa-check"></i><b>14.7</b> %T&gt;%</a></li>
 </ul></li>
@@ -415,38 +400,39 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="20.1" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html"><i class="fa fa-check"></i><b>20.1</b> Caracteres especiales</a></li>
 <li class="chapter" data-level="20.2" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#para-ver-las-opciones-de-caracteres-y-como-trabajar-cadenas-de-caracteres-use-para-ver"><i class="fa fa-check"></i><b>20.2</b> Para ver las opciones de caracteres y como trabajar cadenas de caracteres use <strong>?“’”</strong> para ver</a></li>
-<li class="chapter" data-level="20.3" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#temas-cadenas-de-caracteres"><i class="fa fa-check"></i><b>20.3</b> Temas: Cadenas de Caracteres</a>
+<li class="chapter" data-level="20.3" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#lista-de-caracteres-especiales-unicodes"><i class="fa fa-check"></i><b>20.3</b> Lista de caracteres especiales (unicodes)</a></li>
+<li class="chapter" data-level="20.4" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#temas-cadenas-de-caracteres"><i class="fa fa-check"></i><b>20.4</b> Temas: Cadenas de Caracteres</a>
 <ul>
-<li class="chapter" data-level="20.3.1" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#el-largo-de-una-cadena-de-caracteres-con-str_length"><i class="fa fa-check"></i><b>20.3.1</b> El largo de una cadena de caracteres con <strong>str_length</strong></a></li>
-<li class="chapter" data-level="20.3.2" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#combinar-cadenas-con-str_c"><i class="fa fa-check"></i><b>20.3.2</b> Combinar cadenas con <strong>str_c</strong></a></li>
+<li class="chapter" data-level="20.4.1" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#el-largo-de-una-cadena-de-caracteres-con-str_length"><i class="fa fa-check"></i><b>20.4.1</b> El largo de una cadena de caracteres con <strong>str_length</strong></a></li>
+<li class="chapter" data-level="20.4.2" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#combinar-cadenas-con-str_c"><i class="fa fa-check"></i><b>20.4.2</b> Combinar cadenas con <strong>str_c</strong></a></li>
 </ul></li>
-<li class="chapter" data-level="20.4" data-path=""><a href="#dividir-cadenas-basado-en-la-posici%C3%B3n-de-los-caracteres-en-la-cadena"><i class="fa fa-check"></i><b>20.4</b> Dividir cadenas basado en la posición de los caracteres en la cadena</a>
+<li class="chapter" data-level="20.5" data-path=""><a href="#dividir-cadenas-basado-en-la-posici%C3%B3n-de-los-caracteres-en-la-cadena"><i class="fa fa-check"></i><b>20.5</b> Dividir cadenas basado en la posición de los caracteres en la cadena</a>
 <ul>
-<li class="chapter" data-level="20.4.1" data-path=""><a href="#seleccionar-los-caracteres-al-%C3%BAltimo-de-la-palabra"><i class="fa fa-check"></i><b>20.4.1</b> Seleccionar los caracteres al último de la palabra</a></li>
-<li class="chapter" data-level="20.4.2" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#cambiar-a-todo-minuscula"><i class="fa fa-check"></i><b>20.4.2</b> Cambiar a todo minuscula</a></li>
-<li class="chapter" data-level="20.4.3" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#cambiar-a-mayuscula"><i class="fa fa-check"></i><b>20.4.3</b> Cambiar a mayuscula</a></li>
+<li class="chapter" data-level="20.5.1" data-path=""><a href="#seleccionar-los-caracteres-al-%C3%BAltimo-de-la-palabra"><i class="fa fa-check"></i><b>20.5.1</b> Seleccionar los caracteres al último de la palabra</a></li>
+<li class="chapter" data-level="20.5.2" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#cambiar-a-todo-minuscula"><i class="fa fa-check"></i><b>20.5.2</b> Cambiar a todo minuscula</a></li>
+<li class="chapter" data-level="20.5.3" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#cambiar-a-mayuscula"><i class="fa fa-check"></i><b>20.5.3</b> Cambiar a mayuscula</a></li>
 </ul></li>
-<li class="chapter" data-level="20.5" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#locales"><i class="fa fa-check"></i><b>20.5</b> Locales</a></li>
-<li class="chapter" data-level="20.6" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#buscar-patrones"><i class="fa fa-check"></i><b>20.6</b> Buscar patrones</a></li>
-<li class="chapter" data-level="20.7" data-path=""><a href="#coincidencia-b%C3%A1sica"><i class="fa fa-check"></i><b>20.7</b> Coincidencia básica</a>
+<li class="chapter" data-level="20.6" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#locales"><i class="fa fa-check"></i><b>20.6</b> Locales</a></li>
+<li class="chapter" data-level="20.7" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#buscar-patrones"><i class="fa fa-check"></i><b>20.7</b> Buscar patrones</a></li>
+<li class="chapter" data-level="20.8" data-path=""><a href="#coincidencia-b%C3%A1sica"><i class="fa fa-check"></i><b>20.8</b> Coincidencia básica</a>
 <ul>
-<li class="chapter" data-level="20.7.1" data-path=""><a href="#detectar-las-palabras-que-comienzan-con-una-letra-espec%C3%ADfica-con"><i class="fa fa-check"></i><b>20.7.1</b> Detectar las palabras que comienzan con una letra específica con “^”</a></li>
-<li class="chapter" data-level="20.7.2" data-path=""><a href="#detectar-las-palabras-que-terminan-con-una-letra-espec%C3%ADfica-con"><i class="fa fa-check"></i><b>20.7.2</b> Detectar las palabras que terminan con una letra específica con “$”</a></li>
+<li class="chapter" data-level="20.8.1" data-path=""><a href="#detectar-las-palabras-que-comienzan-con-una-letra-espec%C3%ADfica-con"><i class="fa fa-check"></i><b>20.8.1</b> Detectar las palabras que comienzan con una letra específica con “^”</a></li>
+<li class="chapter" data-level="20.8.2" data-path=""><a href="#detectar-las-palabras-que-terminan-con-una-letra-espec%C3%ADfica-con"><i class="fa fa-check"></i><b>20.8.2</b> Detectar las palabras que terminan con una letra específica con “$”</a></li>
 </ul></li>
-<li class="chapter" data-level="20.8" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#anclas"><i class="fa fa-check"></i><b>20.8</b> Anclas</a></li>
-<li class="chapter" data-level="20.9" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#clases-de-caracteres-y-alternativas"><i class="fa fa-check"></i><b>20.9</b> Clases de caracteres y alternativas</a></li>
-<li class="chapter" data-level="20.10" data-path=""><a href="#repetici%C3%B3n"><i class="fa fa-check"></i><b>20.10</b> Repetición</a></li>
-<li class="chapter" data-level="20.11" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#agrupamiento-y-referencias-previas"><i class="fa fa-check"></i><b>20.11</b> Agrupamiento y referencias previas</a></li>
-<li class="chapter" data-level="20.12" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#herramientas-objetivos"><i class="fa fa-check"></i><b>20.12</b> Herramientas: Objetivos</a>
+<li class="chapter" data-level="20.9" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#anclas"><i class="fa fa-check"></i><b>20.9</b> Anclas</a></li>
+<li class="chapter" data-level="20.10" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#clases-de-caracteres-y-alternativas"><i class="fa fa-check"></i><b>20.10</b> Clases de caracteres y alternativas</a></li>
+<li class="chapter" data-level="20.11" data-path=""><a href="#repetici%C3%B3n"><i class="fa fa-check"></i><b>20.11</b> Repetición</a></li>
+<li class="chapter" data-level="20.12" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#agrupamiento-y-referencias-previas"><i class="fa fa-check"></i><b>20.12</b> Agrupamiento y referencias previas</a></li>
+<li class="chapter" data-level="20.13" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#herramientas-objetivos"><i class="fa fa-check"></i><b>20.13</b> Herramientas: Objetivos</a>
 <ul>
-<li class="chapter" data-level="20.12.1" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#detectar-coincidencias"><i class="fa fa-check"></i><b>20.12.1</b> Detectar coincidencias</a></li>
+<li class="chapter" data-level="20.13.1" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#detectar-coincidencias"><i class="fa fa-check"></i><b>20.13.1</b> Detectar coincidencias</a></li>
 </ul></li>
-<li class="chapter" data-level="20.13" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#extraer-coincidencias"><i class="fa fa-check"></i><b>20.13</b> Extraer coincidencias</a></li>
-<li class="chapter" data-level="20.14" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#coincidencias-agrupadas"><i class="fa fa-check"></i><b>20.14</b> Coincidencias agrupadas:</a></li>
-<li class="chapter" data-level="20.15" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#remplazar-coincidencias"><i class="fa fa-check"></i><b>20.15</b> Remplazar coincidencias</a></li>
-<li class="chapter" data-level="20.16" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#divisiones"><i class="fa fa-check"></i><b>20.16</b> Divisiones</a></li>
-<li class="chapter" data-level="20.17" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#otro-tipos-de-patrones"><i class="fa fa-check"></i><b>20.17</b> Otro tipos de patrones</a></li>
-<li class="chapter" data-level="20.18" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#stringi"><i class="fa fa-check"></i><b>20.18</b> stringi:</a></li>
+<li class="chapter" data-level="20.14" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#extraer-coincidencias"><i class="fa fa-check"></i><b>20.14</b> Extraer coincidencias</a></li>
+<li class="chapter" data-level="20.15" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#coincidencias-agrupadas"><i class="fa fa-check"></i><b>20.15</b> Coincidencias agrupadas:</a></li>
+<li class="chapter" data-level="20.16" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#remplazar-coincidencias"><i class="fa fa-check"></i><b>20.16</b> Remplazar coincidencias</a></li>
+<li class="chapter" data-level="20.17" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#divisiones"><i class="fa fa-check"></i><b>20.17</b> Divisiones</a></li>
+<li class="chapter" data-level="20.18" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#otro-tipos-de-patrones"><i class="fa fa-check"></i><b>20.18</b> Otro tipos de patrones</a></li>
+<li class="chapter" data-level="20.19" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#stringi"><i class="fa fa-check"></i><b>20.19</b> stringi:</a></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="math-sci.html"><a href="math-sci.html"><i class="fa fa-check"></i><b>21</b> Ecuaciones Matemáticas</a>
 <ul>
@@ -466,14 +452,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="22" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html"><i class="fa fa-check"></i><b>22</b> Opciones de Knitr</a>
 <ul>
-<li class="chapter" data-level="22.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#para-ver-las-opciones-de-knitr-de-los-chunk"><i class="fa fa-check"></i><b>22.1</b> Para ver las opciones de <strong>knitr</strong> de los chunk</a></li>
-<li class="chapter" data-level="22.2" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#tablas-de-opciones-principales"><i class="fa fa-check"></i><b>22.2</b> Tablas de opciones principales</a>
+<li class="chapter" data-level="22.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#para-ver-las-opciones-de-knitr-de-los-chunk"><i class="fa fa-check"></i><b>22.1</b> Para ver las opciones de <strong>knitr</strong> de los chunk</a>
 <ul>
-<li class="chapter" data-level="22.2.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#otras-funciones-de-knitr"><i class="fa fa-check"></i><b>22.2.1</b> OTRAS funciones de knitr</a></li>
+<li class="chapter" data-level="22.1.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#otras-funciones-de-knitr"><i class="fa fa-check"></i><b>22.1.1</b> OTRAS funciones de knitr</a></li>
 </ul></li>
-<li class="chapter" data-level="22.3" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#emoji-or-symbols"><i class="fa fa-check"></i><b>22.3</b> Emoji or Symbols</a>
+<li class="chapter" data-level="22.2" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#emoji-or-symbols"><i class="fa fa-check"></i><b>22.2</b> Emoji or Symbols</a>
 <ul>
-<li class="chapter" data-level="22.3.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#select-under-the-edit-emoji-symbols."><i class="fa fa-check"></i><b>22.3.1</b> Select Under the Edit ➡ Emoji &amp; Symbols.</a></li>
+<li class="chapter" data-level="22.2.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#select-under-the-edit-emoji-symbols."><i class="fa fa-check"></i><b>22.2.1</b> Select Under the Edit ➡ Emoji &amp; Symbols.</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="23" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html"><i class="fa fa-check"></i><b>23</b> Fechas, horas y minutas</a>
@@ -564,23 +549,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="26.7" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#utilizando-leaflet"><i class="fa fa-check"></i><b>26.7</b> Utilizando Leaflet</a></li>
 <li class="chapter" data-level="26.8" data-path=""><a href="#trabajando-variables-categ%C3%B3ricas-con-leaflet"><i class="fa fa-check"></i><b>26.8</b> Trabajando Variables Categóricas con Leaflet:</a></li>
 </ul></li>
-<li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="appendix-a.html"><a href="appendix-a.html"><i class="fa fa-check"></i><b>A</b> Appendix A</a>
+<li class="chapter" data-level="" data-path=""><a href="#appendix-appendix"><i class="fa fa-check"></i>(APPENDIX) Appendix</a>
 <ul>
-<li class="chapter" data-level="A.1" data-path=""><a href="#ejercicio-de-transformaci%C3%B3n"><i class="fa fa-check"></i><b>A.1</b> Ejercicio de Transformación</a></li>
+<li class="chapter" data-level="26.9" data-path=""><a href="#ejercicio-de-transformaci%C3%B3n"><i class="fa fa-check"></i><b>26.9</b> Ejercicio de Transformación</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#capitulo-de-transformaci%C3%B3n-de-datos"><i class="fa fa-check"></i>Capitulo de Transformación de Datos</a></li>
-<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#ejercicios-con-destrezar-de-aplicar-algunas-funciones-de-transformaciones-de-datos"><i class="fa fa-check"></i>Ejercicios con destrezar de aplicar algunas funciones de transformaciones de datos</a>
+<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#ejercicios-con-destrezar-de-aplicar-algunas-funciones-de-transformaciones-de-datos"><i class="fa fa-check"></i>Ejercicios con destrezar de aplicar algunas funciones de transformaciones de datos</a>
 <ul>
 <li class="chapter" data-level="" data-path=""><a href="#para-tener-los-puntos-tiene-que-ense%C3%B1ar-todos-los-scripts-los-resultados-y-explicar-en-palabra-los-que-encontr%C3%B3-dentro-de-un-documento-bien-organizado."><i class="fa fa-check"></i>Para tener los puntos tiene que enseñar TODOS los scripts, los resultados y explicar en palabra los que encontró dentro de un documento bien organizado.</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path=""><a href="#busca-el-bateador-que-tuvo-m%C3%A1s-carreras-en-cualquier-a%C3%B1o"><i class="fa fa-check"></i>1. Busca el bateador que tuvo más carreras en cualquier año</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#cual-es-el-nombre-del-bateador-id_jugador-que-estuvo-m%C3%A1s-veces-al_bate-prepara-una-lista-del-bateador-m%C3%A1s-frecuente-al-bate-al-menos"><i class="fa fa-check"></i>2. ¿Cual es el nombre del bateador (id_jugador) que estuvo más veces “al_bate”? Prepara una lista del bateador más frecuente al bate al menos</a></li>
-<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#cuales-son-las-ligas-de-baseball-pelota-que-estan-incluida-en-este-archivo"><i class="fa fa-check"></i>3. ¿Cuales son las “ligas” de baseball (pelota) que estan incluida en este archivo?</a></li>
+<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#cuales-son-las-ligas-de-baseball-pelota-que-estan-incluida-en-este-archivo"><i class="fa fa-check"></i>3. ¿Cuales son las “ligas” de baseball (pelota) que estan incluida en este archivo?</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#selecciona-los-a%C3%B1os-1900-1950-2000-y-2020-y-jonrones-y-hacer-una-tabla-por-a%C3%B1o-que-demuestra-el-m%C3%A1ximo-de-jonrones-para-cada-a%C3%B1o"><i class="fa fa-check"></i>4. Selecciona los años (1900, 1950, 2000 y 2020) y jonrones y hacer una tabla por año que demuestra el máximo de jonrones para cada año</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#haz-una-tabla-de-la-los-jugadores-que-juraron-m%C3%A1s-a%C3%B1os"><i class="fa fa-check"></i>5. Haz una tabla de la los jugadores que juraron más años</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#selecciona-solamente-la-liga-al-los-a%C3%B1os-desde-de-2000-en-adelande-y-determina-cual-es-la-suma-de-carreras-anotadas-por-cada-equipo."><i class="fa fa-check"></i>6. Selecciona solamente la liga “AL”, los años desde de 2000 en adelande, y determina cual es la suma de “carreras” anotadas por cada equipo.</a></li>
 </ul></li>
-<li class="chapter" data-level="B" data-path="appendix-b.html"><a href="appendix-b.html"><i class="fa fa-check"></i><b>B</b> Appendix B</a>
+<li class="chapter" data-level="27" data-path="appendix-b.html"><a href="appendix-b.html"><i class="fa fa-check"></i><b>27</b> Appendix B</a>
 <ul>
 <li class="chapter" data-level="" data-path="appendix-b.html"><a href="appendix-b.html#ejercicios-para-las-funciones-de-transformaciones-2"><i class="fa fa-check"></i>Ejercicios para las funciones de transformaciones 2</a></li>
 <li class="chapter" data-level="" data-path="appendix-b.html"><a href="appendix-b.html#seleccione-los-siguientes-datos-sobre-covid-en-pr"><i class="fa fa-check"></i>Seleccione los siguientes datos sobre COVID en PR</a>
@@ -592,7 +576,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="appendix-b.html"><a href="appendix-b.html#calcular-la-cantidad-cumulativa-de-numero-de-camas-camasicu"><i class="fa fa-check"></i>3. ¿Calcular la cantidad cumulativa de numero de camas CamasICU</a></li>
 <li class="chapter" data-level="" data-path="appendix-b.html"><a href="appendix-b.html#haz-una-grafica-de-la-varianza-y-como-cambia-atravez-del-tiempo."><i class="fa fa-check"></i>4. Haz una grafica de la varianza y como cambia atravez del tiempo.</a></li>
 </ul></li>
-<li class="chapter" data-level="C" data-path="appendix-c.html"><a href="appendix-c.html"><i class="fa fa-check"></i><b>C</b> Appendix C</a>
+<li class="chapter" data-level="28" data-path="appendix-c.html"><a href="appendix-c.html"><i class="fa fa-check"></i><b>28</b> Appendix C</a>
 <ul>
 <li class="chapter" data-level="" data-path="appendix-c.html"><a href="appendix-c.html#calculate-the-age-of-individuals-when-they-were-diagnosed-with-hiv"><i class="fa fa-check"></i>Calculate the age of individuals when they were diagnosed with HIV</a></li>
 <li class="chapter" data-level="" data-path="appendix-c.html"><a href="appendix-c.html#calculate-the-time-between-the-date-of-diagnosis-of-hiv-and-the-date-of-death."><i class="fa fa-check"></i>Calculate the time between the date of diagnosis of HIV and the date of death.</a></li>
