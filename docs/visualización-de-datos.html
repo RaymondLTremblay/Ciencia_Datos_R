@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo3 Visualización de datos | Ciencia de Datos con R</title>
   <meta name="description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
-  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo3 Visualización de datos | Ciencia de Datos con R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-08-20" />
+<meta name="date" content="2025-08-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -199,7 +199,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1.3" data-path="03-Visualizacion_Datos.html"><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>3.1.3</b> Regresión lineal</a></li>
 <li class="chapter" data-level="3.1.4" data-path="03-Visualizacion_Datos.html"><a href="#regresi%C3%B3n-loess"><i class="fa fa-check"></i><b>3.1.4</b> Regresión Loess</a></li>
 <li class="chapter" data-level="3.1.5" data-path="03-Visualizacion_Datos.html"><a href="#regresi%C3%B3n-loess-de-un-grupo"><i class="fa fa-check"></i><b>3.1.5</b> Regresión LOESS de un grupo</a></li>
-<li class="chapter" data-level="3.1.6" data-path="03-Visualizacion_Datos.html"><a href="#regresi%C3%B3n-loess-dos-alternativas"><i class="fa fa-check"></i><b>3.1.6</b> Regresión LOESS: dos alternativas</a></li>
+<li class="chapter" data-level="3.1.6" data-path="03-Visualizacion_Datos.html"><a href="#regresi%C3%B3n-loess-1"><i class="fa fa-check"></i><b>3.1.6</b> Regresión LOESS:</a></li>
 <li class="chapter" data-level="3.1.7" data-path="03-Visualizacion_Datos.html"><a href="#regresi%C3%B3n-lineal-ybmx"><i class="fa fa-check"></i><b>3.1.7</b> Regresión Lineal <span class="math display">\[y=b+mx\]</span></a></li>
 <li class="chapter" data-level="3.1.8" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html#geom_bar"><i class="fa fa-check"></i><b>3.1.8</b> geom_bar()</a></li>
 <li class="chapter" data-level="3.1.9" data-path="03-Visualizacion_Datos.html"><a href="#puntos-con-intervalo-m%C3%ADnimo-y-m%C3%A1ximo"><i class="fa fa-check"></i><b>3.1.9</b> Puntos con intervalo mínimo y máximo</a></li>
@@ -621,7 +621,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="visualización-de-datos" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">Capítulo3</span> Visualización de datos<a href="#visualizaci%C3%B3n-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2025-08-20&quot;</code></pre>
+<pre><code>## [1] &quot;2025-08-27&quot;</code></pre>
 <hr />
 <p>El tema proviene de los siguientes sitios.</p>
 <p>English:
@@ -648,110 +648,137 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="facet_wrap" class="section level3 hasAnchor" number="3.1.2">
 <h3><span class="header-section-number">3.1.2</span> Facet_wrap<a href="visualización-de-datos.html#facet_wrap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="visualización-de-datos.html#cb43-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Anolis) <span class="sc">+</span></span>
-<span id="cb43-2"><a href="visualización-de-datos.html#cb43-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> SVL, <span class="at">y =</span> TAIL, <span class="at">color=</span>SEX_AGE))<span class="sc">+</span></span>
-<span id="cb43-3"><a href="visualización-de-datos.html#cb43-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>SEX_AGE, <span class="at">ncol=</span><span class="dv">1</span>)</span></code></pre></div>
+<span id="cb43-2"><a href="visualización-de-datos.html#cb43-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> SVL, <span class="at">y =</span> TAIL, <span class="at">color=</span>SEX_AGE))<span class="sc">+</span></span>
+<span id="cb43-3"><a href="visualización-de-datos.html#cb43-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Survey_Site)</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD2-1.png" width="672" /></p>
 </div>
 <div id="regresión-lineal" class="section level3 hasAnchor" number="3.1.3">
 <h3><span class="header-section-number">3.1.3</span> Regresión lineal<a href="#regresi%C3%B3n-lineal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="visualización-de-datos.html#cb44-1" tabindex="-1"></a><span class="co"># izquierda</span></span>
 <span id="cb44-2"><a href="visualización-de-datos.html#cb44-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
-<span id="cb44-3"><a href="visualización-de-datos.html#cb44-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista))</span></code></pre></div>
+<span id="cb44-3"><a href="visualización-de-datos.html#cb44-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista))</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD3-1.png" width="672" /></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="visualización-de-datos.html#cb45-1" tabindex="-1"></a><span class="co"># derecha   LOESS  </span></span>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="visualización-de-datos.html#cb45-1" tabindex="-1"></a><span class="co"># derecha   Linear Model </span></span>
 <span id="cb45-2"><a href="visualización-de-datos.html#cb45-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
 <span id="cb45-3"><a href="visualización-de-datos.html#cb45-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm,<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista))<span class="sc">+</span>  <span class="co"># y = mx+b</span></span>
-<span id="cb45-4"><a href="visualización-de-datos.html#cb45-4" tabindex="-1"></a>  <span class="fu">geom_point</span>( <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista))</span></code></pre></div>
+<span id="cb45-4"><a href="visualización-de-datos.html#cb45-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista))</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD3-2.png" width="672" /></p>
 </div>
 <div id="regresión-loess" class="section level3 hasAnchor" number="3.1.4">
 <h3><span class="header-section-number">3.1.4</span> Regresión Loess<a href="#regresi%C3%B3n-loess" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Vea este enlace para información sobre la regresión LOESS</p>
 <p>&lt;<a href="https://en.wikipedia.org/wiki/Local_regression" class="uri">https://en.wikipedia.org/wiki/Local_regression</a>&gt;</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="visualización-de-datos.html#cb46-1" tabindex="-1"></a><span class="fu">names</span>(millas)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="visualización-de-datos.html#cb46-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
+<span id="cb46-2"><a href="visualización-de-datos.html#cb46-2" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista))<span class="sc">+</span>  <span class="co"># y = mx+b</span></span>
+<span id="cb46-3"><a href="visualización-de-datos.html#cb46-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista))</span></code></pre></div>
+<p><img src="Ciencia-Datos-con-R_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="visualización-de-datos.html#cb47-1" tabindex="-1"></a><span class="fu">names</span>(millas)</span></code></pre></div>
 <pre><code>##  [1] &quot;fabricante&quot;  &quot;modelo&quot;      &quot;cilindrada&quot;  &quot;anio&quot;        &quot;cilindros&quot;  
 ##  [6] &quot;transmision&quot; &quot;traccion&quot;    &quot;ciudad&quot;      &quot;autopista&quot;   &quot;combustible&quot;
 ## [11] &quot;clase&quot;</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="visualización-de-datos.html#cb48-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
-<span id="cb48-2"><a href="visualización-de-datos.html#cb48-2" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista, <span class="at">linetype =</span> clase, <span class="at">colour=</span>clase))</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="visualización-de-datos.html#cb49-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
+<span id="cb49-2"><a href="visualización-de-datos.html#cb49-2" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista))<span class="sc">+</span>  </span>
+<span id="cb49-3"><a href="visualización-de-datos.html#cb49-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista))</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="visualización-de-datos.html#cb50-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
+<span id="cb50-2"><a href="visualización-de-datos.html#cb50-2" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista, <span class="at">linetype =</span> clase, <span class="at">colour=</span>clase))</span></code></pre></div>
+<p><img src="Ciencia-Datos-con-R_files/figure-html/VD4-2.png" width="672" /></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="visualización-de-datos.html#cb51-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
+<span id="cb51-2"><a href="visualización-de-datos.html#cb51-2" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm, <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista, <span class="at">linetype =</span> clase, <span class="at">colour=</span>clase))</span></code></pre></div>
+<p><img src="Ciencia-Datos-con-R_files/figure-html/VD4-3.png" width="672" /></p>
 </div>
 <div id="regresión-loess-de-un-grupo" class="section level3 hasAnchor" number="3.1.5">
 <h3><span class="header-section-number">3.1.5</span> Regresión LOESS de un grupo<a href="#regresi%C3%B3n-loess-de-un-grupo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="visualización-de-datos.html#cb49-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
-<span id="cb49-2"><a href="visualización-de-datos.html#cb49-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">color =</span> clase)) <span class="sc">+</span></span>
-<span id="cb49-3"><a href="visualización-de-datos.html#cb49-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> <span class="fu">filter</span>(millas, clase <span class="sc">==</span> <span class="st">&quot;suv&quot;</span>), <span class="at">se =</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="visualización-de-datos.html#cb52-1" tabindex="-1"></a><span class="fu">ggplot</span>(millas,<span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
+<span id="cb52-2"><a href="visualización-de-datos.html#cb52-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> clase)) <span class="sc">+</span></span>
+<span id="cb52-3"><a href="visualización-de-datos.html#cb52-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> <span class="fu">filter</span>(millas, clase <span class="sc">==</span> <span class="st">&quot;suv&quot;</span>), <span class="at">se =</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD5-1.png" width="672" /></p>
 </div>
-<div id="regresión-loess-dos-alternativas" class="section level3 hasAnchor" number="3.1.6">
-<h3><span class="header-section-number">3.1.6</span> Regresión LOESS: dos alternativas<a href="#regresi%C3%B3n-loess-dos-alternativas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="visualización-de-datos.html#cb50-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
-<span id="cb50-2"><a href="visualización-de-datos.html#cb50-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb50-3"><a href="visualización-de-datos.html#cb50-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<div id="regresión-loess-1" class="section level3 hasAnchor" number="3.1.6">
+<h3><span class="header-section-number">3.1.6</span> Regresión LOESS:<a href="#regresi%C3%B3n-loess-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="visualización-de-datos.html#cb53-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
+<span id="cb53-2"><a href="visualización-de-datos.html#cb53-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb53-3"><a href="visualización-de-datos.html#cb53-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD6-1.png" width="672" /></p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="visualización-de-datos.html#cb51-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb51-2"><a href="visualización-de-datos.html#cb51-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> millas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
-<span id="cb51-3"><a href="visualización-de-datos.html#cb51-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">data =</span> millas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista))</span></code></pre></div>
-<p><img src="Ciencia-Datos-con-R_files/figure-html/VD6-2.png" width="672" /></p>
 </div>
 <div id="regresión-lineal-ybmx" class="section level3 hasAnchor" number="3.1.7">
 <h3><span class="header-section-number">3.1.7</span> Regresión Lineal <span class="math display">\[y=b+mx\]</span><a href="#regresi%C3%B3n-lineal-ybmx" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="visualización-de-datos.html#cb52-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
-<span id="cb52-2"><a href="visualización-de-datos.html#cb52-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">color =</span> clase)) <span class="sc">+</span></span>
-<span id="cb52-3"><a href="visualización-de-datos.html#cb52-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="visualización-de-datos.html#cb54-1" tabindex="-1"></a><span class="fu">ggplot</span>(millas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
+<span id="cb54-2"><a href="visualización-de-datos.html#cb54-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">color =</span> clase)) <span class="sc">+</span></span>
+<span id="cb54-3"><a href="visualización-de-datos.html#cb54-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm)</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD7-1.png" width="672" /></p>
 </div>
 <div id="geom_bar" class="section level3 hasAnchor" number="3.1.8">
 <h3><span class="header-section-number">3.1.8</span> geom_bar()<a href="visualización-de-datos.html#geom_bar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="visualización-de-datos.html#cb53-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamantes) <span class="sc">+</span></span>
-<span id="cb53-2"><a href="visualización-de-datos.html#cb53-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> corte))</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="visualización-de-datos.html#cb55-1" tabindex="-1"></a><span class="fu">ggplot</span>(diamantes) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="visualización-de-datos.html#cb55-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> precio))</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD8-1.png" width="672" /></p>
 </div>
 <div id="puntos-con-intervalo-mínimo-y-máximo" class="section level3 hasAnchor" number="3.1.9">
 <h3><span class="header-section-number">3.1.9</span> Puntos con intervalo mínimo y máximo<a href="#puntos-con-intervalo-m%C3%ADnimo-y-m%C3%A1ximo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="visualización-de-datos.html#cb54-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamantes) <span class="sc">+</span></span>
-<span id="cb54-2"><a href="visualización-de-datos.html#cb54-2" tabindex="-1"></a>  <span class="fu">stat_summary</span>(</span>
-<span id="cb54-3"><a href="visualización-de-datos.html#cb54-3" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> corte, <span class="at">y =</span> profundidad),</span>
-<span id="cb54-4"><a href="visualización-de-datos.html#cb54-4" tabindex="-1"></a>    <span class="at">fun.min =</span> min,</span>
-<span id="cb54-5"><a href="visualización-de-datos.html#cb54-5" tabindex="-1"></a>    <span class="at">fun.max =</span> max,</span>
-<span id="cb54-6"><a href="visualización-de-datos.html#cb54-6" tabindex="-1"></a>    <span class="at">fun =</span> median</span>
-<span id="cb54-7"><a href="visualización-de-datos.html#cb54-7" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="visualización-de-datos.html#cb56-1" tabindex="-1"></a><span class="fu">ggplot</span>(diamantes) <span class="sc">+</span></span>
+<span id="cb56-2"><a href="visualización-de-datos.html#cb56-2" tabindex="-1"></a>  <span class="fu">stat_summary</span>(</span>
+<span id="cb56-3"><a href="visualización-de-datos.html#cb56-3" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> color, <span class="at">y =</span> precio),</span>
+<span id="cb56-4"><a href="visualización-de-datos.html#cb56-4" tabindex="-1"></a>    <span class="at">fun.min =</span> min,</span>
+<span id="cb56-5"><a href="visualización-de-datos.html#cb56-5" tabindex="-1"></a>    <span class="at">fun.max =</span> max,</span>
+<span id="cb56-6"><a href="visualización-de-datos.html#cb56-6" tabindex="-1"></a>    <span class="at">fun =</span> median</span>
+<span id="cb56-7"><a href="visualización-de-datos.html#cb56-7" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD9-1.png" width="672" /></p>
 </div>
 <div id="geom_boxplot" class="section level3 hasAnchor" number="3.1.10">
 <h3><span class="header-section-number">3.1.10</span> geom_boxplot<a href="visualización-de-datos.html#geom_boxplot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="visualización-de-datos.html#cb55-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> clase, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
-<span id="cb55-2"><a href="visualización-de-datos.html#cb55-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="visualización-de-datos.html#cb57-1" tabindex="-1"></a><span class="fu">ggplot</span>(millas, <span class="fu">aes</span>(<span class="at">x =</span> clase, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
+<span id="cb57-2"><a href="visualización-de-datos.html#cb57-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/V10-1.png" width="672" /></p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="visualización-de-datos.html#cb56-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> clase, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
-<span id="cb56-2"><a href="visualización-de-datos.html#cb56-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb56-3"><a href="visualización-de-datos.html#cb56-3" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="visualización-de-datos.html#cb58-1" tabindex="-1"></a><span class="fu">ggplot</span>( millas, <span class="fu">aes</span>(<span class="at">x =</span> clase, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
+<span id="cb58-2"><a href="visualización-de-datos.html#cb58-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb58-3"><a href="visualización-de-datos.html#cb58-3" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/V10-2.png" width="672" /></p>
 </div>
 <div id="geom_bar-y-circular" class="section level3 hasAnchor" number="3.1.11">
 <h3><span class="header-section-number">3.1.11</span> geom_bar y circular<a href="visualización-de-datos.html#geom_bar-y-circular" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="visualización-de-datos.html#cb57-1" tabindex="-1"></a>bar <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> diamantes) <span class="sc">+</span></span>
-<span id="cb57-2"><a href="visualización-de-datos.html#cb57-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(</span>
-<span id="cb57-3"><a href="visualización-de-datos.html#cb57-3" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> corte, <span class="at">fill =</span> corte),</span>
-<span id="cb57-4"><a href="visualización-de-datos.html#cb57-4" tabindex="-1"></a>    <span class="at">show.legend =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb57-5"><a href="visualización-de-datos.html#cb57-5" tabindex="-1"></a>    <span class="at">width =</span> <span class="dv">1</span></span>
-<span id="cb57-6"><a href="visualización-de-datos.html#cb57-6" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb57-7"><a href="visualización-de-datos.html#cb57-7" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb57-8"><a href="visualización-de-datos.html#cb57-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="visualización-de-datos.html#cb59-1" tabindex="-1"></a>bar <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> diamantes) <span class="sc">+</span></span>
+<span id="cb59-2"><a href="visualización-de-datos.html#cb59-2" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> corte, <span class="at">fill =</span> corte),</span>
+<span id="cb59-3"><a href="visualización-de-datos.html#cb59-3" tabindex="-1"></a>    <span class="at">show.legend =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb59-4"><a href="visualización-de-datos.html#cb59-4" tabindex="-1"></a>    <span class="at">width =</span> <span class="dv">1</span></span>
+<span id="cb59-5"><a href="visualización-de-datos.html#cb59-5" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb59-6"><a href="visualización-de-datos.html#cb59-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb59-7"><a href="visualización-de-datos.html#cb59-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <div id="geom_bar-1" class="section level4 hasAnchor" number="3.1.11.1">
 <h4><span class="header-section-number">3.1.11.1</span> geom_bar<a href="visualización-de-datos.html#geom_bar-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="visualización-de-datos.html#cb58-1" tabindex="-1"></a>bar</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="visualización-de-datos.html#cb60-1" tabindex="-1"></a>bar</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD12-1.png" width="672" /></p>
 </div>
 <div id="geom_bar-flip-coordinates" class="section level4 hasAnchor" number="3.1.11.2">
 <h4><span class="header-section-number">3.1.11.2</span> geom_bar &amp; flip coordinates<a href="visualización-de-datos.html#geom_bar-flip-coordinates" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="visualización-de-datos.html#cb59-1" tabindex="-1"></a>bar <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="visualización-de-datos.html#cb61-1" tabindex="-1"></a>bar <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD13-1.png" width="672" /></p>
 </div>
 <div id="geom_bar-circular-distribution" class="section level4 hasAnchor" number="3.1.11.3">
 <h4><span class="header-section-number">3.1.11.3</span> geom_bar &amp; circular distribution<a href="visualización-de-datos.html#geom_bar-circular-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="visualización-de-datos.html#cb60-1" tabindex="-1"></a>bar <span class="sc">+</span> <span class="fu">coord_polar</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="visualización-de-datos.html#cb62-1" tabindex="-1"></a>bar <span class="sc">+</span> <span class="fu">coord_polar</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD14-1.png" width="672" /></p>
+<p>Donut Chart</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="visualización-de-datos.html#cb63-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb63-2"><a href="visualización-de-datos.html#cb63-2" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb63-3"><a href="visualización-de-datos.html#cb63-3" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb63-4"><a href="visualización-de-datos.html#cb63-4" tabindex="-1"></a>  <span class="at">Category =</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>),</span>
+<span id="cb63-5"><a href="visualización-de-datos.html#cb63-5" tabindex="-1"></a>  <span class="at">Value =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">10</span>)</span>
+<span id="cb63-6"><a href="visualización-de-datos.html#cb63-6" tabindex="-1"></a>)</span>
+<span id="cb63-7"><a href="visualización-de-datos.html#cb63-7" tabindex="-1"></a></span>
+<span id="cb63-8"><a href="visualización-de-datos.html#cb63-8" tabindex="-1"></a>pie_chart <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> Value, <span class="at">fill =</span> Category)) <span class="sc">+</span></span>
+<span id="cb63-9"><a href="visualización-de-datos.html#cb63-9" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb63-10"><a href="visualización-de-datos.html#cb63-10" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="at">theta =</span> <span class="st">&quot;y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb63-11"><a href="visualización-de-datos.html#cb63-11" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb63-12"><a href="visualización-de-datos.html#cb63-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Category&quot;</span>)</span>
+<span id="cb63-13"><a href="visualización-de-datos.html#cb63-13" tabindex="-1"></a></span>
+<span id="cb63-14"><a href="visualización-de-datos.html#cb63-14" tabindex="-1"></a>donut_chart <span class="ot">&lt;-</span> pie_chart <span class="sc">+</span> </span>
+<span id="cb63-15"><a href="visualización-de-datos.html#cb63-15" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">data =</span> data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> Value), <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, </span>
+<span id="cb63-16"><a href="visualización-de-datos.html#cb63-16" tabindex="-1"></a>           <span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
+<span id="cb63-17"><a href="visualización-de-datos.html#cb63-17" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb63-18"><a href="visualización-de-datos.html#cb63-18" tabindex="-1"></a></span>
+<span id="cb63-19"><a href="visualización-de-datos.html#cb63-19" tabindex="-1"></a>donut_chart</span></code></pre></div>
+<p><img src="Ciencia-Datos-con-R_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 </div>
 </div>
 </div>
@@ -828,10 +855,10 @@ Son tres graficas que tendrán que someter</li>
 <li>Enseña el modelo de regresion lineal solamente para AFRICA y ASIA (en la misma gráfica) (3 puntos)</li>
 </ol>
 <p>Someter las tres gráficas en formato .jpeg o .png en el portal.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="visualización-de-datos.html#cb61-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb61-2"><a href="visualización-de-datos.html#cb61-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb61-3"><a href="visualización-de-datos.html#cb61-3" tabindex="-1"></a><span class="fu">library</span>(ggversa)</span></code></pre></div>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="visualización-de-datos.html#cb62-1" tabindex="-1"></a><span class="fu">head</span>(PartosInfantes)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="visualización-de-datos.html#cb64-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb64-2"><a href="visualización-de-datos.html#cb64-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb64-3"><a href="visualización-de-datos.html#cb64-3" tabindex="-1"></a><span class="fu">library</span>(ggversa)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="visualización-de-datos.html#cb65-1" tabindex="-1"></a><span class="fu">head</span>(PartosInfantes)</span></code></pre></div>
 <pre><code>##     NMI  NMP      GSPC Grupo      Pais
 ## 1  8723  400  605.1878    AM Argentina
 ## 2    60    5 1720.1595    AM   Bahamas
@@ -839,7 +866,7 @@ Son tres graficas que tendrán que someter</li>
 ## 4   121    2  278.5792    AM    Belize
 ## 5  7756  540  208.7842    AM   Bolivia
 ## 6 45682 1400  947.4277    AM    Brazil</code></pre>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="visualización-de-datos.html#cb64-1" tabindex="-1"></a><span class="co">#unique(PartosInfantes$Pais)</span></span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="visualización-de-datos.html#cb67-1" tabindex="-1"></a><span class="co">#unique(PartosInfantes$Pais)</span></span></code></pre></div>
 <p>Hacer un grafico de puntos entre el numero de muertes por infante y la cantidad la cantidad de madres que mueren en el parto</p>
 <p>Añadir al grafico anterior un modelo lineal (linear model)</p>
 <p>Añadir un color a los puntos por grupo “region”. AM=America, EU= Union Europea, AF= Africa, O=Oceania, AS=Asia, Medio Oriente,</p>
@@ -850,39 +877,39 @@ Son tres graficas que tendrán que someter</li>
 <ol style="list-style-type: decimal">
 <li>¿Qué no va bien en este código? ¿Por qué hay puntos que no son azules en el siguiente codigo?</li>
 </ol>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="visualización-de-datos.html#cb65-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
-<span id="cb65-2"><a href="visualización-de-datos.html#cb65-2" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="visualización-de-datos.html#cb68-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
+<span id="cb68-2"><a href="visualización-de-datos.html#cb68-2" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista, <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Por que la gráfica no se produce en el siguiente código</li>
 </ol>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="visualización-de-datos.html#cb66-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas)</span>
-<span id="cb66-2"><a href="visualización-de-datos.html#cb66-2" tabindex="-1"></a><span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista))</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="visualización-de-datos.html#cb69-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas)</span>
+<span id="cb69-2"><a href="visualización-de-datos.html#cb69-2" tabindex="-1"></a><span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista))</span></code></pre></div>
 </div>
 </div>
 <div id="vea-el-siguiente-gráfico" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Vea el siguiente gráfico<a href="#vea-el-siguiente-gr%C3%A1fico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="visualización-de-datos.html#cb67-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
-<span id="cb67-2"><a href="visualización-de-datos.html#cb67-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
-<span id="cb67-3"><a href="visualización-de-datos.html#cb67-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(traccion <span class="sc">~</span> cilindros)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="visualización-de-datos.html#cb70-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
+<span id="cb70-2"><a href="visualización-de-datos.html#cb70-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
+<span id="cb70-3"><a href="visualización-de-datos.html#cb70-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(traccion <span class="sc">~</span> cilindros)</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD23-1.png" width="672" /></p>
 <ol start="3" style="list-style-type: decimal">
 <li><p>¿Por qué hay facetas que son vacias?</p></li>
 <li><p>Explica que hace “.”? en estas funciones</p></li>
 </ol>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="visualización-de-datos.html#cb68-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
-<span id="cb68-2"><a href="visualización-de-datos.html#cb68-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
-<span id="cb68-3"><a href="visualización-de-datos.html#cb68-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(traccion <span class="sc">~</span> .)</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="visualización-de-datos.html#cb71-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
+<span id="cb71-2"><a href="visualización-de-datos.html#cb71-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
+<span id="cb71-3"><a href="visualización-de-datos.html#cb71-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(traccion <span class="sc">~</span> .)</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD24-1.png" width="672" /></p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="visualización-de-datos.html#cb69-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
-<span id="cb69-2"><a href="visualización-de-datos.html#cb69-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
-<span id="cb69-3"><a href="visualización-de-datos.html#cb69-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> cilindros)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="visualización-de-datos.html#cb72-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
+<span id="cb72-2"><a href="visualización-de-datos.html#cb72-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
+<span id="cb72-3"><a href="visualización-de-datos.html#cb72-3" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> cilindros)</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD24-2.png" width="672" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Qué hace <strong>nrow</strong> en este código</li>
 </ol>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="visualización-de-datos.html#cb70-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
-<span id="cb70-2"><a href="visualización-de-datos.html#cb70-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
-<span id="cb70-3"><a href="visualización-de-datos.html#cb70-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> clase, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="visualización-de-datos.html#cb73-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> millas) <span class="sc">+</span></span>
+<span id="cb73-2"><a href="visualización-de-datos.html#cb73-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cilindrada, <span class="at">y =</span> autopista)) <span class="sc">+</span></span>
+<span id="cb73-3"><a href="visualización-de-datos.html#cb73-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> clase, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/VD25-1.png" width="672" /></p>
 
 </div>

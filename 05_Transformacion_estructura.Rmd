@@ -50,7 +50,7 @@ vuelos
 -   cual función usará
 
 ```{r TF3}
-unique(vuelos$destino)
+sort(unique(vuelos$destino))
 
 ```
 
@@ -67,7 +67,17 @@ vuelos %>%
 vuelos %>%
   filter(destino=="SJU") %>%
   filter(mes==12, dia==25) %>% 
-  filter(aerolinea %in% c("AA", "UA"))  #pipe Command shift M
+  filter(aerolinea =="UA")
+
+vuelos %>%
+  filter(destino=="SJU") %>%
+  filter(mes==12, dia==25) %>% 
+  filter(aerolinea %in% c("AA", "UA"))
+
+unique(vuelos$aerolinea)
+
+
+# |>  pipe Command shift M
 ```
 
 ### Selecciona los vuelos que salen de San Juan en el dia de ti cumpleaños y contabiliza cuanto hubo
@@ -75,7 +85,7 @@ vuelos %>%
 ```{r TF6}
 df_dia_cumpl=vuelos %>%  
 filter(destino =="SJU") %>% 
-  filter(mes== 8, dia== 1) |> 
+  filter(mes== 2, dia %in% c(1,2)) |> 
   nrow()
 
 df_dia_cumpl
@@ -94,7 +104,7 @@ names(vuelos)
 vuelos %>% 
   dplyr::select(mes, dia, destino, atraso_salida, atraso_llegada) %>% 
   filter(mes==11) %>% 
-filter(destino =="SJU") %>% 
+  filter(destino =="SJU") %>% 
   arrange(desc(atraso_salida))
 ```
 

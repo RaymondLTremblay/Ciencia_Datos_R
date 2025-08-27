@@ -49,7 +49,7 @@ facet_wrap
 regresión-lineal
 regresión-loess
 regresión-loess-de-un-grupo
-regresión-loess-dos-alternativas
+regresión-loess-1
 regresión-lineal-ybmx
 geom_bar
 puntos-con-intervalo-mínimo-y-máximo

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo7 Transformación: Valores Faltantes | Ciencia de Datos con R</title>
   <meta name="description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
-  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo7 Transformación: Valores Faltantes | Ciencia de Datos con R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-08-20" />
+<meta name="date" content="2025-08-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -199,7 +199,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1.3" data-path="07-Transformacion_Valores_Faltantes.html"><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>3.1.3</b> Regresión lineal</a></li>
 <li class="chapter" data-level="3.1.4" data-path="07-Transformacion_Valores_Faltantes.html"><a href="#regresi%C3%B3n-loess"><i class="fa fa-check"></i><b>3.1.4</b> Regresión Loess</a></li>
 <li class="chapter" data-level="3.1.5" data-path="07-Transformacion_Valores_Faltantes.html"><a href="#regresi%C3%B3n-loess-de-un-grupo"><i class="fa fa-check"></i><b>3.1.5</b> Regresión LOESS de un grupo</a></li>
-<li class="chapter" data-level="3.1.6" data-path="07-Transformacion_Valores_Faltantes.html"><a href="#regresi%C3%B3n-loess-dos-alternativas"><i class="fa fa-check"></i><b>3.1.6</b> Regresión LOESS: dos alternativas</a></li>
+<li class="chapter" data-level="3.1.6" data-path="07-Transformacion_Valores_Faltantes.html"><a href="#regresi%C3%B3n-loess-1"><i class="fa fa-check"></i><b>3.1.6</b> Regresión LOESS:</a></li>
 <li class="chapter" data-level="3.1.7" data-path="07-Transformacion_Valores_Faltantes.html"><a href="#regresi%C3%B3n-lineal-ybmx"><i class="fa fa-check"></i><b>3.1.7</b> Regresión Lineal <span class="math display">\[y=b+mx\]</span></a></li>
 <li class="chapter" data-level="3.1.8" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html#geom_bar"><i class="fa fa-check"></i><b>3.1.8</b> geom_bar()</a></li>
 <li class="chapter" data-level="3.1.9" data-path="07-Transformacion_Valores_Faltantes.html"><a href="#puntos-con-intervalo-m%C3%ADnimo-y-m%C3%A1ximo"><i class="fa fa-check"></i><b>3.1.9</b> Puntos con intervalo mínimo y máximo</a></li>
@@ -620,10 +620,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="transformación-valores-faltantes" class="section level1 hasAnchor" number="7">
 <h1><span class="header-section-number">Capítulo7</span> Transformación: Valores Faltantes<a href="#transformaci%C3%B3n-valores-faltantes" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<pre><code>## [1] &quot;2025-08-20&quot;</code></pre>
+<pre><code>## [1] &quot;2025-08-27&quot;</code></pre>
 <p>Fecha de la ultima revisión</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="transformación-valores-faltantes.html#cb171-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb171-2"><a href="transformación-valores-faltantes.html#cb171-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="transformación-valores-faltantes.html#cb179-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb179-2"><a href="transformación-valores-faltantes.html#cb179-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span></code></pre></div>
 <div id="valores-faltantes" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Valores faltantes<a href="transformación-valores-faltantes.html#valores-faltantes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
@@ -631,34 +631,34 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="qué-pasa-con-los-valores-faltantes-y-resultados-de-analisis-sin-sentido" class="section level3 hasAnchor" number="7.1.1">
 <h3><span class="header-section-number">7.1.1</span> ¿Qué pasa con los valores faltantes y resultados de analisis sin sentido?<a href="#qu%C3%A9-pasa-con-los-valores-faltantes-y-resultados-de-analisis-sin-sentido" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="transformación-valores-faltantes.html#cb172-1" tabindex="-1"></a><span class="dv">2</span><span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="transformación-valores-faltantes.html#cb180-1" tabindex="-1"></a><span class="dv">2</span><span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="transformación-valores-faltantes.html#cb174-1" tabindex="-1"></a><span class="dv">1</span><span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="transformación-valores-faltantes.html#cb182-1" tabindex="-1"></a><span class="dv">1</span><span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="transformación-valores-faltantes.html#cb176-1" tabindex="-1"></a><span class="dv">1</span><span class="sc">^</span><span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="transformación-valores-faltantes.html#cb184-1" tabindex="-1"></a><span class="dv">1</span><span class="sc">^</span><span class="dv">0</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="transformación-valores-faltantes.html#cb178-1" tabindex="-1"></a><span class="cn">NA</span><span class="sc">^</span><span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="transformación-valores-faltantes.html#cb186-1" tabindex="-1"></a><span class="cn">NA</span><span class="sc">^</span><span class="dv">0</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="transformación-valores-faltantes.html#cb180-1" tabindex="-1"></a><span class="co">#NA==1</span></span>
-<span id="cb180-2"><a href="transformación-valores-faltantes.html#cb180-2" tabindex="-1"></a><span class="cn">NA</span><span class="sc">|</span><span class="cn">TRUE</span></span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="transformación-valores-faltantes.html#cb188-1" tabindex="-1"></a><span class="co">#NA==1</span></span>
+<span id="cb188-2"><a href="transformación-valores-faltantes.html#cb188-2" tabindex="-1"></a><span class="cn">NA</span><span class="sc">|</span><span class="cn">TRUE</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="transformación-valores-faltantes.html#cb182-1" tabindex="-1"></a><span class="cn">NA</span><span class="sc">|</span><span class="cn">FALSE</span></span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="transformación-valores-faltantes.html#cb190-1" tabindex="-1"></a><span class="cn">NA</span><span class="sc">|</span><span class="cn">FALSE</span></span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="transformación-valores-faltantes.html#cb184-1" tabindex="-1"></a><span class="cn">FALSE</span> <span class="sc">&amp;</span> <span class="cn">NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="transformación-valores-faltantes.html#cb192-1" tabindex="-1"></a><span class="cn">FALSE</span> <span class="sc">&amp;</span> <span class="cn">NA</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="transformación-valores-faltantes.html#cb186-1" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">&amp;</span> <span class="cn">NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="transformación-valores-faltantes.html#cb194-1" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">&amp;</span> <span class="cn">NA</span></span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="transformación-valores-faltantes.html#cb188-1" tabindex="-1"></a><span class="cn">FALSE</span> <span class="sc">*</span> <span class="cn">NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="transformación-valores-faltantes.html#cb196-1" tabindex="-1"></a><span class="cn">FALSE</span> <span class="sc">*</span> <span class="cn">NA</span></span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="transformación-valores-faltantes.html#cb190-1" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">*</span> <span class="cn">NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="transformación-valores-faltantes.html#cb198-1" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">*</span> <span class="cn">NA</span></span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="transformación-valores-faltantes.html#cb192-1" tabindex="-1"></a><span class="cn">NA</span> <span class="sc">*</span> <span class="dv">0</span>  </span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="transformación-valores-faltantes.html#cb200-1" tabindex="-1"></a><span class="cn">NA</span> <span class="sc">*</span> <span class="dv">0</span>  </span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="transformación-valores-faltantes.html#cb194-1" tabindex="-1"></a><span class="cn">NA</span> <span class="sc">*</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="transformación-valores-faltantes.html#cb202-1" tabindex="-1"></a><span class="cn">NA</span> <span class="sc">*</span> <span class="dv">1</span></span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="transformación-valores-faltantes.html#cb196-1" tabindex="-1"></a><span class="dv">12</span> <span class="sc">*</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="transformación-valores-faltantes.html#cb204-1" tabindex="-1"></a><span class="dv">12</span> <span class="sc">*</span> <span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 36</code></pre>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="transformación-valores-faltantes.html#cb198-1" tabindex="-1"></a><span class="cn">NA</span> <span class="sc">-</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="transformación-valores-faltantes.html#cb206-1" tabindex="-1"></a><span class="cn">NA</span> <span class="sc">-</span> <span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 </div>
 </div>
@@ -669,19 +669,19 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>¿Qué otras variables tienen valores faltantes?</li>
 <li>¿Qué representan estas filas?</li>
 </ul>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="transformación-valores-faltantes.html#cb200-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span></span>
-<span id="cb200-2"><a href="transformación-valores-faltantes.html#cb200-2" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(horario_salida) <span class="sc">%&gt;%</span></span>
-<span id="cb200-3"><a href="transformación-valores-faltantes.html#cb200-3" tabindex="-1"></a><span class="fu">is.na</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb200-4"><a href="transformación-valores-faltantes.html#cb200-4" tabindex="-1"></a>  <span class="fu">table</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="transformación-valores-faltantes.html#cb208-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span></span>
+<span id="cb208-2"><a href="transformación-valores-faltantes.html#cb208-2" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(horario_salida) <span class="sc">%&gt;%</span></span>
+<span id="cb208-3"><a href="transformación-valores-faltantes.html#cb208-3" tabindex="-1"></a><span class="fu">is.na</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb208-4"><a href="transformación-valores-faltantes.html#cb208-4" tabindex="-1"></a>  <span class="fu">table</span>()</span></code></pre></div>
 <pre><code>## .
 ##  FALSE   TRUE 
 ## 328521   8255</code></pre>
 </div>
 <div id="seleccionar-solamente-los-vuelos-donde-el-horario-de-salida-es-desconocido" class="section level2 hasAnchor" number="7.3">
 <h2><span class="header-section-number">7.3</span> Seleccionar solamente los vuelos donde el “horario de salida” es desconocido<a href="transformación-valores-faltantes.html#seleccionar-solamente-los-vuelos-donde-el-horario-de-salida-es-desconocido" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="transformación-valores-faltantes.html#cb202-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb202-2"><a href="transformación-valores-faltantes.html#cb202-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, horario_salida, aerolinea) <span class="sc">|&gt;</span> </span>
-<span id="cb202-3"><a href="transformación-valores-faltantes.html#cb202-3" tabindex="-1"></a><span class="fu">filter</span>(<span class="fu">is.na</span>(horario_salida))</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="transformación-valores-faltantes.html#cb210-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb210-2"><a href="transformación-valores-faltantes.html#cb210-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, horario_salida, aerolinea) <span class="sc">|&gt;</span> </span>
+<span id="cb210-3"><a href="transformación-valores-faltantes.html#cb210-3" tabindex="-1"></a><span class="fu">filter</span>(<span class="fu">is.na</span>(horario_salida))</span></code></pre></div>
 <pre><code>## # A tibble: 8,255 × 5
 ##     anio   mes   dia horario_salida aerolinea
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt; &lt;chr&gt;    
@@ -703,9 +703,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>na.rm=TRUE</li>
 <li>!is.na() = is not NA, pq al frente tiene “!”</li>
 </ul>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="transformación-valores-faltantes.html#cb204-1" tabindex="-1"></a>no_cancelados <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb204-2"><a href="transformación-valores-faltantes.html#cb204-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(atraso_salida), <span class="sc">!</span><span class="fu">is.na</span>(atraso_llegada))</span>
-<span id="cb204-3"><a href="transformación-valores-faltantes.html#cb204-3" tabindex="-1"></a>no_cancelados</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="transformación-valores-faltantes.html#cb212-1" tabindex="-1"></a>no_cancelados <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb212-2"><a href="transformación-valores-faltantes.html#cb212-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(atraso_salida), <span class="sc">!</span><span class="fu">is.na</span>(atraso_llegada))</span>
+<span id="cb212-3"><a href="transformación-valores-faltantes.html#cb212-3" tabindex="-1"></a>no_cancelados</span></code></pre></div>
 <pre><code>## # A tibble: 327,346 × 19
 ##     anio   mes   dia horario_salida salida_programada atraso_salida
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;         &lt;dbl&gt;
@@ -724,9 +724,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;int&gt;, codigo_cola &lt;chr&gt;,
 ## #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 ## #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="transformación-valores-faltantes.html#cb206-1" tabindex="-1"></a>no_cancelados <span class="sc">%&gt;%</span> </span>
-<span id="cb206-2"><a href="transformación-valores-faltantes.html#cb206-2" tabindex="-1"></a>  <span class="fu">group_by</span>(anio, mes, dia) <span class="sc">%&gt;%</span> </span>
-<span id="cb206-3"><a href="transformación-valores-faltantes.html#cb206-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(atraso_salida))</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="transformación-valores-faltantes.html#cb214-1" tabindex="-1"></a>no_cancelados <span class="sc">%&gt;%</span> </span>
+<span id="cb214-2"><a href="transformación-valores-faltantes.html#cb214-2" tabindex="-1"></a>  <span class="fu">group_by</span>(anio, mes, dia) <span class="sc">%&gt;%</span> </span>
+<span id="cb214-3"><a href="transformación-valores-faltantes.html#cb214-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(atraso_salida))</span></code></pre></div>
 <pre><code>## # A tibble: 365 × 4
 ## # Groups:   anio, mes [12]
 ##     anio   mes   dia  mean
@@ -742,9 +742,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  9  2013     1     9  2.30
 ## 10  2013     1    10  2.84
 ## # ℹ 355 more rows</code></pre>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="transformación-valores-faltantes.html#cb208-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb208-2"><a href="transformación-valores-faltantes.html#cb208-2" tabindex="-1"></a>  <span class="fu">group_by</span>(anio, mes, dia) <span class="sc">%&gt;%</span> </span>
-<span id="cb208-3"><a href="transformación-valores-faltantes.html#cb208-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(atraso_salida, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="transformación-valores-faltantes.html#cb216-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb216-2"><a href="transformación-valores-faltantes.html#cb216-2" tabindex="-1"></a>  <span class="fu">group_by</span>(anio, mes, dia) <span class="sc">%&gt;%</span> </span>
+<span id="cb216-3"><a href="transformación-valores-faltantes.html#cb216-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(atraso_salida, <span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 365 × 4
 ## # Groups:   anio, mes [12]
 ##     anio   mes   dia  mean
@@ -760,22 +760,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  9  2013     1     9  2.28
 ## 10  2013     1    10  2.84
 ## # ℹ 355 more rows</code></pre>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="transformación-valores-faltantes.html#cb210-1" tabindex="-1"></a><span class="co">#,</span></span>
-<span id="cb210-2"><a href="transformación-valores-faltantes.html#cb210-2" tabindex="-1"></a><span class="co">#            max=max(atraso_salida,na.rm = TRUE),</span></span>
-<span id="cb210-3"><a href="transformación-valores-faltantes.html#cb210-3" tabindex="-1"></a><span class="co">#            n=n())</span></span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="transformación-valores-faltantes.html#cb218-1" tabindex="-1"></a><span class="co">#,</span></span>
+<span id="cb218-2"><a href="transformación-valores-faltantes.html#cb218-2" tabindex="-1"></a><span class="co">#            max=max(atraso_salida,na.rm = TRUE),</span></span>
+<span id="cb218-3"><a href="transformación-valores-faltantes.html#cb218-3" tabindex="-1"></a><span class="co">#            n=n())</span></span></code></pre></div>
 <p>Reemplazar los NA por “0” en el archivo de datos</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="transformación-valores-faltantes.html#cb211-1" tabindex="-1"></a>datos_NA<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="cn">NA</span>, <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>)</span>
-<span id="cb211-2"><a href="transformación-valores-faltantes.html#cb211-2" tabindex="-1"></a></span>
-<span id="cb211-3"><a href="transformación-valores-faltantes.html#cb211-3" tabindex="-1"></a>datos_NA<span class="ot">=</span><span class="fu">as.data.frame</span>(datos_NA)</span>
-<span id="cb211-4"><a href="transformación-valores-faltantes.html#cb211-4" tabindex="-1"></a></span>
-<span id="cb211-5"><a href="transformación-valores-faltantes.html#cb211-5" tabindex="-1"></a><span class="co">#datos_NA %&gt;%  # Cual es el problema de replace_na(datos_NA, 0) para los analisis?</span></span>
-<span id="cb211-6"><a href="transformación-valores-faltantes.html#cb211-6" tabindex="-1"></a><span class="co">#  mutate(Prom_cum=cummean(replace_na(datos_NA, 0))) %&gt;% </span></span>
-<span id="cb211-7"><a href="transformación-valores-faltantes.html#cb211-7" tabindex="-1"></a><span class="co">#  mutate(Var_cum=cumstats::cumvar(replace_na(datos_NA, 0)))</span></span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="transformación-valores-faltantes.html#cb219-1" tabindex="-1"></a>datos_NA<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="cn">NA</span>, <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb219-2"><a href="transformación-valores-faltantes.html#cb219-2" tabindex="-1"></a></span>
+<span id="cb219-3"><a href="transformación-valores-faltantes.html#cb219-3" tabindex="-1"></a>datos_NA<span class="ot">=</span><span class="fu">as.data.frame</span>(datos_NA)</span>
+<span id="cb219-4"><a href="transformación-valores-faltantes.html#cb219-4" tabindex="-1"></a></span>
+<span id="cb219-5"><a href="transformación-valores-faltantes.html#cb219-5" tabindex="-1"></a><span class="co">#datos_NA %&gt;%  # Cual es el problema de replace_na(datos_NA, 0) para los analisis?</span></span>
+<span id="cb219-6"><a href="transformación-valores-faltantes.html#cb219-6" tabindex="-1"></a><span class="co">#  mutate(Prom_cum=cummean(replace_na(datos_NA, 0))) %&gt;% </span></span>
+<span id="cb219-7"><a href="transformación-valores-faltantes.html#cb219-7" tabindex="-1"></a><span class="co">#  mutate(Var_cum=cumstats::cumvar(replace_na(datos_NA, 0)))</span></span></code></pre></div>
 <p>Remover las filas que tienen NA con la función drop_na()</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="transformación-valores-faltantes.html#cb212-1" tabindex="-1"></a><span class="co">#datos_NA %&gt;% </span></span>
-<span id="cb212-2"><a href="transformación-valores-faltantes.html#cb212-2" tabindex="-1"></a> <span class="co"># drop_na() |&gt; </span></span>
-<span id="cb212-3"><a href="transformación-valores-faltantes.html#cb212-3" tabindex="-1"></a><span class="co">#  mutate(Prom_cum=cummean(datos_NA)) %&gt;% </span></span>
-<span id="cb212-4"><a href="transformación-valores-faltantes.html#cb212-4" tabindex="-1"></a><span class="co">#  mutate(Var_cum=cumstats::cumvar(datos_NA))</span></span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="transformación-valores-faltantes.html#cb220-1" tabindex="-1"></a><span class="co">#datos_NA %&gt;% </span></span>
+<span id="cb220-2"><a href="transformación-valores-faltantes.html#cb220-2" tabindex="-1"></a> <span class="co"># drop_na() |&gt; </span></span>
+<span id="cb220-3"><a href="transformación-valores-faltantes.html#cb220-3" tabindex="-1"></a><span class="co">#  mutate(Prom_cum=cummean(datos_NA)) %&gt;% </span></span>
+<span id="cb220-4"><a href="transformación-valores-faltantes.html#cb220-4" tabindex="-1"></a><span class="co">#  mutate(Var_cum=cumstats::cumvar(datos_NA))</span></span></code></pre></div>
 <hr />
 <hr />
 

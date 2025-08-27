@@ -155,7 +155,6 @@ Ejercicio para someter:
 4. haga un gráfico que incluye lo siguiente
    a. en el eje de x = el SVL. que es el tamaño del lagarto del hocico a la cloaca y en la variable de "TAIL" en el eje de y.
    b. selecciona la variable "SEX_AGE" para color
-   c. selecciona la función correcta para que cada "SEX_AGE" tenga su proprio gráfico
    d. salva el gráfico en .png o .jpg
    e. subir el gráfico aquí
 

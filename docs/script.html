@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo12 Script | Ciencia de Datos con R</title>
   <meta name="description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
-  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo12 Script | Ciencia de Datos con R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-08-20" />
+<meta name="date" content="2025-08-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -199,7 +199,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1.3" data-path="12-Scripts.html"><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>3.1.3</b> Regresión lineal</a></li>
 <li class="chapter" data-level="3.1.4" data-path="12-Scripts.html"><a href="#regresi%C3%B3n-loess"><i class="fa fa-check"></i><b>3.1.4</b> Regresión Loess</a></li>
 <li class="chapter" data-level="3.1.5" data-path="12-Scripts.html"><a href="#regresi%C3%B3n-loess-de-un-grupo"><i class="fa fa-check"></i><b>3.1.5</b> Regresión LOESS de un grupo</a></li>
-<li class="chapter" data-level="3.1.6" data-path="12-Scripts.html"><a href="#regresi%C3%B3n-loess-dos-alternativas"><i class="fa fa-check"></i><b>3.1.6</b> Regresión LOESS: dos alternativas</a></li>
+<li class="chapter" data-level="3.1.6" data-path="12-Scripts.html"><a href="#regresi%C3%B3n-loess-1"><i class="fa fa-check"></i><b>3.1.6</b> Regresión LOESS:</a></li>
 <li class="chapter" data-level="3.1.7" data-path="12-Scripts.html"><a href="#regresi%C3%B3n-lineal-ybmx"><i class="fa fa-check"></i><b>3.1.7</b> Regresión Lineal <span class="math display">\[y=b+mx\]</span></a></li>
 <li class="chapter" data-level="3.1.8" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html#geom_bar"><i class="fa fa-check"></i><b>3.1.8</b> geom_bar()</a></li>
 <li class="chapter" data-level="3.1.9" data-path="12-Scripts.html"><a href="#puntos-con-intervalo-m%C3%ADnimo-y-m%C3%A1ximo"><i class="fa fa-check"></i><b>3.1.9</b> Puntos con intervalo mínimo y máximo</a></li>
@@ -621,7 +621,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="script" class="section level1 hasAnchor" number="12">
 <h1><span class="header-section-number">Capítulo12</span> Script<a href="script.html#script" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2025-08-20&quot;</code></pre>
+<pre><code>## [1] &quot;2025-08-27&quot;</code></pre>
 <hr />
 <p>El tema proviene de los siguientes sitios.</p>
 <p>English: <a href="https://r4ds.had.co.nz/workflow-scripts.html" class="uri">https://r4ds.had.co.nz/workflow-scripts.html</a></p>
@@ -638,11 +638,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Ejercicios</strong>:</li>
 </ol>
 <p>Hacer los ejercicios en la sección 6.3 del libro en español</p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="script.html#cb362-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb362-2"><a href="script.html#cb362-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
-<span id="cb362-3"><a href="script.html#cb362-3" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
-<span id="cb362-4"><a href="script.html#cb362-4" tabindex="-1"></a></span>
-<span id="cb362-5"><a href="script.html#cb362-5" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="script.html#cb370-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb370-2"><a href="script.html#cb370-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb370-3"><a href="script.html#cb370-3" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb370-4"><a href="script.html#cb370-4" tabindex="-1"></a></span>
+<span id="cb370-5"><a href="script.html#cb370-5" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
 <pre><code>##  [1] &quot;anio&quot;               &quot;mes&quot;                &quot;dia&quot;               
 ##  [4] &quot;horario_salida&quot;     &quot;salida_programada&quot;  &quot;atraso_salida&quot;     
 ##  [7] &quot;horario_llegada&quot;    &quot;llegada_programada&quot; &quot;atraso_llegada&quot;    
@@ -650,9 +650,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## [13] &quot;origen&quot;             &quot;destino&quot;            &quot;tiempo_vuelo&quot;      
 ## [16] &quot;distancia&quot;          &quot;hora&quot;               &quot;minuto&quot;            
 ## [19] &quot;fecha_hora&quot;</code></pre>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="script.html#cb364-1" tabindex="-1"></a>no_cancelado <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb364-2"><a href="script.html#cb364-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(atraso_salida), <span class="sc">!</span><span class="fu">is.na</span>(atraso_llegada))</span>
-<span id="cb364-3"><a href="script.html#cb364-3" tabindex="-1"></a><span class="fu">head</span>(no_cancelado)</span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="script.html#cb372-1" tabindex="-1"></a>no_cancelado <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb372-2"><a href="script.html#cb372-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(atraso_salida), <span class="sc">!</span><span class="fu">is.na</span>(atraso_llegada))</span>
+<span id="cb372-3"><a href="script.html#cb372-3" tabindex="-1"></a><span class="fu">head</span>(no_cancelado)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 19
 ##    anio   mes   dia horario_salida salida_programada atraso_salida
 ##   &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;         &lt;dbl&gt;
@@ -666,9 +666,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;int&gt;, codigo_cola &lt;chr&gt;,
 ## #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 ## #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="script.html#cb366-1" tabindex="-1"></a>no_cancelado <span class="sc">%&gt;%</span> </span>
-<span id="cb366-2"><a href="script.html#cb366-2" tabindex="-1"></a>  <span class="fu">group_by</span>(anio, mes, dia) <span class="sc">%&gt;%</span> </span>
-<span id="cb366-3"><a href="script.html#cb366-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(atraso_salida))</span></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="script.html#cb374-1" tabindex="-1"></a>no_cancelado <span class="sc">%&gt;%</span> </span>
+<span id="cb374-2"><a href="script.html#cb374-2" tabindex="-1"></a>  <span class="fu">group_by</span>(anio, mes, dia) <span class="sc">%&gt;%</span> </span>
+<span id="cb374-3"><a href="script.html#cb374-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(atraso_salida))</span></code></pre></div>
 <pre><code>## # A tibble: 365 × 4
 ## # Groups:   anio, mes [12]
 ##     anio   mes   dia media
@@ -684,7 +684,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  9  2013     1     9  2.30
 ## 10  2013     1    10  2.84
 ## # ℹ 355 more rows</code></pre>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="script.html#cb368-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span> </span></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="script.html#cb376-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span> </span></code></pre></div>
 
 </div>
 </div>
