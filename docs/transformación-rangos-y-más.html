@@ -804,23 +804,44 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="la-función-cume_dist" class="section level2 hasAnchor" number="10.8">
 <h2><span class="header-section-number">10.8</span> la función <strong>cume_dist()</strong><a href="#la-funci%C3%B3n-cume_dist" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Es la suma cumulativa de los rangos</p>
-<pre class="rv"><code>set.seed(45678)
-  x &lt;- c(1,2,3,NA,5,4, 10, 8)
-  x
-df=as.tibble(x)
-df
-
-
-df %&gt;% 
-  dplyr::select(value) %&gt;% 
-  mutate(rangos_cumulativo=cume_dist(value)) </code></pre>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="transformación-rangos-y-más.html#cb332-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">45678</span>)</span>
+<span id="cb332-2"><a href="transformación-rangos-y-más.html#cb332-2" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="cn">NA</span>,<span class="dv">5</span>,<span class="dv">4</span>, <span class="dv">10</span>, <span class="dv">8</span>)</span>
+<span id="cb332-3"><a href="transformación-rangos-y-más.html#cb332-3" tabindex="-1"></a>  x</span></code></pre></div>
+<pre><code>## [1]  1  2  3 NA  5  4 10  8</code></pre>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="transformación-rangos-y-más.html#cb334-1" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as.tibble</span>(x)</span>
+<span id="cb334-2"><a href="transformación-rangos-y-más.html#cb334-2" tabindex="-1"></a>df</span></code></pre></div>
+<pre><code>## # A tibble: 8 × 1
+##   value
+##   &lt;dbl&gt;
+## 1     1
+## 2     2
+## 3     3
+## 4    NA
+## 5     5
+## 6     4
+## 7    10
+## 8     8</code></pre>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="transformación-rangos-y-más.html#cb336-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb336-2"><a href="transformación-rangos-y-más.html#cb336-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
+<span id="cb336-3"><a href="transformación-rangos-y-más.html#cb336-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rangos_cumulativo=</span><span class="fu">cume_dist</span>(value)) </span></code></pre></div>
+<pre><code>## # A tibble: 8 × 2
+##   value rangos_cumulativo
+##   &lt;dbl&gt;             &lt;dbl&gt;
+## 1     1             0.143
+## 2     2             0.286
+## 3     3             0.429
+## 4    NA            NA    
+## 5     5             0.714
+## 6     4             0.571
+## 7    10             1    
+## 8     8             0.857</code></pre>
 <hr />
 <ol start="4" style="list-style-type: decimal">
 <li><strong>Ejercicios</strong>:</li>
 </ol>
 <p>Hacer los ejercicios en la sección 5.5.2 del libro en español</p>
 <p>Encuentra los 10 vuelos más retrasados utilizando una función de ordenamiento. ¿Cómo quieres manejar los empates? Lee atentamente la documentación de min_rank().</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="transformación-rangos-y-más.html#cb333-1" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="transformación-rangos-y-más.html#cb338-1" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
 <pre><code>##  [1] &quot;anio&quot;               &quot;mes&quot;                &quot;dia&quot;               
 ##  [4] &quot;horario_salida&quot;     &quot;salida_programada&quot;  &quot;atraso_salida&quot;     
 ##  [7] &quot;horario_llegada&quot;    &quot;llegada_programada&quot; &quot;atraso_llegada&quot;    
@@ -828,11 +849,11 @@ df %&gt;%
 ## [13] &quot;origen&quot;             &quot;destino&quot;            &quot;tiempo_vuelo&quot;      
 ## [16] &quot;distancia&quot;          &quot;hora&quot;               &quot;minuto&quot;            
 ## [19] &quot;fecha_hora&quot;</code></pre>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="transformación-rangos-y-más.html#cb335-1" tabindex="-1"></a>vuelos<span class="sc">%&gt;%</span></span>
-<span id="cb335-2"><a href="transformación-rangos-y-más.html#cb335-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(atraso_salida, aerolinea)<span class="sc">%&gt;%</span></span>
-<span id="cb335-3"><a href="transformación-rangos-y-más.html#cb335-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(atraso_salida))<span class="sc">%&gt;%</span> </span>
-<span id="cb335-4"><a href="transformación-rangos-y-más.html#cb335-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mas_atrados=</span><span class="fu">min_rank</span>(<span class="fu">desc</span>(atraso_salida))) <span class="sc">%&gt;%</span> </span>
-<span id="cb335-5"><a href="transformación-rangos-y-más.html#cb335-5" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="transformación-rangos-y-más.html#cb340-1" tabindex="-1"></a>vuelos<span class="sc">%&gt;%</span></span>
+<span id="cb340-2"><a href="transformación-rangos-y-más.html#cb340-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(atraso_salida, aerolinea)<span class="sc">%&gt;%</span></span>
+<span id="cb340-3"><a href="transformación-rangos-y-más.html#cb340-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(atraso_salida))<span class="sc">%&gt;%</span> </span>
+<span id="cb340-4"><a href="transformación-rangos-y-más.html#cb340-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mas_atrados=</span><span class="fu">min_rank</span>(<span class="fu">desc</span>(atraso_salida))) <span class="sc">%&gt;%</span> </span>
+<span id="cb340-5"><a href="transformación-rangos-y-más.html#cb340-5" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 3
 ##    atraso_salida aerolinea mas_atrados
 ##            &lt;dbl&gt; &lt;chr&gt;           &lt;int&gt;
@@ -846,7 +867,7 @@ df %&gt;%
 ##  8           899 DL                  8
 ##  9           898 DL                  9
 ## 10           896 AA                 10</code></pre>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="transformación-rangos-y-más.html#cb337-1" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="transformación-rangos-y-más.html#cb342-1" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
 <pre><code>##  [1] &quot;anio&quot;               &quot;mes&quot;                &quot;dia&quot;               
 ##  [4] &quot;horario_salida&quot;     &quot;salida_programada&quot;  &quot;atraso_salida&quot;     
 ##  [7] &quot;horario_llegada&quot;    &quot;llegada_programada&quot; &quot;atraso_llegada&quot;    
@@ -854,10 +875,10 @@ df %&gt;%
 ## [13] &quot;origen&quot;             &quot;destino&quot;            &quot;tiempo_vuelo&quot;      
 ## [16] &quot;distancia&quot;          &quot;hora&quot;               &quot;minuto&quot;            
 ## [19] &quot;fecha_hora&quot;</code></pre>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="transformación-rangos-y-más.html#cb339-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb339-2"><a href="transformación-rangos-y-más.html#cb339-2" tabindex="-1"></a>  <span class="fu">arrange</span>(atraso_salida) <span class="sc">%&gt;%</span> </span>
-<span id="cb339-3"><a href="transformación-rangos-y-más.html#cb339-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rango_minimo=</span><span class="fu">min_rank</span>(atraso_salida)) <span class="sc">%&gt;%</span> </span>
-<span id="cb339-4"><a href="transformación-rangos-y-más.html#cb339-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="transformación-rangos-y-más.html#cb344-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb344-2"><a href="transformación-rangos-y-más.html#cb344-2" tabindex="-1"></a>  <span class="fu">arrange</span>(atraso_salida) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-3"><a href="transformación-rangos-y-más.html#cb344-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rango_minimo=</span><span class="fu">min_rank</span>(atraso_salida)) <span class="sc">%&gt;%</span> </span>
+<span id="cb344-4"><a href="transformación-rangos-y-más.html#cb344-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 20
 ##     anio   mes   dia horario_salida salida_programada atraso_salida
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;         &lt;dbl&gt;
@@ -879,22 +900,22 @@ df %&gt;%
 </div>
 <div id="resúmenes-con-summarise-by-group-using-group_by" class="section level2 hasAnchor" number="10.9">
 <h2><span class="header-section-number">10.9</span> Resúmenes con summarise() by group using group_by()<a href="#res%C3%BAmenes-con-summarise-by-group-using-group_by" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="transformación-rangos-y-más.html#cb341-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
-<span id="cb341-2"><a href="transformación-rangos-y-más.html#cb341-2" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
-<span id="cb341-3"><a href="transformación-rangos-y-más.html#cb341-3" tabindex="-1"></a><span class="fu">summarise</span>(flights, <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="transformación-rangos-y-más.html#cb346-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb346-2"><a href="transformación-rangos-y-más.html#cb346-2" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb346-3"><a href="transformación-rangos-y-más.html#cb346-3" tabindex="-1"></a><span class="fu">summarise</span>(flights, <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   delay
 ##   &lt;dbl&gt;
 ## 1  12.6</code></pre>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="transformación-rangos-y-más.html#cb343-1" tabindex="-1"></a>flights <span class="sc">%&gt;%</span> </span>
-<span id="cb343-2"><a href="transformación-rangos-y-más.html#cb343-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="transformación-rangos-y-más.html#cb348-1" tabindex="-1"></a>flights <span class="sc">%&gt;%</span> </span>
+<span id="cb348-2"><a href="transformación-rangos-y-más.html#cb348-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##   delay
 ##   &lt;dbl&gt;
 ## 1  12.6</code></pre>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="transformación-rangos-y-más.html#cb345-1" tabindex="-1"></a>by_day <span class="ot">&lt;-</span> <span class="fu">group_by</span>(flights, year, month, day)</span>
-<span id="cb345-2"><a href="transformación-rangos-y-más.html#cb345-2" tabindex="-1"></a></span>
-<span id="cb345-3"><a href="transformación-rangos-y-más.html#cb345-3" tabindex="-1"></a><span class="fu">summarise</span>(by_day, <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="transformación-rangos-y-más.html#cb350-1" tabindex="-1"></a>by_day <span class="ot">&lt;-</span> <span class="fu">group_by</span>(flights, year, month, day)</span>
+<span id="cb350-2"><a href="transformación-rangos-y-más.html#cb350-2" tabindex="-1"></a></span>
+<span id="cb350-3"><a href="transformación-rangos-y-más.html#cb350-3" tabindex="-1"></a><span class="fu">summarise</span>(by_day, <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 365 × 4
 ## # Groups:   year, month [12]
 ##     year month   day delay
@@ -910,9 +931,9 @@ df %&gt;%
 ##  9  2013     1     9  2.28
 ## 10  2013     1    10  2.84
 ## # ℹ 355 more rows</code></pre>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="transformación-rangos-y-más.html#cb347-1" tabindex="-1"></a>flights <span class="sc">%&gt;%</span> </span>
-<span id="cb347-2"><a href="transformación-rangos-y-más.html#cb347-2" tabindex="-1"></a>  <span class="fu">group_by</span>(year, month, day) <span class="sc">%&gt;%</span> </span>
-<span id="cb347-3"><a href="transformación-rangos-y-más.html#cb347-3" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="transformación-rangos-y-más.html#cb352-1" tabindex="-1"></a>flights <span class="sc">%&gt;%</span> </span>
+<span id="cb352-2"><a href="transformación-rangos-y-más.html#cb352-2" tabindex="-1"></a>  <span class="fu">group_by</span>(year, month, day) <span class="sc">%&gt;%</span> </span>
+<span id="cb352-3"><a href="transformación-rangos-y-más.html#cb352-3" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 365 × 4
 ## # Groups:   year, month [12]
 ##     year month   day delay
@@ -931,10 +952,10 @@ df %&gt;%
 </div>
 <div id="la-aerolinea-peor-en-atraso-de-salidas" class="section level2 hasAnchor" number="10.10">
 <h2><span class="header-section-number">10.10</span> La aerolinea peor en atraso de salidas<a href="transformación-rangos-y-más.html#la-aerolinea-peor-en-atraso-de-salidas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="transformación-rangos-y-más.html#cb349-1" tabindex="-1"></a>flights <span class="sc">%&gt;%</span></span>
-<span id="cb349-2"><a href="transformación-rangos-y-más.html#cb349-2" tabindex="-1"></a><span class="fu">group_by</span>(carrier) <span class="sc">%&gt;%</span></span>
-<span id="cb349-3"><a href="transformación-rangos-y-más.html#cb349-3" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb349-4"><a href="transformación-rangos-y-más.html#cb349-4" tabindex="-1"></a><span class="fu">arrange</span>(<span class="fu">desc</span>(delay))</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="transformación-rangos-y-más.html#cb354-1" tabindex="-1"></a>flights <span class="sc">%&gt;%</span></span>
+<span id="cb354-2"><a href="transformación-rangos-y-más.html#cb354-2" tabindex="-1"></a><span class="fu">group_by</span>(carrier) <span class="sc">%&gt;%</span></span>
+<span id="cb354-3"><a href="transformación-rangos-y-más.html#cb354-3" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb354-4"><a href="transformación-rangos-y-más.html#cb354-4" tabindex="-1"></a><span class="fu">arrange</span>(<span class="fu">desc</span>(delay))</span></code></pre></div>
 <pre><code>## # A tibble: 16 × 2
 ##    carrier delay
 ##    &lt;chr&gt;   &lt;dbl&gt;
@@ -954,8 +975,8 @@ df %&gt;%
 ## 14 AS       5.80
 ## 15 HA       4.90
 ## 16 US       3.78</code></pre>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="transformación-rangos-y-más.html#cb351-1" tabindex="-1"></a>by_dest <span class="ot">&lt;-</span> <span class="fu">group_by</span>(flights, dest)</span>
-<span id="cb351-2"><a href="transformación-rangos-y-más.html#cb351-2" tabindex="-1"></a>by_dest</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="transformación-rangos-y-más.html#cb356-1" tabindex="-1"></a>by_dest <span class="ot">&lt;-</span> <span class="fu">group_by</span>(flights, dest)</span>
+<span id="cb356-2"><a href="transformación-rangos-y-más.html#cb356-2" tabindex="-1"></a>by_dest</span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 19
 ## # Groups:   dest [105]
 ##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
@@ -974,13 +995,13 @@ df %&gt;%
 ## # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
 ## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
 ## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="transformación-rangos-y-más.html#cb353-1" tabindex="-1"></a>delay <span class="ot">&lt;-</span> <span class="fu">summarise</span>(by_dest,</span>
-<span id="cb353-2"><a href="transformación-rangos-y-más.html#cb353-2" tabindex="-1"></a>  <span class="at">count =</span> <span class="fu">n</span>(),</span>
-<span id="cb353-3"><a href="transformación-rangos-y-más.html#cb353-3" tabindex="-1"></a>  <span class="at">dist =</span> <span class="fu">mean</span>(distance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb353-4"><a href="transformación-rangos-y-más.html#cb353-4" tabindex="-1"></a>  <span class="at">delay =</span> <span class="fu">mean</span>(arr_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb353-5"><a href="transformación-rangos-y-más.html#cb353-5" tabindex="-1"></a></span>
-<span id="cb353-6"><a href="transformación-rangos-y-más.html#cb353-6" tabindex="-1"></a></span>
-<span id="cb353-7"><a href="transformación-rangos-y-más.html#cb353-7" tabindex="-1"></a>delay</span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="transformación-rangos-y-más.html#cb358-1" tabindex="-1"></a>delay <span class="ot">&lt;-</span> <span class="fu">summarise</span>(by_dest,</span>
+<span id="cb358-2"><a href="transformación-rangos-y-más.html#cb358-2" tabindex="-1"></a>  <span class="at">count =</span> <span class="fu">n</span>(),</span>
+<span id="cb358-3"><a href="transformación-rangos-y-más.html#cb358-3" tabindex="-1"></a>  <span class="at">dist =</span> <span class="fu">mean</span>(distance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb358-4"><a href="transformación-rangos-y-más.html#cb358-4" tabindex="-1"></a>  <span class="at">delay =</span> <span class="fu">mean</span>(arr_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb358-5"><a href="transformación-rangos-y-más.html#cb358-5" tabindex="-1"></a></span>
+<span id="cb358-6"><a href="transformación-rangos-y-más.html#cb358-6" tabindex="-1"></a></span>
+<span id="cb358-7"><a href="transformación-rangos-y-más.html#cb358-7" tabindex="-1"></a>delay</span></code></pre></div>
 <pre><code>## # A tibble: 105 × 4
 ##    dest  count  dist delay
 ##    &lt;chr&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -995,20 +1016,20 @@ df %&gt;%
 ##  9 BGR     375  378   8.03
 ## 10 BHM     297  866. 16.9 
 ## # ℹ 95 more rows</code></pre>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="transformación-rangos-y-más.html#cb355-1" tabindex="-1"></a><span class="co">#&gt; `summarise()` ungrouping output (override with `.groups` argument)</span></span>
-<span id="cb355-2"><a href="transformación-rangos-y-más.html#cb355-2" tabindex="-1"></a>delay <span class="ot">&lt;-</span> <span class="fu">filter</span>(delay, count <span class="sc">&gt;</span> <span class="dv">20</span>, dest <span class="sc">!=</span> <span class="st">&quot;HNL&quot;</span>)</span>
-<span id="cb355-3"><a href="transformación-rangos-y-más.html#cb355-3" tabindex="-1"></a></span>
-<span id="cb355-4"><a href="transformación-rangos-y-más.html#cb355-4" tabindex="-1"></a><span class="co"># It looks like delays increase with distance up to ~750 miles </span></span>
-<span id="cb355-5"><a href="transformación-rangos-y-más.html#cb355-5" tabindex="-1"></a><span class="co"># and then decrease. Maybe as flights get longer there&#39;s more </span></span>
-<span id="cb355-6"><a href="transformación-rangos-y-más.html#cb355-6" tabindex="-1"></a><span class="co"># ability to make up delays in the air?</span></span>
-<span id="cb355-7"><a href="transformación-rangos-y-más.html#cb355-7" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> delay, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> delay)) <span class="sc">+</span></span>
-<span id="cb355-8"><a href="transformación-rangos-y-más.html#cb355-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> count), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb355-9"><a href="transformación-rangos-y-más.html#cb355-9" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="transformación-rangos-y-más.html#cb360-1" tabindex="-1"></a><span class="co">#&gt; `summarise()` ungrouping output (override with `.groups` argument)</span></span>
+<span id="cb360-2"><a href="transformación-rangos-y-más.html#cb360-2" tabindex="-1"></a>delay <span class="ot">&lt;-</span> <span class="fu">filter</span>(delay, count <span class="sc">&gt;</span> <span class="dv">20</span>, dest <span class="sc">!=</span> <span class="st">&quot;HNL&quot;</span>)</span>
+<span id="cb360-3"><a href="transformación-rangos-y-más.html#cb360-3" tabindex="-1"></a></span>
+<span id="cb360-4"><a href="transformación-rangos-y-más.html#cb360-4" tabindex="-1"></a><span class="co"># It looks like delays increase with distance up to ~750 miles </span></span>
+<span id="cb360-5"><a href="transformación-rangos-y-más.html#cb360-5" tabindex="-1"></a><span class="co"># and then decrease. Maybe as flights get longer there&#39;s more </span></span>
+<span id="cb360-6"><a href="transformación-rangos-y-más.html#cb360-6" tabindex="-1"></a><span class="co"># ability to make up delays in the air?</span></span>
+<span id="cb360-7"><a href="transformación-rangos-y-más.html#cb360-7" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> delay, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> delay)) <span class="sc">+</span></span>
+<span id="cb360-8"><a href="transformación-rangos-y-más.html#cb360-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> count), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb360-9"><a href="transformación-rangos-y-más.html#cb360-9" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/T14-1.png" width="672" /></p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="transformación-rangos-y-más.html#cb356-1" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></span></code></pre></div>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="transformación-rangos-y-más.html#cb357-1" tabindex="-1"></a><span class="fu">names</span>(delay)</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="transformación-rangos-y-más.html#cb361-1" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="transformación-rangos-y-más.html#cb362-1" tabindex="-1"></a><span class="fu">names</span>(delay)</span></code></pre></div>
 <pre><code>## [1] &quot;dest&quot;  &quot;count&quot; &quot;dist&quot;  &quot;delay&quot;</code></pre>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="transformación-rangos-y-más.html#cb359-1" tabindex="-1"></a><span class="fu">head</span>(delay)</span></code></pre></div>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="transformación-rangos-y-más.html#cb364-1" tabindex="-1"></a><span class="fu">head</span>(delay)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##   dest  count  dist delay
 ##   &lt;chr&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1018,19 +1039,19 @@ df %&gt;%
 ## 4 ATL   17215  757. 11.3 
 ## 5 AUS    2439 1514.  6.02
 ## 6 AVL     275  584.  8.00</code></pre>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="transformación-rangos-y-más.html#cb361-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> delay, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> delay, <span class="at">label=</span>dest)) <span class="sc">+</span></span>
-<span id="cb361-2"><a href="transformación-rangos-y-más.html#cb361-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb361-3"><a href="transformación-rangos-y-más.html#cb361-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb361-4"><a href="transformación-rangos-y-más.html#cb361-4" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">size=</span><span class="dv">2</span>,<span class="fu">aes</span>(<span class="at">label=</span>dest), <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">vjust=</span><span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="transformación-rangos-y-más.html#cb366-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> delay, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> delay, <span class="at">label=</span>dest)) <span class="sc">+</span></span>
+<span id="cb366-2"><a href="transformación-rangos-y-más.html#cb366-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb366-3"><a href="transformación-rangos-y-más.html#cb366-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb366-4"><a href="transformación-rangos-y-más.html#cb366-4" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">size=</span><span class="dv">2</span>,<span class="fu">aes</span>(<span class="at">label=</span>dest), <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">vjust=</span><span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/T15-1.png" width="672" /></p>
 <hr />
 <p>Rolling average:</p>
 <p><a href="https://stackoverflow.com/questions/743812/calculating-moving-average" class="uri">https://stackoverflow.com/questions/743812/calculating-moving-average</a></p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="transformación-rangos-y-más.html#cb362-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb362-2"><a href="transformación-rangos-y-más.html#cb362-2" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
-<span id="cb362-3"><a href="transformación-rangos-y-más.html#cb362-3" tabindex="-1"></a></span>
-<span id="cb362-4"><a href="transformación-rangos-y-más.html#cb362-4" tabindex="-1"></a>some_data <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">day =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb362-5"><a href="transformación-rangos-y-más.html#cb362-5" tabindex="-1"></a>some_data</span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="transformación-rangos-y-más.html#cb367-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb367-2"><a href="transformación-rangos-y-más.html#cb367-2" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb367-3"><a href="transformación-rangos-y-más.html#cb367-3" tabindex="-1"></a></span>
+<span id="cb367-4"><a href="transformación-rangos-y-más.html#cb367-4" tabindex="-1"></a>some_data <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">day =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb367-5"><a href="transformación-rangos-y-más.html#cb367-5" tabindex="-1"></a>some_data</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 1
 ##      day
 ##    &lt;int&gt;
@@ -1044,13 +1065,13 @@ df %&gt;%
 ##  8     8
 ##  9     9
 ## 10    10</code></pre>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="transformación-rangos-y-más.html#cb364-1" tabindex="-1"></a><span class="co"># cma = centered moving average</span></span>
-<span id="cb364-2"><a href="transformación-rangos-y-más.html#cb364-2" tabindex="-1"></a><span class="co"># tma = trailing moving average</span></span>
-<span id="cb364-3"><a href="transformación-rangos-y-más.html#cb364-3" tabindex="-1"></a>some_data <span class="sc">%&gt;%</span></span>
-<span id="cb364-4"><a href="transformación-rangos-y-más.html#cb364-4" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cma =</span> <span class="fu">rollmean</span>(day, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb364-5"><a href="transformación-rangos-y-más.html#cb364-5" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">tma =</span> <span class="fu">rollmean</span>(day, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">align =</span> <span class="st">&quot;right&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb364-6"><a href="transformación-rangos-y-más.html#cb364-6" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">lma =</span> <span class="fu">rollmean</span>(day, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">align =</span> <span class="st">&quot;left&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb364-7"><a href="transformación-rangos-y-más.html#cb364-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cmax=</span><span class="fu">rollmax</span>(day, <span class="at">k=</span><span class="dv">30</span>, <span class="at">fill=</span><span class="cn">NA</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="transformación-rangos-y-más.html#cb369-1" tabindex="-1"></a><span class="co"># cma = centered moving average</span></span>
+<span id="cb369-2"><a href="transformación-rangos-y-más.html#cb369-2" tabindex="-1"></a><span class="co"># tma = trailing moving average</span></span>
+<span id="cb369-3"><a href="transformación-rangos-y-más.html#cb369-3" tabindex="-1"></a>some_data <span class="sc">%&gt;%</span></span>
+<span id="cb369-4"><a href="transformación-rangos-y-más.html#cb369-4" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cma =</span> <span class="fu">rollmean</span>(day, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb369-5"><a href="transformación-rangos-y-más.html#cb369-5" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">tma =</span> <span class="fu">rollmean</span>(day, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">align =</span> <span class="st">&quot;right&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb369-6"><a href="transformación-rangos-y-más.html#cb369-6" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">lma =</span> <span class="fu">rollmean</span>(day, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">align =</span> <span class="st">&quot;left&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb369-7"><a href="transformación-rangos-y-más.html#cb369-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cmax=</span><span class="fu">rollmax</span>(day, <span class="at">k=</span><span class="dv">30</span>, <span class="at">fill=</span><span class="cn">NA</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 5
 ##      day   cma   tma   lma cmax 
 ##    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
@@ -1064,7 +1085,7 @@ df %&gt;%
 ##  8     8     8     7     9 NA   
 ##  9     9     9     8    NA NA   
 ## 10    10    NA     9    NA NA</code></pre>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="transformación-rangos-y-más.html#cb366-1" tabindex="-1"></a>some_data</span></code></pre></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="transformación-rangos-y-más.html#cb371-1" tabindex="-1"></a>some_data</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 1
 ##      day
 ##    &lt;int&gt;

@@ -213,7 +213,7 @@ Aquí se agrupar por día y mes
 vuelos %>% 
   dplyr::select(anio, mes, dia, atraso_llegada, destino) %>% 
   filter(destino =="SJU") %>% 
-  filter(mes == 12 & dia ==25) %>% 
+  filter(dia ==25) %>% 
  # filter(mes == 12) %>%
   group_by(dia, mes) %>% 
   summarise(atraso = mean(atraso_llegada, na.rm = TRUE))

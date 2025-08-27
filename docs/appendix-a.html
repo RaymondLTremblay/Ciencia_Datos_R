@@ -631,29 +631,29 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h2>Ejercicios con destrezar de aplicar algunas funciones de transformaciones de datos<a href="appendix-a.html#ejercicios-con-destrezar-de-aplicar-algunas-funciones-de-transformaciones-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="para-tener-los-puntos-tiene-que-enseñar-todos-los-scripts-los-resultados-y-explicar-en-palabra-los-que-encontró-dentro-de-un-documento-bien-organizado." class="section level3 unnumbered hasAnchor">
 <h3>Para tener los puntos tiene que enseñar TODOS los scripts, los resultados y explicar en palabra los que encontró dentro de un documento bien organizado.<a href="#para-tener-los-puntos-tiene-que-ense%C3%B1ar-todos-los-scripts-los-resultados-y-explicar-en-palabra-los-que-encontr%C3%B3-dentro-de-un-documento-bien-organizado." class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb1065"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1065-1"><a href="appendix-a.html#cb1065-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
-<span id="cb1065-2"><a href="appendix-a.html#cb1065-2" tabindex="-1"></a><span class="fu">attach</span>(bateadores)</span>
-<span id="cb1065-3"><a href="appendix-a.html#cb1065-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1065-4"><a href="appendix-a.html#cb1065-4" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code></pre></div>
+<div class="sourceCode" id="cb1070"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1070-1"><a href="appendix-a.html#cb1070-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb1070-2"><a href="appendix-a.html#cb1070-2" tabindex="-1"></a><span class="fu">attach</span>(bateadores)</span>
+<span id="cb1070-3"><a href="appendix-a.html#cb1070-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1070-4"><a href="appendix-a.html#cb1070-4" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code></pre></div>
 <p>Use el data frame de “bateadores” en el paquete “datos”.</p>
-<div class="sourceCode" id="cb1066"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1066-1"><a href="appendix-a.html#cb1066-1" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(bateadores, <span class="at">n=</span><span class="dv">3</span>))</span></code></pre></div>
-<div id="cclxahbowz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#cclxahbowz table {
+<div class="sourceCode" id="cb1071"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1071-1"><a href="appendix-a.html#cb1071-1" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(bateadores, <span class="at">n=</span><span class="dv">3</span>))</span></code></pre></div>
+<div id="pgbpjqhzkx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pgbpjqhzkx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#cclxahbowz thead, #cclxahbowz tbody, #cclxahbowz tfoot, #cclxahbowz tr, #cclxahbowz td, #cclxahbowz th {
+#pgbpjqhzkx thead, #pgbpjqhzkx tbody, #pgbpjqhzkx tfoot, #pgbpjqhzkx tr, #pgbpjqhzkx td, #pgbpjqhzkx th {
   border-style: none;
 }
 
-#cclxahbowz p {
+#pgbpjqhzkx p {
   margin: 0;
   padding: 0;
 }
 
-#cclxahbowz .gt_table {
+#pgbpjqhzkx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -679,12 +679,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#cclxahbowz .gt_caption {
+#pgbpjqhzkx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#cclxahbowz .gt_title {
+#pgbpjqhzkx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -696,7 +696,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#cclxahbowz .gt_subtitle {
+#pgbpjqhzkx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -708,7 +708,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#cclxahbowz .gt_heading {
+#pgbpjqhzkx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -720,13 +720,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#cclxahbowz .gt_bottom_border {
+#pgbpjqhzkx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#cclxahbowz .gt_col_headings {
+#pgbpjqhzkx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -741,7 +741,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#cclxahbowz .gt_col_heading {
+#pgbpjqhzkx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -761,7 +761,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#cclxahbowz .gt_column_spanner_outer {
+#pgbpjqhzkx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -773,15 +773,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#cclxahbowz .gt_column_spanner_outer:first-child {
+#pgbpjqhzkx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cclxahbowz .gt_column_spanner_outer:last-child {
+#pgbpjqhzkx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cclxahbowz .gt_column_spanner {
+#pgbpjqhzkx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -793,11 +793,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#cclxahbowz .gt_spanner_row {
+#pgbpjqhzkx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#cclxahbowz .gt_group_heading {
+#pgbpjqhzkx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -823,7 +823,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#cclxahbowz .gt_empty_group_heading {
+#pgbpjqhzkx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -838,15 +838,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#cclxahbowz .gt_from_md > :first-child {
+#pgbpjqhzkx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cclxahbowz .gt_from_md > :last-child {
+#pgbpjqhzkx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cclxahbowz .gt_row {
+#pgbpjqhzkx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -865,7 +865,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#cclxahbowz .gt_stub {
+#pgbpjqhzkx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -878,7 +878,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#cclxahbowz .gt_stub_row_group {
+#pgbpjqhzkx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -892,15 +892,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#cclxahbowz .gt_row_group_first td {
+#pgbpjqhzkx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#cclxahbowz .gt_row_group_first th {
+#pgbpjqhzkx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#cclxahbowz .gt_summary_row {
+#pgbpjqhzkx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -910,16 +910,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#cclxahbowz .gt_first_summary_row {
+#pgbpjqhzkx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#cclxahbowz .gt_first_summary_row.thick {
+#pgbpjqhzkx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#cclxahbowz .gt_last_summary_row {
+#pgbpjqhzkx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -929,7 +929,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#cclxahbowz .gt_grand_summary_row {
+#pgbpjqhzkx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -939,7 +939,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#cclxahbowz .gt_first_grand_summary_row {
+#pgbpjqhzkx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -949,7 +949,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#cclxahbowz .gt_last_grand_summary_row_top {
+#pgbpjqhzkx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -959,11 +959,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#cclxahbowz .gt_striped {
+#pgbpjqhzkx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#cclxahbowz .gt_table_body {
+#pgbpjqhzkx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -972,7 +972,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#cclxahbowz .gt_footnotes {
+#pgbpjqhzkx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -986,7 +986,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#cclxahbowz .gt_footnote {
+#pgbpjqhzkx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -995,7 +995,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#cclxahbowz .gt_sourcenotes {
+#pgbpjqhzkx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1009,7 +1009,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#cclxahbowz .gt_sourcenote {
+#pgbpjqhzkx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1017,72 +1017,72 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#cclxahbowz .gt_left {
+#pgbpjqhzkx .gt_left {
   text-align: left;
 }
 
-#cclxahbowz .gt_center {
+#pgbpjqhzkx .gt_center {
   text-align: center;
 }
 
-#cclxahbowz .gt_right {
+#pgbpjqhzkx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cclxahbowz .gt_font_normal {
+#pgbpjqhzkx .gt_font_normal {
   font-weight: normal;
 }
 
-#cclxahbowz .gt_font_bold {
+#pgbpjqhzkx .gt_font_bold {
   font-weight: bold;
 }
 
-#cclxahbowz .gt_font_italic {
+#pgbpjqhzkx .gt_font_italic {
   font-style: italic;
 }
 
-#cclxahbowz .gt_super {
+#pgbpjqhzkx .gt_super {
   font-size: 65%;
 }
 
-#cclxahbowz .gt_footnote_marks {
+#pgbpjqhzkx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#cclxahbowz .gt_asterisk {
+#pgbpjqhzkx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#cclxahbowz .gt_indent_1 {
+#pgbpjqhzkx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#cclxahbowz .gt_indent_2 {
+#pgbpjqhzkx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#cclxahbowz .gt_indent_3 {
+#pgbpjqhzkx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#cclxahbowz .gt_indent_4 {
+#pgbpjqhzkx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#cclxahbowz .gt_indent_5 {
+#pgbpjqhzkx .gt_indent_5 {
   text-indent: 25px;
 }
 
-#cclxahbowz .katex-display {
+#pgbpjqhzkx .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#cclxahbowz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#pgbpjqhzkx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1190,11 +1190,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="busca-el-bateador-que-tuvo-más-carreras-en-cualquier-año" class="section level2 unnumbered hasAnchor">
 <h2>1. Busca el bateador que tuvo más carreras en cualquier año<a href="#busca-el-bateador-que-tuvo-m%C3%A1s-carreras-en-cualquier-a%C3%B1o" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1067"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1067-1"><a href="appendix-a.html#cb1067-1" tabindex="-1"></a><span class="fu">max</span>(bateadores<span class="sc">$</span>carreras)</span></code></pre></div>
+<div class="sourceCode" id="cb1072"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1072-1"><a href="appendix-a.html#cb1072-1" tabindex="-1"></a><span class="fu">max</span>(bateadores<span class="sc">$</span>carreras)</span></code></pre></div>
 <pre><code>## [1] 198</code></pre>
-<div class="sourceCode" id="cb1069"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1069-1"><a href="appendix-a.html#cb1069-1" tabindex="-1"></a>bateadores <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(id_jugador, carreras) <span class="sc">|&gt;</span> </span>
-<span id="cb1069-2"><a href="appendix-a.html#cb1069-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(carreras)) <span class="sc">|&gt;</span> </span>
-<span id="cb1069-3"><a href="appendix-a.html#cb1069-3" tabindex="-1"></a>  <span class="fu">slice_max</span>(carreras)</span></code></pre></div>
+<div class="sourceCode" id="cb1074"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1074-1"><a href="appendix-a.html#cb1074-1" tabindex="-1"></a>bateadores <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(id_jugador, carreras) <span class="sc">|&gt;</span> </span>
+<span id="cb1074-2"><a href="appendix-a.html#cb1074-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(carreras)) <span class="sc">|&gt;</span> </span>
+<span id="cb1074-3"><a href="appendix-a.html#cb1074-3" tabindex="-1"></a>  <span class="fu">slice_max</span>(carreras)</span></code></pre></div>
 <pre><code>##       id_jugador carreras
 ## 41513  hamilbi01      198</code></pre>
 <hr />

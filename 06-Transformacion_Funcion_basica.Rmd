@@ -168,7 +168,7 @@ vuelos %>%
  
 
 
-```{r TFB10, echo=FALSE, eval=FALSE}
+```{r, TFB10, echo=FALSE, eval=FALSE}
 vuelos %>% 
   filter(mes %in% c(6:8))
 
