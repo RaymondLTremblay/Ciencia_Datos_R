@@ -260,11 +260,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="7.1" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html"><i class="fa fa-check"></i><b>7.1</b> Valores faltantes</a>
 <ul>
-<li class="chapter" data-level="7.1.1" data-path="12-Scripts.html"><a href="#qu%C3%A9-pasa-con-los-valores-faltantes-y-resultados-de-analisis-sin-sentido"><i class="fa fa-check"></i><b>7.1.1</b> ¿Qué pasa con los valores faltantes y resultados de analisis sin sentido?</a></li>
+<li class="chapter" data-level="7.1.1" data-path="12-Scripts.html"><a href="#qu%C3%A9-pasa-con-los-valores-faltantes-y-resultados-de-an%C3%A5lisis-sin-sentido"><i class="fa fa-check"></i><b>7.1.1</b> ¿Qué pasa con los valores faltantes y resultados de anålisis sin sentido?</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#contabilizar-los-na"><i class="fa fa-check"></i><b>7.2</b> Contabilizar los NA</a></li>
-<li class="chapter" data-level="7.3" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#seleccionar-solamente-los-vuelos-donde-el-horario-de-salida-es-desconocido"><i class="fa fa-check"></i><b>7.3</b> Seleccionar solamente los vuelos donde el “horario de salida” es desconocido</a></li>
-<li class="chapter" data-level="7.4" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#otras-funciones-na"><i class="fa fa-check"></i><b>7.4</b> Otras funciones: NA</a></li>
+<li class="chapter" data-level="7.2" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#creeamos-un-df-para-aclarar-estas-operaciones-con-na-en-un-data-frame"><i class="fa fa-check"></i><b>7.2</b> Creeamos un df para aclarar estas operaciones con NA en un data frame</a></li>
+<li class="chapter" data-level="7.3" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#contabilizar-los-na"><i class="fa fa-check"></i><b>7.3</b> Contabilizar los NA</a></li>
+<li class="chapter" data-level="7.4" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#seleccionar-solamente-los-vuelos-donde-el-horario-de-salida-es-desconocido"><i class="fa fa-check"></i><b>7.4</b> Seleccionar solamente los vuelos donde el “horario de salida” es desconocido</a></li>
+<li class="chapter" data-level="7.5" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#otras-funciones-na"><i class="fa fa-check"></i><b>7.5</b> Otras funciones: NA</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="12-Scripts.html"><a href="#transformaci%C3%B3n-selecionar-variables"><i class="fa fa-check"></i><b>8</b> Transformación: Selecionar variables</a>
 <ul>
@@ -638,11 +639,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Ejercicios</strong>:</li>
 </ol>
 <p>Hacer los ejercicios en la sección 6.3 del libro en español</p>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="script.html#cb391-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb391-2"><a href="script.html#cb391-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
-<span id="cb391-3"><a href="script.html#cb391-3" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
-<span id="cb391-4"><a href="script.html#cb391-4" tabindex="-1"></a></span>
-<span id="cb391-5"><a href="script.html#cb391-5" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="script.html#cb390-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb390-2"><a href="script.html#cb390-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb390-3"><a href="script.html#cb390-3" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb390-4"><a href="script.html#cb390-4" tabindex="-1"></a></span>
+<span id="cb390-5"><a href="script.html#cb390-5" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
 <pre><code>##  [1] &quot;anio&quot;               &quot;mes&quot;                &quot;dia&quot;               
 ##  [4] &quot;horario_salida&quot;     &quot;salida_programada&quot;  &quot;atraso_salida&quot;     
 ##  [7] &quot;horario_llegada&quot;    &quot;llegada_programada&quot; &quot;atraso_llegada&quot;    
@@ -650,9 +651,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## [13] &quot;origen&quot;             &quot;destino&quot;            &quot;tiempo_vuelo&quot;      
 ## [16] &quot;distancia&quot;          &quot;hora&quot;               &quot;minuto&quot;            
 ## [19] &quot;fecha_hora&quot;</code></pre>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="script.html#cb393-1" tabindex="-1"></a>no_cancelado <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb393-2"><a href="script.html#cb393-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(atraso_salida), <span class="sc">!</span><span class="fu">is.na</span>(atraso_llegada))</span>
-<span id="cb393-3"><a href="script.html#cb393-3" tabindex="-1"></a><span class="fu">head</span>(no_cancelado)</span></code></pre></div>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="script.html#cb392-1" tabindex="-1"></a>no_cancelado <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb392-2"><a href="script.html#cb392-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(atraso_salida), <span class="sc">!</span><span class="fu">is.na</span>(atraso_llegada))</span>
+<span id="cb392-3"><a href="script.html#cb392-3" tabindex="-1"></a><span class="fu">head</span>(no_cancelado)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 19
 ##    anio   mes   dia horario_salida salida_programada atraso_salida
 ##   &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;         &lt;dbl&gt;
@@ -666,9 +667,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;int&gt;, codigo_cola &lt;chr&gt;,
 ## #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 ## #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="script.html#cb395-1" tabindex="-1"></a>no_cancelado <span class="sc">%&gt;%</span> </span>
-<span id="cb395-2"><a href="script.html#cb395-2" tabindex="-1"></a>  <span class="fu">group_by</span>(anio, mes, dia) <span class="sc">%&gt;%</span> </span>
-<span id="cb395-3"><a href="script.html#cb395-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(atraso_salida))</span></code></pre></div>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="script.html#cb394-1" tabindex="-1"></a>no_cancelado <span class="sc">%&gt;%</span> </span>
+<span id="cb394-2"><a href="script.html#cb394-2" tabindex="-1"></a>  <span class="fu">group_by</span>(anio, mes, dia) <span class="sc">%&gt;%</span> </span>
+<span id="cb394-3"><a href="script.html#cb394-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(atraso_salida))</span></code></pre></div>
 <pre><code>## # A tibble: 365 × 4
 ## # Groups:   anio, mes [12]
 ##     anio   mes   dia media
@@ -684,7 +685,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  9  2013     1     9  2.30
 ## 10  2013     1    10  2.84
 ## # ℹ 355 more rows</code></pre>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="script.html#cb397-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span> </span></code></pre></div>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="script.html#cb396-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span> </span></code></pre></div>
 
 </div>
 </div>

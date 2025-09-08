@@ -260,11 +260,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="7.1" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html"><i class="fa fa-check"></i><b>7.1</b> Valores faltantes</a>
 <ul>
-<li class="chapter" data-level="7.1.1" data-path="15-Tibbles.html"><a href="#qu%C3%A9-pasa-con-los-valores-faltantes-y-resultados-de-analisis-sin-sentido"><i class="fa fa-check"></i><b>7.1.1</b> ¿Qué pasa con los valores faltantes y resultados de analisis sin sentido?</a></li>
+<li class="chapter" data-level="7.1.1" data-path="15-Tibbles.html"><a href="#qu%C3%A9-pasa-con-los-valores-faltantes-y-resultados-de-an%C3%A5lisis-sin-sentido"><i class="fa fa-check"></i><b>7.1.1</b> ¿Qué pasa con los valores faltantes y resultados de anålisis sin sentido?</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#contabilizar-los-na"><i class="fa fa-check"></i><b>7.2</b> Contabilizar los NA</a></li>
-<li class="chapter" data-level="7.3" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#seleccionar-solamente-los-vuelos-donde-el-horario-de-salida-es-desconocido"><i class="fa fa-check"></i><b>7.3</b> Seleccionar solamente los vuelos donde el “horario de salida” es desconocido</a></li>
-<li class="chapter" data-level="7.4" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#otras-funciones-na"><i class="fa fa-check"></i><b>7.4</b> Otras funciones: NA</a></li>
+<li class="chapter" data-level="7.2" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#creeamos-un-df-para-aclarar-estas-operaciones-con-na-en-un-data-frame"><i class="fa fa-check"></i><b>7.2</b> Creeamos un df para aclarar estas operaciones con NA en un data frame</a></li>
+<li class="chapter" data-level="7.3" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#contabilizar-los-na"><i class="fa fa-check"></i><b>7.3</b> Contabilizar los NA</a></li>
+<li class="chapter" data-level="7.4" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#seleccionar-solamente-los-vuelos-donde-el-horario-de-salida-es-desconocido"><i class="fa fa-check"></i><b>7.4</b> Seleccionar solamente los vuelos donde el “horario de salida” es desconocido</a></li>
+<li class="chapter" data-level="7.5" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#otras-funciones-na"><i class="fa fa-check"></i><b>7.5</b> Otras funciones: NA</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="15-Tibbles.html"><a href="#transformaci%C3%B3n-selecionar-variables"><i class="fa fa-check"></i><b>8</b> Transformación: Selecionar variables</a>
 <ul>
@@ -642,14 +643,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>tibble()</li>
 </ul>
 <p>Crear un tibble con la siguiente información. Una columna que tiene los valores del 1 al 8 que se llama “secuencia”, una segunda columna que tiene los siguientes valores 23,26, 24,26,27, 11,20,21 que se llama edad y una tercera columna con la siguiente información, Jose, Maria, Carol, Moncho, Liz, Maria, Jorge, Miguel, que ser llama Nombre</p>
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="tibbles.html#cb435-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb435-2"><a href="tibbles.html#cb435-2" tabindex="-1"></a><span class="co">#library(datos)</span></span>
-<span id="cb435-3"><a href="tibbles.html#cb435-3" tabindex="-1"></a></span>
-<span id="cb435-4"><a href="tibbles.html#cb435-4" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb435-5"><a href="tibbles.html#cb435-5" tabindex="-1"></a>  <span class="at">secuencia =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>),</span>
-<span id="cb435-6"><a href="tibbles.html#cb435-6" tabindex="-1"></a>  <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">23</span>,<span class="dv">26</span>, <span class="dv">24</span>,<span class="dv">26</span>,<span class="dv">27</span>, <span class="cn">NA</span>),</span>
-<span id="cb435-7"><a href="tibbles.html#cb435-7" tabindex="-1"></a>  <span class="at">nombre =</span> <span class="fu">c</span>(<span class="st">&quot;Jose&quot;</span>, <span class="st">&quot;Maria&quot;</span>, <span class="st">&quot;Carol&quot;</span>, <span class="st">&quot;Moncho&quot;</span>, <span class="st">&quot;Liz&quot;</span>, <span class="st">&quot;Maria&quot;</span>)</span>
-<span id="cb435-8"><a href="tibbles.html#cb435-8" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="tibbles.html#cb434-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb434-2"><a href="tibbles.html#cb434-2" tabindex="-1"></a><span class="co">#library(datos)</span></span>
+<span id="cb434-3"><a href="tibbles.html#cb434-3" tabindex="-1"></a></span>
+<span id="cb434-4"><a href="tibbles.html#cb434-4" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb434-5"><a href="tibbles.html#cb434-5" tabindex="-1"></a>  <span class="at">secuencia =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>),</span>
+<span id="cb434-6"><a href="tibbles.html#cb434-6" tabindex="-1"></a>  <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">23</span>,<span class="dv">26</span>, <span class="dv">24</span>,<span class="dv">26</span>,<span class="dv">27</span>, <span class="cn">NA</span>),</span>
+<span id="cb434-7"><a href="tibbles.html#cb434-7" tabindex="-1"></a>  <span class="at">nombre =</span> <span class="fu">c</span>(<span class="st">&quot;Jose&quot;</span>, <span class="st">&quot;Maria&quot;</span>, <span class="st">&quot;Carol&quot;</span>, <span class="st">&quot;Moncho&quot;</span>, <span class="st">&quot;Liz&quot;</span>, <span class="st">&quot;Maria&quot;</span>)</span>
+<span id="cb434-8"><a href="tibbles.html#cb434-8" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
 ##   secuencia  edad nombre
 ##       &lt;int&gt; &lt;dbl&gt; &lt;chr&gt; 
@@ -667,14 +668,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>tribble()</li>
 </ul>
 <p>Haga un tribble con las primera 3 lineas del tibble anterior</p>
-<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="tibbles.html#cb437-1" tabindex="-1"></a><span class="fu">tribble</span>(</span>
-<span id="cb437-2"><a href="tibbles.html#cb437-2" tabindex="-1"></a>  <span class="sc">~</span>secuencia, <span class="sc">~</span>edad, <span class="sc">~</span>nombre,</span>
-<span id="cb437-3"><a href="tibbles.html#cb437-3" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">23</span>, <span class="st">&quot;Jose&quot;</span>,</span>
-<span id="cb437-4"><a href="tibbles.html#cb437-4" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">26</span>, <span class="st">&quot;Maria&quot;</span>,</span>
-<span id="cb437-5"><a href="tibbles.html#cb437-5" tabindex="-1"></a>  <span class="dv">3</span>, <span class="dv">23</span>, <span class="st">&quot;Carol&quot;</span></span>
-<span id="cb437-6"><a href="tibbles.html#cb437-6" tabindex="-1"></a>  </span>
-<span id="cb437-7"><a href="tibbles.html#cb437-7" tabindex="-1"></a>  </span>
-<span id="cb437-8"><a href="tibbles.html#cb437-8" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="tibbles.html#cb436-1" tabindex="-1"></a><span class="fu">tribble</span>(</span>
+<span id="cb436-2"><a href="tibbles.html#cb436-2" tabindex="-1"></a>  <span class="sc">~</span>secuencia, <span class="sc">~</span>edad, <span class="sc">~</span>nombre,</span>
+<span id="cb436-3"><a href="tibbles.html#cb436-3" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">23</span>, <span class="st">&quot;Jose&quot;</span>,</span>
+<span id="cb436-4"><a href="tibbles.html#cb436-4" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">26</span>, <span class="st">&quot;Maria&quot;</span>,</span>
+<span id="cb436-5"><a href="tibbles.html#cb436-5" tabindex="-1"></a>  <span class="dv">3</span>, <span class="dv">23</span>, <span class="st">&quot;Carol&quot;</span></span>
+<span id="cb436-6"><a href="tibbles.html#cb436-6" tabindex="-1"></a>  </span>
+<span id="cb436-7"><a href="tibbles.html#cb436-7" tabindex="-1"></a>  </span>
+<span id="cb436-8"><a href="tibbles.html#cb436-8" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##   secuencia  edad nombre
 ##       &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
@@ -685,132 +686,132 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="tibble-vs.-data.frame" class="section level2 hasAnchor" number="15.4">
 <h2><span class="header-section-number">15.4</span> tibble vs. data.frame<a href="tibbles.html#tibble-vs.-data.frame" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="tibbles.html#cb439-1" tabindex="-1"></a>tb <span class="ot">=</span> <span class="fu">tibble</span>(</span>
-<span id="cb439-2"><a href="tibbles.html#cb439-2" tabindex="-1"></a>  <span class="at">a =</span> lubridate<span class="sc">::</span><span class="fu">now</span>() <span class="sc">+</span> <span class="fu">runif</span>(<span class="fl">1e2</span>) <span class="sc">*</span> <span class="dv">86400</span>,</span>
-<span id="cb439-3"><a href="tibbles.html#cb439-3" tabindex="-1"></a>  <span class="at">b =</span> lubridate<span class="sc">::</span><span class="fu">today</span>() <span class="sc">+</span> <span class="fu">runif</span>(<span class="fl">1e2</span>) <span class="sc">*</span> <span class="dv">30</span>,</span>
-<span id="cb439-4"><a href="tibbles.html#cb439-4" tabindex="-1"></a>  <span class="at">c =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>,</span>
-<span id="cb439-5"><a href="tibbles.html#cb439-5" tabindex="-1"></a>  <span class="at">d =</span> <span class="fu">runif</span>(<span class="fl">1e2</span>),</span>
-<span id="cb439-6"><a href="tibbles.html#cb439-6" tabindex="-1"></a>  <span class="at">e =</span> <span class="fu">sample</span>(letters, <span class="fl">1e2</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb439-7"><a href="tibbles.html#cb439-7" tabindex="-1"></a>)</span>
-<span id="cb439-8"><a href="tibbles.html#cb439-8" tabindex="-1"></a>tb</span></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="tibbles.html#cb438-1" tabindex="-1"></a>tb <span class="ot">=</span> <span class="fu">tibble</span>(</span>
+<span id="cb438-2"><a href="tibbles.html#cb438-2" tabindex="-1"></a>  <span class="at">a =</span> lubridate<span class="sc">::</span><span class="fu">now</span>() <span class="sc">+</span> <span class="fu">runif</span>(<span class="fl">1e2</span>) <span class="sc">*</span> <span class="dv">86400</span>,</span>
+<span id="cb438-3"><a href="tibbles.html#cb438-3" tabindex="-1"></a>  <span class="at">b =</span> lubridate<span class="sc">::</span><span class="fu">today</span>() <span class="sc">+</span> <span class="fu">runif</span>(<span class="fl">1e2</span>) <span class="sc">*</span> <span class="dv">30</span>,</span>
+<span id="cb438-4"><a href="tibbles.html#cb438-4" tabindex="-1"></a>  <span class="at">c =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>,</span>
+<span id="cb438-5"><a href="tibbles.html#cb438-5" tabindex="-1"></a>  <span class="at">d =</span> <span class="fu">runif</span>(<span class="fl">1e2</span>),</span>
+<span id="cb438-6"><a href="tibbles.html#cb438-6" tabindex="-1"></a>  <span class="at">e =</span> <span class="fu">sample</span>(letters, <span class="fl">1e2</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb438-7"><a href="tibbles.html#cb438-7" tabindex="-1"></a>)</span>
+<span id="cb438-8"><a href="tibbles.html#cb438-8" tabindex="-1"></a>tb</span></code></pre></div>
 <pre><code>## # A tibble: 100 × 5
 ##    a                   b              c      d e    
 ##    &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;
-##  1 2025-09-08 16:32:31 2025-09-26     1 0.559  o    
-##  2 2025-09-08 23:01:46 2025-09-08     2 0.250  o    
-##  3 2025-09-08 17:55:22 2025-09-10     3 0.0653 d    
-##  4 2025-09-09 15:41:37 2025-09-09     4 0.573  v    
-##  5 2025-09-08 23:13:52 2025-09-30     5 0.651  k    
-##  6 2025-09-09 07:25:41 2025-09-19     6 0.581  p    
-##  7 2025-09-09 12:03:46 2025-10-02     7 0.0175 x    
-##  8 2025-09-09 11:03:45 2025-09-19     8 0.0133 f    
-##  9 2025-09-09 05:18:30 2025-09-22     9 0.661  c    
-## 10 2025-09-09 11:26:42 2025-10-01    10 0.380  y    
+##  1 2025-09-08 16:52:30 2025-09-26     1 0.559  o    
+##  2 2025-09-08 23:21:45 2025-09-08     2 0.250  o    
+##  3 2025-09-08 18:15:22 2025-09-10     3 0.0653 d    
+##  4 2025-09-09 16:01:36 2025-09-09     4 0.573  v    
+##  5 2025-09-08 23:33:51 2025-09-30     5 0.651  k    
+##  6 2025-09-09 07:45:40 2025-09-19     6 0.581  p    
+##  7 2025-09-09 12:23:46 2025-10-02     7 0.0175 x    
+##  8 2025-09-09 11:23:44 2025-09-19     8 0.0133 f    
+##  9 2025-09-09 05:38:29 2025-09-22     9 0.661  c    
+## 10 2025-09-09 11:46:41 2025-10-01    10 0.380  y    
 ## # ℹ 90 more rows</code></pre>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="tibbles.html#cb441-1" tabindex="-1"></a><span class="fu">as.data.frame</span>(tb)</span></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="tibbles.html#cb440-1" tabindex="-1"></a><span class="fu">as.data.frame</span>(tb)</span></code></pre></div>
 <pre><code>##                       a          b   c          d e
-## 1   2025-09-08 16:32:31 2025-09-26   1 0.55895788 o
-## 2   2025-09-08 23:01:46 2025-09-08   2 0.24952694 o
-## 3   2025-09-08 17:55:22 2025-09-10   3 0.06531608 d
-## 4   2025-09-09 15:41:37 2025-09-09   4 0.57306761 v
-## 5   2025-09-08 23:13:52 2025-09-30   5 0.65098699 k
-## 6   2025-09-09 07:25:41 2025-09-19   6 0.58124937 p
-## 7   2025-09-09 12:03:46 2025-10-02   7 0.01748210 x
-## 8   2025-09-09 11:03:45 2025-09-19   8 0.01331984 f
-## 9   2025-09-09 05:18:30 2025-09-22   9 0.66064715 c
-## 10  2025-09-09 11:26:42 2025-10-01  10 0.38021846 y
-## 11  2025-09-09 15:35:59 2025-09-30  11 0.55374044 o
-## 12  2025-09-09 13:03:33 2025-09-19  12 0.57734132 r
-## 13  2025-09-09 13:28:12 2025-09-10  13 0.89874595 s
-## 14  2025-09-09 07:48:13 2025-09-21  14 0.02335350 s
-## 15  2025-09-09 02:27:21 2025-10-01  15 0.36233644 a
-## 16  2025-09-09 04:12:28 2025-09-15  16 0.79219053 c
-## 17  2025-09-09 05:30:19 2025-09-15  17 0.79451792 q
-## 18  2025-09-08 17:23:48 2025-09-18  18 0.03461087 h
-## 19  2025-09-08 22:02:00 2025-09-09  19 0.83758986 y
-## 20  2025-09-09 04:17:19 2025-09-19  20 0.08880666 h
-## 21  2025-09-08 20:37:31 2025-09-21  21 0.81779321 m
-## 22  2025-09-08 19:01:53 2025-10-05  22 0.88725936 k
-## 23  2025-09-09 07:56:14 2025-09-09  23 0.26002925 a
-## 24  2025-09-08 19:06:57 2025-09-19  24 0.31542900 t
-## 25  2025-09-09 01:44:01 2025-09-13  25 0.91124396 m
-## 26  2025-09-08 21:03:50 2025-09-22  26 0.69990520 u
-## 27  2025-09-09 06:14:58 2025-10-07  27 0.83810166 o
-## 28  2025-09-09 03:44:55 2025-09-11  28 0.39910988 q
-## 29  2025-09-09 13:39:39 2025-10-01  29 0.99993174 t
-## 30  2025-09-09 05:22:40 2025-09-17  30 0.66218230 y
-## 31  2025-09-09 00:20:28 2025-09-12  31 0.98046836 c
-## 32  2025-09-09 04:30:19 2025-09-20  32 0.13905381 o
-## 33  2025-09-09 08:32:14 2025-10-04  33 0.34755612 m
-## 34  2025-09-08 21:26:52 2025-09-27  34 0.99072892 t
-## 35  2025-09-09 12:40:14 2025-09-30  35 0.01158322 g
-## 36  2025-09-09 02:54:02 2025-09-28  36 0.59905566 w
-## 37  2025-09-09 00:55:15 2025-09-28  37 0.66253655 m
-## 38  2025-09-09 12:14:35 2025-09-16  38 0.81108752 p
-## 39  2025-09-08 19:53:57 2025-10-05  39 0.86941914 m
-## 40  2025-09-09 05:39:34 2025-10-02  40 0.18531162 v
-## 41  2025-09-09 13:28:02 2025-09-12  41 0.93845374 p
-## 42  2025-09-08 17:58:11 2025-09-18  42 0.98626153 o
-## 43  2025-09-08 17:55:08 2025-10-01  43 0.36978729 g
-## 44  2025-09-08 17:43:04 2025-09-19  44 0.40597546 h
-## 45  2025-09-08 16:07:39 2025-09-10  45 0.45127090 p
-## 46  2025-09-09 08:43:38 2025-09-12  46 0.83761479 d
-## 47  2025-09-09 05:35:50 2025-10-07  47 0.20941751 c
-## 48  2025-09-09 01:27:31 2025-10-03  48 0.99204004 y
-## 49  2025-09-09 01:45:06 2025-09-09  49 0.50421065 r
-## 50  2025-09-08 19:19:48 2025-09-19  50 0.33143023 g
-## 51  2025-09-09 14:43:23 2025-09-18  51 0.73076078 w
-## 52  2025-09-09 05:39:14 2025-09-14  52 0.46601006 v
-## 53  2025-09-09 02:08:24 2025-09-28  53 0.93914242 z
-## 54  2025-09-09 07:02:31 2025-10-04  54 0.88173091 s
-## 55  2025-09-09 00:01:15 2025-10-02  55 0.34532379 i
-## 56  2025-09-08 18:04:10 2025-09-26  56 0.58456342 l
-## 57  2025-09-08 16:06:15 2025-10-04  57 0.88058255 v
-## 58  2025-09-08 17:59:00 2025-09-09  58 0.22127013 v
-## 59  2025-09-09 07:39:37 2025-09-26  59 0.89288290 o
-## 60  2025-09-08 23:47:10 2025-09-14  60 0.02081485 y
-## 61  2025-09-08 20:24:56 2025-09-24  61 0.27143203 n
-## 62  2025-09-09 01:22:24 2025-09-15  62 0.95400736 c
-## 63  2025-09-08 23:29:11 2025-09-16  63 0.86419811 j
-## 64  2025-09-09 00:23:38 2025-09-17  64 0.25909042 i
-## 65  2025-09-09 08:21:40 2025-09-18  65 0.71488890 t
-## 66  2025-09-09 08:53:33 2025-09-17  66 0.14559841 m
-## 67  2025-09-09 06:00:27 2025-09-22  67 0.33884110 a
-## 68  2025-09-09 09:26:16 2025-09-21  68 0.85914380 c
-## 69  2025-09-09 06:29:45 2025-09-29  69 0.78041364 o
-## 70  2025-09-09 01:06:51 2025-09-28  70 0.83340269 v
-## 71  2025-09-09 11:56:40 2025-09-29  71 0.46138001 k
-## 72  2025-09-09 11:13:50 2025-09-30  72 0.95366063 x
-## 73  2025-09-08 21:51:38 2025-10-05  73 0.58594067 i
-## 74  2025-09-09 00:01:27 2025-09-24  74 0.07427914 i
-## 75  2025-09-08 16:20:48 2025-10-06  75 0.41196391 p
-## 76  2025-09-09 13:28:50 2025-09-18  76 0.64245513 l
-## 77  2025-09-09 01:35:29 2025-09-21  77 0.88572561 a
-## 78  2025-09-08 20:06:55 2025-10-07  78 0.27894255 z
-## 79  2025-09-09 02:01:03 2025-09-28  79 0.11545121 p
-## 80  2025-09-08 17:04:42 2025-10-04  80 0.27069348 w
-## 81  2025-09-09 06:50:26 2025-09-09  81 0.09039557 m
-## 82  2025-09-09 06:02:50 2025-10-07  82 0.84375956 u
-## 83  2025-09-08 21:30:06 2025-09-20  83 0.44452948 t
-## 84  2025-09-08 19:50:16 2025-09-16  84 0.17054338 a
-## 85  2025-09-09 01:51:12 2025-10-07  85 0.94064577 n
-## 86  2025-09-09 04:18:51 2025-09-13  86 0.55504992 s
-## 87  2025-09-08 19:32:03 2025-10-06  87 0.74138904 o
-## 88  2025-09-08 19:14:33 2025-09-19  88 0.69146950 m
-## 89  2025-09-09 07:22:30 2025-09-30  89 0.95055655 v
-## 90  2025-09-09 11:18:10 2025-10-04  90 0.50241356 h
-## 91  2025-09-09 11:37:47 2025-10-03  91 0.94041471 l
-## 92  2025-09-09 05:41:42 2025-09-19  92 0.66040567 e
-## 93  2025-09-08 23:33:48 2025-09-24  93 0.74075930 s
-## 94  2025-09-09 11:08:59 2025-09-24  94 0.49824345 q
-## 95  2025-09-08 15:48:07 2025-10-06  95 0.10436335 j
-## 96  2025-09-09 00:46:40 2025-09-08  96 0.06179632 g
-## 97  2025-09-09 03:49:16 2025-09-17  97 0.21776393 s
-## 98  2025-09-09 15:09:03 2025-09-08  98 0.15662152 x
-## 99  2025-09-09 01:52:32 2025-09-26  99 0.62424786 s
-## 100 2025-09-09 06:49:48 2025-09-10 100 0.39037936 c</code></pre>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="tibbles.html#cb443-1" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
-<span id="cb443-2"><a href="tibbles.html#cb443-2" tabindex="-1"></a>x</span></code></pre></div>
+## 1   2025-09-08 16:52:30 2025-09-26   1 0.55895788 o
+## 2   2025-09-08 23:21:45 2025-09-08   2 0.24952694 o
+## 3   2025-09-08 18:15:22 2025-09-10   3 0.06531608 d
+## 4   2025-09-09 16:01:36 2025-09-09   4 0.57306761 v
+## 5   2025-09-08 23:33:51 2025-09-30   5 0.65098699 k
+## 6   2025-09-09 07:45:40 2025-09-19   6 0.58124937 p
+## 7   2025-09-09 12:23:46 2025-10-02   7 0.01748210 x
+## 8   2025-09-09 11:23:44 2025-09-19   8 0.01331984 f
+## 9   2025-09-09 05:38:29 2025-09-22   9 0.66064715 c
+## 10  2025-09-09 11:46:41 2025-10-01  10 0.38021846 y
+## 11  2025-09-09 15:55:58 2025-09-30  11 0.55374044 o
+## 12  2025-09-09 13:23:32 2025-09-19  12 0.57734132 r
+## 13  2025-09-09 13:48:11 2025-09-10  13 0.89874595 s
+## 14  2025-09-09 08:08:12 2025-09-21  14 0.02335350 s
+## 15  2025-09-09 02:47:21 2025-10-01  15 0.36233644 a
+## 16  2025-09-09 04:32:27 2025-09-15  16 0.79219053 c
+## 17  2025-09-09 05:50:18 2025-09-15  17 0.79451792 q
+## 18  2025-09-08 17:43:47 2025-09-18  18 0.03461087 h
+## 19  2025-09-08 22:21:59 2025-09-09  19 0.83758986 y
+## 20  2025-09-09 04:37:19 2025-09-19  20 0.08880666 h
+## 21  2025-09-08 20:57:30 2025-09-21  21 0.81779321 m
+## 22  2025-09-08 19:21:52 2025-10-05  22 0.88725936 k
+## 23  2025-09-09 08:16:13 2025-09-09  23 0.26002925 a
+## 24  2025-09-08 19:26:56 2025-09-19  24 0.31542900 t
+## 25  2025-09-09 02:04:00 2025-09-13  25 0.91124396 m
+## 26  2025-09-08 21:23:49 2025-09-22  26 0.69990520 u
+## 27  2025-09-09 06:34:57 2025-10-07  27 0.83810166 o
+## 28  2025-09-09 04:04:54 2025-09-11  28 0.39910988 q
+## 29  2025-09-09 13:59:38 2025-10-01  29 0.99993174 t
+## 30  2025-09-09 05:42:39 2025-09-17  30 0.66218230 y
+## 31  2025-09-09 00:40:27 2025-09-12  31 0.98046836 c
+## 32  2025-09-09 04:50:18 2025-09-20  32 0.13905381 o
+## 33  2025-09-09 08:52:13 2025-10-04  33 0.34755612 m
+## 34  2025-09-08 21:46:51 2025-09-27  34 0.99072892 t
+## 35  2025-09-09 13:00:13 2025-09-30  35 0.01158322 g
+## 36  2025-09-09 03:14:01 2025-09-28  36 0.59905566 w
+## 37  2025-09-09 01:15:14 2025-09-28  37 0.66253655 m
+## 38  2025-09-09 12:34:35 2025-09-16  38 0.81108752 p
+## 39  2025-09-08 20:13:57 2025-10-05  39 0.86941914 m
+## 40  2025-09-09 05:59:33 2025-10-02  40 0.18531162 v
+## 41  2025-09-09 13:48:01 2025-09-12  41 0.93845374 p
+## 42  2025-09-08 18:18:10 2025-09-18  42 0.98626153 o
+## 43  2025-09-08 18:15:08 2025-10-01  43 0.36978729 g
+## 44  2025-09-08 18:03:03 2025-09-19  44 0.40597546 h
+## 45  2025-09-08 16:27:38 2025-09-10  45 0.45127090 p
+## 46  2025-09-09 09:03:37 2025-09-12  46 0.83761479 d
+## 47  2025-09-09 05:55:49 2025-10-07  47 0.20941751 c
+## 48  2025-09-09 01:47:30 2025-10-03  48 0.99204004 y
+## 49  2025-09-09 02:05:05 2025-09-09  49 0.50421065 r
+## 50  2025-09-08 19:39:47 2025-09-19  50 0.33143023 g
+## 51  2025-09-09 15:03:22 2025-09-18  51 0.73076078 w
+## 52  2025-09-09 05:59:13 2025-09-14  52 0.46601006 v
+## 53  2025-09-09 02:28:23 2025-09-28  53 0.93914242 z
+## 54  2025-09-09 07:22:30 2025-10-04  54 0.88173091 s
+## 55  2025-09-09 00:21:14 2025-10-02  55 0.34532379 i
+## 56  2025-09-08 18:24:09 2025-09-26  56 0.58456342 l
+## 57  2025-09-08 16:26:14 2025-10-04  57 0.88058255 v
+## 58  2025-09-08 18:18:59 2025-09-09  58 0.22127013 v
+## 59  2025-09-09 07:59:36 2025-09-26  59 0.89288290 o
+## 60  2025-09-09 00:07:10 2025-09-14  60 0.02081485 y
+## 61  2025-09-08 20:44:56 2025-09-24  61 0.27143203 n
+## 62  2025-09-09 01:42:23 2025-09-15  62 0.95400736 c
+## 63  2025-09-08 23:49:10 2025-09-16  63 0.86419811 j
+## 64  2025-09-09 00:43:37 2025-09-17  64 0.25909042 i
+## 65  2025-09-09 08:41:39 2025-09-18  65 0.71488890 t
+## 66  2025-09-09 09:13:33 2025-09-17  66 0.14559841 m
+## 67  2025-09-09 06:20:26 2025-09-22  67 0.33884110 a
+## 68  2025-09-09 09:46:15 2025-09-21  68 0.85914380 c
+## 69  2025-09-09 06:49:44 2025-09-29  69 0.78041364 o
+## 70  2025-09-09 01:26:51 2025-09-28  70 0.83340269 v
+## 71  2025-09-09 12:16:39 2025-09-29  71 0.46138001 k
+## 72  2025-09-09 11:33:49 2025-09-30  72 0.95366063 x
+## 73  2025-09-08 22:11:37 2025-10-05  73 0.58594067 i
+## 74  2025-09-09 00:21:26 2025-09-24  74 0.07427914 i
+## 75  2025-09-08 16:40:47 2025-10-06  75 0.41196391 p
+## 76  2025-09-09 13:48:49 2025-09-18  76 0.64245513 l
+## 77  2025-09-09 01:55:28 2025-09-21  77 0.88572561 a
+## 78  2025-09-08 20:26:54 2025-10-07  78 0.27894255 z
+## 79  2025-09-09 02:21:03 2025-09-28  79 0.11545121 p
+## 80  2025-09-08 17:24:41 2025-10-04  80 0.27069348 w
+## 81  2025-09-09 07:10:25 2025-09-09  81 0.09039557 m
+## 82  2025-09-09 06:22:49 2025-10-07  82 0.84375956 u
+## 83  2025-09-08 21:50:05 2025-09-20  83 0.44452948 t
+## 84  2025-09-08 20:10:15 2025-09-16  84 0.17054338 a
+## 85  2025-09-09 02:11:11 2025-10-07  85 0.94064577 n
+## 86  2025-09-09 04:38:50 2025-09-13  86 0.55504992 s
+## 87  2025-09-08 19:52:03 2025-10-06  87 0.74138904 o
+## 88  2025-09-08 19:34:32 2025-09-19  88 0.69146950 m
+## 89  2025-09-09 07:42:29 2025-09-30  89 0.95055655 v
+## 90  2025-09-09 11:38:09 2025-10-04  90 0.50241356 h
+## 91  2025-09-09 11:57:46 2025-10-03  91 0.94041471 l
+## 92  2025-09-09 06:01:41 2025-09-19  92 0.66040567 e
+## 93  2025-09-08 23:53:47 2025-09-24  93 0.74075930 s
+## 94  2025-09-09 11:28:58 2025-09-24  94 0.49824345 q
+## 95  2025-09-08 16:08:06 2025-10-06  95 0.10436335 j
+## 96  2025-09-09 01:06:39 2025-09-08  96 0.06179632 g
+## 97  2025-09-09 04:09:16 2025-09-17  97 0.21776393 s
+## 98  2025-09-09 15:29:02 2025-09-08  98 0.15662152 x
+## 99  2025-09-09 02:12:31 2025-09-26  99 0.62424786 s
+## 100 2025-09-09 07:09:47 2025-09-10 100 0.39037936 c</code></pre>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="tibbles.html#cb442-1" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="dv">5</span>, <span class="dv">2</span>)</span>
+<span id="cb442-2"><a href="tibbles.html#cb442-2" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>##      [1]  2.8956070022  7.1539697012  1.0693610427  4.2534779450  3.5678144907
 ##      [6]  2.0128319459  5.6131619672  4.8008522952  6.6643393799  4.8999615162
 ##     [11]  3.2907089871  3.9725028510  6.5649066358  3.0982586073  7.5044416953
@@ -20811,23 +20812,23 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  [99986]  5.0777424426  6.7855015366  4.4052493761  4.6019838715  3.9542233309
 ##  [99991]  8.5757428557  2.2425774807  5.2149092958  3.9034731425  3.6805472085
 ##  [99996]  3.3677961515  5.6130965788  8.1880604012  4.8726260824  3.6858020264</code></pre>
-<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="tibbles.html#cb445-1" tabindex="-1"></a><span class="fu">mean</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="tibbles.html#cb444-1" tabindex="-1"></a><span class="fu">mean</span>(x)</span></code></pre></div>
 <pre><code>## [1] 5.00734</code></pre>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="tibbles.html#cb447-1" tabindex="-1"></a><span class="fu">sd</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="tibbles.html#cb446-1" tabindex="-1"></a><span class="fu">sd</span>(x)</span></code></pre></div>
 <pre><code>## [1] 2.006484</code></pre>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="tibbles.html#cb449-1" tabindex="-1"></a>tb <span class="sc">%&gt;%</span></span>
-<span id="cb449-2"><a href="tibbles.html#cb449-2" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="at">width =</span> <span class="cn">Inf</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="tibbles.html#cb448-1" tabindex="-1"></a>tb <span class="sc">%&gt;%</span></span>
+<span id="cb448-2"><a href="tibbles.html#cb448-2" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="at">width =</span> <span class="cn">Inf</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 100 × 5
 ##   a                   b              c      d e    
 ##   &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;
-## 1 2025-09-08 16:32:31 2025-09-26     1 0.559  o    
-## 2 2025-09-08 23:01:46 2025-09-08     2 0.250  o    
-## 3 2025-09-08 17:55:22 2025-09-10     3 0.0653 d    
-## 4 2025-09-09 15:41:37 2025-09-09     4 0.573  v    
+## 1 2025-09-08 16:52:30 2025-09-26     1 0.559  o    
+## 2 2025-09-08 23:21:45 2025-09-08     2 0.250  o    
+## 3 2025-09-08 18:15:22 2025-09-10     3 0.0653 d    
+## 4 2025-09-09 16:01:36 2025-09-09     4 0.573  v    
 ## # ℹ 96 more rows</code></pre>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="tibbles.html#cb451-1" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">now</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;2025-09-08 15:44:51 AST&quot;</code></pre>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="tibbles.html#cb453-1" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">today</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="tibbles.html#cb450-1" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">now</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;2025-09-08 16:04:50 AST&quot;</code></pre>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="tibbles.html#cb452-1" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">today</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;2025-09-08&quot;</code></pre>
 <ul>
 <li><p>To convert a data frame to a tibble use <strong>as.tibble</strong></p></li>
@@ -20843,33 +20844,33 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>Operaciones aritmeticas en tibbles</p>
 <p>A diferencia de los data frame, los tibbles NO admiten operaciones aritméticas en todas las columnas. El resultado  fuerza silenciosamente a un data frame.</p>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="tibbles.html#cb455-1" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">b =</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb455-2"><a href="tibbles.html#cb455-2" tabindex="-1"></a>result<span class="ot">=</span>tbl <span class="sc">*</span> <span class="dv">2</span></span>
-<span id="cb455-3"><a href="tibbles.html#cb455-3" tabindex="-1"></a></span>
-<span id="cb455-4"><a href="tibbles.html#cb455-4" tabindex="-1"></a><span class="fu">is_tibble</span>(result)</span></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="tibbles.html#cb454-1" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">b =</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb454-2"><a href="tibbles.html#cb454-2" tabindex="-1"></a>result<span class="ot">=</span>tbl <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb454-3"><a href="tibbles.html#cb454-3" tabindex="-1"></a></span>
+<span id="cb454-4"><a href="tibbles.html#cb454-4" tabindex="-1"></a><span class="fu">is_tibble</span>(result)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="tibbles.html#cb457-1" tabindex="-1"></a><span class="fu">is.data.frame</span>(result)</span></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="tibbles.html#cb456-1" tabindex="-1"></a><span class="fu">is.data.frame</span>(result)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="tibbles.html#cb459-1" tabindex="-1"></a>result2<span class="ot">=</span>tbl <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">c=</span>b<span class="sc">*</span><span class="dv">2</span>)</span>
-<span id="cb459-2"><a href="tibbles.html#cb459-2" tabindex="-1"></a>result2</span></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="tibbles.html#cb458-1" tabindex="-1"></a>result2<span class="ot">=</span>tbl <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">c=</span>b<span class="sc">*</span><span class="dv">2</span>)</span>
+<span id="cb458-2"><a href="tibbles.html#cb458-2" tabindex="-1"></a>result2</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##       a     b     c
 ##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
 ## 1     1     4     8
 ## 2     2     5    10
 ## 3     3     6    12</code></pre>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="tibbles.html#cb461-1" tabindex="-1"></a><span class="fu">is_tibble</span>(result2)</span></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="tibbles.html#cb460-1" tabindex="-1"></a><span class="fu">is_tibble</span>(result2)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <ul>
 <li>Los tibbles también son más estrictos con $. Tibbles nunca realiza coincidencias parciales y generará una advertencia y devolverá NULL si la columna no existe:</li>
 </ul>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="tibbles.html#cb463-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">abc =</span> <span class="dv">1</span>)</span>
-<span id="cb463-2"><a href="tibbles.html#cb463-2" tabindex="-1"></a>df<span class="sc">$</span>a</span></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="tibbles.html#cb462-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">abc =</span> <span class="dv">1</span>)</span>
+<span id="cb462-2"><a href="tibbles.html#cb462-2" tabindex="-1"></a>df<span class="sc">$</span>a</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="tibbles.html#cb465-1" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
-<span id="cb465-2"><a href="tibbles.html#cb465-2" tabindex="-1"></a></span>
-<span id="cb465-3"><a href="tibbles.html#cb465-3" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">abc =</span> <span class="dv">1</span>)</span>
-<span id="cb465-4"><a href="tibbles.html#cb465-4" tabindex="-1"></a>df2<span class="sc">$</span>abc <span class="co"># nota el error</span></span></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="tibbles.html#cb464-1" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
+<span id="cb464-2"><a href="tibbles.html#cb464-2" tabindex="-1"></a></span>
+<span id="cb464-3"><a href="tibbles.html#cb464-3" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">abc =</span> <span class="dv">1</span>)</span>
+<span id="cb464-4"><a href="tibbles.html#cb464-4" tabindex="-1"></a>df2<span class="sc">$</span>abc <span class="co"># nota el error</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <ul>
 <li>Para extraer una columna de un tibble, use [[. Esto es más seguro que $ porque nunca realiza coincidencias parciales:</li>
@@ -20877,24 +20878,24 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="selección-de-subconjuntos-de-datos" class="section level2 hasAnchor" number="15.6">
 <h2><span class="header-section-number">15.6</span> Selección de subconjuntos de datos<a href="#selecci%C3%B3n-de-subconjuntos-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="tibbles.html#cb467-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
-<span id="cb467-2"><a href="tibbles.html#cb467-2" tabindex="-1"></a></span>
-<span id="cb467-3"><a href="tibbles.html#cb467-3" tabindex="-1"></a><span class="fu">head</span>(vuelos<span class="sc">$</span>salida_programada, <span class="at">n=</span><span class="dv">20</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="tibbles.html#cb466-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb466-2"><a href="tibbles.html#cb466-2" tabindex="-1"></a></span>
+<span id="cb466-3"><a href="tibbles.html#cb466-3" tabindex="-1"></a><span class="fu">head</span>(vuelos<span class="sc">$</span>salida_programada, <span class="at">n=</span><span class="dv">20</span>) </span></code></pre></div>
 <pre><code>##  [1] 515 529 540 545 600 558 600 600 600 600 600 600 600 600 600 559 600 600 600
 ## [20] 600</code></pre>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="tibbles.html#cb469-1" tabindex="-1"></a>vuelos[[<span class="st">&quot;salida_programada&quot;</span>]] <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n=</span><span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="tibbles.html#cb468-1" tabindex="-1"></a>vuelos[[<span class="st">&quot;salida_programada&quot;</span>]] <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n=</span><span class="dv">20</span>)</span></code></pre></div>
 <pre><code>##  [1] 515 529 540 545 600 558 600 600 600 600 600 600 600 600 600 559 600 600 600
 ## [20] 600</code></pre>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="tibbles.html#cb471-1" tabindex="-1"></a><span class="co">#Alternativas usar esta función dentro de pipe</span></span>
-<span id="cb471-2"><a href="tibbles.html#cb471-2" tabindex="-1"></a></span>
-<span id="cb471-3"><a href="tibbles.html#cb471-3" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> .<span class="sc">$</span>salida_programada <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n=</span><span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="tibbles.html#cb470-1" tabindex="-1"></a><span class="co">#Alternativas usar esta función dentro de pipe</span></span>
+<span id="cb470-2"><a href="tibbles.html#cb470-2" tabindex="-1"></a></span>
+<span id="cb470-3"><a href="tibbles.html#cb470-3" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> .<span class="sc">$</span>salida_programada <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n=</span><span class="dv">20</span>)</span></code></pre></div>
 <pre><code>##  [1] 515 529 540 545 600 558 600 600 600 600 600 600 600 600 600 559 600 600 600
 ## [20] 600</code></pre>
-<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="tibbles.html#cb473-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> .[[<span class="st">&quot;salida_programada&quot;</span>]] <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n=</span><span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="tibbles.html#cb472-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> .[[<span class="st">&quot;salida_programada&quot;</span>]] <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n=</span><span class="dv">20</span>)</span></code></pre></div>
 <pre><code>##  [1] 515 529 540 545 600 558 600 600 600 600 600 600 600 600 600 559 600 600 600
 ## [20] 600</code></pre>
-<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="tibbles.html#cb475-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> .[[<span class="st">&quot;atraso_salida&quot;</span>]] <span class="sc">|&gt;</span> </span>
-<span id="cb475-2"><a href="tibbles.html#cb475-2" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="tibbles.html#cb474-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> .[[<span class="st">&quot;atraso_salida&quot;</span>]] <span class="sc">|&gt;</span> </span>
+<span id="cb474-2"><a href="tibbles.html#cb474-2" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">20</span>)</span></code></pre></div>
 <pre><code>##  [1]  2  4  2 -1 -6 -4 -5 -3 -3 -2 -2 -2 -2 -2 -1  0 -1  0  0  1</code></pre>
 <ol style="list-style-type: decimal">
 <li><strong>Ejercicios</strong>:</li>

@@ -7,7 +7,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 Sys.Date()
 ```
 
-Fecha de la ultima revisión
+Fecha de la última revisión
 
 ```{r TFV1}
 library(tidyverse)
@@ -20,7 +20,7 @@ library(datos)
 - NA: Not Available
 
 
-### ¿Qué pasa con los valores faltantes y resultados de analisis sin sentido?
+### ¿Qué pasa con los valores faltantes y resultados de anålisis sin sentido?
 
 ```{r TFV2}
 
@@ -29,15 +29,15 @@ library(datos)
 1^0
 
 NA^0
-NA==1
-NA|TRUE
-NA|FALSE
+NA == 1
+NA | TRUE
+NA | FALSE
 
 FALSE & NA
 TRUE & NA
 FALSE * NA
 TRUE * NA
-NA * 0  
+NA * 0
 NA * 1
 12 * 3
 NA - 3
@@ -46,7 +46,7 @@ NA - 3
 ```
 
 
-Vamos a aclarar estas operaciones con NA en un data frame
+## Creeamos un df para aclarar estas operaciones con NA en un data frame
 
  - valores numéricos
  - variable lógica TRUE/FALSE
@@ -55,8 +55,8 @@ Vamos a aclarar estas operaciones con NA en un data frame
 ```{r}
 df=tribble(~values, ~T_F, ~NA_not,
              1, TRUE, NA,
-              0, TRUE, 1,
-              1, FALSE, NA,
+             0, TRUE, 1,
+             1, FALSE, NA,
              0, FALSE, 1,
              0, TRUE, 1,
              0, FALSE, 0,
@@ -66,23 +66,27 @@ df
 ```
 
 
+Ahora multiplicamos valores con la variable lógica.
+
 ```{r}
-df |> 
-  mutate(values_TF=values*T_F)
+df |>
+  mutate(values_TF = values * T_F)
 ```
 
 
+Multiplicamos la variable lógica con NA/1/0
 
 ```{r}
-df |> 
-  mutate(values_TF=T_F*NA_not)
+df |>
+  mutate(values_TF = T_F * NA_not)
 ```
 
 
+Multiplicamos valores con la variable NA/1/0
 
 ```{r}
-df |> 
-  mutate(valuesNA=values*NA_not)
+df |>
+  mutate(valuesNA = values * NA_not)
 ```
 
 
@@ -94,8 +98,8 @@ df |>
 
 ```{r TFV2a}
 vuelos %>%
-dplyr::select(horario_salida) %>%
-is.na() %>% 
+  dplyr::select(horario_salida) %>%
+  is.na() %>%
   table()
 
 
@@ -105,11 +109,9 @@ is.na() %>%
 ## Seleccionar solamente los vuelos donde el "horario de salida" es desconocido
 
 ```{r TVF3}
-vuelos %>% 
-  dplyr::select(anio, mes, dia, horario_salida, aerolinea) |> 
-filter(is.na(horario_salida))
-
-
+vuelos %>%
+  dplyr::select(anio, mes, dia, horario_salida, aerolinea) |>
+  filter(is.na(horario_salida))
 
 ```
 
@@ -120,21 +122,22 @@ filter(is.na(horario_salida))
 -   !is.na() = is not NA, pq al frente tiene "!"
 
 ```{r TVF4}
-no_cancelados <- vuelos %>% 
+no_cancelados <- vuelos %>%
   filter(!is.na(atraso_salida), !is.na(atraso_llegada))
 no_cancelados
 
-no_cancelados %>% 
-  group_by(anio, mes, dia) %>% 
+no_cancelados %>%
+  group_by(anio, mes, dia) %>%
   summarise(mean = mean(atraso_salida))
 
 
-vuelos %>% 
-  group_by(anio, mes, dia) %>% 
-  summarise(mean = mean(atraso_salida, na.rm=TRUE))
-#,
-#            max=max(atraso_salida,na.rm = TRUE),
-#            n=n())
+vuelos %>%
+  group_by(anio, mes, dia) %>%
+  summarise(
+    mean = mean(atraso_salida, na.rm = TRUE),
+    max = max(atraso_salida, na.rm = TRUE),
+    n = n()
+  )
 ```
 
 
@@ -146,15 +149,15 @@ Cual es el problema de reemplazar los NA por 0?
 ```{r TFV5}
 
 
-datos_NA=c(1, NA, 3:8, NA, 10:12)
+datos_NA = c(1, NA, 3:8, NA, 10:12)
 
 
-datos_NA_df=as.data.frame(datos_NA)
+datos_NA_df = as.data.frame(datos_NA)
 datos_NA_df
 # reemplazar NA con 0
 
 datos_NA_df = datos_NA_df %>%
-  mutate(datos_0= if_else(is.na(datos_NA), 0, datos_NA))
+  mutate(datos_0 = if_else(is.na(datos_NA), 0, datos_NA))
 
 
 datos_NA_df
@@ -176,12 +179,12 @@ reemplace los valores de "zero" con NA con la funcion if_else de dplyr
 
 ```{r}
 library(dplyr)
-Datos_Excel=c(1, 0, 3:8, 0, 10:12)
+Datos_Excel = c(1, 0, 3:8, 0, 10:12)
 
-Datos_df=as.data.frame(Datos_Excel)
+Datos_df = as.data.frame(Datos_Excel)
 
-Datos_df= Datos_df %>%
-  mutate(Datos_NA= dplyr::if_else(Datos_Excel== 0, NA, Datos_Excel))
+Datos_df = Datos_df %>%
+  mutate(Datos_NA = dplyr::if_else(Datos_Excel == 0, NA, Datos_Excel))
 
 Datos_df
 

@@ -100,7 +100,8 @@ la-función-arrange
 ejercicios-3
 transformación-valores-faltantes
 valores-faltantes
-qué-pasa-con-los-valores-faltantes-y-resultados-de-analisis-sin-sentido
+qué-pasa-con-los-valores-faltantes-y-resultados-de-anålisis-sin-sentido
+creeamos-un-df-para-aclarar-estas-operaciones-con-na-en-un-data-frame
 contabilizar-los-na
 seleccionar-solamente-los-vuelos-donde-el-horario-de-salida-es-desconocido
 otras-funciones-na

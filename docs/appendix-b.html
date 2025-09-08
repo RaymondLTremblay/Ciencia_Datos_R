@@ -260,11 +260,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="7.1" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html"><i class="fa fa-check"></i><b>7.1</b> Valores faltantes</a>
 <ul>
-<li class="chapter" data-level="7.1.1" data-path="B-Ejercicios_Transformacion_2.html"><a href="#qu%C3%A9-pasa-con-los-valores-faltantes-y-resultados-de-analisis-sin-sentido"><i class="fa fa-check"></i><b>7.1.1</b> ¿Qué pasa con los valores faltantes y resultados de analisis sin sentido?</a></li>
+<li class="chapter" data-level="7.1.1" data-path="B-Ejercicios_Transformacion_2.html"><a href="#qu%C3%A9-pasa-con-los-valores-faltantes-y-resultados-de-an%C3%A5lisis-sin-sentido"><i class="fa fa-check"></i><b>7.1.1</b> ¿Qué pasa con los valores faltantes y resultados de anålisis sin sentido?</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#contabilizar-los-na"><i class="fa fa-check"></i><b>7.2</b> Contabilizar los NA</a></li>
-<li class="chapter" data-level="7.3" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#seleccionar-solamente-los-vuelos-donde-el-horario-de-salida-es-desconocido"><i class="fa fa-check"></i><b>7.3</b> Seleccionar solamente los vuelos donde el “horario de salida” es desconocido</a></li>
-<li class="chapter" data-level="7.4" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#otras-funciones-na"><i class="fa fa-check"></i><b>7.4</b> Otras funciones: NA</a></li>
+<li class="chapter" data-level="7.2" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#creeamos-un-df-para-aclarar-estas-operaciones-con-na-en-un-data-frame"><i class="fa fa-check"></i><b>7.2</b> Creeamos un df para aclarar estas operaciones con NA en un data frame</a></li>
+<li class="chapter" data-level="7.3" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#contabilizar-los-na"><i class="fa fa-check"></i><b>7.3</b> Contabilizar los NA</a></li>
+<li class="chapter" data-level="7.4" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#seleccionar-solamente-los-vuelos-donde-el-horario-de-salida-es-desconocido"><i class="fa fa-check"></i><b>7.4</b> Seleccionar solamente los vuelos donde el “horario de salida” es desconocido</a></li>
+<li class="chapter" data-level="7.5" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#otras-funciones-na"><i class="fa fa-check"></i><b>7.5</b> Otras funciones: NA</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="B-Ejercicios_Transformacion_2.html"><a href="#transformaci%C3%B3n-selecionar-variables"><i class="fa fa-check"></i><b>8</b> Transformación: Selecionar variables</a>
 <ul>
@@ -629,12 +630,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h2>Seleccione los siguientes datos sobre COVID en PR<a href="appendix-b.html#seleccione-los-siguientes-datos-sobre-covid-en-pr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="leen-bien-lo-que-estoy-pidiendo.-el-nombre-de-las-columnas-pueden-engañar" class="section level3 unnumbered hasAnchor">
 <h3>LEEN bien lo que estoy pidiendo. El nombre de las columnas pueden engañar!!!<a href="#leen-bien-lo-que-estoy-pidiendo.-el-nombre-de-las-columnas-pueden-enga%C3%B1ar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb1093"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1093-1"><a href="appendix-b.html#cb1093-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1093-2"><a href="appendix-b.html#cb1093-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb1093-3"><a href="appendix-b.html#cb1093-3" tabindex="-1"></a>url_COVID_PR<span class="ot">=</span><span class="fu">fread</span>(<span class="st">&quot;https://raw.githubusercontent.com/rafalab/pr-covid/master/dashboard/data/DatosMortalidad.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb1094"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1094-1"><a href="appendix-b.html#cb1094-1" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
-<span id="cb1094-2"><a href="appendix-b.html#cb1094-2" tabindex="-1"></a>Covid<span class="ot">=</span>url_COVID_PR</span>
-<span id="cb1094-3"><a href="appendix-b.html#cb1094-3" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">tail</span>(Covid, <span class="at">n=</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1092"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1092-1"><a href="appendix-b.html#cb1092-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1092-2"><a href="appendix-b.html#cb1092-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb1092-3"><a href="appendix-b.html#cb1092-3" tabindex="-1"></a>url_COVID_PR<span class="ot">=</span><span class="fu">fread</span>(<span class="st">&quot;https://raw.githubusercontent.com/rafalab/pr-covid/master/dashboard/data/DatosMortalidad.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1093"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1093-1"><a href="appendix-b.html#cb1093-1" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1093-2"><a href="appendix-b.html#cb1093-2" tabindex="-1"></a>Covid<span class="ot">=</span>url_COVID_PR</span>
+<span id="cb1093-3"><a href="appendix-b.html#cb1093-3" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">tail</span>(Covid, <span class="at">n=</span><span class="dv">2</span>))</span></code></pre></div>
 <div id="yxicclxahb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#yxicclxahb table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
