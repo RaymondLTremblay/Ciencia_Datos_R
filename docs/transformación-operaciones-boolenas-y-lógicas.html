@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-08-27" />
+<meta name="date" content="2025-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -64,7 +64,7 @@
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.2.3/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -250,7 +250,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.1" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html"><i class="fa fa-check"></i><b>6.2.1</b> Otra alternativa para filtrar</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#ejercicios-2"><i class="fa fa-check"></i><b>6.3</b> Ejercicios</a></li>
-<li class="chapter" data-level="6.4" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#section-1"><i class="fa fa-check"></i><b>6.4</b> </a>
+<li class="chapter" data-level="6.4" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#section"><i class="fa fa-check"></i><b>6.4</b> </a>
 <ul>
 <li class="chapter" data-level="6.4.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#la-funci%C3%B3n-arrange"><i class="fa fa-check"></i><b>6.4.1</b> La función arrange()</a></li>
 </ul></li>
@@ -328,11 +328,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.1" data-path="pipes.html"><a href="pipes.html#temas-el-paquete-magrittr-y-sus-funciones"><i class="fa fa-check"></i><b>14.1</b> Temas: El paquete “magrittr” y sus funciones</a></li>
 <li class="chapter" data-level="14.2" data-path="pipes.html"><a href="pipes.html#pipes-1"><i class="fa fa-check"></i><b>14.2</b> %&gt;% pipes</a></li>
 <li class="chapter" data-level="14.3" data-path="pipes.html"><a href="pipes.html#alternativas-a-los-pipes"><i class="fa fa-check"></i><b>14.3</b> Alternativas a los pipes</a></li>
-<li class="chapter" data-level="14.4" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>14.4</b> %$%</a>
+<li class="chapter" data-level="14.4" data-path="pipes.html"><a href="pipes.html#section-1"><i class="fa fa-check"></i><b>14.4</b> %$%</a>
 <ul>
 <li class="chapter" data-level="14.4.1" data-path="pipes.html"><a href="pipes.html#otro-ejemplo-de-pipe"><i class="fa fa-check"></i><b>14.4.1</b> Otro ejemplo de Pipe: %$%</a></li>
 </ul></li>
-<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-3"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
+<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
 <li class="chapter" data-level="14.6" data-path="pipes.html"><a href="pipes.html#in"><i class="fa fa-check"></i><b>14.6</b> %in%</a></li>
 <li class="chapter" data-level="14.7" data-path="pipes.html"><a href="pipes.html#t"><i class="fa fa-check"></i><b>14.7</b> %T&gt;%</a></li>
 </ul></li>
@@ -621,7 +621,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="transformación-operaciones-boolenas-y-lógicas" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Capítulo6</span> Transformación: Operaciones boolenas y lógicas<a href="#transformaci%C3%B3n-operaciones-boolenas-y-l%C3%B3gicas" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2025-08-27&quot;</code></pre>
+<pre><code>## [1] &quot;2025-09-08&quot;</code></pre>
 <hr />
 <p>El tema proviene de los siguientes sitios.</p>
 <p>English: <a href="https://r4ds.had.co.nz/transform.html" class="uri">https://r4ds.had.co.nz/transform.html</a></p>
@@ -643,7 +643,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;int&gt;, codigo_cola &lt;chr&gt;,
 ## #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 ## #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
-<p>Tema de este modulo:</p>
+<p>Tema de este módulo:</p>
 <ul>
 <li><strong>Filtrar</strong> filas con <strong>filter()</strong></li>
 <li><strong>Seleccionar</strong> columnas con <strong>select()</strong></li>
@@ -660,7 +660,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">6.2</span> Operaciones lógicas boolean:<a href="#operaciones-l%C3%B3gicas-boolean" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>&amp; “ampersand” == “conjunción”</li>
-<li>“|” or= “o”</li>
+<li>“|” or = “o”</li>
 <li>!, no incluye, excluir….</li>
 <li>%in%, filtrar para múltiples valores</li>
 <li>==, es igual a… “exactamente”</li>
@@ -670,45 +670,60 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>“&gt;=” es mayor o igual</li>
 </ul>
 <p>Bollean, que incluye múltiples opciones %in%</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb162-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_llegada, destino) <span class="sc">%&gt;%</span> </span>
-<span id="cb162-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-3" tabindex="-1"></a>  <span class="fu">filter</span>(destino <span class="sc">==</span><span class="st">&quot;SJU&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb162-4"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-4" tabindex="-1"></a>  <span class="fu">filter</span>(mes <span class="sc">==</span> <span class="dv">12</span> <span class="sc">&amp;</span> dia <span class="sc">==</span><span class="dv">25</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb162-5"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-5" tabindex="-1"></a> <span class="co"># filter(mes == 12) %&gt;%</span></span>
-<span id="cb162-6"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-6" tabindex="-1"></a>  <span class="fu">group_by</span>(dia, mes) <span class="sc">%&gt;%</span> </span>
-<span id="cb162-7"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-7" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">atraso =</span> <span class="fu">mean</span>(atraso_llegada, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 3
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span></span>
+<span id="cb162-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_llegada, destino) <span class="sc">%&gt;%</span></span>
+<span id="cb162-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-3" tabindex="-1"></a>  <span class="fu">filter</span>(destino <span class="sc">==</span> <span class="st">&quot;SJU&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb162-4"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-4" tabindex="-1"></a>  <span class="fu">filter</span>(mes <span class="sc">==</span> <span class="fu">c</span>(<span class="dv">6</span><span class="sc">:</span><span class="dv">12</span>) <span class="sc">&amp;</span> dia <span class="sc">==</span> <span class="dv">25</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb162-5"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-5" tabindex="-1"></a>  <span class="fu">group_by</span>(dia, mes) <span class="sc">%&gt;%</span></span>
+<span id="cb162-6"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">atraso =</span> <span class="fu">mean</span>(atraso_llegada, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 7 × 3
 ## # Groups:   dia [1]
 ##     dia   mes atraso
 ##   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
-## 1    25    12   3.57</code></pre>
+## 1    25     6  14   
+## 2    25     7  -4.67
+## 3    25     8  -9   
+## 4    25     9 -19.5 
+## 5    25    10  -4   
+## 6    25    11 -13.5 
+## 7    25    12 -20.3</code></pre>
 <hr />
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb164-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_salida) <span class="sc">%&gt;%</span> </span>
-<span id="cb164-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-3" tabindex="-1"></a>  <span class="fu">group_by</span>(mes) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span></span>
+<span id="cb164-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_salida, aerolinea) <span class="sc">%&gt;%</span></span>
+<span id="cb164-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-3" tabindex="-1"></a>  <span class="fu">group_by</span>(mes, aerolinea) <span class="sc">%&gt;%</span></span>
 <span id="cb164-4"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-4" tabindex="-1"></a>  <span class="fu">filter</span>(mes <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)) <span class="sc">%&gt;%</span> <span class="co"># mes entre 1 y 6</span></span>
-<span id="cb164-5"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">atraso =</span> <span class="fu">mean</span>(atraso_salida, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 6 × 2
+<span id="cb164-5"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-5" tabindex="-1"></a>  <span class="fu">filter</span>(aerolinea <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;AA&quot;</span>, <span class="st">&quot;UA&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb164-6"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">atraso =</span> <span class="fu">mean</span>(atraso_salida, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 12 × 3
+## # Groups:   mes [6]
+##      mes aerolinea atraso
+##    &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt;
+##  1     1 AA          6.93
+##  2     1 UA          8.33
+##  3     2 AA          8.28
+##  4     2 UA          7.71
+##  5     3 AA          8.70
+##  6     3 UA         11.7 
+##  7     4 AA         11.7 
+##  8     4 UA         13.7 
+##  9     5 AA          9.66
+## 10     5 UA         12.3 
+## 11     6 AA         14.6 
+## 12     6 UA         20.3</code></pre>
+<div id="otra-alternativa-para-filtrar" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Otra alternativa para filtrar<a href="transformación-operaciones-boolenas-y-lógicas.html#otra-alternativa-para-filtrar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="or" class="section level4 hasAnchor" number="6.2.1.1">
+<h4><span class="header-section-number">6.2.1.1</span> “|” or<a href="transformación-operaciones-boolenas-y-lógicas.html#or" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb166-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span></span>
+<span id="cb166-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb166-2" tabindex="-1"></a>  <span class="fu">group_by</span>(mes) <span class="sc">%&gt;%</span></span>
+<span id="cb166-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb166-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_salida) <span class="sc">%&gt;%</span></span>
+<span id="cb166-4"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb166-4" tabindex="-1"></a>  <span class="fu">filter</span>(mes <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> mes <span class="sc">==</span> <span class="dv">12</span>) <span class="sc">|&gt;</span>  <span class="co"># mes 1 o 12</span></span>
+<span id="cb166-5"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb166-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">atraso =</span> <span class="fu">mean</span>(atraso_salida, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
 ##     mes atraso
 ##   &lt;int&gt;  &lt;dbl&gt;
 ## 1     1   10.0
-## 2     2   10.8
-## 3     3   13.2
-## 4     4   13.9
-## 5     5   13.0
-## 6     6   20.8</code></pre>
-<div id="otra-alternativa-para-filtrar" class="section level3 hasAnchor" number="6.2.1">
-<h3><span class="header-section-number">6.2.1</span> Otra alternativa para filtrar<a href="transformación-operaciones-boolenas-y-lógicas.html#otra-alternativa-para-filtrar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="section" class="section level4 hasAnchor" number="6.2.1.1">
-<h4><span class="header-section-number">6.2.1.1</span> “|”<a href="transformación-operaciones-boolenas-y-lógicas.html#section" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb166-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb166-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb166-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_salida) <span class="sc">%&gt;%</span> </span>
-<span id="cb166-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb166-3" tabindex="-1"></a>  <span class="fu">filter</span>(mes <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> mes <span class="sc">==</span> <span class="dv">12</span>) <span class="sc">|&gt;</span>  <span class="co"># mes 1 o 12 </span></span>
-<span id="cb166-4"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb166-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">atraso =</span> <span class="fu">mean</span>(atraso_salida, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 1
-##   atraso
-##    &lt;dbl&gt;
-## 1   13.3</code></pre>
+## 2    12   16.6</code></pre>
 </div>
 <div id="el-y" class="section level4 hasAnchor" number="6.2.1.2">
 <h4><span class="header-section-number">6.2.1.2</span> &amp; el “y”<a href="transformación-operaciones-boolenas-y-lógicas.html#el-y" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -720,9 +735,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## [13] &quot;origen&quot;             &quot;destino&quot;            &quot;tiempo_vuelo&quot;      
 ## [16] &quot;distancia&quot;          &quot;hora&quot;               &quot;minuto&quot;            
 ## [19] &quot;fecha_hora&quot;</code></pre>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb170-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb170-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb170-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_salida, aerolinea) <span class="sc">%&gt;%</span> </span>
-<span id="cb170-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb170-3" tabindex="-1"></a>  <span class="fu">filter</span>(mes <span class="sc">==</span> <span class="dv">12</span> <span class="sc">&amp;</span> dia <span class="sc">==</span> <span class="dv">25</span> <span class="sc">&amp;</span> aerolinea<span class="sc">==</span><span class="st">&quot;AA&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb170-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span></span>
+<span id="cb170-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb170-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_salida, aerolinea) <span class="sc">%&gt;%</span></span>
+<span id="cb170-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb170-3" tabindex="-1"></a>  <span class="fu">filter</span>(mes <span class="sc">==</span> <span class="dv">12</span> <span class="sc">&amp;</span> dia <span class="sc">==</span> <span class="dv">25</span> <span class="sc">&amp;</span> aerolinea <span class="sc">==</span> <span class="st">&quot;AA&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 78 × 5
 ##     anio   mes   dia atraso_salida aerolinea
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;         &lt;dbl&gt; &lt;chr&gt;    
@@ -746,16 +761,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>Como se seleccionaría los meses de diciembre pero desde la del 25 o más</p>
 <hr />
 </div>
-<div id="section-1" class="section level2" number="6.4">
+<div id="section" class="section level2" number="6.4">
 <h2><span class="header-section-number">6.4</span> </h2>
 <p>!, <strong>excluye algo</strong>, En este caso estamos excluyendo las aerolinea “AA” y “DL”</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
-<span id="cb172-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb172-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-3" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb172-4"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_salida, aerolinea) <span class="sc">%&gt;%</span></span>
-<span id="cb172-5"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-5" tabindex="-1"></a>  <span class="fu">filter</span>(mes <span class="sc">==</span> <span class="dv">11</span> <span class="sc">&amp;</span> <span class="sc">!</span>aerolinea <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;AA&quot;</span>, <span class="st">&quot;DL&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb172-6"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-6" tabindex="-1"></a>  <span class="fu">group_by</span>(aerolinea) <span class="sc">%&gt;%</span> </span>
-<span id="cb172-7"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-7" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">atraso =</span> <span class="fu">mean</span>(atraso_salida, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span></span>
+<span id="cb172-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_salida, aerolinea) <span class="sc">%&gt;%</span></span>
+<span id="cb172-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-3" tabindex="-1"></a>  <span class="fu">filter</span>(mes <span class="sc">==</span> <span class="dv">11</span> <span class="sc">&amp;</span> <span class="sc">!</span>aerolinea <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;AA&quot;</span>, <span class="st">&quot;DL&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb172-4"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-4" tabindex="-1"></a>  <span class="fu">group_by</span>(aerolinea) <span class="sc">%&gt;%</span></span>
+<span id="cb172-5"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">atraso =</span> <span class="fu">mean</span>(atraso_salida, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 14 × 2
 ##    aerolinea atraso
 ##    &lt;chr&gt;      &lt;dbl&gt;
@@ -789,6 +802,28 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Seleciona solamente los vuelos que fueron operados por United, American o Delta</p></li>
 <li><p>Selecciona solamente los vuelos que partieron en invierno del hemisferio sur (julio, agosto y septiembre)</p></li>
 <li><p>Selecciona solamente los vuelos excluyendo los dias del 2 al 29 de cualquier mes</p></li>
+</ol>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb174-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span></span>
+<span id="cb174-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb174-2" tabindex="-1"></a>  <span class="fu">filter</span>(atraso_salida <span class="sc">&lt;=</span><span class="dv">0</span> <span class="sc">&amp;</span> atraso_llegada <span class="sc">&gt;=</span><span class="dv">120</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 29 × 19
+##     anio   mes   dia horario_salida salida_programada atraso_salida
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;         &lt;dbl&gt;
+##  1  2013     1    27           1419              1420            -1
+##  2  2013    10     7           1350              1350             0
+##  3  2013    10     7           1357              1359            -2
+##  4  2013    10    16            657               700            -3
+##  5  2013    11     1            658               700            -2
+##  6  2013     3    18           1844              1847            -3
+##  7  2013     4    17           1635              1640            -5
+##  8  2013     4    18            558               600            -2
+##  9  2013     4    18            655               700            -5
+## 10  2013     5    22           1827              1830            -3
+## # ℹ 19 more rows
+## # ℹ 13 more variables: horario_llegada &lt;int&gt;, llegada_programada &lt;int&gt;,
+## #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;int&gt;, codigo_cola &lt;chr&gt;,
+## #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
+## #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
+<ol start="5" style="list-style-type: decimal">
 <li><p>Selecciona solamente los vuelos que llegaron más de dos horas tarde, pero no salieron tarde</p></li>
 <li><p>Selecciona solamente los vuelos que se retrasaron por lo menos una hora, pero repusieron más de 30 minutos en vuelo</p></li>
 <li><p>Selecciona solamente los vuelos que partieron entre la medianoche y las 6a.m. (incluyente)</p></li>
@@ -800,10 +835,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">6.4.1</span> La función arrange()<a href="#la-funci%C3%B3n-arrange" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>arrange()</p>
 <hr />
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb174-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb174-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb174-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(horario_salida) <span class="sc">%&gt;%</span> </span>
-<span id="cb174-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb174-3" tabindex="-1"></a>  <span class="fu">arrange</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb174-4"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb174-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb176-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb176-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb176-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(horario_salida) <span class="sc">%&gt;%</span> </span>
+<span id="cb176-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb176-3" tabindex="-1"></a>  <span class="fu">arrange</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb176-4"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb176-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 1
 ##    horario_salida
 ##             &lt;int&gt;
@@ -817,9 +852,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  8            557
 ##  9            557
 ## 10            558</code></pre>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb176-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb176-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb176-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(horario_salida)) <span class="sc">|&gt;</span> </span>
-<span id="cb176-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb176-3" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb178-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb178-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb178-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(horario_salida)) <span class="sc">|&gt;</span> </span>
+<span id="cb178-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb178-3" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 19
 ##     anio   mes   dia horario_salida salida_programada atraso_salida
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;         &lt;dbl&gt;

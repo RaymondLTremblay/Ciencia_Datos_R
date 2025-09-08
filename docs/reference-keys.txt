@@ -92,10 +92,10 @@ transformación-operaciones-boolenas-y-lógicas
 agrupar-por-múltiples-variables-1
 operaciones-lógicas-boolean
 otra-alternativa-para-filtrar
-section
+or
 el-y
 ejercicios-2
-section-1
+section
 la-función-arrange
 ejercicios-3
 transformación-valores-faltantes
@@ -149,9 +149,9 @@ pipes
 temas-el-paquete-magrittr-y-sus-funciones
 pipes-1
 alternativas-a-los-pipes
-section-2
+section-1
 otro-ejemplo-de-pipe
-section-3
+section-2
 in
 t
 tibbles

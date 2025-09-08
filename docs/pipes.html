@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-08-27" />
+<meta name="date" content="2025-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -64,7 +64,7 @@
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.2.3/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -250,7 +250,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.1" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html"><i class="fa fa-check"></i><b>6.2.1</b> Otra alternativa para filtrar</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#ejercicios-2"><i class="fa fa-check"></i><b>6.3</b> Ejercicios</a></li>
-<li class="chapter" data-level="6.4" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#section-1"><i class="fa fa-check"></i><b>6.4</b> </a>
+<li class="chapter" data-level="6.4" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#section"><i class="fa fa-check"></i><b>6.4</b> </a>
 <ul>
 <li class="chapter" data-level="6.4.1" data-path="14-Pipes.html"><a href="#la-funci%C3%B3n-arrange"><i class="fa fa-check"></i><b>6.4.1</b> La función arrange()</a></li>
 </ul></li>
@@ -328,11 +328,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.1" data-path="pipes.html"><a href="pipes.html#temas-el-paquete-magrittr-y-sus-funciones"><i class="fa fa-check"></i><b>14.1</b> Temas: El paquete “magrittr” y sus funciones</a></li>
 <li class="chapter" data-level="14.2" data-path="pipes.html"><a href="pipes.html#pipes-1"><i class="fa fa-check"></i><b>14.2</b> %&gt;% pipes</a></li>
 <li class="chapter" data-level="14.3" data-path="pipes.html"><a href="pipes.html#alternativas-a-los-pipes"><i class="fa fa-check"></i><b>14.3</b> Alternativas a los pipes</a></li>
-<li class="chapter" data-level="14.4" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>14.4</b> %$%</a>
+<li class="chapter" data-level="14.4" data-path="pipes.html"><a href="pipes.html#section-1"><i class="fa fa-check"></i><b>14.4</b> %$%</a>
 <ul>
 <li class="chapter" data-level="14.4.1" data-path="pipes.html"><a href="pipes.html#otro-ejemplo-de-pipe"><i class="fa fa-check"></i><b>14.4.1</b> Otro ejemplo de Pipe: %$%</a></li>
 </ul></li>
-<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-3"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
+<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
 <li class="chapter" data-level="14.6" data-path="pipes.html"><a href="pipes.html#in"><i class="fa fa-check"></i><b>14.6</b> %in%</a></li>
 <li class="chapter" data-level="14.7" data-path="pipes.html"><a href="pipes.html#t"><i class="fa fa-check"></i><b>14.7</b> %T&gt;%</a></li>
 </ul></li>
@@ -621,10 +621,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="pipes" class="section level1 hasAnchor" number="14">
 <h1><span class="header-section-number">Capítulo14</span> Pipes<a href="pipes.html#pipes" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2025-08-27&quot;</code></pre>
+<pre><code>## [1] &quot;2025-09-08&quot;</code></pre>
 <hr />
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="pipes.html#cb384-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb384-2"><a href="pipes.html#cb384-2" tabindex="-1"></a><span class="fu">library</span>(magrittr) <span class="co"># El paquete de Pipe, se activa usando tidyverse</span></span></code></pre></div>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="pipes.html#cb400-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb400-2"><a href="pipes.html#cb400-2" tabindex="-1"></a><span class="fu">library</span>(magrittr) <span class="co"># El paquete de Pipe, se activa usando tidyverse</span></span></code></pre></div>
 <hr />
 <p>El tema proviene de los siguientes sitios.</p>
 <p>English:
@@ -644,29 +644,29 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li><p>%in% “In Pipe”</p></li>
 </ul>
 <p>Función basica para calcular el precio básico de de diamantes por quilates</p>
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="pipes.html#cb385-1" tabindex="-1"></a><span class="fu">head</span>(diamonds, <span class="at">n=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="pipes.html#cb401-1" tabindex="-1"></a><span class="fu">head</span>(diamonds, <span class="at">n=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 10
 ##   carat cut     color clarity depth table price     x     y     z
 ##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1  0.23 Ideal   E     SI2      61.5    55   326  3.95  3.98  2.43
 ## 2  0.21 Premium E     SI1      59.8    61   326  3.89  3.84  2.31
 ## 3  0.23 Good    E     VS1      56.9    65   327  4.05  4.07  2.31</code></pre>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="pipes.html#cb387-1" tabindex="-1"></a>diamonds<span class="sc">$</span>Precio_q <span class="ot">=</span> diamonds<span class="sc">$</span>price<span class="sc">/</span>diamonds<span class="sc">$</span>carat <span class="co"># crear una nueva variable</span></span>
-<span id="cb387-2"><a href="pipes.html#cb387-2" tabindex="-1"></a></span>
-<span id="cb387-3"><a href="pipes.html#cb387-3" tabindex="-1"></a><span class="fu">head</span>(diamonds, <span class="at">n=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="pipes.html#cb403-1" tabindex="-1"></a>diamonds<span class="sc">$</span>Precio_q <span class="ot">=</span> diamonds<span class="sc">$</span>price<span class="sc">/</span>diamonds<span class="sc">$</span>carat <span class="co"># crear una nueva variable</span></span>
+<span id="cb403-2"><a href="pipes.html#cb403-2" tabindex="-1"></a></span>
+<span id="cb403-3"><a href="pipes.html#cb403-3" tabindex="-1"></a><span class="fu">head</span>(diamonds, <span class="at">n=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 11
 ##   carat cut     color clarity depth table price     x     y     z Precio_q
 ##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
 ## 1  0.23 Ideal   E     SI2      61.5    55   326  3.95  3.98  2.43    1417.
 ## 2  0.21 Premium E     SI1      59.8    61   326  3.89  3.84  2.31    1552.
 ## 3  0.23 Good    E     VS1      56.9    65   327  4.05  4.07  2.31    1422.</code></pre>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="pipes.html#cb389-1" tabindex="-1"></a>diamonds2 <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> </span>
-<span id="cb389-2"><a href="pipes.html#cb389-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">price_per_carat =</span> price <span class="sc">/</span> carat)</span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="pipes.html#cb405-1" tabindex="-1"></a>diamonds2 <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb405-2"><a href="pipes.html#cb405-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">price_per_carat =</span> price <span class="sc">/</span> carat)</span></code></pre></div>
 <hr />
 <p>Calcular el promedio de precio por la calidad de los diamantes usando pipes</p>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="pipes.html#cb390-1" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span> </span>
-<span id="cb390-2"><a href="pipes.html#cb390-2" tabindex="-1"></a>  <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span> </span>
-<span id="cb390-3"><a href="pipes.html#cb390-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Precio_color=</span> <span class="fu">mean</span>(price))</span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="pipes.html#cb406-1" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb406-2"><a href="pipes.html#cb406-2" tabindex="-1"></a>  <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span> </span>
+<span id="cb406-3"><a href="pipes.html#cb406-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Precio_color=</span> <span class="fu">mean</span>(price))</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 2
 ##   cut       Precio_color
 ##   &lt;ord&gt;            &lt;dbl&gt;
@@ -681,35 +681,35 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="pipes-1" class="section level2 hasAnchor" number="14.2">
 <h2><span class="header-section-number">14.2</span> %&gt;% pipes<a href="pipes.html#pipes-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Un ejemplo básico del pipe</p>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="pipes.html#cb392-1" tabindex="-1"></a>car_data <span class="ot">&lt;-</span> </span>
-<span id="cb392-2"><a href="pipes.html#cb392-2" tabindex="-1"></a>  mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb392-3"><a href="pipes.html#cb392-3" tabindex="-1"></a>  <span class="fu">subset</span>(hp <span class="sc">&gt;</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb392-4"><a href="pipes.html#cb392-4" tabindex="-1"></a>  <span class="fu">aggregate</span>(. <span class="sc">~</span> cyl, <span class="at">data =</span> ., <span class="at">FUN =</span> . <span class="sc">%&gt;%</span> mean <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb392-5"><a href="pipes.html#cb392-5" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="at">kpl =</span> mpg <span class="sc">%&gt;%</span> <span class="fu">multiply_by</span>(<span class="fl">0.4251</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb392-6"><a href="pipes.html#cb392-6" tabindex="-1"></a>  print</span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="pipes.html#cb408-1" tabindex="-1"></a>car_data <span class="ot">&lt;-</span> </span>
+<span id="cb408-2"><a href="pipes.html#cb408-2" tabindex="-1"></a>  mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb408-3"><a href="pipes.html#cb408-3" tabindex="-1"></a>  <span class="fu">subset</span>(hp <span class="sc">&gt;</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb408-4"><a href="pipes.html#cb408-4" tabindex="-1"></a>  <span class="fu">aggregate</span>(. <span class="sc">~</span> cyl, <span class="at">data =</span> ., <span class="at">FUN =</span> . <span class="sc">%&gt;%</span> mean <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb408-5"><a href="pipes.html#cb408-5" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="at">kpl =</span> mpg <span class="sc">%&gt;%</span> <span class="fu">multiply_by</span>(<span class="fl">0.4251</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb408-6"><a href="pipes.html#cb408-6" tabindex="-1"></a>  print</span></code></pre></div>
 <pre><code>##   cyl   mpg   disp     hp drat   wt  qsec   vs   am gear carb       kpl
 ## 1   4 25.90 108.05 111.00 3.94 2.15 17.75 1.00 1.00 4.50 2.00 11.010090
 ## 2   6 19.74 183.31 122.29 3.59 3.12 17.98 0.57 0.43 3.86 3.43  8.391474
 ## 3   8 15.10 353.10 209.21 3.23 4.00 16.77 0.00 0.14 3.29 3.50  6.419010</code></pre>
 <p>Un ejemplo sin usar el pipe para calcular la misma información</p>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="pipes.html#cb394-1" tabindex="-1"></a>car_data <span class="ot">&lt;-</span> </span>
-<span id="cb394-2"><a href="pipes.html#cb394-2" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="fu">aggregate</span>(. <span class="sc">~</span> cyl, </span>
-<span id="cb394-3"><a href="pipes.html#cb394-3" tabindex="-1"></a>                      <span class="at">data =</span> <span class="fu">subset</span>(mtcars, hp <span class="sc">&gt;</span> <span class="dv">100</span>), </span>
-<span id="cb394-4"><a href="pipes.html#cb394-4" tabindex="-1"></a>                      <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">round</span>(<span class="fu">mean</span>(x), <span class="dv">2</span>)), </span>
-<span id="cb394-5"><a href="pipes.html#cb394-5" tabindex="-1"></a>                      <span class="at">kpl =</span> mpg<span class="sc">*</span><span class="fl">0.4251</span>)</span>
-<span id="cb394-6"><a href="pipes.html#cb394-6" tabindex="-1"></a></span>
-<span id="cb394-7"><a href="pipes.html#cb394-7" tabindex="-1"></a>car_data</span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="pipes.html#cb410-1" tabindex="-1"></a>car_data <span class="ot">&lt;-</span> </span>
+<span id="cb410-2"><a href="pipes.html#cb410-2" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="fu">aggregate</span>(. <span class="sc">~</span> cyl, </span>
+<span id="cb410-3"><a href="pipes.html#cb410-3" tabindex="-1"></a>                      <span class="at">data =</span> <span class="fu">subset</span>(mtcars, hp <span class="sc">&gt;</span> <span class="dv">100</span>), </span>
+<span id="cb410-4"><a href="pipes.html#cb410-4" tabindex="-1"></a>                      <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">round</span>(<span class="fu">mean</span>(x), <span class="dv">2</span>)), </span>
+<span id="cb410-5"><a href="pipes.html#cb410-5" tabindex="-1"></a>                      <span class="at">kpl =</span> mpg<span class="sc">*</span><span class="fl">0.4251</span>)</span>
+<span id="cb410-6"><a href="pipes.html#cb410-6" tabindex="-1"></a></span>
+<span id="cb410-7"><a href="pipes.html#cb410-7" tabindex="-1"></a>car_data</span></code></pre></div>
 <pre><code>##   cyl   mpg   disp     hp drat   wt  qsec   vs   am gear carb       kpl
 ## 1   4 25.90 108.05 111.00 3.94 2.15 17.75 1.00 1.00 4.50 2.00 11.010090
 ## 2   6 19.74 183.31 122.29 3.59 3.12 17.98 0.57 0.43 3.86 3.43  8.391474
 ## 3   8 15.10 353.10 209.21 3.23 4.00 16.77 0.00 0.14 3.29 3.50  6.419010</code></pre>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="pipes.html#cb396-1" tabindex="-1"></a>car_data <span class="ot">&lt;-</span> </span>
-<span id="cb396-2"><a href="pipes.html#cb396-2" tabindex="-1"></a>  mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb396-3"><a href="pipes.html#cb396-3" tabindex="-1"></a>  <span class="fu">subset</span>(hp <span class="sc">&gt;</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb396-4"><a href="pipes.html#cb396-4" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span> </span>
-<span id="cb396-5"><a href="pipes.html#cb396-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="fu">list</span>(mean))) <span class="sc">%&gt;%</span> </span>
-<span id="cb396-6"><a href="pipes.html#cb396-6" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="at">kpl =</span> mpg_1 <span class="sc">%&gt;%</span> <span class="fu">multiply_by</span>(<span class="fl">0.4251</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb396-7"><a href="pipes.html#cb396-7" tabindex="-1"></a>  print</span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="pipes.html#cb412-1" tabindex="-1"></a>car_data <span class="ot">&lt;-</span> </span>
+<span id="cb412-2"><a href="pipes.html#cb412-2" tabindex="-1"></a>  mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb412-3"><a href="pipes.html#cb412-3" tabindex="-1"></a>  <span class="fu">subset</span>(hp <span class="sc">&gt;</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb412-4"><a href="pipes.html#cb412-4" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span> </span>
+<span id="cb412-5"><a href="pipes.html#cb412-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="fu">list</span>(mean))) <span class="sc">%&gt;%</span> </span>
+<span id="cb412-6"><a href="pipes.html#cb412-6" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="at">kpl =</span> mpg_1 <span class="sc">%&gt;%</span> <span class="fu">multiply_by</span>(<span class="fl">0.4251</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb412-7"><a href="pipes.html#cb412-7" tabindex="-1"></a>  print</span></code></pre></div>
 <pre><code>##   cyl    mpg_1   disp_1     hp_1   drat_1     wt_1   qsec_1      vs_1      am_1
 ## 1   4 25.90000 108.0500 111.0000 3.940000 2.146500 17.75000 1.0000000 1.0000000
 ## 2   6 19.74286 183.3143 122.2857 3.585714 3.117143 17.97714 0.5714286 0.4285714
@@ -728,54 +728,54 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <hr />
 </div>
-<div id="section-2" class="section level2 hasAnchor" number="14.4">
-<h2><span class="header-section-number">14.4</span> %$%<a href="pipes.html#section-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="pipes.html#cb398-1" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb398-2"><a href="pipes.html#cb398-2" tabindex="-1"></a></span>
-<span id="cb398-3"><a href="pipes.html#cb398-3" tabindex="-1"></a><span class="co">#iris %&gt;%</span></span>
-<span id="cb398-4"><a href="pipes.html#cb398-4" tabindex="-1"></a><span class="co">#  subset(Sepal.Length &gt; mean(Sepal.Length)) |&gt; </span></span>
-<span id="cb398-5"><a href="pipes.html#cb398-5" tabindex="-1"></a><span class="co">#  cor(Sepal.Length, Sepal.Width)</span></span>
-<span id="cb398-6"><a href="pipes.html#cb398-6" tabindex="-1"></a></span>
-<span id="cb398-7"><a href="pipes.html#cb398-7" tabindex="-1"></a></span>
-<span id="cb398-8"><a href="pipes.html#cb398-8" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
-<span id="cb398-9"><a href="pipes.html#cb398-9" tabindex="-1"></a>  <span class="fu">subset</span>(Sepal.Length <span class="sc">&gt;</span> <span class="fu">mean</span>(Sepal.Length)) <span class="sc">%$%</span></span>
-<span id="cb398-10"><a href="pipes.html#cb398-10" tabindex="-1"></a> <span class="fu">cor</span>(Sepal.Length, Sepal.Width)</span></code></pre></div>
+<div id="section-1" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> %$%<a href="pipes.html#section-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="pipes.html#cb414-1" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb414-2"><a href="pipes.html#cb414-2" tabindex="-1"></a></span>
+<span id="cb414-3"><a href="pipes.html#cb414-3" tabindex="-1"></a><span class="co">#iris %&gt;%</span></span>
+<span id="cb414-4"><a href="pipes.html#cb414-4" tabindex="-1"></a><span class="co">#  subset(Sepal.Length &gt; mean(Sepal.Length)) |&gt; </span></span>
+<span id="cb414-5"><a href="pipes.html#cb414-5" tabindex="-1"></a><span class="co">#  cor(Sepal.Length, Sepal.Width)</span></span>
+<span id="cb414-6"><a href="pipes.html#cb414-6" tabindex="-1"></a></span>
+<span id="cb414-7"><a href="pipes.html#cb414-7" tabindex="-1"></a></span>
+<span id="cb414-8"><a href="pipes.html#cb414-8" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb414-9"><a href="pipes.html#cb414-9" tabindex="-1"></a>  <span class="fu">subset</span>(Sepal.Length <span class="sc">&gt;</span> <span class="fu">mean</span>(Sepal.Length)) <span class="sc">%$%</span></span>
+<span id="cb414-10"><a href="pipes.html#cb414-10" tabindex="-1"></a> <span class="fu">cor</span>(Sepal.Length, Sepal.Width)</span></code></pre></div>
 <pre><code>## [1] 0.3361992</code></pre>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="pipes.html#cb400-1" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
-<span id="cb400-2"><a href="pipes.html#cb400-2" tabindex="-1"></a>  <span class="fu">subset</span>(Sepal.Length <span class="sc">&gt;</span> <span class="fu">mean</span>(Sepal.Length)) <span class="sc">|&gt;</span> </span>
-<span id="cb400-3"><a href="pipes.html#cb400-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">corr=</span> <span class="fu">cor</span>(Sepal.Length, Sepal.Width))</span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="pipes.html#cb416-1" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
+<span id="cb416-2"><a href="pipes.html#cb416-2" tabindex="-1"></a>  <span class="fu">subset</span>(Sepal.Length <span class="sc">&gt;</span> <span class="fu">mean</span>(Sepal.Length)) <span class="sc">|&gt;</span> </span>
+<span id="cb416-3"><a href="pipes.html#cb416-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">corr=</span> <span class="fu">cor</span>(Sepal.Length, Sepal.Width))</span></code></pre></div>
 <pre><code>##        corr
 ## 1 0.3361992</code></pre>
 <div id="otro-ejemplo-de-pipe" class="section level3 hasAnchor" number="14.4.1">
 <h3><span class="header-section-number">14.4.1</span> Otro ejemplo de Pipe: %$%<a href="pipes.html#otro-ejemplo-de-pipe" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="pipes.html#cb402-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">z =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)) <span class="sc">%$%</span> </span>
-<span id="cb402-2"><a href="pipes.html#cb402-2" tabindex="-1"></a>  <span class="fu">ts.plot</span>(z)</span></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="pipes.html#cb418-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">z =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)) <span class="sc">%$%</span> </span>
+<span id="cb418-2"><a href="pipes.html#cb418-2" tabindex="-1"></a>  <span class="fu">ts.plot</span>(z)</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/P9-1.png" width="672" /></p>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="pipes.html#cb403-1" tabindex="-1"></a><span class="co">#data.frame(z = rnorm(100)) |&gt;  </span></span>
-<span id="cb403-2"><a href="pipes.html#cb403-2" tabindex="-1"></a><span class="co">#  ts.plot(z)</span></span>
-<span id="cb403-3"><a href="pipes.html#cb403-3" tabindex="-1"></a></span>
-<span id="cb403-4"><a href="pipes.html#cb403-4" tabindex="-1"></a><span class="co">#Para hacerlo la misma grafico con Tidyverse</span></span>
-<span id="cb403-5"><a href="pipes.html#cb403-5" tabindex="-1"></a>z1<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">z =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)) </span>
-<span id="cb403-6"><a href="pipes.html#cb403-6" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb403-7"><a href="pipes.html#cb403-7" tabindex="-1"></a>z1<span class="ot">=</span><span class="fu">data.table</span>(z1)</span>
-<span id="cb403-8"><a href="pipes.html#cb403-8" tabindex="-1"></a>z1<span class="sc">$</span>order<span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
-<span id="cb403-9"><a href="pipes.html#cb403-9" tabindex="-1"></a>z1<span class="sc">|&gt;</span> </span>
-<span id="cb403-10"><a href="pipes.html#cb403-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(order, z))<span class="sc">+</span></span>
-<span id="cb403-11"><a href="pipes.html#cb403-11" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="pipes.html#cb419-1" tabindex="-1"></a><span class="co">#data.frame(z = rnorm(100)) |&gt;  </span></span>
+<span id="cb419-2"><a href="pipes.html#cb419-2" tabindex="-1"></a><span class="co">#  ts.plot(z)</span></span>
+<span id="cb419-3"><a href="pipes.html#cb419-3" tabindex="-1"></a></span>
+<span id="cb419-4"><a href="pipes.html#cb419-4" tabindex="-1"></a><span class="co">#Para hacerlo la misma grafico con Tidyverse</span></span>
+<span id="cb419-5"><a href="pipes.html#cb419-5" tabindex="-1"></a>z1<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">z =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)) </span>
+<span id="cb419-6"><a href="pipes.html#cb419-6" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb419-7"><a href="pipes.html#cb419-7" tabindex="-1"></a>z1<span class="ot">=</span><span class="fu">data.table</span>(z1)</span>
+<span id="cb419-8"><a href="pipes.html#cb419-8" tabindex="-1"></a>z1<span class="sc">$</span>order<span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
+<span id="cb419-9"><a href="pipes.html#cb419-9" tabindex="-1"></a>z1<span class="sc">|&gt;</span> </span>
+<span id="cb419-10"><a href="pipes.html#cb419-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(order, z))<span class="sc">+</span></span>
+<span id="cb419-11"><a href="pipes.html#cb419-11" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/P9-2.png" width="672" /></p>
 <hr />
 </div>
 </div>
-<div id="section-3" class="section level2 hasAnchor" number="14.5">
-<h2><span class="header-section-number">14.5</span> %&lt;&gt;%<a href="pipes.html#section-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="section-2" class="section level2 hasAnchor" number="14.5">
+<h2><span class="header-section-number">14.5</span> %&lt;&gt;%<a href="pipes.html#section-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Pipe an object forward into a function or call expression and update the lhs object with the resulting value.</p>
 <p>lhs %&lt;&gt;% rhs</p>
 <ul>
 <li><p>lhs : An object which serves both as the initial value and as target.</p></li>
 <li><p>rhs : a function call using the magrittr semantics.</p></li>
 </ul>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="pipes.html#cb404-1" tabindex="-1"></a><span class="co"># Example 1</span></span>
-<span id="cb404-2"><a href="pipes.html#cb404-2" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="pipes.html#cb420-1" tabindex="-1"></a><span class="co"># Example 1</span></span>
+<span id="cb420-2"><a href="pipes.html#cb420-2" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
 ## 2          4.9         3.0          1.4         0.2  setosa
@@ -783,18 +783,18 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 4          4.6         3.1          1.5         0.2  setosa
 ## 5          5.0         3.6          1.4         0.2  setosa
 ## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="pipes.html#cb406-1" tabindex="-1"></a><span class="fu">head</span>(iris<span class="sc">$</span>Sepal.Length <span class="sc">%&lt;&gt;%</span> sqrt)</span></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="pipes.html#cb422-1" tabindex="-1"></a><span class="fu">head</span>(iris<span class="sc">$</span>Sepal.Length <span class="sc">%&lt;&gt;%</span> sqrt)</span></code></pre></div>
 <pre><code>## [1] 2.258318 2.213594 2.167948 2.144761 2.236068 2.323790</code></pre>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="pipes.html#cb408-1" tabindex="-1"></a><span class="co"># Example 2</span></span>
-<span id="cb408-2"><a href="pipes.html#cb408-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb408-3"><a href="pipes.html#cb408-3" tabindex="-1"></a><span class="fu">head</span>(x, <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="pipes.html#cb424-1" tabindex="-1"></a><span class="co"># Example 2</span></span>
+<span id="cb424-2"><a href="pipes.html#cb424-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb424-3"><a href="pipes.html#cb424-3" tabindex="-1"></a><span class="fu">head</span>(x, <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##  [1]  1.361612477 -0.189292059  0.462969745 -0.007385678  2.689108440
 ##  [6]  1.459546809 -1.653300235 -0.203078277  0.618497216  0.597135379</code></pre>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="pipes.html#cb410-1" tabindex="-1"></a>x <span class="sc">%&lt;&gt;%</span> </span>
-<span id="cb410-2"><a href="pipes.html#cb410-2" tabindex="-1"></a>  abs <span class="sc">%&gt;%</span> </span>
-<span id="cb410-3"><a href="pipes.html#cb410-3" tabindex="-1"></a>  sort</span>
-<span id="cb410-4"><a href="pipes.html#cb410-4" tabindex="-1"></a></span>
-<span id="cb410-5"><a href="pipes.html#cb410-5" tabindex="-1"></a><span class="fu">head</span>(x, <span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="pipes.html#cb426-1" tabindex="-1"></a>x <span class="sc">%&lt;&gt;%</span> </span>
+<span id="cb426-2"><a href="pipes.html#cb426-2" tabindex="-1"></a>  abs <span class="sc">%&gt;%</span> </span>
+<span id="cb426-3"><a href="pipes.html#cb426-3" tabindex="-1"></a>  sort</span>
+<span id="cb426-4"><a href="pipes.html#cb426-4" tabindex="-1"></a></span>
+<span id="cb426-5"><a href="pipes.html#cb426-5" tabindex="-1"></a><span class="fu">head</span>(x, <span class="dv">20</span>)</span></code></pre></div>
 <pre><code>##  [1] 0.007385678 0.029096523 0.030999873 0.035387591 0.040816992 0.054441440
 ##  [7] 0.069795203 0.081581732 0.087776321 0.110958305 0.119075263 0.120358116
 ## [13] 0.120542457 0.131861167 0.133266112 0.145019780 0.145731942 0.150293091
@@ -806,12 +806,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Filter for values specific values within a variable</li>
 </ul>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="pipes.html#cb412-1" tabindex="-1"></a><span class="co"># Example 1</span></span>
-<span id="cb412-2"><a href="pipes.html#cb412-2" tabindex="-1"></a><span class="fu">names</span>(iris)</span></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="pipes.html#cb428-1" tabindex="-1"></a><span class="co"># Example 1</span></span>
+<span id="cb428-2"><a href="pipes.html#cb428-2" tabindex="-1"></a><span class="fu">names</span>(iris)</span></code></pre></div>
 <pre><code>## [1] &quot;Sepal.Length&quot; &quot;Sepal.Width&quot;  &quot;Petal.Length&quot; &quot;Petal.Width&quot;  &quot;Species&quot;</code></pre>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="pipes.html#cb414-1" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
-<span id="cb414-2"><a href="pipes.html#cb414-2" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;setosa&quot;</span>, <span class="st">&quot;virginica&quot;</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb414-3"><a href="pipes.html#cb414-3" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="pipes.html#cb430-1" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb430-2"><a href="pipes.html#cb430-2" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;setosa&quot;</span>, <span class="st">&quot;virginica&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb430-3"><a href="pipes.html#cb430-3" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1     2.258318         3.5          1.4         0.2  setosa
 ## 2     2.213594         3.0          1.4         0.2  setosa
@@ -825,10 +825,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">14.7</span> %T&gt;%<a href="pipes.html#t" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The tee pipe, %T&gt;%, is useful when a series of operations have a function that does not return any value.</p>
 <p><a href="https://stackoverflow.com/questions/61196304/magrittr-tee-pipe-t-equivalent" class="uri">https://stackoverflow.com/questions/61196304/magrittr-tee-pipe-t-equivalent</a></p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="pipes.html#cb416-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">200</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb416-2"><a href="pipes.html#cb416-2" tabindex="-1"></a><span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">%T&gt;%</span></span>
-<span id="cb416-3"><a href="pipes.html#cb416-3" tabindex="-1"></a>plot <span class="sc">%&gt;%</span>  <span class="co"># plot usually does not return anything. </span></span>
-<span id="cb416-4"><a href="pipes.html#cb416-4" tabindex="-1"></a>colSums</span></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="pipes.html#cb432-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">200</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb432-2"><a href="pipes.html#cb432-2" tabindex="-1"></a><span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">%T&gt;%</span></span>
+<span id="cb432-3"><a href="pipes.html#cb432-3" tabindex="-1"></a>plot <span class="sc">%&gt;%</span>  <span class="co"># plot usually does not return anything. </span></span>
+<span id="cb432-4"><a href="pipes.html#cb432-4" tabindex="-1"></a>colSums</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/P12-1.png" width="672" /></p>
 <pre><code>## [1] 1.395464 5.606604</code></pre>
 

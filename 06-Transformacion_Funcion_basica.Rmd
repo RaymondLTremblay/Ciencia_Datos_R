@@ -25,14 +25,14 @@ head(vuelos)
 ```
 
 
-Tema de este modulo:
+Tema de este módulo:
 
  -   **Filtrar** filas con **filter()**
  -   **Seleccionar** columnas con **select()**
  -   **Agrupar** con **group_by()**
  -   **Resumir** con **summarise()**
  -   **Ordenar** con **arrange()**
- -   funciones **Booleanas** y **lógicas**
+ - funciones **Booleanas** y **lógicas**
 
 
 ## Agrupar por múltiples variables
@@ -43,7 +43,7 @@ Aquí se agrupa por día y mes
 ## Operaciones lógicas boolean:
 
 -   & "ampersand" == "conjunción"
--   "\|" or= "o"
+-   "\|" or = "o"
 -   !, no incluye, excluir....
 -   %in%, filtrar para múltiples valores
 -   ==, es igual a... "exactamente"
@@ -55,12 +55,11 @@ Aquí se agrupa por día y mes
 Bollean, que incluye múltiples opciones %in%
 
 ```{r TFB2}
-vuelos %>% 
-  dplyr::select(anio, mes, dia, atraso_llegada, destino) %>% 
-  filter(destino =="SJU") %>% 
-  filter(mes == 12 & dia ==25) %>% 
- # filter(mes == 12) %>%
-  group_by(dia, mes) %>% 
+vuelos %>%
+  dplyr::select(anio, mes, dia, atraso_llegada, destino) %>%
+  filter(destino == "SJU") %>%
+  filter(mes == c(6:12) & dia == 25) %>%
+  group_by(dia, mes) %>%
   summarise(atraso = mean(atraso_llegada, na.rm = TRUE))
 
 ```
@@ -70,21 +69,23 @@ vuelos %>%
 
 
 ```{r TFB3}
-vuelos %>% 
-  dplyr::select(anio, mes, dia, atraso_salida) %>% 
-  group_by(mes) %>% 
+vuelos %>%
+  dplyr::select(anio, mes, dia, atraso_salida, aerolinea) %>%
+  group_by(mes, aerolinea) %>%
   filter(mes %in% c(1:6)) %>% # mes entre 1 y 6
+  filter(aerolinea %in% c("AA", "UA")) %>% 
   summarise(atraso = mean(atraso_salida, na.rm = TRUE))
 ```
 
 ### Otra alternativa para filtrar
 
-#### "\|"
+#### "\|" or
 
 ```{r TFB4}
-vuelos %>% 
-  dplyr::select(anio, mes, dia, atraso_salida) %>% 
-  filter(mes == 1 | mes == 12) |>  # mes 1 o 12 
+vuelos %>%
+  group_by(mes) %>%
+  dplyr::select(anio, mes, dia, atraso_salida) %>%
+  filter(mes == 1 | mes == 12) |>  # mes 1 o 12
   summarise(atraso = mean(atraso_salida, na.rm = TRUE))
 ```
 
@@ -92,9 +93,9 @@ vuelos %>%
 
 ```{r TFB5}
 names(vuelos)
-vuelos %>% 
-  dplyr::select(anio, mes, dia, atraso_salida, aerolinea) %>% 
-  filter(mes == 12 & dia == 25 & aerolinea=="AA")
+vuelos %>%
+  dplyr::select(anio, mes, dia, atraso_salida, aerolinea) %>%
+  filter(mes == 12 & dia == 25 & aerolinea == "AA")
 ```
 
 ------------------------------------------------------------------------
@@ -110,12 +111,11 @@ Como se seleccionaría los meses de diciembre pero desde la del 25 o más
 !, **excluye algo**, En este caso estamos excluyendo las aerolinea "AA" y "DL"
 
 ```{r TFB6}
-library(datos)
-library(tidyverse)
-vuelos %>% 
+
+vuelos %>%
   dplyr::select(anio, mes, dia, atraso_salida, aerolinea) %>%
-  filter(mes == 11 & !aerolinea %in% c("AA", "DL")) %>% 
-  group_by(aerolinea) %>% 
+  filter(mes == 11 & !aerolinea %in% c("AA", "DL")) %>%
+  group_by(aerolinea) %>%
   summarise(atraso = mean(atraso_salida, na.rm = TRUE))
 ```
 
@@ -135,8 +135,8 @@ Hacer los ejercicios en la sección 5.2.4 del libro en español
 ```{r TFB7, echo=FALSE, eval=FALSE}
 #names(vuelos)
 
-vuelos %>% 
-  filter(atraso_llegada >=120) %>% 
+vuelos %>%
+  filter(atraso_llegada >= 120) %>%
   filter(destino == "HOU" | destino == "IAH")
 ```
 
@@ -184,6 +184,11 @@ vuelos %>%
   filter(!dia %in% c(2:29))
 ```
  
+```{r}
+vuelos %>%
+  filter(atraso_salida <=0 & atraso_llegada >=120)
+
+```
 
 
  5.  Selecciona solamente los vuelos que llegaron más de dos horas tarde, pero no salieron tarde
@@ -204,11 +209,12 @@ filter(atraso_llegada > 120 & atraso_salida <= 0)
 ```{r TFB12, echo=FALSE, eval=FALSE}
 
 #vuelos
-vuelos |>  
-dplyr::select(atraso_salida, atraso_llegada) %>%
-filter(atraso_salida >= 60 & atraso_llegada <= -30)
+vuelos |>
+  dplyr::select(atraso_salida, atraso_llegada) %>%
+  filter(atraso_salida >= 60 & 
+           atraso_salida - atraso_llegada <= 30)
 
-filter(atraso_salida >= 60 & atraso_salida - atraso_llegada <= 30 )
+ #filter(atraso_salida >= 60 & atraso_llegada <= -30)
 ```
 
  7.  Selecciona solamente los vuelos que partieron entre la medianoche y las 6a.m. (incluyente)

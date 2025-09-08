@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-08-27" />
+<meta name="date" content="2025-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -64,7 +64,7 @@
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.2.3/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -250,7 +250,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.1" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html"><i class="fa fa-check"></i><b>6.2.1</b> Otra alternativa para filtrar</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#ejercicios-2"><i class="fa fa-check"></i><b>6.3</b> Ejercicios</a></li>
-<li class="chapter" data-level="6.4" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#section-1"><i class="fa fa-check"></i><b>6.4</b> </a>
+<li class="chapter" data-level="6.4" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#section"><i class="fa fa-check"></i><b>6.4</b> </a>
 <ul>
 <li class="chapter" data-level="6.4.1" data-path="16-Importar_Datos.html"><a href="#la-funci%C3%B3n-arrange"><i class="fa fa-check"></i><b>6.4.1</b> La función arrange()</a></li>
 </ul></li>
@@ -328,11 +328,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.1" data-path="pipes.html"><a href="pipes.html#temas-el-paquete-magrittr-y-sus-funciones"><i class="fa fa-check"></i><b>14.1</b> Temas: El paquete “magrittr” y sus funciones</a></li>
 <li class="chapter" data-level="14.2" data-path="pipes.html"><a href="pipes.html#pipes-1"><i class="fa fa-check"></i><b>14.2</b> %&gt;% pipes</a></li>
 <li class="chapter" data-level="14.3" data-path="pipes.html"><a href="pipes.html#alternativas-a-los-pipes"><i class="fa fa-check"></i><b>14.3</b> Alternativas a los pipes</a></li>
-<li class="chapter" data-level="14.4" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>14.4</b> %$%</a>
+<li class="chapter" data-level="14.4" data-path="pipes.html"><a href="pipes.html#section-1"><i class="fa fa-check"></i><b>14.4</b> %$%</a>
 <ul>
 <li class="chapter" data-level="14.4.1" data-path="pipes.html"><a href="pipes.html#otro-ejemplo-de-pipe"><i class="fa fa-check"></i><b>14.4.1</b> Otro ejemplo de Pipe: %$%</a></li>
 </ul></li>
-<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-3"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
+<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
 <li class="chapter" data-level="14.6" data-path="pipes.html"><a href="pipes.html#in"><i class="fa fa-check"></i><b>14.6</b> %in%</a></li>
 <li class="chapter" data-level="14.7" data-path="pipes.html"><a href="pipes.html#t"><i class="fa fa-check"></i><b>14.7</b> %T&gt;%</a></li>
 </ul></li>
@@ -621,7 +621,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="importar-datos" class="section level1 hasAnchor" number="16">
 <h1><span class="header-section-number">Capítulo16</span> Importar datos<a href="importar-datos.html#importar-datos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2025-08-27&quot;</code></pre>
+<pre><code>## [1] &quot;2025-09-08&quot;</code></pre>
 <hr />
 <hr />
 <div id="datos-importado-de-la-web." class="section level2 hasAnchor" number="16.1">
@@ -629,8 +629,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="usar-datos-que-provienen-de-una-base-de-datos-del-web." class="section level3 hasAnchor" number="16.1.1">
 <h3><span class="header-section-number">16.1.1</span> Usar datos que provienen de una base de datos del web.<a href="importar-datos.html#usar-datos-que-provienen-de-una-base-de-datos-del-web." class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Aquí un website que recopila la cantidad de personas vacunados en los EEUU.</p>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="importar-datos.html#cb462-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb462-2"><a href="importar-datos.html#cb462-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="importar-datos.html#cb478-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb478-2"><a href="importar-datos.html#cb478-2" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code></pre></div>
 <hr />
 <p>Seleccionar solamente los datos de Puerto Rico</p>
 </div>
@@ -679,15 +679,15 @@ Este sitio del gobierno de Puerto Rico almacen datos muchos diferentes tipos que
 <li>read_positions()</li>
 <li>read_table()</li>
 </ul>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="importar-datos.html#cb463-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb463-2"><a href="importar-datos.html#cb463-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb463-3"><a href="importar-datos.html#cb463-3" tabindex="-1"></a>Newborn_Karn_Penrose <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Datos/Newborn_Karn_Penrose.csv&quot;</span>)</span>
-<span id="cb463-4"><a href="importar-datos.html#cb463-4" tabindex="-1"></a></span>
-<span id="cb463-5"><a href="importar-datos.html#cb463-5" tabindex="-1"></a></span>
-<span id="cb463-6"><a href="importar-datos.html#cb463-6" tabindex="-1"></a><span class="co">#library(readxl)</span></span>
-<span id="cb463-7"><a href="importar-datos.html#cb463-7" tabindex="-1"></a><span class="co">#Newborn_Karn_Penrose1 &lt;- read_excel(&quot;~/Google Drive/GitHub_Google_Drive/GitHub/Vintage_DATA/DATA/Human_Birth_Weight/Newborn_Karn_Penrose.xlsx&quot;, sheet = 3)</span></span>
-<span id="cb463-8"><a href="importar-datos.html#cb463-8" tabindex="-1"></a></span>
-<span id="cb463-9"><a href="importar-datos.html#cb463-9" tabindex="-1"></a><span class="fu">head</span>(Newborn_Karn_Penrose)</span></code></pre></div>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="importar-datos.html#cb479-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb479-2"><a href="importar-datos.html#cb479-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb479-3"><a href="importar-datos.html#cb479-3" tabindex="-1"></a>Newborn_Karn_Penrose <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Datos/Newborn_Karn_Penrose.csv&quot;</span>)</span>
+<span id="cb479-4"><a href="importar-datos.html#cb479-4" tabindex="-1"></a></span>
+<span id="cb479-5"><a href="importar-datos.html#cb479-5" tabindex="-1"></a></span>
+<span id="cb479-6"><a href="importar-datos.html#cb479-6" tabindex="-1"></a><span class="co">#library(readxl)</span></span>
+<span id="cb479-7"><a href="importar-datos.html#cb479-7" tabindex="-1"></a><span class="co">#Newborn_Karn_Penrose1 &lt;- read_excel(&quot;~/Google Drive/GitHub_Google_Drive/GitHub/Vintage_DATA/DATA/Human_Birth_Weight/Newborn_Karn_Penrose.xlsx&quot;, sheet = 3)</span></span>
+<span id="cb479-8"><a href="importar-datos.html#cb479-8" tabindex="-1"></a></span>
+<span id="cb479-9"><a href="importar-datos.html#cb479-9" tabindex="-1"></a><span class="fu">head</span>(Newborn_Karn_Penrose)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##   Mother_age Count_Non_survivors Count_Total_Birth Birth_weight
 ##        &lt;dbl&gt;               &lt;dbl&gt;             &lt;dbl&gt;        &lt;dbl&gt;
@@ -702,8 +702,8 @@ Este sitio del gobierno de Puerto Rico almacen datos muchos diferentes tipos que
 select(Count_Non_survivors, Count_Total_Birth) %&gt;%
 arrange(Count_Total_Birth, Count_Non_survivors) %&gt;%
 mutate(Perc_sobrevivieron = Count_Non_survivors/Count_Total_Birth)</p>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="importar-datos.html#cb465-1" tabindex="-1"></a>Newborn_Karn_Penrose <span class="sc">%&gt;%</span> </span>
-<span id="cb465-2"><a href="importar-datos.html#cb465-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Percent_Decease =</span> Count_Non_survivors<span class="sc">/</span>Count_Total_Birth)</span></code></pre></div>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="importar-datos.html#cb481-1" tabindex="-1"></a>Newborn_Karn_Penrose <span class="sc">%&gt;%</span> </span>
+<span id="cb481-2"><a href="importar-datos.html#cb481-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Percent_Decease =</span> Count_Non_survivors<span class="sc">/</span>Count_Total_Birth)</span></code></pre></div>
 <pre><code>## # A tibble: 261 × 5
 ##    Mother_age Count_Non_survivors Count_Total_Birth Birth_weight Percent_Decease
 ##         &lt;dbl&gt;               &lt;dbl&gt;             &lt;dbl&gt;        &lt;dbl&gt;           &lt;dbl&gt;
@@ -725,24 +725,24 @@ mutate(porc_sobrevivieron = Count_Non_survivors / Count_Total_Birth)%&gt;%
 ggplot(aes(x= Birth_weight, y=porc_sobrevivieron))+
 geom_point()+
 geom_smooth()</p>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="importar-datos.html#cb467-1" tabindex="-1"></a>Newborn_Karn_Penrose <span class="sc">%&gt;%</span> </span>
-<span id="cb467-2"><a href="importar-datos.html#cb467-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Percent_Decease =</span> Count_Non_survivors<span class="sc">/</span>Count_Total_Birth) <span class="sc">%&gt;%</span> </span>
-<span id="cb467-3"><a href="importar-datos.html#cb467-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Birth_weight, Percent_Decease)) <span class="sc">+</span> </span>
-<span id="cb467-4"><a href="importar-datos.html#cb467-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb467-5"><a href="importar-datos.html#cb467-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="importar-datos.html#cb483-1" tabindex="-1"></a>Newborn_Karn_Penrose <span class="sc">%&gt;%</span> </span>
+<span id="cb483-2"><a href="importar-datos.html#cb483-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Percent_Decease =</span> Count_Non_survivors<span class="sc">/</span>Count_Total_Birth) <span class="sc">%&gt;%</span> </span>
+<span id="cb483-3"><a href="importar-datos.html#cb483-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Birth_weight, Percent_Decease)) <span class="sc">+</span> </span>
+<span id="cb483-4"><a href="importar-datos.html#cb483-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb483-5"><a href="importar-datos.html#cb483-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/ID13-1.png" width="672" /></p>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="importar-datos.html#cb468-1" tabindex="-1"></a>Newborn_Karn_Penrose <span class="sc">%&gt;%</span> </span>
-<span id="cb468-2"><a href="importar-datos.html#cb468-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Percent_Decease =</span> Count_Non_survivors<span class="sc">/</span>Count_Total_Birth) <span class="sc">%&gt;%</span> </span>
-<span id="cb468-3"><a href="importar-datos.html#cb468-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Birth_weight, Percent_Decease)) <span class="sc">+</span> </span>
-<span id="cb468-4"><a href="importar-datos.html#cb468-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb468-5"><a href="importar-datos.html#cb468-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()<span class="sc">+</span></span>
-<span id="cb468-6"><a href="importar-datos.html#cb468-6" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Mother_age)</span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="importar-datos.html#cb484-1" tabindex="-1"></a>Newborn_Karn_Penrose <span class="sc">%&gt;%</span> </span>
+<span id="cb484-2"><a href="importar-datos.html#cb484-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Percent_Decease =</span> Count_Non_survivors<span class="sc">/</span>Count_Total_Birth) <span class="sc">%&gt;%</span> </span>
+<span id="cb484-3"><a href="importar-datos.html#cb484-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Birth_weight, Percent_Decease)) <span class="sc">+</span> </span>
+<span id="cb484-4"><a href="importar-datos.html#cb484-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb484-5"><a href="importar-datos.html#cb484-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()<span class="sc">+</span></span>
+<span id="cb484-6"><a href="importar-datos.html#cb484-6" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Mother_age)</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/ID14-1.png" width="672" /></p>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="importar-datos.html#cb469-1" tabindex="-1"></a>Newborn_Karn_Penrose <span class="sc">%&gt;%</span> </span>
-<span id="cb469-2"><a href="importar-datos.html#cb469-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Percent_Decease =</span> Count_Non_survivors<span class="sc">/</span>Count_Total_Birth) <span class="sc">%&gt;%</span> </span>
-<span id="cb469-3"><a href="importar-datos.html#cb469-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Birth_weight, Percent_Decease, <span class="at">color=</span>Mother_age)) <span class="sc">+</span> </span>
-<span id="cb469-4"><a href="importar-datos.html#cb469-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color=</span><span class="fu">factor</span>(Mother_age))) <span class="sc">+</span></span>
-<span id="cb469-5"><a href="importar-datos.html#cb469-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>, <span class="fu">aes</span>(<span class="at">color=</span><span class="fu">factor</span>(Mother_age)))</span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="importar-datos.html#cb485-1" tabindex="-1"></a>Newborn_Karn_Penrose <span class="sc">%&gt;%</span> </span>
+<span id="cb485-2"><a href="importar-datos.html#cb485-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Percent_Decease =</span> Count_Non_survivors<span class="sc">/</span>Count_Total_Birth) <span class="sc">%&gt;%</span> </span>
+<span id="cb485-3"><a href="importar-datos.html#cb485-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Birth_weight, Percent_Decease, <span class="at">color=</span>Mother_age)) <span class="sc">+</span> </span>
+<span id="cb485-4"><a href="importar-datos.html#cb485-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color=</span><span class="fu">factor</span>(Mother_age))) <span class="sc">+</span></span>
+<span id="cb485-5"><a href="importar-datos.html#cb485-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se=</span><span class="cn">FALSE</span>, <span class="fu">aes</span>(<span class="at">color=</span><span class="fu">factor</span>(Mother_age)))</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/ID15-1.png" width="672" /></p>
 <hr />
 </div>
@@ -761,47 +761,47 @@ geom_smooth()</p>
 <ul>
 <li>str(parse_logical())</li>
 </ul>
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="importar-datos.html#cb470-1" tabindex="-1"></a>x<span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;TRUE&quot;</span>, <span class="st">&quot;FALSE&quot;</span>, <span class="st">&quot;NA&quot;</span>)</span>
-<span id="cb470-2"><a href="importar-datos.html#cb470-2" tabindex="-1"></a>x   </span></code></pre></div>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="importar-datos.html#cb486-1" tabindex="-1"></a>x<span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;TRUE&quot;</span>, <span class="st">&quot;FALSE&quot;</span>, <span class="st">&quot;NA&quot;</span>)</span>
+<span id="cb486-2"><a href="importar-datos.html#cb486-2" tabindex="-1"></a>x   </span></code></pre></div>
 <pre><code>## [1] &quot;TRUE&quot;  &quot;FALSE&quot; &quot;NA&quot;</code></pre>
-<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="importar-datos.html#cb472-1" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_logical</span>(x)) </span></code></pre></div>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="importar-datos.html#cb488-1" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_logical</span>(x)) </span></code></pre></div>
 <pre><code>##  logi [1:3] TRUE FALSE NA</code></pre>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="importar-datos.html#cb474-1" tabindex="-1"></a>y<span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Carlos&quot;</span>, <span class="st">&quot;Kelvin&quot;</span>)</span>
-<span id="cb474-2"><a href="importar-datos.html#cb474-2" tabindex="-1"></a>     </span>
-<span id="cb474-3"><a href="importar-datos.html#cb474-3" tabindex="-1"></a>y</span></code></pre></div>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="importar-datos.html#cb490-1" tabindex="-1"></a>y<span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Carlos&quot;</span>, <span class="st">&quot;Kelvin&quot;</span>)</span>
+<span id="cb490-2"><a href="importar-datos.html#cb490-2" tabindex="-1"></a>     </span>
+<span id="cb490-3"><a href="importar-datos.html#cb490-3" tabindex="-1"></a>y</span></code></pre></div>
 <pre><code>## [1] &quot;Carlos&quot; &quot;Kelvin&quot;</code></pre>
-<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="importar-datos.html#cb476-1" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_logical</span>(y)) </span></code></pre></div>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="importar-datos.html#cb492-1" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_logical</span>(y)) </span></code></pre></div>
 <pre><code>##  logi [1:2] NA NA
 ##  - attr(*, &quot;problems&quot;)= tibble [2 × 4] (S3: tbl_df/tbl/data.frame)
 ##   ..$ row     : int [1:2] 1 2
 ##   ..$ col     : int [1:2] NA NA
 ##   ..$ expected: chr [1:2] &quot;1/0/T/F/TRUE/FALSE&quot; &quot;1/0/T/F/TRUE/FALSE&quot;
 ##   ..$ actual  : chr [1:2] &quot;Carlos&quot; &quot;Kelvin&quot;</code></pre>
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="importar-datos.html#cb478-1" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_logical</span>(<span class="fu">c</span>(<span class="st">&quot;TRUE&quot;</span>, <span class="st">&quot;FALSE&quot;</span>, <span class="st">&quot;NA&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="importar-datos.html#cb494-1" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_logical</span>(<span class="fu">c</span>(<span class="st">&quot;TRUE&quot;</span>, <span class="st">&quot;FALSE&quot;</span>, <span class="st">&quot;NA&quot;</span>)))</span></code></pre></div>
 <pre><code>##  logi [1:3] TRUE FALSE NA</code></pre>
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="importar-datos.html#cb480-1" tabindex="-1"></a>z<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>)</span>
-<span id="cb480-2"><a href="importar-datos.html#cb480-2" tabindex="-1"></a>z</span></code></pre></div>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="importar-datos.html#cb496-1" tabindex="-1"></a>z<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>)</span>
+<span id="cb496-2"><a href="importar-datos.html#cb496-2" tabindex="-1"></a>z</span></code></pre></div>
 <pre><code>## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot;</code></pre>
-<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="importar-datos.html#cb482-1" tabindex="-1"></a><span class="fu">mean</span>(z)</span></code></pre></div>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="importar-datos.html#cb498-1" tabindex="-1"></a><span class="fu">mean</span>(z)</span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="importar-datos.html#cb484-1" tabindex="-1"></a>z1<span class="ot">=</span><span class="fu">str</span>(<span class="fu">parse_integer</span>(z))</span></code></pre></div>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="importar-datos.html#cb500-1" tabindex="-1"></a>z1<span class="ot">=</span><span class="fu">str</span>(<span class="fu">parse_integer</span>(z))</span></code></pre></div>
 <pre><code>##  int [1:3] 1 2 3</code></pre>
-<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="importar-datos.html#cb486-1" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_integer</span>(<span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="importar-datos.html#cb502-1" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_integer</span>(<span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>)))</span></code></pre></div>
 <pre><code>##  int [1:3] 1 2 3</code></pre>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="importar-datos.html#cb488-1" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_date</span>(<span class="fu">c</span>(<span class="st">&quot;2010-01-01&quot;</span>, <span class="st">&quot;1979-10-14&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="importar-datos.html#cb504-1" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">parse_date</span>(<span class="fu">c</span>(<span class="st">&quot;2010-01-01&quot;</span>, <span class="st">&quot;1979-10-14&quot;</span>)))</span></code></pre></div>
 <pre><code>##  Date[1:2], format: &quot;2010-01-01&quot; &quot;1979-10-14&quot;</code></pre>
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="importar-datos.html#cb490-1" tabindex="-1"></a>m<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;$4000&quot;</span>, <span class="st">&quot;$500&quot;</span> )</span>
-<span id="cb490-2"><a href="importar-datos.html#cb490-2" tabindex="-1"></a><span class="fu">parse_number</span>(m)</span></code></pre></div>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="importar-datos.html#cb506-1" tabindex="-1"></a>m<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;$4000&quot;</span>, <span class="st">&quot;$500&quot;</span> )</span>
+<span id="cb506-2"><a href="importar-datos.html#cb506-2" tabindex="-1"></a><span class="fu">parse_number</span>(m)</span></code></pre></div>
 <pre><code>## [1] 4000  500</code></pre>
-<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="importar-datos.html#cb492-1" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">&quot;$100&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="importar-datos.html#cb508-1" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">&quot;$100&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 100</code></pre>
-<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="importar-datos.html#cb494-1" tabindex="-1"></a><span class="co">#&gt; [1] 100</span></span>
-<span id="cb494-2"><a href="importar-datos.html#cb494-2" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">&quot;20%&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="importar-datos.html#cb510-1" tabindex="-1"></a><span class="co">#&gt; [1] 100</span></span>
+<span id="cb510-2"><a href="importar-datos.html#cb510-2" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">&quot;20%&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 20</code></pre>
-<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="importar-datos.html#cb496-1" tabindex="-1"></a><span class="co">#&gt; [1] 20</span></span>
-<span id="cb496-2"><a href="importar-datos.html#cb496-2" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">&quot;It cost $123.45&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="importar-datos.html#cb512-1" tabindex="-1"></a><span class="co">#&gt; [1] 20</span></span>
+<span id="cb512-2"><a href="importar-datos.html#cb512-2" tabindex="-1"></a><span class="fu">parse_number</span>(<span class="st">&quot;It cost $123.45&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 123.45</code></pre>
-<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="importar-datos.html#cb498-1" tabindex="-1"></a><span class="co">#&gt; [1] 123.45</span></span></code></pre></div>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="importar-datos.html#cb514-1" tabindex="-1"></a><span class="co">#&gt; [1] 123.45</span></span></code></pre></div>
 <ul>
 <li>str(parse_integer())</li>
 <li>str(parse_date())</li>
@@ -823,25 +823,25 @@ geom_smooth()</p>
 <li><p>parse_character()</p></li>
 <li><p>charToRaw()</p></li>
 </ul>
-<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="importar-datos.html#cb499-1" tabindex="-1"></a><span class="fu">charToRaw</span>(<span class="st">&quot;Ramn&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="importar-datos.html#cb515-1" tabindex="-1"></a><span class="fu">charToRaw</span>(<span class="st">&quot;Ramn&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 52 61 6d 6e</code></pre>
-<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="importar-datos.html#cb501-1" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="st">&quot;El Ni</span><span class="sc">\xf1</span><span class="st">o was particularly bad this year&quot;</span></span>
-<span id="cb501-2"><a href="importar-datos.html#cb501-2" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="st">&quot;</span><span class="sc">\x82\xb1\x82\xf1\x82\xc9\x82\xbf\x82\xcd</span><span class="st">&quot;</span></span>
-<span id="cb501-3"><a href="importar-datos.html#cb501-3" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="st">&quot;The boy was particularly bad this year&quot;</span></span>
-<span id="cb501-4"><a href="importar-datos.html#cb501-4" tabindex="-1"></a></span>
-<span id="cb501-5"><a href="importar-datos.html#cb501-5" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb501-6"><a href="importar-datos.html#cb501-6" tabindex="-1"></a>  <span class="fu">parse_character</span>(x1, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;Latin1&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="importar-datos.html#cb517-1" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="st">&quot;El Ni</span><span class="sc">\xf1</span><span class="st">o was particularly bad this year&quot;</span></span>
+<span id="cb517-2"><a href="importar-datos.html#cb517-2" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="st">&quot;</span><span class="sc">\x82\xb1\x82\xf1\x82\xc9\x82\xbf\x82\xcd</span><span class="st">&quot;</span></span>
+<span id="cb517-3"><a href="importar-datos.html#cb517-3" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="st">&quot;The boy was particularly bad this year&quot;</span></span>
+<span id="cb517-4"><a href="importar-datos.html#cb517-4" tabindex="-1"></a></span>
+<span id="cb517-5"><a href="importar-datos.html#cb517-5" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb517-6"><a href="importar-datos.html#cb517-6" tabindex="-1"></a>  <span class="fu">parse_character</span>(x1, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;Latin1&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;El Niño was particularly bad this year&quot;</code></pre>
-<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="importar-datos.html#cb503-1" tabindex="-1"></a><span class="co">#&gt; [1] &quot;El Niño was particularly bad this year&quot;</span></span>
-<span id="cb503-2"><a href="importar-datos.html#cb503-2" tabindex="-1"></a><span class="fu">parse_character</span>(x2, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;Shift-JIS&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="importar-datos.html#cb519-1" tabindex="-1"></a><span class="co">#&gt; [1] &quot;El Niño was particularly bad this year&quot;</span></span>
+<span id="cb519-2"><a href="importar-datos.html#cb519-2" tabindex="-1"></a><span class="fu">parse_character</span>(x2, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;Shift-JIS&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;こんにちは&quot;</code></pre>
-<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="importar-datos.html#cb505-1" tabindex="-1"></a><span class="fu">parse_character</span>(x, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;Shift-JIS&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="importar-datos.html#cb521-1" tabindex="-1"></a><span class="fu">parse_character</span>(x, <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&quot;Shift-JIS&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;TRUE&quot;  &quot;FALSE&quot; NA</code></pre>
-<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="importar-datos.html#cb507-1" tabindex="-1"></a><span class="co">#&gt; [1] &quot;こんにちは&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="importar-datos.html#cb523-1" tabindex="-1"></a><span class="co">#&gt; [1] &quot;こんにちは&quot;</span></span></code></pre></div>
 <ul>
 <li>guess_encoding(charToRaw())</li>
 </ul>
-<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="importar-datos.html#cb508-1" tabindex="-1"></a><span class="fu">guess_encoding</span>(<span class="fu">charToRaw</span>(x3))</span></code></pre></div>
+<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="importar-datos.html#cb524-1" tabindex="-1"></a><span class="fu">guess_encoding</span>(<span class="fu">charToRaw</span>(x3))</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 2
 ##   encoding confidence
 ##   &lt;chr&gt;         &lt;dbl&gt;

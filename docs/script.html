@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-08-27" />
+<meta name="date" content="2025-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -64,7 +64,7 @@
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.2.3/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -250,7 +250,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.1" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html"><i class="fa fa-check"></i><b>6.2.1</b> Otra alternativa para filtrar</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#ejercicios-2"><i class="fa fa-check"></i><b>6.3</b> Ejercicios</a></li>
-<li class="chapter" data-level="6.4" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#section-1"><i class="fa fa-check"></i><b>6.4</b> </a>
+<li class="chapter" data-level="6.4" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#section"><i class="fa fa-check"></i><b>6.4</b> </a>
 <ul>
 <li class="chapter" data-level="6.4.1" data-path="12-Scripts.html"><a href="#la-funci%C3%B3n-arrange"><i class="fa fa-check"></i><b>6.4.1</b> La función arrange()</a></li>
 </ul></li>
@@ -328,11 +328,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.1" data-path="pipes.html"><a href="pipes.html#temas-el-paquete-magrittr-y-sus-funciones"><i class="fa fa-check"></i><b>14.1</b> Temas: El paquete “magrittr” y sus funciones</a></li>
 <li class="chapter" data-level="14.2" data-path="pipes.html"><a href="pipes.html#pipes-1"><i class="fa fa-check"></i><b>14.2</b> %&gt;% pipes</a></li>
 <li class="chapter" data-level="14.3" data-path="pipes.html"><a href="pipes.html#alternativas-a-los-pipes"><i class="fa fa-check"></i><b>14.3</b> Alternativas a los pipes</a></li>
-<li class="chapter" data-level="14.4" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>14.4</b> %$%</a>
+<li class="chapter" data-level="14.4" data-path="pipes.html"><a href="pipes.html#section-1"><i class="fa fa-check"></i><b>14.4</b> %$%</a>
 <ul>
 <li class="chapter" data-level="14.4.1" data-path="pipes.html"><a href="pipes.html#otro-ejemplo-de-pipe"><i class="fa fa-check"></i><b>14.4.1</b> Otro ejemplo de Pipe: %$%</a></li>
 </ul></li>
-<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-3"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
+<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
 <li class="chapter" data-level="14.6" data-path="pipes.html"><a href="pipes.html#in"><i class="fa fa-check"></i><b>14.6</b> %in%</a></li>
 <li class="chapter" data-level="14.7" data-path="pipes.html"><a href="pipes.html#t"><i class="fa fa-check"></i><b>14.7</b> %T&gt;%</a></li>
 </ul></li>
@@ -621,7 +621,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="script" class="section level1 hasAnchor" number="12">
 <h1><span class="header-section-number">Capítulo12</span> Script<a href="script.html#script" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2025-08-27&quot;</code></pre>
+<pre><code>## [1] &quot;2025-09-08&quot;</code></pre>
 <hr />
 <p>El tema proviene de los siguientes sitios.</p>
 <p>English: <a href="https://r4ds.had.co.nz/workflow-scripts.html" class="uri">https://r4ds.had.co.nz/workflow-scripts.html</a></p>
@@ -638,11 +638,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Ejercicios</strong>:</li>
 </ol>
 <p>Hacer los ejercicios en la sección 6.3 del libro en español</p>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="script.html#cb375-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb375-2"><a href="script.html#cb375-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
-<span id="cb375-3"><a href="script.html#cb375-3" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
-<span id="cb375-4"><a href="script.html#cb375-4" tabindex="-1"></a></span>
-<span id="cb375-5"><a href="script.html#cb375-5" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="script.html#cb391-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb391-2"><a href="script.html#cb391-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb391-3"><a href="script.html#cb391-3" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb391-4"><a href="script.html#cb391-4" tabindex="-1"></a></span>
+<span id="cb391-5"><a href="script.html#cb391-5" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
 <pre><code>##  [1] &quot;anio&quot;               &quot;mes&quot;                &quot;dia&quot;               
 ##  [4] &quot;horario_salida&quot;     &quot;salida_programada&quot;  &quot;atraso_salida&quot;     
 ##  [7] &quot;horario_llegada&quot;    &quot;llegada_programada&quot; &quot;atraso_llegada&quot;    
@@ -650,9 +650,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## [13] &quot;origen&quot;             &quot;destino&quot;            &quot;tiempo_vuelo&quot;      
 ## [16] &quot;distancia&quot;          &quot;hora&quot;               &quot;minuto&quot;            
 ## [19] &quot;fecha_hora&quot;</code></pre>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="script.html#cb377-1" tabindex="-1"></a>no_cancelado <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb377-2"><a href="script.html#cb377-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(atraso_salida), <span class="sc">!</span><span class="fu">is.na</span>(atraso_llegada))</span>
-<span id="cb377-3"><a href="script.html#cb377-3" tabindex="-1"></a><span class="fu">head</span>(no_cancelado)</span></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="script.html#cb393-1" tabindex="-1"></a>no_cancelado <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb393-2"><a href="script.html#cb393-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(atraso_salida), <span class="sc">!</span><span class="fu">is.na</span>(atraso_llegada))</span>
+<span id="cb393-3"><a href="script.html#cb393-3" tabindex="-1"></a><span class="fu">head</span>(no_cancelado)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 19
 ##    anio   mes   dia horario_salida salida_programada atraso_salida
 ##   &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;         &lt;dbl&gt;
@@ -666,9 +666,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;int&gt;, codigo_cola &lt;chr&gt;,
 ## #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 ## #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="script.html#cb379-1" tabindex="-1"></a>no_cancelado <span class="sc">%&gt;%</span> </span>
-<span id="cb379-2"><a href="script.html#cb379-2" tabindex="-1"></a>  <span class="fu">group_by</span>(anio, mes, dia) <span class="sc">%&gt;%</span> </span>
-<span id="cb379-3"><a href="script.html#cb379-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(atraso_salida))</span></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="script.html#cb395-1" tabindex="-1"></a>no_cancelado <span class="sc">%&gt;%</span> </span>
+<span id="cb395-2"><a href="script.html#cb395-2" tabindex="-1"></a>  <span class="fu">group_by</span>(anio, mes, dia) <span class="sc">%&gt;%</span> </span>
+<span id="cb395-3"><a href="script.html#cb395-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(atraso_salida))</span></code></pre></div>
 <pre><code>## # A tibble: 365 × 4
 ## # Groups:   anio, mes [12]
 ##     anio   mes   dia media
@@ -684,7 +684,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  9  2013     1     9  2.30
 ## 10  2013     1    10  2.84
 ## # ℹ 355 more rows</code></pre>
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="script.html#cb381-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span> </span></code></pre></div>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="script.html#cb397-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">10</span> </span></code></pre></div>
 
 </div>
 </div>

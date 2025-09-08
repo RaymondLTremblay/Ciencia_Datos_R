@@ -210,12 +210,15 @@ Aquí se agrupar por día y mes
 
 
 ```{r TF12}
+
+library(tidyverse)
+library(datos)
 vuelos %>% 
-  dplyr::select(anio, mes, dia, atraso_llegada, destino) %>% 
+  dplyr::select(anio, mes, dia, atraso_llegada, destino, aerolinea) %>% 
   filter(destino =="SJU") %>% 
   filter(dia ==25) %>% 
  # filter(mes == 12) %>%
-  group_by(dia, mes) %>% 
+  group_by(dia, aerolinea) %>% 
   summarise(atraso = mean(atraso_llegada, na.rm = TRUE))
 
 ```

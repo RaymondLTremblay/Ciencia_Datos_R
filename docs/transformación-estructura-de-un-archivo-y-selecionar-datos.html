@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-08-27" />
+<meta name="date" content="2025-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -64,7 +64,7 @@
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.2.3/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -250,7 +250,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.1" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html"><i class="fa fa-check"></i><b>6.2.1</b> Otra alternativa para filtrar</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#ejercicios-2"><i class="fa fa-check"></i><b>6.3</b> Ejercicios</a></li>
-<li class="chapter" data-level="6.4" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#section-1"><i class="fa fa-check"></i><b>6.4</b> </a>
+<li class="chapter" data-level="6.4" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#section"><i class="fa fa-check"></i><b>6.4</b> </a>
 <ul>
 <li class="chapter" data-level="6.4.1" data-path="05_Transformacion_estructura.html"><a href="#la-funci%C3%B3n-arrange"><i class="fa fa-check"></i><b>6.4.1</b> La función arrange()</a></li>
 </ul></li>
@@ -328,11 +328,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.1" data-path="pipes.html"><a href="pipes.html#temas-el-paquete-magrittr-y-sus-funciones"><i class="fa fa-check"></i><b>14.1</b> Temas: El paquete “magrittr” y sus funciones</a></li>
 <li class="chapter" data-level="14.2" data-path="pipes.html"><a href="pipes.html#pipes-1"><i class="fa fa-check"></i><b>14.2</b> %&gt;% pipes</a></li>
 <li class="chapter" data-level="14.3" data-path="pipes.html"><a href="pipes.html#alternativas-a-los-pipes"><i class="fa fa-check"></i><b>14.3</b> Alternativas a los pipes</a></li>
-<li class="chapter" data-level="14.4" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>14.4</b> %$%</a>
+<li class="chapter" data-level="14.4" data-path="pipes.html"><a href="pipes.html#section-1"><i class="fa fa-check"></i><b>14.4</b> %$%</a>
 <ul>
 <li class="chapter" data-level="14.4.1" data-path="pipes.html"><a href="pipes.html#otro-ejemplo-de-pipe"><i class="fa fa-check"></i><b>14.4.1</b> Otro ejemplo de Pipe: %$%</a></li>
 </ul></li>
-<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-3"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
+<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
 <li class="chapter" data-level="14.6" data-path="pipes.html"><a href="pipes.html#in"><i class="fa fa-check"></i><b>14.6</b> %in%</a></li>
 <li class="chapter" data-level="14.7" data-path="pipes.html"><a href="pipes.html#t"><i class="fa fa-check"></i><b>14.7</b> %T&gt;%</a></li>
 </ul></li>
@@ -621,7 +621,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="transformación-estructura-de-un-archivo-y-selecionar-datos" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">Capítulo5</span> Transformación: Estructura de un archivo y selecionar datos<a href="#transformaci%C3%B3n-estructura-de-un-archivo-y-selecionar-datos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2025-08-27&quot;</code></pre>
+<pre><code>## [1] &quot;2025-09-08&quot;</code></pre>
 <hr />
 <p>El tema proviene de los siguientes sitios.</p>
 <p>English: <a href="https://r4ds.had.co.nz/transform.html" class="uri">https://r4ds.had.co.nz/transform.html</a></p>
@@ -943,29 +943,23 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="agrupar-por-múltiples-variables" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Agrupar por múltiples variables<a href="#agrupar-por-m%C3%BAltiples-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Aquí se agrupar por día y mes</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb157-2"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_llegada, destino) <span class="sc">%&gt;%</span> </span>
-<span id="cb157-3"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-3" tabindex="-1"></a>  <span class="fu">filter</span>(destino <span class="sc">==</span><span class="st">&quot;SJU&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb157-4"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-4" tabindex="-1"></a>  <span class="fu">filter</span>(dia <span class="sc">==</span><span class="dv">25</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb157-5"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-5" tabindex="-1"></a> <span class="co"># filter(mes == 12) %&gt;%</span></span>
-<span id="cb157-6"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-6" tabindex="-1"></a>  <span class="fu">group_by</span>(dia, mes) <span class="sc">%&gt;%</span> </span>
-<span id="cb157-7"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-7" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">atraso =</span> <span class="fu">mean</span>(atraso_llegada, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 12 × 3
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb157-2"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb157-3"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-3" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb157-4"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_llegada, destino, aerolinea) <span class="sc">%&gt;%</span> </span>
+<span id="cb157-5"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-5" tabindex="-1"></a>  <span class="fu">filter</span>(destino <span class="sc">==</span><span class="st">&quot;SJU&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb157-6"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-6" tabindex="-1"></a>  <span class="fu">filter</span>(dia <span class="sc">==</span><span class="dv">25</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb157-7"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-7" tabindex="-1"></a> <span class="co"># filter(mes == 12) %&gt;%</span></span>
+<span id="cb157-8"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-8" tabindex="-1"></a>  <span class="fu">group_by</span>(dia, aerolinea) <span class="sc">%&gt;%</span> </span>
+<span id="cb157-9"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cb157-9" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">atraso =</span> <span class="fu">mean</span>(atraso_llegada, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 3
 ## # Groups:   dia [1]
-##      dia   mes atraso
-##    &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
-##  1    25     1  -6.64
-##  2    25     2 -15.7 
-##  3    25     3  -2.56
-##  4    25     4  -9.62
-##  5    25     5  -1.29
-##  6    25     6  34.3 
-##  7    25     7   3.58
-##  8    25     8  11.1 
-##  9    25     9 -15.2 
-## 10    25    10  -3.77
-## 11    25    11 -18.9 
-## 12    25    12   3.57</code></pre>
+##     dia aerolinea atraso
+##   &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt;
+## 1    25 AA         -5.41
+## 2    25 B6          4.21
+## 3    25 DL         -4.19
+## 4    25 UA         -4.33</code></pre>
 
 </div>
 </div>

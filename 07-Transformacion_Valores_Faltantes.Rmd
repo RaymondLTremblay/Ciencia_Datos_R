@@ -29,7 +29,7 @@ library(datos)
 1^0
 
 NA^0
-#NA==1
+NA==1
 NA|TRUE
 NA|FALSE
 
@@ -46,6 +46,44 @@ NA - 3
 ```
 
 
+Vamos a aclarar estas operaciones con NA en un data frame
+
+ - valores numéricos
+ - variable lógica TRUE/FALSE
+ - variable con NA y 0/1
+
+```{r}
+df=tribble(~values, ~T_F, ~NA_not,
+             1, TRUE, NA,
+              0, TRUE, 1,
+              1, FALSE, NA,
+             0, FALSE, 1,
+             0, TRUE, 1,
+             0, FALSE, 0,
+             NA, NA, NA)
+
+df
+```
+
+
+```{r}
+df |> 
+  mutate(values_TF=values*T_F)
+```
+
+
+
+```{r}
+df |> 
+  mutate(values_TF=T_F*NA_not)
+```
+
+
+
+```{r}
+df |> 
+  mutate(valuesNA=values*NA_not)
+```
 
 
 ## Contabilizar los NA
@@ -102,32 +140,54 @@ vuelos %>%
 
 Reemplazar los NA por "0" en el archivo de datos
 
+Cual es el problema de reemplazar los NA por 0?
+
 
 ```{r TFV5}
 
 
-datos_NA=c(1:8, NA, 10:20)
+datos_NA=c(1, NA, 3:8, NA, 10:12)
 
-datos_NA=as.data.frame(datos_NA)
 
-#datos_NA %>%  # Cual es el problema de replace_na(datos_NA, 0) para los analisis?
-#  mutate(Prom_cum=cummean(replace_na(datos_NA, 0))) %>% 
-#  mutate(Var_cum=cumstats::cumvar(replace_na(datos_NA, 0)))
+datos_NA_df=as.data.frame(datos_NA)
+datos_NA_df
+# reemplazar NA con 0
+
+datos_NA_df = datos_NA_df %>%
+  mutate(datos_0= if_else(is.na(datos_NA), 0, datos_NA))
+
+
+datos_NA_df
+
+
+
+```
+
+
+
+
+AHORA
+
+Alguin le dio un set de datos en Excel con O cuando no tenian datos
+
+reemplace los valores de "zero" con NA con la funcion if_else de dplyr
+
+
+
+```{r}
+library(dplyr)
+Datos_Excel=c(1, 0, 3:8, 0, 10:12)
+
+Datos_df=as.data.frame(Datos_Excel)
+
+Datos_df= Datos_df %>%
+  mutate(Datos_NA= dplyr::if_else(Datos_Excel== 0, NA, Datos_Excel))
+
+Datos_df
 
 ```
 
 
-Remover las filas que tienen NA con la función drop_na()
-
-
-
-```{r TFV6}
-#datos_NA %>% 
- # drop_na() |> 
-#  mutate(Prom_cum=cummean(datos_NA)) %>% 
-#  mutate(Var_cum=cumstats::cumvar(datos_NA))
-
-```
 
 
 

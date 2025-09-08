@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-08-27" />
+<meta name="date" content="2025-09-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -64,7 +64,7 @@
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.2.3/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -250,7 +250,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.1" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html"><i class="fa fa-check"></i><b>6.2.1</b> Otra alternativa para filtrar</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#ejercicios-2"><i class="fa fa-check"></i><b>6.3</b> Ejercicios</a></li>
-<li class="chapter" data-level="6.4" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#section-1"><i class="fa fa-check"></i><b>6.4</b> </a>
+<li class="chapter" data-level="6.4" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#section"><i class="fa fa-check"></i><b>6.4</b> </a>
 <ul>
 <li class="chapter" data-level="6.4.1" data-path="A-Ejercicios_Transformacion.html"><a href="#la-funci%C3%B3n-arrange"><i class="fa fa-check"></i><b>6.4.1</b> La función arrange()</a></li>
 </ul></li>
@@ -328,11 +328,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.1" data-path="pipes.html"><a href="pipes.html#temas-el-paquete-magrittr-y-sus-funciones"><i class="fa fa-check"></i><b>14.1</b> Temas: El paquete “magrittr” y sus funciones</a></li>
 <li class="chapter" data-level="14.2" data-path="pipes.html"><a href="pipes.html#pipes-1"><i class="fa fa-check"></i><b>14.2</b> %&gt;% pipes</a></li>
 <li class="chapter" data-level="14.3" data-path="pipes.html"><a href="pipes.html#alternativas-a-los-pipes"><i class="fa fa-check"></i><b>14.3</b> Alternativas a los pipes</a></li>
-<li class="chapter" data-level="14.4" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>14.4</b> %$%</a>
+<li class="chapter" data-level="14.4" data-path="pipes.html"><a href="pipes.html#section-1"><i class="fa fa-check"></i><b>14.4</b> %$%</a>
 <ul>
 <li class="chapter" data-level="14.4.1" data-path="pipes.html"><a href="pipes.html#otro-ejemplo-de-pipe"><i class="fa fa-check"></i><b>14.4.1</b> Otro ejemplo de Pipe: %$%</a></li>
 </ul></li>
-<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-3"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
+<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
 <li class="chapter" data-level="14.6" data-path="pipes.html"><a href="pipes.html#in"><i class="fa fa-check"></i><b>14.6</b> %in%</a></li>
 <li class="chapter" data-level="14.7" data-path="pipes.html"><a href="pipes.html#t"><i class="fa fa-check"></i><b>14.7</b> %T&gt;%</a></li>
 </ul></li>
@@ -631,12 +631,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h2>Ejercicios con destrezar de aplicar algunas funciones de transformaciones de datos<a href="appendix-a.html#ejercicios-con-destrezar-de-aplicar-algunas-funciones-de-transformaciones-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="para-tener-los-puntos-tiene-que-enseñar-todos-los-scripts-los-resultados-y-explicar-en-palabra-los-que-encontró-dentro-de-un-documento-bien-organizado." class="section level3 unnumbered hasAnchor">
 <h3>Para tener los puntos tiene que enseñar TODOS los scripts, los resultados y explicar en palabra los que encontró dentro de un documento bien organizado.<a href="#para-tener-los-puntos-tiene-que-ense%C3%B1ar-todos-los-scripts-los-resultados-y-explicar-en-palabra-los-que-encontr%C3%B3-dentro-de-un-documento-bien-organizado." class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb1070"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1070-1"><a href="appendix-a.html#cb1070-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
-<span id="cb1070-2"><a href="appendix-a.html#cb1070-2" tabindex="-1"></a><span class="fu">attach</span>(bateadores)</span>
-<span id="cb1070-3"><a href="appendix-a.html#cb1070-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1070-4"><a href="appendix-a.html#cb1070-4" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code></pre></div>
+<div class="sourceCode" id="cb1086"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1086-1"><a href="appendix-a.html#cb1086-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb1086-2"><a href="appendix-a.html#cb1086-2" tabindex="-1"></a><span class="fu">attach</span>(bateadores)</span>
+<span id="cb1086-3"><a href="appendix-a.html#cb1086-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1086-4"><a href="appendix-a.html#cb1086-4" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code></pre></div>
 <p>Use el data frame de “bateadores” en el paquete “datos”.</p>
-<div class="sourceCode" id="cb1071"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1071-1"><a href="appendix-a.html#cb1071-1" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(bateadores, <span class="at">n=</span><span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1087"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1087-1"><a href="appendix-a.html#cb1087-1" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(bateadores, <span class="at">n=</span><span class="dv">3</span>))</span></code></pre></div>
 <div id="pgbpjqhzkx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#pgbpjqhzkx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1190,13 +1190,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="busca-el-bateador-que-tuvo-más-carreras-en-cualquier-año" class="section level2 unnumbered hasAnchor">
 <h2>1. Busca el bateador que tuvo más carreras en cualquier año<a href="#busca-el-bateador-que-tuvo-m%C3%A1s-carreras-en-cualquier-a%C3%B1o" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1072"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1072-1"><a href="appendix-a.html#cb1072-1" tabindex="-1"></a><span class="fu">max</span>(bateadores<span class="sc">$</span>carreras)</span></code></pre></div>
+<div class="sourceCode" id="cb1088"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1088-1"><a href="appendix-a.html#cb1088-1" tabindex="-1"></a><span class="fu">max</span>(bateadores<span class="sc">$</span>carreras)</span></code></pre></div>
 <pre><code>## [1] 198</code></pre>
-<div class="sourceCode" id="cb1074"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1074-1"><a href="appendix-a.html#cb1074-1" tabindex="-1"></a>bateadores <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(id_jugador, carreras) <span class="sc">|&gt;</span> </span>
-<span id="cb1074-2"><a href="appendix-a.html#cb1074-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(carreras)) <span class="sc">|&gt;</span> </span>
-<span id="cb1074-3"><a href="appendix-a.html#cb1074-3" tabindex="-1"></a>  <span class="fu">slice_max</span>(carreras)</span></code></pre></div>
+<div class="sourceCode" id="cb1090"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1090-1"><a href="appendix-a.html#cb1090-1" tabindex="-1"></a>bateadores <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(id_jugador, carreras) <span class="sc">|&gt;</span> </span>
+<span id="cb1090-2"><a href="appendix-a.html#cb1090-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(carreras)) <span class="sc">|&gt;</span> </span>
+<span id="cb1090-3"><a href="appendix-a.html#cb1090-3" tabindex="-1"></a>  <span class="fu">slice_max</span>(carreras)</span></code></pre></div>
 <pre><code>##       id_jugador carreras
-## 41513  hamilbi01      198</code></pre>
+## 42103  hamilbi01      198</code></pre>
 <hr />
 </div>
 <div id="cual-es-el-nombre-del-bateador-id_jugador-que-estuvo-más-veces-al_bate-prepara-una-lista-del-bateador-más-frecuente-al-bate-al-menos" class="section level2 unnumbered hasAnchor">
