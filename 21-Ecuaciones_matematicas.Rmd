@@ -26,6 +26,14 @@ Si está haciendo una tesis, artículo cientíco, presentaciones o quiere aclara
 
 ### Matemática y Física
 
+El promedio $\bar{x}=\frac{\sum x_{i}}{n}$ se escribe como `$\bar{x}=\frac{\sum x_{i}}{n}$`.  Nota que para poner una ecuación en una línea se usa solamemente una `$` antes y depsues, si queremos que sea en una linea aprate se usa dos `$$` antes y despues.
+
+$$\bar{x}=\frac{\sum x_{i}}{n}$$
+
+****
+
+
+
 $$
 \sum_{j=1}^n (\delta\theta_j)^2 \leq {{\beta_i^2}\over{\delta_i^2 + \rho_i^2}}
 \left[ 2\rho_i^2 + {\delta_i^2\beta_i^2\over{\delta_i^2 + \rho_i^2}} \right] \equiv \omega_i^2

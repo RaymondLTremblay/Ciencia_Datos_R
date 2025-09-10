@@ -27,8 +27,10 @@ library(datos)
 2^2
 1^2
 1^0
+0^1
 
 NA^0
+NA^1
 NA == 1
 NA | TRUE
 NA | FALSE
@@ -98,7 +100,7 @@ df |>
 
 ```{r TFV2a}
 vuelos %>%
-  dplyr::select(horario_salida) %>%
+  dplyr::select(horario_salida, aerolinea) %>%
   is.na() %>%
   table()
 
@@ -111,7 +113,9 @@ vuelos %>%
 ```{r TVF3}
 vuelos %>%
   dplyr::select(anio, mes, dia, horario_salida, aerolinea) |>
-  filter(is.na(horario_salida))
+  filter(is.na(horario_salida)) %>%
+  group_by(dia) %>%
+  summarise(n = n())
 
 ```
 
@@ -125,6 +129,10 @@ vuelos %>%
 no_cancelados <- vuelos %>%
   filter(!is.na(atraso_salida), !is.na(atraso_llegada))
 no_cancelados
+
+
+#vuelos %>% 
+#  drop_na(atraso_salida, atraso_llegada) 
 
 no_cancelados %>%
   group_by(anio, mes, dia) %>%
@@ -157,7 +165,7 @@ datos_NA_df
 # reemplazar NA con 0
 
 datos_NA_df = datos_NA_df %>%
-  mutate(datos_0 = if_else(is.na(datos_NA), 0, datos_NA))
+  mutate(datos_0 = if_else(is.na(datos_NA), 99, datos_NA))
 
 
 datos_NA_df
