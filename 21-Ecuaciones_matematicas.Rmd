@@ -26,7 +26,7 @@ Si está haciendo una tesis, artículo cientíco, presentaciones o quiere aclara
 
 ### Matemática y Física
 
-El promedio $\bar{x}=\frac{\sum x_{i}}{n}$ se escribe como `$\bar{x}=\frac{\sum x_{i}}{n}$`.  Nota que para poner una ecuación en una línea se usa solamemente una `$` antes y depsues, si queremos que sea en una linea aprate se usa dos `$$` antes y despues.
+El promedio $\bar{x}=\frac{\sum x_{i}}{n}$ se escribe como `$\bar{x}=\frac{\sum x_{i}}{n}$`.  Nota que para poner una ecuación en una línea se usa solamemente una `$` antes y depsues, si queremos que sea en una linea aparte se usa dos `$$` antes y despues.
 
 $$\bar{x}=\frac{\sum x_{i}}{n}$$
 
