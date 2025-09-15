@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-09-10" />
+<meta name="date" content="2025-09-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -622,7 +622,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="transformación-selecionar-variables" class="section level1 hasAnchor" number="8">
 <h1><span class="header-section-number">Capítulo8</span> Transformación: Selecionar variables<a href="#transformaci%C3%B3n-selecionar-variables" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2025-09-10&quot;</code></pre>
+<pre><code>## [1] &quot;2025-09-15&quot;</code></pre>
 <div id="funciones-en-este-módulo" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> Funciones en este módulo<a href="#funciones-en-este-m%C3%B3dulo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
@@ -708,13 +708,31 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  9            557               600            -3
 ## 10            558               600            -2
 ## # ℹ 336,766 more rows</code></pre>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="transformación-selecionar-variables.html#cb251-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb251-2"><a href="transformación-selecionar-variables.html#cb251-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;u&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 336,776 × 3
+##    vuelo tiempo_vuelo minuto
+##    &lt;int&gt;        &lt;dbl&gt;  &lt;dbl&gt;
+##  1  1545          227     15
+##  2  1714          227     29
+##  3  1141          160     40
+##  4   725          183     45
+##  5   461          116      0
+##  6  1696          150     58
+##  7   507          158      0
+##  8  5708           53      0
+##  9    79          140      0
+## 10   301          138      0
+## # ℹ 336,766 more rows</code></pre>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="transformación-selecionar-variables.html#cb253-1" tabindex="-1"></a><span class="co">#vuelos %&gt;%</span></span>
+<span id="cb253-2"><a href="transformación-selecionar-variables.html#cb253-2" tabindex="-1"></a> <span class="co"># dplyr::filter(contains(&quot;AA&quot;)) # no funciona con filter</span></span></code></pre></div>
 </div>
 <div id="rename" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> rename()<a href="transformación-selecionar-variables.html#rename" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Cambiar el nombre de la columna</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="transformación-selecionar-variables.html#cb251-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb251-2"><a href="transformación-selecionar-variables.html#cb251-2" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">aeropuerto_origen=</span>origen) <span class="sc">%&gt;%</span> </span>
-<span id="cb251-3"><a href="transformación-selecionar-variables.html#cb251-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">areopuerto_distino=</span>destino) <span class="co"># nombre nuevo= nombre original</span></span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="transformación-selecionar-variables.html#cb254-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb254-2"><a href="transformación-selecionar-variables.html#cb254-2" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">aeropuerto_origen=</span>origen) <span class="sc">%&gt;%</span> </span>
+<span id="cb254-3"><a href="transformación-selecionar-variables.html#cb254-3" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">areopuerto_distino=</span>destino) <span class="co"># nombre nuevo= nombre original</span></span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 19
 ##     anio   mes   dia horario_salida salida_programada atraso_salida
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;         &lt;dbl&gt;
@@ -736,7 +754,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="reoganizar-el-orden-de-las-columnas-usando-select-y-everything-en-la-misma-función" class="section level2 hasAnchor" number="8.3">
 <h2><span class="header-section-number">8.3</span> Reoganizar el orden de las columnas, usando select() y everything() en la misma función<a href="#reoganizar-el-orden-de-las-columnas-usando-select-y-everything-en-la-misma-funci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="transformación-selecionar-variables.html#cb253-1" tabindex="-1"></a><span class="fu">head</span>(vuelos)</span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="transformación-selecionar-variables.html#cb256-1" tabindex="-1"></a><span class="fu">head</span>(vuelos)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 19
 ##    anio   mes   dia horario_salida salida_programada atraso_salida
 ##   &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;         &lt;dbl&gt;
@@ -750,8 +768,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;int&gt;, codigo_cola &lt;chr&gt;,
 ## #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 ## #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="transformación-selecionar-variables.html#cb255-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb255-2"><a href="transformación-selecionar-variables.html#cb255-2" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(distancia, aerolinea, <span class="fu">everything</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="transformación-selecionar-variables.html#cb258-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb258-2"><a href="transformación-selecionar-variables.html#cb258-2" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(distancia, aerolinea, <span class="fu">everything</span>())</span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 19
 ##    distancia aerolinea  anio   mes   dia horario_salida salida_programada
 ##        &lt;dbl&gt; &lt;chr&gt;     &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;
@@ -771,7 +789,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## #   codigo_cola &lt;chr&gt;, origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;,
 ## #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
 <p>Seleccionar de un conjunto de variables en orden que aparece en el data.frame</p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="transformación-selecionar-variables.html#cb257-1" tabindex="-1"></a>vuelos <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(anio<span class="sc">:</span>horario_salida)</span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="transformación-selecionar-variables.html#cb260-1" tabindex="-1"></a>vuelos <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(anio<span class="sc">:</span>horario_salida)</span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 4
 ##     anio   mes   dia horario_salida
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;
@@ -791,6 +809,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Ejercicios</strong>:</li>
 </ol>
 <p>Hacer los ejercicios en la sección 5.4.1 del libro en español</p>
+<p><a href="https://es.r4ds.hadley.nz/05-transform.html#ejercicios-2" class="uri">https://es.r4ds.hadley.nz/05-transform.html#ejercicios-2</a></p>
 <hr />
 
 </div>

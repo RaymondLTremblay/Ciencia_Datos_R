@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-09-10" />
+<meta name="date" content="2025-09-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -621,52 +621,52 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="hex-stickers" class="section level1 hasAnchor" number="24">
 <h1><span class="header-section-number">Capítulo24</span> Hex Stickers<a href="hex-stickers.html#hex-stickers" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<pre><code>## [1] &quot;2025-09-10&quot;</code></pre>
-<div class="sourceCode" id="cb1014"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1014-1"><a href="hex-stickers.html#cb1014-1" tabindex="-1"></a><span class="fu">library</span>(hexSticker) </span>
-<span id="cb1014-2"><a href="hex-stickers.html#cb1014-2" tabindex="-1"></a><span class="fu">library</span>(magick)</span>
-<span id="cb1014-3"><a href="hex-stickers.html#cb1014-3" tabindex="-1"></a><span class="fu">library</span>(sysfonts)</span>
-<span id="cb1014-4"><a href="hex-stickers.html#cb1014-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## [1] &quot;2025-09-15&quot;</code></pre>
+<div class="sourceCode" id="cb1017"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1017-1"><a href="hex-stickers.html#cb1017-1" tabindex="-1"></a><span class="fu">library</span>(hexSticker) </span>
+<span id="cb1017-2"><a href="hex-stickers.html#cb1017-2" tabindex="-1"></a><span class="fu">library</span>(magick)</span>
+<span id="cb1017-3"><a href="hex-stickers.html#cb1017-3" tabindex="-1"></a><span class="fu">library</span>(sysfonts)</span>
+<span id="cb1017-4"><a href="hex-stickers.html#cb1017-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <div id="la-función-y-los-valores-default" class="section level2 hasAnchor" number="24.1">
 <h2><span class="header-section-number">24.1</span> La función y los valores “default”<a href="#la-funci%C3%B3n-y-los-valores-default" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1015"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1015-1"><a href="hex-stickers.html#cb1015-1" tabindex="-1"></a><span class="fu">sticker</span>(</span>
-<span id="cb1015-2"><a href="hex-stickers.html#cb1015-2" tabindex="-1"></a>  subplot,</span>
-<span id="cb1015-3"><a href="hex-stickers.html#cb1015-3" tabindex="-1"></a>  <span class="at">s_x =</span> <span class="fl">0.8</span>,</span>
-<span id="cb1015-4"><a href="hex-stickers.html#cb1015-4" tabindex="-1"></a>  <span class="at">s_y =</span> <span class="fl">0.75</span>,</span>
-<span id="cb1015-5"><a href="hex-stickers.html#cb1015-5" tabindex="-1"></a>  <span class="at">s_width =</span> <span class="fl">0.4</span>,</span>
-<span id="cb1015-6"><a href="hex-stickers.html#cb1015-6" tabindex="-1"></a>  <span class="at">s_height =</span> <span class="fl">0.5</span>,</span>
-<span id="cb1015-7"><a href="hex-stickers.html#cb1015-7" tabindex="-1"></a>  package,</span>
-<span id="cb1015-8"><a href="hex-stickers.html#cb1015-8" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="dv">1</span>,</span>
-<span id="cb1015-9"><a href="hex-stickers.html#cb1015-9" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.4</span>,</span>
-<span id="cb1015-10"><a href="hex-stickers.html#cb1015-10" tabindex="-1"></a>  <span class="at">p_color =</span> <span class="st">&quot;#FFFFFF&quot;</span>,</span>
-<span id="cb1015-11"><a href="hex-stickers.html#cb1015-11" tabindex="-1"></a>  <span class="at">p_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
-<span id="cb1015-12"><a href="hex-stickers.html#cb1015-12" tabindex="-1"></a>  <span class="at">p_fontface =</span> <span class="st">&quot;plain&quot;</span>,</span>
-<span id="cb1015-13"><a href="hex-stickers.html#cb1015-13" tabindex="-1"></a>  <span class="at">p_size =</span> <span class="dv">8</span>,</span>
-<span id="cb1015-14"><a href="hex-stickers.html#cb1015-14" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="fl">1.2</span>,</span>
-<span id="cb1015-15"><a href="hex-stickers.html#cb1015-15" tabindex="-1"></a>  <span class="at">h_fill =</span> <span class="st">&quot;#1881C2&quot;</span>,</span>
-<span id="cb1015-16"><a href="hex-stickers.html#cb1015-16" tabindex="-1"></a>  <span class="at">h_color =</span> <span class="st">&quot;#87B13F&quot;</span>,</span>
-<span id="cb1015-17"><a href="hex-stickers.html#cb1015-17" tabindex="-1"></a>  <span class="at">spotlight =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb1015-18"><a href="hex-stickers.html#cb1015-18" tabindex="-1"></a>  <span class="at">l_x =</span> <span class="dv">1</span>,</span>
-<span id="cb1015-19"><a href="hex-stickers.html#cb1015-19" tabindex="-1"></a>  <span class="at">l_y =</span> <span class="fl">0.5</span>,</span>
-<span id="cb1015-20"><a href="hex-stickers.html#cb1015-20" tabindex="-1"></a>  <span class="at">l_width =</span> <span class="dv">3</span>,</span>
-<span id="cb1015-21"><a href="hex-stickers.html#cb1015-21" tabindex="-1"></a>  <span class="at">l_height =</span> <span class="dv">3</span>,</span>
-<span id="cb1015-22"><a href="hex-stickers.html#cb1015-22" tabindex="-1"></a>  <span class="at">l_alpha =</span> <span class="fl">0.4</span>,</span>
-<span id="cb1015-23"><a href="hex-stickers.html#cb1015-23" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb1015-24"><a href="hex-stickers.html#cb1015-24" tabindex="-1"></a>  <span class="at">u_x =</span> <span class="dv">1</span>,</span>
-<span id="cb1015-25"><a href="hex-stickers.html#cb1015-25" tabindex="-1"></a>  <span class="at">u_y =</span> <span class="fl">0.08</span>,</span>
-<span id="cb1015-26"><a href="hex-stickers.html#cb1015-26" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;black&quot;</span>,</span>
-<span id="cb1015-27"><a href="hex-stickers.html#cb1015-27" tabindex="-1"></a>  <span class="at">u_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
-<span id="cb1015-28"><a href="hex-stickers.html#cb1015-28" tabindex="-1"></a>  <span class="at">u_size =</span> <span class="fl">1.5</span>,</span>
-<span id="cb1015-29"><a href="hex-stickers.html#cb1015-29" tabindex="-1"></a>  <span class="at">u_angle =</span> <span class="dv">30</span>,</span>
-<span id="cb1015-30"><a href="hex-stickers.html#cb1015-30" tabindex="-1"></a>  <span class="at">white_around_sticker =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb1015-31"><a href="hex-stickers.html#cb1015-31" tabindex="-1"></a>  ...,</span>
-<span id="cb1015-32"><a href="hex-stickers.html#cb1015-32" tabindex="-1"></a>  <span class="at">filename =</span> <span class="fu">paste0</span>(package, <span class="st">&quot;.png&quot;</span>),</span>
-<span id="cb1015-33"><a href="hex-stickers.html#cb1015-33" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>,</span>
-<span id="cb1015-34"><a href="hex-stickers.html#cb1015-34" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
-<span id="cb1015-35"><a href="hex-stickers.html#cb1015-35" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb1018"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1018-1"><a href="hex-stickers.html#cb1018-1" tabindex="-1"></a><span class="fu">sticker</span>(</span>
+<span id="cb1018-2"><a href="hex-stickers.html#cb1018-2" tabindex="-1"></a>  subplot,</span>
+<span id="cb1018-3"><a href="hex-stickers.html#cb1018-3" tabindex="-1"></a>  <span class="at">s_x =</span> <span class="fl">0.8</span>,</span>
+<span id="cb1018-4"><a href="hex-stickers.html#cb1018-4" tabindex="-1"></a>  <span class="at">s_y =</span> <span class="fl">0.75</span>,</span>
+<span id="cb1018-5"><a href="hex-stickers.html#cb1018-5" tabindex="-1"></a>  <span class="at">s_width =</span> <span class="fl">0.4</span>,</span>
+<span id="cb1018-6"><a href="hex-stickers.html#cb1018-6" tabindex="-1"></a>  <span class="at">s_height =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1018-7"><a href="hex-stickers.html#cb1018-7" tabindex="-1"></a>  package,</span>
+<span id="cb1018-8"><a href="hex-stickers.html#cb1018-8" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="dv">1</span>,</span>
+<span id="cb1018-9"><a href="hex-stickers.html#cb1018-9" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.4</span>,</span>
+<span id="cb1018-10"><a href="hex-stickers.html#cb1018-10" tabindex="-1"></a>  <span class="at">p_color =</span> <span class="st">&quot;#FFFFFF&quot;</span>,</span>
+<span id="cb1018-11"><a href="hex-stickers.html#cb1018-11" tabindex="-1"></a>  <span class="at">p_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
+<span id="cb1018-12"><a href="hex-stickers.html#cb1018-12" tabindex="-1"></a>  <span class="at">p_fontface =</span> <span class="st">&quot;plain&quot;</span>,</span>
+<span id="cb1018-13"><a href="hex-stickers.html#cb1018-13" tabindex="-1"></a>  <span class="at">p_size =</span> <span class="dv">8</span>,</span>
+<span id="cb1018-14"><a href="hex-stickers.html#cb1018-14" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="fl">1.2</span>,</span>
+<span id="cb1018-15"><a href="hex-stickers.html#cb1018-15" tabindex="-1"></a>  <span class="at">h_fill =</span> <span class="st">&quot;#1881C2&quot;</span>,</span>
+<span id="cb1018-16"><a href="hex-stickers.html#cb1018-16" tabindex="-1"></a>  <span class="at">h_color =</span> <span class="st">&quot;#87B13F&quot;</span>,</span>
+<span id="cb1018-17"><a href="hex-stickers.html#cb1018-17" tabindex="-1"></a>  <span class="at">spotlight =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1018-18"><a href="hex-stickers.html#cb1018-18" tabindex="-1"></a>  <span class="at">l_x =</span> <span class="dv">1</span>,</span>
+<span id="cb1018-19"><a href="hex-stickers.html#cb1018-19" tabindex="-1"></a>  <span class="at">l_y =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1018-20"><a href="hex-stickers.html#cb1018-20" tabindex="-1"></a>  <span class="at">l_width =</span> <span class="dv">3</span>,</span>
+<span id="cb1018-21"><a href="hex-stickers.html#cb1018-21" tabindex="-1"></a>  <span class="at">l_height =</span> <span class="dv">3</span>,</span>
+<span id="cb1018-22"><a href="hex-stickers.html#cb1018-22" tabindex="-1"></a>  <span class="at">l_alpha =</span> <span class="fl">0.4</span>,</span>
+<span id="cb1018-23"><a href="hex-stickers.html#cb1018-23" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb1018-24"><a href="hex-stickers.html#cb1018-24" tabindex="-1"></a>  <span class="at">u_x =</span> <span class="dv">1</span>,</span>
+<span id="cb1018-25"><a href="hex-stickers.html#cb1018-25" tabindex="-1"></a>  <span class="at">u_y =</span> <span class="fl">0.08</span>,</span>
+<span id="cb1018-26"><a href="hex-stickers.html#cb1018-26" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb1018-27"><a href="hex-stickers.html#cb1018-27" tabindex="-1"></a>  <span class="at">u_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
+<span id="cb1018-28"><a href="hex-stickers.html#cb1018-28" tabindex="-1"></a>  <span class="at">u_size =</span> <span class="fl">1.5</span>,</span>
+<span id="cb1018-29"><a href="hex-stickers.html#cb1018-29" tabindex="-1"></a>  <span class="at">u_angle =</span> <span class="dv">30</span>,</span>
+<span id="cb1018-30"><a href="hex-stickers.html#cb1018-30" tabindex="-1"></a>  <span class="at">white_around_sticker =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1018-31"><a href="hex-stickers.html#cb1018-31" tabindex="-1"></a>  ...,</span>
+<span id="cb1018-32"><a href="hex-stickers.html#cb1018-32" tabindex="-1"></a>  <span class="at">filename =</span> <span class="fu">paste0</span>(package, <span class="st">&quot;.png&quot;</span>),</span>
+<span id="cb1018-33"><a href="hex-stickers.html#cb1018-33" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>,</span>
+<span id="cb1018-34"><a href="hex-stickers.html#cb1018-34" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
+<span id="cb1018-35"><a href="hex-stickers.html#cb1018-35" tabindex="-1"></a>)</span></code></pre></div>
 <hr />
 <p><strong>Arguments</strong></p>
-<div class="sourceCode" id="cb1016"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1016-1"><a href="hex-stickers.html#cb1016-1" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
-<span id="cb1016-2"><a href="hex-stickers.html#cb1016-2" tabindex="-1"></a><span class="fu">gt</span>(argumentos)</span></code></pre></div>
+<div class="sourceCode" id="cb1019"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1019-1"><a href="hex-stickers.html#cb1019-1" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1019-2"><a href="hex-stickers.html#cb1019-2" tabindex="-1"></a><span class="fu">gt</span>(argumentos)</span></code></pre></div>
 <div id="fxippzcnnj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#fxippzcnnj table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1203,7 +1203,7 @@ sysfonts::font_add_google(“Young Serif”) ## No baja</p>
 </div>
 <div id="ejemplo-de-crear-un-hex-con-un-gatito" class="section level2 hasAnchor" number="24.2">
 <h2><span class="header-section-number">24.2</span> Ejemplo de Crear un Hex con un gatito<a href="hex-stickers.html#ejemplo-de-crear-un-hex-con-un-gatito" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1017"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1017-1"><a href="hex-stickers.html#cb1017-1" tabindex="-1"></a><span class="fu">font_files</span>()  <span class="co">#a list of all fonts available</span></span></code></pre></div>
+<div class="sourceCode" id="cb1020"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1020-1"><a href="hex-stickers.html#cb1020-1" tabindex="-1"></a><span class="fu">font_files</span>()  <span class="co">#a list of all fonts available</span></span></code></pre></div>
 <pre><code>##                                   path
 ## 1                       /Library/Fonts
 ## 2                /System/Library/Fonts
@@ -2620,40 +2620,40 @@ sysfonts::font_add_google(“Young Serif”) ## No baja</p>
 ## 351                       HiraginoSans-W7
 ## 352                       HiraginoSans-W8
 ## 353                       HiraginoSans-W9</code></pre>
-<div class="sourceCode" id="cb1019"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1019-1"><a href="hex-stickers.html#cb1019-1" tabindex="-1"></a><span class="do">## Loading Google fonts (https://fonts.google.com/)</span></span>
-<span id="cb1019-2"><a href="hex-stickers.html#cb1019-2" tabindex="-1"></a></span>
-<span id="cb1019-3"><a href="hex-stickers.html#cb1019-3" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Dancing Script&quot;</span>) <span class="co"># selección de fonts de google</span></span>
-<span id="cb1019-4"><a href="hex-stickers.html#cb1019-4" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Bebas Neue&quot;</span>)</span>
-<span id="cb1019-5"><a href="hex-stickers.html#cb1019-5" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Fuggles&quot;</span>)</span>
-<span id="cb1019-6"><a href="hex-stickers.html#cb1019-6" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Roboto&quot;</span>)</span>
-<span id="cb1019-7"><a href="hex-stickers.html#cb1019-7" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Lobster&quot;</span>)</span>
-<span id="cb1019-8"><a href="hex-stickers.html#cb1019-8" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Raleway&quot;</span>)</span>
-<span id="cb1019-9"><a href="hex-stickers.html#cb1019-9" tabindex="-1"></a></span>
-<span id="cb1019-10"><a href="hex-stickers.html#cb1019-10" tabindex="-1"></a></span>
-<span id="cb1019-11"><a href="hex-stickers.html#cb1019-11" tabindex="-1"></a>cat_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;cat.jpg&#39;</span>)</span>
-<span id="cb1019-12"><a href="hex-stickers.html#cb1019-12" tabindex="-1"></a>analitica_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;Analitica3.png&#39;</span>)</span>
-<span id="cb1019-13"><a href="hex-stickers.html#cb1019-13" tabindex="-1"></a></span>
-<span id="cb1019-14"><a href="hex-stickers.html#cb1019-14" tabindex="-1"></a><span class="fu">sticker</span>(</span>
-<span id="cb1019-15"><a href="hex-stickers.html#cb1019-15" tabindex="-1"></a>  <span class="at">subplot=</span> analitica_img,</span>
-<span id="cb1019-16"><a href="hex-stickers.html#cb1019-16" tabindex="-1"></a>  <span class="at">package=</span><span class="st">&quot;Meow&quot;</span>,</span>
-<span id="cb1019-17"><a href="hex-stickers.html#cb1019-17" tabindex="-1"></a>  <span class="at">s_width =</span>.<span class="dv">75</span>,</span>
-<span id="cb1019-18"><a href="hex-stickers.html#cb1019-18" tabindex="-1"></a>  <span class="at">s_height =</span> .<span class="dv">75</span>,</span>
-<span id="cb1019-19"><a href="hex-stickers.html#cb1019-19" tabindex="-1"></a>  <span class="at">s_x=</span><span class="dv">1</span>,</span>
-<span id="cb1019-20"><a href="hex-stickers.html#cb1019-20" tabindex="-1"></a>  <span class="at">s_y=</span>.<span class="dv">75</span>,</span>
-<span id="cb1019-21"><a href="hex-stickers.html#cb1019-21" tabindex="-1"></a>  <span class="at">p_size=</span><span class="dv">19</span>,</span>
-<span id="cb1019-22"><a href="hex-stickers.html#cb1019-22" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="fl">1.0</span>,</span>
-<span id="cb1019-23"><a href="hex-stickers.html#cb1019-23" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.5</span>,</span>
-<span id="cb1019-24"><a href="hex-stickers.html#cb1019-24" tabindex="-1"></a>  <span class="at">p_color=</span> <span class="st">&#39;purple&#39;</span>,</span>
-<span id="cb1019-25"><a href="hex-stickers.html#cb1019-25" tabindex="-1"></a>  <span class="at">p_family=</span> <span class="st">&quot;Raleway&quot;</span>,</span>
-<span id="cb1019-26"><a href="hex-stickers.html#cb1019-26" tabindex="-1"></a>  <span class="at">h_fill =</span><span class="st">&#39;gold&#39;</span>,</span>
-<span id="cb1019-27"><a href="hex-stickers.html#cb1019-27" tabindex="-1"></a>  <span class="at">h_color=</span><span class="st">&#39;hotpink&#39;</span>,</span>
-<span id="cb1019-28"><a href="hex-stickers.html#cb1019-28" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="dv">2</span>,</span>
-<span id="cb1019-29"><a href="hex-stickers.html#cb1019-29" tabindex="-1"></a>  <span class="at">url=</span><span class="st">&quot;www.cat.foundation.com&quot;</span>,</span>
-<span id="cb1019-30"><a href="hex-stickers.html#cb1019-30" tabindex="-1"></a>  <span class="at">u_size=</span><span class="dv">4</span>,</span>
-<span id="cb1019-31"><a href="hex-stickers.html#cb1019-31" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;violetred&quot;</span>,</span>
-<span id="cb1019-32"><a href="hex-stickers.html#cb1019-32" tabindex="-1"></a>  <span class="at">spotlight=</span>T</span>
-<span id="cb1019-33"><a href="hex-stickers.html#cb1019-33" tabindex="-1"></a></span>
-<span id="cb1019-34"><a href="hex-stickers.html#cb1019-34" tabindex="-1"></a>) <span class="sc">%&gt;%</span> print</span></code></pre></div>
+<div class="sourceCode" id="cb1022"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1022-1"><a href="hex-stickers.html#cb1022-1" tabindex="-1"></a><span class="do">## Loading Google fonts (https://fonts.google.com/)</span></span>
+<span id="cb1022-2"><a href="hex-stickers.html#cb1022-2" tabindex="-1"></a></span>
+<span id="cb1022-3"><a href="hex-stickers.html#cb1022-3" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Dancing Script&quot;</span>) <span class="co"># selección de fonts de google</span></span>
+<span id="cb1022-4"><a href="hex-stickers.html#cb1022-4" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Bebas Neue&quot;</span>)</span>
+<span id="cb1022-5"><a href="hex-stickers.html#cb1022-5" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Fuggles&quot;</span>)</span>
+<span id="cb1022-6"><a href="hex-stickers.html#cb1022-6" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Roboto&quot;</span>)</span>
+<span id="cb1022-7"><a href="hex-stickers.html#cb1022-7" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Lobster&quot;</span>)</span>
+<span id="cb1022-8"><a href="hex-stickers.html#cb1022-8" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Raleway&quot;</span>)</span>
+<span id="cb1022-9"><a href="hex-stickers.html#cb1022-9" tabindex="-1"></a></span>
+<span id="cb1022-10"><a href="hex-stickers.html#cb1022-10" tabindex="-1"></a></span>
+<span id="cb1022-11"><a href="hex-stickers.html#cb1022-11" tabindex="-1"></a>cat_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;cat.jpg&#39;</span>)</span>
+<span id="cb1022-12"><a href="hex-stickers.html#cb1022-12" tabindex="-1"></a>analitica_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;Analitica3.png&#39;</span>)</span>
+<span id="cb1022-13"><a href="hex-stickers.html#cb1022-13" tabindex="-1"></a></span>
+<span id="cb1022-14"><a href="hex-stickers.html#cb1022-14" tabindex="-1"></a><span class="fu">sticker</span>(</span>
+<span id="cb1022-15"><a href="hex-stickers.html#cb1022-15" tabindex="-1"></a>  <span class="at">subplot=</span> analitica_img,</span>
+<span id="cb1022-16"><a href="hex-stickers.html#cb1022-16" tabindex="-1"></a>  <span class="at">package=</span><span class="st">&quot;Meow&quot;</span>,</span>
+<span id="cb1022-17"><a href="hex-stickers.html#cb1022-17" tabindex="-1"></a>  <span class="at">s_width =</span>.<span class="dv">75</span>,</span>
+<span id="cb1022-18"><a href="hex-stickers.html#cb1022-18" tabindex="-1"></a>  <span class="at">s_height =</span> .<span class="dv">75</span>,</span>
+<span id="cb1022-19"><a href="hex-stickers.html#cb1022-19" tabindex="-1"></a>  <span class="at">s_x=</span><span class="dv">1</span>,</span>
+<span id="cb1022-20"><a href="hex-stickers.html#cb1022-20" tabindex="-1"></a>  <span class="at">s_y=</span>.<span class="dv">75</span>,</span>
+<span id="cb1022-21"><a href="hex-stickers.html#cb1022-21" tabindex="-1"></a>  <span class="at">p_size=</span><span class="dv">19</span>,</span>
+<span id="cb1022-22"><a href="hex-stickers.html#cb1022-22" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="fl">1.0</span>,</span>
+<span id="cb1022-23"><a href="hex-stickers.html#cb1022-23" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.5</span>,</span>
+<span id="cb1022-24"><a href="hex-stickers.html#cb1022-24" tabindex="-1"></a>  <span class="at">p_color=</span> <span class="st">&#39;purple&#39;</span>,</span>
+<span id="cb1022-25"><a href="hex-stickers.html#cb1022-25" tabindex="-1"></a>  <span class="at">p_family=</span> <span class="st">&quot;Raleway&quot;</span>,</span>
+<span id="cb1022-26"><a href="hex-stickers.html#cb1022-26" tabindex="-1"></a>  <span class="at">h_fill =</span><span class="st">&#39;gold&#39;</span>,</span>
+<span id="cb1022-27"><a href="hex-stickers.html#cb1022-27" tabindex="-1"></a>  <span class="at">h_color=</span><span class="st">&#39;hotpink&#39;</span>,</span>
+<span id="cb1022-28"><a href="hex-stickers.html#cb1022-28" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="dv">2</span>,</span>
+<span id="cb1022-29"><a href="hex-stickers.html#cb1022-29" tabindex="-1"></a>  <span class="at">url=</span><span class="st">&quot;www.cat.foundation.com&quot;</span>,</span>
+<span id="cb1022-30"><a href="hex-stickers.html#cb1022-30" tabindex="-1"></a>  <span class="at">u_size=</span><span class="dv">4</span>,</span>
+<span id="cb1022-31"><a href="hex-stickers.html#cb1022-31" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;violetred&quot;</span>,</span>
+<span id="cb1022-32"><a href="hex-stickers.html#cb1022-32" tabindex="-1"></a>  <span class="at">spotlight=</span>T</span>
+<span id="cb1022-33"><a href="hex-stickers.html#cb1022-33" tabindex="-1"></a></span>
+<span id="cb1022-34"><a href="hex-stickers.html#cb1022-34" tabindex="-1"></a>) <span class="sc">%&gt;%</span> print</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/H5-1.png" width="672" /></p>
 
 </div>

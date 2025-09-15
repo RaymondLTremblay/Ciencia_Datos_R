@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-09-10" />
+<meta name="date" content="2025-09-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -632,12 +632,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h2>Ejercicios con destrezar de aplicar algunas funciones de transformaciones de datos<a href="appendix-a.html#ejercicios-con-destrezar-de-aplicar-algunas-funciones-de-transformaciones-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="para-tener-los-puntos-tiene-que-enseñar-todos-los-scripts-los-resultados-y-explicar-en-palabra-los-que-encontró-dentro-de-un-documento-bien-organizado." class="section level3 unnumbered hasAnchor">
 <h3>Para tener los puntos tiene que enseñar TODOS los scripts, los resultados y explicar en palabra los que encontró dentro de un documento bien organizado.<a href="#para-tener-los-puntos-tiene-que-ense%C3%B1ar-todos-los-scripts-los-resultados-y-explicar-en-palabra-los-que-encontr%C3%B3-dentro-de-un-documento-bien-organizado." class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb1089"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1089-1"><a href="appendix-a.html#cb1089-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
-<span id="cb1089-2"><a href="appendix-a.html#cb1089-2" tabindex="-1"></a><span class="fu">attach</span>(bateadores)</span>
-<span id="cb1089-3"><a href="appendix-a.html#cb1089-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1089-4"><a href="appendix-a.html#cb1089-4" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code></pre></div>
+<div class="sourceCode" id="cb1092"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1092-1"><a href="appendix-a.html#cb1092-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb1092-2"><a href="appendix-a.html#cb1092-2" tabindex="-1"></a><span class="fu">attach</span>(bateadores)</span>
+<span id="cb1092-3"><a href="appendix-a.html#cb1092-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1092-4"><a href="appendix-a.html#cb1092-4" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code></pre></div>
 <p>Use el data frame de “bateadores” en el paquete “datos”.</p>
-<div class="sourceCode" id="cb1090"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1090-1"><a href="appendix-a.html#cb1090-1" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(bateadores, <span class="at">n=</span><span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1093"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1093-1"><a href="appendix-a.html#cb1093-1" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(bateadores, <span class="at">n=</span><span class="dv">3</span>))</span></code></pre></div>
 <div id="pgbpjqhzkx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#pgbpjqhzkx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1191,11 +1191,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="busca-el-bateador-que-tuvo-más-carreras-en-cualquier-año" class="section level2 unnumbered hasAnchor">
 <h2>1. Busca el bateador que tuvo más carreras en cualquier año<a href="#busca-el-bateador-que-tuvo-m%C3%A1s-carreras-en-cualquier-a%C3%B1o" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1091"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1091-1"><a href="appendix-a.html#cb1091-1" tabindex="-1"></a><span class="fu">max</span>(bateadores<span class="sc">$</span>carreras)</span></code></pre></div>
+<div class="sourceCode" id="cb1094"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1094-1"><a href="appendix-a.html#cb1094-1" tabindex="-1"></a><span class="fu">max</span>(bateadores<span class="sc">$</span>carreras)</span></code></pre></div>
 <pre><code>## [1] 198</code></pre>
-<div class="sourceCode" id="cb1093"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1093-1"><a href="appendix-a.html#cb1093-1" tabindex="-1"></a>bateadores <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(id_jugador, carreras) <span class="sc">|&gt;</span> </span>
-<span id="cb1093-2"><a href="appendix-a.html#cb1093-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(carreras)) <span class="sc">|&gt;</span> </span>
-<span id="cb1093-3"><a href="appendix-a.html#cb1093-3" tabindex="-1"></a>  <span class="fu">slice_max</span>(carreras)</span></code></pre></div>
+<div class="sourceCode" id="cb1096"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1096-1"><a href="appendix-a.html#cb1096-1" tabindex="-1"></a>bateadores <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(id_jugador, carreras) <span class="sc">|&gt;</span> </span>
+<span id="cb1096-2"><a href="appendix-a.html#cb1096-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(carreras)) <span class="sc">|&gt;</span> </span>
+<span id="cb1096-3"><a href="appendix-a.html#cb1096-3" tabindex="-1"></a>  <span class="fu">slice_max</span>(carreras)</span></code></pre></div>
 <pre><code>##       id_jugador carreras
 ## 42103  hamilbi01      198</code></pre>
 <hr />
