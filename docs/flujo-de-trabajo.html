@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-09-15" />
+<meta name="date" content="2025-09-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -68,8 +68,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -79,7 +80,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -628,7 +629,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <a href="https://es.r4ds.hadley.nz/04-workflow-basics.html" class="uri">https://es.r4ds.hadley.nz/04-workflow-basics.html</a></p>
 <hr />
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2025-09-15&quot;</code></pre>
+<pre><code>## [1] &quot;2025-09-28&quot;</code></pre>
 <div id="temas" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Temas:<a href="flujo-de-trabajo.html#temas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
@@ -730,11 +731,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="información-sobre-el-archivo" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Información sobre el archivo<a href="#informaci%C3%B3n-sobre-el-archivo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Usa el signo de interogación <strong>?</strong> antes del nombre de la función o archivo</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="flujo-de-trabajo.html#cb14-1" tabindex="-1"></a>?millas</span>
+<p>Usa el signo de interogación <strong>?</strong> antes del nombre de la función o archivo. Remueve el “#” para ver el resultado</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="flujo-de-trabajo.html#cb14-1" tabindex="-1"></a><span class="co">#?millas</span></span>
 <span id="cb14-2"><a href="flujo-de-trabajo.html#cb14-2" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="flujo-de-trabajo.html#cb14-3" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="flujo-de-trabajo.html#cb14-4" tabindex="-1"></a>?head</span></code></pre></div>
+<span id="cb14-4"><a href="flujo-de-trabajo.html#cb14-4" tabindex="-1"></a><span class="co">#?head</span></span></code></pre></div>
 <div id="las-dimensiones-del-archivo" class="section level3 hasAnchor" number="2.3.1">
 <h3><span class="header-section-number">2.3.1</span> Las dimensiones del archivo<a href="flujo-de-trabajo.html#las-dimensiones-del-archivo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="flujo-de-trabajo.html#cb15-1" tabindex="-1"></a><span class="fu">dim</span>(millas) <span class="co"># dimension of data frame</span></span></code></pre></div>

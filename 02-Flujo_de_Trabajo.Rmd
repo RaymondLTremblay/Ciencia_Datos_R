@@ -81,13 +81,13 @@ tail(millas, n=10) # las ultimas 10 filas
 ```
 
 ## Información sobre el archivo
-Usa el signo de interogación **?** antes del nombre de la función o archivo
+Usa el signo de interogación **?** antes del nombre de la función o archivo. Remueve el "#" para ver el resultado
 
 ```{r FT7}
-?millas
+#?millas
 
 
-?head
+#?head
 
 
 ```

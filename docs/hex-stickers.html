@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-09-15" />
+<meta name="date" content="2025-09-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -68,8 +68,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -79,7 +80,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -621,52 +622,52 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="hex-stickers" class="section level1 hasAnchor" number="24">
 <h1><span class="header-section-number">Capítulo24</span> Hex Stickers<a href="hex-stickers.html#hex-stickers" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<pre><code>## [1] &quot;2025-09-15&quot;</code></pre>
-<div class="sourceCode" id="cb1017"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1017-1"><a href="hex-stickers.html#cb1017-1" tabindex="-1"></a><span class="fu">library</span>(hexSticker) </span>
-<span id="cb1017-2"><a href="hex-stickers.html#cb1017-2" tabindex="-1"></a><span class="fu">library</span>(magick)</span>
-<span id="cb1017-3"><a href="hex-stickers.html#cb1017-3" tabindex="-1"></a><span class="fu">library</span>(sysfonts)</span>
-<span id="cb1017-4"><a href="hex-stickers.html#cb1017-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## [1] &quot;2025-09-28&quot;</code></pre>
+<div class="sourceCode" id="cb1023"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1023-1"><a href="hex-stickers.html#cb1023-1" tabindex="-1"></a><span class="fu">library</span>(hexSticker) </span>
+<span id="cb1023-2"><a href="hex-stickers.html#cb1023-2" tabindex="-1"></a><span class="fu">library</span>(magick)</span>
+<span id="cb1023-3"><a href="hex-stickers.html#cb1023-3" tabindex="-1"></a><span class="fu">library</span>(sysfonts)</span>
+<span id="cb1023-4"><a href="hex-stickers.html#cb1023-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <div id="la-función-y-los-valores-default" class="section level2 hasAnchor" number="24.1">
 <h2><span class="header-section-number">24.1</span> La función y los valores “default”<a href="#la-funci%C3%B3n-y-los-valores-default" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1018"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1018-1"><a href="hex-stickers.html#cb1018-1" tabindex="-1"></a><span class="fu">sticker</span>(</span>
-<span id="cb1018-2"><a href="hex-stickers.html#cb1018-2" tabindex="-1"></a>  subplot,</span>
-<span id="cb1018-3"><a href="hex-stickers.html#cb1018-3" tabindex="-1"></a>  <span class="at">s_x =</span> <span class="fl">0.8</span>,</span>
-<span id="cb1018-4"><a href="hex-stickers.html#cb1018-4" tabindex="-1"></a>  <span class="at">s_y =</span> <span class="fl">0.75</span>,</span>
-<span id="cb1018-5"><a href="hex-stickers.html#cb1018-5" tabindex="-1"></a>  <span class="at">s_width =</span> <span class="fl">0.4</span>,</span>
-<span id="cb1018-6"><a href="hex-stickers.html#cb1018-6" tabindex="-1"></a>  <span class="at">s_height =</span> <span class="fl">0.5</span>,</span>
-<span id="cb1018-7"><a href="hex-stickers.html#cb1018-7" tabindex="-1"></a>  package,</span>
-<span id="cb1018-8"><a href="hex-stickers.html#cb1018-8" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="dv">1</span>,</span>
-<span id="cb1018-9"><a href="hex-stickers.html#cb1018-9" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.4</span>,</span>
-<span id="cb1018-10"><a href="hex-stickers.html#cb1018-10" tabindex="-1"></a>  <span class="at">p_color =</span> <span class="st">&quot;#FFFFFF&quot;</span>,</span>
-<span id="cb1018-11"><a href="hex-stickers.html#cb1018-11" tabindex="-1"></a>  <span class="at">p_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
-<span id="cb1018-12"><a href="hex-stickers.html#cb1018-12" tabindex="-1"></a>  <span class="at">p_fontface =</span> <span class="st">&quot;plain&quot;</span>,</span>
-<span id="cb1018-13"><a href="hex-stickers.html#cb1018-13" tabindex="-1"></a>  <span class="at">p_size =</span> <span class="dv">8</span>,</span>
-<span id="cb1018-14"><a href="hex-stickers.html#cb1018-14" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="fl">1.2</span>,</span>
-<span id="cb1018-15"><a href="hex-stickers.html#cb1018-15" tabindex="-1"></a>  <span class="at">h_fill =</span> <span class="st">&quot;#1881C2&quot;</span>,</span>
-<span id="cb1018-16"><a href="hex-stickers.html#cb1018-16" tabindex="-1"></a>  <span class="at">h_color =</span> <span class="st">&quot;#87B13F&quot;</span>,</span>
-<span id="cb1018-17"><a href="hex-stickers.html#cb1018-17" tabindex="-1"></a>  <span class="at">spotlight =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb1018-18"><a href="hex-stickers.html#cb1018-18" tabindex="-1"></a>  <span class="at">l_x =</span> <span class="dv">1</span>,</span>
-<span id="cb1018-19"><a href="hex-stickers.html#cb1018-19" tabindex="-1"></a>  <span class="at">l_y =</span> <span class="fl">0.5</span>,</span>
-<span id="cb1018-20"><a href="hex-stickers.html#cb1018-20" tabindex="-1"></a>  <span class="at">l_width =</span> <span class="dv">3</span>,</span>
-<span id="cb1018-21"><a href="hex-stickers.html#cb1018-21" tabindex="-1"></a>  <span class="at">l_height =</span> <span class="dv">3</span>,</span>
-<span id="cb1018-22"><a href="hex-stickers.html#cb1018-22" tabindex="-1"></a>  <span class="at">l_alpha =</span> <span class="fl">0.4</span>,</span>
-<span id="cb1018-23"><a href="hex-stickers.html#cb1018-23" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb1018-24"><a href="hex-stickers.html#cb1018-24" tabindex="-1"></a>  <span class="at">u_x =</span> <span class="dv">1</span>,</span>
-<span id="cb1018-25"><a href="hex-stickers.html#cb1018-25" tabindex="-1"></a>  <span class="at">u_y =</span> <span class="fl">0.08</span>,</span>
-<span id="cb1018-26"><a href="hex-stickers.html#cb1018-26" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;black&quot;</span>,</span>
-<span id="cb1018-27"><a href="hex-stickers.html#cb1018-27" tabindex="-1"></a>  <span class="at">u_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
-<span id="cb1018-28"><a href="hex-stickers.html#cb1018-28" tabindex="-1"></a>  <span class="at">u_size =</span> <span class="fl">1.5</span>,</span>
-<span id="cb1018-29"><a href="hex-stickers.html#cb1018-29" tabindex="-1"></a>  <span class="at">u_angle =</span> <span class="dv">30</span>,</span>
-<span id="cb1018-30"><a href="hex-stickers.html#cb1018-30" tabindex="-1"></a>  <span class="at">white_around_sticker =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb1018-31"><a href="hex-stickers.html#cb1018-31" tabindex="-1"></a>  ...,</span>
-<span id="cb1018-32"><a href="hex-stickers.html#cb1018-32" tabindex="-1"></a>  <span class="at">filename =</span> <span class="fu">paste0</span>(package, <span class="st">&quot;.png&quot;</span>),</span>
-<span id="cb1018-33"><a href="hex-stickers.html#cb1018-33" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>,</span>
-<span id="cb1018-34"><a href="hex-stickers.html#cb1018-34" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
-<span id="cb1018-35"><a href="hex-stickers.html#cb1018-35" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb1024"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1024-1"><a href="hex-stickers.html#cb1024-1" tabindex="-1"></a><span class="fu">sticker</span>(</span>
+<span id="cb1024-2"><a href="hex-stickers.html#cb1024-2" tabindex="-1"></a>  subplot,</span>
+<span id="cb1024-3"><a href="hex-stickers.html#cb1024-3" tabindex="-1"></a>  <span class="at">s_x =</span> <span class="fl">0.8</span>,</span>
+<span id="cb1024-4"><a href="hex-stickers.html#cb1024-4" tabindex="-1"></a>  <span class="at">s_y =</span> <span class="fl">0.75</span>,</span>
+<span id="cb1024-5"><a href="hex-stickers.html#cb1024-5" tabindex="-1"></a>  <span class="at">s_width =</span> <span class="fl">0.4</span>,</span>
+<span id="cb1024-6"><a href="hex-stickers.html#cb1024-6" tabindex="-1"></a>  <span class="at">s_height =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1024-7"><a href="hex-stickers.html#cb1024-7" tabindex="-1"></a>  package,</span>
+<span id="cb1024-8"><a href="hex-stickers.html#cb1024-8" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="dv">1</span>,</span>
+<span id="cb1024-9"><a href="hex-stickers.html#cb1024-9" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.4</span>,</span>
+<span id="cb1024-10"><a href="hex-stickers.html#cb1024-10" tabindex="-1"></a>  <span class="at">p_color =</span> <span class="st">&quot;#FFFFFF&quot;</span>,</span>
+<span id="cb1024-11"><a href="hex-stickers.html#cb1024-11" tabindex="-1"></a>  <span class="at">p_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
+<span id="cb1024-12"><a href="hex-stickers.html#cb1024-12" tabindex="-1"></a>  <span class="at">p_fontface =</span> <span class="st">&quot;plain&quot;</span>,</span>
+<span id="cb1024-13"><a href="hex-stickers.html#cb1024-13" tabindex="-1"></a>  <span class="at">p_size =</span> <span class="dv">8</span>,</span>
+<span id="cb1024-14"><a href="hex-stickers.html#cb1024-14" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="fl">1.2</span>,</span>
+<span id="cb1024-15"><a href="hex-stickers.html#cb1024-15" tabindex="-1"></a>  <span class="at">h_fill =</span> <span class="st">&quot;#1881C2&quot;</span>,</span>
+<span id="cb1024-16"><a href="hex-stickers.html#cb1024-16" tabindex="-1"></a>  <span class="at">h_color =</span> <span class="st">&quot;#87B13F&quot;</span>,</span>
+<span id="cb1024-17"><a href="hex-stickers.html#cb1024-17" tabindex="-1"></a>  <span class="at">spotlight =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1024-18"><a href="hex-stickers.html#cb1024-18" tabindex="-1"></a>  <span class="at">l_x =</span> <span class="dv">1</span>,</span>
+<span id="cb1024-19"><a href="hex-stickers.html#cb1024-19" tabindex="-1"></a>  <span class="at">l_y =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1024-20"><a href="hex-stickers.html#cb1024-20" tabindex="-1"></a>  <span class="at">l_width =</span> <span class="dv">3</span>,</span>
+<span id="cb1024-21"><a href="hex-stickers.html#cb1024-21" tabindex="-1"></a>  <span class="at">l_height =</span> <span class="dv">3</span>,</span>
+<span id="cb1024-22"><a href="hex-stickers.html#cb1024-22" tabindex="-1"></a>  <span class="at">l_alpha =</span> <span class="fl">0.4</span>,</span>
+<span id="cb1024-23"><a href="hex-stickers.html#cb1024-23" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb1024-24"><a href="hex-stickers.html#cb1024-24" tabindex="-1"></a>  <span class="at">u_x =</span> <span class="dv">1</span>,</span>
+<span id="cb1024-25"><a href="hex-stickers.html#cb1024-25" tabindex="-1"></a>  <span class="at">u_y =</span> <span class="fl">0.08</span>,</span>
+<span id="cb1024-26"><a href="hex-stickers.html#cb1024-26" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb1024-27"><a href="hex-stickers.html#cb1024-27" tabindex="-1"></a>  <span class="at">u_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
+<span id="cb1024-28"><a href="hex-stickers.html#cb1024-28" tabindex="-1"></a>  <span class="at">u_size =</span> <span class="fl">1.5</span>,</span>
+<span id="cb1024-29"><a href="hex-stickers.html#cb1024-29" tabindex="-1"></a>  <span class="at">u_angle =</span> <span class="dv">30</span>,</span>
+<span id="cb1024-30"><a href="hex-stickers.html#cb1024-30" tabindex="-1"></a>  <span class="at">white_around_sticker =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1024-31"><a href="hex-stickers.html#cb1024-31" tabindex="-1"></a>  ...,</span>
+<span id="cb1024-32"><a href="hex-stickers.html#cb1024-32" tabindex="-1"></a>  <span class="at">filename =</span> <span class="fu">paste0</span>(package, <span class="st">&quot;.png&quot;</span>),</span>
+<span id="cb1024-33"><a href="hex-stickers.html#cb1024-33" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>,</span>
+<span id="cb1024-34"><a href="hex-stickers.html#cb1024-34" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
+<span id="cb1024-35"><a href="hex-stickers.html#cb1024-35" tabindex="-1"></a>)</span></code></pre></div>
 <hr />
 <p><strong>Arguments</strong></p>
-<div class="sourceCode" id="cb1019"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1019-1"><a href="hex-stickers.html#cb1019-1" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
-<span id="cb1019-2"><a href="hex-stickers.html#cb1019-2" tabindex="-1"></a><span class="fu">gt</span>(argumentos)</span></code></pre></div>
+<div class="sourceCode" id="cb1025"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1025-1"><a href="hex-stickers.html#cb1025-1" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1025-2"><a href="hex-stickers.html#cb1025-2" tabindex="-1"></a><span class="fu">gt</span>(argumentos)</span></code></pre></div>
 <div id="fxippzcnnj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#fxippzcnnj table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1192,7 +1193,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <td headers="Descripción" class="gt_row gt_left">plot resolution</td></tr>
   </tbody>
   
-  
 </table>
 </div>
 <p>Other Details,
@@ -1203,7 +1203,7 @@ sysfonts::font_add_google(“Young Serif”) ## No baja</p>
 </div>
 <div id="ejemplo-de-crear-un-hex-con-un-gatito" class="section level2 hasAnchor" number="24.2">
 <h2><span class="header-section-number">24.2</span> Ejemplo de Crear un Hex con un gatito<a href="hex-stickers.html#ejemplo-de-crear-un-hex-con-un-gatito" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1020"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1020-1"><a href="hex-stickers.html#cb1020-1" tabindex="-1"></a><span class="fu">font_files</span>()  <span class="co">#a list of all fonts available</span></span></code></pre></div>
+<div class="sourceCode" id="cb1026"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1026-1"><a href="hex-stickers.html#cb1026-1" tabindex="-1"></a><span class="fu">font_files</span>()  <span class="co">#a list of all fonts available</span></span></code></pre></div>
 <pre><code>##                                   path
 ## 1                       /Library/Fonts
 ## 2                /System/Library/Fonts
@@ -1259,17 +1259,17 @@ sysfonts::font_add_google(“Young Serif”) ## No baja</p>
 ## 52               /System/Library/Fonts
 ## 53               /System/Library/Fonts
 ## 54               /System/Library/Fonts
-## 55  /System/Library/Fonts/Supplemental
-## 56  /System/Library/Fonts/Supplemental
-## 57  /System/Library/Fonts/Supplemental
-## 58  /System/Library/Fonts/Supplemental
-## 59  /System/Library/Fonts/Supplemental
-## 60  /System/Library/Fonts/Supplemental
-## 61  /System/Library/Fonts/Supplemental
-## 62  /System/Library/Fonts/Supplemental
-## 63  /System/Library/Fonts/Supplemental
-## 64  /System/Library/Fonts/Supplemental
-## 65  /System/Library/Fonts/Supplemental
+## 55               /System/Library/Fonts
+## 56               /System/Library/Fonts
+## 57               /System/Library/Fonts
+## 58               /System/Library/Fonts
+## 59               /System/Library/Fonts
+## 60               /System/Library/Fonts
+## 61               /System/Library/Fonts
+## 62               /System/Library/Fonts
+## 63               /System/Library/Fonts
+## 64               /System/Library/Fonts
+## 65               /System/Library/Fonts
 ## 66  /System/Library/Fonts/Supplemental
 ## 67  /System/Library/Fonts/Supplemental
 ## 68  /System/Library/Fonts/Supplemental
@@ -1542,1118 +1542,1190 @@ sysfonts::font_add_google(“Young Serif”) ## No baja</p>
 ## 335 /System/Library/Fonts/Supplemental
 ## 336 /System/Library/Fonts/Supplemental
 ## 337 /System/Library/Fonts/Supplemental
-## 338              /System/Library/Fonts
-## 339              /System/Library/Fonts
-## 340              /System/Library/Fonts
-## 341              /System/Library/Fonts
-## 342              /System/Library/Fonts
-## 343              /System/Library/Fonts
-## 344              /System/Library/Fonts
-## 345              /System/Library/Fonts
-## 346              /System/Library/Fonts
-## 347              /System/Library/Fonts
-## 348              /System/Library/Fonts
-## 349              /System/Library/Fonts
-## 350              /System/Library/Fonts
-## 351              /System/Library/Fonts
-## 352              /System/Library/Fonts
-## 353              /System/Library/Fonts
+## 338 /System/Library/Fonts/Supplemental
+## 339 /System/Library/Fonts/Supplemental
+## 340 /System/Library/Fonts/Supplemental
+## 341 /System/Library/Fonts/Supplemental
+## 342 /System/Library/Fonts/Supplemental
+## 343 /System/Library/Fonts/Supplemental
+## 344 /System/Library/Fonts/Supplemental
+## 345 /System/Library/Fonts/Supplemental
+## 346 /System/Library/Fonts/Supplemental
+## 347 /System/Library/Fonts/Supplemental
+## 348 /System/Library/Fonts/Supplemental
+## 349 /System/Library/Fonts/Supplemental
+## 350 /System/Library/Fonts/Supplemental
+## 351 /System/Library/Fonts/Supplemental
+## 352 /System/Library/Fonts/Supplemental
+## 353 /System/Library/Fonts/Supplemental
+## 354 /System/Library/Fonts/Supplemental
+## 355 /System/Library/Fonts/Supplemental
+## 356              /System/Library/Fonts
+## 357              /System/Library/Fonts
+## 358              /System/Library/Fonts
+## 359              /System/Library/Fonts
+## 360              /System/Library/Fonts
+## 361              /System/Library/Fonts
+## 362              /System/Library/Fonts
+## 363              /System/Library/Fonts
+## 364              /System/Library/Fonts
+## 365              /System/Library/Fonts
+## 366              /System/Library/Fonts
+## 367              /System/Library/Fonts
+## 368              /System/Library/Fonts
+## 369              /System/Library/Fonts
+## 370              /System/Library/Fonts
+## 371              /System/Library/Fonts
 ##                                          file                      family
 ## 1                           Arial Unicode.ttf            Arial Unicode MS
-## 2             Apple Braille Outline 6 Dot.ttf               Apple Braille
-## 3             Apple Braille Outline 8 Dot.ttf               Apple Braille
-## 4            Apple Braille Pinpoint 6 Dot.ttf               Apple Braille
-## 5            Apple Braille Pinpoint 8 Dot.ttf               Apple Braille
-## 6                           Apple Braille.ttf               Apple Braille
-## 7                       Apple Color Emoji.ttc           Apple Color Emoji
-## 8                           Apple Symbols.ttf               Apple Symbols
-## 9                        AppleSDGothicNeo.ttc         Apple SD Gothic Neo
-## 10                               AquaKana.ttc                  .Aqua Kana
-## 11                                ArialHB.ttc                Arial Hebrew
-## 12                  Avenir Next Condensed.ttc       Avenir Next Condensed
-## 13                            Avenir Next.ttc                 Avenir Next
-## 14                                 Avenir.ttc                 Avenir Book
-## 15                                Courier.ttc                     Courier
-## 16                               GeezaPro.ttc                   Geeza Pro
-## 17                                 Geneva.ttf                      Geneva
-## 18                              Helvetica.ttc                   Helvetica
-## 19                          HelveticaNeue.ttc              Helvetica Neue
-## 20                       Hiragino Sans GB.ttc         Hiragino Sans GB W3
-## 21                               Keyboard.ttf                   .Keyboard
-## 22                               Kohinoor.ttc         Kohinoor Devanagari
-## 23                         KohinoorBangla.ttc             Kohinoor Bangla
-## 24                       KohinoorGujarati.ttc           Kohinoor Gujarati
-## 25                         KohinoorTelugu.ttc             Kohinoor Telugu
-## 26                             LastResort.otf                 .LastResort
-## 27                           LucidaGrande.ttc               Lucida Grande
-## 28                             MarkerFelt.ttc                 Marker Felt
-## 29                                  Menlo.ttc                       Menlo
-## 30                                 Monaco.ttf                      Monaco
-## 31                             MuktaMahee.ttc          MuktaMahee Regular
-## 32                                NewYork.ttf                   .New York
-## 33                          NewYorkItalic.ttf                   .New York
-## 34                             Noteworthy.ttc                  Noteworthy
-## 35                           NotoNastaliq.ttc          Noto Nastaliq Urdu
-## 36                       NotoSansArmenian.ttc      Noto Sans Armenian Blk
-## 37                        NotoSansKannada.ttc     Noto Sans Kannada Black
-## 38                        NotoSansMyanmar.ttc       Noto Sans Myanmar Blk
-## 39                          NotoSansOriya.ttc             Noto Sans Oriya
-## 40                       NotoSerifMyanmar.ttc      Noto Serif Myanmar Blk
-## 41                                 Optima.ttc                      Optima
-## 42                               Palatino.ttc                    Palatino
-## 43                               PingFang.ttc                 PingFang HK
-## 44                               SFArabic.ttf                  .SF Arabic
-## 45                              SFCompact.ttf                 .SF Compact
-## 46                        SFCompactItalic.ttf                 .SF Compact
-## 47                       SFCompactRounded.ttf         .SF Compact Rounded
-## 48                                   SFNS.ttf                 System Font
-## 49                             SFNSItalic.ttf                 System Font
-## 50                               SFNSMono.ttf                 .SF NS Mono
-## 51                         SFNSMonoItalic.ttf                 .SF NS Mono
-## 52                            SFNSRounded.ttf              .SF NS Rounded
-## 53                          STHeiti Light.ttc                    Heiti TC
-## 54                         STHeiti Medium.ttc                    Heiti TC
-## 55             Academy Engraved LET Fonts.ttf        Academy Engraved LET
-## 56                                Al Nile.ttc                     Al Nile
-## 57                              Al Tarikh.ttc                   Al Tarikh
-## 58                                AlBayan.ttc                    Al Bayan
-## 59                     AmericanTypewriter.ttc         American Typewriter
-## 60                            Andale Mono.ttf                 Andale Mono
-## 61                         Apple Chancery.ttf              Apple Chancery
-## 62                            AppleGothic.ttf                 AppleGothic
-## 63                           AppleMyungjo.ttf                AppleMyungjo
-## 64                            Arial Black.ttf                 Arial Black
-## 65                      Arial Bold Italic.ttf                       Arial
-## 66                             Arial Bold.ttf                       Arial
-## 67                           Arial Italic.ttf                       Arial
-## 68               Arial Narrow Bold Italic.ttf                Arial Narrow
-## 69                      Arial Narrow Bold.ttf                Arial Narrow
-## 70                    Arial Narrow Italic.ttf                Arial Narrow
-## 71                           Arial Narrow.ttf                Arial Narrow
-## 72                     Arial Rounded Bold.ttf       Arial Rounded MT Bold
-## 73                          Arial Unicode.ttf            Arial Unicode MS
-## 74                                  Arial.ttf                       Arial
-## 75                                Athelas.ttc                     Athelas
-## 76                               Ayuthaya.ttf                    Ayuthaya
-## 77                                Baghdad.ttc                     Baghdad
-## 78                              Bangla MN.ttc                   Bangla MN
-## 79                       Bangla Sangam MN.ttc            Bangla Sangam MN
-## 80                            Baskerville.ttc                 Baskerville
-## 81                                 Beirut.ttc                      Beirut
-## 82                              BigCaslon.ttf                  Big Caslon
-## 83                           Bodoni 72 OS.ttc          Bodoni 72 Oldstyle
-## 84               Bodoni 72 Smallcaps Book.ttf         Bodoni 72 Smallcaps
-## 85                              Bodoni 72.ttc                   Bodoni 72
-## 86                       Bodoni Ornaments.ttf            Bodoni Ornaments
-## 87                      Bradley Hand Bold.ttf                Bradley Hand
-## 88                           Brush Script.ttf             Brush Script MT
-## 89                             Chalkboard.ttc                  Chalkboard
-## 90                           ChalkboardSE.ttc               Chalkboard SE
-## 91                            Chalkduster.ttf                 Chalkduster
-## 92                                Charter.ttc                     Charter
-## 93                                 Cochin.ttc                      Cochin
-## 94                     Comic Sans MS Bold.ttf               Comic Sans MS
-## 95                          Comic Sans MS.ttf               Comic Sans MS
-## 96                            Copperplate.ttc                 Copperplate
-## 97                                Corsiva.ttc              Corsiva Hebrew
-## 98                Courier New Bold Italic.ttf                 Courier New
-## 99                       Courier New Bold.ttf                 Courier New
-## 100                    Courier New Italic.ttf                 Courier New
-## 101                           Courier New.ttf                 Courier New
-## 102                              Damascus.ttc                    Damascus
-## 103                         DecoTypeNaskh.ttc              DecoType Naskh
-## 104                  Devanagari Sangam MN.ttc        Devanagari Sangam MN
-## 105                          DevanagariMT.ttc               Devanagari MT
-## 106                                 Didot.ttc                       Didot
-## 107                    DIN Alternate Bold.ttf               DIN Alternate
-## 108                    DIN Condensed Bold.ttf               DIN Condensed
-## 109                            Diwan Kufi.ttc                  Diwan Kufi
-## 110                         Diwan Thuluth.ttf               Diwan Thuluth
-## 111                           EuphemiaCAS.ttc               Euphemia UCAS
-## 112                                 Farah.ttc                       Farah
-## 113                                Farisi.ttf                      Farisi
-## 114                                Futura.ttc                      Futura
-## 115                                Galvji.ttc                      Galvji
-## 116                   Georgia Bold Italic.ttf                     Georgia
-## 117                          Georgia Bold.ttf                     Georgia
-## 118                        Georgia Italic.ttf                     Georgia
-## 119                               Georgia.ttf                     Georgia
-## 120                              GillSans.ttc                   Gill Sans
-## 121                    Gujarati Sangam MN.ttc          Gujarati Sangam MN
-## 122                            GujaratiMT.ttc                 Gujarati MT
-## 123                           Gurmukhi MN.ttc                 Gurmukhi MN
-## 124                    Gurmukhi Sangam MN.ttc          Gurmukhi Sangam MN
-## 125                              Gurmukhi.ttf                 Gurmukhi MT
-## 126                            Herculanum.ttf                  Herculanum
-## 127                Hoefler Text Ornaments.ttf      Hoefler Text Ornaments
-## 128                          Hoefler Text.ttc                Hoefler Text
-## 129                                Impact.ttf                      Impact
-## 130                          InaiMathi-MN.ttc                   InaiMathi
-## 131                       Iowan Old Style.ttc             Iowan Old Style
-## 132                         ITFDevanagari.ttc              ITF Devanagari
-## 133                               Kailasa.ttc                     Kailasa
-## 134                            Kannada MN.ttc                  Kannada MN
-## 135                     Kannada Sangam MN.ttc           Kannada Sangam MN
-## 136                                  Kefa.ttc                        Kefa
-## 137                              Khmer MN.ttc                    Khmer MN
-## 138                       Khmer Sangam MN.ttf             Khmer Sangam MN
-## 139                               Kokonor.ttf                     Kokonor
-## 140                             Krungthep.ttf                   Krungthep
-## 141                        KufiStandardGK.ttc              KufiStandardGK
-## 142                                Lao MN.ttc                      Lao MN
-## 143                         Lao Sangam MN.ttf               Lao Sangam MN
-## 144                              Luminari.ttf                    Luminari
-## 145                          Malayalam MN.ttc                Malayalam MN
-## 146                   Malayalam Sangam MN.ttc         Malayalam Sangam MN
-## 147                                Marion.ttc                      Marion
-## 148                  Microsoft Sans Serif.ttf        Microsoft Sans Serif
-## 149                          Mishafi Gold.ttf                Mishafi Gold
-## 150                               Mishafi.ttf                     Mishafi
-## 151                              Mshtakan.ttc                    Mshtakan
-## 152                                  Muna.ttc                        Muna
-## 153                            Myanmar MN.ttc                  Myanmar MN
-## 154                     Myanmar Sangam MN.ttc           Myanmar Sangam MN
-## 155                                Nadeem.ttc                      Nadeem
-## 156                          NewPeninimMT.ttc              New Peninim MT
-## 157                             NISC18030.ttf              GB18030 Bitmap
-## 158                 NotoSansAdlam-Regular.ttf             Noto Sans Adlam
-## 159               NotoSansAvestan-Regular.ttf           Noto Sans Avestan
-## 160                 NotoSansBamum-Regular.ttf             Noto Sans Bamum
-## 161              NotoSansBassaVah-Regular.ttf         Noto Sans Bassa Vah
-## 162                 NotoSansBatak-Regular.ttf             Noto Sans Batak
-## 163             NotoSansBhaiksuki-Regular.ttf         Noto Sans Bhaiksuki
-## 164                NotoSansBrahmi-Regular.ttf            Noto Sans Brahmi
-## 165              NotoSansBuginese-Regular.ttf          Noto Sans Buginese
-## 166                 NotoSansBuhid-Regular.ttf             Noto Sans Buhid
-## 167                NotoSansCarian-Regular.ttf            Noto Sans Carian
-## 168     NotoSansCaucasianAlbanian-Regular.ttf         Noto Sans CaucAlban
-## 169                NotoSansChakma-Regular.ttf            Noto Sans Chakma
-## 170                  NotoSansCham-Regular.ttf              Noto Sans Cham
-## 171                NotoSansCoptic-Regular.ttf            Noto Sans Coptic
-## 172             NotoSansCuneiform-Regular.ttf         Noto Sans Cuneiform
-## 173               NotoSansCypriot-Regular.ttf           Noto Sans Cypriot
-## 174              NotoSansDuployan-Regular.ttf          Noto Sans Duployan
-## 175   NotoSansEgyptianHieroglyphs-Regular.ttf        Noto Sans EgyptHiero
-## 176               NotoSansElbasan-Regular.ttf           Noto Sans Elbasan
-## 177            NotoSansGlagolitic-Regular.ttf        Noto Sans Glagolitic
-## 178                NotoSansGothic-Regular.ttf            Noto Sans Gothic
-## 179          NotoSansGunjalaGondi-Regular.otf     Noto Sans Gunjala Gondi
-## 180        NotoSansHanifiRohingya-Regular.ttf        Noto Sans HanifiRohg
-## 181               NotoSansHanunoo-Regular.ttf           Noto Sans Hanunoo
-## 182                NotoSansHatran-Regular.ttf            Noto Sans Hatran
-## 183       NotoSansImperialAramaic-Regular.ttf        Noto Sans ImpAramaic
-## 184  NotoSansInscriptionalPahlavi-Regular.ttf        Noto Sans InsPahlavi
-## 185 NotoSansInscriptionalParthian-Regular.ttf         Noto Sans InsParthi
-## 186              NotoSansJavanese-Regular.otf          Noto Sans Javanese
-## 187                NotoSansKaithi-Regular.ttf            Noto Sans Kaithi
-## 188               NotoSansKayahLi-Regular.ttf          Noto Sans Kayah Li
-## 189            NotoSansKharoshthi-Regular.ttf        Noto Sans Kharoshthi
-## 190                NotoSansKhojki-Regular.ttf            Noto Sans Khojki
-## 191             NotoSansKhudawadi-Regular.ttf         Noto Sans Khudawadi
-## 192                NotoSansLepcha-Regular.ttf            Noto Sans Lepcha
-## 193                 NotoSansLimbu-Regular.ttf             Noto Sans Limbu
-## 194               NotoSansLinearA-Regular.ttf          Noto Sans Linear A
-## 195               NotoSansLinearB-Regular.ttf          Noto Sans Linear B
-## 196                  NotoSansLisu-Regular.ttf              Noto Sans Lisu
-## 197                NotoSansLycian-Regular.ttf            Noto Sans Lycian
-## 198                NotoSansLydian-Regular.ttf            Noto Sans Lydian
-## 199              NotoSansMahajani-Regular.ttf          Noto Sans Mahajani
-## 200               NotoSansMandaic-Regular.ttf           Noto Sans Mandaic
-## 201            NotoSansManichaean-Regular.ttf        Noto Sans Manichaean
-## 202               NotoSansMarchen-Regular.ttf           Noto Sans Marchen
-## 203          NotoSansMasaramGondi-Regular.otf     Noto Sans Masaram Gondi
-## 204           NotoSansMeeteiMayek-Regular.ttf       Noto Sans MeeteiMayek
-## 205          NotoSansMendeKikakui-Regular.ttf     Noto Sans Mende Kikakui
-## 206              NotoSansMeroitic-Regular.ttf          Noto Sans Meroitic
-## 207                  NotoSansMiao-Regular.ttf              Noto Sans Miao
-## 208                  NotoSansModi-Regular.ttf              Noto Sans Modi
-## 209             NotoSansMongolian-Regular.ttf         Noto Sans Mongolian
-## 210                   NotoSansMro-Regular.ttf               Noto Sans Mro
-## 211               NotoSansMultani-Regular.ttf           Noto Sans Multani
-## 212             NotoSansNabataean-Regular.ttf         Noto Sans Nabataean
-## 213                  NotoSansNewa-Regular.ttf              Noto Sans Newa
-## 214             NotoSansNewTaiLue-Regular.ttf         Noto Sans NewTaiLue
-## 215                   NotoSansNKo-Regular.ttf               Noto Sans NKo
-## 216               NotoSansOlChiki-Regular.ttf          Noto Sans Ol Chiki
-## 217          NotoSansOldHungarian-Regular.ttf           Noto Sans OldHung
-## 218             NotoSansOldItalic-Regular.ttf        Noto Sans Old Italic
-## 219       NotoSansOldNorthArabian-Regular.ttf        Noto Sans OldNorArab
-## 220             NotoSansOldPermic-Regular.ttf        Noto Sans Old Permic
-## 221            NotoSansOldPersian-Regular.ttf        Noto Sans OldPersian
-## 222       NotoSansOldSouthArabian-Regular.ttf        Noto Sans OldSouArab
-## 223             NotoSansOldTurkic-Regular.ttf        Noto Sans Old Turkic
-## 224                 NotoSansOsage-Regular.ttf             Noto Sans Osage
-## 225               NotoSansOsmanya-Regular.ttf           Noto Sans Osmanya
-## 226           NotoSansPahawhHmong-Regular.ttf      Noto Sans Pahawh Hmong
-## 227             NotoSansPalmyrene-Regular.ttf         Noto Sans Palmyrene
-## 228             NotoSansPauCinHau-Regular.ttf         Noto Sans PauCinHau
-## 229               NotoSansPhagsPa-Regular.ttf           Noto Sans PhagsPa
-## 230            NotoSansPhoenician-Regular.ttf        Noto Sans Phoenician
-## 231        NotoSansPsalterPahlavi-Regular.ttf        Noto Sans PsaPahlavi
-## 232                NotoSansRejang-Regular.ttf            Noto Sans Rejang
-## 233             NotoSansSamaritan-Regular.ttf         Noto Sans Samaritan
-## 234            NotoSansSaurashtra-Regular.ttf        Noto Sans Saurashtra
-## 235               NotoSansSharada-Regular.ttf           Noto Sans Sharada
-## 236               NotoSansSiddham-Regular.ttf           Noto Sans Siddham
-## 237           NotoSansSoraSompeng-Regular.ttf          Noto Sans SoraSomp
-## 238             NotoSansSundanese-Regular.ttf         Noto Sans Sundanese
-## 239           NotoSansSylotiNagri-Regular.ttf      Noto Sans Syloti Nagri
-## 240                NotoSansSyriac-Regular.ttf            Noto Sans Syriac
-## 241               NotoSansTagalog-Regular.ttf           Noto Sans Tagalog
-## 242              NotoSansTagbanwa-Regular.ttf          Noto Sans Tagbanwa
-## 243                 NotoSansTaiLe-Regular.ttf            Noto Sans Tai Le
-## 244               NotoSansTaiTham-Regular.ttf          Noto Sans Tai Tham
-## 245               NotoSansTaiViet-Regular.ttf          Noto Sans Tai Viet
-## 246                 NotoSansTakri-Regular.ttf             Noto Sans Takri
-## 247                NotoSansThaana-Regular.ttf            Noto Sans Thaana
-## 248              NotoSansTifinagh-Regular.ttf          Noto Sans Tifinagh
-## 249               NotoSansTirhuta-Regular.ttf           Noto Sans Tirhuta
-## 250              NotoSansUgaritic-Regular.ttf          Noto Sans Ugaritic
-## 251                   NotoSansVai-Regular.ttf               Noto Sans Vai
-## 252                NotoSansWancho-Regular.ttf            Noto Sans Wancho
-## 253            NotoSansWarangCiti-Regular.ttf        Noto Sans WarangCiti
-## 254                    NotoSansYi-Regular.ttf                Noto Sans Yi
-## 255                 NotoSerifAhom-Regular.ttf             Noto Serif Ahom
-## 256             NotoSerifBalinese-Regular.ttf         Noto Serif Balinese
-## 257               NotoSerifYezidi-Regular.otf           Noto Serif Yezidi
-## 258                              Oriya MN.ttc                    Oriya MN
-## 259                       Oriya Sangam MN.ttc             Oriya Sangam MN
-## 260                               Papyrus.ttc                     Papyrus
-## 261                        PartyLET-plain.ttf                   Party LET
-## 262                             Phosphate.ttc                   Phosphate
-## 263                   PlantagenetCherokee.ttf        Plantagenet Cherokee
-## 264                                PTMono.ttc                     PT Mono
-## 265                                PTSans.ttc                     PT Sans
-## 266                               PTSerif.ttc                    PT Serif
-## 267                        PTSerifCaption.ttc            PT Serif Caption
-## 268                               Raanana.ttc                     Raanana
-## 269                              Rockwell.ttc                    Rockwell
-## 270                                  Sana.ttc                        Sana
-## 271                                 Sathu.ttf                       Sathu
-## 272                            Savoye LET.ttc                  Savoye LET
-## 273                               Seravek.ttc                     Seravek
-## 274                              Shree714.ttc        Shree Devanagari 714
-## 275                           SignPainter.ttc     SignPainter-HouseScript
-## 276                                 Silom.ttf                       Silom
-## 277                            Sinhala MN.ttc                  Sinhala MN
-## 278                     Sinhala Sangam MN.ttc           Sinhala Sangam MN
-## 279                                  Skia.ttf                        Skia
-## 280                        SnellRoundhand.ttc             Snell Roundhand
-## 281                                Songti.ttc                   Songti SC
-## 282                           STIXGeneral.otf                 STIXGeneral
-## 283                        STIXGeneralBol.otf                 STIXGeneral
-## 284                     STIXGeneralBolIta.otf                 STIXGeneral
-## 285                     STIXGeneralItalic.otf                 STIXGeneral
-## 286                           STIXIntDBol.otf              STIXIntegralsD
-## 287                           STIXIntDReg.otf              STIXIntegralsD
-## 288                          STIXIntSmBol.otf             STIXIntegralsSm
-## 289                          STIXIntSmReg.otf             STIXIntegralsSm
-## 290                          STIXIntUpBol.otf             STIXIntegralsUp
-## 291                         STIXIntUpDBol.otf            STIXIntegralsUpD
-## 292                         STIXIntUpDReg.otf            STIXIntegralsUpD
-## 293                          STIXIntUpReg.otf             STIXIntegralsUp
-## 294                        STIXIntUpSmBol.otf           STIXIntegralsUpSm
-## 295                        STIXIntUpSmReg.otf           STIXIntegralsUpSm
-## 296                            STIXNonUni.otf              STIXNonUnicode
-## 297                         STIXNonUniBol.otf              STIXNonUnicode
-## 298                      STIXNonUniBolIta.otf              STIXNonUnicode
-## 299                         STIXNonUniIta.otf              STIXNonUnicode
-## 300                     STIXSizFiveSymReg.otf             STIXSizeFiveSym
-## 301                     STIXSizFourSymBol.otf             STIXSizeFourSym
-## 302                     STIXSizFourSymReg.otf             STIXSizeFourSym
-## 303                      STIXSizOneSymBol.otf              STIXSizeOneSym
-## 304                      STIXSizOneSymReg.otf              STIXSizeOneSym
-## 305                    STIXSizThreeSymBol.otf            STIXSizeThreeSym
-## 306                    STIXSizThreeSymReg.otf            STIXSizeThreeSym
-## 307                      STIXSizTwoSymBol.otf              STIXSizeTwoSym
-## 308                      STIXSizTwoSymReg.otf              STIXSizeTwoSym
-## 309                               STIXVar.otf                STIXVariants
-## 310                            STIXVarBol.otf                STIXVariants
-## 311                          SukhumvitSet.ttc               Sukhumvit Set
-## 312                        SuperClarendon.ttc              Superclarendon
-## 313                           Tahoma Bold.ttf                      Tahoma
-## 314                                Tahoma.ttf                      Tahoma
-## 315                              Tamil MN.ttc                    Tamil MN
-## 316                       Tamil Sangam MN.ttc             Tamil Sangam MN
-## 317                             Telugu MN.ttc                   Telugu MN
-## 318                      Telugu Sangam MN.ttc            Telugu Sangam MN
-## 319           Times New Roman Bold Italic.ttf             Times New Roman
-## 320                  Times New Roman Bold.ttf             Times New Roman
-## 321                Times New Roman Italic.ttf             Times New Roman
-## 322                       Times New Roman.ttf             Times New Roman
-## 323                           Trattatello.ttf                 Trattatello
-## 324              Trebuchet MS Bold Italic.ttf                Trebuchet MS
-## 325                     Trebuchet MS Bold.ttf                Trebuchet MS
-## 326                   Trebuchet MS Italic.ttf                Trebuchet MS
-## 327                          Trebuchet MS.ttf                Trebuchet MS
-## 328                   Verdana Bold Italic.ttf                     Verdana
-## 329                          Verdana Bold.ttf                     Verdana
-## 330                        Verdana Italic.ttf                     Verdana
-## 331                               Verdana.ttf                     Verdana
-## 332                                Waseem.ttc                      Waseem
-## 333                              Webdings.ttf                    Webdings
-## 334                           Wingdings 2.ttf                 Wingdings 2
-## 335                           Wingdings 3.ttf                 Wingdings 3
-## 336                             Wingdings.ttf                   Wingdings
-## 337                               Zapfino.ttf                     Zapfino
-## 338                                Symbol.ttf                      Symbol
-## 339                              Thonburi.ttc                    Thonburi
-## 340                                 Times.ttc                       Times
-## 341                          ZapfDingbats.ttf               Zapf Dingbats
-## 342                  ヒラギノ丸ゴ ProN W4.ttc Hiragino Maru Gothic Pro W4
-## 343                     ヒラギノ明朝 ProN.ttc     Hiragino Mincho ProN W3
-## 344                 ヒラギノ角ゴシック W0.ttc            Hiragino Sans W0
-## 345                 ヒラギノ角ゴシック W1.ttc            Hiragino Sans W1
-## 346                 ヒラギノ角ゴシック W2.ttc            Hiragino Sans W2
-## 347                 ヒラギノ角ゴシック W3.ttc            Hiragino Sans W3
-## 348                 ヒラギノ角ゴシック W4.ttc            Hiragino Sans W4
-## 349                 ヒラギノ角ゴシック W5.ttc            Hiragino Sans W5
-## 350                 ヒラギノ角ゴシック W6.ttc            Hiragino Sans W6
-## 351                 ヒラギノ角ゴシック W7.ttc            Hiragino Sans W7
-## 352                 ヒラギノ角ゴシック W8.ttc            Hiragino Sans W8
-## 353                 ヒラギノ角ゴシック W9.ttc            Hiragino Sans W9
+## 2                              ADTNumeric.ttc                 .SF Numeric
+## 3             Apple Braille Outline 6 Dot.ttf               Apple Braille
+## 4             Apple Braille Outline 8 Dot.ttf               Apple Braille
+## 5            Apple Braille Pinpoint 6 Dot.ttf               Apple Braille
+## 6            Apple Braille Pinpoint 8 Dot.ttf               Apple Braille
+## 7                           Apple Braille.ttf               Apple Braille
+## 8                       Apple Color Emoji.ttc           Apple Color Emoji
+## 9                           Apple Symbols.ttf               Apple Symbols
+## 10                       AppleSDGothicNeo.ttc         Apple SD Gothic Neo
+## 11                               AquaKana.ttc                  .Aqua Kana
+## 12                                ArialHB.ttc                Arial Hebrew
+## 13                  Avenir Next Condensed.ttc       Avenir Next Condensed
+## 14                            Avenir Next.ttc                 Avenir Next
+## 15                                 Avenir.ttc                 Avenir Book
+## 16                     CJKSymbolsFallback.ttc    .CJK Symbols Fallback HK
+## 17                                Courier.ttc                     Courier
+## 18                  DecoTypeNastaleeqUrdu.ttc .DecoType Nastaleeq Urdu UI
+## 19                               GeezaPro.ttc                   Geeza Pro
+## 20                                 Geneva.ttf                      Geneva
+## 21                              Helvetica.ttc                   Helvetica
+## 22                          HelveticaNeue.ttc              Helvetica Neue
+## 23                       Hiragino Sans GB.ttc         Hiragino Sans GB W3
+## 24                               Keyboard.ttf                   .Keyboard
+## 25                               Kohinoor.ttc         Kohinoor Devanagari
+## 26                         KohinoorBangla.ttc             Kohinoor Bangla
+## 27                       KohinoorGujarati.ttc           Kohinoor Gujarati
+## 28                         KohinoorTelugu.ttc             Kohinoor Telugu
+## 29                             LastResort.otf                 .LastResort
+## 30                           LucidaGrande.ttc               Lucida Grande
+## 31                             MarkerFelt.ttc                 Marker Felt
+## 32                                  Menlo.ttc                       Menlo
+## 33                                 Monaco.ttf                      Monaco
+## 34                             MuktaMahee.ttc          MuktaMahee Regular
+## 35                                NewYork.ttf                   .New York
+## 36                          NewYorkItalic.ttf                   .New York
+## 37                             Noteworthy.ttc                  Noteworthy
+## 38                           NotoNastaliq.ttc          Noto Nastaliq Urdu
+## 39                       NotoSansArmenian.ttc      Noto Sans Armenian Blk
+## 40                        NotoSansKannada.ttc      Noto Sans Kannada Thin
+## 41                        NotoSansMyanmar.ttc       Noto Sans Myanmar Blk
+## 42                          NotoSansOriya.ttc             Noto Sans Oriya
+## 43                       NotoSerifMyanmar.ttc      Noto Serif Myanmar Blk
+## 44                                 Optima.ttc                      Optima
+## 45                               Palatino.ttc                    Palatino
+## 46                               SFArabic.ttf                  .SF Arabic
+## 47                        SFArabicRounded.ttf          .SF Arabic Rounded
+## 48                             SFArmenian.ttf                .SF Armenian
+## 49                      SFArmenianRounded.ttf        .SF Armenian Rounded
+## 50                               SFCamera.ttf                  .SF Camera
+## 51                              SFCompact.ttf                 .SF Compact
+## 52                        SFCompactItalic.ttf                 .SF Compact
+## 53                       SFCompactRounded.ttf         .SF Compact Rounded
+## 54                             SFGeorgian.ttf                .SF Georgian
+## 55                      SFGeorgianRounded.ttf        .SF Georgian Rounded
+## 56                               SFHebrew.ttf                  .SF Hebrew
+## 57                        SFHebrewRounded.ttf          .SF Hebrew Rounded
+## 58                                SFIndia.ttc                  .SF Bangla
+## 59                                   SFNS.ttf                 System Font
+## 60                             SFNSItalic.ttf                 System Font
+## 61                               SFNSMono.ttf                 .SF NS Mono
+## 62                         SFNSMonoItalic.ttf                 .SF NS Mono
+## 63                            SFNSRounded.ttf              .SF NS Rounded
+## 64                          STHeiti Light.ttc                    Heiti TC
+## 65                         STHeiti Medium.ttc                    Heiti TC
+## 66             Academy Engraved LET Fonts.ttf        Academy Engraved LET
+## 67                                Al Nile.ttc                     Al Nile
+## 68                              Al Tarikh.ttc                   Al Tarikh
+## 69                                AlBayan.ttc                    Al Bayan
+## 70                     AmericanTypewriter.ttc         American Typewriter
+## 71                            Andale Mono.ttf                 Andale Mono
+## 72                         Apple Chancery.ttf              Apple Chancery
+## 73                            AppleGothic.ttf                 AppleGothic
+## 74                           AppleMyungjo.ttf                AppleMyungjo
+## 75                            Arial Black.ttf                 Arial Black
+## 76                      Arial Bold Italic.ttf                       Arial
+## 77                             Arial Bold.ttf                       Arial
+## 78                           Arial Italic.ttf                       Arial
+## 79               Arial Narrow Bold Italic.ttf                Arial Narrow
+## 80                      Arial Narrow Bold.ttf                Arial Narrow
+## 81                    Arial Narrow Italic.ttf                Arial Narrow
+## 82                           Arial Narrow.ttf                Arial Narrow
+## 83                     Arial Rounded Bold.ttf       Arial Rounded MT Bold
+## 84                          Arial Unicode.ttf            Arial Unicode MS
+## 85                                  Arial.ttf                       Arial
+## 86                                Athelas.ttc                     Athelas
+## 87                               Ayuthaya.ttf                    Ayuthaya
+## 88                                Baghdad.ttc                     Baghdad
+## 89                              Bangla MN.ttc                   Bangla MN
+## 90                       Bangla Sangam MN.ttc            Bangla Sangam MN
+## 91                            Baskerville.ttc                 Baskerville
+## 92                                 Beirut.ttc                      Beirut
+## 93                              BigCaslon.ttf                  Big Caslon
+## 94                           Bodoni 72 OS.ttc          Bodoni 72 Oldstyle
+## 95               Bodoni 72 Smallcaps Book.ttf         Bodoni 72 Smallcaps
+## 96                              Bodoni 72.ttc                   Bodoni 72
+## 97                       Bodoni Ornaments.ttf            Bodoni Ornaments
+## 98                      Bradley Hand Bold.ttf                Bradley Hand
+## 99                           Brush Script.ttf             Brush Script MT
+## 100                            Chalkboard.ttc                  Chalkboard
+## 101                          ChalkboardSE.ttc               Chalkboard SE
+## 102                           Chalkduster.ttf                 Chalkduster
+## 103                               Charter.ttc                     Charter
+## 104                                Cochin.ttc                      Cochin
+## 105                    Comic Sans MS Bold.ttf               Comic Sans MS
+## 106                         Comic Sans MS.ttf               Comic Sans MS
+## 107                           Copperplate.ttc                 Copperplate
+## 108                               Corsiva.ttc              Corsiva Hebrew
+## 109               Courier New Bold Italic.ttf                 Courier New
+## 110                      Courier New Bold.ttf                 Courier New
+## 111                    Courier New Italic.ttf                 Courier New
+## 112                           Courier New.ttf                 Courier New
+## 113                              Damascus.ttc                    Damascus
+## 114                         DecoTypeNaskh.ttc              DecoType Naskh
+## 115                  Devanagari Sangam MN.ttc        Devanagari Sangam MN
+## 116                          DevanagariMT.ttc               Devanagari MT
+## 117                                 Didot.ttc                       Didot
+## 118                    DIN Alternate Bold.ttf               DIN Alternate
+## 119                    DIN Condensed Bold.ttf               DIN Condensed
+## 120                            Diwan Kufi.ttc                  Diwan Kufi
+## 121                         Diwan Thuluth.ttf               Diwan Thuluth
+## 122                           EuphemiaCAS.ttc               Euphemia UCAS
+## 123                                 Farah.ttc                       Farah
+## 124                                Farisi.ttf                      Farisi
+## 125                                Futura.ttc                      Futura
+## 126                                Galvji.ttc                      Galvji
+## 127                   Georgia Bold Italic.ttf                     Georgia
+## 128                          Georgia Bold.ttf                     Georgia
+## 129                        Georgia Italic.ttf                     Georgia
+## 130                               Georgia.ttf                     Georgia
+## 131                              GillSans.ttc                   Gill Sans
+## 132                    Gujarati Sangam MN.ttc          Gujarati Sangam MN
+## 133                            GujaratiMT.ttc                 Gujarati MT
+## 134                           Gurmukhi MN.ttc                 Gurmukhi MN
+## 135                    Gurmukhi Sangam MN.ttc          Gurmukhi Sangam MN
+## 136                              Gurmukhi.ttf                 Gurmukhi MT
+## 137                            Herculanum.ttf                  Herculanum
+## 138                Hoefler Text Ornaments.ttf      Hoefler Text Ornaments
+## 139                          Hoefler Text.ttc                Hoefler Text
+## 140                                Impact.ttf                      Impact
+## 141                          InaiMathi-MN.ttc                   InaiMathi
+## 142                       Iowan Old Style.ttc             Iowan Old Style
+## 143                         ITFDevanagari.ttc              ITF Devanagari
+## 144                               Kailasa.ttc                     Kailasa
+## 145                            Kannada MN.ttc                  Kannada MN
+## 146                     Kannada Sangam MN.ttc           Kannada Sangam MN
+## 147                               KefaIII.ttf                    Kefa III
+## 148                              Khmer MN.ttc                    Khmer MN
+## 149                       Khmer Sangam MN.ttf             Khmer Sangam MN
+## 150                               Kokonor.ttf                     Kokonor
+## 151                             Krungthep.ttf                   Krungthep
+## 152                        KufiStandardGK.ttc              KufiStandardGK
+## 153                                Lao MN.ttc                      Lao MN
+## 154                         Lao Sangam MN.ttf               Lao Sangam MN
+## 155                              Luminari.ttf                    Luminari
+## 156                          Malayalam MN.ttc                Malayalam MN
+## 157                   Malayalam Sangam MN.ttc         Malayalam Sangam MN
+## 158                                Marion.ttc                      Marion
+## 159                  Microsoft Sans Serif.ttf        Microsoft Sans Serif
+## 160                          Mishafi Gold.ttf                Mishafi Gold
+## 161                               Mishafi.ttf                     Mishafi
+## 162                              Mshtakan.ttc                    Mshtakan
+## 163                                  Muna.ttc                        Muna
+## 164                            Myanmar MN.ttc                  Myanmar MN
+## 165                     Myanmar Sangam MN.ttc           Myanmar Sangam MN
+## 166                                Nadeem.ttc                      Nadeem
+## 167                          NewPeninimMT.ttc              New Peninim MT
+## 168                             NISC18030.ttf              GB18030 Bitmap
+## 169                 NotoSansAdlam-Regular.ttf             Noto Sans Adlam
+## 170               NotoSansAvestan-Regular.ttf           Noto Sans Avestan
+## 171                 NotoSansBamum-Regular.ttf             Noto Sans Bamum
+## 172              NotoSansBassaVah-Regular.ttf         Noto Sans Bassa Vah
+## 173                 NotoSansBatak-Regular.ttf             Noto Sans Batak
+## 174             NotoSansBhaiksuki-Regular.ttf         Noto Sans Bhaiksuki
+## 175                NotoSansBrahmi-Regular.ttf            Noto Sans Brahmi
+## 176              NotoSansBuginese-Regular.ttf          Noto Sans Buginese
+## 177                 NotoSansBuhid-Regular.ttf             Noto Sans Buhid
+## 178    NotoSansCanadianAboriginal-Regular.otf         Noto Sans CanAborig
+## 179                NotoSansCarian-Regular.ttf            Noto Sans Carian
+## 180     NotoSansCaucasianAlbanian-Regular.ttf         Noto Sans CaucAlban
+## 181                NotoSansChakma-Regular.ttf            Noto Sans Chakma
+## 182                  NotoSansCham-Regular.ttf              Noto Sans Cham
+## 183                NotoSansCoptic-Regular.ttf            Noto Sans Coptic
+## 184             NotoSansCuneiform-Regular.ttf         Noto Sans Cuneiform
+## 185               NotoSansCypriot-Regular.ttf           Noto Sans Cypriot
+## 186              NotoSansDuployan-Regular.ttf          Noto Sans Duployan
+## 187   NotoSansEgyptianHieroglyphs-Regular.ttf        Noto Sans EgyptHiero
+## 188               NotoSansElbasan-Regular.ttf           Noto Sans Elbasan
+## 189            NotoSansGlagolitic-Regular.ttf        Noto Sans Glagolitic
+## 190                NotoSansGothic-Regular.ttf            Noto Sans Gothic
+## 191          NotoSansGunjalaGondi-Regular.otf     Noto Sans Gunjala Gondi
+## 192        NotoSansHanifiRohingya-Regular.ttf        Noto Sans HanifiRohg
+## 193               NotoSansHanunoo-Regular.ttf           Noto Sans Hanunoo
+## 194                NotoSansHatran-Regular.ttf            Noto Sans Hatran
+## 195       NotoSansImperialAramaic-Regular.ttf        Noto Sans ImpAramaic
+## 196  NotoSansInscriptionalPahlavi-Regular.ttf        Noto Sans InsPahlavi
+## 197 NotoSansInscriptionalParthian-Regular.ttf         Noto Sans InsParthi
+## 198              NotoSansJavanese-Regular.otf          Noto Sans Javanese
+## 199                NotoSansKaithi-Regular.ttf            Noto Sans Kaithi
+## 200               NotoSansKayahLi-Regular.ttf          Noto Sans Kayah Li
+## 201            NotoSansKharoshthi-Regular.ttf        Noto Sans Kharoshthi
+## 202                NotoSansKhojki-Regular.ttf            Noto Sans Khojki
+## 203             NotoSansKhudawadi-Regular.ttf         Noto Sans Khudawadi
+## 204                NotoSansLepcha-Regular.ttf            Noto Sans Lepcha
+## 205                 NotoSansLimbu-Regular.ttf             Noto Sans Limbu
+## 206               NotoSansLinearA-Regular.ttf          Noto Sans Linear A
+## 207               NotoSansLinearB-Regular.ttf          Noto Sans Linear B
+## 208                  NotoSansLisu-Regular.ttf              Noto Sans Lisu
+## 209                NotoSansLycian-Regular.ttf            Noto Sans Lycian
+## 210                NotoSansLydian-Regular.ttf            Noto Sans Lydian
+## 211              NotoSansMahajani-Regular.ttf          Noto Sans Mahajani
+## 212               NotoSansMandaic-Regular.ttf           Noto Sans Mandaic
+## 213            NotoSansManichaean-Regular.ttf        Noto Sans Manichaean
+## 214               NotoSansMarchen-Regular.ttf           Noto Sans Marchen
+## 215          NotoSansMasaramGondi-Regular.otf     Noto Sans Masaram Gondi
+## 216           NotoSansMeeteiMayek-Regular.ttf       Noto Sans MeeteiMayek
+## 217          NotoSansMendeKikakui-Regular.ttf     Noto Sans Mende Kikakui
+## 218              NotoSansMeroitic-Regular.ttf          Noto Sans Meroitic
+## 219                  NotoSansMiao-Regular.ttf              Noto Sans Miao
+## 220                  NotoSansModi-Regular.ttf              Noto Sans Modi
+## 221             NotoSansMongolian-Regular.ttf         Noto Sans Mongolian
+## 222                   NotoSansMro-Regular.ttf               Noto Sans Mro
+## 223               NotoSansMultani-Regular.ttf           Noto Sans Multani
+## 224             NotoSansNabataean-Regular.ttf         Noto Sans Nabataean
+## 225            NotoSansNagMundari-Regular.ttf       Noto Sans Nag Mundari
+## 226                  NotoSansNewa-Regular.ttf              Noto Sans Newa
+## 227             NotoSansNewTaiLue-Regular.ttf         Noto Sans NewTaiLue
+## 228                   NotoSansNKo-Regular.ttf               Noto Sans NKo
+## 229               NotoSansOlChiki-Regular.ttf          Noto Sans Ol Chiki
+## 230          NotoSansOldHungarian-Regular.ttf           Noto Sans OldHung
+## 231             NotoSansOldItalic-Regular.ttf        Noto Sans Old Italic
+## 232       NotoSansOldNorthArabian-Regular.ttf        Noto Sans OldNorArab
+## 233             NotoSansOldPermic-Regular.ttf        Noto Sans Old Permic
+## 234            NotoSansOldPersian-Regular.ttf        Noto Sans OldPersian
+## 235       NotoSansOldSouthArabian-Regular.ttf        Noto Sans OldSouArab
+## 236             NotoSansOldTurkic-Regular.ttf        Noto Sans Old Turkic
+## 237                 NotoSansOsage-Regular.ttf             Noto Sans Osage
+## 238               NotoSansOsmanya-Regular.ttf           Noto Sans Osmanya
+## 239           NotoSansPahawhHmong-Regular.ttf      Noto Sans Pahawh Hmong
+## 240             NotoSansPalmyrene-Regular.ttf         Noto Sans Palmyrene
+## 241             NotoSansPauCinHau-Regular.ttf         Noto Sans PauCinHau
+## 242               NotoSansPhagsPa-Regular.ttf           Noto Sans PhagsPa
+## 243            NotoSansPhoenician-Regular.ttf        Noto Sans Phoenician
+## 244        NotoSansPsalterPahlavi-Regular.ttf        Noto Sans PsaPahlavi
+## 245                NotoSansRejang-Regular.ttf            Noto Sans Rejang
+## 246             NotoSansSamaritan-Regular.ttf         Noto Sans Samaritan
+## 247            NotoSansSaurashtra-Regular.ttf        Noto Sans Saurashtra
+## 248               NotoSansSharada-Regular.ttf           Noto Sans Sharada
+## 249               NotoSansSiddham-Regular.otf           Noto Sans Siddham
+## 250           NotoSansSoraSompeng-Regular.ttf          Noto Sans SoraSomp
+## 251             NotoSansSundanese-Regular.ttf         Noto Sans Sundanese
+## 252           NotoSansSylotiNagri-Regular.ttf      Noto Sans Syloti Nagri
+## 253                NotoSansSyriac-Regular.ttf            Noto Sans Syriac
+## 254               NotoSansTagalog-Regular.ttf           Noto Sans Tagalog
+## 255              NotoSansTagbanwa-Regular.ttf          Noto Sans Tagbanwa
+## 256                 NotoSansTaiLe-Regular.ttf            Noto Sans Tai Le
+## 257               NotoSansTaiTham-Regular.ttf          Noto Sans Tai Tham
+## 258               NotoSansTaiViet-Regular.ttf          Noto Sans Tai Viet
+## 259                 NotoSansTakri-Regular.ttf             Noto Sans Takri
+## 260                NotoSansThaana-Regular.ttf            Noto Sans Thaana
+## 261              NotoSansTifinagh-Regular.otf          Noto Sans Tifinagh
+## 262               NotoSansTirhuta-Regular.ttf           Noto Sans Tirhuta
+## 263              NotoSansUgaritic-Regular.ttf          Noto Sans Ugaritic
+## 264                   NotoSansVai-Regular.ttf               Noto Sans Vai
+## 265                NotoSansWancho-Regular.ttf            Noto Sans Wancho
+## 266            NotoSansWarangCiti-Regular.ttf        Noto Sans WarangCiti
+## 267                    NotoSansYi-Regular.ttf                Noto Sans Yi
+## 268                 NotoSerifAhom-Regular.ttf             Noto Serif Ahom
+## 269             NotoSerifBalinese-Regular.ttf         Noto Serif Balinese
+## 270 NotoSerifNyiakengPuachueHmong-Regular.ttf   Noto Serif Hmong Nyiakeng
+## 271               NotoSerifYezidi-Regular.otf           Noto Serif Yezidi
+## 272                              Oriya MN.ttc                    Oriya MN
+## 273                       Oriya Sangam MN.ttc             Oriya Sangam MN
+## 274                               Papyrus.ttc                     Papyrus
+## 275                        PartyLET-plain.ttf                   Party LET
+## 276                             Phosphate.ttc                   Phosphate
+## 277                   PlantagenetCherokee.ttf        Plantagenet Cherokee
+## 278                                PTMono.ttc                     PT Mono
+## 279                                PTSans.ttc                     PT Sans
+## 280                               PTSerif.ttc                    PT Serif
+## 281                        PTSerifCaption.ttc            PT Serif Caption
+## 282                               Raanana.ttc                     Raanana
+## 283                              Rockwell.ttc                    Rockwell
+## 284                                  Sana.ttc                        Sana
+## 285                                 Sathu.ttf                       Sathu
+## 286                            Savoye LET.ttc                  Savoye LET
+## 287                               Seravek.ttc                     Seravek
+## 288                              Shree714.ttc        Shree Devanagari 714
+## 289                           SignPainter.ttc     SignPainter-HouseScript
+## 290                                 Silom.ttf                       Silom
+## 291                            Sinhala MN.ttc                  Sinhala MN
+## 292                     Sinhala Sangam MN.ttc           Sinhala Sangam MN
+## 293                                  Skia.ttf                        Skia
+## 294                        SnellRoundhand.ttc             Snell Roundhand
+## 295                                Songti.ttc                   Songti SC
+## 296                           STIXGeneral.otf                 STIXGeneral
+## 297                        STIXGeneralBol.otf                 STIXGeneral
+## 298                     STIXGeneralBolIta.otf                 STIXGeneral
+## 299                     STIXGeneralItalic.otf                 STIXGeneral
+## 300                           STIXIntDBol.otf              STIXIntegralsD
+## 301                           STIXIntDReg.otf              STIXIntegralsD
+## 302                          STIXIntSmBol.otf             STIXIntegralsSm
+## 303                          STIXIntSmReg.otf             STIXIntegralsSm
+## 304                          STIXIntUpBol.otf             STIXIntegralsUp
+## 305                         STIXIntUpDBol.otf            STIXIntegralsUpD
+## 306                         STIXIntUpDReg.otf            STIXIntegralsUpD
+## 307                          STIXIntUpReg.otf             STIXIntegralsUp
+## 308                        STIXIntUpSmBol.otf           STIXIntegralsUpSm
+## 309                        STIXIntUpSmReg.otf           STIXIntegralsUpSm
+## 310                            STIXNonUni.otf              STIXNonUnicode
+## 311                         STIXNonUniBol.otf              STIXNonUnicode
+## 312                      STIXNonUniBolIta.otf              STIXNonUnicode
+## 313                         STIXNonUniIta.otf              STIXNonUnicode
+## 314                     STIXSizFiveSymReg.otf             STIXSizeFiveSym
+## 315                     STIXSizFourSymBol.otf             STIXSizeFourSym
+## 316                     STIXSizFourSymReg.otf             STIXSizeFourSym
+## 317                      STIXSizOneSymBol.otf              STIXSizeOneSym
+## 318                      STIXSizOneSymReg.otf              STIXSizeOneSym
+## 319                    STIXSizThreeSymBol.otf            STIXSizeThreeSym
+## 320                    STIXSizThreeSymReg.otf            STIXSizeThreeSym
+## 321                      STIXSizTwoSymBol.otf              STIXSizeTwoSym
+## 322                      STIXSizTwoSymReg.otf              STIXSizeTwoSym
+## 323                           STIXTwoMath.otf               STIX Two Math
+## 324                    STIXTwoText-Italic.ttf               STIX Two Text
+## 325                           STIXTwoText.ttf               STIX Two Text
+## 326                               STIXVar.otf                STIXVariants
+## 327                            STIXVarBol.otf                STIXVariants
+## 328                          SukhumvitSet.ttc               Sukhumvit Set
+## 329                        SuperClarendon.ttc              Superclarendon
+## 330                           Tahoma Bold.ttf                      Tahoma
+## 331                                Tahoma.ttf                      Tahoma
+## 332                              Tamil MN.ttc                    Tamil MN
+## 333                       Tamil Sangam MN.ttc             Tamil Sangam MN
+## 334                             Telugu MN.ttc                   Telugu MN
+## 335                      Telugu Sangam MN.ttc            Telugu Sangam MN
+## 336                              Thonburi.ttc                    Thonburi
+## 337           Times New Roman Bold Italic.ttf             Times New Roman
+## 338                  Times New Roman Bold.ttf             Times New Roman
+## 339                Times New Roman Italic.ttf             Times New Roman
+## 340                       Times New Roman.ttf             Times New Roman
+## 341                           Trattatello.ttf                 Trattatello
+## 342              Trebuchet MS Bold Italic.ttf                Trebuchet MS
+## 343                     Trebuchet MS Bold.ttf                Trebuchet MS
+## 344                   Trebuchet MS Italic.ttf                Trebuchet MS
+## 345                          Trebuchet MS.ttf                Trebuchet MS
+## 346                   Verdana Bold Italic.ttf                     Verdana
+## 347                          Verdana Bold.ttf                     Verdana
+## 348                        Verdana Italic.ttf                     Verdana
+## 349                               Verdana.ttf                     Verdana
+## 350                                Waseem.ttc                      Waseem
+## 351                              Webdings.ttf                    Webdings
+## 352                           Wingdings 2.ttf                 Wingdings 2
+## 353                           Wingdings 3.ttf                 Wingdings 3
+## 354                             Wingdings.ttf                   Wingdings
+## 355                               Zapfino.ttf                     Zapfino
+## 356                                Symbol.ttf                      Symbol
+## 357                            ThonburiUI.ttc                 .ThonburiUI
+## 358                                 Times.ttc                       Times
+## 359                          ZapfDingbats.ttf               Zapf Dingbats
+## 360                  ヒラギノ丸ゴ ProN W4.ttc Hiragino Maru Gothic Pro W4
+## 361                     ヒラギノ明朝 ProN.ttc     Hiragino Mincho ProN W3
+## 362                 ヒラギノ角ゴシック W0.ttc            Hiragino Sans W0
+## 363                 ヒラギノ角ゴシック W1.ttc            Hiragino Sans W1
+## 364                 ヒラギノ角ゴシック W2.ttc            Hiragino Sans W2
+## 365                 ヒラギノ角ゴシック W3.ttc            Hiragino Sans W3
+## 366                 ヒラギノ角ゴシック W4.ttc            Hiragino Sans W4
+## 367                 ヒラギノ角ゴシック W5.ttc            Hiragino Sans W5
+## 368                 ヒラギノ角ゴシック W6.ttc            Hiragino Sans W6
+## 369                 ヒラギノ角ゴシック W7.ttc            Hiragino Sans W7
+## 370                 ヒラギノ角ゴシック W8.ttc            Hiragino Sans W8
+## 371                 ヒラギノ角ゴシック W9.ttc            Hiragino Sans W9
 ##               face                                         version
 ## 1          Regular                                   Version 1.01x
-## 2    Outline 6 Dot                                       13.0d2e27
-## 3    Outline 8 Dot                                       13.0d2e27
-## 4   Pinpoint 6 Dot                                       13.0d2e27
-## 5   Pinpoint 8 Dot                                       13.0d2e27
-## 6          Regular                                       13.0d2e27
-## 7          Regular                                       17.4d12e1
-## 8          Regular                                        17.0d1e2
-## 9          Regular                                        13.0d1e9
-## 10         Regular                                        13.0d1e4
-## 11         Regular                                        13.0d1e1
-## 12            Bold                                       13.0d1e10
+## 2          Regular                                Version 21.0d8e1
+## 3    Outline 6 Dot                                       13.0d2e27
+## 4    Outline 8 Dot                                       13.0d2e27
+## 5   Pinpoint 6 Dot                                       13.0d2e27
+## 6   Pinpoint 8 Dot                                       13.0d2e27
+## 7          Regular                                       13.0d2e27
+## 8          Regular                                        20.4d5e1
+## 9          Regular                                        17.0d1e2
+## 10         Regular                                        21.0d1e6
+## 11         Regular                                        13.0d1e4
+## 12         Regular                                        13.0d1e1
 ## 13            Bold                                       13.0d1e10
-## 14         Regular                                        13.0d3e1
-## 15         Regular                                        17.0d2e1
-## 16         Regular                                        14.0d1e4
-## 17         Regular                                        17.0d2e1
-## 18         Regular                                        17.0d1e1
-## 19         Regular                                        17.0d2e1
-## 20         Regular                                        17.0d0e2
-## 21         Regular                                        13.0d2e4
-## 22         Regular                                        14.0d5e3
-## 23         Regular                                        14.0d2e3
-## 24            Bold                                       14.0d2e16
-## 25         Regular                                        14.0d1e3
-## 26         Regular                                        17.0d3e1
-## 27         Regular                                        15.0d1e1
-## 28            Thin                                       13.0d1e11
-## 29         Regular                                        17.0d1e1
-## 30         Regular                                        17.0d1e5
-## 31         Regular                                       14.0d1e18
-## 32         Regular                                        17.0d5e1
-## 33  Regular Italic                                        17.0d5e1
-## 34           Light                                        17.0d1e1
-## 35         Regular                                       14.0d2e19
-## 36         Regular                                        15.0d1e2
-## 37         Regular                                        14.0d1e7
-## 38         Regular                                        17.0d1e2
-## 39         Regular                                        14.0d1e2
-## 40         Regular                                        14.0d1e5
-## 41         Regular                                        13.0d1e2
-## 42         Regular                                        15.0d2e2
-## 43         Regular                                         17.d1e2
-## 44         Regular                                       17.0d16e1
-## 45           Black                                       17.0d11e1
-## 46    Black Italic                                       17.0d11e1
-## 47         Regular                                       17.0d11e1
-## 48         Regular                                       17.0d11e1
-## 49  Regular Italic                                       17.0d11e1
-## 50           Light                                        16.0d2e1
-## 51    Light Italic                                        16.0d2e1
-## 52         Regular                                       17.0d11e1
-## 53           Light                                        17.0d1e2
-## 54          Medium                                        17.0d1e2
-## 55           Plain                                        16.0d1e1
-## 56         Regular                                        13.0d2e2
-## 57         Regular                                        13.0d2e1
-## 58           Plain                                        13.0d1e6
-## 59         Regular                                        16.0d2e4
-## 60         Regular                                   Version 2.00x
-## 61        Chancery                                        13.0d1e4
-## 62         Regular                                        13.0d1e3
-## 63         Regular                                        13.0d1e6
-## 64         Regular                                 Version 5.00.1x
-## 65     Bold Italic                                 Version 5.00.2x
-## 66            Bold                                 Version 5.01.2x
-## 67          Italic                                 Version 5.00.2x
-## 68     Bold Italic                                 Version 2.38.1x
-## 69            Bold                                 Version 2.38.1x
-## 70          Italic                                 Version 2.38.1x
-## 71         Regular                                 Version 2.38.1x
-## 72         Regular                                   Version 1.51x
-## 73         Regular                                   Version 1.01x
-## 74         Regular                                 Version 5.01.2x
-## 75         Regular                                        13.0d1e3
-## 76         Regular                                        13.0d1e7
-## 77         Regular                                        13.0d1e5
-## 78         Regular                                        14.0d1e2
-## 79         Regular                                        14.0d1e1
-## 80         Regular                                       13.0d1e10
-## 81         Regular                                        13.0d1e6
-## 82          Medium                                       13.0d1e11
-## 83            Book                                        13.0d2e1
-## 84            Book                                        13.0d2e1
-## 85            Book                                        13.0d2e1
-## 86         Regular                                        13.0d2e1
-## 87            Bold                                        14.0d0e1
-## 88          Italic                                 Version 1.52x-1
-## 89         Regular                                        13.0d1e2
-## 90           Light                                        13.0d1e2
-## 91         Regular                                        13.0d2e1
-## 92           Roman                                        14.0d2e1
-## 93         Regular                                        13.0d2e1
-## 94            Bold                                   Version 5.00x
-## 95         Regular                                   Version 5.00x
-## 96         Regular                                        13.0d1e2
-## 97         Regular                                        13.0d1e4
-## 98     Bold Italic                                   Version 5.00x
-## 99            Bold                                 Version 5.00.2x
-## 100         Italic                                 Version 5.00.1x
-## 101        Regular                                 Version 5.00.2x
-## 102        Regular                                        13.0d3e9
-## 103        Regular                                        14.0d0e1
-## 104        Regular                                       14.0d1e12
-## 105        Regular                                        13.0d1e3
-## 106        Regular                                        13.0d1e3
-## 107           Bold                                        13.0d3e2
-## 108           Bold                                        14.0d1e1
-## 109        Regular                                        13.0d2e1
-## 110        Regular                                        13.0d1e5
-## 111        Regular                                        15.0d1e3
-## 112        Regular                                        13.0d2e3
-## 113        Regular                                        13.0d1e3
-## 114         Medium                                        16.0d2e1
-## 115        Regular                                        14.0d1e3
-## 116    Bold Italic                                 Version 5.00x-4
-## 117           Bold                                 Version 5.00x-4
-## 118         Italic                                 Version 5.00x-4
-## 119        Regular                                 Version 5.00x-4
-## 120        Regular                                        16.0d1e1
-## 121        Regular                                        17.0d1e3
-## 122        Regular                                        13.0d1e2
-## 123        Regular                                        14.0d4e2
-## 124        Regular                                        14.0d3e1
-## 125        Regular                                        13.0d1e4
-## 126        Regular                                        13.0d1e2
-## 127      Ornaments                                        14.0d1e2
-## 128        Regular                                        14.0d1e2
-## 129        Regular                                   Version 5.00x
-## 130        Regular                                        13.0d1e5
-## 131          Roman                                        14.0d1e1
-## 132           Book                                        14.0d3e6
-## 133        Regular                                        16.0d1e1
-## 134        Regular                                        14.0d1e6
-## 135        Regular                                        14.0d2e4
-## 136        Regular                                        17.0d1e2
-## 137        Regular                                        14.0d1e1
-## 138        Regular                                        14.0d1e9
-## 139        Regular                                        13.0d1e3
-## 140        Regular                                        14.0d1e1
-## 141        Regular                                       13.0d1e11
-## 142        Regular                                        14.0d1e9
-## 143        Regular                                        14.0d1e6
-## 144        Regular                                        13.0d1e2
-## 145        Regular                                        14.0d1e6
-## 146        Regular                                        14.0d4e6
-## 147        Regular                                        13.0d1e2
-## 148        Regular                                 Version 5.00.1x
-## 149        Regular                                        13.0d2e1
-## 150        Regular                                        13.0d2e1
+## 14            Bold                                       13.0d1e10
+## 15         Regular                                        13.0d3e1
+## 16         Regular                                        21.0d2e1
+## 17         Regular                                        19.0d1e1
+## 18         Regular                                        20.5d1e1
+## 19         Regular                                        20.2d1e1
+## 20         Regular                                        17.0d2e1
+## 21         Regular                                        17.0d1e1
+## 22         Regular                                        20.4d1e2
+## 23         Regular                                        21.0d1e1
+## 24         Regular                                        13.0d2e4
+## 25         Regular                                        20.0d1e4
+## 26         Regular                                        20.0d1e7
+## 27            Bold                                        21.0d1e1
+## 28         Regular                                       20.01d1e2
+## 29         Regular                                        19.4d1e2
+## 30         Regular                                        15.0d1e1
+## 31            Thin                                       13.0d1e11
+## 32         Regular                                        17.0d1e1
+## 33         Regular                                        17.0d1e5
+## 34         Regular                                        20.2d1e1
+## 35         Regular                                        20.0d1e1
+## 36  Regular Italic                                        17.0d5e1
+## 37           Light                                        17.0d1e1
+## 38         Regular                                        20.0d1e3
+## 39         Regular                                        15.0d1e2
+## 40         Regular                                        20.0d1e2
+## 41         Regular                                        17.0d1e2
+## 42         Regular                                        20.0d1e2
+## 43         Regular                                        14.0d1e5
+## 44         Regular                                        13.0d1e2
+## 45         Regular                                       18.0d1e19
+## 46         Regular                                        20.0d1e1
+## 47         Regular                                        20.0d1e1
+## 48         Regular                                        19.0d7e2
+## 49         Regular                                        19.0d5e2
+## 50         Regular                                        19.0d0e3
+## 51           Black                                        21.0d3e1
+## 52    Black Italic                                        21.0d3e1
+## 53         Regular                                        21.0d1e1
+## 54         Regular                                        19.0d6e2
+## 55         Regular                                        19.0d4e2
+## 56         Regular                                        19.2d1e1
+## 57         Regular                                        19.2d1e1
+## 58         Regular                                        21.0d2e1
+## 59         Regular                                        21.0d2e1
+## 60  Regular Italic                                        21.0d2e1
+## 61           Light                                        21.0d1e1
+## 62    Light Italic                                        21.0d1e1
+## 63         Regular                                        21.0d2e1
+## 64           Light                                        17.0d1e2
+## 65          Medium                                        17.0d1e2
+## 66           Plain                                        16.0d1e1
+## 67         Regular                                        13.0d2e2
+## 68         Regular                                        13.0d2e1
+## 69           Plain                                        18.0d1e1
+## 70         Regular                                        16.0d2e4
+## 71         Regular                                   Version 2.00x
+## 72        Chancery                                        13.0d1e5
+## 73         Regular                                        13.0d1e3
+## 74         Regular                                        13.0d1e6
+## 75         Regular                                 Version 5.00.1x
+## 76     Bold Italic                                 Version 5.00.2x
+## 77            Bold                                 Version 5.01.2x
+## 78          Italic                                 Version 5.00.2x
+## 79     Bold Italic                                 Version 2.38.1x
+## 80            Bold                                 Version 2.38.1x
+## 81          Italic                                 Version 2.38.1x
+## 82         Regular                                 Version 2.38.1x
+## 83         Regular                                   Version 1.51x
+## 84         Regular                                   Version 1.01x
+## 85         Regular                                 Version 5.01.2x
+## 86         Regular                                        13.0d1e3
+## 87         Regular                                        13.0d1e7
+## 88         Regular                                        13.0d1e5
+## 89         Regular                                        20.0d1e2
+## 90         Regular                                        20.0d1e2
+## 91         Regular                                       13.0d1e10
+## 92         Regular                                        13.0d1e6
+## 93          Medium                                       13.0d1e11
+## 94            Book                                        13.0d2e1
+## 95            Book                                        13.0d2e1
+## 96            Book                                        13.0d2e1
+## 97         Regular                                        13.0d2e1
+## 98            Bold                                        14.0d0e1
+## 99          Italic                                 Version 1.52x-1
+## 100        Regular                                        13.0d1e2
+## 101          Light                                        13.0d1e2
+## 102        Regular                                        13.0d2e1
+## 103          Roman                                        14.0d2e1
+## 104        Regular                                        13.0d2e1
+## 105           Bold                                   Version 5.00x
+## 106        Regular                                   Version 5.00x
+## 107        Regular                                        13.0d1e2
+## 108        Regular                                        19.0d1e1
+## 109    Bold Italic                                   Version 5.00x
+## 110           Bold                                 Version 5.00.2x
+## 111         Italic                                 Version 5.00.1x
+## 112        Regular                                 Version 5.00.2x
+## 113        Regular                                        20.0d1e2
+## 114        Regular                                        14.0d0e1
+## 115        Regular                                        20.0d1e2
+## 116        Regular                                        20.0d1e2
+## 117        Regular                                        13.0d1e3
+## 118           Bold                                        13.0d3e2
+## 119           Bold                                        14.0d1e1
+## 120        Regular                                        13.0d2e1
+## 121        Regular                                        13.0d1e5
+## 122        Regular                                        18.0d1e1
+## 123        Regular                                        13.0d2e3
+## 124        Regular                                        13.0d1e3
+## 125         Medium                                        16.0d2e1
+## 126        Regular                                        14.0d1e3
+## 127    Bold Italic                                 Version 5.00x-4
+## 128           Bold                                 Version 5.00x-4
+## 129         Italic                                 Version 5.00x-4
+## 130        Regular                                 Version 5.00x-4
+## 131        Regular                                        16.0d1e1
+## 132        Regular                                        20.0d1e2
+## 133        Regular                                        20.0d1e2
+## 134        Regular                                        20.0d1e3
+## 135        Regular                                        20.0d1e3
+## 136        Regular                                        20.0d1e2
+## 137        Regular                                        13.0d1e2
+## 138      Ornaments                                        14.0d1e2
+## 139        Regular                                        14.0d1e2
+## 140        Regular                                   Version 5.00x
+## 141        Regular                                        20.0d1e2
+## 142          Roman                                        14.0d1e1
+## 143           Book                                        20.0d1e3
+## 144        Regular                                        16.0d1e1
+## 145        Regular                                        20.0d1e2
+## 146        Regular                                        20.0d1e1
+## 147        Regular                                        21.0d1e3
+## 148        Regular                                        14.0d1e1
+## 149        Regular                                        14.0d1e9
+## 150        Regular                                       18.0d1e10
 ## 151        Regular                                        14.0d1e1
-## 152        Regular                                        13.0d1e4
-## 153        Regular                                        14.0d1e2
-## 154        Regular                                        14.0d1e8
-## 155        Regular                                        13.0d1e3
-## 156        Regular                                        13.0d1e4
-## 157        Regular                                        13.0d1e1
-## 158        Regular                                   Version 3.000
-## 159        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 160        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 161        Regular                                   Version 2.000
-## 162        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 163        Regular                                   Version 2.000
-## 164        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 165        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 166        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 167        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 168        Regular                                   Version 2.001
-## 169        Regular Version 2.001;GOOG;noto-source:20181019:f8f3770
+## 152        Regular                                       13.0d1e11
+## 153        Regular                                        14.0d1e9
+## 154        Regular                                        14.0d1e6
+## 155        Regular                                        13.0d1e2
+## 156        Regular                                        20.0d1e2
+## 157        Regular                                        20.0d1e2
+## 158        Regular                                        13.0d1e2
+## 159        Regular                                 Version 5.00.1x
+## 160        Regular                                        13.0d2e1
+## 161        Regular                                        13.0d2e1
+## 162        Regular                                        14.0d1e1
+## 163        Regular                                        13.0d1e4
+## 164        Regular                                        14.0d1e2
+## 165        Regular                                        14.0d1e8
+## 166        Regular                                        18.0d1e1
+## 167        Regular                                        13.0d1e4
+## 168        Regular                                        18.0d1e1
+## 169        Regular                                   Version 3.000
 ## 170        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
 ## 171        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 172        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 173        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 172        Regular                                   Version 2.000
+## 173        Regular                                   Version 2.002
 ## 174        Regular                                   Version 2.000
 ## 175        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 176        Regular                                   Version 2.000
+## 176        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
 ## 177        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 178        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 179        Regular                                   Version 1.002
-## 180        Regular                                   Version 2.002
-## 181        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 182        Regular                                   Version 2.000
+## 178        Regular                                   Version 2.001
+## 179        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 180        Regular                                   Version 2.001
+## 181        Regular Version 2.001;GOOG;noto-source:20181019:f8f3770
+## 182        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
 ## 183        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
 ## 184        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
 ## 185        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
 ## 186        Regular                                   Version 2.000
 ## 187        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 188        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 188        Regular                                   Version 2.000
 ## 189        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 190        Regular                                   Version 2.001
-## 191        Regular                                   Version 2.000
-## 192        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 190        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 191        Regular                                   Version 1.002
+## 192        Regular                                   Version 2.002
 ## 193        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
 ## 194        Regular                                   Version 2.000
 ## 195        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
 ## 196        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
 ## 197        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 198        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 199        Regular                                   Version 2.000
+## 198        Regular                                   Version 2.000
+## 199        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
 ## 200        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 201        Regular                                   Version 2.000
-## 202        Regular                                   Version 2.000
-## 203        Regular                                   Version 1.003
+## 201        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 202        Regular                                   Version 2.001
+## 203        Regular                                   Version 2.000
 ## 204        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 205        Regular                                   Version 2.000
+## 205        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
 ## 206        Regular                                   Version 2.000
-## 207        Regular                                   Version 2.001
-## 208        Regular                                   Version 2.000
-## 209        Regular                                 Version 1.04 uh
-## 210        Regular                                   Version 2.000
+## 207        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 208        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 209        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 210        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
 ## 211        Regular                                   Version 2.000
-## 212        Regular                                   Version 2.000
-## 213        Regular                                   Version 2.002
+## 212        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 213        Regular                                   Version 2.000
 ## 214        Regular                                   Version 2.000
-## 215        Regular                                   Version 2.001
+## 215        Regular                                   Version 1.003
 ## 216        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 217        Regular                                   Version 2.001
-## 218        Regular                                   Version 2.002
-## 219        Regular                                   Version 2.000
+## 217        Regular                                   Version 2.000
+## 218        Regular                                   Version 2.000
+## 219        Regular                                   Version 2.001
 ## 220        Regular                                   Version 2.000
-## 221        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 222        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 223        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 221        Regular                                   Version 3.002
+## 222        Regular                                   Version 2.000
+## 223        Regular                                   Version 2.000
 ## 224        Regular                                   Version 2.000
-## 225        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 226        Regular                                   Version 2.000
+## 225        Regular                                   Version 1.001
+## 226        Regular                                   Version 2.002
 ## 227        Regular                                   Version 2.000
-## 228        Regular                                   Version 2.000
+## 228        Regular                                   Version 2.004
 ## 229        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 230        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 231        Regular                                   Version 2.000
-## 232        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 233        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 230        Regular                                   Version 2.001
+## 231        Regular                                   Version 2.002
+## 232        Regular                                   Version 2.000
+## 233        Regular                                   Version 2.000
 ## 234        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 235        Regular                                   Version 2.001
-## 236        Regular                                   Version 2.001
+## 235        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 236        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
 ## 237        Regular                                   Version 2.000
 ## 238        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 239        Regular                                   Version 2.001
+## 239        Regular                                   Version 2.000
 ## 240        Regular                                   Version 2.000
-## 241        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 241        Regular                                   Version 2.000
 ## 242        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
 ## 243        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 244        Regular                                 Version 1.04 uh
+## 244        Regular                                   Version 2.000
 ## 245        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 246        Regular                                   Version 2.001
-## 247        Regular                                   Version 2.000
-## 248        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 246        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 247        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 248        Regular                                   Version 2.001
 ## 249        Regular                                   Version 2.001
-## 250        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 250        Regular                                   Version 2.000
 ## 251        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 252        Regular                                   Version 2.000
+## 252        Regular                                   Version 2.001
 ## 253        Regular                                   Version 3.000
-## 254        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 255        Regular                                   Version 2.003
+## 254        Regular                                   Version 2.002
+## 255        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
 ## 256        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
-## 257        Regular                                   Version 1.000
-## 258        Regular                                        14.0d1e6
-## 259        Regular                                        14.0d1e2
-## 260      Condensed                                        13.0d1e2
-## 261          Plain                                        16.0d1e2
-## 262         Inline                                        13.0d1e2
-## 263        Regular                                        13.0d1e3
-## 264           Bold                                        13.0d2e4
-## 265        Regular                                        13.0d3e2
-## 266        Regular                                        13.0d2e1
-## 267        Regular                                        13.0d2e1
-## 268        Regular                                       14.0d1e14
-## 269        Regular                                        13.0d2e1
-## 270        Regular                                        13.0d1e4
-## 271        Regular                                        14.0d1e1
-## 272          Plain                                        13.0d2e4
-## 273        Regular                                        13.0d3e2
-## 274        Regular                                        13.0d2e1
-## 275        Regular                                        14.0d1e1
-## 276        Regular                                        14.0d1e1
-## 277        Regular                                        14.0d1e1
-## 278        Regular                                        14.0d1e2
-## 279        Regular                                       13.0d1e54
-## 280        Regular                                        15.0d1e1
-## 281          Black                                        17.0d2e3
-## 282        Regular                                   Version 1.1.0
-## 283           Bold                                   Version 1.1.0
-## 284    Bold Italic                                   Version 1.1.0
-## 285         Italic                                   Version 1.1.0
-## 286           Bold                                   Version 1.1.0
-## 287        Regular                                   Version 1.1.0
-## 288           Bold                                   Version 1.1.0
-## 289        Regular                                   Version 1.1.0
-## 290           Bold                                   Version 1.1.0
-## 291           Bold                                   Version 1.1.0
-## 292        Regular                                   Version 1.1.0
-## 293        Regular                                   Version 1.1.0
-## 294           Bold                                   Version 1.1.0
-## 295        Regular                                   Version 1.1.0
+## 257        Regular                                 Version 1.04 uh
+## 258        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 259        Regular                                   Version 2.001
+## 260        Regular                                   Version 2.000
+## 261        Regular                                   Version 2.006
+## 262        Regular                                   Version 2.001
+## 263        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 264        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 265        Regular                                   Version 2.000
+## 266        Regular                                   Version 3.000
+## 267        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 268        Regular                                   Version 2.003
+## 269        Regular Version 2.000;GOOG;noto-source:20181019:f8f3770
+## 270        Regular                                   Version 1.000
+## 271        Regular                                   Version 1.000
+## 272        Regular                                        20.0d1e3
+## 273        Regular                                        20.0d1e4
+## 274      Condensed                                        13.0d1e2
+## 275          Plain                                        16.0d1e2
+## 276         Inline                                        13.0d1e2
+## 277        Regular                                        13.0d1e3
+## 278           Bold                                        13.0d2e4
+## 279        Regular                                        13.0d3e2
+## 280        Regular                                        13.0d2e1
+## 281        Regular                                        13.0d2e1
+## 282        Regular                                       14.0d1e14
+## 283        Regular                                        13.0d2e1
+## 284        Regular                                        13.0d1e4
+## 285        Regular                                        14.0d1e1
+## 286          Plain                                        13.0d2e4
+## 287        Regular                                        13.0d3e2
+## 288        Regular                                        20.0d1e2
+## 289        Regular                                        14.0d1e1
+## 290        Regular                                        14.0d1e1
+## 291        Regular                                        14.0d1e1
+## 292        Regular                                        14.0d1e2
+## 293        Regular                                       13.0d1e54
+## 294        Regular                                        15.0d1e1
+## 295          Black                                        17.0d2e3
 ## 296        Regular                                   Version 1.1.0
 ## 297           Bold                                   Version 1.1.0
 ## 298    Bold Italic                                   Version 1.1.0
 ## 299         Italic                                   Version 1.1.0
-## 300        Regular                                   Version 1.1.0
-## 301           Bold                                   Version 1.1.0
-## 302        Regular                                   Version 1.1.0
-## 303           Bold                                   Version 1.1.0
-## 304        Regular                                   Version 1.1.0
+## 300           Bold                                   Version 1.1.0
+## 301        Regular                                   Version 1.1.0
+## 302           Bold                                   Version 1.1.0
+## 303        Regular                                   Version 1.1.0
+## 304           Bold                                   Version 1.1.0
 ## 305           Bold                                   Version 1.1.0
 ## 306        Regular                                   Version 1.1.0
-## 307           Bold                                   Version 1.1.0
-## 308        Regular                                   Version 1.1.0
+## 307        Regular                                   Version 1.1.0
+## 308           Bold                                   Version 1.1.0
 ## 309        Regular                                   Version 1.1.0
-## 310           Bold                                   Version 1.1.0
-## 311           Thin                                        17.0d1e2
-## 312        Regular                                        13.0d1e4
-## 313           Bold                                 Version 5.01.1x
-## 314        Regular                                 Version 5.01.2x
-## 315        Regular                                        14.0d1e7
-## 316        Regular                                       15.0d1e37
-## 317        Regular                                        14.0d1e2
-## 318        Regular                                        14.0d1e4
-## 319    Bold Italic                                 Version 5.00.3x
-## 320           Bold                                 Version 5.01.3x
-## 321         Italic                                 Version 5.00.3x
-## 322        Regular                                 Version 5.01.3x
-## 323        Regular                                        13.0d2e2
-## 324    Bold Italic                                   Version 5.00x
-## 325           Bold                                   Version 5.00x
-## 326         Italic                                   Version 5.00x
-## 327        Regular                                   Version 5.00x
-## 328    Bold Italic                                   Version 5.01x
-## 329           Bold                                   Version 5.01x
-## 330         Italic                                   Version 5.01x
-## 331        Regular                                   Version 5.01x
-## 332        Regular                                        13.0d1e2
-## 333        Regular                                   Version 5.00x
-## 334        Regular                                   Version 1.55x
-## 335        Regular                                   Version 1.55x
-## 336        Regular                                   Version 5.00x
-## 337        Regular                                        13.0d1e2
-## 338        Regular                                        13.0d2e2
-## 339        Regular                                        13.0d1e1
-## 340        Regular                                        17.0d1e1
-## 341        Regular                                        13.0d1e2
-## 342        Regular                                        17.0d1e2
-## 343        Regular                                        17.0d1e2
-## 344        Regular                                       17.0d1e30
-## 345        Regular                                       17.0d1e31
-## 346        Regular                                       17.0d1e32
-## 347        Regular                                       17.0d1e33
-## 348        Regular                                       17.0d1e34
-## 349        Regular                                       17.0d1e35
-## 350        Regular                                       17.0d1e36
-## 351        Regular                                       17.0d1e37
-## 352        Regular                                       17.0d1e38
-## 353        Regular                                       17.0d1e39
+## 310        Regular                                   Version 1.1.0
+## 311           Bold                                   Version 1.1.0
+## 312    Bold Italic                                   Version 1.1.0
+## 313         Italic                                   Version 1.1.0
+## 314        Regular                                   Version 1.1.0
+## 315           Bold                                   Version 1.1.0
+## 316        Regular                                   Version 1.1.0
+## 317           Bold                                   Version 1.1.0
+## 318        Regular                                   Version 1.1.0
+## 319           Bold                                   Version 1.1.0
+## 320        Regular                                   Version 1.1.0
+## 321           Bold                                   Version 1.1.0
+## 322        Regular                                   Version 1.1.0
+## 323        Regular                               Version 2.13 b171
+## 324         Italic                               Version 2.13 b171
+## 325        Regular                               Version 2.13 b171
+## 326        Regular                                   Version 1.1.0
+## 327           Bold                                   Version 1.1.0
+## 328           Thin                                        17.0d1e2
+## 329        Regular                                        13.0d1e4
+## 330           Bold                                 Version 5.01.1x
+## 331        Regular                                 Version 5.01.2x
+## 332        Regular                                        20.0d1e2
+## 333        Regular                                        20.0d1e6
+## 334        Regular                                        20.0d1e2
+## 335        Regular                                        20.0d1e2
+## 336        Regular                                        18.0d1e1
+## 337    Bold Italic                                 Version 5.00.3x
+## 338           Bold                                 Version 5.01.4x
+## 339         Italic                                 Version 5.00.3x
+## 340        Regular                                 Version 5.01.4x
+## 341        Regular                                        13.0d2e2
+## 342    Bold Italic                                   Version 5.00x
+## 343           Bold                                   Version 5.00x
+## 344         Italic                                   Version 5.00x
+## 345        Regular                                   Version 5.00x
+## 346    Bold Italic                                   Version 5.01x
+## 347           Bold                                   Version 5.01x
+## 348         Italic                                   Version 5.01x
+## 349        Regular                                   Version 5.01x
+## 350        Regular                                        13.0d1e2
+## 351        Regular                                   Version 5.00x
+## 352        Regular                                   Version 1.55x
+## 353        Regular                                   Version 1.55x
+## 354        Regular                                   Version 5.00x
+## 355        Regular                                        18.0d1e2
+## 356        Regular                                        13.0d2e2
+## 357        Regular                                        18.0d2e6
+## 358        Regular                                        17.0d1e1
+## 359        Regular                                        13.0d1e2
+## 360        Regular                                        17.0d1e2
+## 361        Regular                                        17.0d1e2
+## 362        Regular                                        20.0d1e1
+## 363        Regular                                        20.0d1e1
+## 364        Regular                                        20.0d1e1
+## 365        Regular                                        20.0d1e1
+## 366        Regular                                        20.0d1e1
+## 367        Regular                                        20.0d1e1
+## 368        Regular                                        20.0d1e1
+## 369        Regular                                        20.0d1e1
+## 370        Regular                                        20.0d1e1
+## 371        Regular                                        20.0d1e1
 ##                                   ps_name
 ## 1                          ArialUnicodeMS
-## 2                AppleBraille-Outline6Dot
-## 3                AppleBraille-Outline8Dot
-## 4               AppleBraille-Pinpoint6Dot
-## 5               AppleBraille-Pinpoint8Dot
-## 6                            AppleBraille
-## 7                         AppleColorEmoji
-## 8                            AppleSymbols
-## 9                AppleSDGothicNeo-Regular
-## 10                               AquaKana
-## 11                            ArialHebrew
-## 12               AvenirNextCondensed-Bold
-## 13                        AvenirNext-Bold
-## 14                            Avenir-Book
-## 15                                Courier
-## 16                               GeezaPro
-## 17                                 Geneva
-## 18                              Helvetica
-## 19                          HelveticaNeue
-## 20                      HiraginoSansGB-W3
-## 21                              .Keyboard
-## 22             KohinoorDevanagari-Regular
-## 23                 KohinoorBangla-Regular
-## 24                  KohinoorGujarati-Bold
-## 25                 KohinoorTelugu-Regular
-## 26                             LastResort
-## 27                           LucidaGrande
-## 28                        MarkerFelt-Thin
-## 29                          Menlo-Regular
-## 30                                 Monaco
-## 31                     MuktaMahee-Regular
-## 32                       .NewYork-Regular
-## 33                 .NewYork-RegularItalic
-## 34                       Noteworthy-Light
-## 35                       NotoNastaliqUrdu
-## 36                 NotoSansArmenian-Black
-## 37                  NotoSansKannada-Black
-## 38                  NotoSansMyanmar-Black
-## 39                          NotoSansOriya
-## 40                 NotoSerifMyanmar-Black
-## 41                         Optima-Regular
-## 42                         Palatino-Roman
-## 43                     PingFangHK-Regular
-## 44                      .SFArabic-Regular
-## 45                       .SFCompact-Black
-## 46                 .SFCompact-BlackItalic
-## 47             ..SFCompactRounded-Regular
-## 48                          .SFNS-Regular
-## 49                    .SFNS-RegularItalic
-## 50                        .SFNSMono-Light
-## 51                  .SFNSMono-LightItalic
-## 52                   .SFNSRounded-Regular
-## 53                        STHeitiTC-Light
-## 54                       STHeitiTC-Medium
-## 55                AcademyEngravedLetPlain
-## 56                                 AlNile
-## 57                               AlTarikh
-## 58                                AlBayan
-## 59                     AmericanTypewriter
-## 60                             AndaleMono
-## 61                         Apple-Chancery
-## 62                            AppleGothic
-## 63                           AppleMyungjo
-## 64                            Arial-Black
-## 65                     Arial-BoldItalicMT
-## 66                           Arial-BoldMT
-## 67                         Arial-ItalicMT
-## 68                 ArialNarrow-BoldItalic
-## 69                       ArialNarrow-Bold
-## 70                     ArialNarrow-Italic
-## 71                            ArialNarrow
-## 72                     ArialRoundedMTBold
-## 73                         ArialUnicodeMS
-## 74                                ArialMT
-## 75                        Athelas-Regular
-## 76                               Ayuthaya
-## 77                                Baghdad
-## 78                               BanglaMN
-## 79                         BanglaSangamMN
-## 80                            Baskerville
-## 81                                 Beirut
-## 82                       BigCaslon-Medium
-## 83              BodoniSvtyTwoOSITCTT-Book
-## 84              BodoniSvtyTwoSCITCTT-Book
-## 85                BodoniSvtyTwoITCTT-Book
-## 86                   BodoniOrnamentsITCTT
-## 87                  BradleyHandITCTT-Bold
-## 88                          BrushScriptMT
-## 89                             Chalkboard
-## 90                     ChalkboardSE-Light
-## 91                            Chalkduster
-## 92                          Charter-Roman
-## 93                                 Cochin
-## 94                       ComicSansMS-Bold
-## 95                            ComicSansMS
-## 96                            Copperplate
-## 97                          CorsivaHebrew
-## 98              CourierNewPS-BoldItalicMT
-## 99                    CourierNewPS-BoldMT
-## 100                 CourierNewPS-ItalicMT
-## 101                        CourierNewPSMT
-## 102                              Damascus
-## 103                         DecoTypeNaskh
-## 104                    DevanagariSangamMN
-## 105                          DevanagariMT
-## 106                                 Didot
-## 107                     DINAlternate-Bold
-## 108                     DINCondensed-Bold
-## 109                             DiwanKufi
-## 110                          DiwanThuluth
-## 111                          EuphemiaUCAS
-## 112                                 Farah
-## 113                                Farisi
-## 114                         Futura-Medium
-## 115                                Galvji
-## 116                    Georgia-BoldItalic
-## 117                          Georgia-Bold
-## 118                        Georgia-Italic
-## 119                               Georgia
-## 120                              GillSans
-## 121                      GujaratiSangamMN
-## 122                            GujaratiMT
-## 123                            GurmukhiMN
-## 124                      GurmukhiSangamMN
-## 125                      MonotypeGurmukhi
-## 126                            Herculanum
-## 127                 HoeflerText-Ornaments
-## 128                   HoeflerText-Regular
-## 129                                Impact
-## 130                             InaiMathi
-## 131                   IowanOldStyle-Roman
-## 132                    ITFDevanagari-Book
-## 133                               Kailasa
-## 134                             KannadaMN
-## 135                       KannadaSangamMN
-## 136                          Kefa-Regular
-## 137                               KhmerMN
-## 138                         KhmerSangamMN
-## 139                               Kokonor
-## 140                             Krungthep
-## 141                        KufiStandardGK
-## 142                                 LaoMN
-## 143                           LaoSangamMN
-## 144                      Luminari-Regular
-## 145                           MalayalamMN
-## 146                     MalayalamSangamMN
-## 147                        Marion-Regular
-## 148                    MicrosoftSansSerif
-## 149                      DiwanMishafiGold
-## 150                          DiwanMishafi
-## 151                              Mshtakan
-## 152                                  Muna
-## 153                             MyanmarMN
-## 154                       MyanmarSangamMN
-## 155                                Nadeem
-## 156                          NewPeninimMT
-## 157                         GB18030Bitmap
-## 158                 NotoSansAdlam-Regular
-## 159               NotoSansAvestan-Regular
-## 160                 NotoSansBamum-Regular
-## 161              NotoSansBassaVah-Regular
-## 162                 NotoSansBatak-Regular
-## 163             NotoSansBhaiksuki-Regular
-## 164                NotoSansBrahmi-Regular
-## 165              NotoSansBuginese-Regular
-## 166                 NotoSansBuhid-Regular
-## 167                NotoSansCarian-Regular
-## 168     NotoSansCaucasianAlbanian-Regular
-## 169                NotoSansChakma-Regular
-## 170                  NotoSansCham-Regular
-## 171                NotoSansCoptic-Regular
-## 172             NotoSansCuneiform-Regular
-## 173               NotoSansCypriot-Regular
-## 174              NotoSansDuployan-Regular
-## 175   NotoSansEgyptianHieroglyphs-Regular
-## 176               NotoSansElbasan-Regular
-## 177            NotoSansGlagolitic-Regular
-## 178                NotoSansGothic-Regular
-## 179          NotoSansGunjalaGondi-Regular
-## 180        NotoSansHanifiRohingya-Regular
-## 181               NotoSansHanunoo-Regular
-## 182                NotoSansHatran-Regular
-## 183       NotoSansImperialAramaic-Regular
-## 184  NotoSansInscriptionalPahlavi-Regular
-## 185 NotoSansInscriptionalParthian-Regular
-## 186              NotoSansJavanese-Regular
-## 187                NotoSansKaithi-Regular
-## 188               NotoSansKayahLi-Regular
-## 189            NotoSansKharoshthi-Regular
-## 190                NotoSansKhojki-Regular
-## 191             NotoSansKhudawadi-Regular
-## 192                NotoSansLepcha-Regular
-## 193                 NotoSansLimbu-Regular
-## 194               NotoSansLinearA-Regular
-## 195               NotoSansLinearB-Regular
-## 196                  NotoSansLisu-Regular
-## 197                NotoSansLycian-Regular
-## 198                NotoSansLydian-Regular
-## 199              NotoSansMahajani-Regular
-## 200               NotoSansMandaic-Regular
-## 201            NotoSansManichaean-Regular
-## 202               NotoSansMarchen-Regular
-## 203          NotoSansMasaramGondi-Regular
-## 204           NotoSansMeeteiMayek-Regular
-## 205          NotoSansMendeKikakui-Regular
-## 206              NotoSansMeroitic-Regular
-## 207                  NotoSansMiao-Regular
-## 208                  NotoSansModi-Regular
-## 209                     NotoSansMongolian
-## 210                   NotoSansMro-Regular
-## 211               NotoSansMultani-Regular
-## 212             NotoSansNabataean-Regular
-## 213                  NotoSansNewa-Regular
-## 214             NotoSansNewTaiLue-Regular
-## 215                   NotoSansNKo-Regular
-## 216               NotoSansOlChiki-Regular
-## 217          NotoSansOldHungarian-Regular
-## 218             NotoSansOldItalic-Regular
-## 219       NotoSansOldNorthArabian-Regular
-## 220             NotoSansOldPermic-Regular
-## 221            NotoSansOldPersian-Regular
-## 222       NotoSansOldSouthArabian-Regular
-## 223             NotoSansOldTurkic-Regular
-## 224                 NotoSansOsage-Regular
-## 225               NotoSansOsmanya-Regular
-## 226           NotoSansPahawhHmong-Regular
-## 227             NotoSansPalmyrene-Regular
-## 228             NotoSansPauCinHau-Regular
-## 229               NotoSansPhagsPa-Regular
-## 230            NotoSansPhoenician-Regular
-## 231        NotoSansPsalterPahlavi-Regular
-## 232                NotoSansRejang-Regular
-## 233             NotoSansSamaritan-Regular
-## 234            NotoSansSaurashtra-Regular
-## 235               NotoSansSharada-Regular
-## 236               NotoSansSiddham-Regular
-## 237           NotoSansSoraSompeng-Regular
-## 238             NotoSansSundanese-Regular
-## 239           NotoSansSylotiNagri-Regular
-## 240                NotoSansSyriac-Regular
-## 241               NotoSansTagalog-Regular
-## 242              NotoSansTagbanwa-Regular
-## 243                 NotoSansTaiLe-Regular
-## 244                       NotoSansTaiTham
-## 245               NotoSansTaiViet-Regular
-## 246                 NotoSansTakri-Regular
-## 247                NotoSansThaana-Regular
-## 248              NotoSansTifinagh-Regular
-## 249               NotoSansTirhuta-Regular
-## 250              NotoSansUgaritic-Regular
-## 251                   NotoSansVai-Regular
-## 252                NotoSansWancho-Regular
-## 253            NotoSansWarangCiti-Regular
-## 254                    NotoSansYi-Regular
-## 255                 NotoSerifAhom-Regular
-## 256             NotoSerifBalinese-Regular
-## 257               NotoSerifYezidi-Regular
-## 258                               OriyaMN
-## 259                         OriyaSangamMN
-## 260                     Papyrus-Condensed
-## 261                         PartyLetPlain
-## 262                      Phosphate-Inline
-## 263                   PlantagenetCherokee
-## 264                           PTMono-Bold
-## 265                        PTSans-Regular
-## 266                       PTSerif-Regular
-## 267                       PTSerif-Caption
-## 268                               Raanana
-## 269                      Rockwell-Regular
-## 270                                  Sana
-## 271                                 Sathu
-## 272                        SavoyeLetPlain
-## 273                               Seravek
-## 274                          ShreeDev0714
-## 275               SignPainter-HouseScript
-## 276                                 Silom
-## 277                             SinhalaMN
-## 278                       SinhalaSangamMN
-## 279                          Skia-Regular
-## 280                        SnellRoundhand
-## 281                     STSongti-SC-Black
-## 282                   STIXGeneral-Regular
-## 283                      STIXGeneral-Bold
-## 284                STIXGeneral-BoldItalic
-## 285                    STIXGeneral-Italic
-## 286                   STIXIntegralsD-Bold
-## 287                STIXIntegralsD-Regular
-## 288                  STIXIntegralsSm-Bold
-## 289               STIXIntegralsSm-Regular
-## 290                  STIXIntegralsUp-Bold
-## 291                 STIXIntegralsUpD-Bold
-## 292              STIXIntegralsUpD-Regular
-## 293               STIXIntegralsUp-Regular
-## 294                STIXIntegralsUpSm-Bold
-## 295             STIXIntegralsUpSm-Regular
-## 296                STIXNonUnicode-Regular
-## 297                   STIXNonUnicode-Bold
-## 298             STIXNonUnicode-BoldItalic
-## 299                 STIXNonUnicode-Italic
-## 300               STIXSizeFiveSym-Regular
-## 301                  STIXSizeFourSym-Bold
-## 302               STIXSizeFourSym-Regular
-## 303                   STIXSizeOneSym-Bold
-## 304                STIXSizeOneSym-Regular
-## 305                 STIXSizeThreeSym-Bold
-## 306              STIXSizeThreeSym-Regular
-## 307                   STIXSizeTwoSym-Bold
-## 308                STIXSizeTwoSym-Regular
-## 309                  STIXVariants-Regular
-## 310                     STIXVariants-Bold
-## 311                     SukhumvitSet-Thin
-## 312                Superclarendon-Regular
-## 313                           Tahoma-Bold
-## 314                                Tahoma
-## 315                               TamilMN
-## 316                         TamilSangamMN
-## 317                              TeluguMN
-## 318                        TeluguSangamMN
-## 319          TimesNewRomanPS-BoldItalicMT
-## 320                TimesNewRomanPS-BoldMT
-## 321              TimesNewRomanPS-ItalicMT
-## 322                     TimesNewRomanPSMT
-## 323                           Trattatello
-## 324                  Trebuchet-BoldItalic
-## 325                      TrebuchetMS-Bold
-## 326                    TrebuchetMS-Italic
-## 327                           TrebuchetMS
-## 328                    Verdana-BoldItalic
-## 329                          Verdana-Bold
-## 330                        Verdana-Italic
-## 331                               Verdana
-## 332                                Waseem
-## 333                              Webdings
-## 334                            Wingdings2
-## 335                            Wingdings3
-## 336                     Wingdings-Regular
-## 337                               Zapfino
-## 338                                Symbol
-## 339                              Thonburi
-## 340                           Times-Roman
-## 341                       ZapfDingbatsITC
-## 342                        HiraMaruPro-W4
-## 343                        HiraMinProN-W3
-## 344                       HiraginoSans-W0
-## 345                       HiraginoSans-W1
-## 346                       HiraginoSans-W2
-## 347                       HiraginoSans-W3
-## 348                       HiraginoSans-W4
-## 349                       HiraginoSans-W5
-## 350                       HiraginoSans-W6
-## 351                       HiraginoSans-W7
-## 352                       HiraginoSans-W8
-## 353                       HiraginoSans-W9</code></pre>
-<div class="sourceCode" id="cb1022"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1022-1"><a href="hex-stickers.html#cb1022-1" tabindex="-1"></a><span class="do">## Loading Google fonts (https://fonts.google.com/)</span></span>
-<span id="cb1022-2"><a href="hex-stickers.html#cb1022-2" tabindex="-1"></a></span>
-<span id="cb1022-3"><a href="hex-stickers.html#cb1022-3" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Dancing Script&quot;</span>) <span class="co"># selección de fonts de google</span></span>
-<span id="cb1022-4"><a href="hex-stickers.html#cb1022-4" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Bebas Neue&quot;</span>)</span>
-<span id="cb1022-5"><a href="hex-stickers.html#cb1022-5" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Fuggles&quot;</span>)</span>
-<span id="cb1022-6"><a href="hex-stickers.html#cb1022-6" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Roboto&quot;</span>)</span>
-<span id="cb1022-7"><a href="hex-stickers.html#cb1022-7" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Lobster&quot;</span>)</span>
-<span id="cb1022-8"><a href="hex-stickers.html#cb1022-8" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Raleway&quot;</span>)</span>
-<span id="cb1022-9"><a href="hex-stickers.html#cb1022-9" tabindex="-1"></a></span>
-<span id="cb1022-10"><a href="hex-stickers.html#cb1022-10" tabindex="-1"></a></span>
-<span id="cb1022-11"><a href="hex-stickers.html#cb1022-11" tabindex="-1"></a>cat_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;cat.jpg&#39;</span>)</span>
-<span id="cb1022-12"><a href="hex-stickers.html#cb1022-12" tabindex="-1"></a>analitica_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;Analitica3.png&#39;</span>)</span>
-<span id="cb1022-13"><a href="hex-stickers.html#cb1022-13" tabindex="-1"></a></span>
-<span id="cb1022-14"><a href="hex-stickers.html#cb1022-14" tabindex="-1"></a><span class="fu">sticker</span>(</span>
-<span id="cb1022-15"><a href="hex-stickers.html#cb1022-15" tabindex="-1"></a>  <span class="at">subplot=</span> analitica_img,</span>
-<span id="cb1022-16"><a href="hex-stickers.html#cb1022-16" tabindex="-1"></a>  <span class="at">package=</span><span class="st">&quot;Meow&quot;</span>,</span>
-<span id="cb1022-17"><a href="hex-stickers.html#cb1022-17" tabindex="-1"></a>  <span class="at">s_width =</span>.<span class="dv">75</span>,</span>
-<span id="cb1022-18"><a href="hex-stickers.html#cb1022-18" tabindex="-1"></a>  <span class="at">s_height =</span> .<span class="dv">75</span>,</span>
-<span id="cb1022-19"><a href="hex-stickers.html#cb1022-19" tabindex="-1"></a>  <span class="at">s_x=</span><span class="dv">1</span>,</span>
-<span id="cb1022-20"><a href="hex-stickers.html#cb1022-20" tabindex="-1"></a>  <span class="at">s_y=</span>.<span class="dv">75</span>,</span>
-<span id="cb1022-21"><a href="hex-stickers.html#cb1022-21" tabindex="-1"></a>  <span class="at">p_size=</span><span class="dv">19</span>,</span>
-<span id="cb1022-22"><a href="hex-stickers.html#cb1022-22" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="fl">1.0</span>,</span>
-<span id="cb1022-23"><a href="hex-stickers.html#cb1022-23" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.5</span>,</span>
-<span id="cb1022-24"><a href="hex-stickers.html#cb1022-24" tabindex="-1"></a>  <span class="at">p_color=</span> <span class="st">&#39;purple&#39;</span>,</span>
-<span id="cb1022-25"><a href="hex-stickers.html#cb1022-25" tabindex="-1"></a>  <span class="at">p_family=</span> <span class="st">&quot;Raleway&quot;</span>,</span>
-<span id="cb1022-26"><a href="hex-stickers.html#cb1022-26" tabindex="-1"></a>  <span class="at">h_fill =</span><span class="st">&#39;gold&#39;</span>,</span>
-<span id="cb1022-27"><a href="hex-stickers.html#cb1022-27" tabindex="-1"></a>  <span class="at">h_color=</span><span class="st">&#39;hotpink&#39;</span>,</span>
-<span id="cb1022-28"><a href="hex-stickers.html#cb1022-28" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="dv">2</span>,</span>
-<span id="cb1022-29"><a href="hex-stickers.html#cb1022-29" tabindex="-1"></a>  <span class="at">url=</span><span class="st">&quot;www.cat.foundation.com&quot;</span>,</span>
-<span id="cb1022-30"><a href="hex-stickers.html#cb1022-30" tabindex="-1"></a>  <span class="at">u_size=</span><span class="dv">4</span>,</span>
-<span id="cb1022-31"><a href="hex-stickers.html#cb1022-31" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;violetred&quot;</span>,</span>
-<span id="cb1022-32"><a href="hex-stickers.html#cb1022-32" tabindex="-1"></a>  <span class="at">spotlight=</span>T</span>
-<span id="cb1022-33"><a href="hex-stickers.html#cb1022-33" tabindex="-1"></a></span>
-<span id="cb1022-34"><a href="hex-stickers.html#cb1022-34" tabindex="-1"></a>) <span class="sc">%&gt;%</span> print</span></code></pre></div>
+## 2                      .SFNumeric-Regular
+## 3                AppleBraille-Outline6Dot
+## 4                AppleBraille-Outline8Dot
+## 5               AppleBraille-Pinpoint6Dot
+## 6               AppleBraille-Pinpoint8Dot
+## 7                            AppleBraille
+## 8                         AppleColorEmoji
+## 9                            AppleSymbols
+## 10               AppleSDGothicNeo-Regular
+## 11                               AquaKana
+## 12                            ArialHebrew
+## 13               AvenirNextCondensed-Bold
+## 14                        AvenirNext-Bold
+## 15                            Avenir-Book
+## 16          .CJKSymbolsFallbackHK-Regular
+## 17                                Courier
+## 18       .DecoTypeNastaleeqUrduUI-Regular
+## 19                               GeezaPro
+## 20                                 Geneva
+## 21                              Helvetica
+## 22                          HelveticaNeue
+## 23                      HiraginoSansGB-W3
+## 24                              .Keyboard
+## 25             KohinoorDevanagari-Regular
+## 26                 KohinoorBangla-Regular
+## 27                  KohinoorGujarati-Bold
+## 28                 KohinoorTelugu-Regular
+## 29                             LastResort
+## 30                           LucidaGrande
+## 31                        MarkerFelt-Thin
+## 32                          Menlo-Regular
+## 33                                 Monaco
+## 34                     MuktaMahee-Regular
+## 35                       .NewYork-Regular
+## 36                 .NewYork-RegularItalic
+## 37                       Noteworthy-Light
+## 38                       NotoNastaliqUrdu
+## 39                 NotoSansArmenian-Black
+## 40                   NotoSansKannada-Thin
+## 41                  NotoSansMyanmar-Black
+## 42                          NotoSansOriya
+## 43                 NotoSerifMyanmar-Black
+## 44                         Optima-Regular
+## 45                         Palatino-Roman
+## 46                      .SFArabic-Regular
+## 47               .SFArabicRounded-Regular
+## 48                    .SFArmenian-Regular
+## 49             .SFArmenianRounded-Regular
+## 50                     ..SFCamera-Regular
+## 51                       .SFCompact-Black
+## 52                 .SFCompact-BlackItalic
+## 53             ..SFCompactRounded-Regular
+## 54                    .SFGeorgian-Regular
+## 55             .SFGeorgianRounded-Regular
+## 56                      .SFHebrew-Regular
+## 57               .SFHebrewRounded-Regular
+## 58                      .SFBangla-Regular
+## 59                          .SFNS-Regular
+## 60                    .SFNS-RegularItalic
+## 61                        .SFNSMono-Light
+## 62                  .SFNSMono-LightItalic
+## 63                   .SFNSRounded-Regular
+## 64                        STHeitiTC-Light
+## 65                       STHeitiTC-Medium
+## 66                AcademyEngravedLetPlain
+## 67                                 AlNile
+## 68                               AlTarikh
+## 69                                AlBayan
+## 70                     AmericanTypewriter
+## 71                             AndaleMono
+## 72                         Apple-Chancery
+## 73                            AppleGothic
+## 74                           AppleMyungjo
+## 75                            Arial-Black
+## 76                     Arial-BoldItalicMT
+## 77                           Arial-BoldMT
+## 78                         Arial-ItalicMT
+## 79                 ArialNarrow-BoldItalic
+## 80                       ArialNarrow-Bold
+## 81                     ArialNarrow-Italic
+## 82                            ArialNarrow
+## 83                     ArialRoundedMTBold
+## 84                         ArialUnicodeMS
+## 85                                ArialMT
+## 86                        Athelas-Regular
+## 87                               Ayuthaya
+## 88                                Baghdad
+## 89                               BanglaMN
+## 90                         BanglaSangamMN
+## 91                            Baskerville
+## 92                                 Beirut
+## 93                       BigCaslon-Medium
+## 94              BodoniSvtyTwoOSITCTT-Book
+## 95              BodoniSvtyTwoSCITCTT-Book
+## 96                BodoniSvtyTwoITCTT-Book
+## 97                   BodoniOrnamentsITCTT
+## 98                  BradleyHandITCTT-Bold
+## 99                          BrushScriptMT
+## 100                            Chalkboard
+## 101                    ChalkboardSE-Light
+## 102                           Chalkduster
+## 103                         Charter-Roman
+## 104                                Cochin
+## 105                      ComicSansMS-Bold
+## 106                           ComicSansMS
+## 107                           Copperplate
+## 108                         CorsivaHebrew
+## 109             CourierNewPS-BoldItalicMT
+## 110                   CourierNewPS-BoldMT
+## 111                 CourierNewPS-ItalicMT
+## 112                        CourierNewPSMT
+## 113                              Damascus
+## 114                         DecoTypeNaskh
+## 115                    DevanagariSangamMN
+## 116                          DevanagariMT
+## 117                                 Didot
+## 118                     DINAlternate-Bold
+## 119                     DINCondensed-Bold
+## 120                             DiwanKufi
+## 121                          DiwanThuluth
+## 122                          EuphemiaUCAS
+## 123                                 Farah
+## 124                                Farisi
+## 125                         Futura-Medium
+## 126                                Galvji
+## 127                    Georgia-BoldItalic
+## 128                          Georgia-Bold
+## 129                        Georgia-Italic
+## 130                               Georgia
+## 131                              GillSans
+## 132                      GujaratiSangamMN
+## 133                            GujaratiMT
+## 134                            GurmukhiMN
+## 135                      GurmukhiSangamMN
+## 136                      MonotypeGurmukhi
+## 137                            Herculanum
+## 138                 HoeflerText-Ornaments
+## 139                   HoeflerText-Regular
+## 140                                Impact
+## 141                             InaiMathi
+## 142                   IowanOldStyle-Roman
+## 143                    ITFDevanagari-Book
+## 144                               Kailasa
+## 145                             KannadaMN
+## 146                       KannadaSangamMN
+## 147                       KefaIII-Regular
+## 148                               KhmerMN
+## 149                         KhmerSangamMN
+## 150                               Kokonor
+## 151                             Krungthep
+## 152                        KufiStandardGK
+## 153                                 LaoMN
+## 154                           LaoSangamMN
+## 155                      Luminari-Regular
+## 156                           MalayalamMN
+## 157                     MalayalamSangamMN
+## 158                        Marion-Regular
+## 159                    MicrosoftSansSerif
+## 160                      DiwanMishafiGold
+## 161                          DiwanMishafi
+## 162                              Mshtakan
+## 163                                  Muna
+## 164                             MyanmarMN
+## 165                       MyanmarSangamMN
+## 166                                Nadeem
+## 167                          NewPeninimMT
+## 168                         GB18030Bitmap
+## 169                 NotoSansAdlam-Regular
+## 170               NotoSansAvestan-Regular
+## 171                 NotoSansBamum-Regular
+## 172              NotoSansBassaVah-Regular
+## 173                 NotoSansBatak-Regular
+## 174             NotoSansBhaiksuki-Regular
+## 175                NotoSansBrahmi-Regular
+## 176              NotoSansBuginese-Regular
+## 177                 NotoSansBuhid-Regular
+## 178    NotoSansCanadianAboriginal-Regular
+## 179                NotoSansCarian-Regular
+## 180     NotoSansCaucasianAlbanian-Regular
+## 181                NotoSansChakma-Regular
+## 182                  NotoSansCham-Regular
+## 183                NotoSansCoptic-Regular
+## 184             NotoSansCuneiform-Regular
+## 185               NotoSansCypriot-Regular
+## 186              NotoSansDuployan-Regular
+## 187   NotoSansEgyptianHieroglyphs-Regular
+## 188               NotoSansElbasan-Regular
+## 189            NotoSansGlagolitic-Regular
+## 190                NotoSansGothic-Regular
+## 191          NotoSansGunjalaGondi-Regular
+## 192        NotoSansHanifiRohingya-Regular
+## 193               NotoSansHanunoo-Regular
+## 194                NotoSansHatran-Regular
+## 195       NotoSansImperialAramaic-Regular
+## 196  NotoSansInscriptionalPahlavi-Regular
+## 197 NotoSansInscriptionalParthian-Regular
+## 198              NotoSansJavanese-Regular
+## 199                NotoSansKaithi-Regular
+## 200               NotoSansKayahLi-Regular
+## 201            NotoSansKharoshthi-Regular
+## 202                NotoSansKhojki-Regular
+## 203             NotoSansKhudawadi-Regular
+## 204                NotoSansLepcha-Regular
+## 205                 NotoSansLimbu-Regular
+## 206               NotoSansLinearA-Regular
+## 207               NotoSansLinearB-Regular
+## 208                  NotoSansLisu-Regular
+## 209                NotoSansLycian-Regular
+## 210                NotoSansLydian-Regular
+## 211              NotoSansMahajani-Regular
+## 212               NotoSansMandaic-Regular
+## 213            NotoSansManichaean-Regular
+## 214               NotoSansMarchen-Regular
+## 215          NotoSansMasaramGondi-Regular
+## 216           NotoSansMeeteiMayek-Regular
+## 217          NotoSansMendeKikakui-Regular
+## 218              NotoSansMeroitic-Regular
+## 219                  NotoSansMiao-Regular
+## 220                  NotoSansModi-Regular
+## 221             NotoSansMongolian-Regular
+## 222                   NotoSansMro-Regular
+## 223               NotoSansMultani-Regular
+## 224             NotoSansNabataean-Regular
+## 225            NotoSansNagMundari-Regular
+## 226                  NotoSansNewa-Regular
+## 227             NotoSansNewTaiLue-Regular
+## 228                   NotoSansNKo-Regular
+## 229               NotoSansOlChiki-Regular
+## 230          NotoSansOldHungarian-Regular
+## 231             NotoSansOldItalic-Regular
+## 232       NotoSansOldNorthArabian-Regular
+## 233             NotoSansOldPermic-Regular
+## 234            NotoSansOldPersian-Regular
+## 235       NotoSansOldSouthArabian-Regular
+## 236             NotoSansOldTurkic-Regular
+## 237                 NotoSansOsage-Regular
+## 238               NotoSansOsmanya-Regular
+## 239           NotoSansPahawhHmong-Regular
+## 240             NotoSansPalmyrene-Regular
+## 241             NotoSansPauCinHau-Regular
+## 242               NotoSansPhagsPa-Regular
+## 243            NotoSansPhoenician-Regular
+## 244        NotoSansPsalterPahlavi-Regular
+## 245                NotoSansRejang-Regular
+## 246             NotoSansSamaritan-Regular
+## 247            NotoSansSaurashtra-Regular
+## 248               NotoSansSharada-Regular
+## 249               NotoSansSiddham-Regular
+## 250           NotoSansSoraSompeng-Regular
+## 251             NotoSansSundanese-Regular
+## 252           NotoSansSylotiNagri-Regular
+## 253                NotoSansSyriac-Regular
+## 254               NotoSansTagalog-Regular
+## 255              NotoSansTagbanwa-Regular
+## 256                 NotoSansTaiLe-Regular
+## 257                       NotoSansTaiTham
+## 258               NotoSansTaiViet-Regular
+## 259                 NotoSansTakri-Regular
+## 260                NotoSansThaana-Regular
+## 261              NotoSansTifinagh-Regular
+## 262               NotoSansTirhuta-Regular
+## 263              NotoSansUgaritic-Regular
+## 264                   NotoSansVai-Regular
+## 265                NotoSansWancho-Regular
+## 266            NotoSansWarangCiti-Regular
+## 267                    NotoSansYi-Regular
+## 268                 NotoSerifAhom-Regular
+## 269             NotoSerifBalinese-Regular
+## 270        NotoSerifHmongNyiakeng-Regular
+## 271               NotoSerifYezidi-Regular
+## 272                               OriyaMN
+## 273                         OriyaSangamMN
+## 274                     Papyrus-Condensed
+## 275                         PartyLetPlain
+## 276                      Phosphate-Inline
+## 277                   PlantagenetCherokee
+## 278                           PTMono-Bold
+## 279                        PTSans-Regular
+## 280                       PTSerif-Regular
+## 281                       PTSerif-Caption
+## 282                               Raanana
+## 283                      Rockwell-Regular
+## 284                                  Sana
+## 285                                 Sathu
+## 286                        SavoyeLetPlain
+## 287                               Seravek
+## 288                          ShreeDev0714
+## 289               SignPainter-HouseScript
+## 290                                 Silom
+## 291                             SinhalaMN
+## 292                       SinhalaSangamMN
+## 293                          Skia-Regular
+## 294                        SnellRoundhand
+## 295                     STSongti-SC-Black
+## 296                   STIXGeneral-Regular
+## 297                      STIXGeneral-Bold
+## 298                STIXGeneral-BoldItalic
+## 299                    STIXGeneral-Italic
+## 300                   STIXIntegralsD-Bold
+## 301                STIXIntegralsD-Regular
+## 302                  STIXIntegralsSm-Bold
+## 303               STIXIntegralsSm-Regular
+## 304                  STIXIntegralsUp-Bold
+## 305                 STIXIntegralsUpD-Bold
+## 306              STIXIntegralsUpD-Regular
+## 307               STIXIntegralsUp-Regular
+## 308                STIXIntegralsUpSm-Bold
+## 309             STIXIntegralsUpSm-Regular
+## 310                STIXNonUnicode-Regular
+## 311                   STIXNonUnicode-Bold
+## 312             STIXNonUnicode-BoldItalic
+## 313                 STIXNonUnicode-Italic
+## 314               STIXSizeFiveSym-Regular
+## 315                  STIXSizeFourSym-Bold
+## 316               STIXSizeFourSym-Regular
+## 317                   STIXSizeOneSym-Bold
+## 318                STIXSizeOneSym-Regular
+## 319                 STIXSizeThreeSym-Bold
+## 320              STIXSizeThreeSym-Regular
+## 321                   STIXSizeTwoSym-Bold
+## 322                STIXSizeTwoSym-Regular
+## 323                   STIXTwoMath-Regular
+## 324                    STIXTwoText-Italic
+## 325                           STIXTwoText
+## 326                  STIXVariants-Regular
+## 327                     STIXVariants-Bold
+## 328                     SukhumvitSet-Thin
+## 329                Superclarendon-Regular
+## 330                           Tahoma-Bold
+## 331                                Tahoma
+## 332                               TamilMN
+## 333                         TamilSangamMN
+## 334                              TeluguMN
+## 335                        TeluguSangamMN
+## 336                              Thonburi
+## 337          TimesNewRomanPS-BoldItalicMT
+## 338                TimesNewRomanPS-BoldMT
+## 339              TimesNewRomanPS-ItalicMT
+## 340                     TimesNewRomanPSMT
+## 341                           Trattatello
+## 342                  Trebuchet-BoldItalic
+## 343                      TrebuchetMS-Bold
+## 344                    TrebuchetMS-Italic
+## 345                           TrebuchetMS
+## 346                    Verdana-BoldItalic
+## 347                          Verdana-Bold
+## 348                        Verdana-Italic
+## 349                               Verdana
+## 350                                Waseem
+## 351                              Webdings
+## 352                            Wingdings2
+## 353                            Wingdings3
+## 354                     Wingdings-Regular
+## 355                               Zapfino
+## 356                                Symbol
+## 357                   .ThonburiUI-Regular
+## 358                           Times-Roman
+## 359                       ZapfDingbatsITC
+## 360                        HiraMaruPro-W4
+## 361                        HiraMinProN-W3
+## 362                       HiraginoSans-W0
+## 363                       HiraginoSans-W1
+## 364                       HiraginoSans-W2
+## 365                       HiraginoSans-W3
+## 366                       HiraginoSans-W4
+## 367                       HiraginoSans-W5
+## 368                       HiraginoSans-W6
+## 369                       HiraginoSans-W7
+## 370                       HiraginoSans-W8
+## 371                       HiraginoSans-W9</code></pre>
+<div class="sourceCode" id="cb1028"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1028-1"><a href="hex-stickers.html#cb1028-1" tabindex="-1"></a><span class="do">## Loading Google fonts (https://fonts.google.com/)</span></span>
+<span id="cb1028-2"><a href="hex-stickers.html#cb1028-2" tabindex="-1"></a></span>
+<span id="cb1028-3"><a href="hex-stickers.html#cb1028-3" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Dancing Script&quot;</span>) <span class="co"># selección de fonts de google</span></span>
+<span id="cb1028-4"><a href="hex-stickers.html#cb1028-4" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Bebas Neue&quot;</span>)</span>
+<span id="cb1028-5"><a href="hex-stickers.html#cb1028-5" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Fuggles&quot;</span>)</span>
+<span id="cb1028-6"><a href="hex-stickers.html#cb1028-6" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Roboto&quot;</span>)</span>
+<span id="cb1028-7"><a href="hex-stickers.html#cb1028-7" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Lobster&quot;</span>)</span>
+<span id="cb1028-8"><a href="hex-stickers.html#cb1028-8" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Raleway&quot;</span>)</span>
+<span id="cb1028-9"><a href="hex-stickers.html#cb1028-9" tabindex="-1"></a></span>
+<span id="cb1028-10"><a href="hex-stickers.html#cb1028-10" tabindex="-1"></a></span>
+<span id="cb1028-11"><a href="hex-stickers.html#cb1028-11" tabindex="-1"></a>cat_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;cat.jpg&#39;</span>)</span>
+<span id="cb1028-12"><a href="hex-stickers.html#cb1028-12" tabindex="-1"></a>analitica_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;Analitica3.png&#39;</span>)</span>
+<span id="cb1028-13"><a href="hex-stickers.html#cb1028-13" tabindex="-1"></a></span>
+<span id="cb1028-14"><a href="hex-stickers.html#cb1028-14" tabindex="-1"></a><span class="fu">sticker</span>(</span>
+<span id="cb1028-15"><a href="hex-stickers.html#cb1028-15" tabindex="-1"></a>  <span class="at">subplot=</span> analitica_img,</span>
+<span id="cb1028-16"><a href="hex-stickers.html#cb1028-16" tabindex="-1"></a>  <span class="at">package=</span><span class="st">&quot;Meow&quot;</span>,</span>
+<span id="cb1028-17"><a href="hex-stickers.html#cb1028-17" tabindex="-1"></a>  <span class="at">s_width =</span>.<span class="dv">75</span>,</span>
+<span id="cb1028-18"><a href="hex-stickers.html#cb1028-18" tabindex="-1"></a>  <span class="at">s_height =</span> .<span class="dv">75</span>,</span>
+<span id="cb1028-19"><a href="hex-stickers.html#cb1028-19" tabindex="-1"></a>  <span class="at">s_x=</span><span class="dv">1</span>,</span>
+<span id="cb1028-20"><a href="hex-stickers.html#cb1028-20" tabindex="-1"></a>  <span class="at">s_y=</span>.<span class="dv">75</span>,</span>
+<span id="cb1028-21"><a href="hex-stickers.html#cb1028-21" tabindex="-1"></a>  <span class="at">p_size=</span><span class="dv">19</span>,</span>
+<span id="cb1028-22"><a href="hex-stickers.html#cb1028-22" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="fl">1.0</span>,</span>
+<span id="cb1028-23"><a href="hex-stickers.html#cb1028-23" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.5</span>,</span>
+<span id="cb1028-24"><a href="hex-stickers.html#cb1028-24" tabindex="-1"></a>  <span class="at">p_color=</span> <span class="st">&#39;purple&#39;</span>,</span>
+<span id="cb1028-25"><a href="hex-stickers.html#cb1028-25" tabindex="-1"></a>  <span class="at">p_family=</span> <span class="st">&quot;Raleway&quot;</span>,</span>
+<span id="cb1028-26"><a href="hex-stickers.html#cb1028-26" tabindex="-1"></a>  <span class="at">h_fill =</span><span class="st">&#39;gold&#39;</span>,</span>
+<span id="cb1028-27"><a href="hex-stickers.html#cb1028-27" tabindex="-1"></a>  <span class="at">h_color=</span><span class="st">&#39;hotpink&#39;</span>,</span>
+<span id="cb1028-28"><a href="hex-stickers.html#cb1028-28" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="dv">2</span>,</span>
+<span id="cb1028-29"><a href="hex-stickers.html#cb1028-29" tabindex="-1"></a>  <span class="at">url=</span><span class="st">&quot;www.cat.foundation.com&quot;</span>,</span>
+<span id="cb1028-30"><a href="hex-stickers.html#cb1028-30" tabindex="-1"></a>  <span class="at">u_size=</span><span class="dv">4</span>,</span>
+<span id="cb1028-31"><a href="hex-stickers.html#cb1028-31" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;violetred&quot;</span>,</span>
+<span id="cb1028-32"><a href="hex-stickers.html#cb1028-32" tabindex="-1"></a>  <span class="at">spotlight=</span>T</span>
+<span id="cb1028-33"><a href="hex-stickers.html#cb1028-33" tabindex="-1"></a></span>
+<span id="cb1028-34"><a href="hex-stickers.html#cb1028-34" tabindex="-1"></a>) <span class="sc">%&gt;%</span> print</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/H5-1.png" width="672" /></p>
 
 </div>

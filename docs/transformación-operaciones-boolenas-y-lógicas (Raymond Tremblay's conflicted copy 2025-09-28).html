@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo10 Transformación: Rangos y más | Ciencia de Datos con R</title>
+  <title>Capítulo6 Transformación: Operaciones boolenas y lógicas | Ciencia de Datos con R</title>
   <meta name="description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo10 Transformación: Rangos y más | Ciencia de Datos con R" />
+  <meta property="og:title" content="Capítulo6 Transformación: Operaciones boolenas y lógicas | Ciencia de Datos con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo10 Transformación: Rangos y más | Ciencia de Datos con R" />
+  <meta name="twitter:title" content="Capítulo6 Transformación: Operaciones boolenas y lógicas | Ciencia de Datos con R" />
   
   <meta name="twitter:description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
   
@@ -23,15 +23,15 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-09-15" />
+<meta name="date" content="2025-09-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"/>
-<link rel="next" href="transformación-indices-parametricos-y-no-parametricos.html"/>
+<link rel="prev" href="transformación-estructura-de-un-archivo-y-selecionar-datos.html"/>
+<link rel="next" href="transformación-valores-faltantes.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -68,8 +68,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -79,7 +80,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -158,15 +159,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.0.2" data-path="index.html"><a href="index.html#libros-sugeridos"><i class="fa fa-check"></i><b>1.0.2</b> Libros sugeridos</a></li>
 <li class="chapter" data-level="1.0.3" data-path="index.html"><a href="index.html#programados"><i class="fa fa-check"></i><b>1.0.3</b> Programados</a></li>
 <li class="chapter" data-level="1.0.4" data-path="index.html"><a href="index.html#prerequisitos"><i class="fa fa-check"></i><b>1.0.4</b> Prerequisitos</a></li>
-<li class="chapter" data-level="1.0.5" data-path="10-Transformacion_Rank.html"><a href="#descripci%C3%B3n-del-curso"><i class="fa fa-check"></i><b>1.0.5</b> Descripción del curso</a></li>
+<li class="chapter" data-level="1.0.5" data-path="06-Transformacion_Funcion_basica.html"><a href="#descripci%C3%B3n-del-curso"><i class="fa fa-check"></i><b>1.0.5</b> Descripción del curso</a></li>
 <li class="chapter" data-level="1.0.6" data-path="index.html"><a href="index.html#objetivos-del-curso"><i class="fa fa-check"></i><b>1.0.6</b> Objetivos del curso</a></li>
-<li class="chapter" data-level="1.0.7" data-path="10-Transformacion_Rank.html"><a href="#puntuaci%C3%B3n"><i class="fa fa-check"></i><b>1.0.7</b> Puntuación:</a></li>
+<li class="chapter" data-level="1.0.7" data-path="06-Transformacion_Funcion_basica.html"><a href="#puntuaci%C3%B3n"><i class="fa fa-check"></i><b>1.0.7</b> Puntuación:</a></li>
 <li class="chapter" data-level="1.0.8" data-path="index.html"><a href="index.html#examenes"><i class="fa fa-check"></i><b>1.0.8</b> Examenes:</a></li>
 <li class="chapter" data-level="1.0.9" data-path="index.html"><a href="index.html#conferencias"><i class="fa fa-check"></i><b>1.0.9</b> Conferencias</a></li>
 <li class="chapter" data-level="1.0.10" data-path="index.html"><a href="index.html#ejercicios"><i class="fa fa-check"></i><b>1.0.10</b> Ejercicios</a></li>
 <li class="chapter" data-level="1.0.11" data-path="index.html"><a href="index.html#faltar-a-clase-y-examen"><i class="fa fa-check"></i><b>1.0.11</b> Faltar a clase y examen:</a></li>
 <li class="chapter" data-level="1.0.12" data-path="index.html"><a href="index.html#derechos-de-estudiantes-con-impedimentos"><i class="fa fa-check"></i><b>1.0.12</b> Derechos de Estudiantes con Impedimentos</a></li>
-<li class="chapter" data-level="1.0.13" data-path="10-Transformacion_Rank.html"><a href="#integridad-acad%C3%A9mica"><i class="fa fa-check"></i><b>1.0.13</b> Integridad académica</a></li>
+<li class="chapter" data-level="1.0.13" data-path="06-Transformacion_Funcion_basica.html"><a href="#integridad-acad%C3%A9mica"><i class="fa fa-check"></i><b>1.0.13</b> Integridad académica</a></li>
 <li class="chapter" data-level="1.0.14" data-path="index.html"><a href="index.html#comentario-sobre-grabar-videos-yo-audio-de-las-clases"><i class="fa fa-check"></i><b>1.0.14</b> Comentario sobre grabar videos y/o audio de las clases</a></li>
 <li class="chapter" data-level="1.0.15" data-path="index.html"><a href="index.html#espacio-libre-de-acoso-sexual"><i class="fa fa-check"></i><b>1.0.15</b> Espacio libre de acoso sexual</a></li>
 <li class="chapter" data-level="1.0.16" data-path="index.html"><a href="index.html#protocolo-de-la-clase"><i class="fa fa-check"></i><b>1.0.16</b> Protocolo de la Clase</a></li>
@@ -174,35 +175,35 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="flujo-de-trabajo.html"><a href="flujo-de-trabajo.html"><i class="fa fa-check"></i><b>2</b> Flujo de trabajo</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="flujo-de-trabajo.html"><a href="flujo-de-trabajo.html#temas"><i class="fa fa-check"></i><b>2.1</b> Temas:</a></li>
-<li class="chapter" data-level="2.2" data-path="10-Transformacion_Rank.html"><a href="#creaci%C3%B3n-de-un-proyecto"><i class="fa fa-check"></i><b>2.2</b> Creación de un proyecto:</a>
+<li class="chapter" data-level="2.2" data-path="06-Transformacion_Funcion_basica.html"><a href="#creaci%C3%B3n-de-un-proyecto"><i class="fa fa-check"></i><b>2.2</b> Creación de un proyecto:</a>
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="flujo-de-trabajo.html"><a href="flujo-de-trabajo.html#un-set-de-sobre-carros-en-el-archivo-paquete-datos"><i class="fa fa-check"></i><b>2.2.1</b> Un set de sobre carros en el archivo (paquete) <strong>datos</strong></a></li>
-<li class="chapter" data-level="2.2.2" data-path="10-Transformacion_Rank.html"><a href="#mi-primer-gr%C3%A1fico"><i class="fa fa-check"></i><b>2.2.2</b> Mi primer gráfico</a></li>
+<li class="chapter" data-level="2.2.2" data-path="06-Transformacion_Funcion_basica.html"><a href="#mi-primer-gr%C3%A1fico"><i class="fa fa-check"></i><b>2.2.2</b> Mi primer gráfico</a></li>
 <li class="chapter" data-level="2.2.3" data-path="flujo-de-trabajo.html"><a href="flujo-de-trabajo.html#las-funciones-head-y-tail"><i class="fa fa-check"></i><b>2.2.3</b> Las funciones <strong>head</strong> y <strong>tail</strong></a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="10-Transformacion_Rank.html"><a href="#informaci%C3%B3n-sobre-el-archivo"><i class="fa fa-check"></i><b>2.3</b> Información sobre el archivo</a>
+<li class="chapter" data-level="2.3" data-path="06-Transformacion_Funcion_basica.html"><a href="#informaci%C3%B3n-sobre-el-archivo"><i class="fa fa-check"></i><b>2.3</b> Información sobre el archivo</a>
 <ul>
 <li class="chapter" data-level="2.3.1" data-path="flujo-de-trabajo.html"><a href="flujo-de-trabajo.html#las-dimensiones-del-archivo"><i class="fa fa-check"></i><b>2.3.1</b> Las dimensiones del archivo</a></li>
-<li class="chapter" data-level="2.3.2" data-path="10-Transformacion_Rank.html"><a href="#construcci%C3%B3n-de-mi-primer-gr%C3%A1fico"><i class="fa fa-check"></i><b>2.3.2</b> Construcción de mi primer gráfico</a></li>
-<li class="chapter" data-level="2.3.3" data-path="10-Transformacion_Rank.html"><a href="#la-funci%C3%B3n-shape-para-cambiar-la-forma-de-los-puntos"><i class="fa fa-check"></i><b>2.3.3</b> La función shape para cambiar la forma de los puntos</a></li>
+<li class="chapter" data-level="2.3.2" data-path="06-Transformacion_Funcion_basica.html"><a href="#construcci%C3%B3n-de-mi-primer-gr%C3%A1fico"><i class="fa fa-check"></i><b>2.3.2</b> Construcción de mi primer gráfico</a></li>
+<li class="chapter" data-level="2.3.3" data-path="06-Transformacion_Funcion_basica.html"><a href="#la-funci%C3%B3n-shape-para-cambiar-la-forma-de-los-puntos"><i class="fa fa-check"></i><b>2.3.3</b> La función shape para cambiar la forma de los puntos</a></li>
 <li class="chapter" data-level="2.3.4" data-path="flujo-de-trabajo.html"><a href="flujo-de-trabajo.html#salvar-un-grafico-en-otro-formato"><i class="fa fa-check"></i><b>2.3.4</b> Salvar un grafico en otro formato</a></li>
-<li class="chapter" data-level="2.3.5" data-path="10-Transformacion_Rank.html"><a href="#extracci%C3%B3n-de-valores-de-un-conjunto-de-datos"><i class="fa fa-check"></i><b>2.3.5</b> Extracción de valores de un conjunto de datos</a></li>
+<li class="chapter" data-level="2.3.5" data-path="06-Transformacion_Funcion_basica.html"><a href="#extracci%C3%B3n-de-valores-de-un-conjunto-de-datos"><i class="fa fa-check"></i><b>2.3.5</b> Extracción de valores de un conjunto de datos</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="10-Transformacion_Rank.html"><a href="#ejemplos-de-gr%C3%A1ficos"><i class="fa fa-check"></i><b>2.4</b> Ejemplos de Gráficos</a></li>
+<li class="chapter" data-level="2.4" data-path="06-Transformacion_Funcion_basica.html"><a href="#ejemplos-de-gr%C3%A1ficos"><i class="fa fa-check"></i><b>2.4</b> Ejemplos de Gráficos</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="10-Transformacion_Rank.html"><a href="#visualizaci%C3%B3n-de-datos"><i class="fa fa-check"></i><b>3</b> Visualización de datos</a>
+<li class="chapter" data-level="3" data-path="06-Transformacion_Funcion_basica.html"><a href="#visualizaci%C3%B3n-de-datos"><i class="fa fa-check"></i><b>3</b> Visualización de datos</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html"><i class="fa fa-check"></i><b>3.1</b> Temas:</a>
 <ul>
 <li class="chapter" data-level="3.1.1" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html#los-paquetes"><i class="fa fa-check"></i><b>3.1.1</b> Los paquetes</a></li>
 <li class="chapter" data-level="3.1.2" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html#facet_wrap"><i class="fa fa-check"></i><b>3.1.2</b> Facet_wrap</a></li>
-<li class="chapter" data-level="3.1.3" data-path="10-Transformacion_Rank.html"><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>3.1.3</b> Regresión lineal</a></li>
-<li class="chapter" data-level="3.1.4" data-path="10-Transformacion_Rank.html"><a href="#regresi%C3%B3n-loess"><i class="fa fa-check"></i><b>3.1.4</b> Regresión Loess</a></li>
-<li class="chapter" data-level="3.1.5" data-path="10-Transformacion_Rank.html"><a href="#regresi%C3%B3n-loess-de-un-grupo"><i class="fa fa-check"></i><b>3.1.5</b> Regresión LOESS de un grupo</a></li>
-<li class="chapter" data-level="3.1.6" data-path="10-Transformacion_Rank.html"><a href="#regresi%C3%B3n-loess-1"><i class="fa fa-check"></i><b>3.1.6</b> Regresión LOESS:</a></li>
-<li class="chapter" data-level="3.1.7" data-path="10-Transformacion_Rank.html"><a href="#regresi%C3%B3n-lineal-ybmx"><i class="fa fa-check"></i><b>3.1.7</b> Regresión Lineal <span class="math display">\[y=b+mx\]</span></a></li>
+<li class="chapter" data-level="3.1.3" data-path="06-Transformacion_Funcion_basica.html"><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>3.1.3</b> Regresión lineal</a></li>
+<li class="chapter" data-level="3.1.4" data-path="06-Transformacion_Funcion_basica.html"><a href="#regresi%C3%B3n-loess"><i class="fa fa-check"></i><b>3.1.4</b> Regresión Loess</a></li>
+<li class="chapter" data-level="3.1.5" data-path="06-Transformacion_Funcion_basica.html"><a href="#regresi%C3%B3n-loess-de-un-grupo"><i class="fa fa-check"></i><b>3.1.5</b> Regresión LOESS de un grupo</a></li>
+<li class="chapter" data-level="3.1.6" data-path="06-Transformacion_Funcion_basica.html"><a href="#regresi%C3%B3n-loess-1"><i class="fa fa-check"></i><b>3.1.6</b> Regresión LOESS:</a></li>
+<li class="chapter" data-level="3.1.7" data-path="06-Transformacion_Funcion_basica.html"><a href="#regresi%C3%B3n-lineal-ybmx"><i class="fa fa-check"></i><b>3.1.7</b> Regresión Lineal <span class="math display">\[y=b+mx\]</span></a></li>
 <li class="chapter" data-level="3.1.8" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html#geom_bar"><i class="fa fa-check"></i><b>3.1.8</b> geom_bar()</a></li>
-<li class="chapter" data-level="3.1.9" data-path="10-Transformacion_Rank.html"><a href="#puntos-con-intervalo-m%C3%ADnimo-y-m%C3%A1ximo"><i class="fa fa-check"></i><b>3.1.9</b> Puntos con intervalo mínimo y máximo</a></li>
+<li class="chapter" data-level="3.1.9" data-path="06-Transformacion_Funcion_basica.html"><a href="#puntos-con-intervalo-m%C3%ADnimo-y-m%C3%A1ximo"><i class="fa fa-check"></i><b>3.1.9</b> Puntos con intervalo mínimo y máximo</a></li>
 <li class="chapter" data-level="3.1.10" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html#geom_boxplot"><i class="fa fa-check"></i><b>3.1.10</b> geom_boxplot</a></li>
 <li class="chapter" data-level="3.1.11" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html#geom_bar-y-circular"><i class="fa fa-check"></i><b>3.1.11</b> geom_bar y circular</a></li>
 </ul></li>
@@ -210,7 +211,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.2.1" data-path="visualización-de-datos.html"><a href="visualización-de-datos.html#ejercicios-1"><i class="fa fa-check"></i><b>3.2.1</b> Ejercicios</a></li>
 </ul></li>
-<li class="chapter" data-level="3.3" data-path="10-Transformacion_Rank.html"><a href="#vea-el-siguiente-gr%C3%A1fico"><i class="fa fa-check"></i><b>3.3</b> Vea el siguiente gráfico</a></li>
+<li class="chapter" data-level="3.3" data-path="06-Transformacion_Funcion_basica.html"><a href="#vea-el-siguiente-gr%C3%A1fico"><i class="fa fa-check"></i><b>3.3</b> Vea el siguiente gráfico</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="calculadora-sofisticada.html"><a href="calculadora-sofisticada.html"><i class="fa fa-check"></i><b>4</b> Calculadora sofisticada</a>
 <ul>
@@ -229,54 +230,54 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1.11" data-path="calculadora-sofisticada.html"><a href="calculadora-sofisticada.html#seleccionar-solamente-parte-de-los-datos-de-un-archivo"><i class="fa fa-check"></i><b>4.1.11</b> Seleccionar solamente parte de los datos de un archivo</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="10-Transformacion_Rank.html"><a href="#transformaci%C3%B3n-estructura-de-un-archivo-y-selecionar-datos"><i class="fa fa-check"></i><b>5</b> Transformación: Estructura de un archivo y selecionar datos</a>
+<li class="chapter" data-level="5" data-path="06-Transformacion_Funcion_basica.html"><a href="#transformaci%C3%B3n-estructura-de-un-archivo-y-selecionar-datos"><i class="fa fa-check"></i><b>5</b> Transformación: Estructura de un archivo y selecionar datos</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="transformación-estructura-de-un-archivo-y-selecionar-datos.html"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html"><i class="fa fa-check"></i><b>5.1</b> Evaluar el archivo el <strong>vuelo</strong></a>
 <ul>
 <li class="chapter" data-level="5.1.1" data-path="transformación-estructura-de-un-archivo-y-selecionar-datos.html"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#cual-son-todos-los-destinos-de-vuelos"><i class="fa fa-check"></i><b>5.1.1</b> Cual son todos los destinos de vuelos?</a></li>
 <li class="chapter" data-level="5.1.2" data-path="transformación-estructura-de-un-archivo-y-selecionar-datos.html"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#seleciona-los-vuelos-donde-el-destino-es-san-juan"><i class="fa fa-check"></i><b>5.1.2</b> Seleciona los vuelos donde el destino es San Juan</a></li>
 <li class="chapter" data-level="5.1.3" data-path="transformación-estructura-de-un-archivo-y-selecionar-datos.html"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#selecciona-los-vuelos-donde-el-destino-es-san-juan-el-dia-de-navidad"><i class="fa fa-check"></i><b>5.1.3</b> Selecciona los vuelos donde el destino es San Juan el dia de navidad</a></li>
-<li class="chapter" data-level="5.1.4" data-path="10-Transformacion_Rank.html"><a href="#selecciona-los-vuelos-que-salen-de-san-juan-en-el-dia-de-ti-cumplea%C3%B1os-y-contabiliza-cuanto-hubo"><i class="fa fa-check"></i><b>5.1.4</b> Selecciona los vuelos que salen de San Juan en el dia de ti cumpleaños y contabiliza cuanto hubo</a></li>
+<li class="chapter" data-level="5.1.4" data-path="06-Transformacion_Funcion_basica.html"><a href="#selecciona-los-vuelos-que-salen-de-san-juan-en-el-dia-de-ti-cumplea%C3%B1os-y-contabiliza-cuanto-hubo"><i class="fa fa-check"></i><b>5.1.4</b> Selecciona los vuelos que salen de San Juan en el dia de ti cumpleaños y contabiliza cuanto hubo</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="transformación-estructura-de-un-archivo-y-selecionar-datos.html"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#temas-reconocer-y-aplicar-las-diferentes-funciones"><i class="fa fa-check"></i><b>5.2</b> Temas: Reconocer y aplicar las diferentes funciones</a></li>
 <li class="chapter" data-level="5.3" data-path="transformación-estructura-de-un-archivo-y-selecionar-datos.html"><a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html#funciones"><i class="fa fa-check"></i><b>5.3</b> Funciones</a></li>
-<li class="chapter" data-level="5.4" data-path="10-Transformacion_Rank.html"><a href="#agrupar-por-m%C3%BAltiples-variables"><i class="fa fa-check"></i><b>5.4</b> Agrupar por múltiples variables</a></li>
+<li class="chapter" data-level="5.4" data-path="06-Transformacion_Funcion_basica.html"><a href="#agrupar-por-m%C3%BAltiples-variables"><i class="fa fa-check"></i><b>5.4</b> Agrupar por múltiples variables</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="10-Transformacion_Rank.html"><a href="#transformaci%C3%B3n-operaciones-boolenas-y-l%C3%B3gicas"><i class="fa fa-check"></i><b>6</b> Transformación: Operaciones boolenas y lógicas</a>
+<li class="chapter" data-level="6" data-path="06-Transformacion_Funcion_basica.html"><a href="#transformaci%C3%B3n-operaciones-boolenas-y-l%C3%B3gicas"><i class="fa fa-check"></i><b>6</b> Transformación: Operaciones boolenas y lógicas</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="10-Transformacion_Rank.html"><a href="#agrupar-por-m%C3%BAltiples-variables-1"><i class="fa fa-check"></i><b>6.1</b> Agrupar por múltiples variables</a></li>
-<li class="chapter" data-level="6.2" data-path="10-Transformacion_Rank.html"><a href="#operaciones-l%C3%B3gicas-boolean"><i class="fa fa-check"></i><b>6.2</b> Operaciones lógicas boolean:</a>
+<li class="chapter" data-level="6.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#agrupar-por-m%C3%BAltiples-variables-1"><i class="fa fa-check"></i><b>6.1</b> Agrupar por múltiples variables</a></li>
+<li class="chapter" data-level="6.2" data-path="06-Transformacion_Funcion_basica.html"><a href="#operaciones-l%C3%B3gicas-boolean"><i class="fa fa-check"></i><b>6.2</b> Operaciones lógicas boolean:</a>
 <ul>
 <li class="chapter" data-level="6.2.1" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html"><i class="fa fa-check"></i><b>6.2.1</b> Otra alternativa para filtrar</a></li>
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#ejercicios-2"><i class="fa fa-check"></i><b>6.3</b> Ejercicios</a></li>
 <li class="chapter" data-level="6.4" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#section"><i class="fa fa-check"></i><b>6.4</b> </a>
 <ul>
-<li class="chapter" data-level="6.4.1" data-path="10-Transformacion_Rank.html"><a href="#la-funci%C3%B3n-arrange"><i class="fa fa-check"></i><b>6.4.1</b> La función arrange()</a></li>
+<li class="chapter" data-level="6.4.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#la-funci%C3%B3n-arrange"><i class="fa fa-check"></i><b>6.4.1</b> La función arrange()</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="transformación-operaciones-boolenas-y-lógicas.html"><a href="transformación-operaciones-boolenas-y-lógicas.html#ejercicios-3"><i class="fa fa-check"></i><b>6.5</b> 2 <strong>Ejercicios</strong>:</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="10-Transformacion_Rank.html"><a href="#transformaci%C3%B3n-valores-faltantes"><i class="fa fa-check"></i><b>7</b> Transformación: Valores Faltantes</a>
+<li class="chapter" data-level="7" data-path="06-Transformacion_Funcion_basica.html"><a href="#transformaci%C3%B3n-valores-faltantes"><i class="fa fa-check"></i><b>7</b> Transformación: Valores Faltantes</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html"><i class="fa fa-check"></i><b>7.1</b> Valores faltantes</a>
 <ul>
-<li class="chapter" data-level="7.1.1" data-path="10-Transformacion_Rank.html"><a href="#qu%C3%A9-pasa-con-los-valores-faltantes-y-resultados-de-an%C3%A5lisis-sin-sentido"><i class="fa fa-check"></i><b>7.1.1</b> ¿Qué pasa con los valores faltantes y resultados de anålisis sin sentido?</a></li>
+<li class="chapter" data-level="7.1.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#qu%C3%A9-pasa-con-los-valores-faltantes-y-resultados-de-an%C3%A5lisis-sin-sentido"><i class="fa fa-check"></i><b>7.1.1</b> ¿Qué pasa con los valores faltantes y resultados de anålisis sin sentido?</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#creeamos-un-df-para-aclarar-estas-operaciones-con-na-en-un-data-frame"><i class="fa fa-check"></i><b>7.2</b> Creeamos un df para aclarar estas operaciones con NA en un data frame</a></li>
 <li class="chapter" data-level="7.3" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#contabilizar-los-na"><i class="fa fa-check"></i><b>7.3</b> Contabilizar los NA</a></li>
 <li class="chapter" data-level="7.4" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#seleccionar-solamente-los-vuelos-donde-el-horario-de-salida-es-desconocido"><i class="fa fa-check"></i><b>7.4</b> Seleccionar solamente los vuelos donde el “horario de salida” es desconocido</a></li>
 <li class="chapter" data-level="7.5" data-path="transformación-valores-faltantes.html"><a href="transformación-valores-faltantes.html#otras-funciones-na"><i class="fa fa-check"></i><b>7.5</b> Otras funciones: NA</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="10-Transformacion_Rank.html"><a href="#transformaci%C3%B3n-selecionar-variables"><i class="fa fa-check"></i><b>8</b> Transformación: Selecionar variables</a>
+<li class="chapter" data-level="8" data-path="06-Transformacion_Funcion_basica.html"><a href="#transformaci%C3%B3n-selecionar-variables"><i class="fa fa-check"></i><b>8</b> Transformación: Selecionar variables</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="10-Transformacion_Rank.html"><a href="#funciones-en-este-m%C3%B3dulo"><i class="fa fa-check"></i><b>8.1</b> Funciones en este módulo</a></li>
+<li class="chapter" data-level="8.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#funciones-en-este-m%C3%B3dulo"><i class="fa fa-check"></i><b>8.1</b> Funciones en este módulo</a></li>
 <li class="chapter" data-level="8.2" data-path="transformación-selecionar-variables.html"><a href="transformación-selecionar-variables.html"><i class="fa fa-check"></i><b>8.2</b> rename()</a></li>
-<li class="chapter" data-level="8.3" data-path="10-Transformacion_Rank.html"><a href="#reoganizar-el-orden-de-las-columnas-usando-select-y-everything-en-la-misma-funci%C3%B3n"><i class="fa fa-check"></i><b>8.3</b> Reoganizar el orden de las columnas, usando select() y everything() en la misma función</a></li>
+<li class="chapter" data-level="8.3" data-path="06-Transformacion_Funcion_basica.html"><a href="#reoganizar-el-orden-de-las-columnas-usando-select-y-everything-en-la-misma-funci%C3%B3n"><i class="fa fa-check"></i><b>8.3</b> Reoganizar el orden de las columnas, usando select() y everything() en la misma función</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="10-Transformacion_Rank.html"><a href="#transformaci%C3%B3n-mutate-transmute-lag-lead-cumsum-cummean-cumvar"><i class="fa fa-check"></i><b>9</b> Transformación: Mutate, transmute, lag, lead, cumsum, cummean, cumvar</a>
+<li class="chapter" data-level="9" data-path="06-Transformacion_Funcion_basica.html"><a href="#transformaci%C3%B3n-mutate-transmute-lag-lead-cumsum-cummean-cumvar"><i class="fa fa-check"></i><b>9</b> Transformación: Mutate, transmute, lag, lead, cumsum, cummean, cumvar</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="10-Transformacion_Rank.html"><a href="#funciones-en-este-m%C3%B3dulo-1"><i class="fa fa-check"></i><b>9.1</b> Funciones en este módulo</a></li>
-<li class="chapter" data-level="9.2" data-path="10-Transformacion_Rank.html"><a href="#crear-un-data-frame-m%C3%A1s-peque%C3%B1o-con-las-variables-de-interes"><i class="fa fa-check"></i><b>9.2</b> Crear un data frame más pequeño con las variables de interes</a></li>
+<li class="chapter" data-level="9.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#funciones-en-este-m%C3%B3dulo-1"><i class="fa fa-check"></i><b>9.1</b> Funciones en este módulo</a></li>
+<li class="chapter" data-level="9.2" data-path="06-Transformacion_Funcion_basica.html"><a href="#crear-un-data-frame-m%C3%A1s-peque%C3%B1o-con-las-variables-de-interes"><i class="fa fa-check"></i><b>9.2</b> Crear un data frame más pequeño con las variables de interes</a></li>
 <li class="chapter" data-level="9.3" data-path="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><i class="fa fa-check"></i><b>9.3</b> Crear nuevas variables</a></li>
 <li class="chapter" data-level="9.4" data-path="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#transmute"><i class="fa fa-check"></i><b>9.4</b> transmute()</a></li>
 <li class="chapter" data-level="9.5" data-path="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#lag"><i class="fa fa-check"></i><b>9.5</b> lag()</a></li>
@@ -284,28 +285,28 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.7" data-path="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#lead"><i class="fa fa-check"></i><b>9.7</b> lead(),</a></li>
 <li class="chapter" data-level="9.8" data-path="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cumsum"><i class="fa fa-check"></i><b>9.8</b> cumsum</a></li>
 <li class="chapter" data-level="9.9" data-path="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cummean-and-cumvar"><i class="fa fa-check"></i><b>9.9</b> cummean() and cumvar()</a></li>
-<li class="chapter" data-level="9.10" data-path="10-Transformacion_Rank.html"><a href="#uso-de-varianza-cumulativa-en-investigaci%C3%B3n"><i class="fa fa-check"></i><b>9.10</b> Uso de varianza cumulativa en investigación:</a></li>
+<li class="chapter" data-level="9.10" data-path="06-Transformacion_Funcion_basica.html"><a href="#uso-de-varianza-cumulativa-en-investigaci%C3%B3n"><i class="fa fa-check"></i><b>9.10</b> Uso de varianza cumulativa en investigación:</a></li>
 <li class="chapter" data-level="9.11" data-path="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#que-pasa-con-las-funciones-cummean-cumsum-y-cumvar-si-hay-na-en-el-archivo-de-datos"><i class="fa fa-check"></i><b>9.11</b> Que pasa con las funciones <strong>cummean</strong>, <strong>cumsum</strong> y <strong>cumvar</strong> si hay NA en el archivo de datos?</a>
 <ul>
-<li class="chapter" data-level="9.11.1" data-path="10-Transformacion_Rank.html"><a href="#replacar-los-na-con-0-usando-la-funci%C3%B3n-replace_na-con-un-valor-especifico-replace_navariable-0"><i class="fa fa-check"></i><b>9.11.1</b> Replacar los NA con 0, usando la función <strong>replace_na()</strong> con un valor especifico <strong>replace_na(“variable”, 0)</strong></a></li>
+<li class="chapter" data-level="9.11.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#replacar-los-na-con-0-usando-la-funci%C3%B3n-replace_na-con-un-valor-especifico-replace_navariable-0"><i class="fa fa-check"></i><b>9.11.1</b> Replacar los NA con 0, usando la función <strong>replace_na()</strong> con un valor especifico <strong>replace_na(“variable”, 0)</strong></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="10-Transformacion_Rank.html"><a href="#transformaci%C3%B3n-rangos-y-m%C3%A1s"><i class="fa fa-check"></i><b>10</b> Transformación: Rangos y más</a>
+<li class="chapter" data-level="10" data-path="06-Transformacion_Funcion_basica.html"><a href="#transformaci%C3%B3n-rangos-y-m%C3%A1s"><i class="fa fa-check"></i><b>10</b> Transformación: Rangos y más</a>
 <ul>
 <li class="chapter" data-level="10.1" data-path="transformación-rangos-y-más.html"><a href="transformación-rangos-y-más.html"><i class="fa fa-check"></i><b>10.1</b> Funciones en este modulo</a></li>
-<li class="chapter" data-level="10.2" data-path="10-Transformacion_Rank.html"><a href="#pruebas-no-param%C3%A9ticas"><i class="fa fa-check"></i><b>10.2</b> Pruebas no paraméticas</a></li>
+<li class="chapter" data-level="10.2" data-path="06-Transformacion_Funcion_basica.html"><a href="#pruebas-no-param%C3%A9ticas"><i class="fa fa-check"></i><b>10.2</b> Pruebas no paraméticas</a></li>
 <li class="chapter" data-level="10.3" data-path="transformación-rangos-y-más.html"><a href="transformación-rangos-y-más.html#min_rank-y-min_rankdesc"><i class="fa fa-check"></i><b>10.3</b> min_rank() y # min_rank(desc())</a></li>
 <li class="chapter" data-level="10.4" data-path="transformación-rangos-y-más.html"><a href="transformación-rangos-y-más.html#row_number"><i class="fa fa-check"></i><b>10.4</b> row_number()</a></li>
 <li class="chapter" data-level="10.5" data-path="transformación-rangos-y-más.html"><a href="transformación-rangos-y-más.html#dense_rank"><i class="fa fa-check"></i><b>10.5</b> dense_rank()</a></li>
-<li class="chapter" data-level="10.6" data-path="10-Transformacion_Rank.html"><a href="#la-funci%C3%B3n-percent_rank"><i class="fa fa-check"></i><b>10.6</b> la función <strong>percent_rank()</strong></a></li>
-<li class="chapter" data-level="10.7" data-path="10-Transformacion_Rank.html"><a href="#la-funci%C3%B3n-percent_rank-sin-na"><i class="fa fa-check"></i><b>10.7</b> la función <strong>percent_rank()</strong> sin <strong>NA</strong></a></li>
-<li class="chapter" data-level="10.8" data-path="10-Transformacion_Rank.html"><a href="#la-funci%C3%B3n-cume_dist"><i class="fa fa-check"></i><b>10.8</b> la función <strong>cume_dist()</strong></a></li>
-<li class="chapter" data-level="10.9" data-path="10-Transformacion_Rank.html"><a href="#res%C3%BAmenes-con-summarise-by-group-using-group_by"><i class="fa fa-check"></i><b>10.9</b> Resúmenes con summarise() by group using group_by()</a></li>
+<li class="chapter" data-level="10.6" data-path="06-Transformacion_Funcion_basica.html"><a href="#la-funci%C3%B3n-percent_rank"><i class="fa fa-check"></i><b>10.6</b> la función <strong>percent_rank()</strong></a></li>
+<li class="chapter" data-level="10.7" data-path="06-Transformacion_Funcion_basica.html"><a href="#la-funci%C3%B3n-percent_rank-sin-na"><i class="fa fa-check"></i><b>10.7</b> la función <strong>percent_rank()</strong> sin <strong>NA</strong></a></li>
+<li class="chapter" data-level="10.8" data-path="06-Transformacion_Funcion_basica.html"><a href="#la-funci%C3%B3n-cume_dist"><i class="fa fa-check"></i><b>10.8</b> la función <strong>cume_dist()</strong></a></li>
+<li class="chapter" data-level="10.9" data-path="06-Transformacion_Funcion_basica.html"><a href="#res%C3%BAmenes-con-summarise-by-group-using-group_by"><i class="fa fa-check"></i><b>10.9</b> Resúmenes con summarise() by group using group_by()</a></li>
 <li class="chapter" data-level="10.10" data-path="transformación-rangos-y-más.html"><a href="transformación-rangos-y-más.html#la-aerolinea-peor-en-atraso-de-salidas"><i class="fa fa-check"></i><b>10.10</b> La aerolinea peor en atraso de salidas</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="10-Transformacion_Rank.html"><a href="#transformaci%C3%B3n-indices-parametricos-y-no-parametricos"><i class="fa fa-check"></i><b>11</b> Transformación: Indices parametricos y no parametricos</a>
+<li class="chapter" data-level="11" data-path="06-Transformacion_Funcion_basica.html"><a href="#transformaci%C3%B3n-indices-parametricos-y-no-parametricos"><i class="fa fa-check"></i><b>11</b> Transformación: Indices parametricos y no parametricos</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="10-Transformacion_Rank.html"><a href="#funciones-estadistica-b%C3%A1sicas"><i class="fa fa-check"></i><b>11.1</b> Funciones estadistica básicas:</a></li>
+<li class="chapter" data-level="11.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#funciones-estadistica-b%C3%A1sicas"><i class="fa fa-check"></i><b>11.1</b> Funciones estadistica básicas:</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="script.html"><a href="script.html"><i class="fa fa-check"></i><b>12</b> Script</a>
 <ul>
@@ -316,10 +317,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="13.1" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#temas-3"><i class="fa fa-check"></i><b>13.1</b> Temas</a></li>
 <li class="chapter" data-level="13.2" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#terminos-importantes"><i class="fa fa-check"></i><b>13.2</b> Terminos importantes</a>
 <ul>
-<li class="chapter" data-level="13.2.1" data-path="10-Transformacion_Rank.html"><a href="#variaci%C3%B3n"><i class="fa fa-check"></i><b>13.2.1</b> Variación</a></li>
+<li class="chapter" data-level="13.2.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#variaci%C3%B3n"><i class="fa fa-check"></i><b>13.2.1</b> Variación</a></li>
 <li class="chapter" data-level="13.2.2" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#valores-faltantes-1"><i class="fa fa-check"></i><b>13.2.2</b> Valores faltantes</a></li>
-<li class="chapter" data-level="13.2.3" data-path="10-Transformacion_Rank.html"><a href="#covariaci%C3%B3n"><i class="fa fa-check"></i><b>13.2.3</b> Covariación</a></li>
-<li class="chapter" data-level="13.2.4" data-path="10-Transformacion_Rank.html"><a href="#dos-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>13.2.4</b> Dos variables categóricas</a></li>
+<li class="chapter" data-level="13.2.3" data-path="06-Transformacion_Funcion_basica.html"><a href="#covariaci%C3%B3n"><i class="fa fa-check"></i><b>13.2.3</b> Covariación</a></li>
+<li class="chapter" data-level="13.2.4" data-path="06-Transformacion_Funcion_basica.html"><a href="#dos-variables-categ%C3%B3ricas"><i class="fa fa-check"></i><b>13.2.4</b> Dos variables categóricas</a></li>
 <li class="chapter" data-level="13.2.5" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#dos-variables-continuas"><i class="fa fa-check"></i><b>13.2.5</b> Dos variables continuas</a></li>
 <li class="chapter" data-level="13.2.6" data-path="analisis-exploratorio.html"><a href="analisis-exploratorio.html#patrones-y-modelos"><i class="fa fa-check"></i><b>13.2.6</b> Patrones y modelos</a></li>
 </ul></li>
@@ -344,7 +345,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.3" data-path="tibbles.html"><a href="tibbles.html#crear-un-tribble"><i class="fa fa-check"></i><b>15.3</b> Crear un tribble</a></li>
 <li class="chapter" data-level="15.4" data-path="tibbles.html"><a href="tibbles.html#tibble-vs.-data.frame"><i class="fa fa-check"></i><b>15.4</b> tibble vs. data.frame</a></li>
 <li class="chapter" data-level="15.5" data-path="tibbles.html"><a href="tibbles.html#diferencias-entre-un-tibble-y-un-data-frame."><i class="fa fa-check"></i><b>15.5</b> Diferencias entre un tibble y un data frame.</a></li>
-<li class="chapter" data-level="15.6" data-path="10-Transformacion_Rank.html"><a href="#selecci%C3%B3n-de-subconjuntos-de-datos"><i class="fa fa-check"></i><b>15.6</b> Selección de subconjuntos de datos</a></li>
+<li class="chapter" data-level="15.6" data-path="06-Transformacion_Funcion_basica.html"><a href="#selecci%C3%B3n-de-subconjuntos-de-datos"><i class="fa fa-check"></i><b>15.6</b> Selección de subconjuntos de datos</a></li>
 </ul></li>
 <li class="chapter" data-level="16" data-path="importar-datos.html"><a href="importar-datos.html"><i class="fa fa-check"></i><b>16</b> Importar datos</a>
 <ul>
@@ -360,7 +361,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="16.4" data-path="importar-datos.html"><a href="importar-datos.html#comparar-con-base-r"><i class="fa fa-check"></i><b>16.4</b> Comparar con base R</a></li>
 <li class="chapter" data-level="16.5" data-path="importar-datos.html"><a href="importar-datos.html#segmentar-un-vector"><i class="fa fa-check"></i><b>16.5</b> Segmentar un vector</a></li>
-<li class="chapter" data-level="16.6" data-path="10-Transformacion_Rank.html"><a href="#n%C3%BAmeros"><i class="fa fa-check"></i><b>16.6</b> Números</a></li>
+<li class="chapter" data-level="16.6" data-path="06-Transformacion_Funcion_basica.html"><a href="#n%C3%BAmeros"><i class="fa fa-check"></i><b>16.6</b> Números</a></li>
 <li class="chapter" data-level="16.7" data-path="importar-datos.html"><a href="importar-datos.html#caderna-de-texto"><i class="fa fa-check"></i><b>16.7</b> Caderna de texto</a></li>
 <li class="chapter" data-level="16.8" data-path="importar-datos.html"><a href="importar-datos.html#factores"><i class="fa fa-check"></i><b>16.8</b> Factores</a></li>
 <li class="chapter" data-level="16.9" data-path="importar-datos.html"><a href="importar-datos.html#fechas-fechas-horas-horas"><i class="fa fa-check"></i><b>16.9</b> Fechas, fechas-horas, horas</a></li>
@@ -385,8 +386,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="18.3" data-path="datos-relacionados.html"><a href="datos-relacionados.html#uniones-de-transformaciones"><i class="fa fa-check"></i><b>18.3</b> Uniones de transformaciones</a></li>
 <li class="chapter" data-level="18.4" data-path="datos-relacionados.html"><a href="datos-relacionados.html#entendiendo-las-uniones"><i class="fa fa-check"></i><b>18.4</b> Entendiendo las uniones</a>
 <ul>
-<li class="chapter" data-level="18.4.1" data-path="10-Transformacion_Rank.html"><a href="#uni%C3%B3n-interiores"><i class="fa fa-check"></i><b>18.4.1</b> Unión interiores</a></li>
-<li class="chapter" data-level="18.4.2" data-path="10-Transformacion_Rank.html"><a href="#uni%C3%B3n-exteriores"><i class="fa fa-check"></i><b>18.4.2</b> Unión exteriores</a></li>
+<li class="chapter" data-level="18.4.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#uni%C3%B3n-interiores"><i class="fa fa-check"></i><b>18.4.1</b> Unión interiores</a></li>
+<li class="chapter" data-level="18.4.2" data-path="06-Transformacion_Funcion_basica.html"><a href="#uni%C3%B3n-exteriores"><i class="fa fa-check"></i><b>18.4.2</b> Unión exteriores</a></li>
 <li class="chapter" data-level="18.4.3" data-path="datos-relacionados.html"><a href="datos-relacionados.html#claves-duplicadas"><i class="fa fa-check"></i><b>18.4.3</b> Claves duplicadas</a></li>
 </ul></li>
 <li class="chapter" data-level="18.5" data-path="datos-relacionados.html"><a href="datos-relacionados.html#definiendo-las-columnas-clave"><i class="fa fa-check"></i><b>18.5</b> Definiendo las columnas clave</a></li>
@@ -396,9 +397,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="19" data-path="factores-1.html"><a href="factores-1.html"><i class="fa fa-check"></i><b>19</b> Factores</a>
 <ul>
-<li class="chapter" data-level="19.1" data-path="10-Transformacion_Rank.html"><a href="#qu%C3%A9-ocurrio-en-el-gr%C3%A1fico"><i class="fa fa-check"></i><b>19.1</b> ¿Qué ocurrio en el gráfico?</a>
+<li class="chapter" data-level="19.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#qu%C3%A9-ocurrio-en-el-gr%C3%A1fico"><i class="fa fa-check"></i><b>19.1</b> ¿Qué ocurrio en el gráfico?</a>
 <ul>
-<li class="chapter" data-level="19.1.1" data-path="10-Transformacion_Rank.html"><a href="#usando-la-funciones-factor-y-levels-estamos-asignando-los-factores-a-un-nivel-espec%C3%ADfico-en-el-orden-de-la-lista"><i class="fa fa-check"></i><b>19.1.1</b> Usando la funciones factor y levels, estamos asignando los factores a un nivel específico en el orden de la lista</a></li>
+<li class="chapter" data-level="19.1.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#usando-la-funciones-factor-y-levels-estamos-asignando-los-factores-a-un-nivel-espec%C3%ADfico-en-el-orden-de-la-lista"><i class="fa fa-check"></i><b>19.1.1</b> Usando la funciones factor y levels, estamos asignando los factores a un nivel específico en el orden de la lista</a></li>
 <li class="chapter" data-level="19.1.2" data-path="factores-1.html"><a href="factores-1.html#parse_factor-is-similar-a-factor-but-generates-a-warning-if-levels-have-been-specified-and-some-elements-of-x-are-not-found-in-those-levels."><i class="fa fa-check"></i><b>19.1.2</b> parse_factor() is similar a factor(), but generates a warning if levels have been specified and some elements of x are not found in those levels.</a></li>
 </ul></li>
 <li class="chapter" data-level="19.2" data-path="factores-1.html"><a href="factores-1.html#temas-4"><i class="fa fa-check"></i><b>19.2</b> Temas:</a>
@@ -409,10 +410,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.4" data-path="factores-1.html"><a href="factores-1.html#haga-un-re-order-por-la-cantidad-de-personas-por-religion"><i class="fa fa-check"></i><b>19.4</b> Haga un re-order por la cantidad de personas por religion</a></li>
 <li class="chapter" data-level="19.5" data-path="factores-1.html"><a href="factores-1.html#modificar-el-orden-de-los-factores"><i class="fa fa-check"></i><b>19.5</b> Modificar el orden de los factores</a>
 <ul>
-<li class="chapter" data-level="19.5.1" data-path="10-Transformacion_Rank.html"><a href="#nota-el-efecto-de-a%C3%B1adir-un---antes-de-edad"><i class="fa fa-check"></i><b>19.5.1</b> Nota el efecto de añadir un “-” antes de <strong>edad</strong></a></li>
+<li class="chapter" data-level="19.5.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#nota-el-efecto-de-a%C3%B1adir-un---antes-de-edad"><i class="fa fa-check"></i><b>19.5.1</b> Nota el efecto de añadir un “-” antes de <strong>edad</strong></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="20" data-path="10-Transformacion_Rank.html"><a href="#cadena-de-car%C3%A1cteres-strings"><i class="fa fa-check"></i><b>20</b> Cadena de Carácteres = STRINGS</a>
+<li class="chapter" data-level="20" data-path="06-Transformacion_Funcion_basica.html"><a href="#cadena-de-car%C3%A1cteres-strings"><i class="fa fa-check"></i><b>20</b> Cadena de Carácteres = STRINGS</a>
 <ul>
 <li class="chapter" data-level="20.1" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html"><i class="fa fa-check"></i><b>20.1</b> Caracteres especiales</a></li>
 <li class="chapter" data-level="20.2" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#para-ver-las-opciones-de-caracteres-y-como-trabajar-cadenas-de-caracteres-use-para-ver"><i class="fa fa-check"></i><b>20.2</b> Para ver las opciones de caracteres y como trabajar cadenas de caracteres use <strong>?“’”</strong> para ver</a></li>
@@ -421,22 +422,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="20.3.1" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#el-largo-de-una-cadena-de-caracteres-con-str_length"><i class="fa fa-check"></i><b>20.3.1</b> El largo de una cadena de caracteres con <strong>str_length</strong></a></li>
 <li class="chapter" data-level="20.3.2" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#combinar-cadenas-con-str_c"><i class="fa fa-check"></i><b>20.3.2</b> Combinar cadenas con <strong>str_c</strong></a></li>
 </ul></li>
-<li class="chapter" data-level="20.4" data-path="10-Transformacion_Rank.html"><a href="#dividir-cadenas-basado-en-la-posici%C3%B3n-de-los-caracteres-en-la-cadena"><i class="fa fa-check"></i><b>20.4</b> Dividir cadenas basado en la posición de los caracteres en la cadena</a>
+<li class="chapter" data-level="20.4" data-path="06-Transformacion_Funcion_basica.html"><a href="#dividir-cadenas-basado-en-la-posici%C3%B3n-de-los-caracteres-en-la-cadena"><i class="fa fa-check"></i><b>20.4</b> Dividir cadenas basado en la posición de los caracteres en la cadena</a>
 <ul>
-<li class="chapter" data-level="20.4.1" data-path="10-Transformacion_Rank.html"><a href="#seleccionar-los-caracteres-al-%C3%BAltimo-de-la-palabra"><i class="fa fa-check"></i><b>20.4.1</b> Seleccionar los caracteres al último de la palabra</a></li>
+<li class="chapter" data-level="20.4.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#seleccionar-los-caracteres-al-%C3%BAltimo-de-la-palabra"><i class="fa fa-check"></i><b>20.4.1</b> Seleccionar los caracteres al último de la palabra</a></li>
 <li class="chapter" data-level="20.4.2" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#cambiar-a-todo-minuscula"><i class="fa fa-check"></i><b>20.4.2</b> Cambiar a todo minuscula</a></li>
 <li class="chapter" data-level="20.4.3" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#cambiar-a-mayuscula"><i class="fa fa-check"></i><b>20.4.3</b> Cambiar a mayuscula</a></li>
 </ul></li>
 <li class="chapter" data-level="20.5" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#locales"><i class="fa fa-check"></i><b>20.5</b> Locales</a></li>
 <li class="chapter" data-level="20.6" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#buscar-patrones"><i class="fa fa-check"></i><b>20.6</b> Buscar patrones</a></li>
-<li class="chapter" data-level="20.7" data-path="10-Transformacion_Rank.html"><a href="#coincidencia-b%C3%A1sica"><i class="fa fa-check"></i><b>20.7</b> Coincidencia básica</a>
+<li class="chapter" data-level="20.7" data-path="06-Transformacion_Funcion_basica.html"><a href="#coincidencia-b%C3%A1sica"><i class="fa fa-check"></i><b>20.7</b> Coincidencia básica</a>
 <ul>
-<li class="chapter" data-level="20.7.1" data-path="10-Transformacion_Rank.html"><a href="#detectar-las-palabras-que-comienzan-con-una-letra-espec%C3%ADfica-con"><i class="fa fa-check"></i><b>20.7.1</b> Detectar las palabras que comienzan con una letra específica con “^”</a></li>
-<li class="chapter" data-level="20.7.2" data-path="10-Transformacion_Rank.html"><a href="#detectar-las-palabras-que-terminan-con-una-letra-espec%C3%ADfica-con"><i class="fa fa-check"></i><b>20.7.2</b> Detectar las palabras que terminan con una letra específica con “$”</a></li>
+<li class="chapter" data-level="20.7.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#detectar-las-palabras-que-comienzan-con-una-letra-espec%C3%ADfica-con"><i class="fa fa-check"></i><b>20.7.1</b> Detectar las palabras que comienzan con una letra específica con “^”</a></li>
+<li class="chapter" data-level="20.7.2" data-path="06-Transformacion_Funcion_basica.html"><a href="#detectar-las-palabras-que-terminan-con-una-letra-espec%C3%ADfica-con"><i class="fa fa-check"></i><b>20.7.2</b> Detectar las palabras que terminan con una letra específica con “$”</a></li>
 </ul></li>
 <li class="chapter" data-level="20.8" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#anclas"><i class="fa fa-check"></i><b>20.8</b> Anclas</a></li>
 <li class="chapter" data-level="20.9" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#clases-de-caracteres-y-alternativas"><i class="fa fa-check"></i><b>20.9</b> Clases de caracteres y alternativas</a></li>
-<li class="chapter" data-level="20.10" data-path="10-Transformacion_Rank.html"><a href="#repetici%C3%B3n"><i class="fa fa-check"></i><b>20.10</b> Repetición</a></li>
+<li class="chapter" data-level="20.10" data-path="06-Transformacion_Funcion_basica.html"><a href="#repetici%C3%B3n"><i class="fa fa-check"></i><b>20.10</b> Repetición</a></li>
 <li class="chapter" data-level="20.11" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#agrupamiento-y-referencias-previas"><i class="fa fa-check"></i><b>20.11</b> Agrupamiento y referencias previas</a></li>
 <li class="chapter" data-level="20.12" data-path="cadena-de-carácteres-strings.html"><a href="cadena-de-carácteres-strings.html#herramientas-objetivos"><i class="fa fa-check"></i><b>20.12</b> Herramientas: Objetivos</a>
 <ul>
@@ -451,19 +452,19 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="21" data-path="math-sci.html"><a href="math-sci.html"><i class="fa fa-check"></i><b>21</b> Ecuaciones Matemáticas</a>
 <ul>
-<li class="chapter" data-level="21.1" data-path="10-Transformacion_Rank.html"><a href="#ecuaciones-matem%C3%A1tica"><i class="fa fa-check"></i><b>21.1</b> Ecuaciones matemática</a>
+<li class="chapter" data-level="21.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#ecuaciones-matem%C3%A1tica"><i class="fa fa-check"></i><b>21.1</b> Ecuaciones matemática</a>
 <ul>
-<li class="chapter" data-level="21.1.1" data-path="10-Transformacion_Rank.html"><a href="#matem%C3%A1tica-y-f%C3%ADsica"><i class="fa fa-check"></i><b>21.1.1</b> Matemática y Física</a></li>
+<li class="chapter" data-level="21.1.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#matem%C3%A1tica-y-f%C3%ADsica"><i class="fa fa-check"></i><b>21.1.1</b> Matemática y Física</a></li>
 </ul></li>
-<li class="chapter" data-level="21.2" data-path="10-Transformacion_Rank.html"><a href="#s%C3%ADmbolos-de-latex"><i class="fa fa-check"></i><b>21.2</b> Símbolos de LATEX</a></li>
-<li class="chapter" data-level="21.3" data-path="10-Transformacion_Rank.html"><a href="#qu%C3%ADmica-101-s%C3%ADmbolos"><i class="fa fa-check"></i><b>21.3</b> Química 101: Símbolos</a></li>
-<li class="chapter" data-level="21.4" data-path="10-Transformacion_Rank.html"><a href="#s%C3%ADmbolos-comunes"><i class="fa fa-check"></i><b>21.4</b> Símbolos comunes</a>
+<li class="chapter" data-level="21.2" data-path="06-Transformacion_Funcion_basica.html"><a href="#s%C3%ADmbolos-de-latex"><i class="fa fa-check"></i><b>21.2</b> Símbolos de LATEX</a></li>
+<li class="chapter" data-level="21.3" data-path="06-Transformacion_Funcion_basica.html"><a href="#qu%C3%ADmica-101-s%C3%ADmbolos"><i class="fa fa-check"></i><b>21.3</b> Química 101: Símbolos</a></li>
+<li class="chapter" data-level="21.4" data-path="06-Transformacion_Funcion_basica.html"><a href="#s%C3%ADmbolos-comunes"><i class="fa fa-check"></i><b>21.4</b> Símbolos comunes</a>
 <ul>
-<li class="chapter" data-level="21.4.1" data-path="10-Transformacion_Rank.html"><a href="#t%C3%ADpografica-de-reaciones"><i class="fa fa-check"></i><b>21.4.1</b> Típografica de reaciones</a></li>
+<li class="chapter" data-level="21.4.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#t%C3%ADpografica-de-reaciones"><i class="fa fa-check"></i><b>21.4.1</b> Típografica de reaciones</a></li>
 <li class="chapter" data-level="21.4.2" data-path="math-sci.html"><a href="math-sci.html#otros-ejemplos-de-reacciones"><i class="fa fa-check"></i><b>21.4.2</b> Otros ejemplos de reacciones</a></li>
 </ul></li>
-<li class="chapter" data-level="21.5" data-path="10-Transformacion_Rank.html"><a href="#f%C3%ADsica"><i class="fa fa-check"></i><b>21.5</b> Física</a></li>
-<li class="chapter" data-level="21.6" data-path="10-Transformacion_Rank.html"><a href="#biolog%C3%ADa"><i class="fa fa-check"></i><b>21.6</b> Biología</a></li>
+<li class="chapter" data-level="21.5" data-path="06-Transformacion_Funcion_basica.html"><a href="#f%C3%ADsica"><i class="fa fa-check"></i><b>21.5</b> Física</a></li>
+<li class="chapter" data-level="21.6" data-path="06-Transformacion_Funcion_basica.html"><a href="#biolog%C3%ADa"><i class="fa fa-check"></i><b>21.6</b> Biología</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html"><i class="fa fa-check"></i><b>22</b> Opciones de Knitr</a>
 <ul>
@@ -486,13 +487,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="23.3.1" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#un-error-tipico"><i class="fa fa-check"></i><b>23.3.1</b> Un error tipico</a></li>
 </ul></li>
 <li class="chapter" data-level="23.4" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#intervalos-y-duraciones"><i class="fa fa-check"></i><b>23.4</b> Intervalos y duraciones</a></li>
-<li class="chapter" data-level="23.5" data-path="10-Transformacion_Rank.html"><a href="#el-operador----simplifica-el-c%C3%A1lculo-del-intervalo"><i class="fa fa-check"></i><b>23.5</b> El operador <code>%--%</code> simplifica el cálculo del intervalo</a></li>
+<li class="chapter" data-level="23.5" data-path="06-Transformacion_Funcion_basica.html"><a href="#el-operador----simplifica-el-c%C3%A1lculo-del-intervalo"><i class="fa fa-check"></i><b>23.5</b> El operador <code>%--%</code> simplifica el cálculo del intervalo</a></li>
 <li class="chapter" data-level="23.6" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#ejercicio-1"><i class="fa fa-check"></i><b>23.6</b> Ejercicio</a></li>
-<li class="chapter" data-level="23.7" data-path="10-Transformacion_Rank.html"><a href="#serie-de-funciones-para-calcular-la-duraci%C3%B3n-de-un-intervalo-de-tiempo."><i class="fa fa-check"></i><b>23.7</b> Serie de funciones para calcular la duración de un intervalo de tiempo.</a></li>
+<li class="chapter" data-level="23.7" data-path="06-Transformacion_Funcion_basica.html"><a href="#serie-de-funciones-para-calcular-la-duraci%C3%B3n-de-un-intervalo-de-tiempo."><i class="fa fa-check"></i><b>23.7</b> Serie de funciones para calcular la duración de un intervalo de tiempo.</a></li>
 <li class="chapter" data-level="23.8" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#as.duration"><i class="fa fa-check"></i><b>23.8</b> as.duration</a>
 <ul>
 <li class="chapter" data-level="23.8.1" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#funciones-1"><i class="fa fa-check"></i><b>23.8.1</b> Funciones</a></li>
-<li class="chapter" data-level="23.8.2" data-path="10-Transformacion_Rank.html"><a href="#fechas-con-a%C3%B1os-meses-y-d%C3%ADas"><i class="fa fa-check"></i><b>23.8.2</b> Fechas con años, meses y días</a></li>
+<li class="chapter" data-level="23.8.2" data-path="06-Transformacion_Funcion_basica.html"><a href="#fechas-con-a%C3%B1os-meses-y-d%C3%ADas"><i class="fa fa-check"></i><b>23.8.2</b> Fechas con años, meses y días</a></li>
 <li class="chapter" data-level="23.8.3" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#fechas-con-horas-minutos-y-segundos"><i class="fa fa-check"></i><b>23.8.3</b> Fechas con horas, minutos y segundos</a></li>
 <li class="chapter" data-level="23.8.4" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#fechas"><i class="fa fa-check"></i><b>23.8.4</b> Fechas</a></li>
 </ul></li>
@@ -503,11 +504,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="23.13" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#lapso-de-tiempo"><i class="fa fa-check"></i><b>23.13</b> Lapso de tiempo</a></li>
 <li class="chapter" data-level="23.14" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#duraciones"><i class="fa fa-check"></i><b>23.14</b> duraciones</a></li>
 <li class="chapter" data-level="23.15" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#puede-agregar-periodos-de-tiempo"><i class="fa fa-check"></i><b>23.15</b> Puede agregar periodos de tiempo</a></li>
-<li class="chapter" data-level="23.16" data-path="10-Transformacion_Rank.html"><a href="#per%C3%ADodos"><i class="fa fa-check"></i><b>23.16</b> períodos</a>
+<li class="chapter" data-level="23.16" data-path="06-Transformacion_Funcion_basica.html"><a href="#per%C3%ADodos"><i class="fa fa-check"></i><b>23.16</b> períodos</a>
 <ul>
 <li class="chapter" data-level="23.16.1" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#multiplicaciones-y-sumas-de-fechas"><i class="fa fa-check"></i><b>23.16.1</b> Multiplicaciones y sumas de fechas</a></li>
 </ul></li>
-<li class="chapter" data-level="23.17" data-path="10-Transformacion_Rank.html"><a href="#per%C3%ADodos-1"><i class="fa fa-check"></i><b>23.17</b> Períodos</a>
+<li class="chapter" data-level="23.17" data-path="06-Transformacion_Funcion_basica.html"><a href="#per%C3%ADodos-1"><i class="fa fa-check"></i><b>23.17</b> Períodos</a>
 <ul>
 <li class="chapter" data-level="23.17.1" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#multiplicaciones-y-sumas-de-periodos"><i class="fa fa-check"></i><b>23.17.1</b> Multiplicaciones y sumas de periodos</a></li>
 </ul></li>
@@ -517,7 +518,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="24" data-path="hex-stickers.html"><a href="hex-stickers.html"><i class="fa fa-check"></i><b>24</b> Hex Stickers</a>
 <ul>
-<li class="chapter" data-level="24.1" data-path="10-Transformacion_Rank.html"><a href="#la-funci%C3%B3n-y-los-valores-default"><i class="fa fa-check"></i><b>24.1</b> La función y los valores “default”</a></li>
+<li class="chapter" data-level="24.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#la-funci%C3%B3n-y-los-valores-default"><i class="fa fa-check"></i><b>24.1</b> La función y los valores “default”</a></li>
 <li class="chapter" data-level="24.2" data-path="hex-stickers.html"><a href="hex-stickers.html#ejemplo-de-crear-un-hex-con-un-gatito"><i class="fa fa-check"></i><b>24.2</b> Ejemplo de Crear un Hex con un gatito</a></li>
 </ul></li>
 <li class="chapter" data-level="25" data-path="nubes-de-palabra-en-r.html"><a href="nubes-de-palabra-en-r.html"><i class="fa fa-check"></i><b>25</b> Nubes de palabra en R</a>
@@ -539,12 +540,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="25.10.1" data-path="nubes-de-palabra-en-r.html"><a href="nubes-de-palabra-en-r.html#vea-este-enlace-para-los-stopwords-de-muchos-idiomas"><i class="fa fa-check"></i><b>25.10.1</b> Vea este enlace para los “stopwords” de muchos idiomas</a></li>
 </ul></li>
-<li class="chapter" data-level="25.11" data-path="10-Transformacion_Rank.html"><a href="#en-espa%C3%B1ol"><i class="fa fa-check"></i><b>25.11</b> En español</a>
+<li class="chapter" data-level="25.11" data-path="06-Transformacion_Funcion_basica.html"><a href="#en-espa%C3%B1ol"><i class="fa fa-check"></i><b>25.11</b> En español</a>
 <ul>
-<li class="chapter" data-level="25.11.1" data-path="10-Transformacion_Rank.html"><a href="#las-30-primeras-palabras-en-la-lista-de-stopword-del-paquete-stopwords-en-espa%C3%B1ol"><i class="fa fa-check"></i><b>25.11.1</b> Las 30 primeras palabras en la lista de stopword del paquete “stopwords” en español</a></li>
+<li class="chapter" data-level="25.11.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#las-30-primeras-palabras-en-la-lista-de-stopword-del-paquete-stopwords-en-espa%C3%B1ol"><i class="fa fa-check"></i><b>25.11.1</b> Las 30 primeras palabras en la lista de stopword del paquete “stopwords” en español</a></li>
 </ul></li>
 <li class="chapter" data-level="25.12" data-path="nubes-de-palabra-en-r.html"><a href="nubes-de-palabra-en-r.html#un-documento-para-hacer-un-word-cloud-la-intelegencia-artifical"><i class="fa fa-check"></i><b>25.12</b> Un documento para hacer un word cloud “La intelegencia artifical”</a></li>
-<li class="chapter" data-level="25.13" data-path="10-Transformacion_Rank.html"><a href="#convertir-su-documento-en-corpus-y-identificar-que-es-en-espa%C3%B1ol"><i class="fa fa-check"></i><b>25.13</b> Convertir su documento en <strong>Corpus</strong> y identificar que es en español</a></li>
+<li class="chapter" data-level="25.13" data-path="06-Transformacion_Funcion_basica.html"><a href="#convertir-su-documento-en-corpus-y-identificar-que-es-en-espa%C3%B1ol"><i class="fa fa-check"></i><b>25.13</b> Convertir su documento en <strong>Corpus</strong> y identificar que es en español</a></li>
 <li class="chapter" data-level="25.14" data-path="nubes-de-palabra-en-r.html"><a href="nubes-de-palabra-en-r.html#limpieza-del-documento"><i class="fa fa-check"></i><b>25.14</b> Limpieza del documento</a></li>
 <li class="chapter" data-level="25.15" data-path="nubes-de-palabra-en-r.html"><a href="nubes-de-palabra-en-r.html#transformar-el-texto-en-un-documento-de-texto-sencillo-plain-text"><i class="fa fa-check"></i><b>25.15</b> Transformar el texto en un documento de texto sencillo (Plain Text)</a></li>
 <li class="chapter" data-level="25.16" data-path="nubes-de-palabra-en-r.html"><a href="nubes-de-palabra-en-r.html#transformar-el-texto-para-reemplazar-algunos-caracteres-especiales"><i class="fa fa-check"></i><b>25.16</b> Transformar el texto para reemplazar algunos caracteres especiales</a></li>
@@ -555,20 +556,20 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="26.1" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#bajar-los-datos-de-la-web-del-usgs"><i class="fa fa-check"></i><b>26.1</b> Bajar los datos de la web del USGS</a></li>
 <li class="chapter" data-level="26.2" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#si-bajo-los-datos-a-mi-computadora"><i class="fa fa-check"></i><b>26.2</b> Si bajo los datos a mi computadora</a></li>
-<li class="chapter" data-level="26.3" data-path="10-Transformacion_Rank.html"><a href="#importaci%C3%B3n-de-paquetes-y-datos"><i class="fa fa-check"></i><b>26.3</b> Importación de Paquetes y Datos</a></li>
-<li class="chapter" data-level="26.4" data-path="10-Transformacion_Rank.html"><a href="#mapa-b%C3%A1sico-con-leaflet"><i class="fa fa-check"></i><b>26.4</b> Mapa básico con Leaflet</a></li>
+<li class="chapter" data-level="26.3" data-path="06-Transformacion_Funcion_basica.html"><a href="#importaci%C3%B3n-de-paquetes-y-datos"><i class="fa fa-check"></i><b>26.3</b> Importación de Paquetes y Datos</a></li>
+<li class="chapter" data-level="26.4" data-path="06-Transformacion_Funcion_basica.html"><a href="#mapa-b%C3%A1sico-con-leaflet"><i class="fa fa-check"></i><b>26.4</b> Mapa básico con Leaflet</a></li>
 <li class="chapter" data-level="26.5" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#usando-la-paletas-de-color-de-viridis"><i class="fa fa-check"></i><b>26.5</b> Usando la paletas de color de viridis</a></li>
 <li class="chapter" data-level="26.6" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#trabajando-con-datos-de-inaturalist"><i class="fa fa-check"></i><b>26.6</b> Trabajando con datos de iNaturalist</a>
 <ul>
 <li class="chapter" data-level="26.6.1" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#ahora-crea-un-mapa-de-los-terremotos-alrededor-de-puerto-rico"><i class="fa fa-check"></i><b>26.6.1</b> AHora crea un mapa de los terremotos alrededor de Puerto Rico</a></li>
 </ul></li>
 <li class="chapter" data-level="26.7" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#utilizando-leaflet"><i class="fa fa-check"></i><b>26.7</b> Utilizando Leaflet</a></li>
-<li class="chapter" data-level="26.8" data-path="10-Transformacion_Rank.html"><a href="#trabajando-variables-categ%C3%B3ricas-con-leaflet"><i class="fa fa-check"></i><b>26.8</b> Trabajando Variables Categóricas con Leaflet:</a></li>
+<li class="chapter" data-level="26.8" data-path="06-Transformacion_Funcion_basica.html"><a href="#trabajando-variables-categ%C3%B3ricas-con-leaflet"><i class="fa fa-check"></i><b>26.8</b> Trabajando Variables Categóricas con Leaflet:</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="appendix-a.html"><a href="appendix-a.html"><i class="fa fa-check"></i><b>A</b> Appendix A</a>
 <ul>
-<li class="chapter" data-level="A.1" data-path="10-Transformacion_Rank.html"><a href="#ejercicio-de-transformaci%C3%B3n"><i class="fa fa-check"></i><b>A.1</b> Ejercicio de Transformación</a></li>
+<li class="chapter" data-level="A.1" data-path="06-Transformacion_Funcion_basica.html"><a href="#ejercicio-de-transformaci%C3%B3n"><i class="fa fa-check"></i><b>A.1</b> Ejercicio de Transformación</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#capitulo-de-transformaci%C3%B3n-de-datos"><i class="fa fa-check"></i>Capitulo de Transformación de Datos</a></li>
 <li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#ejercicios-con-destrezar-de-aplicar-algunas-funciones-de-transformaciones-de-datos"><i class="fa fa-check"></i>Ejercicios con destrezar de aplicar algunas funciones de transformaciones de datos</a>
 <ul>
@@ -619,487 +620,279 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="transformación-rangos-y-más" class="section level1 hasAnchor" number="10">
-<h1><span class="header-section-number">Capítulo10</span> Transformación: Rangos y más<a href="#transformaci%C3%B3n-rangos-y-m%C3%A1s" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<pre><code>## [1] &quot;2025-09-15&quot;</code></pre>
-<div id="funciones-en-este-modulo" class="section level2 hasAnchor" number="10.1">
-<h2><span class="header-section-number">10.1</span> Funciones en este modulo<a href="transformación-rangos-y-más.html#funciones-en-este-modulo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>min_rank() # asigna valores de rangos a los valores originales</li>
-<li>row_number() # asigna valores de rangos a los valores originales</li>
-<li>desc() # ordena los valores de mayor a menor</li>
-<li>rank() # asigna valores de rangos a los valores originales</li>
-<li>first()</li>
-<li>dense_rank()</li>
-<li>percent_rank()</li>
-<li>cume_dist()</li>
-<li>rollmean()</li>
-</ul>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="transformación-rangos-y-más.html#cb327-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb327-2"><a href="transformación-rangos-y-más.html#cb327-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span></code></pre></div>
-</div>
-<div id="pruebas-no-paraméticas" class="section level2 hasAnchor" number="10.2">
-<h2><span class="header-section-number">10.2</span> Pruebas no paraméticas<a href="#pruebas-no-param%C3%A9ticas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>La pruebas no paramétricas no son basado en distribución normal y los indices como promedio, desviación estándar no se usan.</p>
-</div>
-<div id="min_rank-y-min_rankdesc" class="section level2 hasAnchor" number="10.3">
-<h2><span class="header-section-number">10.3</span> min_rank() y # min_rank(desc())<a href="transformación-rangos-y-más.html#min_rank-y-min_rankdesc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Asignar valores de rangos a los valores originales o de más grande a meas pequeño o vise versa.</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="transformación-rangos-y-más.html#cb328-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">45678</span>)</span>
-<span id="cb328-2"><a href="transformación-rangos-y-más.html#cb328-2" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>, <span class="dv">10</span>)</span>
-<span id="cb328-3"><a href="transformación-rangos-y-más.html#cb328-3" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>
-<pre><code>## [1] 22  1 36 46  7 39</code></pre>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="transformación-rangos-y-más.html#cb330-1" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as.tibble</span>(x)</span>
-<span id="cb330-2"><a href="transformación-rangos-y-más.html#cb330-2" tabindex="-1"></a>df</span></code></pre></div>
-<pre><code>## # A tibble: 10 × 1
-##    value
-##    &lt;int&gt;
-##  1    22
-##  2     1
-##  3    36
-##  4    46
-##  5     7
-##  6    39
-##  7    34
-##  8    10
-##  9    24
-## 10    30</code></pre>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="transformación-rangos-y-más.html#cb332-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb332-2"><a href="transformación-rangos-y-más.html#cb332-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
-<span id="cb332-3"><a href="transformación-rangos-y-más.html#cb332-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rango_minimo=</span><span class="fu">min_rank</span>(value)) <span class="sc">%&gt;%</span>  </span>
-<span id="cb332-4"><a href="transformación-rangos-y-más.html#cb332-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rango_min_desc=</span><span class="fu">min_rank</span>(<span class="fu">desc</span>(value)) )</span></code></pre></div>
-<pre><code>## # A tibble: 10 × 3
-##    value rango_minimo rango_min_desc
-##    &lt;int&gt;        &lt;int&gt;          &lt;int&gt;
-##  1    22            4              7
-##  2     1            1             10
-##  3    36            8              3
-##  4    46           10              1
-##  5     7            2              9
-##  6    39            9              2
-##  7    34            7              4
-##  8    10            3              8
-##  9    24            5              6
-## 10    30            6              5</code></pre>
-</div>
-<div id="row_number" class="section level2 hasAnchor" number="10.4">
-<h2><span class="header-section-number">10.4</span> row_number()<a href="transformación-rangos-y-más.html#row_number" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Qué hace la función <strong>row_number</strong>?</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="transformación-rangos-y-más.html#cb334-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">45678</span>)</span>
-<span id="cb334-2"><a href="transformación-rangos-y-más.html#cb334-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">21</span>,<span class="dv">22</span>,<span class="cn">NA</span>,<span class="dv">5</span>,<span class="dv">4</span>)</span>
-<span id="cb334-3"><a href="transformación-rangos-y-más.html#cb334-3" tabindex="-1"></a><span class="fu">head</span>(y)</span></code></pre></div>
-<pre><code>## [1] 10 21 22 NA  5  4</code></pre>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="transformación-rangos-y-más.html#cb336-1" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as.tibble</span>(y)</span>
-<span id="cb336-2"><a href="transformación-rangos-y-más.html#cb336-2" tabindex="-1"></a>df</span></code></pre></div>
-<pre><code>## # A tibble: 6 × 1
-##   value
-##   &lt;dbl&gt;
-## 1    10
-## 2    21
-## 3    22
-## 4    NA
-## 5     5
-## 6     4</code></pre>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="transformación-rangos-y-más.html#cb338-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb338-2"><a href="transformación-rangos-y-más.html#cb338-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
-<span id="cb338-3"><a href="transformación-rangos-y-más.html#cb338-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">row=</span><span class="fu">row_number</span>(value)) <span class="co"># equivalente a rank, </span></span></code></pre></div>
-<pre><code>## # A tibble: 6 × 2
-##   value   row
-##   &lt;dbl&gt; &lt;int&gt;
-## 1    10     3
-## 2    21     4
-## 3    22     5
-## 4    NA    NA
-## 5     5     2
-## 6     4     1</code></pre>
-</div>
-<div id="dense_rank" class="section level2 hasAnchor" number="10.5">
-<h2><span class="header-section-number">10.5</span> dense_rank()<a href="transformación-rangos-y-más.html#dense_rank" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="transformación-rangos-y-más.html#cb340-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">45678</span>)</span>
-<span id="cb340-2"><a href="transformación-rangos-y-más.html#cb340-2" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="cn">NA</span>,<span class="dv">51</span>,<span class="dv">4</span>)</span>
-<span id="cb340-3"><a href="transformación-rangos-y-más.html#cb340-3" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as.tibble</span>(z)</span>
-<span id="cb340-4"><a href="transformación-rangos-y-más.html#cb340-4" tabindex="-1"></a>df</span></code></pre></div>
-<pre><code>## # A tibble: 6 × 1
-##   value
-##   &lt;dbl&gt;
-## 1    10
-## 2    12
-## 3    12
-## 4    NA
-## 5    51
-## 6     4</code></pre>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="transformación-rangos-y-más.html#cb342-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb342-2"><a href="transformación-rangos-y-más.html#cb342-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
-<span id="cb342-3"><a href="transformación-rangos-y-más.html#cb342-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dense=</span><span class="fu">dense_rank</span>(value)) <span class="co"># equivalente a rank, NOTA que los NA no son asignado un valor</span></span></code></pre></div>
-<pre><code>## # A tibble: 6 × 2
-##   value dense
-##   &lt;dbl&gt; &lt;int&gt;
-## 1    10     2
-## 2    12     3
-## 3    12     3
-## 4    NA    NA
-## 5    51     4
-## 6     4     1</code></pre>
+<div id="transformación-operaciones-boolenas-y-lógicas" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Capítulo6</span> Transformación: Operaciones boolenas y lógicas<a href="#transformaci%C3%B3n-operaciones-boolenas-y-l%C3%B3gicas" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Fecha de la ultima revisión</p>
+<pre><code>## [1] &quot;2025-09-28&quot;</code></pre>
 <hr />
-</div>
-<div id="la-función-percent_rank" class="section level2 hasAnchor" number="10.6">
-<h2><span class="header-section-number">10.6</span> la función <strong>percent_rank()</strong><a href="#la-funci%C3%B3n-percent_rank" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="transformación-rangos-y-más.html#cb344-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">45678</span>)</span>
-<span id="cb344-2"><a href="transformación-rangos-y-más.html#cb344-2" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="cn">NA</span>,<span class="dv">5</span>,<span class="dv">4</span>)</span>
-<span id="cb344-3"><a href="transformación-rangos-y-más.html#cb344-3" tabindex="-1"></a>w</span></code></pre></div>
-<pre><code>## [1]  1  2  2 NA  5  4</code></pre>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="transformación-rangos-y-más.html#cb346-1" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as.tibble</span>(w)</span>
-<span id="cb346-2"><a href="transformación-rangos-y-más.html#cb346-2" tabindex="-1"></a>df</span></code></pre></div>
-<pre><code>## # A tibble: 6 × 1
-##   value
-##   &lt;dbl&gt;
-## 1     1
-## 2     2
-## 3     2
-## 4    NA
-## 5     5
-## 6     4</code></pre>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="transformación-rangos-y-más.html#cb348-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb348-2"><a href="transformación-rangos-y-más.html#cb348-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
-<span id="cb348-3"><a href="transformación-rangos-y-más.html#cb348-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porcentaje_rank=</span><span class="fu">percent_rank</span>(value)) <span class="co"># equivalente a rank, Un número entre a  0 y 1 calculado haciendo una re-escala de los valores usando min_rank to [0, 1]. NOTA que el valor más pequeño es reasignado un valor de 0 y el más grande un valor de 1.  </span></span></code></pre></div>
-<pre><code>## # A tibble: 6 × 2
-##   value porcentaje_rank
-##   &lt;dbl&gt;           &lt;dbl&gt;
-## 1     1            0   
-## 2     2            0.25
-## 3     2            0.25
-## 4    NA           NA   
-## 5     5            1   
-## 6     4            0.75</code></pre>
-</div>
-<div id="la-función-percent_rank-sin-na" class="section level2 hasAnchor" number="10.7">
-<h2><span class="header-section-number">10.7</span> la función <strong>percent_rank()</strong> sin <strong>NA</strong><a href="#la-funci%C3%B3n-percent_rank-sin-na" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="transformación-rangos-y-más.html#cb350-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">45678</span>)</span>
-<span id="cb350-2"><a href="transformación-rangos-y-más.html#cb350-2" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>, <span class="dv">7</span>)</span>
-<span id="cb350-3"><a href="transformación-rangos-y-más.html#cb350-3" tabindex="-1"></a>df2<span class="ot">=</span><span class="fu">as.tibble</span>(x2)</span>
-<span id="cb350-4"><a href="transformación-rangos-y-más.html#cb350-4" tabindex="-1"></a>df2</span></code></pre></div>
-<pre><code>## # A tibble: 7 × 1
-##   value
-##   &lt;int&gt;
-## 1    22
-## 2     1
-## 3    36
-## 4    46
-## 5     7
-## 6    39
-## 7    34</code></pre>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="transformación-rangos-y-más.html#cb352-1" tabindex="-1"></a>df2 <span class="sc">%&gt;%</span> </span>
-<span id="cb352-2"><a href="transformación-rangos-y-más.html#cb352-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
-<span id="cb352-3"><a href="transformación-rangos-y-más.html#cb352-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">porc2=</span><span class="fu">percent_rank</span>(value))</span></code></pre></div>
-<pre><code>## # A tibble: 7 × 2
-##   value porc2
-##   &lt;int&gt; &lt;dbl&gt;
-## 1    22 0.333
-## 2     1 0    
-## 3    36 0.667
-## 4    46 1    
-## 5     7 0.167
-## 6    39 0.833
-## 7    34 0.5</code></pre>
-</div>
-<div id="la-función-cume_dist" class="section level2 hasAnchor" number="10.8">
-<h2><span class="header-section-number">10.8</span> la función <strong>cume_dist()</strong><a href="#la-funci%C3%B3n-cume_dist" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Es la suma cumulativa de los rangos</p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="transformación-rangos-y-más.html#cb354-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">45678</span>)</span>
-<span id="cb354-2"><a href="transformación-rangos-y-más.html#cb354-2" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="cn">NA</span>,<span class="dv">5</span>,<span class="dv">4</span>, <span class="dv">10</span>, <span class="dv">8</span>)</span>
-<span id="cb354-3"><a href="transformación-rangos-y-más.html#cb354-3" tabindex="-1"></a>  x</span></code></pre></div>
-<pre><code>## [1]  1  2  3 NA  5  4 10  8</code></pre>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="transformación-rangos-y-más.html#cb356-1" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as.tibble</span>(x)</span>
-<span id="cb356-2"><a href="transformación-rangos-y-más.html#cb356-2" tabindex="-1"></a>df</span></code></pre></div>
-<pre><code>## # A tibble: 8 × 1
-##   value
-##   &lt;dbl&gt;
-## 1     1
-## 2     2
-## 3     3
-## 4    NA
-## 5     5
-## 6     4
-## 7    10
-## 8     8</code></pre>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="transformación-rangos-y-más.html#cb358-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb358-2"><a href="transformación-rangos-y-más.html#cb358-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
-<span id="cb358-3"><a href="transformación-rangos-y-más.html#cb358-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rangos_cumulativo=</span><span class="fu">cume_dist</span>(value)) </span></code></pre></div>
-<pre><code>## # A tibble: 8 × 2
-##   value rangos_cumulativo
-##   &lt;dbl&gt;             &lt;dbl&gt;
-## 1     1             0.143
-## 2     2             0.286
-## 3     3             0.429
-## 4    NA            NA    
-## 5     5             0.714
-## 6     4             0.571
-## 7    10             1    
-## 8     8             0.857</code></pre>
+<p>El tema proviene de los siguientes sitios.</p>
+<p>English: <a href="https://r4ds.had.co.nz/transform.html" class="uri">https://r4ds.had.co.nz/transform.html</a></p>
+<p>Español: <a href="https://es.r4ds.hadley.nz/05-transform.html" class="uri">https://es.r4ds.hadley.nz/05-transform.html</a></p>
 <hr />
-<ol start="4" style="list-style-type: decimal">
-<li><strong>Ejercicios</strong>:</li>
-</ol>
-<p>Hacer los ejercicios en la sección 5.5.2 del libro en español</p>
-<p>Encuentra los 10 vuelos más retrasados utilizando una función de ordenamiento. ¿Cómo quieres manejar los empates? Lee atentamente la documentación de min_rank().</p>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="transformación-rangos-y-más.html#cb360-1" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
-<pre><code>##  [1] &quot;anio&quot;               &quot;mes&quot;                &quot;dia&quot;               
-##  [4] &quot;horario_salida&quot;     &quot;salida_programada&quot;  &quot;atraso_salida&quot;     
-##  [7] &quot;horario_llegada&quot;    &quot;llegada_programada&quot; &quot;atraso_llegada&quot;    
-## [10] &quot;aerolinea&quot;          &quot;vuelo&quot;              &quot;codigo_cola&quot;       
-## [13] &quot;origen&quot;             &quot;destino&quot;            &quot;tiempo_vuelo&quot;      
-## [16] &quot;distancia&quot;          &quot;hora&quot;               &quot;minuto&quot;            
-## [19] &quot;fecha_hora&quot;</code></pre>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="transformación-rangos-y-más.html#cb362-1" tabindex="-1"></a>vuelos<span class="sc">%&gt;%</span></span>
-<span id="cb362-2"><a href="transformación-rangos-y-más.html#cb362-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(atraso_salida, aerolinea)<span class="sc">%&gt;%</span></span>
-<span id="cb362-3"><a href="transformación-rangos-y-más.html#cb362-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(atraso_salida))<span class="sc">%&gt;%</span> </span>
-<span id="cb362-4"><a href="transformación-rangos-y-más.html#cb362-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mas_atrados=</span><span class="fu">min_rank</span>(<span class="fu">desc</span>(atraso_salida))) <span class="sc">%&gt;%</span> </span>
-<span id="cb362-5"><a href="transformación-rangos-y-más.html#cb362-5" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 10 × 3
-##    atraso_salida aerolinea mas_atrados
-##            &lt;dbl&gt; &lt;chr&gt;           &lt;int&gt;
-##  1          1301 HA                  1
-##  2          1137 MQ                  2
-##  3          1126 MQ                  3
-##  4          1014 AA                  4
-##  5          1005 MQ                  5
-##  6           960 DL                  6
-##  7           911 DL                  7
-##  8           899 DL                  8
-##  9           898 DL                  9
-## 10           896 AA                 10</code></pre>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="transformación-rangos-y-más.html#cb364-1" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
-<pre><code>##  [1] &quot;anio&quot;               &quot;mes&quot;                &quot;dia&quot;               
-##  [4] &quot;horario_salida&quot;     &quot;salida_programada&quot;  &quot;atraso_salida&quot;     
-##  [7] &quot;horario_llegada&quot;    &quot;llegada_programada&quot; &quot;atraso_llegada&quot;    
-## [10] &quot;aerolinea&quot;          &quot;vuelo&quot;              &quot;codigo_cola&quot;       
-## [13] &quot;origen&quot;             &quot;destino&quot;            &quot;tiempo_vuelo&quot;      
-## [16] &quot;distancia&quot;          &quot;hora&quot;               &quot;minuto&quot;            
-## [19] &quot;fecha_hora&quot;</code></pre>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="transformación-rangos-y-más.html#cb366-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
-<span id="cb366-2"><a href="transformación-rangos-y-más.html#cb366-2" tabindex="-1"></a>  <span class="fu">arrange</span>(atraso_salida) <span class="sc">%&gt;%</span> </span>
-<span id="cb366-3"><a href="transformación-rangos-y-más.html#cb366-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rango_minimo=</span><span class="fu">min_rank</span>(atraso_salida)) <span class="sc">%&gt;%</span> </span>
-<span id="cb366-4"><a href="transformación-rangos-y-más.html#cb366-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 10 × 20
-##     anio   mes   dia horario_salida salida_programada atraso_salida
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;         &lt;dbl&gt;
-##  1  2013    12     7           2040              2123           -43
-##  2  2013     2     3           2022              2055           -33
-##  3  2013    11    10           1408              1440           -32
-##  4  2013     1    11           1900              1930           -30
-##  5  2013     1    29           1703              1730           -27
-##  6  2013     8     9            729               755           -26
-##  7  2013    10    23           1907              1932           -25
-##  8  2013     3    30           2030              2055           -25
-##  9  2013     3     2           1431              1455           -24
-## 10  2013     5     5            934               958           -24
-## # ℹ 14 more variables: horario_llegada &lt;int&gt;, llegada_programada &lt;int&gt;,
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb160-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb160-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb160-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb160-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb160-3" tabindex="-1"></a><span class="fu">head</span>(vuelos)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 19
+##    anio   mes   dia horario_salida salida_programada atraso_salida
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;         &lt;dbl&gt;
+## 1  2013     1     1            517               515             2
+## 2  2013     1     1            533               529             4
+## 3  2013     1     1            542               540             2
+## 4  2013     1     1            544               545            -1
+## 5  2013     1     1            554               600            -6
+## 6  2013     1     1            554               558            -4
+## # ℹ 13 more variables: horario_llegada &lt;int&gt;, llegada_programada &lt;int&gt;,
 ## #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;int&gt;, codigo_cola &lt;chr&gt;,
 ## #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
-## #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;, rango_minimo &lt;int&gt;</code></pre>
+## #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
+<p>Tema de este módulo:</p>
+<ul>
+<li><strong>Filtrar</strong> filas con <strong>filter()</strong></li>
+<li><strong>Seleccionar</strong> columnas con <strong>select()</strong></li>
+<li><strong>Agrupar</strong> con <strong>group_by()</strong></li>
+<li><strong>Resumir</strong> con <strong>summarise()</strong></li>
+<li><strong>Ordenar</strong> con <strong>arrange()</strong></li>
+<li>funciones <strong>Booleanas</strong> y <strong>lógicas</strong></li>
+</ul>
+<div id="agrupar-por-múltiples-variables-1" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Agrupar por múltiples variables<a href="#agrupar-por-m%C3%BAltiples-variables-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Aquí se agrupa por día y mes</p>
+</div>
+<div id="operaciones-lógicas-boolean" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Operaciones lógicas boolean:<a href="#operaciones-l%C3%B3gicas-boolean" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>&amp; “ampersand” == “conjunción”</li>
+<li>“|” or = “o”</li>
+<li>!, no incluye, excluir….</li>
+<li>%in%, filtrar para múltiples valores</li>
+<li>==, es igual a… “exactamente”</li>
+<li>“&lt;” menor que</li>
+<li>“&gt;” mayor que</li>
+<li>“&lt;=” es menor o igual</li>
+<li>“&gt;=” es mayor o igual</li>
+</ul>
+<p>Bollean, que incluye múltiples opciones %in%</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span></span>
+<span id="cb162-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_llegada, destino) <span class="sc">%&gt;%</span></span>
+<span id="cb162-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-3" tabindex="-1"></a>  <span class="fu">filter</span>(destino <span class="sc">==</span> <span class="st">&quot;SJU&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb162-4"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-4" tabindex="-1"></a>  <span class="fu">filter</span>(mes <span class="sc">==</span> <span class="fu">c</span>(<span class="dv">6</span><span class="sc">:</span><span class="dv">12</span>) <span class="sc">&amp;</span> dia <span class="sc">==</span> <span class="dv">25</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb162-5"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-5" tabindex="-1"></a>  <span class="fu">group_by</span>(dia, mes) <span class="sc">%&gt;%</span></span>
+<span id="cb162-6"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb162-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">atraso =</span> <span class="fu">mean</span>(atraso_llegada, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 7 × 3
+## # Groups:   dia [1]
+##     dia   mes atraso
+##   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
+## 1    25     6  14   
+## 2    25     7  -4.67
+## 3    25     8  -9   
+## 4    25     9 -19.5 
+## 5    25    10  -4   
+## 6    25    11 -13.5 
+## 7    25    12 -20.3</code></pre>
+<hr />
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span></span>
+<span id="cb164-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_salida, aerolinea) <span class="sc">%&gt;%</span></span>
+<span id="cb164-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-3" tabindex="-1"></a>  <span class="fu">group_by</span>(mes, aerolinea) <span class="sc">%&gt;%</span></span>
+<span id="cb164-4"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-4" tabindex="-1"></a>  <span class="fu">filter</span>(mes <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)) <span class="sc">%&gt;%</span> <span class="co"># mes entre 1 y 6</span></span>
+<span id="cb164-5"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-5" tabindex="-1"></a>  <span class="fu">filter</span>(aerolinea <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;AA&quot;</span>, <span class="st">&quot;UA&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb164-6"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb164-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">atraso =</span> <span class="fu">mean</span>(atraso_salida, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 12 × 3
+## # Groups:   mes [6]
+##      mes aerolinea atraso
+##    &lt;int&gt; &lt;chr&gt;      &lt;dbl&gt;
+##  1     1 AA          6.93
+##  2     1 UA          8.33
+##  3     2 AA          8.28
+##  4     2 UA          7.71
+##  5     3 AA          8.70
+##  6     3 UA         11.7 
+##  7     4 AA         11.7 
+##  8     4 UA         13.7 
+##  9     5 AA          9.66
+## 10     5 UA         12.3 
+## 11     6 AA         14.6 
+## 12     6 UA         20.3</code></pre>
+<div id="otra-alternativa-para-filtrar" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Otra alternativa para filtrar<a href="transformación-operaciones-boolenas-y-lógicas.html#otra-alternativa-para-filtrar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="or" class="section level4 hasAnchor" number="6.2.1.1">
+<h4><span class="header-section-number">6.2.1.1</span> “|” or<a href="transformación-operaciones-boolenas-y-lógicas.html#or" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb166-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span></span>
+<span id="cb166-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb166-2" tabindex="-1"></a>  <span class="fu">group_by</span>(mes) <span class="sc">%&gt;%</span></span>
+<span id="cb166-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb166-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_salida) <span class="sc">%&gt;%</span></span>
+<span id="cb166-4"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb166-4" tabindex="-1"></a>  <span class="fu">filter</span>(mes <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span> mes <span class="sc">==</span> <span class="dv">12</span>) <span class="sc">|&gt;</span>  <span class="co"># mes 1 o 12</span></span>
+<span id="cb166-5"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb166-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">atraso =</span> <span class="fu">mean</span>(atraso_salida, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##     mes atraso
+##   &lt;int&gt;  &lt;dbl&gt;
+## 1     1   10.0
+## 2    12   16.6</code></pre>
+</div>
+<div id="el-y" class="section level4 hasAnchor" number="6.2.1.2">
+<h4><span class="header-section-number">6.2.1.2</span> &amp; el “y”<a href="transformación-operaciones-boolenas-y-lógicas.html#el-y" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb168-1" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
+<pre><code>##  [1] &quot;anio&quot;               &quot;mes&quot;                &quot;dia&quot;               
+##  [4] &quot;horario_salida&quot;     &quot;salida_programada&quot;  &quot;atraso_salida&quot;     
+##  [7] &quot;horario_llegada&quot;    &quot;llegada_programada&quot; &quot;atraso_llegada&quot;    
+## [10] &quot;aerolinea&quot;          &quot;vuelo&quot;              &quot;codigo_cola&quot;       
+## [13] &quot;origen&quot;             &quot;destino&quot;            &quot;tiempo_vuelo&quot;      
+## [16] &quot;distancia&quot;          &quot;hora&quot;               &quot;minuto&quot;            
+## [19] &quot;fecha_hora&quot;</code></pre>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb170-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span></span>
+<span id="cb170-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb170-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_salida, aerolinea) <span class="sc">%&gt;%</span></span>
+<span id="cb170-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb170-3" tabindex="-1"></a>  <span class="fu">filter</span>(mes <span class="sc">==</span> <span class="dv">12</span> <span class="sc">&amp;</span> dia <span class="sc">==</span> <span class="dv">25</span> <span class="sc">&amp;</span> aerolinea <span class="sc">==</span> <span class="st">&quot;AA&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 78 × 5
+##     anio   mes   dia atraso_salida aerolinea
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;         &lt;dbl&gt; &lt;chr&gt;    
+##  1  2013    12    25             2 AA       
+##  2  2013    12    25            -4 AA       
+##  3  2013    12    25             1 AA       
+##  4  2013    12    25             0 AA       
+##  5  2013    12    25            -3 AA       
+##  6  2013    12    25            -2 AA       
+##  7  2013    12    25            26 AA       
+##  8  2013    12    25            -7 AA       
+##  9  2013    12    25            -6 AA       
+## 10  2013    12    25            21 AA       
+## # ℹ 68 more rows</code></pre>
 <hr />
 </div>
-<div id="resúmenes-con-summarise-by-group-using-group_by" class="section level2 hasAnchor" number="10.9">
-<h2><span class="header-section-number">10.9</span> Resúmenes con summarise() by group using group_by()<a href="#res%C3%BAmenes-con-summarise-by-group-using-group_by" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="transformación-rangos-y-más.html#cb368-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
-<span id="cb368-2"><a href="transformación-rangos-y-más.html#cb368-2" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
-<span id="cb368-3"><a href="transformación-rangos-y-más.html#cb368-3" tabindex="-1"></a><span class="fu">summarise</span>(flights, <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 1
-##   delay
-##   &lt;dbl&gt;
-## 1  12.6</code></pre>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="transformación-rangos-y-más.html#cb370-1" tabindex="-1"></a>flights <span class="sc">%&gt;%</span> </span>
-<span id="cb370-2"><a href="transformación-rangos-y-más.html#cb370-2" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 1 × 1
-##   delay
-##   &lt;dbl&gt;
-## 1  12.6</code></pre>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="transformación-rangos-y-más.html#cb372-1" tabindex="-1"></a>by_day <span class="ot">&lt;-</span> <span class="fu">group_by</span>(flights, year, month, day)</span>
-<span id="cb372-2"><a href="transformación-rangos-y-más.html#cb372-2" tabindex="-1"></a></span>
-<span id="cb372-3"><a href="transformación-rangos-y-más.html#cb372-3" tabindex="-1"></a><span class="fu">summarise</span>(by_day, <span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 365 × 4
-## # Groups:   year, month [12]
-##     year month   day delay
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
-##  1  2013     1     1 11.5 
-##  2  2013     1     2 13.9 
-##  3  2013     1     3 11.0 
-##  4  2013     1     4  8.95
-##  5  2013     1     5  5.73
-##  6  2013     1     6  7.15
-##  7  2013     1     7  5.42
-##  8  2013     1     8  2.55
-##  9  2013     1     9  2.28
-## 10  2013     1    10  2.84
-## # ℹ 355 more rows</code></pre>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="transformación-rangos-y-más.html#cb374-1" tabindex="-1"></a>flights <span class="sc">%&gt;%</span> </span>
-<span id="cb374-2"><a href="transformación-rangos-y-más.html#cb374-2" tabindex="-1"></a>  <span class="fu">group_by</span>(year, month, day) <span class="sc">%&gt;%</span> </span>
-<span id="cb374-3"><a href="transformación-rangos-y-más.html#cb374-3" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 365 × 4
-## # Groups:   year, month [12]
-##     year month   day delay
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
-##  1  2013     1     1 11.5 
-##  2  2013     1     2 13.9 
-##  3  2013     1     3 11.0 
-##  4  2013     1     4  8.95
-##  5  2013     1     5  5.73
-##  6  2013     1     6  7.15
-##  7  2013     1     7  5.42
-##  8  2013     1     8  2.55
-##  9  2013     1     9  2.28
-## 10  2013     1    10  2.84
-## # ℹ 355 more rows</code></pre>
 </div>
-<div id="la-aerolinea-peor-en-atraso-de-salidas" class="section level2 hasAnchor" number="10.10">
-<h2><span class="header-section-number">10.10</span> La aerolinea peor en atraso de salidas<a href="transformación-rangos-y-más.html#la-aerolinea-peor-en-atraso-de-salidas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="transformación-rangos-y-más.html#cb376-1" tabindex="-1"></a>flights <span class="sc">%&gt;%</span></span>
-<span id="cb376-2"><a href="transformación-rangos-y-más.html#cb376-2" tabindex="-1"></a><span class="fu">group_by</span>(carrier) <span class="sc">%&gt;%</span></span>
-<span id="cb376-3"><a href="transformación-rangos-y-más.html#cb376-3" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">delay =</span> <span class="fu">mean</span>(dep_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb376-4"><a href="transformación-rangos-y-más.html#cb376-4" tabindex="-1"></a><span class="fu">arrange</span>(<span class="fu">desc</span>(delay))</span></code></pre></div>
-<pre><code>## # A tibble: 16 × 2
-##    carrier delay
-##    &lt;chr&gt;   &lt;dbl&gt;
-##  1 F9      20.2 
-##  2 EV      20.0 
-##  3 YV      19.0 
-##  4 FL      18.7 
-##  5 WN      17.7 
-##  6 9E      16.7 
-##  7 B6      13.0 
-##  8 VX      12.9 
-##  9 OO      12.6 
-## 10 UA      12.1 
-## 11 MQ      10.6 
-## 12 DL       9.26
-## 13 AA       8.59
-## 14 AS       5.80
-## 15 HA       4.90
-## 16 US       3.78</code></pre>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="transformación-rangos-y-más.html#cb378-1" tabindex="-1"></a>by_dest <span class="ot">&lt;-</span> <span class="fu">group_by</span>(flights, dest)</span>
-<span id="cb378-2"><a href="transformación-rangos-y-más.html#cb378-2" tabindex="-1"></a>by_dest</span></code></pre></div>
-<pre><code>## # A tibble: 336,776 × 19
-## # Groups:   dest [105]
-##     year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
-##  1  2013     1     1      517            515         2      830            819
-##  2  2013     1     1      533            529         4      850            830
-##  3  2013     1     1      542            540         2      923            850
-##  4  2013     1     1      544            545        -1     1004           1022
-##  5  2013     1     1      554            600        -6      812            837
-##  6  2013     1     1      554            558        -4      740            728
-##  7  2013     1     1      555            600        -5      913            854
-##  8  2013     1     1      557            600        -3      709            723
-##  9  2013     1     1      557            600        -3      838            846
-## 10  2013     1     1      558            600        -2      753            745
-## # ℹ 336,766 more rows
-## # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
-## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
-## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="transformación-rangos-y-más.html#cb380-1" tabindex="-1"></a>delay <span class="ot">&lt;-</span> <span class="fu">summarise</span>(by_dest,</span>
-<span id="cb380-2"><a href="transformación-rangos-y-más.html#cb380-2" tabindex="-1"></a>  <span class="at">count =</span> <span class="fu">n</span>(),</span>
-<span id="cb380-3"><a href="transformación-rangos-y-más.html#cb380-3" tabindex="-1"></a>  <span class="at">dist =</span> <span class="fu">mean</span>(distance, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb380-4"><a href="transformación-rangos-y-más.html#cb380-4" tabindex="-1"></a>  <span class="at">delay =</span> <span class="fu">mean</span>(arr_delay, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb380-5"><a href="transformación-rangos-y-más.html#cb380-5" tabindex="-1"></a></span>
-<span id="cb380-6"><a href="transformación-rangos-y-más.html#cb380-6" tabindex="-1"></a></span>
-<span id="cb380-7"><a href="transformación-rangos-y-más.html#cb380-7" tabindex="-1"></a>delay</span></code></pre></div>
-<pre><code>## # A tibble: 105 × 4
-##    dest  count  dist delay
-##    &lt;chr&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 ABQ     254 1826   4.38
-##  2 ACK     265  199   4.85
-##  3 ALB     439  143  14.4 
-##  4 ANC       8 3370  -2.5 
-##  5 ATL   17215  757. 11.3 
-##  6 AUS    2439 1514.  6.02
-##  7 AVL     275  584.  8.00
-##  8 BDL     443  116   7.05
-##  9 BGR     375  378   8.03
-## 10 BHM     297  866. 16.9 
-## # ℹ 95 more rows</code></pre>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="transformación-rangos-y-más.html#cb382-1" tabindex="-1"></a><span class="co">#&gt; `summarise()` ungrouping output (override with `.groups` argument)</span></span>
-<span id="cb382-2"><a href="transformación-rangos-y-más.html#cb382-2" tabindex="-1"></a>delay <span class="ot">&lt;-</span> <span class="fu">filter</span>(delay, count <span class="sc">&gt;</span> <span class="dv">20</span>, dest <span class="sc">!=</span> <span class="st">&quot;HNL&quot;</span>)</span>
-<span id="cb382-3"><a href="transformación-rangos-y-más.html#cb382-3" tabindex="-1"></a></span>
-<span id="cb382-4"><a href="transformación-rangos-y-más.html#cb382-4" tabindex="-1"></a><span class="co"># It looks like delays increase with distance up to ~750 miles </span></span>
-<span id="cb382-5"><a href="transformación-rangos-y-más.html#cb382-5" tabindex="-1"></a><span class="co"># and then decrease. Maybe as flights get longer there&#39;s more </span></span>
-<span id="cb382-6"><a href="transformación-rangos-y-más.html#cb382-6" tabindex="-1"></a><span class="co"># ability to make up delays in the air?</span></span>
-<span id="cb382-7"><a href="transformación-rangos-y-más.html#cb382-7" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> delay, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> delay)) <span class="sc">+</span></span>
-<span id="cb382-8"><a href="transformación-rangos-y-más.html#cb382-8" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">size =</span> count), <span class="at">alpha =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb382-9"><a href="transformación-rangos-y-más.html#cb382-9" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="Ciencia-Datos-con-R_files/figure-html/T14-1.png" width="672" /></p>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="transformación-rangos-y-más.html#cb383-1" tabindex="-1"></a><span class="co">#&gt; `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</span></span></code></pre></div>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="transformación-rangos-y-más.html#cb384-1" tabindex="-1"></a><span class="fu">names</span>(delay)</span></code></pre></div>
-<pre><code>## [1] &quot;dest&quot;  &quot;count&quot; &quot;dist&quot;  &quot;delay&quot;</code></pre>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="transformación-rangos-y-más.html#cb386-1" tabindex="-1"></a><span class="fu">head</span>(delay)</span></code></pre></div>
-<pre><code>## # A tibble: 6 × 4
-##   dest  count  dist delay
-##   &lt;chr&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 ABQ     254 1826   4.38
-## 2 ACK     265  199   4.85
-## 3 ALB     439  143  14.4 
-## 4 ATL   17215  757. 11.3 
-## 5 AUS    2439 1514.  6.02
-## 6 AVL     275  584.  8.00</code></pre>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="transformación-rangos-y-más.html#cb388-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> delay, <span class="fu">aes</span>(<span class="at">x =</span> dist, <span class="at">y =</span> delay, <span class="at">label=</span>dest)) <span class="sc">+</span></span>
-<span id="cb388-2"><a href="transformación-rangos-y-más.html#cb388-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb388-3"><a href="transformación-rangos-y-más.html#cb388-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb388-4"><a href="transformación-rangos-y-más.html#cb388-4" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">size=</span><span class="dv">2</span>,<span class="fu">aes</span>(<span class="at">label=</span>dest), <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">vjust=</span><span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div>
-<p><img src="Ciencia-Datos-con-R_files/figure-html/T15-1.png" width="672" /></p>
+</div>
+<div id="ejercicios-2" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Ejercicios<a href="transformación-operaciones-boolenas-y-lógicas.html#ejercicios-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Como se seleccionaría los meses de diciembre pero desde la del 25 o más</p>
 <hr />
-<p>Rolling average:</p>
-<p><a href="https://stackoverflow.com/questions/743812/calculating-moving-average" class="uri">https://stackoverflow.com/questions/743812/calculating-moving-average</a></p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="transformación-rangos-y-más.html#cb389-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb389-2"><a href="transformación-rangos-y-más.html#cb389-2" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
-<span id="cb389-3"><a href="transformación-rangos-y-más.html#cb389-3" tabindex="-1"></a></span>
-<span id="cb389-4"><a href="transformación-rangos-y-más.html#cb389-4" tabindex="-1"></a>some_data <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">day =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb389-5"><a href="transformación-rangos-y-más.html#cb389-5" tabindex="-1"></a>some_data</span></code></pre></div>
+</div>
+<div id="section" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> </h2>
+<p>!, <strong>excluye algo</strong>, En este caso estamos excluyendo las aerolinea “AA” y “DL”</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span></span>
+<span id="cb172-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, mes, dia, atraso_salida, aerolinea) <span class="sc">%&gt;%</span></span>
+<span id="cb172-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-3" tabindex="-1"></a>  <span class="fu">filter</span>(mes <span class="sc">==</span> <span class="dv">11</span> <span class="sc">&amp;</span> <span class="sc">!</span>aerolinea <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;AA&quot;</span>, <span class="st">&quot;DL&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb172-4"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-4" tabindex="-1"></a>  <span class="fu">group_by</span>(aerolinea) <span class="sc">%&gt;%</span></span>
+<span id="cb172-5"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb172-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">atraso =</span> <span class="fu">mean</span>(atraso_salida, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 14 × 2
+##    aerolinea atraso
+##    &lt;chr&gt;      &lt;dbl&gt;
+##  1 9E         7.56 
+##  2 AS         3.08 
+##  3 B6         3.52 
+##  4 EV         9.83 
+##  5 F9        13.5  
+##  6 FL        16.9  
+##  7 HA        -5.44 
+##  8 MQ         3.28 
+##  9 OO         0.8  
+## 10 UA         6.37 
+## 11 US         0.576
+## 12 VX         7.80 
+## 13 WN        11.0  
+## 14 YV        10.5</code></pre>
+<hr />
+<p><strong>Ejercicios</strong>:</p>
+<p>Hacer los ejercicios en la sección 5.2.4 del libro en español</p>
+<p>5.2.4 Ejercicios</p>
+<ol style="list-style-type: decimal">
+<li>Encuentra todos los vuelos que:</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li><p>Tuvieron un retraso de llegada de dos o más horas</p></li>
+<li><p>Volaron a Houston (IAH o HOU)</p></li>
+</ol>
+<p>Cual son estos aeropuertos, Hou == Houston, IAH == George Bush, Texas</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Seleciona solamente los vuelos que fueron operados por United, American o Delta</p></li>
+<li><p>Selecciona solamente los vuelos que partieron en invierno del hemisferio sur (julio, agosto y septiembre)</p></li>
+<li><p>Selecciona solamente los vuelos excluyendo los dias del 2 al 29 de cualquier mes</p></li>
+</ol>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb174-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span></span>
+<span id="cb174-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb174-2" tabindex="-1"></a>  <span class="fu">filter</span>(atraso_salida <span class="sc">&lt;=</span><span class="dv">0</span> <span class="sc">&amp;</span> atraso_llegada <span class="sc">&gt;=</span><span class="dv">120</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 29 × 19
+##     anio   mes   dia horario_salida salida_programada atraso_salida
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;         &lt;dbl&gt;
+##  1  2013     1    27           1419              1420            -1
+##  2  2013    10     7           1350              1350             0
+##  3  2013    10     7           1357              1359            -2
+##  4  2013    10    16            657               700            -3
+##  5  2013    11     1            658               700            -2
+##  6  2013     3    18           1844              1847            -3
+##  7  2013     4    17           1635              1640            -5
+##  8  2013     4    18            558               600            -2
+##  9  2013     4    18            655               700            -5
+## 10  2013     5    22           1827              1830            -3
+## # ℹ 19 more rows
+## # ℹ 13 more variables: horario_llegada &lt;int&gt;, llegada_programada &lt;int&gt;,
+## #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;int&gt;, codigo_cola &lt;chr&gt;,
+## #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
+## #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Selecciona solamente los vuelos que llegaron más de dos horas tarde, pero no salieron tarde</p></li>
+<li><p>Selecciona solamente los vuelos que se retrasaron por lo menos una hora, pero repusieron más de 30 minutos en vuelo</p></li>
+<li><p>Selecciona solamente los vuelos que partieron entre la medianoche y las 6a.m. (incluyente)</p></li>
+<li><p>Otra función de dplyr que es útil para usar filtros es between(). ¿Qué hace? ¿Puedes usarla para simplificar el código necesario para responder a los desafíos anteriores?</p></li>
+<li><p>Determinar cual “aerolinea” tiene más vuelos</p></li>
+</ol>
+<hr />
+<div id="la-función-arrange" class="section level3 hasAnchor" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> La función arrange()<a href="#la-funci%C3%B3n-arrange" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>arrange()</p>
+<hr />
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb176-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb176-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb176-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(horario_salida) <span class="sc">%&gt;%</span> </span>
+<span id="cb176-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb176-3" tabindex="-1"></a>  <span class="fu">arrange</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb176-4"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb176-4" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 1
-##      day
-##    &lt;int&gt;
-##  1     1
-##  2     2
-##  3     3
-##  4     4
-##  5     5
-##  6     6
-##  7     7
-##  8     8
-##  9     9
-## 10    10</code></pre>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="transformación-rangos-y-más.html#cb391-1" tabindex="-1"></a><span class="co"># cma = centered moving average</span></span>
-<span id="cb391-2"><a href="transformación-rangos-y-más.html#cb391-2" tabindex="-1"></a><span class="co"># tma = trailing moving average</span></span>
-<span id="cb391-3"><a href="transformación-rangos-y-más.html#cb391-3" tabindex="-1"></a>some_data <span class="sc">%&gt;%</span></span>
-<span id="cb391-4"><a href="transformación-rangos-y-más.html#cb391-4" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">cma =</span> <span class="fu">rollmean</span>(day, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb391-5"><a href="transformación-rangos-y-más.html#cb391-5" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">tma =</span> <span class="fu">rollmean</span>(day, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">align =</span> <span class="st">&quot;right&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb391-6"><a href="transformación-rangos-y-más.html#cb391-6" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">lma =</span> <span class="fu">rollmean</span>(day, <span class="at">k =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">align =</span> <span class="st">&quot;left&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb391-7"><a href="transformación-rangos-y-más.html#cb391-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">cmax=</span><span class="fu">rollmax</span>(day, <span class="at">k=</span><span class="dv">30</span>, <span class="at">fill=</span><span class="cn">NA</span>))</span></code></pre></div>
-<pre><code>## # A tibble: 10 × 5
-##      day   cma   tma   lma cmax 
-##    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
-##  1     1    NA    NA     2 NA   
-##  2     2     2    NA     3 NA   
-##  3     3     3     2     4 NA   
-##  4     4     4     3     5 NA   
-##  5     5     5     4     6 NA   
-##  6     6     6     5     7 NA   
-##  7     7     7     6     8 NA   
-##  8     8     8     7     9 NA   
-##  9     9     9     8    NA NA   
-## 10    10    NA     9    NA NA</code></pre>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="transformación-rangos-y-más.html#cb393-1" tabindex="-1"></a>some_data</span></code></pre></div>
-<pre><code>## # A tibble: 10 × 1
-##      day
-##    &lt;int&gt;
-##  1     1
-##  2     2
-##  3     3
-##  4     4
-##  5     5
-##  6     6
-##  7     7
-##  8     8
-##  9     9
-## 10    10</code></pre>
+##    horario_salida
+##             &lt;int&gt;
+##  1            517
+##  2            533
+##  3            542
+##  4            544
+##  5            554
+##  6            554
+##  7            555
+##  8            557
+##  9            557
+## 10            558</code></pre>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb178-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
+<span id="cb178-2"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb178-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(horario_salida)) <span class="sc">|&gt;</span> </span>
+<span id="cb178-3"><a href="transformación-operaciones-boolenas-y-lógicas.html#cb178-3" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 19
+##     anio   mes   dia horario_salida salida_programada atraso_salida
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;         &lt;dbl&gt;
+##  1  2013    10    30           2400              2359             1
+##  2  2013    11    27           2400              2359             1
+##  3  2013    12     5           2400              2359             1
+##  4  2013    12     9           2400              2359             1
+##  5  2013    12     9           2400              2250            70
+##  6  2013    12    13           2400              2359             1
+##  7  2013    12    19           2400              2359             1
+##  8  2013    12    29           2400              1700           420
+##  9  2013     2     7           2400              2359             1
+## 10  2013     2     7           2400              2359             1
+## # ℹ 13 more variables: horario_llegada &lt;int&gt;, llegada_programada &lt;int&gt;,
+## #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;int&gt;, codigo_cola &lt;chr&gt;,
+## #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
+## #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
+<p>5.3.1 Ejercicios</p>
+<p>Ordena vuelos para encontrar los vuelos más retrasados en salida.</p>
+<p>Encuentra los vuelos que salieron más temprano.</p>
+<p>Ordena vuelos para encontrar los vuelos más rápidos (que viajaron a mayor velocidad).</p>
+<p>¿Cuáles vuelos viajaron más lejos?</p>
+<p>¿Cuál viajó más cerca?</p>
+<ul>
+<li><p>Otra función</p>
+<ul>
+<li>desc()</li>
+</ul></li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="ejercicios-3" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> 2 <strong>Ejercicios</strong>:<a href="transformación-operaciones-boolenas-y-lógicas.html#ejercicios-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Hacer los ejercicios en la sección 5.3.1 del libro en español</p>
+<hr />
 
 </div>
 </div>
@@ -1108,8 +901,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="transformación-indices-parametricos-y-no-parametricos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="transformación-estructura-de-un-archivo-y-selecionar-datos.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="transformación-valores-faltantes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -1140,7 +933,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/10-Transformacion_Rank.Rmd",
+    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/06-Transformacion_Funcion_basica.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -1148,7 +941,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/RaymondLTremblay/Ciencia_Datos_R/blob/main/10-Transformacion_Rank.Rmd",
+    "link": "https://github.com/RaymondLTremblay/Ciencia_Datos_R/blob/main/06-Transformacion_Funcion_basica.Rmd",
     "text": null
   },
   "download": null,
