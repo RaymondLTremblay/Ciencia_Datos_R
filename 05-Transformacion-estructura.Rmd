@@ -1,0 +1,224 @@
+# Transformacion: Estructura de un archivo y selecionar datos
+
+
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+Sys.Date()
+```
+
+------------------------------------------------------------------------
+
+El tema proviene de los siguientes sitios.
+
+English: <https://r4ds.had.co.nz/transform.html>
+
+Español: <https://es.r4ds.hadley.nz/05-transform.html>
+
+------------------------------------------------------------------------
+
+```{r TF1}
+library(tidyverse)
+library(datos)
+head(vuelos)
+```
+
+## Evaluar el archivo el **vuelo**
+
+Mirar el archivo y entender la información antes de hacer cualquier analisis/
+
+-   Cual son las variables
+-   Cuales son. los tipos de datos
+    -   **int** valores enteros,
+    -   **dbl** números reales, significa dobles
+    -   **chr** caracteres o vectores
+    -   **dttm** fecha y tiempo, minutos
+    -   **date** fecha
+    -   **S3: POSIXct** Fecha y tiempo, minutos
+    -   **lgl** valores logicos "cierto" (TRUE) y "falso" (FALSE)
+    -   **fctr** factores categoricos.
+
+Evalua en este archivo los tipos de variables que se encuentra.
+
+```{r TF2}
+vuelos
+```
+
+### Cual son todos los destinos de vuelos?
+
+-   cual función usará
+
+```{r TF3}
+sort(unique(vuelos$destino))
+
+```
+
+### Seleciona los vuelos donde el destino es San Juan
+
+```{r TF4}
+vuelos %>%
+  filter(destino=="SJU")
+```
+
+### Selecciona los vuelos donde el destino es San Juan el dia de navidad
+
+```{r TF5}
+vuelos %>%
+  filter(destino=="SJU") %>%
+  filter(mes==12, dia==25) %>% 
+  filter(aerolinea =="UA")
+
+vuelos %>%
+  filter(destino=="SJU") %>%
+  filter(mes==12, dia==25) %>% 
+  filter(aerolinea %in% c("AA", "UA"))
+
+unique(vuelos$aerolinea)
+
+
+# |>  pipe Command shift M
+```
+
+### Selecciona los vuelos que salen de San Juan en el dia de ti cumpleaños y contabiliza cuanto hubo
+
+```{r TF6}
+df_dia_cumpl=vuelos %>%  
+filter(destino =="SJU") %>% 
+  filter(mes== 2, dia %in% c(1,2)) |> 
+  nrow()
+
+df_dia_cumpl
+```
+
+#### Organizar los datos en orden de más grande a más pequeño
+
+-   Selecciona los mes, dia, destino, atraso_salida, atraso_llegada
+-   Selecciona solamente el mes de noviembre
+-   Selecciona solamente los vuelos a destino de a San Juan
+-   oraganiza los datos en orden de más atraso_salido de mayor a menor
+
+```{r TF7}
+names(vuelos)
+
+vuelos %>% 
+  dplyr::select(mes, dia, destino, atraso_salida, atraso_llegada) %>% 
+  filter(mes==11) %>% 
+  filter(destino =="SJU") %>% 
+  arrange(desc(atraso_salida))
+```
+
+## Temas: Reconocer y aplicar las diferentes funciones
+
+-   Tipos de variables:
+
+    -   int: valores enteros
+    -   dbl: números reales
+    -   chr: caracteres
+    -   dttm: fecha y tiempo
+    -   lgl: valores logicos
+    -   fctr: factores
+    -   date: fecha
+
+------------------------------------------------------------------------
+
+-   Funciones de dplyr:
+
+    -   filter() : seleccionar filas
+    -   arrange(): ordenar filas
+    -   select(): seleccionar columnas
+    -   summarize(): resumir conjuntos de datos
+    -   group_by(): agrupar por variables
+
+```{r TF8}
+library(datos)
+library(tidyverse)
+por_dia <- vuelos %>% # pipe
+  group_by(dia) %>% # group by day
+  summarise(atraso_promedio = mean(atraso_salida, na.rm = TRUE))
+por_dia
+
+```
+
+```{r TF9}
+## The median of the data set by day of the month
+
+
+por_dia_2 <- vuelos %>% 
+  group_by( dia) %>% 
+  summarise(atraso_promedio = mean(atraso_salida, na.rm = TRUE),
+            atraso_mediana = median(atraso_salida, na.rm=TRUE))
+por_dia_2
+
+```
+
+------------------------------------------------------------------------
+
+## Funciones
+
+-   summarise = resumir conjuntos de datos
+-   mean, # promedio
+-   median, # mediana
+-   mode, # moda
+-   operaciones boolean
+-   
+
+```{r TF10}
+# El valor más común en un conjunto de datos
+# Crear una función: no existe en los paquetes de R
+
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+
+
+
+por_dia_3=vuelos |> 
+  dplyr::select(dia, mes, atraso_salida) |> 
+  group_by(dia) %>% 
+  summarise(atraso_promedio = mean(atraso_salida, na.rm = TRUE),
+            atraso_max=max(atraso_salida, na.rm=TRUE),
+            atraso_mode = getmode(atraso_salida))
+por_dia_3
+
+```
+
+
+
+Añadir el promedio, mediana y moda al mismo data frame
+
+
+```{r TF11}
+## The mode of the value
+library(DescTools)
+
+por_dia_4 <- vuelos %>%
+  group_by(dia) %>% 
+  summarise(atraso_promedio = mean(atraso_salida, na.rm = TRUE),
+            atraso_median = median(atraso_salida, na.rm=TRUE),
+            atraso_mode = getmode(atraso_salida))
+por_dia_4
+
+```
+
+
+## Agrupar por múltiples variables
+
+Aquí se agrupar por día y mes
+
+
+```{r TF12}
+
+library(tidyverse)
+library(datos)
+vuelos %>% 
+  dplyr::select(anio, mes, dia, atraso_llegada, destino, aerolinea) %>% 
+  filter(destino =="SJU") %>% 
+  filter(dia ==25) %>% 
+ # filter(mes == 12) %>%
+  group_by(dia, aerolinea) %>% 
+  summarise(atraso = mean(atraso_llegada, na.rm = TRUE))
+
+```

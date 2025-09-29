@@ -42,7 +42,7 @@ el-valor-máximo-de-una-variable
 el-valor-mínimo-de-una-variable
 los-valores-discretos-de-una-variable
 ejemplos-de-gráficos
-visualización-de-datos
+visualizacion-de-datos
 temas-1
 los-paquetes
 facet_wrap
@@ -78,7 +78,7 @@ seleccionar-los-carros-que-tienen-cilindros-igual-a-8-solamente
 selecionar-los-diamantes-mayor-de-3-quilate
 selecionar-los-diamantes-con-igual-o-mayor-de-4000-precio
 contabiliza-cuantos-diamantes-tienen-un-valor-de-4000-o-más
-transformación-estructura-de-un-archivo-y-selecionar-datos
+transformacion-estructura-de-un-archivo-y-selecionar-datos
 evaluar-el-archivo-el-vuelo
 cual-son-todos-los-destinos-de-vuelos
 seleciona-los-vuelos-donde-el-destino-es-san-juan

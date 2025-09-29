@@ -3,34 +3,34 @@ output_dir: docs
 delete_merged_file: true
 rmd_files:
   - index.Rmd
-  - 02-Flujo_de_Trabajo.Rmd
-  - 03-Visualizacion_Datos.Rmd
-  - 04-Calculadora_sofisticada.Rmd
-  - 05_Transformacion_estructura.Rmd
-  - 06-Transformacion_Funcion_basica.Rmd
-  - 07-Transformacion_Valores_Faltantes.Rmd
-  - 08-Transformacion_selecionar_variables.Rmd
-  - 09-Transformacion_mutate.Rmd
-  - 10-Transformacion_Rank.Rmd
-  - 11-Transformacion_Funcion_estadistica.Rmd
+  - 02-Flujo-de-trabajo.Rmd
+  - 03-Visualizacion-datos.Rmd
+  - 04-Calculadora-sofisticada.Rmd
+  - 05-Transformacion-estructura.Rmd
+  - 06-Transformacion-funcion-basica.Rmd
+  - 07-Transformacion-valores-faltantes.Rmd
+  - 08-Transformacion-selecionar-variables.Rmd
+  - 09-Transformacion-mutate.Rmd
+  - 10-Transformacion-rank.Rmd
+  - 11-Transformacion-funcion-estadistica.Rmd
   - 12-Scripts.Rmd
-  - 13-Analisis_Exploratorio.Rmd
+  - 13-Analisis-exploratorio.Rmd
   - 14-Pipes.Rmd
   - 15-Tibbles.Rmd
-  - 16-Importar_Datos.Rmd
-  - 17-Datos-Ordenados.Rmd
-  - 18-Datos_Relacionados.Rmd
+  - 16-Importar-datos.Rmd
+  - 17-Datos-ordenados.Rmd
+  - 18-Datos-relacionados.Rmd
   - 19-Factores.Rmd
   - 20-Strings.Rmd
-  - 21-Ecuaciones_matematicas.Rmd
-  - 22-Opciones_de_Knitr.Rmd
-  - 23-Fechas_Horas.Rmd
-  - 24_HEX_stickers.Rmd
+  - 21-Ecuaciones-matematicas.Rmd
+  - 22-Opciones-de-knitr.Rmd
+  - 23-Fechas-horas.Rmd
+  - 24-HEX-stickers.Rmd
   - 25-WordClouds.Rmd
-  - 26-Leaflet_Mapa_interactivo.Rmd
-  - A-Ejercicios_Transformacion.Rmd
-  - B-Ejercicios_Transformacion_2.Rmd
-  - C-Ejercicios_Fechas.Rmd
+  - 26-Leaflet-mapa-interactivo.Rmd
+  - 27-Ejercicios-transformacion.Rmd
+  - 28-Ejercicios-transformacion-2.Rmd
+  - 29-Ejercicios-fechas.Rmd
   
 edit: https://github.com/RaymondLTremblay/Ciencia_Datos_R/edit/main/%s
 view: https://github.com/RaymondLTremblay/Ciencia_Datos_R/blob/main/%s
