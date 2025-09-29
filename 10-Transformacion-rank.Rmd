@@ -1,4 +1,4 @@
-# Transformación: Rangos y más
+# Transformacion: Rangos y otra funciones
 
 ```{r echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)

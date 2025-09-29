@@ -1,4 +1,4 @@
-# Transformación: Indices parametricos y no parametricos
+# Transformacion: Indices parametricos y no parametricos
 
 ```{r TFE1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)

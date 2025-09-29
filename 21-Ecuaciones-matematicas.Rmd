@@ -1,4 +1,4 @@
-# Ecuaciones Matemáticas {#math-sci}
+# Ecuaciones Matematicas {#math-sci}
 
 
 ```{r echo=FALSE}

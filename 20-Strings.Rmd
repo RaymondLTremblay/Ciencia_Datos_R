@@ -1,4 +1,4 @@
-# Cadena de Carácteres = STRINGS
+# Cadena de Caracteres = STRINGS
 
 
 ```{r echo=FALSE}

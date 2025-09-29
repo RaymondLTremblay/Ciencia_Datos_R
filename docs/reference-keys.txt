@@ -88,7 +88,7 @@ organizar-los-datos-en-orden-de-más-grande-a-más-pequeño
 temas-reconocer-y-aplicar-las-diferentes-funciones
 funciones
 agrupar-por-múltiples-variables
-transformación-operaciones-boolenas-y-lógicas
+transformacion-operaciones-boolenas-y-logicas
 agrupar-por-múltiples-variables-1
 operaciones-lógicas-boolean
 otra-alternativa-para-filtrar
@@ -98,18 +98,18 @@ ejercicios-2
 section
 la-función-arrange
 ejercicios-3
-transformación-valores-faltantes
+transformacion-valores-faltantes
 valores-faltantes
 qué-pasa-con-los-valores-faltantes-y-resultados-de-anålisis-sin-sentido
 creeamos-un-df-para-aclarar-estas-operaciones-con-na-en-un-data-frame
 contabilizar-los-na
 seleccionar-solamente-los-vuelos-donde-el-horario-de-salida-es-desconocido
 otras-funciones-na
-transformación-selecionar-variables
+transformacion-selecionar-variables
 funciones-en-este-módulo
 rename
 reoganizar-el-orden-de-las-columnas-usando-select-y-everything-en-la-misma-función
-transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar
+transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar
 funciones-en-este-módulo-1
 crear-un-data-frame-más-pequeño-con-las-variables-de-interes
 crear-nuevas-variables
@@ -122,7 +122,7 @@ cummean-and-cumvar
 uso-de-varianza-cumulativa-en-investigación
 que-pasa-con-las-funciones-cummean-cumsum-y-cumvar-si-hay-na-en-el-archivo-de-datos
 replacar-los-na-con-0-usando-la-función-replace_na-con-un-valor-especifico-replace_navariable-0
-transformación-rangos-y-más
+transformacion-rangos-y-otra-funciones
 funciones-en-este-modulo
 pruebas-no-paraméticas
 min_rank-y-min_rankdesc
@@ -133,7 +133,7 @@ la-función-percent_rank-sin-na
 la-función-cume_dist
 resúmenes-con-summarise-by-group-using-group_by
 la-aerolinea-peor-en-atraso-de-salidas
-transformación-indices-parametricos-y-no-parametricos
+transformacion-indices-parametricos-y-no-parametricos
 funciones-estadistica-básicas
 script
 scripts
@@ -204,7 +204,7 @@ a-smaller-figure-to-the-right-with-floating-text
 haga-un-re-order-por-la-cantidad-de-personas-por-religion
 modificar-el-orden-de-los-factores
 nota-el-efecto-de-añadir-un---antes-de-edad
-cadena-de-carácteres-strings
+cadena-de-caracteres-strings
 caracteres-especiales
 para-ver-las-opciones-de-caracteres-y-como-trabajar-cadenas-de-caracteres-use-para-ver
 temas-cadenas-de-caracteres
@@ -316,5 +316,3 @@ utilizando-leaflet
 trabajando-variables-categóricas-con-leaflet
 appendix-a
 ejercicio-de-transformación
-appendix-b
-appendix-c

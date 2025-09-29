@@ -1,4 +1,4 @@
-# Transformación: Valores Faltantes
+# Transformacion: Valores Faltantes
 
 
 ```{r echo=FALSE}

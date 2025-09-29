@@ -1,4 +1,4 @@
-# Appendix C
+# Appendix C {.unnumbered}
 
 ```{r AC1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)

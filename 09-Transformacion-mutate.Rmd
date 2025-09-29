@@ -1,4 +1,4 @@
-# Transformación: Mutate, transmute, lag, lead, cumsum, cummean, cumvar
+# Transformacion: Mutate, transmute, lag, lead, cumsum, cummean, cumvar
 
 
 
