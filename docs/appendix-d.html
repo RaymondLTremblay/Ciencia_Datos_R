@@ -628,9 +628,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h1>Appendix D<a href="appendix-d.html#appendix-d" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <pre><code>## [1] &quot;2025-10-01&quot;</code></pre>
 <hr />
+<hr />
 <div id="covid-19-cumulativo" class="section level2 hasAnchor" number="27.2">
 <h2><span class="header-section-number">A.2</span> COVID 19 Cumulativo<a href="appendix-d.html#covid-19-cumulativo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Usan Los datos de COVID-19 en Puerto Rico (PR) del Departamento de Salud de PR.</p>
+<p>Usa los datos de COVID-19 en Puerto Rico (PR) del Departamento de Salud de PR.</p>
 <div class="sourceCode" id="cb1137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1137-1"><a href="appendix-d.html#cb1137-1" tabindex="-1"></a>url_COVID_PR <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Datos/url_COVID_PR.csv&quot;</span>)</span>
 <span id="cb1137-2"><a href="appendix-d.html#cb1137-2" tabindex="-1"></a></span>
 <span id="cb1137-3"><a href="appendix-d.html#cb1137-3" tabindex="-1"></a><span class="fu">head</span>(url_COVID_PR)</span></code></pre></div>
@@ -647,9 +648,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## #   HospitCOV19 &lt;dbl&gt;, CamasICU &lt;dbl&gt;, CamasICU_disp &lt;dbl&gt;, Ventiladores &lt;dbl&gt;,
 ## #   MuertesSalud &lt;dbl&gt;, IncMueSalud &lt;dbl&gt;, VacDoses &lt;dbl&gt;, VacAdm &lt;dbl&gt;,
 ## #   N1MoreDoses &lt;dbl&gt;, N2Doses &lt;dbl&gt;</code></pre>
-<p>Calcula el promedio acumulativo en de 7 dias.</p>
-<p>Haz una figura que muestra el cambio en el promedio cumulativo corriendo de casos nuevos.
-<img src="Ciencia-Datos-con-R_files/figure-html/AD5-1.png" width="672" /></p>
+<hr />
+<ol style="list-style-type: decimal">
+<li>Calcula el promedio acumulativo en periodos de 7 dias.</li>
+</ol>
+<hr />
+<ol start="2" style="list-style-type: decimal">
+<li>Haz una figura que muestra el cambio en el promedio cumulativo corriendo de casos nuevos.
+<img src="Ciencia-Datos-con-R_files/figure-html/AD5-1.png" width="672" /></li>
+</ol>
 
 </div>
 </div>
