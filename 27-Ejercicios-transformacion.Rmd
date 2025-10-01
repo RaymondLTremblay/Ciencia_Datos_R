@@ -6,7 +6,7 @@
 
 ------------------------------------------------------------------------
 
-## Capitulo de Transformación de Datos {.unnumbered}
+## Capítulo de Transformación de Datos {.unnumbered}
 
 ## Ejercicios con destrezar de aplicar algunas funciones de transformaciones de datos {.unnumbered}
 

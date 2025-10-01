@@ -283,9 +283,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.6" data-path="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#usa-lag-con-inccasossaludnuevo-en-covid-19-pr"><i class="fa fa-check"></i><b>9.6</b> Usa “Lag” con “IncCasosSaludNuevo” en COVID-19 PR</a></li>
 <li class="chapter" data-level="9.7" data-path="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#lead"><i class="fa fa-check"></i><b>9.7</b> lead(),</a></li>
 <li class="chapter" data-level="9.8" data-path="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cumsum"><i class="fa fa-check"></i><b>9.8</b> cumsum</a></li>
-<li class="chapter" data-level="9.9" data-path="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cummean-and-cumvar"><i class="fa fa-check"></i><b>9.9</b> cummean() and cumvar()</a></li>
+<li class="chapter" data-level="9.9" data-path="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cmean-and-cvar-del-paquete-tidydensity"><i class="fa fa-check"></i><b>9.9</b> cmean() and cvar() del paquete TidyDensity</a></li>
 <li class="chapter" data-level="9.10" data-path="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#uso-de-varianza-cumulativa-en-investigación"><i class="fa fa-check"></i><b>9.10</b> Uso de varianza cumulativa en investigación:</a></li>
-<li class="chapter" data-level="9.11" data-path="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#que-pasa-con-las-funciones-cummean-cumsum-y-cumvar-si-hay-na-en-el-archivo-de-datos"><i class="fa fa-check"></i><b>9.11</b> Que pasa con las funciones <strong>cummean</strong>, <strong>cumsum</strong> y <strong>cumvar</strong> si hay NA en el archivo de datos?</a>
+<li class="chapter" data-level="9.11" data-path="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#que-pasa-con-las-funciones-cmean-cvar-si-hay-na-en-el-archivo-de-datos"><i class="fa fa-check"></i><b>9.11</b> Que pasa con las funciones <strong>cmean</strong>, <strong>cvar</strong> si hay NA en el archivo de datos?</a>
 <ul>
 <li class="chapter" data-level="9.11.1" data-path="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#replacar-los-na-con-0-usando-la-función-replace_na-con-un-valor-especifico-replace_navariable-0"><i class="fa fa-check"></i><b>9.11.1</b> Replacar los NA con 0, usando la función <strong>replace_na()</strong> con un valor especifico <strong>replace_na(“variable”, 0)</strong></a></li>
 </ul></li>
@@ -570,7 +570,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="A" data-path="appendix-a.html"><a href="appendix-a.html"><i class="fa fa-check"></i><b>A</b> Appendix A</a>
 <ul>
 <li class="chapter" data-level="A.1" data-path="appendix-a.html"><a href="appendix-a.html#ejercicio-de-transformación"><i class="fa fa-check"></i><b>A.1</b> Ejercicio de Transformación</a></li>
-<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#capitulo-de-transformación-de-datos"><i class="fa fa-check"></i>Capitulo de Transformación de Datos</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#capítulo-de-transformación-de-datos"><i class="fa fa-check"></i>Capítulo de Transformación de Datos</a></li>
 <li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#ejercicios-con-destrezar-de-aplicar-algunas-funciones-de-transformaciones-de-datos"><i class="fa fa-check"></i>Ejercicios con destrezar de aplicar algunas funciones de transformaciones de datos</a>
 <ul>
 <li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#para-tener-los-puntos-tiene-que-enseñar-todos-los-scripts-los-resultados-y-explicar-en-palabra-los-que-encontró-dentro-de-un-documento-bien-organizado."><i class="fa fa-check"></i>Para tener los puntos tiene que enseñar TODOS los scripts, los resultados y explicar en palabra los que encontró dentro de un documento bien organizado.</a></li>
@@ -599,6 +599,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="appendix-c.html"><a href="appendix-c.html#calculate-the-age-of-individuals-when-they-were-diagnosed-with-hiv"><i class="fa fa-check"></i>Calculate the age of individuals when they were diagnosed with HIV</a></li>
 <li class="chapter" data-level="" data-path="appendix-c.html"><a href="appendix-c.html#calculate-the-time-between-the-date-of-diagnosis-of-hiv-and-the-date-of-death."><i class="fa fa-check"></i>Calculate the time between the date of diagnosis of HIV and the date of death.</a></li>
 <li class="chapter" data-level="" data-path="appendix-c.html"><a href="appendix-c.html#calculate-the-difference-in-life-between-the-date-of-diagnosis-and-death"><i class="fa fa-check"></i>Calculate the difference in life between the date of diagnosis and death</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="appendix-d.html"><a href="appendix-d.html"><i class="fa fa-check"></i>Appendix D</a>
+<ul>
+<li class="chapter" data-level="A.2" data-path="appendix-d.html"><a href="appendix-d.html#covid-19-cumulativo"><i class="fa fa-check"></i><b>A.2</b> COVID 19 Cumulativo</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -1034,13 +1038,18 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 10                 12              61    61
 ## # ℹ 577 more rows</code></pre>
 </div>
-<div id="cummean-and-cumvar" class="section level2 hasAnchor" number="9.9">
-<h2><span class="header-section-number">9.9</span> cummean() and cumvar()<a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cummean-and-cumvar" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="cmean-and-cvar-del-paquete-tidydensity" class="section level2 hasAnchor" number="9.9">
+<h2><span class="header-section-number">9.9</span> cmean() and cvar() del paquete TidyDensity<a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cmean-and-cvar-del-paquete-tidydensity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para calcular el promedio cumulativo y la varianza</p>
 <ul>
 <li>las funciones son</li>
-<li>cummean() # del paquete cumstats</li>
-<li>cumvar() # del paquete cumstats</li>
+<li>cmean() # del paquete cumstats</li>
+<li>cvar() # del paquete cumstats</li>
+</ul>
+<p>Para calcular el promedio en periodos cumulativos</p>
+<ul>
+<li>rollmean() # del paquete zoo</li>
+<li>rollapply( ) # del paquete zoo para calcular el rolling varianza</li>
 </ul>
 <p>Vea las otras funciones en el paquete cumstats: hay otra que podría usar en sus estudios?</p>
 <div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb315-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">678</span>)</span>
@@ -1061,55 +1070,100 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb319-1" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>value)</span></code></pre></div>
 <pre><code>## [1] 4.999966</code></pre>
 <div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb321-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-2" tabindex="-1"></a></span>
-<span id="cb321-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-3" tabindex="-1"></a><span class="co">#df3=df %&gt;% </span></span>
-<span id="cb321-4"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-4" tabindex="-1"></a><span class="co">#  dplyr::select(value) %&gt;% </span></span>
-<span id="cb321-5"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-5" tabindex="-1"></a><span class="co">#  mutate(Prom_cum=cummean(value)) %&gt;% </span></span>
-<span id="cb321-6"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-6" tabindex="-1"></a><span class="co">#  mutate(Var_cum=cumstats::cumvar(value)) # activa el paquete cumstats</span></span>
-<span id="cb321-7"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-7" tabindex="-1"></a></span>
-<span id="cb321-8"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-8" tabindex="-1"></a></span>
-<span id="cb321-9"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-9" tabindex="-1"></a><span class="co">#library(cumstats)</span></span>
-<span id="cb321-10"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-10" tabindex="-1"></a> <span class="co">#df3=df %&gt;% </span></span>
-<span id="cb321-11"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-11" tabindex="-1"></a><span class="co">#  dplyr::select(value) %&gt;% </span></span>
-<span id="cb321-12"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-12" tabindex="-1"></a><span class="co">#  mutate(Prom_cum=cummean(value)) %&gt;% </span></span>
-<span id="cb321-13"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-13" tabindex="-1"></a><span class="co">#  mutate(Var_cum=cumvar(value))</span></span>
-<span id="cb321-14"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-14" tabindex="-1"></a></span>
-<span id="cb321-15"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-15" tabindex="-1"></a><span class="co"># df3</span></span></code></pre></div>
+<span id="cb321-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-2" tabindex="-1"></a><span class="fu">library</span>(TidyDensity)</span>
+<span id="cb321-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-3" tabindex="-1"></a></span>
+<span id="cb321-4"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-4" tabindex="-1"></a>df3<span class="ot">=</span>df <span class="sc">%&gt;%</span> </span>
+<span id="cb321-5"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
+<span id="cb321-6"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Prom_cum=</span><span class="fu">cummean</span>(value)) <span class="sc">%&gt;%</span> <span class="co"># dplyr:: es para especificar que la función cummean es del paquete dplyr</span></span>
+<span id="cb321-7"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Var_cum=</span>TidyDensity<span class="sc">::</span><span class="fu">cvar</span>(value)) <span class="sc">|&gt;</span> </span>
+<span id="cb321-8"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">promedio_coriendo=</span> zoo<span class="sc">::</span><span class="fu">rollmean</span>(value, <span class="at">k=</span><span class="dv">7</span>, <span class="at">fill=</span><span class="cn">NA</span>, <span class="at">align=</span><span class="st">&quot;left&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb321-9"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">varianza_coriendo=</span> zoo<span class="sc">::</span><span class="fu">rollapply</span>(value, <span class="at">width=</span><span class="dv">7</span>, <span class="at">FUN=</span>var, <span class="at">fill=</span><span class="cn">NA</span>, <span class="at">align=</span><span class="st">&quot;left&quot;</span>))</span>
+<span id="cb321-10"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-10" tabindex="-1"></a></span>
+<span id="cb321-11"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-11" tabindex="-1"></a></span>
+<span id="cb321-12"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-12" tabindex="-1"></a>df3</span></code></pre></div>
+<pre><code>## # A tibble: 1,000 × 5
+##    value Prom_cum       Var_cum promedio_coriendo varianza_coriendo
+##    &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+##  1  5.00     5.00 NaN                        5.00       0.00000139 
+##  2  5.00     5.00   0.00000146               5.00       0.00000145 
+##  3  5.00     5.00   0.000000778              5.00       0.00000123 
+##  4  5.00     5.00   0.000000937              5.00       0.00000133 
+##  5  5.00     5.00   0.00000154               5.00       0.00000135 
+##  6  5.00     5.00   0.00000124               5.00       0.000000532
+##  7  5.00     5.00   0.00000139               5.00       0.000000813
+##  8  5.00     5.00   0.00000129               5.00       0.00000139 
+##  9  5.00     5.00   0.00000115               5.00       0.00000131 
+## 10  5.00     5.00   0.00000113               5.00       0.00000132 
+## # ℹ 990 more rows</code></pre>
 </div>
 <div id="uso-de-varianza-cumulativa-en-investigación" class="section level2 hasAnchor" number="9.10">
 <h2><span class="header-section-number">9.10</span> Uso de varianza cumulativa en investigación:<a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#uso-de-varianza-cumulativa-en-investigación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Un metodo para determinar si la cantidad de muestras recolectada es suficiente, es evaluar si la varianza cumulativa sigue cambiando cuando se añade nuevas recolección de datos.</p>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb322-1" tabindex="-1"></a><span class="co">#df3$order=c(1:1000)</span></span>
-<span id="cb322-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb322-2" tabindex="-1"></a><span class="co">#df3</span></span>
-<span id="cb322-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb322-3" tabindex="-1"></a></span>
-<span id="cb322-4"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb322-4" tabindex="-1"></a></span>
-<span id="cb322-5"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb322-5" tabindex="-1"></a><span class="co">#ggplot(df3, aes(order, Var_cum))+</span></span>
-<span id="cb322-6"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb322-6" tabindex="-1"></a> <span class="co"># geom_point()+</span></span>
-<span id="cb322-7"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb322-7" tabindex="-1"></a>  <span class="co">#geom_smooth()</span></span></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb323-1" tabindex="-1"></a>df3<span class="sc">$</span>order<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>)</span>
+<span id="cb323-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb323-2" tabindex="-1"></a>df3</span></code></pre></div>
+<pre><code>## # A tibble: 1,000 × 6
+##    value Prom_cum       Var_cum promedio_coriendo varianza_coriendo order
+##    &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt; &lt;int&gt;
+##  1  5.00     5.00 NaN                        5.00       0.00000139      1
+##  2  5.00     5.00   0.00000146               5.00       0.00000145      2
+##  3  5.00     5.00   0.000000778              5.00       0.00000123      3
+##  4  5.00     5.00   0.000000937              5.00       0.00000133      4
+##  5  5.00     5.00   0.00000154               5.00       0.00000135      5
+##  6  5.00     5.00   0.00000124               5.00       0.000000532     6
+##  7  5.00     5.00   0.00000139               5.00       0.000000813     7
+##  8  5.00     5.00   0.00000129               5.00       0.00000139      8
+##  9  5.00     5.00   0.00000115               5.00       0.00000131      9
+## 10  5.00     5.00   0.00000113               5.00       0.00000132     10
+## # ℹ 990 more rows</code></pre>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb325-1" tabindex="-1"></a><span class="fu">ggplot</span>(df3, <span class="fu">aes</span>(order, Var_cum))<span class="sc">+</span></span>
+<span id="cb325-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb325-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb325-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb325-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<p><img src="Ciencia-Datos-con-R_files/figure-html/TM12-1.png" width="672" /></p>
+<hr />
 </div>
-<div id="que-pasa-con-las-funciones-cummean-cumsum-y-cumvar-si-hay-na-en-el-archivo-de-datos" class="section level2 hasAnchor" number="9.11">
-<h2><span class="header-section-number">9.11</span> Que pasa con las funciones <strong>cummean</strong>, <strong>cumsum</strong> y <strong>cumvar</strong> si hay NA en el archivo de datos?<a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#que-pasa-con-las-funciones-cummean-cumsum-y-cumvar-si-hay-na-en-el-archivo-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="que-pasa-con-las-funciones-cmean-cvar-si-hay-na-en-el-archivo-de-datos" class="section level2 hasAnchor" number="9.11">
+<h2><span class="header-section-number">9.11</span> Que pasa con las funciones <strong>cmean</strong>, <strong>cvar</strong> si hay NA en el archivo de datos?<a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#que-pasa-con-las-funciones-cmean-cvar-si-hay-na-en-el-archivo-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="replacar-los-na-con-0-usando-la-función-replace_na-con-un-valor-especifico-replace_navariable-0" class="section level3 hasAnchor" number="9.11.1">
 <h3><span class="header-section-number">9.11.1</span> Replacar los NA con 0, usando la función <strong>replace_na()</strong> con un valor especifico <strong>replace_na(“variable”, 0)</strong><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#replacar-los-na-con-0-usando-la-función-replace_na-con-un-valor-especifico-replace_navariable-0" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb323-1" tabindex="-1"></a>datos_NA<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="cn">NA</span>, <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>)</span>
-<span id="cb323-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb323-2" tabindex="-1"></a>datos_NA<span class="ot">=</span><span class="fu">as.data.frame</span>(datos_NA)</span>
-<span id="cb323-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb323-3" tabindex="-1"></a></span>
-<span id="cb323-4"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb323-4" tabindex="-1"></a><span class="co">#datos_NA %&gt;% </span></span>
-<span id="cb323-5"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb323-5" tabindex="-1"></a> <span class="co"># dplyr::select(datos_NA) %&gt;% </span></span>
-<span id="cb323-6"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb323-6" tabindex="-1"></a><span class="co">#  mutate(Prom_cum=cummean(datos_NA)) %&gt;% </span></span>
-<span id="cb323-7"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb323-7" tabindex="-1"></a><span class="co">#  mutate(Var_cum=cumstats::cumvar(datos_NA)) </span></span>
-<span id="cb323-8"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb323-8" tabindex="-1"></a></span>
-<span id="cb323-9"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb323-9" tabindex="-1"></a><span class="co"># Solución para resolver los NA.   Cual problema hay con usar NA?</span></span></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb326-1" tabindex="-1"></a>datos_NA<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="cn">NA</span>, <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb326-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb326-2" tabindex="-1"></a>datos_NA<span class="ot">=</span><span class="fu">as.data.frame</span>(datos_NA)</span>
+<span id="cb326-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb326-3" tabindex="-1"></a></span>
+<span id="cb326-4"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb326-4" tabindex="-1"></a>datos_NA <span class="sc">%&gt;%</span> </span>
+<span id="cb326-5"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb326-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(datos_NA) <span class="sc">%&gt;%</span> </span>
+<span id="cb326-6"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb326-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Prom_cum=</span><span class="fu">cmean</span>(datos_NA)) <span class="sc">%&gt;%</span> </span>
+<span id="cb326-7"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb326-7" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Var_cum=</span><span class="fu">cvar</span>(datos_NA)) </span></code></pre></div>
+<pre><code>##    datos_NA Prom_cum  Var_cum
+## 1         1      1.0      NaN
+## 2         2      1.5 0.500000
+## 3         3      2.0 1.000000
+## 4         4      2.5 1.666667
+## 5         5      3.0 2.500000
+## 6         6      3.5 3.500000
+## 7         7      4.0 4.666667
+## 8         8      4.5 6.000000
+## 9        NA       NA       NA
+## 10       10       NA       NA
+## 11       11       NA       NA
+## 12       12       NA       NA
+## 13       13       NA       NA
+## 14       14       NA       NA
+## 15       15       NA       NA
+## 16       16       NA       NA
+## 17       17       NA       NA
+## 18       18       NA       NA
+## 19       19       NA       NA
+## 20       20       NA       NA</code></pre>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb328-1" tabindex="-1"></a><span class="co"># Solución para resolver los NA.   Cual problema hay con usar NA?</span></span></code></pre></div>
 </div>
 </div>
 <div id="if_else" class="section level2 hasAnchor" number="9.12">
 <h2><span class="header-section-number">9.12</span> if_else()<a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#if_else" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La función if_else() es una función de reemplazo de valores en una columna basado en una condición</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb324-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb324-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb324-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb324-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb324-3" tabindex="-1"></a></span>
-<span id="cb324-4"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb324-4" tabindex="-1"></a>some_data <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">day =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb324-5"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb324-5" tabindex="-1"></a>some_data</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb329-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb329-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb329-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb329-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb329-3" tabindex="-1"></a></span>
+<span id="cb329-4"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb329-4" tabindex="-1"></a>some_data <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">day =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb329-5"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb329-5" tabindex="-1"></a>some_data</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 1
 ##      day
 ##    &lt;int&gt;
@@ -1123,8 +1177,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  8     8
 ##  9     9
 ## 10    10</code></pre>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb326-1" tabindex="-1"></a>some_data <span class="sc">|&gt;</span> </span>
-<span id="cb326-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb326-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day_p =</span> <span class="fu">if_else</span>(day <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>), <span class="st">&quot;pre&quot;</span>, <span class="st">&quot;normal&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb331-1" tabindex="-1"></a>some_data <span class="sc">|&gt;</span> </span>
+<span id="cb331-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb331-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day_p =</span> <span class="fu">if_else</span>(day <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>), <span class="st">&quot;pre&quot;</span>, <span class="st">&quot;normal&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 2
 ##      day day_p 
 ##    &lt;int&gt; &lt;chr&gt; 
@@ -1138,9 +1192,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ##  8     8 normal
 ##  9     9 normal
 ## 10    10 normal</code></pre>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb328-1" tabindex="-1"></a>plant_repr<span class="ot">=</span><span class="fu">tibble</span>(<span class="at">num_flowers=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>, <span class="dv">100</span>, <span class="dv">1000</span>))</span>
-<span id="cb328-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb328-2" tabindex="-1"></a></span>
-<span id="cb328-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb328-3" tabindex="-1"></a>plant_repr</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb333-1" tabindex="-1"></a>plant_repr<span class="ot">=</span><span class="fu">tibble</span>(<span class="at">num_flowers=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>, <span class="dv">100</span>, <span class="dv">1000</span>))</span>
+<span id="cb333-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb333-2" tabindex="-1"></a></span>
+<span id="cb333-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb333-3" tabindex="-1"></a>plant_repr</span></code></pre></div>
 <pre><code>## # A tibble: 13 × 1
 ##    num_flowers
 ##          &lt;dbl&gt;
@@ -1157,9 +1211,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 11           2
 ## 12         100
 ## 13        1000</code></pre>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb330-1" tabindex="-1"></a>plant_repr <span class="sc">|&gt;</span> </span>
-<span id="cb330-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb330-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flower_status =</span> <span class="fu">if_else</span>(num_flowers <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&quot;not reproductive&quot;</span>,</span>
-<span id="cb330-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb330-3" tabindex="-1"></a>                                 <span class="st">&quot;reproductive&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb335-1" tabindex="-1"></a>plant_repr <span class="sc">|&gt;</span> </span>
+<span id="cb335-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb335-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flower_status =</span> <span class="fu">if_else</span>(num_flowers <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&quot;not reproductive&quot;</span>,</span>
+<span id="cb335-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb335-3" tabindex="-1"></a>                                 <span class="st">&quot;reproductive&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 13 × 2
 ##    num_flowers flower_status   
 ##          &lt;dbl&gt; &lt;chr&gt;           
@@ -1176,9 +1230,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 11           2 reproductive    
 ## 12         100 reproductive    
 ## 13        1000 reproductive</code></pre>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb332-1" tabindex="-1"></a>plant_repr <span class="sc">|&gt;</span> </span>
-<span id="cb332-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb332-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flower_status =</span> <span class="fu">if_else</span>(num_flowers <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="st">&quot;not reproductive&quot;</span>,</span>
-<span id="cb332-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb332-3" tabindex="-1"></a>                                 <span class="st">&quot;reproductive&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-1" tabindex="-1"></a>plant_repr <span class="sc">|&gt;</span> </span>
+<span id="cb337-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flower_status =</span> <span class="fu">if_else</span>(num_flowers <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="st">&quot;not reproductive&quot;</span>,</span>
+<span id="cb337-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-3" tabindex="-1"></a>                                 <span class="st">&quot;reproductive&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 13 × 2
 ##    num_flowers flower_status   
 ##          &lt;dbl&gt; &lt;chr&gt;           
@@ -1195,12 +1249,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 11           2 reproductive    
 ## 12         100 reproductive    
 ## 13        1000 reproductive</code></pre>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb334-1" tabindex="-1"></a>plant_repr <span class="sc">|&gt;</span></span>
-<span id="cb334-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb334-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flower_status =</span> </span>
-<span id="cb334-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb334-3" tabindex="-1"></a>           <span class="fu">if_else</span>(num_flowers <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>), </span>
-<span id="cb334-4"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb334-4" tabindex="-1"></a>                                 <span class="st">&quot;not reproductive&quot;</span>,</span>
-<span id="cb334-5"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb334-5" tabindex="-1"></a>           <span class="fu">if_else</span>(num_flowers <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>), <span class="st">&quot;reproductive&quot;</span>,</span>
-<span id="cb334-6"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb334-6" tabindex="-1"></a>                                <span class="st">&quot;super reproductive&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb339-1" tabindex="-1"></a>plant_repr <span class="sc">|&gt;</span></span>
+<span id="cb339-2"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb339-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flower_status =</span> </span>
+<span id="cb339-3"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb339-3" tabindex="-1"></a>           <span class="fu">if_else</span>(num_flowers <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>), </span>
+<span id="cb339-4"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb339-4" tabindex="-1"></a>                                 <span class="st">&quot;not reproductive&quot;</span>,</span>
+<span id="cb339-5"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb339-5" tabindex="-1"></a>           <span class="fu">if_else</span>(num_flowers <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>), <span class="st">&quot;reproductive&quot;</span>,</span>
+<span id="cb339-6"><a href="transformacion-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb339-6" tabindex="-1"></a>                                <span class="st">&quot;super reproductive&quot;</span>)))</span></code></pre></div>
 <pre><code>## # A tibble: 13 × 2
 ##    num_flowers flower_status     
 ##          &lt;dbl&gt; &lt;chr&gt;             

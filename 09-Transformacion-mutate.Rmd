@@ -207,13 +207,18 @@ mutate(suma=cumsum(IncCasosSaludNuevo))
 
 
 
-## cummean() and cumvar()
+## cmean() and cvar() del paquete TidyDensity
 
 Para calcular el promedio cumulativo y la varianza
 
  - las funciones son
-  - cummean() # del paquete cumstats
-  - cumvar() # del paquete cumstats
+  - cmean() # del paquete cumstats
+  - cvar() # del paquete cumstats
+  
+Para calcular el promedio en periodos cumulativos 
+
+ - rollmean() # del paquete zoo
+ - rollapply( ) # del paquete zoo para calcular el rolling varianza 
   
   
   Vea las otras funciones en el paquete cumstats: hay otra que podría usar en sus estudios?
@@ -229,21 +234,17 @@ mean(df$value)
 
 
 library(MASS)
+library(TidyDensity)
 
-#df3=df %>% 
-#  dplyr::select(value) %>% 
-#  mutate(Prom_cum=cummean(value)) %>% 
-#  mutate(Var_cum=cumstats::cumvar(value)) # activa el paquete cumstats
+df3=df %>% 
+  dplyr::select(value) %>% 
+  mutate(Prom_cum=cummean(value)) %>% # dplyr:: es para especificar que la función cummean es del paquete dplyr
+  mutate(Var_cum=TidyDensity::cvar(value)) |> 
+  mutate(promedio_coriendo= zoo::rollmean(value, k=7, fill=NA, align="left")) |> 
+  mutate(varianza_coriendo= zoo::rollapply(value, width=7, FUN=var, fill=NA, align="left"))
 
 
-#library(cumstats)
- #df3=df %>% 
-#  dplyr::select(value) %>% 
-#  mutate(Prom_cum=cummean(value)) %>% 
-#  mutate(Var_cum=cumvar(value))
-
-# df3
-
+df3
 
 ```
 
@@ -254,18 +255,18 @@ Un metodo para determinar si la cantidad de muestras recolectada es suficiente, 
 
 
 ```{r TM12}
-#df3$order=c(1:1000)
-#df3
+df3$order=c(1:1000)
+df3
 
 
-#ggplot(df3, aes(order, Var_cum))+
- # geom_point()+
-  #geom_smooth()
+ggplot(df3, aes(order, Var_cum))+
+  geom_point()+
+  geom_smooth()
 ```
 
+***
 
-
-## Que pasa con las funciones **cummean**, **cumsum** y **cumvar** si hay NA en el archivo de datos?
+## Que pasa con las funciones **cmean**, **cvar** si hay NA en el archivo de datos?
 
 ### Replacar los NA con 0, usando la función **replace_na()** con un valor especifico **replace_na("variable", 0)**
 
@@ -274,10 +275,10 @@ Un metodo para determinar si la cantidad de muestras recolectada es suficiente, 
 datos_NA=c(1:8, NA, 10:20)
 datos_NA=as.data.frame(datos_NA)
 
-#datos_NA %>% 
- # dplyr::select(datos_NA) %>% 
-#  mutate(Prom_cum=cummean(datos_NA)) %>% 
-#  mutate(Var_cum=cumstats::cumvar(datos_NA)) 
+datos_NA %>% 
+  dplyr::select(datos_NA) %>% 
+  mutate(Prom_cum=cmean(datos_NA)) %>% 
+ mutate(Var_cum=cvar(datos_NA)) 
 
 # Solución para resolver los NA.   Cual problema hay con usar NA?
 

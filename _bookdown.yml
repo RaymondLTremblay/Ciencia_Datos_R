@@ -31,6 +31,7 @@ rmd_files:
   - 27-Ejercicios-transformacion.Rmd
   - 28-Ejercicios-transformacion-2.Rmd
   - 29-Ejercicios-fechas.Rmd
+  - 30-COVID_Cummulative.Rmd
   
 edit: https://github.com/RaymondLTremblay/Ciencia_Datos_R/edit/main/%s
 view: https://github.com/RaymondLTremblay/Ciencia_Datos_R/blob/main/%s
