@@ -87,6 +87,7 @@ Para calcular diferencias entre variables en la misma columna
 set.seed(12345) # que los datos sean al azar, siempre sean los mismo, se usa el "set.seed()" para enseñanza.
 #rnorm()  DATOS CON DISTRIBUCION NORMAL
 
+
 data=rpois(14, 10)
 df=as_tibble(data)
 df
@@ -99,10 +100,10 @@ df %>%
 
 ## Calcular la diferencia usando lag
 
-df%>% 
+df %>% 
   dplyr::select(value) %>% 
   mutate(lag1=lag(value)) %>% 
-  mutate(Changes=value-lag(value, 1)) # El cambio en los valores entre celdas
+  mutate(Changes=value-lag(value, 1)) # El cambio en posición de los valores entre las filas
 
 
 ```
@@ -116,11 +117,19 @@ library(readr)
 library(dplyr)
 #names(url_COVID_PR)
 url_COVID_PR <- read_csv("Datos/url_COVID_PR.csv")
-#head(url_COVID_PR)
+head(url_COVID_PR, 100)
 #names(url_COVID_PR)
+names(url_COVID_PR)
+```
+
+```{r}
+
 df2=url_COVID_PR %>% 
   dplyr::select(IncCasosSaludNuevo) %>% 
   mutate(Cambios_Casos=IncCasosSaludNuevo-lag(IncCasosSaludNuevo,7)) 
+
+
+
 
 
 df2
@@ -274,6 +283,9 @@ datos_NA=as.data.frame(datos_NA)
 
 ```
 
+
+
+## if_else()
 
 La función if_else() es una función de reemplazo de valores en una columna basado en una condición
 

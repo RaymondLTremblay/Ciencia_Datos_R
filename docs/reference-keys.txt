@@ -122,6 +122,7 @@ cummean-and-cumvar
 uso-de-varianza-cumulativa-en-investigación
 que-pasa-con-las-funciones-cummean-cumsum-y-cumvar-si-hay-na-en-el-archivo-de-datos
 replacar-los-na-con-0-usando-la-función-replace_na-con-un-valor-especifico-replace_navariable-0
+if_else
 transformacion-rangos-y-otra-funciones
 funciones-en-este-modulo
 pruebas-no-paraméticas

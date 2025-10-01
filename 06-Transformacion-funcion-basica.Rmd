@@ -11,7 +11,7 @@ Sys.Date()
 ------------------------------------------------------------------------
 
 El tema proviene de los siguientes sitios.
-
+\
 English: <https://r4ds.had.co.nz/transform.html>
 
 Español: <https://es.r4ds.hadley.nz/05-transform.html>
