@@ -29,6 +29,11 @@ head(url_COVID_PR)
 
 1. Calcula los promedios acumulativo en periodos de 7 dias y añadele a tu dataframe
 
+_ Usa la columna de IncCasosSaludNuevo para todos los cálculos
+
+- Enseñe las primeras 20 filas de tu dataframe con las nuevas columnas añadidas
+
+
 
 
 ```{r AD3, warning=FALSE, message=FALSE, echo=FALSE }
