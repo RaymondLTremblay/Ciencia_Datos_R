@@ -196,13 +196,15 @@ df %>%
 
 ```{r TM10}
 url_COVID_PR <- read_csv("Datos/url_COVID_PR.csv")
-
+names(url_COVID_PR)
 head(url_COVID_PR)
 
 url_COVID_PR %>%
 dplyr::select(IncCasosSaludNuevo, CasosSaludNuevo) %>%
 mutate(suma=cumsum(IncCasosSaludNuevo))
 ```
+
+
 
 
 
@@ -235,13 +237,14 @@ mean(df$value)
 
 library(MASS)
 library(TidyDensity)
+library(zoo)
 
 df3=df %>% 
   dplyr::select(value) %>% 
-  mutate(Prom_cum=cummean(value)) %>% # dplyr:: es para especificar que la función cummean es del paquete dplyr
+  mutate(Prom_cum=cmean(value)) %>% 
   mutate(Var_cum=TidyDensity::cvar(value)) |> 
-  mutate(promedio_coriendo= zoo::rollmean(value, k=7, fill=NA, align="left")) |> 
-  mutate(varianza_coriendo= zoo::rollapply(value, width=7, FUN=var, fill=NA, align="left"))
+  mutate(promedio_corriendo= zoo::rollmean(value, k=7, fill=NA, align="left")) |> 
+  mutate(varianza_corriendo= zoo::rollapply(value, width=7, FUN=var, fill=NA, align="left"))
 
 
 df3

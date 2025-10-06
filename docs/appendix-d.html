@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Appendix D | Ciencia de Datos con R</title>
   <meta name="description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Appendix D | Ciencia de Datos con R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-10-01" />
+<meta name="date" content="2025-10-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -626,15 +626,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="appendix-d" class="section level1 unnumbered hasAnchor">
 <h1>Appendix D<a href="appendix-d.html#appendix-d" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<pre><code>## [1] &quot;2025-10-01&quot;</code></pre>
+<pre><code>## [1] &quot;2025-10-06&quot;</code></pre>
 <hr />
 <hr />
 <div id="covid-19-cumulativo" class="section level2 hasAnchor" number="27.2">
 <h2><span class="header-section-number">A.2</span> COVID 19 Cumulativo<a href="appendix-d.html#covid-19-cumulativo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Usa los datos de COVID-19 en Puerto Rico (PR) del Departamento de Salud de PR.</p>
-<div class="sourceCode" id="cb1137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1137-1"><a href="appendix-d.html#cb1137-1" tabindex="-1"></a>url_COVID_PR <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Datos/url_COVID_PR.csv&quot;</span>)</span>
-<span id="cb1137-2"><a href="appendix-d.html#cb1137-2" tabindex="-1"></a></span>
-<span id="cb1137-3"><a href="appendix-d.html#cb1137-3" tabindex="-1"></a><span class="fu">head</span>(url_COVID_PR)</span></code></pre></div>
+<div class="sourceCode" id="cb1142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1142-1"><a href="appendix-d.html#cb1142-1" tabindex="-1"></a>url_COVID_PR <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Datos/url_COVID_PR.csv&quot;</span>)</span>
+<span id="cb1142-2"><a href="appendix-d.html#cb1142-2" tabindex="-1"></a></span>
+<span id="cb1142-3"><a href="appendix-d.html#cb1142-3" tabindex="-1"></a><span class="fu">head</span>(url_COVID_PR)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 18
 ##    ...1 Fecha   Muertes IncrementoMuertes CasosPCR_Salud IncCasosPCR_Salud
 ##   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;             &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;
@@ -650,7 +650,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## #   N1MoreDoses &lt;dbl&gt;, N2Doses &lt;dbl&gt;</code></pre>
 <hr />
 <ol style="list-style-type: decimal">
-<li>Calcula los promedios acumulativo en periodos de 7 dias y añadele a tu dataframe</li>
+<li>Calcula los promedios en periodos de 7 (dias; promedio corriendo) y añádele a tu dataframe</li>
 </ol>
 <p>_ Usa la columna de IncCasosSaludNuevo para todos los cálculos</p>
 <ul>

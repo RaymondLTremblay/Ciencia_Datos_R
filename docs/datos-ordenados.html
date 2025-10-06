@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo17 Datos Ordenados | Ciencia de Datos con R</title>
   <meta name="description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo17 Datos Ordenados | Ciencia de Datos con R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-10-01" />
+<meta name="date" content="2025-10-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -626,7 +626,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="datos-ordenados" class="section level1 hasAnchor" number="17">
 <h1><span class="header-section-number">Capítulo17</span> Datos Ordenados<a href="datos-ordenados.html#datos-ordenados" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<pre><code>## [1] &quot;2025-10-01&quot;</code></pre>
+<pre><code>## [1] &quot;2025-10-06&quot;</code></pre>
 <hr />
 <p>El tema proviene de los siguientes sitios.</p>
 <p>English:
@@ -639,9 +639,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="el-paquete-tidyr" class="section level3 hasAnchor" number="17.1.1">
 <h3><span class="header-section-number">17.1.1</span> El paquete tidyr<a href="datos-ordenados.html#el-paquete-tidyr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Ver vignettes</p>
-<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="datos-ordenados.html#cb548-1" tabindex="-1"></a> <span class="fu">library</span>(tidyverse)</span>
-<span id="cb548-2"><a href="datos-ordenados.html#cb548-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span></code></pre></div>
-<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="datos-ordenados.html#cb549-1" tabindex="-1"></a>tabla1</span></code></pre></div>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="datos-ordenados.html#cb545-1" tabindex="-1"></a> <span class="fu">library</span>(tidyverse)</span>
+<span id="cb545-2"><a href="datos-ordenados.html#cb545-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span></code></pre></div>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="datos-ordenados.html#cb546-1" tabindex="-1"></a>tabla1</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##   pais        anio  casos  poblacion
 ##   &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;
@@ -651,7 +651,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Brasil      2000  80488  174504898
 ## 5 China       1999 212258 1272915272
 ## 6 China       2000 213766 1280428583</code></pre>
-<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="datos-ordenados.html#cb551-1" tabindex="-1"></a>tabla2</span></code></pre></div>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="datos-ordenados.html#cb548-1" tabindex="-1"></a>tabla2</span></code></pre></div>
 <pre><code>## # A tibble: 12 × 4
 ##    pais        anio tipo          cuenta
 ##    &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;          &lt;dbl&gt;
@@ -667,7 +667,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 10 China       1999 población 1272915272
 ## 11 China       2000 casos         213766
 ## 12 China       2000 población 1280428583</code></pre>
-<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="datos-ordenados.html#cb553-1" tabindex="-1"></a>tabla3</span></code></pre></div>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="datos-ordenados.html#cb550-1" tabindex="-1"></a>tabla3</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
 ##   pais        anio tasa             
 ##   &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;            
@@ -677,14 +677,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Brasil      2000 80488/174504898  
 ## 5 China       1999 212258/1272915272
 ## 6 China       2000 213766/1280428583</code></pre>
-<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="datos-ordenados.html#cb555-1" tabindex="-1"></a>tabla4a</span></code></pre></div>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="datos-ordenados.html#cb552-1" tabindex="-1"></a>tabla4a</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##   pais       `1999` `2000`
 ##   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;
 ## 1 Afganistán    745   2666
 ## 2 Brasil      37737  80488
 ## 3 China      212258 213766</code></pre>
-<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="datos-ordenados.html#cb557-1" tabindex="-1"></a>tabla4b</span></code></pre></div>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="datos-ordenados.html#cb554-1" tabindex="-1"></a>tabla4b</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##   pais           `1999`     `2000`
 ##   &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;

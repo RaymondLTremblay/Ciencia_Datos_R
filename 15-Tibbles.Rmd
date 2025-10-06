@@ -80,11 +80,9 @@ tb = tibble(
   e = sample(letters, 1e2, replace = TRUE)
 )
 tb
-as.data.frame(tb)
-x=rnorm(100000, 5, 2)
-x
-mean(x)
-sd(x)
+df_tb=as.data.frame(tb)
+df_tb
+
 ```
 
 
@@ -117,7 +115,7 @@ lubridate::today()
 - Tibbles tiene un buen método de impresión que muestra solo las primeras 10 filas y todas las columnas que caben en la pantalla.
 - Tibbles no admite nombres de filas. Se eliminan al convertir a tibble o al crear subconjuntos:
 
-Operaciones aritmeticas en tibbles
+Operaciones aritméticas en tibbles
 
 A diferencia de los data frame, los tibbles NO admiten operaciones aritméticas en todas las columnas. El resultado \ fuerza silenciosamente a un data frame. 
 

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo24 Hex Stickers | Ciencia de Datos con R</title>
   <meta name="description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo24 Hex Stickers | Ciencia de Datos con R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-10-01" />
+<meta name="date" content="2025-10-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -626,69 +626,69 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="hex-stickers" class="section level1 hasAnchor" number="24">
 <h1><span class="header-section-number">Capítulo24</span> Hex Stickers<a href="hex-stickers.html#hex-stickers" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<pre><code>## [1] &quot;2025-10-01&quot;</code></pre>
-<div class="sourceCode" id="cb1032"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1032-1"><a href="hex-stickers.html#cb1032-1" tabindex="-1"></a><span class="fu">library</span>(hexSticker) </span>
-<span id="cb1032-2"><a href="hex-stickers.html#cb1032-2" tabindex="-1"></a><span class="fu">library</span>(magick)</span>
-<span id="cb1032-3"><a href="hex-stickers.html#cb1032-3" tabindex="-1"></a><span class="fu">library</span>(sysfonts)</span>
-<span id="cb1032-4"><a href="hex-stickers.html#cb1032-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## [1] &quot;2025-10-06&quot;</code></pre>
+<div class="sourceCode" id="cb1037"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1037-1"><a href="hex-stickers.html#cb1037-1" tabindex="-1"></a><span class="fu">library</span>(hexSticker) </span>
+<span id="cb1037-2"><a href="hex-stickers.html#cb1037-2" tabindex="-1"></a><span class="fu">library</span>(magick)</span>
+<span id="cb1037-3"><a href="hex-stickers.html#cb1037-3" tabindex="-1"></a><span class="fu">library</span>(sysfonts)</span>
+<span id="cb1037-4"><a href="hex-stickers.html#cb1037-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <div id="la-función-y-los-valores-default" class="section level2 hasAnchor" number="24.1">
 <h2><span class="header-section-number">24.1</span> La función y los valores “default”<a href="hex-stickers.html#la-función-y-los-valores-default" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1033"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1033-1"><a href="hex-stickers.html#cb1033-1" tabindex="-1"></a><span class="fu">sticker</span>(</span>
-<span id="cb1033-2"><a href="hex-stickers.html#cb1033-2" tabindex="-1"></a>  subplot,</span>
-<span id="cb1033-3"><a href="hex-stickers.html#cb1033-3" tabindex="-1"></a>  <span class="at">s_x =</span> <span class="fl">0.8</span>,</span>
-<span id="cb1033-4"><a href="hex-stickers.html#cb1033-4" tabindex="-1"></a>  <span class="at">s_y =</span> <span class="fl">0.75</span>,</span>
-<span id="cb1033-5"><a href="hex-stickers.html#cb1033-5" tabindex="-1"></a>  <span class="at">s_width =</span> <span class="fl">0.4</span>,</span>
-<span id="cb1033-6"><a href="hex-stickers.html#cb1033-6" tabindex="-1"></a>  <span class="at">s_height =</span> <span class="fl">0.5</span>,</span>
-<span id="cb1033-7"><a href="hex-stickers.html#cb1033-7" tabindex="-1"></a>  package,</span>
-<span id="cb1033-8"><a href="hex-stickers.html#cb1033-8" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="dv">1</span>,</span>
-<span id="cb1033-9"><a href="hex-stickers.html#cb1033-9" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.4</span>,</span>
-<span id="cb1033-10"><a href="hex-stickers.html#cb1033-10" tabindex="-1"></a>  <span class="at">p_color =</span> <span class="st">&quot;#FFFFFF&quot;</span>,</span>
-<span id="cb1033-11"><a href="hex-stickers.html#cb1033-11" tabindex="-1"></a>  <span class="at">p_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
-<span id="cb1033-12"><a href="hex-stickers.html#cb1033-12" tabindex="-1"></a>  <span class="at">p_fontface =</span> <span class="st">&quot;plain&quot;</span>,</span>
-<span id="cb1033-13"><a href="hex-stickers.html#cb1033-13" tabindex="-1"></a>  <span class="at">p_size =</span> <span class="dv">8</span>,</span>
-<span id="cb1033-14"><a href="hex-stickers.html#cb1033-14" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="fl">1.2</span>,</span>
-<span id="cb1033-15"><a href="hex-stickers.html#cb1033-15" tabindex="-1"></a>  <span class="at">h_fill =</span> <span class="st">&quot;#1881C2&quot;</span>,</span>
-<span id="cb1033-16"><a href="hex-stickers.html#cb1033-16" tabindex="-1"></a>  <span class="at">h_color =</span> <span class="st">&quot;#87B13F&quot;</span>,</span>
-<span id="cb1033-17"><a href="hex-stickers.html#cb1033-17" tabindex="-1"></a>  <span class="at">spotlight =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb1033-18"><a href="hex-stickers.html#cb1033-18" tabindex="-1"></a>  <span class="at">l_x =</span> <span class="dv">1</span>,</span>
-<span id="cb1033-19"><a href="hex-stickers.html#cb1033-19" tabindex="-1"></a>  <span class="at">l_y =</span> <span class="fl">0.5</span>,</span>
-<span id="cb1033-20"><a href="hex-stickers.html#cb1033-20" tabindex="-1"></a>  <span class="at">l_width =</span> <span class="dv">3</span>,</span>
-<span id="cb1033-21"><a href="hex-stickers.html#cb1033-21" tabindex="-1"></a>  <span class="at">l_height =</span> <span class="dv">3</span>,</span>
-<span id="cb1033-22"><a href="hex-stickers.html#cb1033-22" tabindex="-1"></a>  <span class="at">l_alpha =</span> <span class="fl">0.4</span>,</span>
-<span id="cb1033-23"><a href="hex-stickers.html#cb1033-23" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb1033-24"><a href="hex-stickers.html#cb1033-24" tabindex="-1"></a>  <span class="at">u_x =</span> <span class="dv">1</span>,</span>
-<span id="cb1033-25"><a href="hex-stickers.html#cb1033-25" tabindex="-1"></a>  <span class="at">u_y =</span> <span class="fl">0.08</span>,</span>
-<span id="cb1033-26"><a href="hex-stickers.html#cb1033-26" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;black&quot;</span>,</span>
-<span id="cb1033-27"><a href="hex-stickers.html#cb1033-27" tabindex="-1"></a>  <span class="at">u_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
-<span id="cb1033-28"><a href="hex-stickers.html#cb1033-28" tabindex="-1"></a>  <span class="at">u_size =</span> <span class="fl">1.5</span>,</span>
-<span id="cb1033-29"><a href="hex-stickers.html#cb1033-29" tabindex="-1"></a>  <span class="at">u_angle =</span> <span class="dv">30</span>,</span>
-<span id="cb1033-30"><a href="hex-stickers.html#cb1033-30" tabindex="-1"></a>  <span class="at">white_around_sticker =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb1033-31"><a href="hex-stickers.html#cb1033-31" tabindex="-1"></a>  ...,</span>
-<span id="cb1033-32"><a href="hex-stickers.html#cb1033-32" tabindex="-1"></a>  <span class="at">filename =</span> <span class="fu">paste0</span>(package, <span class="st">&quot;.png&quot;</span>),</span>
-<span id="cb1033-33"><a href="hex-stickers.html#cb1033-33" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>,</span>
-<span id="cb1033-34"><a href="hex-stickers.html#cb1033-34" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
-<span id="cb1033-35"><a href="hex-stickers.html#cb1033-35" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb1038"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1038-1"><a href="hex-stickers.html#cb1038-1" tabindex="-1"></a><span class="fu">sticker</span>(</span>
+<span id="cb1038-2"><a href="hex-stickers.html#cb1038-2" tabindex="-1"></a>  subplot,</span>
+<span id="cb1038-3"><a href="hex-stickers.html#cb1038-3" tabindex="-1"></a>  <span class="at">s_x =</span> <span class="fl">0.8</span>,</span>
+<span id="cb1038-4"><a href="hex-stickers.html#cb1038-4" tabindex="-1"></a>  <span class="at">s_y =</span> <span class="fl">0.75</span>,</span>
+<span id="cb1038-5"><a href="hex-stickers.html#cb1038-5" tabindex="-1"></a>  <span class="at">s_width =</span> <span class="fl">0.4</span>,</span>
+<span id="cb1038-6"><a href="hex-stickers.html#cb1038-6" tabindex="-1"></a>  <span class="at">s_height =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1038-7"><a href="hex-stickers.html#cb1038-7" tabindex="-1"></a>  package,</span>
+<span id="cb1038-8"><a href="hex-stickers.html#cb1038-8" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="dv">1</span>,</span>
+<span id="cb1038-9"><a href="hex-stickers.html#cb1038-9" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.4</span>,</span>
+<span id="cb1038-10"><a href="hex-stickers.html#cb1038-10" tabindex="-1"></a>  <span class="at">p_color =</span> <span class="st">&quot;#FFFFFF&quot;</span>,</span>
+<span id="cb1038-11"><a href="hex-stickers.html#cb1038-11" tabindex="-1"></a>  <span class="at">p_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
+<span id="cb1038-12"><a href="hex-stickers.html#cb1038-12" tabindex="-1"></a>  <span class="at">p_fontface =</span> <span class="st">&quot;plain&quot;</span>,</span>
+<span id="cb1038-13"><a href="hex-stickers.html#cb1038-13" tabindex="-1"></a>  <span class="at">p_size =</span> <span class="dv">8</span>,</span>
+<span id="cb1038-14"><a href="hex-stickers.html#cb1038-14" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="fl">1.2</span>,</span>
+<span id="cb1038-15"><a href="hex-stickers.html#cb1038-15" tabindex="-1"></a>  <span class="at">h_fill =</span> <span class="st">&quot;#1881C2&quot;</span>,</span>
+<span id="cb1038-16"><a href="hex-stickers.html#cb1038-16" tabindex="-1"></a>  <span class="at">h_color =</span> <span class="st">&quot;#87B13F&quot;</span>,</span>
+<span id="cb1038-17"><a href="hex-stickers.html#cb1038-17" tabindex="-1"></a>  <span class="at">spotlight =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1038-18"><a href="hex-stickers.html#cb1038-18" tabindex="-1"></a>  <span class="at">l_x =</span> <span class="dv">1</span>,</span>
+<span id="cb1038-19"><a href="hex-stickers.html#cb1038-19" tabindex="-1"></a>  <span class="at">l_y =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1038-20"><a href="hex-stickers.html#cb1038-20" tabindex="-1"></a>  <span class="at">l_width =</span> <span class="dv">3</span>,</span>
+<span id="cb1038-21"><a href="hex-stickers.html#cb1038-21" tabindex="-1"></a>  <span class="at">l_height =</span> <span class="dv">3</span>,</span>
+<span id="cb1038-22"><a href="hex-stickers.html#cb1038-22" tabindex="-1"></a>  <span class="at">l_alpha =</span> <span class="fl">0.4</span>,</span>
+<span id="cb1038-23"><a href="hex-stickers.html#cb1038-23" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb1038-24"><a href="hex-stickers.html#cb1038-24" tabindex="-1"></a>  <span class="at">u_x =</span> <span class="dv">1</span>,</span>
+<span id="cb1038-25"><a href="hex-stickers.html#cb1038-25" tabindex="-1"></a>  <span class="at">u_y =</span> <span class="fl">0.08</span>,</span>
+<span id="cb1038-26"><a href="hex-stickers.html#cb1038-26" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb1038-27"><a href="hex-stickers.html#cb1038-27" tabindex="-1"></a>  <span class="at">u_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
+<span id="cb1038-28"><a href="hex-stickers.html#cb1038-28" tabindex="-1"></a>  <span class="at">u_size =</span> <span class="fl">1.5</span>,</span>
+<span id="cb1038-29"><a href="hex-stickers.html#cb1038-29" tabindex="-1"></a>  <span class="at">u_angle =</span> <span class="dv">30</span>,</span>
+<span id="cb1038-30"><a href="hex-stickers.html#cb1038-30" tabindex="-1"></a>  <span class="at">white_around_sticker =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1038-31"><a href="hex-stickers.html#cb1038-31" tabindex="-1"></a>  ...,</span>
+<span id="cb1038-32"><a href="hex-stickers.html#cb1038-32" tabindex="-1"></a>  <span class="at">filename =</span> <span class="fu">paste0</span>(package, <span class="st">&quot;.png&quot;</span>),</span>
+<span id="cb1038-33"><a href="hex-stickers.html#cb1038-33" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>,</span>
+<span id="cb1038-34"><a href="hex-stickers.html#cb1038-34" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">300</span></span>
+<span id="cb1038-35"><a href="hex-stickers.html#cb1038-35" tabindex="-1"></a>)</span></code></pre></div>
 <hr />
 <p><strong>Arguments</strong></p>
-<div class="sourceCode" id="cb1034"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1034-1"><a href="hex-stickers.html#cb1034-1" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
-<span id="cb1034-2"><a href="hex-stickers.html#cb1034-2" tabindex="-1"></a><span class="fu">gt</span>(argumentos)</span></code></pre></div>
-<div id="fxippzcnnj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#fxippzcnnj table {
+<div class="sourceCode" id="cb1039"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1039-1"><a href="hex-stickers.html#cb1039-1" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1039-2"><a href="hex-stickers.html#cb1039-2" tabindex="-1"></a><span class="fu">gt</span>(argumentos)</span></code></pre></div>
+<div id="xyjrcjbqtt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xyjrcjbqtt table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#fxippzcnnj thead, #fxippzcnnj tbody, #fxippzcnnj tfoot, #fxippzcnnj tr, #fxippzcnnj td, #fxippzcnnj th {
+#xyjrcjbqtt thead, #xyjrcjbqtt tbody, #xyjrcjbqtt tfoot, #xyjrcjbqtt tr, #xyjrcjbqtt td, #xyjrcjbqtt th {
   border-style: none;
 }
 
-#fxippzcnnj p {
+#xyjrcjbqtt p {
   margin: 0;
   padding: 0;
 }
 
-#fxippzcnnj .gt_table {
+#xyjrcjbqtt .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -714,12 +714,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#fxippzcnnj .gt_caption {
+#xyjrcjbqtt .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#fxippzcnnj .gt_title {
+#xyjrcjbqtt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -731,7 +731,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#fxippzcnnj .gt_subtitle {
+#xyjrcjbqtt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -743,7 +743,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#fxippzcnnj .gt_heading {
+#xyjrcjbqtt .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -755,13 +755,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#fxippzcnnj .gt_bottom_border {
+#xyjrcjbqtt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#fxippzcnnj .gt_col_headings {
+#xyjrcjbqtt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -776,7 +776,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#fxippzcnnj .gt_col_heading {
+#xyjrcjbqtt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -796,7 +796,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#fxippzcnnj .gt_column_spanner_outer {
+#xyjrcjbqtt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -808,15 +808,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#fxippzcnnj .gt_column_spanner_outer:first-child {
+#xyjrcjbqtt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#fxippzcnnj .gt_column_spanner_outer:last-child {
+#xyjrcjbqtt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#fxippzcnnj .gt_column_spanner {
+#xyjrcjbqtt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -828,11 +828,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#fxippzcnnj .gt_spanner_row {
+#xyjrcjbqtt .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#fxippzcnnj .gt_group_heading {
+#xyjrcjbqtt .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -858,7 +858,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#fxippzcnnj .gt_empty_group_heading {
+#xyjrcjbqtt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -873,15 +873,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#fxippzcnnj .gt_from_md > :first-child {
+#xyjrcjbqtt .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#fxippzcnnj .gt_from_md > :last-child {
+#xyjrcjbqtt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#fxippzcnnj .gt_row {
+#xyjrcjbqtt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -900,7 +900,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#fxippzcnnj .gt_stub {
+#xyjrcjbqtt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -913,7 +913,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#fxippzcnnj .gt_stub_row_group {
+#xyjrcjbqtt .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -927,15 +927,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#fxippzcnnj .gt_row_group_first td {
+#xyjrcjbqtt .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#fxippzcnnj .gt_row_group_first th {
+#xyjrcjbqtt .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#fxippzcnnj .gt_summary_row {
+#xyjrcjbqtt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -945,16 +945,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#fxippzcnnj .gt_first_summary_row {
+#xyjrcjbqtt .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#fxippzcnnj .gt_first_summary_row.thick {
+#xyjrcjbqtt .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#fxippzcnnj .gt_last_summary_row {
+#xyjrcjbqtt .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -964,7 +964,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#fxippzcnnj .gt_grand_summary_row {
+#xyjrcjbqtt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -974,7 +974,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#fxippzcnnj .gt_first_grand_summary_row {
+#xyjrcjbqtt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -984,7 +984,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#fxippzcnnj .gt_last_grand_summary_row_top {
+#xyjrcjbqtt .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -994,11 +994,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#fxippzcnnj .gt_striped {
+#xyjrcjbqtt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#fxippzcnnj .gt_table_body {
+#xyjrcjbqtt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1007,7 +1007,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#fxippzcnnj .gt_footnotes {
+#xyjrcjbqtt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1021,7 +1021,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#fxippzcnnj .gt_footnote {
+#xyjrcjbqtt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1030,7 +1030,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#fxippzcnnj .gt_sourcenotes {
+#xyjrcjbqtt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1044,7 +1044,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#fxippzcnnj .gt_sourcenote {
+#xyjrcjbqtt .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1052,72 +1052,72 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#fxippzcnnj .gt_left {
+#xyjrcjbqtt .gt_left {
   text-align: left;
 }
 
-#fxippzcnnj .gt_center {
+#xyjrcjbqtt .gt_center {
   text-align: center;
 }
 
-#fxippzcnnj .gt_right {
+#xyjrcjbqtt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fxippzcnnj .gt_font_normal {
+#xyjrcjbqtt .gt_font_normal {
   font-weight: normal;
 }
 
-#fxippzcnnj .gt_font_bold {
+#xyjrcjbqtt .gt_font_bold {
   font-weight: bold;
 }
 
-#fxippzcnnj .gt_font_italic {
+#xyjrcjbqtt .gt_font_italic {
   font-style: italic;
 }
 
-#fxippzcnnj .gt_super {
+#xyjrcjbqtt .gt_super {
   font-size: 65%;
 }
 
-#fxippzcnnj .gt_footnote_marks {
+#xyjrcjbqtt .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#fxippzcnnj .gt_asterisk {
+#xyjrcjbqtt .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#fxippzcnnj .gt_indent_1 {
+#xyjrcjbqtt .gt_indent_1 {
   text-indent: 5px;
 }
 
-#fxippzcnnj .gt_indent_2 {
+#xyjrcjbqtt .gt_indent_2 {
   text-indent: 10px;
 }
 
-#fxippzcnnj .gt_indent_3 {
+#xyjrcjbqtt .gt_indent_3 {
   text-indent: 15px;
 }
 
-#fxippzcnnj .gt_indent_4 {
+#xyjrcjbqtt .gt_indent_4 {
   text-indent: 20px;
 }
 
-#fxippzcnnj .gt_indent_5 {
+#xyjrcjbqtt .gt_indent_5 {
   text-indent: 25px;
 }
 
-#fxippzcnnj .katex-display {
+#xyjrcjbqtt .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#fxippzcnnj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#xyjrcjbqtt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1207,7 +1207,7 @@ sysfonts::font_add_google(“Young Serif”) ## No baja</p>
 </div>
 <div id="ejemplo-de-crear-un-hex-con-un-gatito" class="section level2 hasAnchor" number="24.2">
 <h2><span class="header-section-number">24.2</span> Ejemplo de Crear un Hex con un gatito<a href="hex-stickers.html#ejemplo-de-crear-un-hex-con-un-gatito" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1035"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1035-1"><a href="hex-stickers.html#cb1035-1" tabindex="-1"></a><span class="fu">font_files</span>()  <span class="co">#a list of all fonts available</span></span></code></pre></div>
+<div class="sourceCode" id="cb1040"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1040-1"><a href="hex-stickers.html#cb1040-1" tabindex="-1"></a><span class="fu">font_files</span>()  <span class="co">#a list of all fonts available</span></span></code></pre></div>
 <pre><code>##                                   path
 ## 1                       /Library/Fonts
 ## 2                /System/Library/Fonts
@@ -2624,40 +2624,40 @@ sysfonts::font_add_google(“Young Serif”) ## No baja</p>
 ## 351                       HiraginoSans-W7
 ## 352                       HiraginoSans-W8
 ## 353                       HiraginoSans-W9</code></pre>
-<div class="sourceCode" id="cb1037"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1037-1"><a href="hex-stickers.html#cb1037-1" tabindex="-1"></a><span class="do">## Loading Google fonts (https://fonts.google.com/)</span></span>
-<span id="cb1037-2"><a href="hex-stickers.html#cb1037-2" tabindex="-1"></a></span>
-<span id="cb1037-3"><a href="hex-stickers.html#cb1037-3" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Dancing Script&quot;</span>) <span class="co"># selección de fonts de google</span></span>
-<span id="cb1037-4"><a href="hex-stickers.html#cb1037-4" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Bebas Neue&quot;</span>)</span>
-<span id="cb1037-5"><a href="hex-stickers.html#cb1037-5" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Fuggles&quot;</span>)</span>
-<span id="cb1037-6"><a href="hex-stickers.html#cb1037-6" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Roboto&quot;</span>)</span>
-<span id="cb1037-7"><a href="hex-stickers.html#cb1037-7" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Lobster&quot;</span>)</span>
-<span id="cb1037-8"><a href="hex-stickers.html#cb1037-8" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Raleway&quot;</span>)</span>
-<span id="cb1037-9"><a href="hex-stickers.html#cb1037-9" tabindex="-1"></a></span>
-<span id="cb1037-10"><a href="hex-stickers.html#cb1037-10" tabindex="-1"></a></span>
-<span id="cb1037-11"><a href="hex-stickers.html#cb1037-11" tabindex="-1"></a>cat_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;cat.jpg&#39;</span>)</span>
-<span id="cb1037-12"><a href="hex-stickers.html#cb1037-12" tabindex="-1"></a>analitica_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;Analitica3.png&#39;</span>)</span>
-<span id="cb1037-13"><a href="hex-stickers.html#cb1037-13" tabindex="-1"></a></span>
-<span id="cb1037-14"><a href="hex-stickers.html#cb1037-14" tabindex="-1"></a><span class="fu">sticker</span>(</span>
-<span id="cb1037-15"><a href="hex-stickers.html#cb1037-15" tabindex="-1"></a>  <span class="at">subplot=</span> analitica_img,</span>
-<span id="cb1037-16"><a href="hex-stickers.html#cb1037-16" tabindex="-1"></a>  <span class="at">package=</span><span class="st">&quot;Meow&quot;</span>,</span>
-<span id="cb1037-17"><a href="hex-stickers.html#cb1037-17" tabindex="-1"></a>  <span class="at">s_width =</span>.<span class="dv">75</span>,</span>
-<span id="cb1037-18"><a href="hex-stickers.html#cb1037-18" tabindex="-1"></a>  <span class="at">s_height =</span> .<span class="dv">75</span>,</span>
-<span id="cb1037-19"><a href="hex-stickers.html#cb1037-19" tabindex="-1"></a>  <span class="at">s_x=</span><span class="dv">1</span>,</span>
-<span id="cb1037-20"><a href="hex-stickers.html#cb1037-20" tabindex="-1"></a>  <span class="at">s_y=</span>.<span class="dv">75</span>,</span>
-<span id="cb1037-21"><a href="hex-stickers.html#cb1037-21" tabindex="-1"></a>  <span class="at">p_size=</span><span class="dv">19</span>,</span>
-<span id="cb1037-22"><a href="hex-stickers.html#cb1037-22" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="fl">1.0</span>,</span>
-<span id="cb1037-23"><a href="hex-stickers.html#cb1037-23" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.5</span>,</span>
-<span id="cb1037-24"><a href="hex-stickers.html#cb1037-24" tabindex="-1"></a>  <span class="at">p_color=</span> <span class="st">&#39;purple&#39;</span>,</span>
-<span id="cb1037-25"><a href="hex-stickers.html#cb1037-25" tabindex="-1"></a>  <span class="at">p_family=</span> <span class="st">&quot;Raleway&quot;</span>,</span>
-<span id="cb1037-26"><a href="hex-stickers.html#cb1037-26" tabindex="-1"></a>  <span class="at">h_fill =</span><span class="st">&#39;gold&#39;</span>,</span>
-<span id="cb1037-27"><a href="hex-stickers.html#cb1037-27" tabindex="-1"></a>  <span class="at">h_color=</span><span class="st">&#39;hotpink&#39;</span>,</span>
-<span id="cb1037-28"><a href="hex-stickers.html#cb1037-28" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="dv">2</span>,</span>
-<span id="cb1037-29"><a href="hex-stickers.html#cb1037-29" tabindex="-1"></a>  <span class="at">url=</span><span class="st">&quot;www.cat.foundation.com&quot;</span>,</span>
-<span id="cb1037-30"><a href="hex-stickers.html#cb1037-30" tabindex="-1"></a>  <span class="at">u_size=</span><span class="dv">4</span>,</span>
-<span id="cb1037-31"><a href="hex-stickers.html#cb1037-31" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;violetred&quot;</span>,</span>
-<span id="cb1037-32"><a href="hex-stickers.html#cb1037-32" tabindex="-1"></a>  <span class="at">spotlight=</span>T</span>
-<span id="cb1037-33"><a href="hex-stickers.html#cb1037-33" tabindex="-1"></a></span>
-<span id="cb1037-34"><a href="hex-stickers.html#cb1037-34" tabindex="-1"></a>) <span class="sc">%&gt;%</span> print</span></code></pre></div>
+<div class="sourceCode" id="cb1042"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1042-1"><a href="hex-stickers.html#cb1042-1" tabindex="-1"></a><span class="do">## Loading Google fonts (https://fonts.google.com/)</span></span>
+<span id="cb1042-2"><a href="hex-stickers.html#cb1042-2" tabindex="-1"></a></span>
+<span id="cb1042-3"><a href="hex-stickers.html#cb1042-3" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Dancing Script&quot;</span>) <span class="co"># selección de fonts de google</span></span>
+<span id="cb1042-4"><a href="hex-stickers.html#cb1042-4" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Bebas Neue&quot;</span>)</span>
+<span id="cb1042-5"><a href="hex-stickers.html#cb1042-5" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Fuggles&quot;</span>)</span>
+<span id="cb1042-6"><a href="hex-stickers.html#cb1042-6" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Roboto&quot;</span>)</span>
+<span id="cb1042-7"><a href="hex-stickers.html#cb1042-7" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Lobster&quot;</span>)</span>
+<span id="cb1042-8"><a href="hex-stickers.html#cb1042-8" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Raleway&quot;</span>)</span>
+<span id="cb1042-9"><a href="hex-stickers.html#cb1042-9" tabindex="-1"></a></span>
+<span id="cb1042-10"><a href="hex-stickers.html#cb1042-10" tabindex="-1"></a></span>
+<span id="cb1042-11"><a href="hex-stickers.html#cb1042-11" tabindex="-1"></a>cat_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;cat.jpg&#39;</span>)</span>
+<span id="cb1042-12"><a href="hex-stickers.html#cb1042-12" tabindex="-1"></a>analitica_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;Analitica3.png&#39;</span>)</span>
+<span id="cb1042-13"><a href="hex-stickers.html#cb1042-13" tabindex="-1"></a></span>
+<span id="cb1042-14"><a href="hex-stickers.html#cb1042-14" tabindex="-1"></a><span class="fu">sticker</span>(</span>
+<span id="cb1042-15"><a href="hex-stickers.html#cb1042-15" tabindex="-1"></a>  <span class="at">subplot=</span> analitica_img,</span>
+<span id="cb1042-16"><a href="hex-stickers.html#cb1042-16" tabindex="-1"></a>  <span class="at">package=</span><span class="st">&quot;Meow&quot;</span>,</span>
+<span id="cb1042-17"><a href="hex-stickers.html#cb1042-17" tabindex="-1"></a>  <span class="at">s_width =</span>.<span class="dv">75</span>,</span>
+<span id="cb1042-18"><a href="hex-stickers.html#cb1042-18" tabindex="-1"></a>  <span class="at">s_height =</span> .<span class="dv">75</span>,</span>
+<span id="cb1042-19"><a href="hex-stickers.html#cb1042-19" tabindex="-1"></a>  <span class="at">s_x=</span><span class="dv">1</span>,</span>
+<span id="cb1042-20"><a href="hex-stickers.html#cb1042-20" tabindex="-1"></a>  <span class="at">s_y=</span>.<span class="dv">75</span>,</span>
+<span id="cb1042-21"><a href="hex-stickers.html#cb1042-21" tabindex="-1"></a>  <span class="at">p_size=</span><span class="dv">19</span>,</span>
+<span id="cb1042-22"><a href="hex-stickers.html#cb1042-22" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="fl">1.0</span>,</span>
+<span id="cb1042-23"><a href="hex-stickers.html#cb1042-23" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.5</span>,</span>
+<span id="cb1042-24"><a href="hex-stickers.html#cb1042-24" tabindex="-1"></a>  <span class="at">p_color=</span> <span class="st">&#39;purple&#39;</span>,</span>
+<span id="cb1042-25"><a href="hex-stickers.html#cb1042-25" tabindex="-1"></a>  <span class="at">p_family=</span> <span class="st">&quot;Raleway&quot;</span>,</span>
+<span id="cb1042-26"><a href="hex-stickers.html#cb1042-26" tabindex="-1"></a>  <span class="at">h_fill =</span><span class="st">&#39;gold&#39;</span>,</span>
+<span id="cb1042-27"><a href="hex-stickers.html#cb1042-27" tabindex="-1"></a>  <span class="at">h_color=</span><span class="st">&#39;hotpink&#39;</span>,</span>
+<span id="cb1042-28"><a href="hex-stickers.html#cb1042-28" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="dv">2</span>,</span>
+<span id="cb1042-29"><a href="hex-stickers.html#cb1042-29" tabindex="-1"></a>  <span class="at">url=</span><span class="st">&quot;www.cat.foundation.com&quot;</span>,</span>
+<span id="cb1042-30"><a href="hex-stickers.html#cb1042-30" tabindex="-1"></a>  <span class="at">u_size=</span><span class="dv">4</span>,</span>
+<span id="cb1042-31"><a href="hex-stickers.html#cb1042-31" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;violetred&quot;</span>,</span>
+<span id="cb1042-32"><a href="hex-stickers.html#cb1042-32" tabindex="-1"></a>  <span class="at">spotlight=</span>T</span>
+<span id="cb1042-33"><a href="hex-stickers.html#cb1042-33" tabindex="-1"></a></span>
+<span id="cb1042-34"><a href="hex-stickers.html#cb1042-34" tabindex="-1"></a>) <span class="sc">%&gt;%</span> print</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/H5-1.png" width="672" /></p>
 
 </div>

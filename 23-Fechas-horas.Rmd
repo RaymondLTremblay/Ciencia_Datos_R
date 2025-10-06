@@ -155,7 +155,7 @@ nueva_fechas %>%
 ```
 
 
-Intervalo entre una lista de fecha y otra fecha y hora
+Intervalo entre una lista de fecha y otra fecha y hora específica
 
 ```{r FH11}
 nueva_fechas %>%
@@ -165,13 +165,22 @@ nueva_fechas %>%
 
 ## Ejercicio 
 
-Usa esta función y calcula el número de día que ha transcurido entre el día de su nacimiento y el dia de hoy
+Usa esta función y calcula el número de día que ha transcurido entre el día de su nacimiento y el día de hoy
 
 
 ```{r H12}
 
- dias = "2018-08-14 00:00:00" %--% today() /  days()
+segundos = "2018-08-14 00:00:00" %--% today()/seconds()
+segundos
+
+dias = "2018-08-14 00:00:00" %--% today() /  days()
 dias
+
+mes= "2018-08-14 00:00:00" %--% today() /  months(1)
+mes
+
+anio = "2018-08-14 00:00:00" %--% today()/ years()
+anio
 
 millisecond = "2018-08-14 00:00:00" %--% today() /  milliseconds()
 
@@ -227,9 +236,10 @@ El objeto de duración de tiempo se puede filtrar fácilmente basado en una vari
 ```{r FH15}
 nueva_fechas %>%
   mutate(desde_hoy = as.duration(fecha %--% today())) %>%
-  filter(desde_hoy < ddays(2000))
+  filter(desde_hoy > dyears(7))
 
-5*365
+
+
 ```
 
 Otra opción es `ddays()`. 
@@ -285,7 +295,7 @@ yq("2012.1")
 ```
   
   
-- **Cuidado** con el paquete **hms** que tiene funciones igual como **lubridate** (hms, hm, y ms) , pero no necesaramente hace lo mismo.
+- **Cuidado** con el paquete **hms** que tiene funciones igual como **lubridate** (hms, hm, y ms) , pero no necesariamente hace lo mismo.
 
 ***
 
@@ -326,10 +336,10 @@ vuelos %>%
  
 ```{r FH21}
 
-Datos_raros=tribble(~Ind, ~fechas,
-                    1, "1/1/30",
-                    2, "1/30/01",
-                    3, "1/30/09")
+Datos_raros=tribble(~Ind, ~Persona, ~fecha_de_nacimiento,
+                    1, "Abuela", "1/1/30",
+                    2, "Abuelo","1/30/01",
+                    3, "Tio", "1/30/09")
 
 Datos_raros 
 ```
@@ -337,12 +347,38 @@ Datos_raros
  
 ```{r FH22}
 Datos_raros %>%
-  mutate(nueva_fecha = mdy(fechas))
+  mutate(nueva_fecha = mdy(fecha_de_nacimiento))
+
+```
 
 
-Datos_raros$fecha2=as.Date(as.Date(format(as.Date(Datos_raros$fechas, format="%m/%d/%Y"), "19%y%m%d"), "%Y%m%d"))
+```{r}
+as.Date(0, origin = "1970-01-01")
+# Returns "1970-01-01"
+```
 
-Datos_raros
+```{r}
+
+
+df <- tibble(
+  Persona = c("Abuela", "Abuelo", "Tio"),
+  fecha_de_nacimiento = c("1/1/30", "1/30/01", "1/30/09")
+)
+
+
+df <- df %>%
+  mutate(
+    nueva_fecha = mdy(fecha_de_nacimiento),
+    nueva_fecha = if_else(year(nueva_fecha) > year(today()), 
+                          nueva_fecha - years(100), 
+                          nueva_fecha)
+  )
+df
+
+
+#Datos_raros$fecha2=as.Date(as.Date(format(as.Date(Datos_raros$fecha_de_nacimiento, format="%m/%d/%Y"), "19%y%m%d"), "%Y%m%d"))
+
+#Datos_raros
 
 
 ```
@@ -419,26 +455,27 @@ ymd(c("2010-10-10", "bananas"))
 
 ```{r FH28}
 d1 <- "Jan 1, 2010"
+d1
 mdy(d1)
 d2 <- "2015-Mar-07"
+d2
 ymd(d2)
 d3 <- "06-Jun-2017"
+d3
 dmy(d3)
 d4 <- c("Aug 19 (2015)", "Jul 1 (2015)")
+d4
 mdy(d4)
 d5 <- "12/30/14" # Diciembre 30, 2014
+d5
 mdy(d5)
 d6 <- "ene 1, 2010"
+d6
 mdy(d6)
 d7 <- c("Agosto 19 (2015)", "Julio 1 (2015)")
-mdy(d7)
-d1
-d2
-d3
-d4
-d5
-d6
 d7
+mdy(d7)
+
 ```
  
  

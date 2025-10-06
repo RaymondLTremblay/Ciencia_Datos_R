@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo18 Datos Relacionados | Ciencia de Datos con R</title>
   <meta name="description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo18 Datos Relacionados | Ciencia de Datos con R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-10-01" />
+<meta name="date" content="2025-10-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -626,7 +626,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="datos-relacionados" class="section level1 hasAnchor" number="18">
 <h1><span class="header-section-number">Capítulo18</span> Datos Relacionados<a href="datos-relacionados.html#datos-relacionados" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<pre><code>## [1] &quot;2025-10-01&quot;</code></pre>
+<pre><code>## [1] &quot;2025-10-06&quot;</code></pre>
 <hr />
 <p>El tema proviene de los siguientes sitios.</p>
 <p>English:
@@ -634,9 +634,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>Español:
 <a href="https://es.r4ds.hadley.nz/13-relational-data.html" class="uri">https://es.r4ds.hadley.nz/13-relational-data.html</a></p>
 <hr />
-<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="datos-relacionados.html#cb560-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb560-2"><a href="datos-relacionados.html#cb560-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span></code></pre></div>
-<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="datos-relacionados.html#cb561-1" tabindex="-1"></a>vuelos <span class="co"># data set #1</span></span></code></pre></div>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="datos-relacionados.html#cb557-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb557-2"><a href="datos-relacionados.html#cb557-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span></code></pre></div>
+<div class="sourceCode" id="cb558"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb558-1"><a href="datos-relacionados.html#cb558-1" tabindex="-1"></a>vuelos <span class="co"># data set #1</span></span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 19
 ##     anio   mes   dia horario_salida salida_programada atraso_salida
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;         &lt;dbl&gt;
@@ -655,7 +655,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;int&gt;, codigo_cola &lt;chr&gt;,
 ## #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 ## #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
-<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="datos-relacionados.html#cb563-1" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
+<div class="sourceCode" id="cb560"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb560-1"><a href="datos-relacionados.html#cb560-1" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
 <pre><code>##  [1] &quot;anio&quot;               &quot;mes&quot;                &quot;dia&quot;               
 ##  [4] &quot;horario_salida&quot;     &quot;salida_programada&quot;  &quot;atraso_salida&quot;     
 ##  [7] &quot;horario_llegada&quot;    &quot;llegada_programada&quot; &quot;atraso_llegada&quot;    
@@ -663,7 +663,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## [13] &quot;origen&quot;             &quot;destino&quot;            &quot;tiempo_vuelo&quot;      
 ## [16] &quot;distancia&quot;          &quot;hora&quot;               &quot;minuto&quot;            
 ## [19] &quot;fecha_hora&quot;</code></pre>
-<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="datos-relacionados.html#cb565-1" tabindex="-1"></a>aerolineas <span class="co"># data set #2</span></span></code></pre></div>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="datos-relacionados.html#cb562-1" tabindex="-1"></a>aerolineas <span class="co"># data set #2</span></span></code></pre></div>
 <pre><code>## # A tibble: 16 × 2
 ##    aerolinea nombre                     
 ##    &lt;chr&gt;     &lt;chr&gt;                      
@@ -683,9 +683,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 14 VX        Virgin America             
 ## 15 WN        Southwest Airlines Co.     
 ## 16 YV        Mesa Airlines Inc.</code></pre>
-<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="datos-relacionados.html#cb567-1" tabindex="-1"></a><span class="fu">names</span>(aerolineas)</span></code></pre></div>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="datos-relacionados.html#cb564-1" tabindex="-1"></a><span class="fu">names</span>(aerolineas)</span></code></pre></div>
 <pre><code>## [1] &quot;aerolinea&quot; &quot;nombre&quot;</code></pre>
-<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="datos-relacionados.html#cb569-1" tabindex="-1"></a>aeropuertos</span></code></pre></div>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="datos-relacionados.html#cb566-1" tabindex="-1"></a>aeropuertos</span></code></pre></div>
 <pre><code>## # A tibble: 1,458 × 8
 ##    codigo_aeropuerto nombre  latitud longitud altura zona_horaria horario_verano
 ##    &lt;chr&gt;             &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;         
@@ -701,11 +701,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 10 0S9               Jeffer…    48.1   -123.     108           -8 A             
 ## # ℹ 1,448 more rows
 ## # ℹ 1 more variable: zona_horaria_iana &lt;chr&gt;</code></pre>
-<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="datos-relacionados.html#cb571-1" tabindex="-1"></a><span class="fu">names</span>(aeropuertos)</span></code></pre></div>
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="datos-relacionados.html#cb568-1" tabindex="-1"></a><span class="fu">names</span>(aeropuertos)</span></code></pre></div>
 <pre><code>## [1] &quot;codigo_aeropuerto&quot; &quot;nombre&quot;            &quot;latitud&quot;          
 ## [4] &quot;longitud&quot;          &quot;altura&quot;            &quot;zona_horaria&quot;     
 ## [7] &quot;horario_verano&quot;    &quot;zona_horaria_iana&quot;</code></pre>
-<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="datos-relacionados.html#cb573-1" tabindex="-1"></a>aviones</span></code></pre></div>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="datos-relacionados.html#cb570-1" tabindex="-1"></a>aviones</span></code></pre></div>
 <pre><code>## # A tibble: 3,322 × 9
 ##    codigo_cola  anio tipo           fabricante modelo motores asientos velocidad
 ##    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;     &lt;int&gt;
@@ -721,7 +721,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 10 N110UW       1999 Ala fija mult… AIRBUS IN… A320-…       2      182        NA
 ## # ℹ 3,312 more rows
 ## # ℹ 1 more variable: tipo_motor &lt;chr&gt;</code></pre>
-<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="datos-relacionados.html#cb575-1" tabindex="-1"></a>clima</span></code></pre></div>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="datos-relacionados.html#cb572-1" tabindex="-1"></a>clima</span></code></pre></div>
 <pre><code>## # A tibble: 26,115 × 15
 ##    origen  anio   mes   dia  hora temperatura punto_rocio humedad
 ##    &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;
@@ -739,7 +739,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ 7 more variables: direccion_viento &lt;dbl&gt;, velocidad_viento &lt;dbl&gt;,
 ## #   velocidad_rafaga &lt;dbl&gt;, precipitacion &lt;dbl&gt;, presion &lt;dbl&gt;,
 ## #   visibilidad &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
-<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="datos-relacionados.html#cb577-1" tabindex="-1"></a>vuelos</span></code></pre></div>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="datos-relacionados.html#cb574-1" tabindex="-1"></a>vuelos</span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 19
 ##     anio   mes   dia horario_salida salida_programada atraso_salida
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;int&gt;             &lt;int&gt;         &lt;dbl&gt;
@@ -758,7 +758,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;int&gt;, codigo_cola &lt;chr&gt;,
 ## #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
 ## #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
-<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="datos-relacionados.html#cb579-1" tabindex="-1"></a>aviones</span></code></pre></div>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="datos-relacionados.html#cb576-1" tabindex="-1"></a>aviones</span></code></pre></div>
 <pre><code>## # A tibble: 3,322 × 9
 ##    codigo_cola  anio tipo           fabricante modelo motores asientos velocidad
 ##    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt;    &lt;int&gt;    &lt;int&gt;     &lt;int&gt;
@@ -774,9 +774,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 10 N110UW       1999 Ala fija mult… AIRBUS IN… A320-…       2      182        NA
 ## # ℹ 3,312 more rows
 ## # ℹ 1 more variable: tipo_motor &lt;chr&gt;</code></pre>
-<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="datos-relacionados.html#cb581-1" tabindex="-1"></a>aviones <span class="sc">%&gt;%</span></span>
-<span id="cb581-2"><a href="datos-relacionados.html#cb581-2" tabindex="-1"></a>  <span class="fu">count</span>(codigo_cola) <span class="sc">%&gt;%</span></span>
-<span id="cb581-3"><a href="datos-relacionados.html#cb581-3" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="datos-relacionados.html#cb578-1" tabindex="-1"></a>aviones <span class="sc">%&gt;%</span></span>
+<span id="cb578-2"><a href="datos-relacionados.html#cb578-2" tabindex="-1"></a>  <span class="fu">count</span>(codigo_cola) <span class="sc">%&gt;%</span></span>
+<span id="cb578-3"><a href="datos-relacionados.html#cb578-3" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 0 × 2
 ## # ℹ 2 variables: codigo_cola &lt;chr&gt;, n &lt;int&gt;</code></pre>
 <div id="temas-datos-relacionados" class="section level2 hasAnchor" number="18.1">
@@ -807,7 +807,7 @@ babynames::babynames
 nasaweather::atmos
 fueleconomy::vehicles
 ggplot2::diamonds</p>
-<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="datos-relacionados.html#cb583-1" tabindex="-1"></a><span class="fu">head</span>(Lahman<span class="sc">::</span>Batting)</span></code></pre></div>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="datos-relacionados.html#cb580-1" tabindex="-1"></a><span class="fu">head</span>(Lahman<span class="sc">::</span>Batting)</span></code></pre></div>
 <pre><code>##    playerID yearID stint teamID lgID  G AB R H X2B X3B HR RBI SB CS BB SO IBB
 ## 1 aardsda01   2004     1    SFN   NL 11  0 0 0   0   0  0   0  0  0  0  0   0
 ## 2 aardsda01   2006     1    CHN   NL 45  2 0 0   0   0  0   0  0  0  0  0   0
@@ -822,7 +822,7 @@ ggplot2::diamonds</p>
 ## 4   0  0  0    0
 ## 5   0  0  0    0
 ## 6   0  0  0    0</code></pre>
-<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="datos-relacionados.html#cb585-1" tabindex="-1"></a><span class="fu">head</span>(datos<span class="sc">::</span>bateadores)</span></code></pre></div>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb582-1"><a href="datos-relacionados.html#cb582-1" tabindex="-1"></a><span class="fu">head</span>(datos<span class="sc">::</span>bateadores)</span></code></pre></div>
 <pre><code>##   id_jugador id_anio orden_equipos id_equipo id_liga juegos al_bate carreras
 ## 1  aardsda01    2004             1       SFN      NL     11       0        0
 ## 2  aardsda01    2006             1       CHN      NL     45       2        0
@@ -851,10 +851,10 @@ ggplot2::diamonds</p>
 ## 4                0                  0             0
 ## 5                0                  0             0
 ## 6                0                  0             0</code></pre>
-<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="datos-relacionados.html#cb587-1" tabindex="-1"></a>Lahman<span class="sc">::</span>Batting <span class="sc">%&gt;%</span> </span>
-<span id="cb587-2"><a href="datos-relacionados.html#cb587-2" tabindex="-1"></a>  <span class="fu">count</span>(playerID) <span class="sc">%&gt;%</span> </span>
-<span id="cb587-3"><a href="datos-relacionados.html#cb587-3" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb587-4"><a href="datos-relacionados.html#cb587-4" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="datos-relacionados.html#cb584-1" tabindex="-1"></a>Lahman<span class="sc">::</span>Batting <span class="sc">%&gt;%</span> </span>
+<span id="cb584-2"><a href="datos-relacionados.html#cb584-2" tabindex="-1"></a>  <span class="fu">count</span>(playerID) <span class="sc">%&gt;%</span> </span>
+<span id="cb584-3"><a href="datos-relacionados.html#cb584-3" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb584-4"><a href="datos-relacionados.html#cb584-4" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>##    playerID  n
 ## 1 aardsda01  9
 ## 2 aaronha01 23
@@ -862,32 +862,32 @@ ggplot2::diamonds</p>
 ## 4  aasedo01 13
 ## 5  abadan01  3
 ## 6  abadfe01 12</code></pre>
-<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="datos-relacionados.html#cb589-1" tabindex="-1"></a>bateadores <span class="sc">%&gt;%</span></span>
-<span id="cb589-2"><a href="datos-relacionados.html#cb589-2" tabindex="-1"></a><span class="fu">count</span>(id_jugador,id_anio,orden_equipos) <span class="sc">%&gt;%</span></span>
-<span id="cb589-3"><a href="datos-relacionados.html#cb589-3" tabindex="-1"></a><span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb589-4"><a href="datos-relacionados.html#cb589-4" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb586-1"><a href="datos-relacionados.html#cb586-1" tabindex="-1"></a>bateadores <span class="sc">%&gt;%</span></span>
+<span id="cb586-2"><a href="datos-relacionados.html#cb586-2" tabindex="-1"></a><span class="fu">count</span>(id_jugador,id_anio,orden_equipos) <span class="sc">%&gt;%</span></span>
+<span id="cb586-3"><a href="datos-relacionados.html#cb586-3" tabindex="-1"></a><span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb586-4"><a href="datos-relacionados.html#cb586-4" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>## [1] id_jugador    id_anio       orden_equipos n            
 ## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
-<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="datos-relacionados.html#cb591-1" tabindex="-1"></a>Lahman<span class="sc">::</span>Batting <span class="sc">%&gt;%</span> </span>
-<span id="cb591-2"><a href="datos-relacionados.html#cb591-2" tabindex="-1"></a>  <span class="fu">count</span>(playerID, yearID, stint) <span class="sc">%&gt;%</span> </span>
-<span id="cb591-3"><a href="datos-relacionados.html#cb591-3" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb591-4"><a href="datos-relacionados.html#cb591-4" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="datos-relacionados.html#cb588-1" tabindex="-1"></a>Lahman<span class="sc">::</span>Batting <span class="sc">%&gt;%</span> </span>
+<span id="cb588-2"><a href="datos-relacionados.html#cb588-2" tabindex="-1"></a>  <span class="fu">count</span>(playerID, yearID, stint) <span class="sc">%&gt;%</span> </span>
+<span id="cb588-3"><a href="datos-relacionados.html#cb588-3" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb588-4"><a href="datos-relacionados.html#cb588-4" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
 <pre><code>## [1] playerID yearID   stint    n       
 ## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
-<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="datos-relacionados.html#cb593-1" tabindex="-1"></a><span class="co">#babynames::babynames</span></span></code></pre></div>
-<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="datos-relacionados.html#cb594-1" tabindex="-1"></a>babynames<span class="sc">::</span>babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb594-2"><a href="datos-relacionados.html#cb594-2" tabindex="-1"></a>  <span class="fu">count</span>(year, name, sex) <span class="sc">%&gt;%</span> </span>
-<span id="cb594-3"><a href="datos-relacionados.html#cb594-3" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="datos-relacionados.html#cb590-1" tabindex="-1"></a><span class="co">#babynames::babynames</span></span></code></pre></div>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="datos-relacionados.html#cb591-1" tabindex="-1"></a>babynames<span class="sc">::</span>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb591-2"><a href="datos-relacionados.html#cb591-2" tabindex="-1"></a>  <span class="fu">count</span>(year, name, sex) <span class="sc">%&gt;%</span> </span>
+<span id="cb591-3"><a href="datos-relacionados.html#cb591-3" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 0 × 4
 ## # ℹ 4 variables: year &lt;dbl&gt;, name &lt;chr&gt;, sex &lt;chr&gt;, n &lt;int&gt;</code></pre>
 <p>Cual fue el primer año que su nombre aparece en la base de datos</p>
-<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="datos-relacionados.html#cb596-1" tabindex="-1"></a>babynames<span class="sc">::</span>babynames <span class="sc">%&gt;%</span> </span>
-<span id="cb596-2"><a href="datos-relacionados.html#cb596-2" tabindex="-1"></a><span class="fu">filter</span>(name <span class="sc">==</span><span class="st">&quot;Abimelys&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="datos-relacionados.html#cb593-1" tabindex="-1"></a>babynames<span class="sc">::</span>babynames <span class="sc">%&gt;%</span> </span>
+<span id="cb593-2"><a href="datos-relacionados.html#cb593-2" tabindex="-1"></a><span class="fu">filter</span>(name <span class="sc">==</span><span class="st">&quot;Abimelys&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 0 × 5
 ## # ℹ 5 variables: year &lt;dbl&gt;, sex &lt;chr&gt;, name &lt;chr&gt;, n &lt;int&gt;, prop &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="datos-relacionados.html#cb598-1" tabindex="-1"></a><span class="fu">max</span>(babynames<span class="sc">::</span>babynames<span class="sc">$</span>year)</span></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="datos-relacionados.html#cb595-1" tabindex="-1"></a><span class="fu">max</span>(babynames<span class="sc">::</span>babynames<span class="sc">$</span>year)</span></code></pre></div>
 <pre><code>## [1] 2017</code></pre>
-<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="datos-relacionados.html#cb600-1" tabindex="-1"></a>nasaweather<span class="sc">::</span>atmos</span></code></pre></div>
+<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="datos-relacionados.html#cb597-1" tabindex="-1"></a>nasaweather<span class="sc">::</span>atmos</span></code></pre></div>
 <pre><code>## # A tibble: 41,472 × 11
 ##      lat  long  year month surftemp  temp pressure ozone cloudlow cloudmid
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
@@ -903,12 +903,12 @@ ggplot2::diamonds</p>
 ## 10  13.7 -114.  1995     1     300.  299.     1000   250     26       16.5
 ## # ℹ 41,462 more rows
 ## # ℹ 1 more variable: cloudhigh &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="datos-relacionados.html#cb602-1" tabindex="-1"></a>nasaweather<span class="sc">::</span>atmos <span class="sc">%&gt;%</span> </span>
-<span id="cb602-2"><a href="datos-relacionados.html#cb602-2" tabindex="-1"></a>  <span class="fu">count</span>(lat, long, year, month) <span class="sc">%&gt;%</span> </span>
-<span id="cb602-3"><a href="datos-relacionados.html#cb602-3" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="datos-relacionados.html#cb599-1" tabindex="-1"></a>nasaweather<span class="sc">::</span>atmos <span class="sc">%&gt;%</span> </span>
+<span id="cb599-2"><a href="datos-relacionados.html#cb599-2" tabindex="-1"></a>  <span class="fu">count</span>(lat, long, year, month) <span class="sc">%&gt;%</span> </span>
+<span id="cb599-3"><a href="datos-relacionados.html#cb599-3" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 0 × 5
 ## # ℹ 5 variables: lat &lt;dbl&gt;, long &lt;dbl&gt;, year &lt;int&gt;, month &lt;int&gt;, n &lt;int&gt;</code></pre>
-<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="datos-relacionados.html#cb604-1" tabindex="-1"></a>fueleconomy<span class="sc">::</span>vehicles</span></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="datos-relacionados.html#cb601-1" tabindex="-1"></a>fueleconomy<span class="sc">::</span>vehicles</span></code></pre></div>
 <pre><code>## # A tibble: 33,442 × 12
 ##       id make  model        year class trans drive   cyl displ fuel    hwy   cty
 ##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -923,12 +923,12 @@ ggplot2::diamonds</p>
 ##  9 14836 Acura 2.3CL/3.0CL  1999 Subc… Auto… Fron…     6   3   Regu…    26    17
 ## 10 11789 Acura 2.5TL        1995 Comp… Auto… Fron…     5   2.5 Prem…    23    18
 ## # ℹ 33,432 more rows</code></pre>
-<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="datos-relacionados.html#cb606-1" tabindex="-1"></a>fueleconomy<span class="sc">::</span>vehicles <span class="sc">%&gt;%</span> </span>
-<span id="cb606-2"><a href="datos-relacionados.html#cb606-2" tabindex="-1"></a>    <span class="fu">count</span>(id) <span class="sc">%&gt;%</span> </span>
-<span id="cb606-3"><a href="datos-relacionados.html#cb606-3" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="datos-relacionados.html#cb603-1" tabindex="-1"></a>fueleconomy<span class="sc">::</span>vehicles <span class="sc">%&gt;%</span> </span>
+<span id="cb603-2"><a href="datos-relacionados.html#cb603-2" tabindex="-1"></a>    <span class="fu">count</span>(id) <span class="sc">%&gt;%</span> </span>
+<span id="cb603-3"><a href="datos-relacionados.html#cb603-3" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 0 × 2
 ## # ℹ 2 variables: id &lt;dbl&gt;, n &lt;int&gt;</code></pre>
-<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="datos-relacionados.html#cb608-1" tabindex="-1"></a>ggplot2<span class="sc">::</span>diamonds</span></code></pre></div>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="datos-relacionados.html#cb605-1" tabindex="-1"></a>ggplot2<span class="sc">::</span>diamonds</span></code></pre></div>
 <pre><code>## # A tibble: 53,940 × 10
 ##    carat cut       color clarity depth table price     x     y     z
 ##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -943,9 +943,9 @@ ggplot2::diamonds</p>
 ##  9  0.22 Fair      E     VS2      65.1    61   337  3.87  3.78  2.49
 ## 10  0.23 Very Good H     VS1      59.4    61   338  4     4.05  2.39
 ## # ℹ 53,930 more rows</code></pre>
-<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="datos-relacionados.html#cb610-1" tabindex="-1"></a>ggplot2<span class="sc">::</span>diamonds <span class="sc">%&gt;%</span> </span>
-<span id="cb610-2"><a href="datos-relacionados.html#cb610-2" tabindex="-1"></a>      <span class="fu">count</span>(carat, cut, color, clarity, depth, price, x, y, z) <span class="sc">%&gt;%</span> </span>
-<span id="cb610-3"><a href="datos-relacionados.html#cb610-3" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="datos-relacionados.html#cb607-1" tabindex="-1"></a>ggplot2<span class="sc">::</span>diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb607-2"><a href="datos-relacionados.html#cb607-2" tabindex="-1"></a>      <span class="fu">count</span>(carat, cut, color, clarity, depth, price, x, y, z) <span class="sc">%&gt;%</span> </span>
+<span id="cb607-3"><a href="datos-relacionados.html#cb607-3" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">&gt;</span><span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 283 × 10
 ##    carat cut       color clarity depth price     x     y     z     n
 ##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
@@ -962,14 +962,14 @@ ggplot2::diamonds</p>
 ## # ℹ 273 more rows</code></pre>
 <p>Draw a diagram illustrating the connections between the Batting, People, and Salaries tables in the Lahman package. Draw another diagram that shows the relationship between People, Managers, AwardsManagers.</p>
 <p>Dibuja un diagrama que ilustre las conexiones entre las tablas bateadores, personas y salarios incluidas en el paquete datos. Dibuja otro diagrama que muestre la relación entre personas, dirigentes y premios_dirigentes.</p>
-<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="datos-relacionados.html#cb612-1" tabindex="-1"></a><span class="fu">names</span>(Lahman<span class="sc">::</span>Batting)</span></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="datos-relacionados.html#cb609-1" tabindex="-1"></a><span class="fu">names</span>(Lahman<span class="sc">::</span>Batting)</span></code></pre></div>
 <pre><code>##  [1] &quot;playerID&quot; &quot;yearID&quot;   &quot;stint&quot;    &quot;teamID&quot;   &quot;lgID&quot;     &quot;G&quot;       
 ##  [7] &quot;AB&quot;       &quot;R&quot;        &quot;H&quot;        &quot;X2B&quot;      &quot;X3B&quot;      &quot;HR&quot;      
 ## [13] &quot;RBI&quot;      &quot;SB&quot;       &quot;CS&quot;       &quot;BB&quot;       &quot;SO&quot;       &quot;IBB&quot;     
 ## [19] &quot;HBP&quot;      &quot;SH&quot;       &quot;SF&quot;       &quot;GIDP&quot;</code></pre>
-<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="datos-relacionados.html#cb614-1" tabindex="-1"></a><span class="fu">names</span>(Lahman<span class="sc">::</span>Salaries)</span></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="datos-relacionados.html#cb611-1" tabindex="-1"></a><span class="fu">names</span>(Lahman<span class="sc">::</span>Salaries)</span></code></pre></div>
 <pre><code>## [1] &quot;yearID&quot;   &quot;teamID&quot;   &quot;lgID&quot;     &quot;playerID&quot; &quot;salary&quot;</code></pre>
-<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="datos-relacionados.html#cb616-1" tabindex="-1"></a><span class="fu">names</span>(Lahman<span class="sc">::</span>People)</span></code></pre></div>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="datos-relacionados.html#cb613-1" tabindex="-1"></a><span class="fu">names</span>(Lahman<span class="sc">::</span>People)</span></code></pre></div>
 <pre><code>##  [1] &quot;playerID&quot;     &quot;birthYear&quot;    &quot;birthMonth&quot;   &quot;birthDay&quot;     &quot;birthCity&quot;   
 ##  [6] &quot;birthCountry&quot; &quot;birthState&quot;   &quot;deathYear&quot;    &quot;deathMonth&quot;   &quot;deathDay&quot;    
 ## [11] &quot;deathCountry&quot; &quot;deathState&quot;   &quot;deathCity&quot;    &quot;nameFirst&quot;    &quot;nameLast&quot;    
@@ -983,9 +983,9 @@ ggplot2::diamonds</p>
 <ul>
 <li>mutating join</li>
 </ul>
-<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="datos-relacionados.html#cb618-1" tabindex="-1"></a>vuelos2 <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span></span>
-<span id="cb618-2"><a href="datos-relacionados.html#cb618-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, dia, hora, origen, destino, codigo_cola, aerolinea)</span>
-<span id="cb618-3"><a href="datos-relacionados.html#cb618-3" tabindex="-1"></a>vuelos2</span></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="datos-relacionados.html#cb615-1" tabindex="-1"></a>vuelos2 <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span></span>
+<span id="cb615-2"><a href="datos-relacionados.html#cb615-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, dia, hora, origen, destino, codigo_cola, aerolinea)</span>
+<span id="cb615-3"><a href="datos-relacionados.html#cb615-3" tabindex="-1"></a>vuelos2</span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 7
 ##     anio   dia  hora origen destino codigo_cola aerolinea
 ##    &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;    
@@ -1000,9 +1000,9 @@ ggplot2::diamonds</p>
 ##  9  2013     1     6 JFK    MCO     N593JB      B6       
 ## 10  2013     1     6 LGA    ORD     N3ALAA      AA       
 ## # ℹ 336,766 more rows</code></pre>
-<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="datos-relacionados.html#cb620-1" tabindex="-1"></a><span class="fu">names</span>(aerolineas)</span></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="datos-relacionados.html#cb617-1" tabindex="-1"></a><span class="fu">names</span>(aerolineas)</span></code></pre></div>
 <pre><code>## [1] &quot;aerolinea&quot; &quot;nombre&quot;</code></pre>
-<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="datos-relacionados.html#cb622-1" tabindex="-1"></a>aerolineas</span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="datos-relacionados.html#cb619-1" tabindex="-1"></a>aerolineas</span></code></pre></div>
 <pre><code>## # A tibble: 16 × 2
 ##    aerolinea nombre                     
 ##    &lt;chr&gt;     &lt;chr&gt;                      
@@ -1022,9 +1022,9 @@ ggplot2::diamonds</p>
 ## 14 VX        Virgin America             
 ## 15 WN        Southwest Airlines Co.     
 ## 16 YV        Mesa Airlines Inc.</code></pre>
-<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="datos-relacionados.html#cb624-1" tabindex="-1"></a>vuelos2 <span class="sc">%&gt;%</span></span>
-<span id="cb624-2"><a href="datos-relacionados.html#cb624-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>origen, <span class="sc">-</span>destino) <span class="sc">%&gt;%</span></span>
-<span id="cb624-3"><a href="datos-relacionados.html#cb624-3" tabindex="-1"></a>  <span class="fu">left_join</span>(aerolineas, <span class="at">by =</span> <span class="st">&quot;aerolinea&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="datos-relacionados.html#cb621-1" tabindex="-1"></a>vuelos2 <span class="sc">%&gt;%</span></span>
+<span id="cb621-2"><a href="datos-relacionados.html#cb621-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>origen, <span class="sc">-</span>destino) <span class="sc">%&gt;%</span></span>
+<span id="cb621-3"><a href="datos-relacionados.html#cb621-3" tabindex="-1"></a>  <span class="fu">left_join</span>(aerolineas, <span class="at">by =</span> <span class="st">&quot;aerolinea&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 6
 ##     anio   dia  hora codigo_cola aerolinea nombre                  
 ##    &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;                   
@@ -1039,64 +1039,64 @@ ggplot2::diamonds</p>
 ##  9  2013     1     6 N593JB      B6        JetBlue Airways         
 ## 10  2013     1     6 N3ALAA      AA        American Airlines Inc.  
 ## # ℹ 336,766 more rows</code></pre>
-<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="datos-relacionados.html#cb626-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb626-2"><a href="datos-relacionados.html#cb626-2" tabindex="-1"></a>  <span class="sc">~</span>key, <span class="sc">~</span>val_x,</span>
-<span id="cb626-3"><a href="datos-relacionados.html#cb626-3" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">&quot;x1&quot;</span>,</span>
-<span id="cb626-4"><a href="datos-relacionados.html#cb626-4" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">&quot;x2&quot;</span>,</span>
-<span id="cb626-5"><a href="datos-relacionados.html#cb626-5" tabindex="-1"></a>  <span class="dv">3</span>, <span class="st">&quot;x3&quot;</span></span>
-<span id="cb626-6"><a href="datos-relacionados.html#cb626-6" tabindex="-1"></a>)</span>
-<span id="cb626-7"><a href="datos-relacionados.html#cb626-7" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb626-8"><a href="datos-relacionados.html#cb626-8" tabindex="-1"></a>  <span class="sc">~</span>key, <span class="sc">~</span>val_y,</span>
-<span id="cb626-9"><a href="datos-relacionados.html#cb626-9" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">&quot;y1&quot;</span>,</span>
-<span id="cb626-10"><a href="datos-relacionados.html#cb626-10" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">&quot;y2&quot;</span>,</span>
-<span id="cb626-11"><a href="datos-relacionados.html#cb626-11" tabindex="-1"></a>  <span class="dv">4</span>, <span class="st">&quot;y3&quot;</span></span>
-<span id="cb626-12"><a href="datos-relacionados.html#cb626-12" tabindex="-1"></a>)</span>
-<span id="cb626-13"><a href="datos-relacionados.html#cb626-13" tabindex="-1"></a></span>
-<span id="cb626-14"><a href="datos-relacionados.html#cb626-14" tabindex="-1"></a>x</span></code></pre></div>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="datos-relacionados.html#cb623-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb623-2"><a href="datos-relacionados.html#cb623-2" tabindex="-1"></a>  <span class="sc">~</span>key, <span class="sc">~</span>val_x,</span>
+<span id="cb623-3"><a href="datos-relacionados.html#cb623-3" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">&quot;x1&quot;</span>,</span>
+<span id="cb623-4"><a href="datos-relacionados.html#cb623-4" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">&quot;x2&quot;</span>,</span>
+<span id="cb623-5"><a href="datos-relacionados.html#cb623-5" tabindex="-1"></a>  <span class="dv">3</span>, <span class="st">&quot;x3&quot;</span></span>
+<span id="cb623-6"><a href="datos-relacionados.html#cb623-6" tabindex="-1"></a>)</span>
+<span id="cb623-7"><a href="datos-relacionados.html#cb623-7" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb623-8"><a href="datos-relacionados.html#cb623-8" tabindex="-1"></a>  <span class="sc">~</span>key, <span class="sc">~</span>val_y,</span>
+<span id="cb623-9"><a href="datos-relacionados.html#cb623-9" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">&quot;y1&quot;</span>,</span>
+<span id="cb623-10"><a href="datos-relacionados.html#cb623-10" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">&quot;y2&quot;</span>,</span>
+<span id="cb623-11"><a href="datos-relacionados.html#cb623-11" tabindex="-1"></a>  <span class="dv">4</span>, <span class="st">&quot;y3&quot;</span></span>
+<span id="cb623-12"><a href="datos-relacionados.html#cb623-12" tabindex="-1"></a>)</span>
+<span id="cb623-13"><a href="datos-relacionados.html#cb623-13" tabindex="-1"></a></span>
+<span id="cb623-14"><a href="datos-relacionados.html#cb623-14" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 2
 ##     key val_x
 ##   &lt;dbl&gt; &lt;chr&gt;
 ## 1     1 x1   
 ## 2     2 x2   
 ## 3     3 x3</code></pre>
-<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="datos-relacionados.html#cb628-1" tabindex="-1"></a>y</span></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="datos-relacionados.html#cb625-1" tabindex="-1"></a>y</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 2
 ##     key val_y
 ##   &lt;dbl&gt; &lt;chr&gt;
 ## 1     1 y1   
 ## 2     2 y2   
 ## 3     4 y3</code></pre>
-<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="datos-relacionados.html#cb630-1" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
-<span id="cb630-2"><a href="datos-relacionados.html#cb630-2" tabindex="-1"></a>  <span class="fu">inner_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="datos-relacionados.html#cb627-1" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb627-2"><a href="datos-relacionados.html#cb627-2" tabindex="-1"></a>  <span class="fu">inner_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 3
 ##     key val_x val_y
 ##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
 ## 1     1 x1    y1   
 ## 2     2 x2    y2</code></pre>
-<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="datos-relacionados.html#cb632-1" tabindex="-1"></a><span class="co">#left_join</span></span>
-<span id="cb632-2"><a href="datos-relacionados.html#cb632-2" tabindex="-1"></a></span>
-<span id="cb632-3"><a href="datos-relacionados.html#cb632-3" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
-<span id="cb632-4"><a href="datos-relacionados.html#cb632-4" tabindex="-1"></a>  <span class="fu">left_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="datos-relacionados.html#cb629-1" tabindex="-1"></a><span class="co">#left_join</span></span>
+<span id="cb629-2"><a href="datos-relacionados.html#cb629-2" tabindex="-1"></a></span>
+<span id="cb629-3"><a href="datos-relacionados.html#cb629-3" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb629-4"><a href="datos-relacionados.html#cb629-4" tabindex="-1"></a>  <span class="fu">left_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##     key val_x val_y
 ##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
 ## 1     1 x1    y1   
 ## 2     2 x2    y2   
 ## 3     3 x3    &lt;NA&gt;</code></pre>
-<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="datos-relacionados.html#cb634-1" tabindex="-1"></a><span class="co">#right_join</span></span>
-<span id="cb634-2"><a href="datos-relacionados.html#cb634-2" tabindex="-1"></a></span>
-<span id="cb634-3"><a href="datos-relacionados.html#cb634-3" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
-<span id="cb634-4"><a href="datos-relacionados.html#cb634-4" tabindex="-1"></a>  <span class="fu">right_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="datos-relacionados.html#cb631-1" tabindex="-1"></a><span class="co">#right_join</span></span>
+<span id="cb631-2"><a href="datos-relacionados.html#cb631-2" tabindex="-1"></a></span>
+<span id="cb631-3"><a href="datos-relacionados.html#cb631-3" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb631-4"><a href="datos-relacionados.html#cb631-4" tabindex="-1"></a>  <span class="fu">right_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##     key val_x val_y
 ##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
 ## 1     1 x1    y1   
 ## 2     2 x2    y2   
 ## 3     4 &lt;NA&gt;  y3</code></pre>
-<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="datos-relacionados.html#cb636-1" tabindex="-1"></a><span class="co">#full_join</span></span>
-<span id="cb636-2"><a href="datos-relacionados.html#cb636-2" tabindex="-1"></a></span>
-<span id="cb636-3"><a href="datos-relacionados.html#cb636-3" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
-<span id="cb636-4"><a href="datos-relacionados.html#cb636-4" tabindex="-1"></a>  <span class="fu">full_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="datos-relacionados.html#cb633-1" tabindex="-1"></a><span class="co">#full_join</span></span>
+<span id="cb633-2"><a href="datos-relacionados.html#cb633-2" tabindex="-1"></a></span>
+<span id="cb633-3"><a href="datos-relacionados.html#cb633-3" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb633-4"><a href="datos-relacionados.html#cb633-4" tabindex="-1"></a>  <span class="fu">full_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 3
 ##     key val_x val_y
 ##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;
@@ -1105,35 +1105,35 @@ ggplot2::diamonds</p>
 ## 3     3 x3    &lt;NA&gt; 
 ## 4     4 &lt;NA&gt;  y3</code></pre>
 <p>left_join</p>
-<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="datos-relacionados.html#cb638-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb638-2"><a href="datos-relacionados.html#cb638-2" tabindex="-1"></a>  <span class="sc">~</span>key, <span class="sc">~</span>nombre_x,</span>
-<span id="cb638-3"><a href="datos-relacionados.html#cb638-3" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">&quot;Juan&quot;</span>,</span>
-<span id="cb638-4"><a href="datos-relacionados.html#cb638-4" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">&quot;Maria&quot;</span>,</span>
-<span id="cb638-5"><a href="datos-relacionados.html#cb638-5" tabindex="-1"></a>  <span class="dv">3</span>, <span class="st">&quot;Orlando&quot;</span></span>
-<span id="cb638-6"><a href="datos-relacionados.html#cb638-6" tabindex="-1"></a>)</span>
-<span id="cb638-7"><a href="datos-relacionados.html#cb638-7" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb638-8"><a href="datos-relacionados.html#cb638-8" tabindex="-1"></a>  <span class="sc">~</span>key, <span class="sc">~</span>edad_y,</span>
-<span id="cb638-9"><a href="datos-relacionados.html#cb638-9" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">20</span>,</span>
-<span id="cb638-10"><a href="datos-relacionados.html#cb638-10" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">21</span>,</span>
-<span id="cb638-11"><a href="datos-relacionados.html#cb638-11" tabindex="-1"></a>  <span class="dv">4</span>, <span class="dv">22</span></span>
-<span id="cb638-12"><a href="datos-relacionados.html#cb638-12" tabindex="-1"></a>)</span>
-<span id="cb638-13"><a href="datos-relacionados.html#cb638-13" tabindex="-1"></a></span>
-<span id="cb638-14"><a href="datos-relacionados.html#cb638-14" tabindex="-1"></a>x</span></code></pre></div>
+<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="datos-relacionados.html#cb635-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb635-2"><a href="datos-relacionados.html#cb635-2" tabindex="-1"></a>  <span class="sc">~</span>key, <span class="sc">~</span>nombre_x,</span>
+<span id="cb635-3"><a href="datos-relacionados.html#cb635-3" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">&quot;Juan&quot;</span>,</span>
+<span id="cb635-4"><a href="datos-relacionados.html#cb635-4" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">&quot;Maria&quot;</span>,</span>
+<span id="cb635-5"><a href="datos-relacionados.html#cb635-5" tabindex="-1"></a>  <span class="dv">3</span>, <span class="st">&quot;Orlando&quot;</span></span>
+<span id="cb635-6"><a href="datos-relacionados.html#cb635-6" tabindex="-1"></a>)</span>
+<span id="cb635-7"><a href="datos-relacionados.html#cb635-7" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb635-8"><a href="datos-relacionados.html#cb635-8" tabindex="-1"></a>  <span class="sc">~</span>key, <span class="sc">~</span>edad_y,</span>
+<span id="cb635-9"><a href="datos-relacionados.html#cb635-9" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">20</span>,</span>
+<span id="cb635-10"><a href="datos-relacionados.html#cb635-10" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">21</span>,</span>
+<span id="cb635-11"><a href="datos-relacionados.html#cb635-11" tabindex="-1"></a>  <span class="dv">4</span>, <span class="dv">22</span></span>
+<span id="cb635-12"><a href="datos-relacionados.html#cb635-12" tabindex="-1"></a>)</span>
+<span id="cb635-13"><a href="datos-relacionados.html#cb635-13" tabindex="-1"></a></span>
+<span id="cb635-14"><a href="datos-relacionados.html#cb635-14" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 2
 ##     key nombre_x
 ##   &lt;dbl&gt; &lt;chr&gt;   
 ## 1     1 Juan    
 ## 2     2 Maria   
 ## 3     3 Orlando</code></pre>
-<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="datos-relacionados.html#cb640-1" tabindex="-1"></a>y</span></code></pre></div>
+<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="datos-relacionados.html#cb637-1" tabindex="-1"></a>y</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 2
 ##     key edad_y
 ##   &lt;dbl&gt;  &lt;dbl&gt;
 ## 1     1     20
 ## 2     2     21
 ## 3     4     22</code></pre>
-<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="datos-relacionados.html#cb642-1" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
-<span id="cb642-2"><a href="datos-relacionados.html#cb642-2" tabindex="-1"></a>  <span class="fu">full_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="datos-relacionados.html#cb639-1" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb639-2"><a href="datos-relacionados.html#cb639-2" tabindex="-1"></a>  <span class="fu">full_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 3
 ##     key nombre_x edad_y
 ##   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
@@ -1141,31 +1141,31 @@ ggplot2::diamonds</p>
 ## 2     2 Maria        21
 ## 3     3 Orlando      NA
 ## 4     4 &lt;NA&gt;         22</code></pre>
-<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="datos-relacionados.html#cb644-1" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
-<span id="cb644-2"><a href="datos-relacionados.html#cb644-2" tabindex="-1"></a>  <span class="fu">inner_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="datos-relacionados.html#cb641-1" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb641-2"><a href="datos-relacionados.html#cb641-2" tabindex="-1"></a>  <span class="fu">inner_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 3
 ##     key nombre_x edad_y
 ##   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
 ## 1     1 Juan         20
 ## 2     2 Maria        21</code></pre>
-<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="datos-relacionados.html#cb646-1" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
-<span id="cb646-2"><a href="datos-relacionados.html#cb646-2" tabindex="-1"></a>  <span class="fu">left_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="datos-relacionados.html#cb643-1" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb643-2"><a href="datos-relacionados.html#cb643-2" tabindex="-1"></a>  <span class="fu">left_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##     key nombre_x edad_y
 ##   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
 ## 1     1 Juan         20
 ## 2     2 Maria        21
 ## 3     3 Orlando      NA</code></pre>
-<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="datos-relacionados.html#cb648-1" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
-<span id="cb648-2"><a href="datos-relacionados.html#cb648-2" tabindex="-1"></a>  <span class="fu">right_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="datos-relacionados.html#cb645-1" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb645-2"><a href="datos-relacionados.html#cb645-2" tabindex="-1"></a>  <span class="fu">right_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##     key nombre_x edad_y
 ##   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
 ## 1     1 Juan         20
 ## 2     2 Maria        21
 ## 3     4 &lt;NA&gt;         22</code></pre>
-<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="datos-relacionados.html#cb650-1" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
-<span id="cb650-2"><a href="datos-relacionados.html#cb650-2" tabindex="-1"></a>  <span class="fu">full_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="datos-relacionados.html#cb647-1" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb647-2"><a href="datos-relacionados.html#cb647-2" tabindex="-1"></a>  <span class="fu">full_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 3
 ##     key nombre_x edad_y
 ##   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
@@ -1173,17 +1173,17 @@ ggplot2::diamonds</p>
 ## 2     2 Maria        21
 ## 3     3 Orlando      NA
 ## 4     4 &lt;NA&gt;         22</code></pre>
-<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="datos-relacionados.html#cb652-1" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
-<span id="cb652-2"><a href="datos-relacionados.html#cb652-2" tabindex="-1"></a>  <span class="fu">inner_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="datos-relacionados.html#cb649-1" tabindex="-1"></a>x <span class="sc">%&gt;%</span> </span>
+<span id="cb649-2"><a href="datos-relacionados.html#cb649-2" tabindex="-1"></a>  <span class="fu">inner_join</span>(y, <span class="at">by=</span><span class="st">&quot;key&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 3
 ##     key nombre_x edad_y
 ##   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
 ## 1     1 Juan         20
 ## 2     2 Maria        21</code></pre>
 <p>START HERE!!!!</p>
-<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="datos-relacionados.html#cb654-1" tabindex="-1"></a>vuelos2 <span class="sc">%&gt;%</span></span>
-<span id="cb654-2"><a href="datos-relacionados.html#cb654-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>origen, <span class="sc">-</span>destino) <span class="sc">%&gt;%</span></span>
-<span id="cb654-3"><a href="datos-relacionados.html#cb654-3" tabindex="-1"></a>  <span class="fu">left_join</span>(aerolineas, <span class="at">by =</span> <span class="st">&quot;aerolinea&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="datos-relacionados.html#cb651-1" tabindex="-1"></a>vuelos2 <span class="sc">%&gt;%</span></span>
+<span id="cb651-2"><a href="datos-relacionados.html#cb651-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>origen, <span class="sc">-</span>destino) <span class="sc">%&gt;%</span></span>
+<span id="cb651-3"><a href="datos-relacionados.html#cb651-3" tabindex="-1"></a>  <span class="fu">left_join</span>(aerolineas, <span class="at">by =</span> <span class="st">&quot;aerolinea&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 6
 ##     anio   dia  hora codigo_cola aerolinea nombre                  
 ##    &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;                   
@@ -1198,16 +1198,16 @@ ggplot2::diamonds</p>
 ##  9  2013     1     6 N593JB      B6        JetBlue Airways         
 ## 10  2013     1     6 N3ALAA      AA        American Airlines Inc.  
 ## # ℹ 336,766 more rows</code></pre>
-<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="datos-relacionados.html#cb656-1" tabindex="-1"></a><span class="fu">names</span>(vuelos2)</span></code></pre></div>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="datos-relacionados.html#cb653-1" tabindex="-1"></a><span class="fu">names</span>(vuelos2)</span></code></pre></div>
 <pre><code>## [1] &quot;anio&quot;        &quot;dia&quot;         &quot;hora&quot;        &quot;origen&quot;      &quot;destino&quot;    
 ## [6] &quot;codigo_cola&quot; &quot;aerolinea&quot;</code></pre>
-<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="datos-relacionados.html#cb658-1" tabindex="-1"></a><span class="fu">names</span>(clima)</span></code></pre></div>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="datos-relacionados.html#cb655-1" tabindex="-1"></a><span class="fu">names</span>(clima)</span></code></pre></div>
 <pre><code>##  [1] &quot;origen&quot;           &quot;anio&quot;             &quot;mes&quot;              &quot;dia&quot;             
 ##  [5] &quot;hora&quot;             &quot;temperatura&quot;      &quot;punto_rocio&quot;      &quot;humedad&quot;         
 ##  [9] &quot;direccion_viento&quot; &quot;velocidad_viento&quot; &quot;velocidad_rafaga&quot; &quot;precipitacion&quot;   
 ## [13] &quot;presion&quot;          &quot;visibilidad&quot;      &quot;fecha_hora&quot;</code></pre>
-<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="datos-relacionados.html#cb660-1" tabindex="-1"></a>vuelos2 <span class="sc">%&gt;%</span></span>
-<span id="cb660-2"><a href="datos-relacionados.html#cb660-2" tabindex="-1"></a><span class="fu">left_join</span>(clima)</span></code></pre></div>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="datos-relacionados.html#cb657-1" tabindex="-1"></a>vuelos2 <span class="sc">%&gt;%</span></span>
+<span id="cb657-2"><a href="datos-relacionados.html#cb657-2" tabindex="-1"></a><span class="fu">left_join</span>(clima)</span></code></pre></div>
 <pre><code>## # A tibble: 3,974,448 × 18
 ##     anio   dia  hora origen destino codigo_cola aerolinea   mes temperatura
 ##    &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;     &lt;int&gt;       &lt;dbl&gt;
@@ -1225,9 +1225,9 @@ ggplot2::diamonds</p>
 ## # ℹ 9 more variables: punto_rocio &lt;dbl&gt;, humedad &lt;dbl&gt;, direccion_viento &lt;dbl&gt;,
 ## #   velocidad_viento &lt;dbl&gt;, velocidad_rafaga &lt;dbl&gt;, precipitacion &lt;dbl&gt;,
 ## #   presion &lt;dbl&gt;, visibilidad &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
-<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="datos-relacionados.html#cb662-1" tabindex="-1"></a><span class="co">#&gt; Joining, by = c(&quot;anio&quot;, &quot;mes&quot;, &quot;dia&quot;, &quot;hora&quot;, &quot;origen&quot;)</span></span>
-<span id="cb662-2"><a href="datos-relacionados.html#cb662-2" tabindex="-1"></a>vuelos2 <span class="sc">%&gt;%</span></span>
-<span id="cb662-3"><a href="datos-relacionados.html#cb662-3" tabindex="-1"></a><span class="fu">left_join</span>(clima, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;anio&quot;</span>, <span class="st">&quot;dia&quot;</span>, <span class="st">&quot;hora&quot;</span>, <span class="st">&quot;origen&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="datos-relacionados.html#cb659-1" tabindex="-1"></a><span class="co">#&gt; Joining, by = c(&quot;anio&quot;, &quot;mes&quot;, &quot;dia&quot;, &quot;hora&quot;, &quot;origen&quot;)</span></span>
+<span id="cb659-2"><a href="datos-relacionados.html#cb659-2" tabindex="-1"></a>vuelos2 <span class="sc">%&gt;%</span></span>
+<span id="cb659-3"><a href="datos-relacionados.html#cb659-3" tabindex="-1"></a><span class="fu">left_join</span>(clima, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;anio&quot;</span>, <span class="st">&quot;dia&quot;</span>, <span class="st">&quot;hora&quot;</span>, <span class="st">&quot;origen&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 3,974,448 × 18
 ##     anio   dia  hora origen destino codigo_cola aerolinea   mes temperatura
 ##    &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;     &lt;int&gt;       &lt;dbl&gt;
@@ -1245,21 +1245,21 @@ ggplot2::diamonds</p>
 ## # ℹ 9 more variables: punto_rocio &lt;dbl&gt;, humedad &lt;dbl&gt;, direccion_viento &lt;dbl&gt;,
 ## #   velocidad_viento &lt;dbl&gt;, velocidad_rafaga &lt;dbl&gt;, precipitacion &lt;dbl&gt;,
 ## #   presion &lt;dbl&gt;, visibilidad &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
-<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="datos-relacionados.html#cb664-1" tabindex="-1"></a><span class="fu">names</span>(vuelos2)</span></code></pre></div>
+<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="datos-relacionados.html#cb661-1" tabindex="-1"></a><span class="fu">names</span>(vuelos2)</span></code></pre></div>
 <pre><code>## [1] &quot;anio&quot;        &quot;dia&quot;         &quot;hora&quot;        &quot;origen&quot;      &quot;destino&quot;    
 ## [6] &quot;codigo_cola&quot; &quot;aerolinea&quot;</code></pre>
-<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="datos-relacionados.html#cb666-1" tabindex="-1"></a><span class="fu">names</span>(aeropuertos)</span></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="datos-relacionados.html#cb663-1" tabindex="-1"></a><span class="fu">names</span>(aeropuertos)</span></code></pre></div>
 <pre><code>## [1] &quot;codigo_aeropuerto&quot; &quot;nombre&quot;            &quot;latitud&quot;          
 ## [4] &quot;longitud&quot;          &quot;altura&quot;            &quot;zona_horaria&quot;     
 ## [7] &quot;horario_verano&quot;    &quot;zona_horaria_iana&quot;</code></pre>
-<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="datos-relacionados.html#cb668-1" tabindex="-1"></a><span class="fu">head</span>(vuelos2, <span class="at">n=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="datos-relacionados.html#cb665-1" tabindex="-1"></a><span class="fu">head</span>(vuelos2, <span class="at">n=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 7
 ##    anio   dia  hora origen destino codigo_cola aerolinea
 ##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;    
 ## 1  2013     1     5 EWR    IAH     N14228      UA       
 ## 2  2013     1     5 LGA    IAH     N24211      UA       
 ## 3  2013     1     5 JFK    MIA     N619AA      AA</code></pre>
-<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="datos-relacionados.html#cb670-1" tabindex="-1"></a>aeropuertos</span></code></pre></div>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="datos-relacionados.html#cb667-1" tabindex="-1"></a>aeropuertos</span></code></pre></div>
 <pre><code>## # A tibble: 1,458 × 8
 ##    codigo_aeropuerto nombre  latitud longitud altura zona_horaria horario_verano
 ##    &lt;chr&gt;             &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;         
@@ -1275,8 +1275,8 @@ ggplot2::diamonds</p>
 ## 10 0S9               Jeffer…    48.1   -123.     108           -8 A             
 ## # ℹ 1,448 more rows
 ## # ℹ 1 more variable: zona_horaria_iana &lt;chr&gt;</code></pre>
-<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="datos-relacionados.html#cb672-1" tabindex="-1"></a>vuelos2 <span class="sc">%&gt;%</span></span>
-<span id="cb672-2"><a href="datos-relacionados.html#cb672-2" tabindex="-1"></a> <span class="fu">right_join</span>(aeropuertos, <span class="fu">c</span>(<span class="st">&quot;origen&quot;</span> <span class="ot">=</span> <span class="st">&quot;codigo_aeropuerto&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb669-1"><a href="datos-relacionados.html#cb669-1" tabindex="-1"></a>vuelos2 <span class="sc">%&gt;%</span></span>
+<span id="cb669-2"><a href="datos-relacionados.html#cb669-2" tabindex="-1"></a> <span class="fu">right_join</span>(aeropuertos, <span class="fu">c</span>(<span class="st">&quot;origen&quot;</span> <span class="ot">=</span> <span class="st">&quot;codigo_aeropuerto&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 338,231 × 14
 ##     anio   dia  hora origen destino codigo_cola aerolinea nombre         latitud
 ##    &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;            &lt;dbl&gt;
@@ -1293,14 +1293,14 @@ ggplot2::diamonds</p>
 ## # ℹ 338,221 more rows
 ## # ℹ 5 more variables: longitud &lt;dbl&gt;, altura &lt;dbl&gt;, zona_horaria &lt;dbl&gt;,
 ## #   horario_verano &lt;chr&gt;, zona_horaria_iana &lt;chr&gt;</code></pre>
-<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="datos-relacionados.html#cb674-1" tabindex="-1"></a><span class="fu">library</span>(maps)</span>
-<span id="cb674-2"><a href="datos-relacionados.html#cb674-2" tabindex="-1"></a></span>
-<span id="cb674-3"><a href="datos-relacionados.html#cb674-3" tabindex="-1"></a>aeropuertos <span class="sc">%&gt;%</span></span>
-<span id="cb674-4"><a href="datos-relacionados.html#cb674-4" tabindex="-1"></a><span class="fu">semi_join</span>(vuelos, <span class="fu">c</span>(<span class="st">&quot;codigo_aeropuerto&quot;</span> <span class="ot">=</span> <span class="st">&quot;destino&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb674-5"><a href="datos-relacionados.html#cb674-5" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(longitud, latitud)) <span class="sc">+</span></span>
-<span id="cb674-6"><a href="datos-relacionados.html#cb674-6" tabindex="-1"></a><span class="fu">borders</span>(<span class="st">&quot;state&quot;</span>) <span class="sc">+</span></span>
-<span id="cb674-7"><a href="datos-relacionados.html#cb674-7" tabindex="-1"></a><span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb674-8"><a href="datos-relacionados.html#cb674-8" tabindex="-1"></a><span class="fu">coord_quickmap</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="datos-relacionados.html#cb671-1" tabindex="-1"></a><span class="fu">library</span>(maps)</span>
+<span id="cb671-2"><a href="datos-relacionados.html#cb671-2" tabindex="-1"></a></span>
+<span id="cb671-3"><a href="datos-relacionados.html#cb671-3" tabindex="-1"></a>aeropuertos <span class="sc">%&gt;%</span></span>
+<span id="cb671-4"><a href="datos-relacionados.html#cb671-4" tabindex="-1"></a><span class="fu">semi_join</span>(vuelos, <span class="fu">c</span>(<span class="st">&quot;codigo_aeropuerto&quot;</span> <span class="ot">=</span> <span class="st">&quot;destino&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb671-5"><a href="datos-relacionados.html#cb671-5" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(longitud, latitud)) <span class="sc">+</span></span>
+<span id="cb671-6"><a href="datos-relacionados.html#cb671-6" tabindex="-1"></a><span class="fu">borders</span>(<span class="st">&quot;state&quot;</span>) <span class="sc">+</span></span>
+<span id="cb671-7"><a href="datos-relacionados.html#cb671-7" tabindex="-1"></a><span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb671-8"><a href="datos-relacionados.html#cb671-8" tabindex="-1"></a><span class="fu">coord_quickmap</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/DR29-1.png" width="672" /></p>
 <ul>
 <li>mutate()</li>

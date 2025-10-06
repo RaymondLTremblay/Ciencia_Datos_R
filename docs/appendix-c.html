@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Appendix C | Ciencia de Datos con R</title>
   <meta name="description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Appendix C | Ciencia de Datos con R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-10-01" />
+<meta name="date" content="2025-10-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -626,13 +626,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="appendix-c" class="section level1 unnumbered hasAnchor">
 <h1>Appendix C<a href="appendix-c.html#appendix-c" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<pre><code>## [1] &quot;2025-10-01&quot;</code></pre>
+<pre><code>## [1] &quot;2025-10-06&quot;</code></pre>
 <hr />
-<div class="sourceCode" id="cb1117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1117-1"><a href="appendix-c.html#cb1117-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1117-2"><a href="appendix-c.html#cb1117-2" tabindex="-1"></a>HIV <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;HIV.csv&quot;</span>)</span>
-<span id="cb1117-3"><a href="appendix-c.html#cb1117-3" tabindex="-1"></a></span>
-<span id="cb1117-4"><a href="appendix-c.html#cb1117-4" tabindex="-1"></a></span>
-<span id="cb1117-5"><a href="appendix-c.html#cb1117-5" tabindex="-1"></a>HIV</span></code></pre></div>
+<div class="sourceCode" id="cb1122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1122-1"><a href="appendix-c.html#cb1122-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1122-2"><a href="appendix-c.html#cb1122-2" tabindex="-1"></a>HIV <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;HIV.csv&quot;</span>)</span>
+<span id="cb1122-3"><a href="appendix-c.html#cb1122-3" tabindex="-1"></a></span>
+<span id="cb1122-4"><a href="appendix-c.html#cb1122-4" tabindex="-1"></a></span>
+<span id="cb1122-5"><a href="appendix-c.html#cb1122-5" tabindex="-1"></a>HIV</span></code></pre></div>
 <pre><code>## # A tibble: 824 × 10
 ##    gender dob      hiv_risk_factor_f Poverty_numeric hh_size ins_type_f
 ##    &lt;chr&gt;  &lt;chr&gt;    &lt;chr&gt;                       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     
@@ -649,12 +649,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ 814 more rows
 ## # ℹ 4 more variables: vital_status &lt;chr&gt;, date_of_death &lt;chr&gt;, hiv_date &lt;chr&gt;,
 ## #   lifespan &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb1119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1119-1"><a href="appendix-c.html#cb1119-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb1124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1124-1"><a href="appendix-c.html#cb1124-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p><a href="https://www.stat.berkeley.edu/~s133/dates.html" class="uri">https://www.stat.berkeley.edu/~s133/dates.html</a></p>
-<div class="sourceCode" id="cb1120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1120-1"><a href="appendix-c.html#cb1120-1" tabindex="-1"></a>HIV<span class="sc">$</span>dob<span class="ot">=</span><span class="fu">as.Date</span>(<span class="fu">format</span>(<span class="fu">as.Date</span>(HIV<span class="sc">$</span>dob,<span class="at">format=</span><span class="st">&quot;%m/%d/%y&quot;</span>), <span class="st">&quot;19%y%m%d&quot;</span>), <span class="st">&quot;%Y%m%d&quot;</span>)</span>
-<span id="cb1120-2"><a href="appendix-c.html#cb1120-2" tabindex="-1"></a></span>
-<span id="cb1120-3"><a href="appendix-c.html#cb1120-3" tabindex="-1"></a></span>
-<span id="cb1120-4"><a href="appendix-c.html#cb1120-4" tabindex="-1"></a>HIV</span></code></pre></div>
+<div class="sourceCode" id="cb1125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1125-1"><a href="appendix-c.html#cb1125-1" tabindex="-1"></a>HIV<span class="sc">$</span>dob<span class="ot">=</span><span class="fu">as.Date</span>(<span class="fu">format</span>(<span class="fu">as.Date</span>(HIV<span class="sc">$</span>dob,<span class="at">format=</span><span class="st">&quot;%m/%d/%y&quot;</span>), <span class="st">&quot;19%y%m%d&quot;</span>), <span class="st">&quot;%Y%m%d&quot;</span>)</span>
+<span id="cb1125-2"><a href="appendix-c.html#cb1125-2" tabindex="-1"></a></span>
+<span id="cb1125-3"><a href="appendix-c.html#cb1125-3" tabindex="-1"></a></span>
+<span id="cb1125-4"><a href="appendix-c.html#cb1125-4" tabindex="-1"></a>HIV</span></code></pre></div>
 <pre><code>## # A tibble: 824 × 10
 ##    gender dob        hiv_risk_factor_f Poverty_numeric hh_size ins_type_f
 ##    &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt;                       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     
@@ -676,11 +676,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="calculate-the-time-between-the-date-of-diagnosis-of-hiv-and-the-date-of-death." class="section level2 unnumbered hasAnchor">
 <h2>Calculate the time between the date of diagnosis of HIV and the date of death.<a href="appendix-c.html#calculate-the-time-between-the-date-of-diagnosis-of-hiv-and-the-date-of-death." class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1122-1"><a href="appendix-c.html#cb1122-1" tabindex="-1"></a>HIV<span class="ot">=</span> HIV <span class="sc">|&gt;</span>  </span>
-<span id="cb1122-2"><a href="appendix-c.html#cb1122-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date_d=</span><span class="fu">mdy</span>(date_of_death),</span>
-<span id="cb1122-3"><a href="appendix-c.html#cb1122-3" tabindex="-1"></a>         <span class="at">hiv_d =</span> <span class="fu">mdy</span>(hiv_date))</span>
-<span id="cb1122-4"><a href="appendix-c.html#cb1122-4" tabindex="-1"></a></span>
-<span id="cb1122-5"><a href="appendix-c.html#cb1122-5" tabindex="-1"></a>HIV</span></code></pre></div>
+<div class="sourceCode" id="cb1127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1127-1"><a href="appendix-c.html#cb1127-1" tabindex="-1"></a>HIV<span class="ot">=</span> HIV <span class="sc">|&gt;</span>  </span>
+<span id="cb1127-2"><a href="appendix-c.html#cb1127-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date_d=</span><span class="fu">mdy</span>(date_of_death),</span>
+<span id="cb1127-3"><a href="appendix-c.html#cb1127-3" tabindex="-1"></a>         <span class="at">hiv_d =</span> <span class="fu">mdy</span>(hiv_date))</span>
+<span id="cb1127-4"><a href="appendix-c.html#cb1127-4" tabindex="-1"></a></span>
+<span id="cb1127-5"><a href="appendix-c.html#cb1127-5" tabindex="-1"></a>HIV</span></code></pre></div>
 <pre><code>## # A tibble: 824 × 12
 ##    gender dob        hiv_risk_factor_f Poverty_numeric hh_size ins_type_f
 ##    &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt;                       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     
@@ -697,10 +697,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ 814 more rows
 ## # ℹ 6 more variables: vital_status &lt;chr&gt;, date_of_death &lt;chr&gt;, hiv_date &lt;chr&gt;,
 ## #   lifespan &lt;dbl&gt;, date_d &lt;date&gt;, hiv_d &lt;date&gt;</code></pre>
-<div class="sourceCode" id="cb1124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1124-1"><a href="appendix-c.html#cb1124-1" tabindex="-1"></a>HIV1 <span class="ot">&lt;-</span> HIV <span class="sc">%&gt;%</span> </span>
-<span id="cb1124-2"><a href="appendix-c.html#cb1124-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hiv_date =</span> <span class="fu">mdy</span>(hiv_date))</span>
-<span id="cb1124-3"><a href="appendix-c.html#cb1124-3" tabindex="-1"></a></span>
-<span id="cb1124-4"><a href="appendix-c.html#cb1124-4" tabindex="-1"></a>HIV1</span></code></pre></div>
+<div class="sourceCode" id="cb1129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1129-1"><a href="appendix-c.html#cb1129-1" tabindex="-1"></a>HIV1 <span class="ot">&lt;-</span> HIV <span class="sc">%&gt;%</span> </span>
+<span id="cb1129-2"><a href="appendix-c.html#cb1129-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hiv_date =</span> <span class="fu">mdy</span>(hiv_date))</span>
+<span id="cb1129-3"><a href="appendix-c.html#cb1129-3" tabindex="-1"></a></span>
+<span id="cb1129-4"><a href="appendix-c.html#cb1129-4" tabindex="-1"></a>HIV1</span></code></pre></div>
 <pre><code>## # A tibble: 824 × 12
 ##    gender dob        hiv_risk_factor_f Poverty_numeric hh_size ins_type_f
 ##    &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt;                       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     
@@ -717,10 +717,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ 814 more rows
 ## # ℹ 6 more variables: vital_status &lt;chr&gt;, date_of_death &lt;chr&gt;, hiv_date &lt;date&gt;,
 ## #   lifespan &lt;dbl&gt;, date_d &lt;date&gt;, hiv_d &lt;date&gt;</code></pre>
-<div class="sourceCode" id="cb1126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1126-1"><a href="appendix-c.html#cb1126-1" tabindex="-1"></a>HIV2 <span class="ot">&lt;-</span> HIV1 <span class="sc">%&gt;%</span> </span>
-<span id="cb1126-2"><a href="appendix-c.html#cb1126-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edad =</span> dob <span class="sc">%--%</span> hiv_date <span class="sc">/</span> <span class="fu">years</span>())</span>
-<span id="cb1126-3"><a href="appendix-c.html#cb1126-3" tabindex="-1"></a></span>
-<span id="cb1126-4"><a href="appendix-c.html#cb1126-4" tabindex="-1"></a>HIV2</span></code></pre></div>
+<div class="sourceCode" id="cb1131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1131-1"><a href="appendix-c.html#cb1131-1" tabindex="-1"></a>HIV2 <span class="ot">&lt;-</span> HIV1 <span class="sc">%&gt;%</span> </span>
+<span id="cb1131-2"><a href="appendix-c.html#cb1131-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edad =</span> dob <span class="sc">%--%</span> hiv_date <span class="sc">/</span> <span class="fu">years</span>())</span>
+<span id="cb1131-3"><a href="appendix-c.html#cb1131-3" tabindex="-1"></a></span>
+<span id="cb1131-4"><a href="appendix-c.html#cb1131-4" tabindex="-1"></a>HIV2</span></code></pre></div>
 <pre><code>## # A tibble: 824 × 13
 ##    gender dob        hiv_risk_factor_f Poverty_numeric hh_size ins_type_f
 ##    &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt;                       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     
@@ -737,10 +737,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ 814 more rows
 ## # ℹ 7 more variables: vital_status &lt;chr&gt;, date_of_death &lt;chr&gt;, hiv_date &lt;date&gt;,
 ## #   lifespan &lt;dbl&gt;, date_d &lt;date&gt;, hiv_d &lt;date&gt;, edad &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb1128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1128-1"><a href="appendix-c.html#cb1128-1" tabindex="-1"></a>HIV3 <span class="ot">&lt;-</span> HIV2 <span class="sc">%&gt;%</span> </span>
-<span id="cb1128-2"><a href="appendix-c.html#cb1128-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date_of_death =</span> <span class="fu">mdy</span>(date_of_death))</span>
-<span id="cb1128-3"><a href="appendix-c.html#cb1128-3" tabindex="-1"></a></span>
-<span id="cb1128-4"><a href="appendix-c.html#cb1128-4" tabindex="-1"></a>HIV3</span></code></pre></div>
+<div class="sourceCode" id="cb1133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1133-1"><a href="appendix-c.html#cb1133-1" tabindex="-1"></a>HIV3 <span class="ot">&lt;-</span> HIV2 <span class="sc">%&gt;%</span> </span>
+<span id="cb1133-2"><a href="appendix-c.html#cb1133-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date_of_death =</span> <span class="fu">mdy</span>(date_of_death))</span>
+<span id="cb1133-3"><a href="appendix-c.html#cb1133-3" tabindex="-1"></a></span>
+<span id="cb1133-4"><a href="appendix-c.html#cb1133-4" tabindex="-1"></a>HIV3</span></code></pre></div>
 <pre><code>## # A tibble: 824 × 13
 ##    gender dob        hiv_risk_factor_f Poverty_numeric hh_size ins_type_f
 ##    &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt;                       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     
@@ -757,10 +757,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ 814 more rows
 ## # ℹ 7 more variables: vital_status &lt;chr&gt;, date_of_death &lt;date&gt;,
 ## #   hiv_date &lt;date&gt;, lifespan &lt;dbl&gt;, date_d &lt;date&gt;, hiv_d &lt;date&gt;, edad &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb1130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1130-1"><a href="appendix-c.html#cb1130-1" tabindex="-1"></a>HIV4 <span class="ot">&lt;-</span> HIV3 <span class="sc">%&gt;%</span> </span>
-<span id="cb1130-2"><a href="appendix-c.html#cb1130-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diagnosed_death =</span> hiv_date <span class="sc">%--%</span> date_of_death <span class="sc">/</span> <span class="fu">years</span>())</span>
-<span id="cb1130-3"><a href="appendix-c.html#cb1130-3" tabindex="-1"></a></span>
-<span id="cb1130-4"><a href="appendix-c.html#cb1130-4" tabindex="-1"></a>HIV4</span></code></pre></div>
+<div class="sourceCode" id="cb1135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1135-1"><a href="appendix-c.html#cb1135-1" tabindex="-1"></a>HIV4 <span class="ot">&lt;-</span> HIV3 <span class="sc">%&gt;%</span> </span>
+<span id="cb1135-2"><a href="appendix-c.html#cb1135-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diagnosed_death =</span> hiv_date <span class="sc">%--%</span> date_of_death <span class="sc">/</span> <span class="fu">years</span>())</span>
+<span id="cb1135-3"><a href="appendix-c.html#cb1135-3" tabindex="-1"></a></span>
+<span id="cb1135-4"><a href="appendix-c.html#cb1135-4" tabindex="-1"></a>HIV4</span></code></pre></div>
 <pre><code>## # A tibble: 824 × 14
 ##    gender dob        hiv_risk_factor_f Poverty_numeric hh_size ins_type_f
 ##    &lt;chr&gt;  &lt;date&gt;     &lt;chr&gt;                       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     
@@ -781,8 +781,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="calculate-the-difference-in-life-between-the-date-of-diagnosis-and-death" class="section level2 unnumbered hasAnchor">
 <h2>Calculate the difference in life between the date of diagnosis and death<a href="appendix-c.html#calculate-the-difference-in-life-between-the-date-of-diagnosis-and-death" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1132-1"><a href="appendix-c.html#cb1132-1" tabindex="-1"></a>HIV<span class="sc">$</span>months<span class="ot">=</span> <span class="fu">floor</span>(<span class="fu">time_length</span>(<span class="fu">difftime</span>(HIV<span class="sc">$</span>date_d, HIV<span class="sc">$</span>hiv_d), <span class="st">&quot;months&quot;</span>))</span>
-<span id="cb1132-2"><a href="appendix-c.html#cb1132-2" tabindex="-1"></a>HIV<span class="sc">$</span>months</span></code></pre></div>
+<div class="sourceCode" id="cb1137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1137-1"><a href="appendix-c.html#cb1137-1" tabindex="-1"></a>HIV<span class="sc">$</span>months<span class="ot">=</span> <span class="fu">floor</span>(<span class="fu">time_length</span>(<span class="fu">difftime</span>(HIV<span class="sc">$</span>date_d, HIV<span class="sc">$</span>hiv_d), <span class="st">&quot;months&quot;</span>))</span>
+<span id="cb1137-2"><a href="appendix-c.html#cb1137-2" tabindex="-1"></a>HIV<span class="sc">$</span>months</span></code></pre></div>
 <pre><code>##   [1] 182  17   3  11 159  46 143 190 188 265 196 272  97 332 307 282 179 368
 ##  [19] 363 363 228 192 195  80  55 299 299  17   1 273 216  86 201 201 154 110
 ##  [37]  55  32 182 123  74 324 223 213 127  72 264 116 100  95  57   4 220 204
@@ -829,9 +829,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## [775] 112 475  57 316 231 351 143 252 159 327 336  65 143 254 254   3  15  90
 ## [793] 209 183 183 271  81 235 163 283 248 190  59 119 230 288 410 216  24 120
 ## [811]  54   1 290 279 268 293 260  81 269 272 309 361 336 315</code></pre>
-<div class="sourceCode" id="cb1134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1134-1"><a href="appendix-c.html#cb1134-1" tabindex="-1"></a>HIV <span class="sc">%&gt;%</span></span>
-<span id="cb1134-2"><a href="appendix-c.html#cb1134-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Period_HIV_death =</span> <span class="fu">as.duration</span>(hiv_d <span class="sc">%--%</span> date_d)) <span class="sc">|&gt;</span> </span>
-<span id="cb1134-3"><a href="appendix-c.html#cb1134-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_time=</span><span class="fu">mean</span>(Period_HIV_death)) </span></code></pre></div>
+<div class="sourceCode" id="cb1139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1139-1"><a href="appendix-c.html#cb1139-1" tabindex="-1"></a>HIV <span class="sc">%&gt;%</span></span>
+<span id="cb1139-2"><a href="appendix-c.html#cb1139-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Period_HIV_death =</span> <span class="fu">as.duration</span>(hiv_d <span class="sc">%--%</span> date_d)) <span class="sc">|&gt;</span> </span>
+<span id="cb1139-3"><a href="appendix-c.html#cb1139-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_time=</span><span class="fu">mean</span>(Period_HIV_death)) </span></code></pre></div>
 <pre><code>## # A tibble: 1 × 1
 ##    mean_time
 ##        &lt;dbl&gt;

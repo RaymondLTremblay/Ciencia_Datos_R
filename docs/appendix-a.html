@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>A Appendix A | Ciencia de Datos con R</title>
   <meta name="description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="A Appendix A | Ciencia de Datos con R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-10-01" />
+<meta name="date" content="2025-10-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -637,29 +637,29 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h2>Ejercicios con destrezar de aplicar algunas funciones de transformaciones de datos<a href="appendix-a.html#ejercicios-con-destrezar-de-aplicar-algunas-funciones-de-transformaciones-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="para-tener-los-puntos-tiene-que-enseñar-todos-los-scripts-los-resultados-y-explicar-en-palabra-los-que-encontró-dentro-de-un-documento-bien-organizado." class="section level3 unnumbered hasAnchor">
 <h3>Para tener los puntos tiene que enseñar TODOS los scripts, los resultados y explicar en palabra los que encontró dentro de un documento bien organizado.<a href="appendix-a.html#para-tener-los-puntos-tiene-que-enseñar-todos-los-scripts-los-resultados-y-explicar-en-palabra-los-que-encontró-dentro-de-un-documento-bien-organizado." class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb1107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1107-1"><a href="appendix-a.html#cb1107-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
-<span id="cb1107-2"><a href="appendix-a.html#cb1107-2" tabindex="-1"></a><span class="fu">attach</span>(bateadores)</span>
-<span id="cb1107-3"><a href="appendix-a.html#cb1107-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1107-4"><a href="appendix-a.html#cb1107-4" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code></pre></div>
+<div class="sourceCode" id="cb1112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1112-1"><a href="appendix-a.html#cb1112-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb1112-2"><a href="appendix-a.html#cb1112-2" tabindex="-1"></a><span class="fu">attach</span>(bateadores)</span>
+<span id="cb1112-3"><a href="appendix-a.html#cb1112-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1112-4"><a href="appendix-a.html#cb1112-4" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code></pre></div>
 <p>Use el data frame de “bateadores” en el paquete “datos”.</p>
-<div class="sourceCode" id="cb1108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1108-1"><a href="appendix-a.html#cb1108-1" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(bateadores, <span class="at">n=</span><span class="dv">3</span>))</span></code></pre></div>
-<div id="pgbpjqhzkx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pgbpjqhzkx table {
+<div class="sourceCode" id="cb1113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1113-1"><a href="appendix-a.html#cb1113-1" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(bateadores, <span class="at">n=</span><span class="dv">3</span>))</span></code></pre></div>
+<div id="mzgllawzch" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mzgllawzch table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pgbpjqhzkx thead, #pgbpjqhzkx tbody, #pgbpjqhzkx tfoot, #pgbpjqhzkx tr, #pgbpjqhzkx td, #pgbpjqhzkx th {
+#mzgllawzch thead, #mzgllawzch tbody, #mzgllawzch tfoot, #mzgllawzch tr, #mzgllawzch td, #mzgllawzch th {
   border-style: none;
 }
 
-#pgbpjqhzkx p {
+#mzgllawzch p {
   margin: 0;
   padding: 0;
 }
 
-#pgbpjqhzkx .gt_table {
+#mzgllawzch .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -685,12 +685,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#pgbpjqhzkx .gt_caption {
+#mzgllawzch .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pgbpjqhzkx .gt_title {
+#mzgllawzch .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -702,7 +702,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#pgbpjqhzkx .gt_subtitle {
+#mzgllawzch .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -714,7 +714,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#pgbpjqhzkx .gt_heading {
+#mzgllawzch .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -726,13 +726,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#pgbpjqhzkx .gt_bottom_border {
+#mzgllawzch .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pgbpjqhzkx .gt_col_headings {
+#mzgllawzch .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -747,7 +747,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#pgbpjqhzkx .gt_col_heading {
+#mzgllawzch .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -767,7 +767,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#pgbpjqhzkx .gt_column_spanner_outer {
+#mzgllawzch .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -779,15 +779,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#pgbpjqhzkx .gt_column_spanner_outer:first-child {
+#mzgllawzch .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pgbpjqhzkx .gt_column_spanner_outer:last-child {
+#mzgllawzch .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pgbpjqhzkx .gt_column_spanner {
+#mzgllawzch .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -799,11 +799,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#pgbpjqhzkx .gt_spanner_row {
+#mzgllawzch .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pgbpjqhzkx .gt_group_heading {
+#mzgllawzch .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -829,7 +829,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#pgbpjqhzkx .gt_empty_group_heading {
+#mzgllawzch .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -844,15 +844,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#pgbpjqhzkx .gt_from_md > :first-child {
+#mzgllawzch .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pgbpjqhzkx .gt_from_md > :last-child {
+#mzgllawzch .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pgbpjqhzkx .gt_row {
+#mzgllawzch .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -871,7 +871,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#pgbpjqhzkx .gt_stub {
+#mzgllawzch .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -884,7 +884,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#pgbpjqhzkx .gt_stub_row_group {
+#mzgllawzch .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -898,15 +898,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#pgbpjqhzkx .gt_row_group_first td {
+#mzgllawzch .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pgbpjqhzkx .gt_row_group_first th {
+#mzgllawzch .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pgbpjqhzkx .gt_summary_row {
+#mzgllawzch .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -916,16 +916,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#pgbpjqhzkx .gt_first_summary_row {
+#mzgllawzch .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pgbpjqhzkx .gt_first_summary_row.thick {
+#mzgllawzch .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pgbpjqhzkx .gt_last_summary_row {
+#mzgllawzch .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -935,7 +935,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#pgbpjqhzkx .gt_grand_summary_row {
+#mzgllawzch .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -945,7 +945,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#pgbpjqhzkx .gt_first_grand_summary_row {
+#mzgllawzch .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -955,7 +955,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#pgbpjqhzkx .gt_last_grand_summary_row_top {
+#mzgllawzch .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -965,11 +965,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#pgbpjqhzkx .gt_striped {
+#mzgllawzch .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pgbpjqhzkx .gt_table_body {
+#mzgllawzch .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -978,7 +978,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#pgbpjqhzkx .gt_footnotes {
+#mzgllawzch .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -992,7 +992,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#pgbpjqhzkx .gt_footnote {
+#mzgllawzch .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1001,7 +1001,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#pgbpjqhzkx .gt_sourcenotes {
+#mzgllawzch .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1015,7 +1015,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#pgbpjqhzkx .gt_sourcenote {
+#mzgllawzch .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1023,72 +1023,72 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#pgbpjqhzkx .gt_left {
+#mzgllawzch .gt_left {
   text-align: left;
 }
 
-#pgbpjqhzkx .gt_center {
+#mzgllawzch .gt_center {
   text-align: center;
 }
 
-#pgbpjqhzkx .gt_right {
+#mzgllawzch .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pgbpjqhzkx .gt_font_normal {
+#mzgllawzch .gt_font_normal {
   font-weight: normal;
 }
 
-#pgbpjqhzkx .gt_font_bold {
+#mzgllawzch .gt_font_bold {
   font-weight: bold;
 }
 
-#pgbpjqhzkx .gt_font_italic {
+#mzgllawzch .gt_font_italic {
   font-style: italic;
 }
 
-#pgbpjqhzkx .gt_super {
+#mzgllawzch .gt_super {
   font-size: 65%;
 }
 
-#pgbpjqhzkx .gt_footnote_marks {
+#mzgllawzch .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pgbpjqhzkx .gt_asterisk {
+#mzgllawzch .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pgbpjqhzkx .gt_indent_1 {
+#mzgllawzch .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pgbpjqhzkx .gt_indent_2 {
+#mzgllawzch .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pgbpjqhzkx .gt_indent_3 {
+#mzgllawzch .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pgbpjqhzkx .gt_indent_4 {
+#mzgllawzch .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pgbpjqhzkx .gt_indent_5 {
+#mzgllawzch .gt_indent_5 {
   text-indent: 25px;
 }
 
-#pgbpjqhzkx .katex-display {
+#mzgllawzch .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#pgbpjqhzkx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#mzgllawzch div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1195,11 +1195,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="busca-el-bateador-que-tuvo-más-carreras-en-cualquier-año" class="section level2 unnumbered hasAnchor">
 <h2>1. Busca el bateador que tuvo más carreras en cualquier año<a href="appendix-a.html#busca-el-bateador-que-tuvo-más-carreras-en-cualquier-año" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1109-1"><a href="appendix-a.html#cb1109-1" tabindex="-1"></a><span class="fu">max</span>(bateadores<span class="sc">$</span>carreras)</span></code></pre></div>
+<div class="sourceCode" id="cb1114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1114-1"><a href="appendix-a.html#cb1114-1" tabindex="-1"></a><span class="fu">max</span>(bateadores<span class="sc">$</span>carreras)</span></code></pre></div>
 <pre><code>## [1] 198</code></pre>
-<div class="sourceCode" id="cb1111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1111-1"><a href="appendix-a.html#cb1111-1" tabindex="-1"></a>bateadores <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(id_jugador, carreras) <span class="sc">|&gt;</span> </span>
-<span id="cb1111-2"><a href="appendix-a.html#cb1111-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(carreras)) <span class="sc">|&gt;</span> </span>
-<span id="cb1111-3"><a href="appendix-a.html#cb1111-3" tabindex="-1"></a>  <span class="fu">slice_max</span>(carreras)</span></code></pre></div>
+<div class="sourceCode" id="cb1116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1116-1"><a href="appendix-a.html#cb1116-1" tabindex="-1"></a>bateadores <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(id_jugador, carreras) <span class="sc">|&gt;</span> </span>
+<span id="cb1116-2"><a href="appendix-a.html#cb1116-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(carreras)) <span class="sc">|&gt;</span> </span>
+<span id="cb1116-3"><a href="appendix-a.html#cb1116-3" tabindex="-1"></a>  <span class="fu">slice_max</span>(carreras)</span></code></pre></div>
 <pre><code>##       id_jugador carreras
 ## 42103  hamilbi01      198</code></pre>
 <hr />

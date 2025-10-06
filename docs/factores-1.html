@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo19 Factores | Ciencia de Datos con R</title>
   <meta name="description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
-  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo19 Factores | Ciencia de Datos con R" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-10-01" />
+<meta name="date" content="2025-10-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -627,30 +627,30 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="factores-1" class="section level1 hasAnchor" number="19">
 <h1><span class="header-section-number">Capítulo19</span> Factores<a href="factores-1.html#factores-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2025-10-01&quot;</code></pre>
+<pre><code>## [1] &quot;2025-10-06&quot;</code></pre>
 <hr />
 <p>El tema proviene de los siguientes sitios. Aunque los ejemplos son distinctos</p>
 <p>English:
 <a href="https://r4ds.had.co.nz/factors.html" class="uri">https://r4ds.had.co.nz/factors.html</a></p>
 <p>Español:
 <a href="https://es.r4ds.hadley.nz/15-factors.html" class="uri">https://es.r4ds.hadley.nz/15-factors.html</a></p>
-<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="factores-1.html#cb676-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb676-2"><a href="factores-1.html#cb676-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
-<span id="cb676-3"><a href="factores-1.html#cb676-3" tabindex="-1"></a><span class="fu">library</span>(forcats)</span></code></pre></div>
+<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb673-1"><a href="factores-1.html#cb673-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb673-2"><a href="factores-1.html#cb673-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb673-3"><a href="factores-1.html#cb673-3" tabindex="-1"></a><span class="fu">library</span>(forcats)</span></code></pre></div>
 <hr />
-<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="factores-1.html#cb677-1" tabindex="-1"></a>month <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;December&quot;</span> ,<span class="st">&quot;January&quot;</span>, <span class="st">&quot;March&quot;</span>, <span class="st">&quot;April&quot;</span>)</span>
-<span id="cb677-2"><a href="factores-1.html#cb677-2" tabindex="-1"></a></span>
-<span id="cb677-3"><a href="factores-1.html#cb677-3" tabindex="-1"></a>month</span></code></pre></div>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="factores-1.html#cb674-1" tabindex="-1"></a>month <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;December&quot;</span> ,<span class="st">&quot;January&quot;</span>, <span class="st">&quot;March&quot;</span>, <span class="st">&quot;April&quot;</span>)</span>
+<span id="cb674-2"><a href="factores-1.html#cb674-2" tabindex="-1"></a></span>
+<span id="cb674-3"><a href="factores-1.html#cb674-3" tabindex="-1"></a>month</span></code></pre></div>
 <pre><code>## [1] &quot;December&quot; &quot;January&quot;  &quot;March&quot;    &quot;April&quot;</code></pre>
-<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="factores-1.html#cb679-1" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
-<span id="cb679-2"><a href="factores-1.html#cb679-2" tabindex="-1"></a><span class="fu">str</span>(month)</span></code></pre></div>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="factores-1.html#cb676-1" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb676-2"><a href="factores-1.html#cb676-2" tabindex="-1"></a><span class="fu">str</span>(month)</span></code></pre></div>
 <pre><code>##  chr [1:4] &quot;December&quot; &quot;January&quot; &quot;March&quot; &quot;April&quot;</code></pre>
-<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="factores-1.html#cb681-1" tabindex="-1"></a><span class="fu">str</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="factores-1.html#cb678-1" tabindex="-1"></a><span class="fu">str</span>(x)</span></code></pre></div>
 <pre><code>##  int [1:4] 1 2 3 4</code></pre>
-<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="factores-1.html#cb683-1" tabindex="-1"></a>valores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="factores-1.html#cb680-1" tabindex="-1"></a>valores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">10</span>)</span></code></pre></div>
 <p>Unir las dos listas</p>
-<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="factores-1.html#cb684-1" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(month, valores, x))</span>
-<span id="cb684-2"><a href="factores-1.html#cb684-2" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="factores-1.html#cb681-1" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(month, valores, x))</span>
+<span id="cb681-2"><a href="factores-1.html#cb681-2" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>##      month valores x
 ## 1 December       7 1
 ## 2  January       3 2
@@ -658,10 +658,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 4    April      10 4</code></pre>
 <div id="qué-ocurrio-en-el-gráfico" class="section level2 hasAnchor" number="19.1">
 <h2><span class="header-section-number">19.1</span> ¿Qué ocurrio en el gráfico?<a href="factores-1.html#qué-ocurrio-en-el-gráfico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="factores-1.html#cb686-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb686-2"><a href="factores-1.html#cb686-2" tabindex="-1"></a></span>
-<span id="cb686-3"><a href="factores-1.html#cb686-3" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(month, valores))<span class="sc">+</span></span>
-<span id="cb686-4"><a href="factores-1.html#cb686-4" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="factores-1.html#cb683-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb683-2"><a href="factores-1.html#cb683-2" tabindex="-1"></a></span>
+<span id="cb683-3"><a href="factores-1.html#cb683-3" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(month, valores))<span class="sc">+</span></span>
+<span id="cb683-4"><a href="factores-1.html#cb683-4" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/F4-1.png" width="288" /></p>
 <p>Order months in correct order</p>
 <p>use <strong>month.name</strong></p>
@@ -675,50 +675,50 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>See this website for more details</p>
 <p><a href="https://datacornering.com/how-to-get-the-month-name-from-the-number-in-r/" class="uri">https://datacornering.com/how-to-get-the-month-name-from-the-number-in-r/</a></p>
-<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="factores-1.html#cb687-1" tabindex="-1"></a>LETTERS</span></code></pre></div>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="factores-1.html#cb684-1" tabindex="-1"></a>LETTERS</span></code></pre></div>
 <pre><code>##  [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot; &quot;I&quot; &quot;J&quot; &quot;K&quot; &quot;L&quot; &quot;M&quot; &quot;N&quot; &quot;O&quot; &quot;P&quot; &quot;Q&quot; &quot;R&quot; &quot;S&quot;
 ## [20] &quot;T&quot; &quot;U&quot; &quot;V&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot; &quot;Z&quot;</code></pre>
-<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="factores-1.html#cb689-1" tabindex="-1"></a>letters</span></code></pre></div>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="factores-1.html#cb686-1" tabindex="-1"></a>letters</span></code></pre></div>
 <pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot; &quot;p&quot; &quot;q&quot; &quot;r&quot; &quot;s&quot;
 ## [20] &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;</code></pre>
-<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="factores-1.html#cb691-1" tabindex="-1"></a>month.abb</span></code></pre></div>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="factores-1.html#cb688-1" tabindex="-1"></a>month.abb</span></code></pre></div>
 <pre><code>##  [1] &quot;Jan&quot; &quot;Feb&quot; &quot;Mar&quot; &quot;Apr&quot; &quot;May&quot; &quot;Jun&quot; &quot;Jul&quot; &quot;Aug&quot; &quot;Sep&quot; &quot;Oct&quot; &quot;Nov&quot; &quot;Dec&quot;</code></pre>
-<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="factores-1.html#cb693-1" tabindex="-1"></a>month.name</span></code></pre></div>
+<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="factores-1.html#cb690-1" tabindex="-1"></a>month.name</span></code></pre></div>
 <pre><code>##  [1] &quot;January&quot;   &quot;February&quot;  &quot;March&quot;     &quot;April&quot;     &quot;May&quot;       &quot;June&quot;     
 ##  [7] &quot;July&quot;      &quot;August&quot;    &quot;September&quot; &quot;October&quot;   &quot;November&quot;  &quot;December&quot;</code></pre>
-<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="factores-1.html#cb695-1" tabindex="-1"></a>pi</span></code></pre></div>
+<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="factores-1.html#cb692-1" tabindex="-1"></a>pi</span></code></pre></div>
 <pre><code>## [1] 3.141593</code></pre>
-<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="factores-1.html#cb697-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Months=</span><span class="fu">c</span>(<span class="st">&quot;January&quot;</span>, <span class="st">&quot;February&quot;</span>, <span class="st">&quot;March&quot;</span>, <span class="st">&quot;April&quot;</span>, <span class="st">&quot;May&quot;</span>, <span class="st">&quot;June&quot;</span>, <span class="st">&quot;July&quot;</span>, <span class="st">&quot;August&quot;</span>, <span class="st">&quot;September&quot;</span>, <span class="st">&quot;October&quot;</span>, <span class="st">&quot;November&quot;</span>,<span class="st">&quot;December&quot;</span>),</span>
-<span id="cb697-2"><a href="factores-1.html#cb697-2" tabindex="-1"></a>                <span class="at">Attacks=</span><span class="fu">c</span>(<span class="dv">49</span>, <span class="dv">70</span>, <span class="dv">49</span>, <span class="dv">44</span>, <span class="dv">53</span>, <span class="dv">35</span>, <span class="dv">33</span>, <span class="dv">36</span>, <span class="dv">47</span>, <span class="dv">40</span>, <span class="dv">44</span>, <span class="dv">32</span>))</span>
-<span id="cb697-3"><a href="factores-1.html#cb697-3" tabindex="-1"></a></span>
-<span id="cb697-4"><a href="factores-1.html#cb697-4" tabindex="-1"></a></span>
-<span id="cb697-5"><a href="factores-1.html#cb697-5" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(Months, Attacks))<span class="sc">+</span></span>
-<span id="cb697-6"><a href="factores-1.html#cb697-6" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="factores-1.html#cb694-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Months=</span><span class="fu">c</span>(<span class="st">&quot;January&quot;</span>, <span class="st">&quot;February&quot;</span>, <span class="st">&quot;March&quot;</span>, <span class="st">&quot;April&quot;</span>, <span class="st">&quot;May&quot;</span>, <span class="st">&quot;June&quot;</span>, <span class="st">&quot;July&quot;</span>, <span class="st">&quot;August&quot;</span>, <span class="st">&quot;September&quot;</span>, <span class="st">&quot;October&quot;</span>, <span class="st">&quot;November&quot;</span>,<span class="st">&quot;December&quot;</span>),</span>
+<span id="cb694-2"><a href="factores-1.html#cb694-2" tabindex="-1"></a>                <span class="at">Attacks=</span><span class="fu">c</span>(<span class="dv">49</span>, <span class="dv">70</span>, <span class="dv">49</span>, <span class="dv">44</span>, <span class="dv">53</span>, <span class="dv">35</span>, <span class="dv">33</span>, <span class="dv">36</span>, <span class="dv">47</span>, <span class="dv">40</span>, <span class="dv">44</span>, <span class="dv">32</span>))</span>
+<span id="cb694-3"><a href="factores-1.html#cb694-3" tabindex="-1"></a></span>
+<span id="cb694-4"><a href="factores-1.html#cb694-4" tabindex="-1"></a></span>
+<span id="cb694-5"><a href="factores-1.html#cb694-5" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(Months, Attacks))<span class="sc">+</span></span>
+<span id="cb694-6"><a href="factores-1.html#cb694-6" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/F6-1.png" width="672" /></p>
-<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="factores-1.html#cb698-1" tabindex="-1"></a><span class="do">### validar el supuesto que tengo información escrita correctamente para cada mes de año en el dataframe </span></span>
-<span id="cb698-2"><a href="factores-1.html#cb698-2" tabindex="-1"></a><span class="fu">all</span>(df<span class="sc">$</span>Months <span class="sc">%in%</span> month.name)</span></code></pre></div>
+<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="factores-1.html#cb695-1" tabindex="-1"></a><span class="do">### validar el supuesto que tengo información escrita correctamente para cada mes de año en el dataframe </span></span>
+<span id="cb695-2"><a href="factores-1.html#cb695-2" tabindex="-1"></a><span class="fu">all</span>(df<span class="sc">$</span>Months <span class="sc">%in%</span> month.name)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="factores-1.html#cb700-1" tabindex="-1"></a><span class="do">### convert to a factor, order defined by `month.name`.  </span></span>
-<span id="cb700-2"><a href="factores-1.html#cb700-2" tabindex="-1"></a>df<span class="sc">$</span>Months <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>Months, <span class="at">levels=</span>month.name)</span>
-<span id="cb700-3"><a href="factores-1.html#cb700-3" tabindex="-1"></a></span>
-<span id="cb700-4"><a href="factores-1.html#cb700-4" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>df, <span class="fu">aes</span>(<span class="at">x=</span>Months, <span class="at">y=</span>Attacks)) <span class="sc">+</span></span>
-<span id="cb700-5"><a href="factores-1.html#cb700-5" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="factores-1.html#cb697-1" tabindex="-1"></a><span class="do">### convert to a factor, order defined by `month.name`.  </span></span>
+<span id="cb697-2"><a href="factores-1.html#cb697-2" tabindex="-1"></a>df<span class="sc">$</span>Months <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>Months, <span class="at">levels=</span>month.name)</span>
+<span id="cb697-3"><a href="factores-1.html#cb697-3" tabindex="-1"></a></span>
+<span id="cb697-4"><a href="factores-1.html#cb697-4" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>df, <span class="fu">aes</span>(<span class="at">x=</span>Months, <span class="at">y=</span>Attacks)) <span class="sc">+</span></span>
+<span id="cb697-5"><a href="factores-1.html#cb697-5" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/F6-2.png" width="672" /></p>
 <div id="usando-la-funciones-factor-y-levels-estamos-asignando-los-factores-a-un-nivel-específico-en-el-orden-de-la-lista" class="section level3 hasAnchor" number="19.1.1">
 <h3><span class="header-section-number">19.1.1</span> Usando la funciones factor y levels, estamos asignando los factores a un nivel específico en el orden de la lista<a href="factores-1.html#usando-la-funciones-factor-y-levels-estamos-asignando-los-factores-a-un-nivel-específico-en-el-orden-de-la-lista" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
 <div id="parse_factor-is-similar-a-factor-but-generates-a-warning-if-levels-have-been-specified-and-some-elements-of-x-are-not-found-in-those-levels." class="section level3 hasAnchor" number="19.1.2">
 <h3><span class="header-section-number">19.1.2</span> parse_factor() is similar a factor(), but generates a warning if levels have been specified and some elements of x are not found in those levels.<a href="factores-1.html#parse_factor-is-similar-a-factor-but-generates-a-warning-if-levels-have-been-specified-and-some-elements-of-x-are-not-found-in-those-levels." class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb701-1"><a href="factores-1.html#cb701-1" tabindex="-1"></a>x1<span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Dic&quot;</span>, <span class="st">&quot;Ene&quot;</span>, <span class="st">&quot;Mar&quot;</span>, <span class="st">&quot;Dii&quot;</span>) <span class="co"># Nota que esta lista tengo un mes que se llama &quot;Dii&quot;</span></span>
-<span id="cb701-2"><a href="factores-1.html#cb701-2" tabindex="-1"></a></span>
-<span id="cb701-3"><a href="factores-1.html#cb701-3" tabindex="-1"></a>niveles_meses<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;Ene&quot;</span>, <span class="st">&quot;Mar&quot;</span>, <span class="st">&quot;Dic&quot;</span>)</span>
-<span id="cb701-4"><a href="factores-1.html#cb701-4" tabindex="-1"></a></span>
-<span id="cb701-5"><a href="factores-1.html#cb701-5" tabindex="-1"></a>y1 <span class="ot">&lt;-</span><span class="fu">factor</span>(x1, <span class="at">levels =</span> niveles_meses)</span>
-<span id="cb701-6"><a href="factores-1.html#cb701-6" tabindex="-1"></a>y1</span></code></pre></div>
+<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="factores-1.html#cb698-1" tabindex="-1"></a>x1<span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;Dic&quot;</span>, <span class="st">&quot;Ene&quot;</span>, <span class="st">&quot;Mar&quot;</span>, <span class="st">&quot;Dii&quot;</span>) <span class="co"># Nota que esta lista tengo un mes que se llama &quot;Dii&quot;</span></span>
+<span id="cb698-2"><a href="factores-1.html#cb698-2" tabindex="-1"></a></span>
+<span id="cb698-3"><a href="factores-1.html#cb698-3" tabindex="-1"></a>niveles_meses<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;Ene&quot;</span>, <span class="st">&quot;Mar&quot;</span>, <span class="st">&quot;Dic&quot;</span>)</span>
+<span id="cb698-4"><a href="factores-1.html#cb698-4" tabindex="-1"></a></span>
+<span id="cb698-5"><a href="factores-1.html#cb698-5" tabindex="-1"></a>y1 <span class="ot">&lt;-</span><span class="fu">factor</span>(x1, <span class="at">levels =</span> niveles_meses)</span>
+<span id="cb698-6"><a href="factores-1.html#cb698-6" tabindex="-1"></a>y1</span></code></pre></div>
 <pre><code>## [1] Dic  Ene  Mar  &lt;NA&gt;
 ## Levels: Ene Mar Dic</code></pre>
-<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb703-1"><a href="factores-1.html#cb703-1" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">parse_factor</span>(x1, <span class="at">levels =</span> niveles_meses)</span>
-<span id="cb703-2"><a href="factores-1.html#cb703-2" tabindex="-1"></a>y1</span></code></pre></div>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="factores-1.html#cb700-1" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">parse_factor</span>(x1, <span class="at">levels =</span> niveles_meses)</span>
+<span id="cb700-2"><a href="factores-1.html#cb700-2" tabindex="-1"></a>y1</span></code></pre></div>
 <pre><code>## [1] Dic  Ene  Mar  &lt;NA&gt;
 ## attr(,&quot;problems&quot;)
 ## # A tibble: 1 × 4
@@ -727,29 +727,29 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 1     4    NA value in level set Dii   
 ## Levels: Ene Mar Dic</code></pre>
 <p>Si quiere que los valores aparezca en el orden que aparecen en la base de datos use <strong>unique(variable)</strong></p>
-<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="factores-1.html#cb705-1" tabindex="-1"></a>df_est<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">Nombre_est=</span><span class="fu">c</span>(<span class="st">&quot;Monica&quot;</span>, <span class="st">&quot;Isabela&quot;</span>, <span class="st">&quot;Juan&quot;</span>, <span class="st">&quot;Robo&quot;</span>, <span class="st">&quot;Pepito&quot;</span>),</span>
-<span id="cb705-2"><a href="factores-1.html#cb705-2" tabindex="-1"></a>                  <span class="at">Nota_Final=</span><span class="fu">c</span>(<span class="dv">99</span>, <span class="dv">27</span>, <span class="dv">89</span>, <span class="dv">91</span>, <span class="dv">27</span>))</span>
-<span id="cb705-3"><a href="factores-1.html#cb705-3" tabindex="-1"></a></span>
-<span id="cb705-4"><a href="factores-1.html#cb705-4" tabindex="-1"></a>df_est</span></code></pre></div>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb702-1"><a href="factores-1.html#cb702-1" tabindex="-1"></a>df_est<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">Nombre_est=</span><span class="fu">c</span>(<span class="st">&quot;Monica&quot;</span>, <span class="st">&quot;Isabela&quot;</span>, <span class="st">&quot;Juan&quot;</span>, <span class="st">&quot;Robo&quot;</span>, <span class="st">&quot;Pepito&quot;</span>),</span>
+<span id="cb702-2"><a href="factores-1.html#cb702-2" tabindex="-1"></a>                  <span class="at">Nota_Final=</span><span class="fu">c</span>(<span class="dv">99</span>, <span class="dv">27</span>, <span class="dv">89</span>, <span class="dv">91</span>, <span class="dv">27</span>))</span>
+<span id="cb702-3"><a href="factores-1.html#cb702-3" tabindex="-1"></a></span>
+<span id="cb702-4"><a href="factores-1.html#cb702-4" tabindex="-1"></a>df_est</span></code></pre></div>
 <pre><code>##   Nombre_est Nota_Final
 ## 1     Monica         99
 ## 2    Isabela         27
 ## 3       Juan         89
 ## 4       Robo         91
 ## 5     Pepito         27</code></pre>
-<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="factores-1.html#cb707-1" tabindex="-1"></a><span class="fu">ggplot</span>(df_est, <span class="fu">aes</span>(Nombre_est, Nota_Final))<span class="sc">+</span></span>
-<span id="cb707-2"><a href="factores-1.html#cb707-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="factores-1.html#cb704-1" tabindex="-1"></a><span class="fu">ggplot</span>(df_est, <span class="fu">aes</span>(Nombre_est, Nota_Final))<span class="sc">+</span></span>
+<span id="cb704-2"><a href="factores-1.html#cb704-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/F8-1.png" width="672" /></p>
-<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb708-1"><a href="factores-1.html#cb708-1" tabindex="-1"></a>df_est<span class="sc">$</span>fct1<span class="ot">=</span><span class="fu">factor</span>(df_est<span class="sc">$</span>Nombre_est, <span class="at">levels =</span> <span class="fu">unique</span>(df_est<span class="sc">$</span>Nombre_est))</span>
-<span id="cb708-2"><a href="factores-1.html#cb708-2" tabindex="-1"></a></span>
-<span id="cb708-3"><a href="factores-1.html#cb708-3" tabindex="-1"></a><span class="fu">ggplot</span>(df_est, <span class="fu">aes</span>(fct1, Nota_Final))<span class="sc">+</span></span>
-<span id="cb708-4"><a href="factores-1.html#cb708-4" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb705-1"><a href="factores-1.html#cb705-1" tabindex="-1"></a>df_est<span class="sc">$</span>fct1<span class="ot">=</span><span class="fu">factor</span>(df_est<span class="sc">$</span>Nombre_est, <span class="at">levels =</span> <span class="fu">unique</span>(df_est<span class="sc">$</span>Nombre_est))</span>
+<span id="cb705-2"><a href="factores-1.html#cb705-2" tabindex="-1"></a></span>
+<span id="cb705-3"><a href="factores-1.html#cb705-3" tabindex="-1"></a><span class="fu">ggplot</span>(df_est, <span class="fu">aes</span>(fct1, Nota_Final))<span class="sc">+</span></span>
+<span id="cb705-4"><a href="factores-1.html#cb705-4" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/F8-2.png" width="672" /></p>
-<div class="sourceCode" id="cb709"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb709-1"><a href="factores-1.html#cb709-1" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> x1 <span class="sc">%&gt;%</span> <span class="fu">factor</span>() <span class="sc">%&gt;%</span> <span class="fu">fct_inorder</span>()</span>
-<span id="cb709-2"><a href="factores-1.html#cb709-2" tabindex="-1"></a>f2</span></code></pre></div>
+<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb706-1"><a href="factores-1.html#cb706-1" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> x1 <span class="sc">%&gt;%</span> <span class="fu">factor</span>() <span class="sc">%&gt;%</span> <span class="fu">fct_inorder</span>()</span>
+<span id="cb706-2"><a href="factores-1.html#cb706-2" tabindex="-1"></a>f2</span></code></pre></div>
 <pre><code>## [1] Dic Ene Mar Dii
 ## Levels: Dic Ene Mar Dii</code></pre>
-<div class="sourceCode" id="cb711"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb711-1"><a href="factores-1.html#cb711-1" tabindex="-1"></a><span class="fu">levels</span>(f2)</span></code></pre></div>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb708-1"><a href="factores-1.html#cb708-1" tabindex="-1"></a><span class="fu">levels</span>(f2)</span></code></pre></div>
 <pre><code>## [1] &quot;Dic&quot; &quot;Ene&quot; &quot;Mar&quot; &quot;Dii&quot;</code></pre>
 </div>
 </div>
@@ -772,8 +772,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: decimal">
 <li><strong>Ejercicios</strong>:</li>
 </ol>
-<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb713-1"><a href="factores-1.html#cb713-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
-<span id="cb713-2"><a href="factores-1.html#cb713-2" tabindex="-1"></a>encuesta</span></code></pre></div>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="factores-1.html#cb710-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb710-2"><a href="factores-1.html#cb710-2" tabindex="-1"></a>encuesta</span></code></pre></div>
 <pre><code>## # A tibble: 21,483 × 9
 ##     anio estado_civil  edad raza  ingreso partido religion denominacion horas_tv
 ##    &lt;int&gt; &lt;fct&gt;        &lt;int&gt; &lt;fct&gt; &lt;fct&gt;   &lt;fct&gt;   &lt;fct&gt;    &lt;fct&gt;           &lt;int&gt;
@@ -789,9 +789,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 10  2000 Casado          47 Blan… 25000 … Fuerte… Protest… Bautistas d…        3
 ## # ℹ 21,473 more rows</code></pre>
 <p>Contabilizar la cantidad de persona por “estado civil”</p>
-<div class="sourceCode" id="cb715"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb715-1"><a href="factores-1.html#cb715-1" tabindex="-1"></a>df<span class="ot">=</span>encuesta <span class="sc">%&gt;%</span> </span>
-<span id="cb715-2"><a href="factores-1.html#cb715-2" tabindex="-1"></a>   <span class="fu">count</span>(estado_civil)</span>
-<span id="cb715-3"><a href="factores-1.html#cb715-3" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="factores-1.html#cb712-1" tabindex="-1"></a>df<span class="ot">=</span>encuesta <span class="sc">%&gt;%</span> </span>
+<span id="cb712-2"><a href="factores-1.html#cb712-2" tabindex="-1"></a>   <span class="fu">count</span>(estado_civil)</span>
+<span id="cb712-3"><a href="factores-1.html#cb712-3" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 2
 ##   estado_civil           n
 ##   &lt;fct&gt;              &lt;int&gt;
@@ -802,15 +802,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 5 Viudo               1807
 ## 6 Casado             10117</code></pre>
 <p>knitr</p>
-<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb717-1"><a href="factores-1.html#cb717-1" tabindex="-1"></a><span class="fu">unique</span>(df<span class="sc">$</span>estado_civil)</span></code></pre></div>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="factores-1.html#cb714-1" tabindex="-1"></a><span class="fu">unique</span>(df<span class="sc">$</span>estado_civil)</span></code></pre></div>
 <pre><code>## [1] Sin respuesta      Nunca se ha casado Separado           Divorciado        
 ## [5] Viudo              Casado            
 ## 6 Levels: Sin respuesta Nunca se ha casado Separado Divorciado ... Casado</code></pre>
-<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb719-1"><a href="factores-1.html#cb719-1" tabindex="-1"></a>df<span class="sc">$</span>estado_est_civil <span class="ot">&lt;-</span><span class="fu">factor</span>(df<span class="sc">$</span>estado_civil, <span class="at">levels =</span> df<span class="sc">$</span>estado_civil)</span>
-<span id="cb719-2"><a href="factores-1.html#cb719-2" tabindex="-1"></a></span>
-<span id="cb719-3"><a href="factores-1.html#cb719-3" tabindex="-1"></a>df<span class="sc">$</span>niveles_est_civil <span class="ot">&lt;-</span> <span class="fu">fct_reorder</span>(df<span class="sc">$</span>estado_civil, df<span class="sc">$</span>n )</span>
-<span id="cb719-4"><a href="factores-1.html#cb719-4" tabindex="-1"></a></span>
-<span id="cb719-5"><a href="factores-1.html#cb719-5" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="factores-1.html#cb716-1" tabindex="-1"></a>df<span class="sc">$</span>estado_est_civil <span class="ot">&lt;-</span><span class="fu">factor</span>(df<span class="sc">$</span>estado_civil, <span class="at">levels =</span> df<span class="sc">$</span>estado_civil)</span>
+<span id="cb716-2"><a href="factores-1.html#cb716-2" tabindex="-1"></a></span>
+<span id="cb716-3"><a href="factores-1.html#cb716-3" tabindex="-1"></a>df<span class="sc">$</span>niveles_est_civil <span class="ot">&lt;-</span> <span class="fu">fct_reorder</span>(df<span class="sc">$</span>estado_civil, df<span class="sc">$</span>n )</span>
+<span id="cb716-4"><a href="factores-1.html#cb716-4" tabindex="-1"></a></span>
+<span id="cb716-5"><a href="factores-1.html#cb716-5" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##   estado_civil           n estado_est_civil   niveles_est_civil 
 ##   &lt;fct&gt;              &lt;int&gt; &lt;fct&gt;              &lt;fct&gt;             
@@ -820,9 +820,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Divorciado          3383 Divorciado         Divorciado        
 ## 5 Viudo               1807 Viudo              Viudo             
 ## 6 Casado             10117 Casado             Casado</code></pre>
-<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb721-1"><a href="factores-1.html#cb721-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, </span>
-<span id="cb721-2"><a href="factores-1.html#cb721-2" tabindex="-1"></a>       <span class="fu">aes</span>(estado_civil,n )) <span class="sc">+</span></span>
-<span id="cb721-3"><a href="factores-1.html#cb721-3" tabindex="-1"></a>       <span class="fu">geom_col</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb718-1"><a href="factores-1.html#cb718-1" tabindex="-1"></a><span class="fu">ggplot</span>(df, </span>
+<span id="cb718-2"><a href="factores-1.html#cb718-2" tabindex="-1"></a>       <span class="fu">aes</span>(estado_civil,n )) <span class="sc">+</span></span>
+<span id="cb718-3"><a href="factores-1.html#cb718-3" tabindex="-1"></a>       <span class="fu">geom_col</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/F13-1.png" width="960" /></p>
 </div>
 </div>
@@ -834,14 +834,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="haga-un-re-order-por-la-cantidad-de-personas-por-religion" class="section level2 hasAnchor" number="19.4">
 <h2><span class="header-section-number">19.4</span> Haga un re-order por la cantidad de personas por religion<a href="factores-1.html#haga-un-re-order-por-la-cantidad-de-personas-por-religion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb722-1"><a href="factores-1.html#cb722-1" tabindex="-1"></a>df2<span class="ot">=</span>encuesta <span class="sc">%&gt;%</span> </span>
-<span id="cb722-2"><a href="factores-1.html#cb722-2" tabindex="-1"></a>   <span class="fu">count</span>(religion)</span>
-<span id="cb722-3"><a href="factores-1.html#cb722-3" tabindex="-1"></a></span>
-<span id="cb722-4"><a href="factores-1.html#cb722-4" tabindex="-1"></a>df2 <span class="sc">%&gt;%</span></span>
-<span id="cb722-5"><a href="factores-1.html#cb722-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">religion =</span> <span class="fu">fct_reorder</span>(religion, n)) <span class="sc">%&gt;%</span></span>
-<span id="cb722-6"><a href="factores-1.html#cb722-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> religion, <span class="at">y =</span> n)) <span class="sc">+</span> </span>
-<span id="cb722-7"><a href="factores-1.html#cb722-7" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb722-8"><a href="factores-1.html#cb722-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb719-1"><a href="factores-1.html#cb719-1" tabindex="-1"></a>df2<span class="ot">=</span>encuesta <span class="sc">%&gt;%</span> </span>
+<span id="cb719-2"><a href="factores-1.html#cb719-2" tabindex="-1"></a>   <span class="fu">count</span>(religion)</span>
+<span id="cb719-3"><a href="factores-1.html#cb719-3" tabindex="-1"></a></span>
+<span id="cb719-4"><a href="factores-1.html#cb719-4" tabindex="-1"></a>df2 <span class="sc">%&gt;%</span></span>
+<span id="cb719-5"><a href="factores-1.html#cb719-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">religion =</span> <span class="fu">fct_reorder</span>(religion, n)) <span class="sc">%&gt;%</span></span>
+<span id="cb719-6"><a href="factores-1.html#cb719-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> religion, <span class="at">y =</span> n)) <span class="sc">+</span> </span>
+<span id="cb719-7"><a href="factores-1.html#cb719-7" tabindex="-1"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
+<span id="cb719-8"><a href="factores-1.html#cb719-8" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/F15-1.png" width="672" /></p>
 <p>Hacer los ejercicios en la sección 15.3.1 del libro en español</p>
 <hr />
@@ -857,19 +857,19 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>fct_collapse()</li>
 <li>fct_lump()</li>
 </ul>
-<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb723-1"><a href="factores-1.html#cb723-1" tabindex="-1"></a><span class="co">#model=lm(y~x, df)</span></span>
-<span id="cb723-2"><a href="factores-1.html#cb723-2" tabindex="-1"></a><span class="co">#summary(model)</span></span>
-<span id="cb723-3"><a href="factores-1.html#cb723-3" tabindex="-1"></a></span>
-<span id="cb723-4"><a href="factores-1.html#cb723-4" tabindex="-1"></a></span>
-<span id="cb723-5"><a href="factores-1.html#cb723-5" tabindex="-1"></a>resumen_religion <span class="ot">&lt;-</span> encuesta <span class="sc">%&gt;%</span></span>
-<span id="cb723-6"><a href="factores-1.html#cb723-6" tabindex="-1"></a>  <span class="fu">group_by</span>(religion) <span class="sc">%&gt;%</span></span>
-<span id="cb723-7"><a href="factores-1.html#cb723-7" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb723-8"><a href="factores-1.html#cb723-8" tabindex="-1"></a>    <span class="at">edad =</span> <span class="fu">mean</span>(edad, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb723-9"><a href="factores-1.html#cb723-9" tabindex="-1"></a>    <span class="at">horas_tv =</span> <span class="fu">mean</span>(horas_tv, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb723-10"><a href="factores-1.html#cb723-10" tabindex="-1"></a>    <span class="at">sd_edad =</span>  <span class="fu">min</span>(horas_tv, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb723-11"><a href="factores-1.html#cb723-11" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
-<span id="cb723-12"><a href="factores-1.html#cb723-12" tabindex="-1"></a>  )</span>
-<span id="cb723-13"><a href="factores-1.html#cb723-13" tabindex="-1"></a>resumen_religion</span></code></pre></div>
+<div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb720-1"><a href="factores-1.html#cb720-1" tabindex="-1"></a><span class="co">#model=lm(y~x, df)</span></span>
+<span id="cb720-2"><a href="factores-1.html#cb720-2" tabindex="-1"></a><span class="co">#summary(model)</span></span>
+<span id="cb720-3"><a href="factores-1.html#cb720-3" tabindex="-1"></a></span>
+<span id="cb720-4"><a href="factores-1.html#cb720-4" tabindex="-1"></a></span>
+<span id="cb720-5"><a href="factores-1.html#cb720-5" tabindex="-1"></a>resumen_religion <span class="ot">&lt;-</span> encuesta <span class="sc">%&gt;%</span></span>
+<span id="cb720-6"><a href="factores-1.html#cb720-6" tabindex="-1"></a>  <span class="fu">group_by</span>(religion) <span class="sc">%&gt;%</span></span>
+<span id="cb720-7"><a href="factores-1.html#cb720-7" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb720-8"><a href="factores-1.html#cb720-8" tabindex="-1"></a>    <span class="at">edad =</span> <span class="fu">mean</span>(edad, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb720-9"><a href="factores-1.html#cb720-9" tabindex="-1"></a>    <span class="at">horas_tv =</span> <span class="fu">mean</span>(horas_tv, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb720-10"><a href="factores-1.html#cb720-10" tabindex="-1"></a>    <span class="at">sd_edad =</span>  <span class="fu">min</span>(horas_tv, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb720-11"><a href="factores-1.html#cb720-11" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb720-12"><a href="factores-1.html#cb720-12" tabindex="-1"></a>  )</span>
+<span id="cb720-13"><a href="factores-1.html#cb720-13" tabindex="-1"></a>resumen_religion</span></code></pre></div>
 <pre><code>## # A tibble: 15 × 5
 ##    religion                edad horas_tv sd_edad     n
 ##    &lt;fct&gt;                  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
@@ -888,33 +888,33 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 ## 13 Judía                   52.4     2.52    2.52   388
 ## 14 Católica                46.9     2.96    2.96  5124
 ## 15 Protestante             49.9     3.15    3.15 10846</code></pre>
-<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb725-1"><a href="factores-1.html#cb725-1" tabindex="-1"></a><span class="fu">ggplot</span>(resumen_religion, <span class="fu">aes</span>(edad, religion)) <span class="sc">+</span> </span>
-<span id="cb725-2"><a href="factores-1.html#cb725-2" tabindex="-1"></a>   <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb722-1"><a href="factores-1.html#cb722-1" tabindex="-1"></a><span class="fu">ggplot</span>(resumen_religion, <span class="fu">aes</span>(edad, religion)) <span class="sc">+</span> </span>
+<span id="cb722-2"><a href="factores-1.html#cb722-2" tabindex="-1"></a>   <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/F16-1.png" width="672" /></p>
-<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="factores-1.html#cb726-1" tabindex="-1"></a><span class="fu">min</span>(encuesta<span class="sc">$</span>horas_tv, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb723-1"><a href="factores-1.html#cb723-1" tabindex="-1"></a><span class="fu">min</span>(encuesta<span class="sc">$</span>horas_tv, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <div id="nota-el-efecto-de-añadir-un---antes-de-edad" class="section level3 hasAnchor" number="19.5.1">
 <h3><span class="header-section-number">19.5.1</span> Nota el efecto de añadir un “-” antes de <strong>edad</strong><a href="factores-1.html#nota-el-efecto-de-añadir-un---antes-de-edad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb728-1"><a href="factores-1.html#cb728-1" tabindex="-1"></a><span class="fu">ggplot</span>(resumen_religion, <span class="fu">aes</span>(edad, <span class="fu">fct_reorder</span>(religion, <span class="sc">-</span>edad))) <span class="sc">+</span></span>
-<span id="cb728-2"><a href="factores-1.html#cb728-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb725-1"><a href="factores-1.html#cb725-1" tabindex="-1"></a><span class="fu">ggplot</span>(resumen_religion, <span class="fu">aes</span>(edad, <span class="fu">fct_reorder</span>(religion, <span class="sc">-</span>edad))) <span class="sc">+</span></span>
+<span id="cb725-2"><a href="factores-1.html#cb725-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/F17-1.png" width="672" /></p>
-<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb729-1"><a href="factores-1.html#cb729-1" tabindex="-1"></a>resumen_religion <span class="sc">%&gt;%</span></span>
-<span id="cb729-2"><a href="factores-1.html#cb729-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">religion =</span> <span class="fu">fct_reorder</span>(religion, horas_tv)) <span class="sc">%&gt;%</span></span>
-<span id="cb729-3"><a href="factores-1.html#cb729-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(horas_tv, religion)) <span class="sc">+</span></span>
-<span id="cb729-4"><a href="factores-1.html#cb729-4" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="factores-1.html#cb726-1" tabindex="-1"></a>resumen_religion <span class="sc">%&gt;%</span></span>
+<span id="cb726-2"><a href="factores-1.html#cb726-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">religion =</span> <span class="fu">fct_reorder</span>(religion, horas_tv)) <span class="sc">%&gt;%</span></span>
+<span id="cb726-3"><a href="factores-1.html#cb726-3" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(horas_tv, religion)) <span class="sc">+</span></span>
+<span id="cb726-4"><a href="factores-1.html#cb726-4" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/F18-1.png" width="672" /></p>
 <p>Reorder factor levels by sorting along another variable
 Description
 fct_reorder() is useful for 1d displays where the factor is mapped to position; fct_reorder2() for 2d displays where the factor is mapped to a non-position aesthetic. last2() and first2() are helpers for fct_reorder2(); last2() finds the last value of y when sorted by x; first2() finds the first value.</p>
-<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="factores-1.html#cb730-1" tabindex="-1"></a>resumen_ingreso <span class="ot">&lt;-</span> encuesta <span class="sc">%&gt;%</span></span>
-<span id="cb730-2"><a href="factores-1.html#cb730-2" tabindex="-1"></a>  <span class="fu">group_by</span>(ingreso) <span class="sc">%&gt;%</span></span>
-<span id="cb730-3"><a href="factores-1.html#cb730-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb730-4"><a href="factores-1.html#cb730-4" tabindex="-1"></a>    <span class="at">edad =</span> <span class="fu">mean</span>(edad, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb730-5"><a href="factores-1.html#cb730-5" tabindex="-1"></a>    <span class="at">horas_tv =</span> <span class="fu">mean</span>(horas_tv, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb730-6"><a href="factores-1.html#cb730-6" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
-<span id="cb730-7"><a href="factores-1.html#cb730-7" tabindex="-1"></a>  )</span>
-<span id="cb730-8"><a href="factores-1.html#cb730-8" tabindex="-1"></a></span>
-<span id="cb730-9"><a href="factores-1.html#cb730-9" tabindex="-1"></a>resumen_ingreso</span></code></pre></div>
+<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="factores-1.html#cb727-1" tabindex="-1"></a>resumen_ingreso <span class="ot">&lt;-</span> encuesta <span class="sc">%&gt;%</span></span>
+<span id="cb727-2"><a href="factores-1.html#cb727-2" tabindex="-1"></a>  <span class="fu">group_by</span>(ingreso) <span class="sc">%&gt;%</span></span>
+<span id="cb727-3"><a href="factores-1.html#cb727-3" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb727-4"><a href="factores-1.html#cb727-4" tabindex="-1"></a>    <span class="at">edad =</span> <span class="fu">mean</span>(edad, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb727-5"><a href="factores-1.html#cb727-5" tabindex="-1"></a>    <span class="at">horas_tv =</span> <span class="fu">mean</span>(horas_tv, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb727-6"><a href="factores-1.html#cb727-6" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb727-7"><a href="factores-1.html#cb727-7" tabindex="-1"></a>  )</span>
+<span id="cb727-8"><a href="factores-1.html#cb727-8" tabindex="-1"></a></span>
+<span id="cb727-9"><a href="factores-1.html#cb727-9" tabindex="-1"></a>resumen_ingreso</span></code></pre></div>
 <pre><code>## # A tibble: 16 × 4
 ##    ingreso               edad horas_tv     n
 ##    &lt;fct&gt;                &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;
@@ -934,14 +934,14 @@ fct_reorder() is useful for 1d displays where the factor is mapped to position; 
 ## 14 1000 - 2999           34.5     3.00   395
 ## 15 Menos de 1000         40.5     3.36   286
 ## 16 No aplica             56.1     3.79  7043</code></pre>
-<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="factores-1.html#cb732-1" tabindex="-1"></a><span class="fu">ggplot</span>(resumen_ingreso, <span class="fu">aes</span>(horas_tv, <span class="fu">fct_reorder</span>(ingreso, horas_tv))) <span class="sc">+</span></span>
-<span id="cb732-2"><a href="factores-1.html#cb732-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb729-1"><a href="factores-1.html#cb729-1" tabindex="-1"></a><span class="fu">ggplot</span>(resumen_ingreso, <span class="fu">aes</span>(horas_tv, <span class="fu">fct_reorder</span>(ingreso, horas_tv))) <span class="sc">+</span></span>
+<span id="cb729-2"><a href="factores-1.html#cb729-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/F19-1.png" width="672" /></p>
 <p>Reorder factor levels by hand
 Description
 This is a generalisation of stats::relevel() that allows you to move any number of levels to any location.</p>
-<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb733-1"><a href="factores-1.html#cb733-1" tabindex="-1"></a><span class="fu">ggplot</span>(resumen_ingreso, <span class="fu">aes</span>(edad, <span class="fu">fct_relevel</span>(ingreso, <span class="st">&quot;No aplica&quot;</span>))) <span class="sc">+</span></span>
-<span id="cb733-2"><a href="factores-1.html#cb733-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="factores-1.html#cb730-1" tabindex="-1"></a><span class="fu">ggplot</span>(resumen_ingreso, <span class="fu">aes</span>(edad, <span class="fu">fct_relevel</span>(ingreso, <span class="st">&quot;No aplica&quot;</span>))) <span class="sc">+</span></span>
+<span id="cb730-2"><a href="factores-1.html#cb730-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/F20-1.png" width="672" /></p>
 <ol start="2" style="list-style-type: decimal">
 <li><strong>Ejercicios</strong>:</li>
