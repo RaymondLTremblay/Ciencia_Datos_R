@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-10-06" />
+<meta name="date" content="2025-10-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -626,7 +626,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="opciones-de-knitr" class="section level1 hasAnchor" number="22">
 <h1><span class="header-section-number">Capítulo22</span> Opciones de Knitr<a href="opciones-de-knitr.html#opciones-de-knitr" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<pre><code>## [1] &quot;2025-10-06&quot;</code></pre>
+<pre><code>## [1] &quot;2025-10-15&quot;</code></pre>
 <p>La mayoria de los ejemplos y ideas de esta seccieon proviene de <strong>yihui</strong> en el siguiente website &lt;<a href="https://yihui.org/knitr/" class="uri">https://yihui.org/knitr/</a>&gt;</p>
 <p>el paquete <strong>knitr</strong> fue desiñado para ser transparente para generar reporte de R, añadiendo componente de animación y Latex (Ecuaciones) y otras funciones.</p>
 <p>Hay muchas opciones para determinar lo que hace un <strong>chunk</strong></p>
@@ -800,7 +800,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb844"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb844-1"><a href="opciones-de-knitr.html#cb844-1" tabindex="-1"></a><span class="fu">plot</span>(cars)</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <hr />
-<p><code>```{r OK1, fig.cap='El nombre de mi figura.', fig.topcaption=TRUE, echo_opts=TRUE}</code></p>
+<p><code>```{r OK1, include=TRUE, fig.cap='El nombre de mi figura.', fig.topcaption=TRUE, echo_opts=TRUE}</code></p>
 <div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb845-1"><a href="opciones-de-knitr.html#cb845-1" tabindex="-1"></a><span class="fu">plot</span>(cars)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:OK1"></span>
 <p class="caption">
@@ -810,7 +810,7 @@ Figure 22.1: El nombre de mi figura.
 </div>
 <p><code>```</code></p>
 <hr />
-<p><code>```{r OK2, fig.cap= "An incredible figure", echo_opts=TRUE}</code></p>
+<p><code>```{r OK2, include=TRUE, fig.cap= "An incredible figure", echo_opts=TRUE}</code></p>
 <div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb846-1"><a href="opciones-de-knitr.html#cb846-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb846-2"><a href="opciones-de-knitr.html#cb846-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">letters =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">value =</span> <span class="dv">1</span>)</span>
 <span id="cb846-3"><a href="opciones-de-knitr.html#cb846-3" tabindex="-1"></a></span>
@@ -824,7 +824,7 @@ Figure 22.2: An incredible figure
 </div>
 <p><code>```</code></p>
 <hr />
-<code>```{r OK3, fig.cap= "An incredible figure", fig.width = 3, fig.height = 3, echo_opts=TRUE, echo=FALSE}</code>
+<code>```{r OK3, include=TRUE, fig.cap= "An incredible figure", fig.width = 3, fig.height = 3, echo_opts=TRUE, echo=FALSE}</code>
 <div class="figure"><span style="display:block;" id="fig:OK3"></span>
 <img src="Ciencia-Datos-con-R_files/figure-html/OK3-1.png" alt="An incredible figure" width="288" />
 <p class="caption">
@@ -835,7 +835,7 @@ Figure 22.3: An incredible figure
 <hr />
 <p>Figure aligment: default, left, right, and center</p>
 <p>fig.align</p>
-<p><code>```{r OK4, fig.cap= "caption", fig.width = 3, fig.height = 3, fig.align='right', echo_opts=TRUE}</code></p>
+<p><code>```{r OK4, include=TRUE, fig.cap= "caption", fig.width = 3, fig.height = 3, fig.align='right', echo_opts=TRUE}</code></p>
 <div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb847-1"><a href="opciones-de-knitr.html#cb847-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb847-2"><a href="opciones-de-knitr.html#cb847-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">letters =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">value =</span> <span class="dv">1</span>)</span>
 <span id="cb847-3"><a href="opciones-de-knitr.html#cb847-3" tabindex="-1"></a></span>
@@ -904,7 +904,7 @@ Figure 22.5: caption
 <div id="remember-you-can-add-emojis-to-your-document" class="section level5 hasAnchor" number="22.3.1.0.1">
 <h5><span class="header-section-number">22.3.1.0.1</span> Remember you can add emoji’s to your document<a href="opciones-de-knitr.html#remember-you-can-add-emojis-to-your-document" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Sometimes you want to 🙈 around a bit and add some ⭐️⭐️ to your document.
-🎈🎈 Well we have a gift for you if you add interesting emoji’s to your document.</p>
+🎈🎈 Well we have a gift for you if you add interesting emoji’s to your document, above all if you are a 🎶.</p>
 
 </div>
 </div>

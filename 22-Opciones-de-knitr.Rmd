@@ -147,14 +147,14 @@ plot(cars)
 
 
 
-```{r OK1, fig.cap='El nombre de mi figura.', fig.topcaption=TRUE, echo_opts=TRUE}
+```{r OK1, include=TRUE, fig.cap='El nombre de mi figura.', fig.topcaption=TRUE, echo_opts=TRUE}
 plot(cars)
 ```
 
 
 
 ***
-```{r OK2, fig.cap= "An incredible figure", echo_opts=TRUE}
+```{r OK2, include=TRUE, fig.cap= "An incredible figure", echo_opts=TRUE}
 library(ggplot2)
 df <- data.frame(letters = letters[1:5], value = 1)
 
@@ -167,7 +167,7 @@ ggplot(df, aes(letters, value, fill = letters)) +
 
 ***
 
-```{r OK3, fig.cap= "An incredible figure", fig.width = 3, fig.height = 3, echo_opts=TRUE, echo=FALSE}
+```{r OK3, include=TRUE, fig.cap= "An incredible figure", fig.width = 3, fig.height = 3, echo_opts=TRUE, echo=FALSE}
 library(ggplot2)
 df <- data.frame(letters = letters[1:5], value = 1)
 
@@ -183,7 +183,7 @@ Figure aligment: default, left, right, and center
 
 fig.align
 
-```{r OK4, fig.cap= "caption", fig.width = 3, fig.height = 3, fig.align='right', echo_opts=TRUE}
+```{r OK4, include=TRUE, fig.cap= "caption", fig.width = 3, fig.height = 3, fig.align='right', echo_opts=TRUE}
 library(ggplot2)
 df <- data.frame(letters = letters[1:5], value = 1)
 
@@ -209,7 +209,8 @@ AQUI el CHUNK
 ##### R Markdown wrapping
 
 <div style= "float:right;position: relative; top: -20px;">
-```{r OK5, echo=TRUE, fig.cap= "caption", fig.width = 2.6, fig.height = 2.6, fig.align='right'}
+
+```{r OK5, include=TRUE, echo=TRUE, fig.cap= "caption", fig.width = 2.6, fig.height = 2.6, fig.align='right'}
 df <- data.frame(letters = letters[1:5], value = 1)
 
 ggplot(df, aes(letters, value, fill = letters)) +
@@ -237,26 +238,26 @@ Note that the `echo = TRUE` parameter was added to the code chunk to have printi
 
 
 
-```{r OK6, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+```{r OK6, include=TRUE, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
 x=c(1:10)
 x
 ```
 
 
 
-```{r OK7, message=FALSE}
+```{r OK7, include=TRUE, message=FALSE}
 library(MASS)
 ```
 
 
 
-```{r OK8, warning=FALSE}
+```{r OK8, include=TRUE, warning=FALSE}
 library(dplyr)
 library(MASS)
 ```
 
 
-```{r OK9, results='asis'}
+```{r OK9, include=TRUE, results='asis'}
 cat("I'm raw **Markdown** content.\n",
     "\n",
                "➪ My poetry of Puerto Rico\n")
@@ -276,7 +277,7 @@ cat("I'm raw **Markdown** content.\n",
 
 
 Sometimes you want to 🙈 around a bit and add some ⭐️⭐️ to your document. 
-🎈🎈 Well we have a gift for you if you add interesting emoji's to your document.
+🎈🎈 Well we have a gift for you if you add interesting emoji's to your document, above all if you are a 🎶. 
 
 
 
