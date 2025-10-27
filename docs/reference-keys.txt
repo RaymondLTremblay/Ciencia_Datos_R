@@ -1,7 +1,7 @@
 eq:reaction
 eq:promedio
 fig:OK1
-fig:OK2
+fig:OK
 fig:OK3
 fig:OK4
 fig:OK5
@@ -314,7 +314,9 @@ usando-la-paletas-de-color-de-viridis
 trabajando-con-datos-de-inaturalist
 ahora-crea-un-mapa-de-los-terremotos-alrededor-de-puerto-rico
 utilizando-leaflet
+addawesomemarkers-cambiando-el-diseño-de-los-marcadores
 trabajando-variables-categóricas-con-leaflet
 appendix-a
 ejercicio-de-transformación
 covid-19-cumulativo
+lista-de-caracteres-especiales-unicodes

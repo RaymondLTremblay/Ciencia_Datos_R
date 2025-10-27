@@ -21,39 +21,39 @@ library(tidyverse)
 
 ```{r H2, eval=FALSE, message=FALSE}
 sticker(
-  subplot,
+  subplot, # position and size of subplot
   s_x = 0.8,
   s_y = 0.75,
   s_width = 0.4,
   s_height = 0.5,
-  package,
+  package, # package name and characteristics
   p_x = 1,
   p_y = 1.4,
   p_color = "#FFFFFF",
   p_family = "Aller_Rg",
   p_fontface = "plain",
   p_size = 8,
-  h_size = 1.2,
+  h_size = 1.2, # hexagon border size and colors
   h_fill = "#1881C2",
   h_color = "#87B13F",
   spotlight = FALSE,
-  l_x = 1,
+  l_x = 1, # spotlight x position
   l_y = 0.5,
   l_width = 3,
   l_height = 3,
   l_alpha = 0.4,
-  url = "",
+  url = "", # url at lower border
   u_x = 1,
   u_y = 0.08,
   u_color = "black",
   u_family = "Aller_Rg",
   u_size = 1.5,
   u_angle = 30,
-  white_around_sticker = FALSE,
+  white_around_sticker = FALSE, # if TRUE, puts white triangles in the corners
   ...,
-  filename = paste0(package, ".png"),
-  asp = 1,
-  dpi = 300
+  filename = paste0(package, ".png"), # filename to save sticker
+  asp = 1, # aspect ratio, only works if subplot is an image file
+  dpi = 300 # plot resolution
 )
 ```
 
@@ -161,25 +161,26 @@ sysfonts::font_add_google("Dancing Script") # selección de fonts de google
 sysfonts::font_add_google("Bebas Neue")
 sysfonts::font_add_google("Fuggles")
 sysfonts::font_add_google("Roboto")
-sysfonts::font_add_google("Lobster")
-sysfonts::font_add_google("Raleway")
+sysfonts::font_add_google("Montserrat")
+sysfonts::font_add_google("Lobster Two")
+
 
 
 cat_img=image_read('cat.jpg')
 analitica_img=image_read('Analitica3.png')
 
 sticker(
-  subplot= analitica_img,
-  package="Meow",
-  s_width =.75,
-  s_height = .75,
+  subplot= cat_img,
+  package="Meow \n software",
+  s_width =.55,
+  s_height = .55,
   s_x=1,
   s_y=.75,
-  p_size=19,
+  p_size=12,
   p_x = 1.0,
   p_y = 1.5,
   p_color= 'purple',
-  p_family= "Raleway",
+  p_family= "Lobster Two",
   h_fill ='gold',
   h_color='hotpink',
   h_size = 2,

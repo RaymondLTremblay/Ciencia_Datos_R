@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-10-15" />
+<meta name="date" content="2025-10-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -65,6 +65,18 @@
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-binding-2.2.3/leaflet.js"></script>
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+<link href="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.css" rel="stylesheet" />
+<script src="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.min.js"></script>
+<link href="libs/fontawesome-4.7.0/font-awesome.min.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet" />
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.3/leaflet-providers-plugin.js"></script>
 
 
 <style type="text/css">
@@ -563,7 +575,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="26.6.1" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#ahora-crea-un-mapa-de-los-terremotos-alrededor-de-puerto-rico"><i class="fa fa-check"></i><b>26.6.1</b> AHora crea un mapa de los terremotos alrededor de Puerto Rico</a></li>
 </ul></li>
-<li class="chapter" data-level="26.7" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#utilizando-leaflet"><i class="fa fa-check"></i><b>26.7</b> Utilizando Leaflet</a></li>
+<li class="chapter" data-level="26.7" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#utilizando-leaflet"><i class="fa fa-check"></i><b>26.7</b> Utilizando Leaflet</a>
+<ul>
+<li class="chapter" data-level="26.7.1" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#addawesomemarkers-cambiando-el-diseño-de-los-marcadores"><i class="fa fa-check"></i><b>26.7.1</b> addAwesomeMarkers: Cambiando el diseño de los marcadores</a></li>
+</ul></li>
 <li class="chapter" data-level="26.8" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#trabajando-variables-categóricas-con-leaflet"><i class="fa fa-check"></i><b>26.8</b> Trabajando Variables Categóricas con Leaflet:</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -637,12 +652,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h2>Ejercicios con destrezar de aplicar algunas funciones de transformaciones de datos<a href="appendix-a.html#ejercicios-con-destrezar-de-aplicar-algunas-funciones-de-transformaciones-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="para-tener-los-puntos-tiene-que-enseñar-todos-los-scripts-los-resultados-y-explicar-en-palabra-los-que-encontró-dentro-de-un-documento-bien-organizado." class="section level3 unnumbered hasAnchor">
 <h3>Para tener los puntos tiene que enseñar TODOS los scripts, los resultados y explicar en palabra los que encontró dentro de un documento bien organizado.<a href="appendix-a.html#para-tener-los-puntos-tiene-que-enseñar-todos-los-scripts-los-resultados-y-explicar-en-palabra-los-que-encontró-dentro-de-un-documento-bien-organizado." class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb1112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1112-1"><a href="appendix-a.html#cb1112-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
-<span id="cb1112-2"><a href="appendix-a.html#cb1112-2" tabindex="-1"></a><span class="fu">attach</span>(bateadores)</span>
-<span id="cb1112-3"><a href="appendix-a.html#cb1112-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1112-4"><a href="appendix-a.html#cb1112-4" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code></pre></div>
+<div class="sourceCode" id="cb1130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1130-1"><a href="appendix-a.html#cb1130-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb1130-2"><a href="appendix-a.html#cb1130-2" tabindex="-1"></a><span class="fu">attach</span>(bateadores)</span>
+<span id="cb1130-3"><a href="appendix-a.html#cb1130-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1130-4"><a href="appendix-a.html#cb1130-4" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code></pre></div>
 <p>Use el data frame de “bateadores” en el paquete “datos”.</p>
-<div class="sourceCode" id="cb1113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1113-1"><a href="appendix-a.html#cb1113-1" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(bateadores, <span class="at">n=</span><span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1131-1"><a href="appendix-a.html#cb1131-1" tabindex="-1"></a><span class="fu">gt</span>(<span class="fu">head</span>(bateadores, <span class="at">n=</span><span class="dv">3</span>))</span></code></pre></div>
 <div id="mzgllawzch" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#mzgllawzch table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1195,11 +1210,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="busca-el-bateador-que-tuvo-más-carreras-en-cualquier-año" class="section level2 unnumbered hasAnchor">
 <h2>1. Busca el bateador que tuvo más carreras en cualquier año<a href="appendix-a.html#busca-el-bateador-que-tuvo-más-carreras-en-cualquier-año" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1114-1"><a href="appendix-a.html#cb1114-1" tabindex="-1"></a><span class="fu">max</span>(bateadores<span class="sc">$</span>carreras)</span></code></pre></div>
+<div class="sourceCode" id="cb1132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1132-1"><a href="appendix-a.html#cb1132-1" tabindex="-1"></a><span class="fu">max</span>(bateadores<span class="sc">$</span>carreras)</span></code></pre></div>
 <pre><code>## [1] 198</code></pre>
-<div class="sourceCode" id="cb1116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1116-1"><a href="appendix-a.html#cb1116-1" tabindex="-1"></a>bateadores <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(id_jugador, carreras) <span class="sc">|&gt;</span> </span>
-<span id="cb1116-2"><a href="appendix-a.html#cb1116-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(carreras)) <span class="sc">|&gt;</span> </span>
-<span id="cb1116-3"><a href="appendix-a.html#cb1116-3" tabindex="-1"></a>  <span class="fu">slice_max</span>(carreras)</span></code></pre></div>
+<div class="sourceCode" id="cb1134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1134-1"><a href="appendix-a.html#cb1134-1" tabindex="-1"></a>bateadores <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(id_jugador, carreras) <span class="sc">|&gt;</span> </span>
+<span id="cb1134-2"><a href="appendix-a.html#cb1134-2" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(carreras)) <span class="sc">|&gt;</span> </span>
+<span id="cb1134-3"><a href="appendix-a.html#cb1134-3" tabindex="-1"></a>  <span class="fu">slice_max</span>(carreras)</span></code></pre></div>
 <pre><code>##       id_jugador carreras
 ## 42103  hamilbi01      198</code></pre>
 <hr />

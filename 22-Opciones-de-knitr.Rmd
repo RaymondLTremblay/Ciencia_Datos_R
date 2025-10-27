@@ -109,7 +109,7 @@ library(tidyverse)
  
 
 
-```{r}
+```{r, message=TRUE, warning=TRUE, echo=TRUE}
 library(tidyverse)
 ```
 
@@ -136,11 +136,18 @@ head(cars)
 
 Añade una figura 
 
-```{r echo=TRUE}
+```{r eval=FALSE, echo=FALSE, fig.cap='El nombre de mi figura.', fig.topcaption=TRUE}
 plot(cars)
 ```
 
+```{r, eval=FALSE}
+data=c(1:100)
+```
 
+
+```{r}
+mean(data)
+```
 
  
 ***
@@ -154,9 +161,9 @@ plot(cars)
 
 
 ***
-```{r OK2, include=TRUE, fig.cap= "An incredible figure", echo_opts=TRUE}
+```{r OK, include=TRUE, fig.cap= "An incredible figure", echo_opts=TRUE}
 library(ggplot2)
-df <- data.frame(letters = letters[1:5], value = 1)
+df <- data.frame(letters = letters[10:15], value = 1)
 
 ggplot(df, aes(letters, value, fill = letters)) +
  geom_bar(stat = "identity")
@@ -208,9 +215,11 @@ AQUI el CHUNK
 
 ##### R Markdown wrapping
 
+codigo css
+
 <div style= "float:right;position: relative; top: -20px;">
 
-```{r OK5, include=TRUE, echo=TRUE, fig.cap= "caption", fig.width = 2.6, fig.height = 2.6, fig.align='right'}
+```{r OK5, include=TRUE, echo=TRUE, fig.cap= "caption", fig.width = 2.6, fig.height = 2.6, fig.align='right', echo=FALSE}
 df <- data.frame(letters = letters[1:5], value = 1)
 
 ggplot(df, aes(letters, value, fill = letters)) +

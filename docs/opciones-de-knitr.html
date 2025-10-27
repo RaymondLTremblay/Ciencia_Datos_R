@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2025-10-15" />
+<meta name="date" content="2025-10-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -65,6 +65,18 @@
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-binding-2.2.3/leaflet.js"></script>
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+<link href="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.css" rel="stylesheet" />
+<script src="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.min.js"></script>
+<link href="libs/fontawesome-4.7.0/font-awesome.min.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet" />
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.3/leaflet-providers-plugin.js"></script>
 
 
 <style type="text/css">
@@ -563,7 +575,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="26.6.1" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#ahora-crea-un-mapa-de-los-terremotos-alrededor-de-puerto-rico"><i class="fa fa-check"></i><b>26.6.1</b> AHora crea un mapa de los terremotos alrededor de Puerto Rico</a></li>
 </ul></li>
-<li class="chapter" data-level="26.7" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#utilizando-leaflet"><i class="fa fa-check"></i><b>26.7</b> Utilizando Leaflet</a></li>
+<li class="chapter" data-level="26.7" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#utilizando-leaflet"><i class="fa fa-check"></i><b>26.7</b> Utilizando Leaflet</a>
+<ul>
+<li class="chapter" data-level="26.7.1" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#addawesomemarkers-cambiando-el-diseño-de-los-marcadores"><i class="fa fa-check"></i><b>26.7.1</b> addAwesomeMarkers: Cambiando el diseño de los marcadores</a></li>
+</ul></li>
 <li class="chapter" data-level="26.8" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#trabajando-variables-categóricas-con-leaflet"><i class="fa fa-check"></i><b>26.8</b> Trabajando Variables Categóricas con Leaflet:</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
@@ -626,7 +641,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="opciones-de-knitr" class="section level1 hasAnchor" number="22">
 <h1><span class="header-section-number">Capítulo22</span> Opciones de Knitr<a href="opciones-de-knitr.html#opciones-de-knitr" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<pre><code>## [1] &quot;2025-10-15&quot;</code></pre>
+<pre><code>## [1] &quot;2025-10-27&quot;</code></pre>
 <p>La mayoria de los ejemplos y ideas de esta seccieon proviene de <strong>yihui</strong> en el siguiente website &lt;<a href="https://yihui.org/knitr/" class="uri">https://yihui.org/knitr/</a>&gt;</p>
 <p>el paquete <strong>knitr</strong> fue desiñado para ser transparente para generar reporte de R, añadiendo componente de animación y Latex (Ecuaciones) y otras funciones.</p>
 <p>Hay muchas opciones para determinar lo que hace un <strong>chunk</strong></p>
@@ -797,11 +812,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p><code>```</code></p>
 <hr />
 <p>Añade una figura</p>
-<div class="sourceCode" id="cb844"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb844-1"><a href="opciones-de-knitr.html#cb844-1" tabindex="-1"></a><span class="fu">plot</span>(cars)</span></code></pre></div>
-<p><img src="Ciencia-Datos-con-R_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<div class="sourceCode" id="cb844"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb844-1"><a href="opciones-de-knitr.html#cb844-1" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb845-1"><a href="opciones-de-knitr.html#cb845-1" tabindex="-1"></a><span class="fu">mean</span>(data)</span></code></pre></div>
+<pre><code>## [1] 9.6</code></pre>
 <hr />
 <p><code>```{r OK1, include=TRUE, fig.cap='El nombre de mi figura.', fig.topcaption=TRUE, echo_opts=TRUE}</code></p>
-<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb845-1"><a href="opciones-de-knitr.html#cb845-1" tabindex="-1"></a><span class="fu">plot</span>(cars)</span></code></pre></div>
+<div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb847-1"><a href="opciones-de-knitr.html#cb847-1" tabindex="-1"></a><span class="fu">plot</span>(cars)</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:OK1"></span>
 <p class="caption">
 Figure 22.1: El nombre de mi figura.
@@ -810,14 +826,14 @@ Figure 22.1: El nombre de mi figura.
 </div>
 <p><code>```</code></p>
 <hr />
-<p><code>```{r OK2, include=TRUE, fig.cap= "An incredible figure", echo_opts=TRUE}</code></p>
-<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb846-1"><a href="opciones-de-knitr.html#cb846-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb846-2"><a href="opciones-de-knitr.html#cb846-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">letters =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">value =</span> <span class="dv">1</span>)</span>
-<span id="cb846-3"><a href="opciones-de-knitr.html#cb846-3" tabindex="-1"></a></span>
-<span id="cb846-4"><a href="opciones-de-knitr.html#cb846-4" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(letters, value, <span class="at">fill =</span> letters)) <span class="sc">+</span></span>
-<span id="cb846-5"><a href="opciones-de-knitr.html#cb846-5" tabindex="-1"></a> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
-<div class="figure"><span style="display:block;" id="fig:OK2"></span>
-<img src="Ciencia-Datos-con-R_files/figure-html/OK2-1.png" alt="An incredible figure" width="672" />
+<p><code>```{r OK, include=TRUE, fig.cap= "An incredible figure", echo_opts=TRUE}</code></p>
+<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb848-1"><a href="opciones-de-knitr.html#cb848-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb848-2"><a href="opciones-de-knitr.html#cb848-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">letters =</span> letters[<span class="dv">10</span><span class="sc">:</span><span class="dv">15</span>], <span class="at">value =</span> <span class="dv">1</span>)</span>
+<span id="cb848-3"><a href="opciones-de-knitr.html#cb848-3" tabindex="-1"></a></span>
+<span id="cb848-4"><a href="opciones-de-knitr.html#cb848-4" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(letters, value, <span class="at">fill =</span> letters)) <span class="sc">+</span></span>
+<span id="cb848-5"><a href="opciones-de-knitr.html#cb848-5" tabindex="-1"></a> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:OK"></span>
+<img src="Ciencia-Datos-con-R_files/figure-html/OK-1.png" alt="An incredible figure" width="672" />
 <p class="caption">
 Figure 22.2: An incredible figure
 </p>
@@ -836,11 +852,11 @@ Figure 22.3: An incredible figure
 <p>Figure aligment: default, left, right, and center</p>
 <p>fig.align</p>
 <p><code>```{r OK4, include=TRUE, fig.cap= "caption", fig.width = 3, fig.height = 3, fig.align='right', echo_opts=TRUE}</code></p>
-<div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb847-1"><a href="opciones-de-knitr.html#cb847-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb847-2"><a href="opciones-de-knitr.html#cb847-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">letters =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">value =</span> <span class="dv">1</span>)</span>
-<span id="cb847-3"><a href="opciones-de-knitr.html#cb847-3" tabindex="-1"></a></span>
-<span id="cb847-4"><a href="opciones-de-knitr.html#cb847-4" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(letters, value, <span class="at">fill =</span> letters)) <span class="sc">+</span></span>
-<span id="cb847-5"><a href="opciones-de-knitr.html#cb847-5" tabindex="-1"></a> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb849"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb849-1"><a href="opciones-de-knitr.html#cb849-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb849-2"><a href="opciones-de-knitr.html#cb849-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">letters =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">value =</span> <span class="dv">1</span>)</span>
+<span id="cb849-3"><a href="opciones-de-knitr.html#cb849-3" tabindex="-1"></a></span>
+<span id="cb849-4"><a href="opciones-de-knitr.html#cb849-4" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(letters, value, <span class="at">fill =</span> letters)) <span class="sc">+</span></span>
+<span id="cb849-5"><a href="opciones-de-knitr.html#cb849-5" tabindex="-1"></a> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: right"><span style="display:block;" id="fig:OK4"></span>
 <img src="Ciencia-Datos-con-R_files/figure-html/OK4-1.png" alt="caption" width="288" />
 <p class="caption">
@@ -856,11 +872,8 @@ Figure 22.4: caption
 </div>
 <div id="r-markdown-wrapping" class="section level5 hasAnchor" number="22.2.0.0.1">
 <h5><span class="header-section-number">22.2.0.0.1</span> R Markdown wrapping<a href="opciones-de-knitr.html#r-markdown-wrapping" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>codigo css</p>
 <div style="float:right;position: relative; top: -20px;">
-<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb848-1"><a href="opciones-de-knitr.html#cb848-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">letters =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="at">value =</span> <span class="dv">1</span>)</span>
-<span id="cb848-2"><a href="opciones-de-knitr.html#cb848-2" tabindex="-1"></a></span>
-<span id="cb848-3"><a href="opciones-de-knitr.html#cb848-3" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(letters, value, <span class="at">fill =</span> letters)) <span class="sc">+</span></span>
-<span id="cb848-4"><a href="opciones-de-knitr.html#cb848-4" tabindex="-1"></a> <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: right"><span style="display:block;" id="fig:OK5"></span>
 <img src="Ciencia-Datos-con-R_files/figure-html/OK5-1.png" alt="caption" width="249.6" />
 <p class="caption">
@@ -885,12 +898,12 @@ Figure 22.5: caption
 <li>results = ‘asis’ To show text exactly as printed/written</li>
 </ul>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb850"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb850-1"><a href="opciones-de-knitr.html#cb850-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span></code></pre></div>
-<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb851-1"><a href="opciones-de-knitr.html#cb851-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb851-2"><a href="opciones-de-knitr.html#cb851-2" tabindex="-1"></a><span class="fu">library</span>(MASS)</span></code></pre></div>
-<div class="sourceCode" id="cb852"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb852-1"><a href="opciones-de-knitr.html#cb852-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;I&#39;m raw **Markdown** content.</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
-<span id="cb852-2"><a href="opciones-de-knitr.html#cb852-2" tabindex="-1"></a>    <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
-<span id="cb852-3"><a href="opciones-de-knitr.html#cb852-3" tabindex="-1"></a>               <span class="st">&quot;➪ My poetry of Puerto Rico</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb851-1"><a href="opciones-de-knitr.html#cb851-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span></code></pre></div>
+<div class="sourceCode" id="cb852"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb852-1"><a href="opciones-de-knitr.html#cb852-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb852-2"><a href="opciones-de-knitr.html#cb852-2" tabindex="-1"></a><span class="fu">library</span>(MASS)</span></code></pre></div>
+<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb853-1"><a href="opciones-de-knitr.html#cb853-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;I&#39;m raw **Markdown** content.</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb853-2"><a href="opciones-de-knitr.html#cb853-2" tabindex="-1"></a>    <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb853-3"><a href="opciones-de-knitr.html#cb853-3" tabindex="-1"></a>               <span class="st">&quot;➪ My poetry of Puerto Rico</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <p>I’m raw <strong>Markdown</strong> content.</p>
 <p>➪ My poetry of Puerto Rico</p>
 <hr />
