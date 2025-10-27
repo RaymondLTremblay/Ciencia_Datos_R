@@ -319,4 +319,3 @@ trabajando-variables-categóricas-con-leaflet
 appendix-a
 ejercicio-de-transformación
 covid-19-cumulativo
-lista-de-caracteres-especiales-unicodes

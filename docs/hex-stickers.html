@@ -52,6 +52,31 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/wordcloud2-0.0.1/wordcloud.css" rel="stylesheet" />
+<script src="libs/wordcloud2-0.0.1/wordcloud2-all.js"></script>
+<script src="libs/wordcloud2-0.0.1/hover.js"></script>
+<script src="libs/wordcloud2-binding-0.2.1/wordcloud2.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.3/leaflet.js"></script>
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+<link href="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.css" rel="stylesheet" />
+<script src="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.min.js"></script>
+<link href="libs/fontawesome-4.7.0/font-awesome.min.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet" />
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.3/leaflet-providers-plugin.js"></script>
 
 
 <style type="text/css">
@@ -317,9 +342,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.1" data-path="pipes.html"><a href="pipes.html#temas-el-paquete-magrittr-y-sus-funciones"><i class="fa fa-check"></i><b>14.1</b> Temas: El paquete “magrittr” y sus funciones</a></li>
 <li class="chapter" data-level="14.2" data-path="pipes.html"><a href="pipes.html#pipes-1"><i class="fa fa-check"></i><b>14.2</b> %&gt;% pipes</a></li>
 <li class="chapter" data-level="14.3" data-path="pipes.html"><a href="pipes.html#alternativas-a-los-pipes"><i class="fa fa-check"></i><b>14.3</b> Alternativas a los pipes</a></li>
-<li><a href="pipes.html#otro-ejemplo-de-pipe" id="toc-otro-ejemplo-de-pipe"><span class="toc-section-number">14.4</span> %<span class="math inline">\(%
-### Otro ejemplo de Pipe: %\)</span>%</a></li>
-<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-1"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
+<li class="chapter" data-level="14.4" data-path="pipes.html"><a href="pipes.html#section-1"><i class="fa fa-check"></i><b>14.4</b> %$%</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="pipes.html"><a href="pipes.html#otro-ejemplo-de-pipe"><i class="fa fa-check"></i><b>14.4.1</b> Otro ejemplo de Pipe: %$%</a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>14.5</b> %&lt;&gt;%</a></li>
 <li class="chapter" data-level="14.6" data-path="pipes.html"><a href="pipes.html#in"><i class="fa fa-check"></i><b>14.6</b> %in%</a></li>
 <li class="chapter" data-level="14.7" data-path="pipes.html"><a href="pipes.html#t"><i class="fa fa-check"></i><b>14.7</b> %T&gt;%</a></li>
 </ul></li>
@@ -402,39 +429,38 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="20.1" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#caracteres-especiales"><i class="fa fa-check"></i><b>20.1</b> Caracteres especiales</a></li>
 <li class="chapter" data-level="20.2" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#para-ver-las-opciones-de-caracteres-y-como-trabajar-cadenas-de-caracteres-use-para-ver"><i class="fa fa-check"></i><b>20.2</b> Para ver las opciones de caracteres y como trabajar cadenas de caracteres use <strong>?“’”</strong> para ver</a></li>
-<li class="chapter" data-level="20.3" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#lista-de-caracteres-especiales-unicodes"><i class="fa fa-check"></i><b>20.3</b> Lista de caracteres especiales (unicodes)</a></li>
-<li class="chapter" data-level="20.4" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#temas-cadenas-de-caracteres"><i class="fa fa-check"></i><b>20.4</b> Temas: Cadenas de Caracteres</a>
+<li class="chapter" data-level="20.3" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#temas-cadenas-de-caracteres"><i class="fa fa-check"></i><b>20.3</b> Temas: Cadenas de Caracteres</a>
 <ul>
-<li class="chapter" data-level="20.4.1" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#el-largo-de-una-cadena-de-caracteres-con-str_length"><i class="fa fa-check"></i><b>20.4.1</b> El largo de una cadena de caracteres con <strong>str_length</strong></a></li>
-<li class="chapter" data-level="20.4.2" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#combinar-cadenas-con-str_c"><i class="fa fa-check"></i><b>20.4.2</b> Combinar cadenas con <strong>str_c</strong></a></li>
+<li class="chapter" data-level="20.3.1" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#el-largo-de-una-cadena-de-caracteres-con-str_length"><i class="fa fa-check"></i><b>20.3.1</b> El largo de una cadena de caracteres con <strong>str_length</strong></a></li>
+<li class="chapter" data-level="20.3.2" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#combinar-cadenas-con-str_c"><i class="fa fa-check"></i><b>20.3.2</b> Combinar cadenas con <strong>str_c</strong></a></li>
 </ul></li>
-<li class="chapter" data-level="20.5" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#dividir-cadenas-basado-en-la-posición-de-los-caracteres-en-la-cadena"><i class="fa fa-check"></i><b>20.5</b> Dividir cadenas basado en la posición de los caracteres en la cadena</a>
+<li class="chapter" data-level="20.4" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#dividir-cadenas-basado-en-la-posición-de-los-caracteres-en-la-cadena"><i class="fa fa-check"></i><b>20.4</b> Dividir cadenas basado en la posición de los caracteres en la cadena</a>
 <ul>
-<li class="chapter" data-level="20.5.1" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#seleccionar-los-caracteres-al-último-de-la-palabra"><i class="fa fa-check"></i><b>20.5.1</b> Seleccionar los caracteres al último de la palabra</a></li>
-<li class="chapter" data-level="20.5.2" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#cambiar-a-todo-minuscula"><i class="fa fa-check"></i><b>20.5.2</b> Cambiar a todo minuscula</a></li>
-<li class="chapter" data-level="20.5.3" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#cambiar-a-mayuscula"><i class="fa fa-check"></i><b>20.5.3</b> Cambiar a mayuscula</a></li>
+<li class="chapter" data-level="20.4.1" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#seleccionar-los-caracteres-al-último-de-la-palabra"><i class="fa fa-check"></i><b>20.4.1</b> Seleccionar los caracteres al último de la palabra</a></li>
+<li class="chapter" data-level="20.4.2" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#cambiar-a-todo-minuscula"><i class="fa fa-check"></i><b>20.4.2</b> Cambiar a todo minuscula</a></li>
+<li class="chapter" data-level="20.4.3" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#cambiar-a-mayuscula"><i class="fa fa-check"></i><b>20.4.3</b> Cambiar a mayuscula</a></li>
 </ul></li>
-<li class="chapter" data-level="20.6" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#locales"><i class="fa fa-check"></i><b>20.6</b> Locales</a></li>
-<li class="chapter" data-level="20.7" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#buscar-patrones"><i class="fa fa-check"></i><b>20.7</b> Buscar patrones</a></li>
-<li class="chapter" data-level="20.8" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#coincidencia-básica"><i class="fa fa-check"></i><b>20.8</b> Coincidencia básica</a>
+<li class="chapter" data-level="20.5" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#locales"><i class="fa fa-check"></i><b>20.5</b> Locales</a></li>
+<li class="chapter" data-level="20.6" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#buscar-patrones"><i class="fa fa-check"></i><b>20.6</b> Buscar patrones</a></li>
+<li class="chapter" data-level="20.7" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#coincidencia-básica"><i class="fa fa-check"></i><b>20.7</b> Coincidencia básica</a>
 <ul>
-<li class="chapter" data-level="20.8.1" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#detectar-las-palabras-que-comienzan-con-una-letra-específica-con"><i class="fa fa-check"></i><b>20.8.1</b> Detectar las palabras que comienzan con una letra específica con “^”</a></li>
-<li class="chapter" data-level="20.8.2" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#detectar-las-palabras-que-terminan-con-una-letra-específica-con"><i class="fa fa-check"></i><b>20.8.2</b> Detectar las palabras que terminan con una letra específica con “$”</a></li>
+<li class="chapter" data-level="20.7.1" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#detectar-las-palabras-que-comienzan-con-una-letra-específica-con"><i class="fa fa-check"></i><b>20.7.1</b> Detectar las palabras que comienzan con una letra específica con “^”</a></li>
+<li class="chapter" data-level="20.7.2" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#detectar-las-palabras-que-terminan-con-una-letra-específica-con"><i class="fa fa-check"></i><b>20.7.2</b> Detectar las palabras que terminan con una letra específica con “$”</a></li>
 </ul></li>
-<li class="chapter" data-level="20.9" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#anclas"><i class="fa fa-check"></i><b>20.9</b> Anclas</a></li>
-<li class="chapter" data-level="20.10" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#clases-de-caracteres-y-alternativas"><i class="fa fa-check"></i><b>20.10</b> Clases de caracteres y alternativas</a></li>
-<li class="chapter" data-level="20.11" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#repetición"><i class="fa fa-check"></i><b>20.11</b> Repetición</a></li>
-<li class="chapter" data-level="20.12" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#agrupamiento-y-referencias-previas"><i class="fa fa-check"></i><b>20.12</b> Agrupamiento y referencias previas</a></li>
-<li class="chapter" data-level="20.13" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#herramientas-objetivos"><i class="fa fa-check"></i><b>20.13</b> Herramientas: Objetivos</a>
+<li class="chapter" data-level="20.8" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#anclas"><i class="fa fa-check"></i><b>20.8</b> Anclas</a></li>
+<li class="chapter" data-level="20.9" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#clases-de-caracteres-y-alternativas"><i class="fa fa-check"></i><b>20.9</b> Clases de caracteres y alternativas</a></li>
+<li class="chapter" data-level="20.10" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#repetición"><i class="fa fa-check"></i><b>20.10</b> Repetición</a></li>
+<li class="chapter" data-level="20.11" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#agrupamiento-y-referencias-previas"><i class="fa fa-check"></i><b>20.11</b> Agrupamiento y referencias previas</a></li>
+<li class="chapter" data-level="20.12" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#herramientas-objetivos"><i class="fa fa-check"></i><b>20.12</b> Herramientas: Objetivos</a>
 <ul>
-<li class="chapter" data-level="20.13.1" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#detectar-coincidencias"><i class="fa fa-check"></i><b>20.13.1</b> Detectar coincidencias</a></li>
+<li class="chapter" data-level="20.12.1" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#detectar-coincidencias"><i class="fa fa-check"></i><b>20.12.1</b> Detectar coincidencias</a></li>
 </ul></li>
-<li class="chapter" data-level="20.14" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#extraer-coincidencias"><i class="fa fa-check"></i><b>20.14</b> Extraer coincidencias</a></li>
-<li class="chapter" data-level="20.15" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#coincidencias-agrupadas"><i class="fa fa-check"></i><b>20.15</b> Coincidencias agrupadas:</a></li>
-<li class="chapter" data-level="20.16" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#remplazar-coincidencias"><i class="fa fa-check"></i><b>20.16</b> Remplazar coincidencias</a></li>
-<li class="chapter" data-level="20.17" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#divisiones"><i class="fa fa-check"></i><b>20.17</b> Divisiones</a></li>
-<li class="chapter" data-level="20.18" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#otro-tipos-de-patrones"><i class="fa fa-check"></i><b>20.18</b> Otro tipos de patrones</a></li>
-<li class="chapter" data-level="20.19" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#stringi"><i class="fa fa-check"></i><b>20.19</b> stringi:</a></li>
+<li class="chapter" data-level="20.13" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#extraer-coincidencias"><i class="fa fa-check"></i><b>20.13</b> Extraer coincidencias</a></li>
+<li class="chapter" data-level="20.14" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#coincidencias-agrupadas"><i class="fa fa-check"></i><b>20.14</b> Coincidencias agrupadas:</a></li>
+<li class="chapter" data-level="20.15" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#remplazar-coincidencias"><i class="fa fa-check"></i><b>20.15</b> Remplazar coincidencias</a></li>
+<li class="chapter" data-level="20.16" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#divisiones"><i class="fa fa-check"></i><b>20.16</b> Divisiones</a></li>
+<li class="chapter" data-level="20.17" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#otro-tipos-de-patrones"><i class="fa fa-check"></i><b>20.17</b> Otro tipos de patrones</a></li>
+<li class="chapter" data-level="20.18" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#stringi"><i class="fa fa-check"></i><b>20.18</b> stringi:</a></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="math-sci.html"><a href="math-sci.html"><i class="fa fa-check"></i><b>21</b> Ecuaciones Matematicas</a>
 <ul>
@@ -454,13 +480,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="22" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html"><i class="fa fa-check"></i><b>22</b> Opciones de Knitr</a>
 <ul>
-<li class="chapter" data-level="22.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#para-ver-las-opciones-de-knitr-de-los-chunk"><i class="fa fa-check"></i><b>22.1</b> Para ver las opciones de <strong>knitr</strong> de los chunk</a>
+<li class="chapter" data-level="22.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#para-ver-las-opciones-de-knitr-de-los-chunk"><i class="fa fa-check"></i><b>22.1</b> Para ver las opciones de <strong>knitr</strong> de los chunk</a></li>
+<li class="chapter" data-level="22.2" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#tablas-de-opciones-principales"><i class="fa fa-check"></i><b>22.2</b> Tablas de opciones principales</a>
 <ul>
-<li class="chapter" data-level="22.1.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#otras-funciones-de-knitr"><i class="fa fa-check"></i><b>22.1.1</b> OTRAS funciones de knitr</a></li>
+<li class="chapter" data-level="22.2.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#otras-funciones-de-knitr"><i class="fa fa-check"></i><b>22.2.1</b> OTRAS funciones de knitr</a></li>
 </ul></li>
-<li class="chapter" data-level="22.2" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#emoji-or-symbols"><i class="fa fa-check"></i><b>22.2</b> Emoji or Symbols</a>
+<li class="chapter" data-level="22.3" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#emoji-or-symbols"><i class="fa fa-check"></i><b>22.3</b> Emoji or Symbols</a>
 <ul>
-<li class="chapter" data-level="22.2.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#select-under-the-edit-emoji-symbols."><i class="fa fa-check"></i><b>22.2.1</b> Select Under the Edit ➡ Emoji &amp; Symbols.</a></li>
+<li class="chapter" data-level="22.3.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#select-under-the-edit-emoji-symbols."><i class="fa fa-check"></i><b>22.3.1</b> Select Under the Edit ➡ Emoji &amp; Symbols.</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="23" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html"><i class="fa fa-check"></i><b>23</b> Fechas, horas y minutas</a>
@@ -554,20 +581,21 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="26.8" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#trabajando-variables-categóricas-con-leaflet"><i class="fa fa-check"></i><b>26.8</b> Trabajando Variables Categóricas con Leaflet:</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path=""><a href="#appendix-appendix"><i class="fa fa-check"></i>(APPENDIX) Appendix</a>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appendix-a.html"><a href="appendix-a.html"><i class="fa fa-check"></i><b>A</b> Appendix A</a>
 <ul>
-<li class="chapter" data-level="26.9" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#ejercicio-de-transformación"><i class="fa fa-check"></i><b>26.9</b> Ejercicio de Transformación</a></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#capítulo-de-transformación-de-datos"><i class="fa fa-check"></i>Capítulo de Transformación de Datos</a></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#ejercicios-con-destrezar-de-aplicar-algunas-funciones-de-transformaciones-de-datos"><i class="fa fa-check"></i>Ejercicios con destrezar de aplicar algunas funciones de transformaciones de datos</a>
+<li class="chapter" data-level="A.1" data-path="appendix-a.html"><a href="appendix-a.html#ejercicio-de-transformación"><i class="fa fa-check"></i><b>A.1</b> Ejercicio de Transformación</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#capítulo-de-transformación-de-datos"><i class="fa fa-check"></i>Capítulo de Transformación de Datos</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#ejercicios-con-destrezar-de-aplicar-algunas-funciones-de-transformaciones-de-datos"><i class="fa fa-check"></i>Ejercicios con destrezar de aplicar algunas funciones de transformaciones de datos</a>
 <ul>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#para-tener-los-puntos-tiene-que-enseñar-todos-los-scripts-los-resultados-y-explicar-en-palabra-los-que-encontró-dentro-de-un-documento-bien-organizado."><i class="fa fa-check"></i>Para tener los puntos tiene que enseñar TODOS los scripts, los resultados y explicar en palabra los que encontró dentro de un documento bien organizado.</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#para-tener-los-puntos-tiene-que-enseñar-todos-los-scripts-los-resultados-y-explicar-en-palabra-los-que-encontró-dentro-de-un-documento-bien-organizado."><i class="fa fa-check"></i>Para tener los puntos tiene que enseñar TODOS los scripts, los resultados y explicar en palabra los que encontró dentro de un documento bien organizado.</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#busca-el-bateador-que-tuvo-más-carreras-en-cualquier-año"><i class="fa fa-check"></i>1. Busca el bateador que tuvo más carreras en cualquier año</a></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#cual-es-el-nombre-del-bateador-id_jugador-que-estuvo-más-veces-al_bate-prepara-una-lista-del-bateador-más-frecuente-al-bate-al-menos"><i class="fa fa-check"></i>2. ¿Cual es el nombre del bateador (id_jugador) que estuvo más veces “al_bate”? Prepara una lista del bateador más frecuente al bate al menos</a></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#cuales-son-las-ligas-de-baseball-pelota-que-estan-incluida-en-este-archivo"><i class="fa fa-check"></i>3. ¿Cuales son las “ligas” de baseball (pelota) que estan incluida en este archivo?</a></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#selecciona-los-años-1900-1950-2000-y-2020-y-jonrones-y-hacer-una-tabla-por-año-que-demuestra-el-máximo-de-jonrones-para-cada-año"><i class="fa fa-check"></i>4. Selecciona los años (1900, 1950, 2000 y 2020) y jonrones y hacer una tabla por año que demuestra el máximo de jonrones para cada año</a></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#haz-una-tabla-de-la-los-jugadores-que-juraron-más-años"><i class="fa fa-check"></i>5. Haz una tabla de la los jugadores que juraron más años</a></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#selecciona-solamente-la-liga-al-los-años-desde-de-2000-en-adelande-y-determina-cual-es-la-suma-de-carreras-anotadas-por-cada-equipo."><i class="fa fa-check"></i>6. Selecciona solamente la liga “AL”, los años desde de 2000 en adelande, y determina cual es la suma de “carreras” anotadas por cada equipo.</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#busca-el-bateador-que-tuvo-más-carreras-en-cualquier-año"><i class="fa fa-check"></i>1. Busca el bateador que tuvo más carreras en cualquier año</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#cual-es-el-nombre-del-bateador-id_jugador-que-estuvo-más-veces-al_bate-prepara-una-lista-del-bateador-más-frecuente-al-bate-al-menos"><i class="fa fa-check"></i>2. ¿Cual es el nombre del bateador (id_jugador) que estuvo más veces “al_bate”? Prepara una lista del bateador más frecuente al bate al menos</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#cuales-son-las-ligas-de-baseball-pelota-que-estan-incluida-en-este-archivo"><i class="fa fa-check"></i>3. ¿Cuales son las “ligas” de baseball (pelota) que estan incluida en este archivo?</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#selecciona-los-años-1900-1950-2000-y-2020-y-jonrones-y-hacer-una-tabla-por-año-que-demuestra-el-máximo-de-jonrones-para-cada-año"><i class="fa fa-check"></i>4. Selecciona los años (1900, 1950, 2000 y 2020) y jonrones y hacer una tabla por año que demuestra el máximo de jonrones para cada año</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#haz-una-tabla-de-la-los-jugadores-que-juraron-más-años"><i class="fa fa-check"></i>5. Haz una tabla de la los jugadores que juraron más años</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#selecciona-solamente-la-liga-al-los-años-desde-de-2000-en-adelande-y-determina-cual-es-la-suma-de-carreras-anotadas-por-cada-equipo."><i class="fa fa-check"></i>6. Selecciona solamente la liga “AL”, los años desde de 2000 en adelande, y determina cual es la suma de “carreras” anotadas por cada equipo.</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="appendix-b.html"><a href="appendix-b.html"><i class="fa fa-check"></i>Appendix B</a>
 <ul>
@@ -589,7 +617,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="appendix-d.html"><a href="appendix-d.html"><i class="fa fa-check"></i>Appendix D</a>
 <ul>
-<li class="chapter" data-level="26.10" data-path="appendix-d.html"><a href="appendix-d.html#covid-19-cumulativo"><i class="fa fa-check"></i><b>26.10</b> COVID 19 Cumulativo</a></li>
+<li class="chapter" data-level="A.2" data-path="appendix-d.html"><a href="appendix-d.html#covid-19-cumulativo"><i class="fa fa-check"></i><b>A.2</b> COVID 19 Cumulativo</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -614,68 +642,68 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="hex-stickers" class="section level1 hasAnchor" number="24">
 <h1><span class="header-section-number">Capítulo24</span> Hex Stickers<a href="hex-stickers.html#hex-stickers" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <pre><code>## [1] &quot;2025-10-27&quot;</code></pre>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="hex-stickers.html#cb2-1" tabindex="-1"></a><span class="fu">library</span>(hexSticker) </span>
-<span id="cb2-2"><a href="hex-stickers.html#cb2-2" tabindex="-1"></a><span class="fu">library</span>(magick)</span>
-<span id="cb2-3"><a href="hex-stickers.html#cb2-3" tabindex="-1"></a><span class="fu">library</span>(sysfonts)</span>
-<span id="cb2-4"><a href="hex-stickers.html#cb2-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb1038"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1038-1"><a href="hex-stickers.html#cb1038-1" tabindex="-1"></a><span class="fu">library</span>(hexSticker) </span>
+<span id="cb1038-2"><a href="hex-stickers.html#cb1038-2" tabindex="-1"></a><span class="fu">library</span>(magick)</span>
+<span id="cb1038-3"><a href="hex-stickers.html#cb1038-3" tabindex="-1"></a><span class="fu">library</span>(sysfonts)</span>
+<span id="cb1038-4"><a href="hex-stickers.html#cb1038-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <div id="la-función-y-los-valores-default" class="section level2 hasAnchor" number="24.1">
 <h2><span class="header-section-number">24.1</span> La función y los valores “default”<a href="hex-stickers.html#la-función-y-los-valores-default" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="hex-stickers.html#cb3-1" tabindex="-1"></a><span class="fu">sticker</span>(</span>
-<span id="cb3-2"><a href="hex-stickers.html#cb3-2" tabindex="-1"></a>  subplot, <span class="co"># position and size of subplot</span></span>
-<span id="cb3-3"><a href="hex-stickers.html#cb3-3" tabindex="-1"></a>  <span class="at">s_x =</span> <span class="fl">0.8</span>,</span>
-<span id="cb3-4"><a href="hex-stickers.html#cb3-4" tabindex="-1"></a>  <span class="at">s_y =</span> <span class="fl">0.75</span>,</span>
-<span id="cb3-5"><a href="hex-stickers.html#cb3-5" tabindex="-1"></a>  <span class="at">s_width =</span> <span class="fl">0.4</span>,</span>
-<span id="cb3-6"><a href="hex-stickers.html#cb3-6" tabindex="-1"></a>  <span class="at">s_height =</span> <span class="fl">0.5</span>,</span>
-<span id="cb3-7"><a href="hex-stickers.html#cb3-7" tabindex="-1"></a>  package, <span class="co"># package name and characteristics</span></span>
-<span id="cb3-8"><a href="hex-stickers.html#cb3-8" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="dv">1</span>,</span>
-<span id="cb3-9"><a href="hex-stickers.html#cb3-9" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.4</span>,</span>
-<span id="cb3-10"><a href="hex-stickers.html#cb3-10" tabindex="-1"></a>  <span class="at">p_color =</span> <span class="st">&quot;#FFFFFF&quot;</span>,</span>
-<span id="cb3-11"><a href="hex-stickers.html#cb3-11" tabindex="-1"></a>  <span class="at">p_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
-<span id="cb3-12"><a href="hex-stickers.html#cb3-12" tabindex="-1"></a>  <span class="at">p_fontface =</span> <span class="st">&quot;plain&quot;</span>,</span>
-<span id="cb3-13"><a href="hex-stickers.html#cb3-13" tabindex="-1"></a>  <span class="at">p_size =</span> <span class="dv">8</span>,</span>
-<span id="cb3-14"><a href="hex-stickers.html#cb3-14" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="fl">1.2</span>, <span class="co"># hexagon border size and colors</span></span>
-<span id="cb3-15"><a href="hex-stickers.html#cb3-15" tabindex="-1"></a>  <span class="at">h_fill =</span> <span class="st">&quot;#1881C2&quot;</span>,</span>
-<span id="cb3-16"><a href="hex-stickers.html#cb3-16" tabindex="-1"></a>  <span class="at">h_color =</span> <span class="st">&quot;#87B13F&quot;</span>,</span>
-<span id="cb3-17"><a href="hex-stickers.html#cb3-17" tabindex="-1"></a>  <span class="at">spotlight =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb3-18"><a href="hex-stickers.html#cb3-18" tabindex="-1"></a>  <span class="at">l_x =</span> <span class="dv">1</span>, <span class="co"># spotlight x position</span></span>
-<span id="cb3-19"><a href="hex-stickers.html#cb3-19" tabindex="-1"></a>  <span class="at">l_y =</span> <span class="fl">0.5</span>,</span>
-<span id="cb3-20"><a href="hex-stickers.html#cb3-20" tabindex="-1"></a>  <span class="at">l_width =</span> <span class="dv">3</span>,</span>
-<span id="cb3-21"><a href="hex-stickers.html#cb3-21" tabindex="-1"></a>  <span class="at">l_height =</span> <span class="dv">3</span>,</span>
-<span id="cb3-22"><a href="hex-stickers.html#cb3-22" tabindex="-1"></a>  <span class="at">l_alpha =</span> <span class="fl">0.4</span>,</span>
-<span id="cb3-23"><a href="hex-stickers.html#cb3-23" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">&quot;&quot;</span>, <span class="co"># url at lower border</span></span>
-<span id="cb3-24"><a href="hex-stickers.html#cb3-24" tabindex="-1"></a>  <span class="at">u_x =</span> <span class="dv">1</span>,</span>
-<span id="cb3-25"><a href="hex-stickers.html#cb3-25" tabindex="-1"></a>  <span class="at">u_y =</span> <span class="fl">0.08</span>,</span>
-<span id="cb3-26"><a href="hex-stickers.html#cb3-26" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;black&quot;</span>,</span>
-<span id="cb3-27"><a href="hex-stickers.html#cb3-27" tabindex="-1"></a>  <span class="at">u_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
-<span id="cb3-28"><a href="hex-stickers.html#cb3-28" tabindex="-1"></a>  <span class="at">u_size =</span> <span class="fl">1.5</span>,</span>
-<span id="cb3-29"><a href="hex-stickers.html#cb3-29" tabindex="-1"></a>  <span class="at">u_angle =</span> <span class="dv">30</span>,</span>
-<span id="cb3-30"><a href="hex-stickers.html#cb3-30" tabindex="-1"></a>  <span class="at">white_around_sticker =</span> <span class="cn">FALSE</span>, <span class="co"># if TRUE, puts white triangles in the corners</span></span>
-<span id="cb3-31"><a href="hex-stickers.html#cb3-31" tabindex="-1"></a>  ...,</span>
-<span id="cb3-32"><a href="hex-stickers.html#cb3-32" tabindex="-1"></a>  <span class="at">filename =</span> <span class="fu">paste0</span>(package, <span class="st">&quot;.png&quot;</span>), <span class="co"># filename to save sticker</span></span>
-<span id="cb3-33"><a href="hex-stickers.html#cb3-33" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>, <span class="co"># aspect ratio, only works if subplot is an image file</span></span>
-<span id="cb3-34"><a href="hex-stickers.html#cb3-34" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">300</span> <span class="co"># plot resolution</span></span>
-<span id="cb3-35"><a href="hex-stickers.html#cb3-35" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb1039"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1039-1"><a href="hex-stickers.html#cb1039-1" tabindex="-1"></a><span class="fu">sticker</span>(</span>
+<span id="cb1039-2"><a href="hex-stickers.html#cb1039-2" tabindex="-1"></a>  subplot, <span class="co"># position and size of subplot</span></span>
+<span id="cb1039-3"><a href="hex-stickers.html#cb1039-3" tabindex="-1"></a>  <span class="at">s_x =</span> <span class="fl">0.8</span>,</span>
+<span id="cb1039-4"><a href="hex-stickers.html#cb1039-4" tabindex="-1"></a>  <span class="at">s_y =</span> <span class="fl">0.75</span>,</span>
+<span id="cb1039-5"><a href="hex-stickers.html#cb1039-5" tabindex="-1"></a>  <span class="at">s_width =</span> <span class="fl">0.4</span>,</span>
+<span id="cb1039-6"><a href="hex-stickers.html#cb1039-6" tabindex="-1"></a>  <span class="at">s_height =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1039-7"><a href="hex-stickers.html#cb1039-7" tabindex="-1"></a>  package, <span class="co"># package name and characteristics</span></span>
+<span id="cb1039-8"><a href="hex-stickers.html#cb1039-8" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="dv">1</span>,</span>
+<span id="cb1039-9"><a href="hex-stickers.html#cb1039-9" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.4</span>,</span>
+<span id="cb1039-10"><a href="hex-stickers.html#cb1039-10" tabindex="-1"></a>  <span class="at">p_color =</span> <span class="st">&quot;#FFFFFF&quot;</span>,</span>
+<span id="cb1039-11"><a href="hex-stickers.html#cb1039-11" tabindex="-1"></a>  <span class="at">p_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
+<span id="cb1039-12"><a href="hex-stickers.html#cb1039-12" tabindex="-1"></a>  <span class="at">p_fontface =</span> <span class="st">&quot;plain&quot;</span>,</span>
+<span id="cb1039-13"><a href="hex-stickers.html#cb1039-13" tabindex="-1"></a>  <span class="at">p_size =</span> <span class="dv">8</span>,</span>
+<span id="cb1039-14"><a href="hex-stickers.html#cb1039-14" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="fl">1.2</span>, <span class="co"># hexagon border size and colors</span></span>
+<span id="cb1039-15"><a href="hex-stickers.html#cb1039-15" tabindex="-1"></a>  <span class="at">h_fill =</span> <span class="st">&quot;#1881C2&quot;</span>,</span>
+<span id="cb1039-16"><a href="hex-stickers.html#cb1039-16" tabindex="-1"></a>  <span class="at">h_color =</span> <span class="st">&quot;#87B13F&quot;</span>,</span>
+<span id="cb1039-17"><a href="hex-stickers.html#cb1039-17" tabindex="-1"></a>  <span class="at">spotlight =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1039-18"><a href="hex-stickers.html#cb1039-18" tabindex="-1"></a>  <span class="at">l_x =</span> <span class="dv">1</span>, <span class="co"># spotlight x position</span></span>
+<span id="cb1039-19"><a href="hex-stickers.html#cb1039-19" tabindex="-1"></a>  <span class="at">l_y =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1039-20"><a href="hex-stickers.html#cb1039-20" tabindex="-1"></a>  <span class="at">l_width =</span> <span class="dv">3</span>,</span>
+<span id="cb1039-21"><a href="hex-stickers.html#cb1039-21" tabindex="-1"></a>  <span class="at">l_height =</span> <span class="dv">3</span>,</span>
+<span id="cb1039-22"><a href="hex-stickers.html#cb1039-22" tabindex="-1"></a>  <span class="at">l_alpha =</span> <span class="fl">0.4</span>,</span>
+<span id="cb1039-23"><a href="hex-stickers.html#cb1039-23" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">&quot;&quot;</span>, <span class="co"># url at lower border</span></span>
+<span id="cb1039-24"><a href="hex-stickers.html#cb1039-24" tabindex="-1"></a>  <span class="at">u_x =</span> <span class="dv">1</span>,</span>
+<span id="cb1039-25"><a href="hex-stickers.html#cb1039-25" tabindex="-1"></a>  <span class="at">u_y =</span> <span class="fl">0.08</span>,</span>
+<span id="cb1039-26"><a href="hex-stickers.html#cb1039-26" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb1039-27"><a href="hex-stickers.html#cb1039-27" tabindex="-1"></a>  <span class="at">u_family =</span> <span class="st">&quot;Aller_Rg&quot;</span>,</span>
+<span id="cb1039-28"><a href="hex-stickers.html#cb1039-28" tabindex="-1"></a>  <span class="at">u_size =</span> <span class="fl">1.5</span>,</span>
+<span id="cb1039-29"><a href="hex-stickers.html#cb1039-29" tabindex="-1"></a>  <span class="at">u_angle =</span> <span class="dv">30</span>,</span>
+<span id="cb1039-30"><a href="hex-stickers.html#cb1039-30" tabindex="-1"></a>  <span class="at">white_around_sticker =</span> <span class="cn">FALSE</span>, <span class="co"># if TRUE, puts white triangles in the corners</span></span>
+<span id="cb1039-31"><a href="hex-stickers.html#cb1039-31" tabindex="-1"></a>  ...,</span>
+<span id="cb1039-32"><a href="hex-stickers.html#cb1039-32" tabindex="-1"></a>  <span class="at">filename =</span> <span class="fu">paste0</span>(package, <span class="st">&quot;.png&quot;</span>), <span class="co"># filename to save sticker</span></span>
+<span id="cb1039-33"><a href="hex-stickers.html#cb1039-33" tabindex="-1"></a>  <span class="at">asp =</span> <span class="dv">1</span>, <span class="co"># aspect ratio, only works if subplot is an image file</span></span>
+<span id="cb1039-34"><a href="hex-stickers.html#cb1039-34" tabindex="-1"></a>  <span class="at">dpi =</span> <span class="dv">300</span> <span class="co"># plot resolution</span></span>
+<span id="cb1039-35"><a href="hex-stickers.html#cb1039-35" tabindex="-1"></a>)</span></code></pre></div>
 <hr />
 <p><strong>Arguments</strong></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="hex-stickers.html#cb4-1" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
-<span id="cb4-2"><a href="hex-stickers.html#cb4-2" tabindex="-1"></a><span class="fu">gt</span>(argumentos)</span></code></pre></div>
-<div id="hqxbqhsyif" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hqxbqhsyif table {
+<div class="sourceCode" id="cb1040"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1040-1"><a href="hex-stickers.html#cb1040-1" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1040-2"><a href="hex-stickers.html#cb1040-2" tabindex="-1"></a><span class="fu">gt</span>(argumentos)</span></code></pre></div>
+<div id="xyjrcjbqtt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xyjrcjbqtt table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hqxbqhsyif thead, #hqxbqhsyif tbody, #hqxbqhsyif tfoot, #hqxbqhsyif tr, #hqxbqhsyif td, #hqxbqhsyif th {
+#xyjrcjbqtt thead, #xyjrcjbqtt tbody, #xyjrcjbqtt tfoot, #xyjrcjbqtt tr, #xyjrcjbqtt td, #xyjrcjbqtt th {
   border-style: none;
 }
 
-#hqxbqhsyif p {
+#xyjrcjbqtt p {
   margin: 0;
   padding: 0;
 }
 
-#hqxbqhsyif .gt_table {
+#xyjrcjbqtt .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -701,12 +729,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-left-color: #D3D3D3;
 }
 
-#hqxbqhsyif .gt_caption {
+#xyjrcjbqtt .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hqxbqhsyif .gt_title {
+#xyjrcjbqtt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -718,7 +746,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-width: 0;
 }
 
-#hqxbqhsyif .gt_subtitle {
+#xyjrcjbqtt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -730,7 +758,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-top-width: 0;
 }
 
-#hqxbqhsyif .gt_heading {
+#xyjrcjbqtt .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -742,13 +770,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#hqxbqhsyif .gt_bottom_border {
+#xyjrcjbqtt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hqxbqhsyif .gt_col_headings {
+#xyjrcjbqtt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -763,7 +791,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#hqxbqhsyif .gt_col_heading {
+#xyjrcjbqtt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -783,7 +811,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#hqxbqhsyif .gt_column_spanner_outer {
+#xyjrcjbqtt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -795,15 +823,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 4px;
 }
 
-#hqxbqhsyif .gt_column_spanner_outer:first-child {
+#xyjrcjbqtt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hqxbqhsyif .gt_column_spanner_outer:last-child {
+#xyjrcjbqtt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hqxbqhsyif .gt_column_spanner {
+#xyjrcjbqtt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -815,11 +843,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   width: 100%;
 }
 
-#hqxbqhsyif .gt_spanner_row {
+#xyjrcjbqtt .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hqxbqhsyif .gt_group_heading {
+#xyjrcjbqtt .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -845,7 +873,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   text-align: left;
 }
 
-#hqxbqhsyif .gt_empty_group_heading {
+#xyjrcjbqtt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -860,15 +888,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: middle;
 }
 
-#hqxbqhsyif .gt_from_md > :first-child {
+#xyjrcjbqtt .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hqxbqhsyif .gt_from_md > :last-child {
+#xyjrcjbqtt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hqxbqhsyif .gt_row {
+#xyjrcjbqtt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -887,7 +915,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   overflow-x: hidden;
 }
 
-#hqxbqhsyif .gt_stub {
+#xyjrcjbqtt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -900,7 +928,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#hqxbqhsyif .gt_stub_row_group {
+#xyjrcjbqtt .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -914,15 +942,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   vertical-align: top;
 }
 
-#hqxbqhsyif .gt_row_group_first td {
+#xyjrcjbqtt .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hqxbqhsyif .gt_row_group_first th {
+#xyjrcjbqtt .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hqxbqhsyif .gt_summary_row {
+#xyjrcjbqtt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -932,16 +960,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#hqxbqhsyif .gt_first_summary_row {
+#xyjrcjbqtt .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hqxbqhsyif .gt_first_summary_row.thick {
+#xyjrcjbqtt .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hqxbqhsyif .gt_last_summary_row {
+#xyjrcjbqtt .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -951,7 +979,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#hqxbqhsyif .gt_grand_summary_row {
+#xyjrcjbqtt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -961,7 +989,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#hqxbqhsyif .gt_first_grand_summary_row {
+#xyjrcjbqtt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -971,7 +999,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-top-color: #D3D3D3;
 }
 
-#hqxbqhsyif .gt_last_grand_summary_row_top {
+#xyjrcjbqtt .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -981,11 +1009,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#hqxbqhsyif .gt_striped {
+#xyjrcjbqtt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hqxbqhsyif .gt_table_body {
+#xyjrcjbqtt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -994,7 +1022,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-bottom-color: #D3D3D3;
 }
 
-#hqxbqhsyif .gt_footnotes {
+#xyjrcjbqtt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1008,7 +1036,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#hqxbqhsyif .gt_footnote {
+#xyjrcjbqtt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1017,7 +1045,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#hqxbqhsyif .gt_sourcenotes {
+#xyjrcjbqtt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1031,7 +1059,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   border-right-color: #D3D3D3;
 }
 
-#hqxbqhsyif .gt_sourcenote {
+#xyjrcjbqtt .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1039,72 +1067,72 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
   padding-right: 5px;
 }
 
-#hqxbqhsyif .gt_left {
+#xyjrcjbqtt .gt_left {
   text-align: left;
 }
 
-#hqxbqhsyif .gt_center {
+#xyjrcjbqtt .gt_center {
   text-align: center;
 }
 
-#hqxbqhsyif .gt_right {
+#xyjrcjbqtt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hqxbqhsyif .gt_font_normal {
+#xyjrcjbqtt .gt_font_normal {
   font-weight: normal;
 }
 
-#hqxbqhsyif .gt_font_bold {
+#xyjrcjbqtt .gt_font_bold {
   font-weight: bold;
 }
 
-#hqxbqhsyif .gt_font_italic {
+#xyjrcjbqtt .gt_font_italic {
   font-style: italic;
 }
 
-#hqxbqhsyif .gt_super {
+#xyjrcjbqtt .gt_super {
   font-size: 65%;
 }
 
-#hqxbqhsyif .gt_footnote_marks {
+#xyjrcjbqtt .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hqxbqhsyif .gt_asterisk {
+#xyjrcjbqtt .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hqxbqhsyif .gt_indent_1 {
+#xyjrcjbqtt .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hqxbqhsyif .gt_indent_2 {
+#xyjrcjbqtt .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hqxbqhsyif .gt_indent_3 {
+#xyjrcjbqtt .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hqxbqhsyif .gt_indent_4 {
+#xyjrcjbqtt .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hqxbqhsyif .gt_indent_5 {
+#xyjrcjbqtt .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hqxbqhsyif .katex-display {
+#xyjrcjbqtt .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hqxbqhsyif div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#xyjrcjbqtt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1194,7 +1222,7 @@ sysfonts::font_add_google(“Young Serif”) ## No baja</p>
 </div>
 <div id="ejemplo-de-crear-un-hex-con-un-gatito" class="section level2 hasAnchor" number="24.2">
 <h2><span class="header-section-number">24.2</span> Ejemplo de Crear un Hex con un gatito<a href="hex-stickers.html#ejemplo-de-crear-un-hex-con-un-gatito" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="hex-stickers.html#cb5-1" tabindex="-1"></a><span class="fu">font_files</span>()  <span class="co">#a list of all fonts available</span></span></code></pre></div>
+<div class="sourceCode" id="cb1041"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1041-1"><a href="hex-stickers.html#cb1041-1" tabindex="-1"></a><span class="fu">font_files</span>()  <span class="co">#a list of all fonts available</span></span></code></pre></div>
 <pre><code>##                                   path
 ## 1                       /Library/Fonts
 ## 2                /System/Library/Fonts
@@ -2611,41 +2639,41 @@ sysfonts::font_add_google(“Young Serif”) ## No baja</p>
 ## 351                       HiraginoSans-W7
 ## 352                       HiraginoSans-W8
 ## 353                       HiraginoSans-W9</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="hex-stickers.html#cb7-1" tabindex="-1"></a><span class="do">## Loading Google fonts (https://fonts.google.com/)</span></span>
-<span id="cb7-2"><a href="hex-stickers.html#cb7-2" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="hex-stickers.html#cb7-3" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Dancing Script&quot;</span>) <span class="co"># selección de fonts de google</span></span>
-<span id="cb7-4"><a href="hex-stickers.html#cb7-4" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Bebas Neue&quot;</span>)</span>
-<span id="cb7-5"><a href="hex-stickers.html#cb7-5" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Fuggles&quot;</span>)</span>
-<span id="cb7-6"><a href="hex-stickers.html#cb7-6" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Roboto&quot;</span>)</span>
-<span id="cb7-7"><a href="hex-stickers.html#cb7-7" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Montserrat&quot;</span>)</span>
-<span id="cb7-8"><a href="hex-stickers.html#cb7-8" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Lobster Two&quot;</span>)</span>
-<span id="cb7-9"><a href="hex-stickers.html#cb7-9" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="hex-stickers.html#cb7-10" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="hex-stickers.html#cb7-11" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="hex-stickers.html#cb7-12" tabindex="-1"></a>cat_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;cat.jpg&#39;</span>)</span>
-<span id="cb7-13"><a href="hex-stickers.html#cb7-13" tabindex="-1"></a>analitica_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;Analitica3.png&#39;</span>)</span>
-<span id="cb7-14"><a href="hex-stickers.html#cb7-14" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="hex-stickers.html#cb7-15" tabindex="-1"></a><span class="fu">sticker</span>(</span>
-<span id="cb7-16"><a href="hex-stickers.html#cb7-16" tabindex="-1"></a>  <span class="at">subplot=</span> cat_img,</span>
-<span id="cb7-17"><a href="hex-stickers.html#cb7-17" tabindex="-1"></a>  <span class="at">package=</span><span class="st">&quot;Meow </span><span class="sc">\n</span><span class="st"> software&quot;</span>,</span>
-<span id="cb7-18"><a href="hex-stickers.html#cb7-18" tabindex="-1"></a>  <span class="at">s_width =</span>.<span class="dv">55</span>,</span>
-<span id="cb7-19"><a href="hex-stickers.html#cb7-19" tabindex="-1"></a>  <span class="at">s_height =</span> .<span class="dv">55</span>,</span>
-<span id="cb7-20"><a href="hex-stickers.html#cb7-20" tabindex="-1"></a>  <span class="at">s_x=</span><span class="dv">1</span>,</span>
-<span id="cb7-21"><a href="hex-stickers.html#cb7-21" tabindex="-1"></a>  <span class="at">s_y=</span>.<span class="dv">75</span>,</span>
-<span id="cb7-22"><a href="hex-stickers.html#cb7-22" tabindex="-1"></a>  <span class="at">p_size=</span><span class="dv">12</span>,</span>
-<span id="cb7-23"><a href="hex-stickers.html#cb7-23" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="fl">1.0</span>,</span>
-<span id="cb7-24"><a href="hex-stickers.html#cb7-24" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.5</span>,</span>
-<span id="cb7-25"><a href="hex-stickers.html#cb7-25" tabindex="-1"></a>  <span class="at">p_color=</span> <span class="st">&#39;purple&#39;</span>,</span>
-<span id="cb7-26"><a href="hex-stickers.html#cb7-26" tabindex="-1"></a>  <span class="at">p_family=</span> <span class="st">&quot;Lobster Two&quot;</span>,</span>
-<span id="cb7-27"><a href="hex-stickers.html#cb7-27" tabindex="-1"></a>  <span class="at">h_fill =</span><span class="st">&#39;gold&#39;</span>,</span>
-<span id="cb7-28"><a href="hex-stickers.html#cb7-28" tabindex="-1"></a>  <span class="at">h_color=</span><span class="st">&#39;hotpink&#39;</span>,</span>
-<span id="cb7-29"><a href="hex-stickers.html#cb7-29" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="dv">2</span>,</span>
-<span id="cb7-30"><a href="hex-stickers.html#cb7-30" tabindex="-1"></a>  <span class="at">url=</span><span class="st">&quot;www.cat.foundation.com&quot;</span>,</span>
-<span id="cb7-31"><a href="hex-stickers.html#cb7-31" tabindex="-1"></a>  <span class="at">u_size=</span><span class="dv">4</span>,</span>
-<span id="cb7-32"><a href="hex-stickers.html#cb7-32" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;violetred&quot;</span>,</span>
-<span id="cb7-33"><a href="hex-stickers.html#cb7-33" tabindex="-1"></a>  <span class="at">spotlight=</span>T</span>
-<span id="cb7-34"><a href="hex-stickers.html#cb7-34" tabindex="-1"></a></span>
-<span id="cb7-35"><a href="hex-stickers.html#cb7-35" tabindex="-1"></a>) <span class="sc">%&gt;%</span> print</span></code></pre></div>
+<div class="sourceCode" id="cb1043"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1043-1"><a href="hex-stickers.html#cb1043-1" tabindex="-1"></a><span class="do">## Loading Google fonts (https://fonts.google.com/)</span></span>
+<span id="cb1043-2"><a href="hex-stickers.html#cb1043-2" tabindex="-1"></a></span>
+<span id="cb1043-3"><a href="hex-stickers.html#cb1043-3" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Dancing Script&quot;</span>) <span class="co"># selección de fonts de google</span></span>
+<span id="cb1043-4"><a href="hex-stickers.html#cb1043-4" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Bebas Neue&quot;</span>)</span>
+<span id="cb1043-5"><a href="hex-stickers.html#cb1043-5" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Fuggles&quot;</span>)</span>
+<span id="cb1043-6"><a href="hex-stickers.html#cb1043-6" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Roboto&quot;</span>)</span>
+<span id="cb1043-7"><a href="hex-stickers.html#cb1043-7" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Montserrat&quot;</span>)</span>
+<span id="cb1043-8"><a href="hex-stickers.html#cb1043-8" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add_google</span>(<span class="st">&quot;Lobster Two&quot;</span>)</span>
+<span id="cb1043-9"><a href="hex-stickers.html#cb1043-9" tabindex="-1"></a></span>
+<span id="cb1043-10"><a href="hex-stickers.html#cb1043-10" tabindex="-1"></a></span>
+<span id="cb1043-11"><a href="hex-stickers.html#cb1043-11" tabindex="-1"></a></span>
+<span id="cb1043-12"><a href="hex-stickers.html#cb1043-12" tabindex="-1"></a>cat_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;cat.jpg&#39;</span>)</span>
+<span id="cb1043-13"><a href="hex-stickers.html#cb1043-13" tabindex="-1"></a>analitica_img<span class="ot">=</span><span class="fu">image_read</span>(<span class="st">&#39;Analitica3.png&#39;</span>)</span>
+<span id="cb1043-14"><a href="hex-stickers.html#cb1043-14" tabindex="-1"></a></span>
+<span id="cb1043-15"><a href="hex-stickers.html#cb1043-15" tabindex="-1"></a><span class="fu">sticker</span>(</span>
+<span id="cb1043-16"><a href="hex-stickers.html#cb1043-16" tabindex="-1"></a>  <span class="at">subplot=</span> cat_img,</span>
+<span id="cb1043-17"><a href="hex-stickers.html#cb1043-17" tabindex="-1"></a>  <span class="at">package=</span><span class="st">&quot;Meow </span><span class="sc">\n</span><span class="st"> software&quot;</span>,</span>
+<span id="cb1043-18"><a href="hex-stickers.html#cb1043-18" tabindex="-1"></a>  <span class="at">s_width =</span>.<span class="dv">55</span>,</span>
+<span id="cb1043-19"><a href="hex-stickers.html#cb1043-19" tabindex="-1"></a>  <span class="at">s_height =</span> .<span class="dv">55</span>,</span>
+<span id="cb1043-20"><a href="hex-stickers.html#cb1043-20" tabindex="-1"></a>  <span class="at">s_x=</span><span class="dv">1</span>,</span>
+<span id="cb1043-21"><a href="hex-stickers.html#cb1043-21" tabindex="-1"></a>  <span class="at">s_y=</span>.<span class="dv">75</span>,</span>
+<span id="cb1043-22"><a href="hex-stickers.html#cb1043-22" tabindex="-1"></a>  <span class="at">p_size=</span><span class="dv">12</span>,</span>
+<span id="cb1043-23"><a href="hex-stickers.html#cb1043-23" tabindex="-1"></a>  <span class="at">p_x =</span> <span class="fl">1.0</span>,</span>
+<span id="cb1043-24"><a href="hex-stickers.html#cb1043-24" tabindex="-1"></a>  <span class="at">p_y =</span> <span class="fl">1.5</span>,</span>
+<span id="cb1043-25"><a href="hex-stickers.html#cb1043-25" tabindex="-1"></a>  <span class="at">p_color=</span> <span class="st">&#39;purple&#39;</span>,</span>
+<span id="cb1043-26"><a href="hex-stickers.html#cb1043-26" tabindex="-1"></a>  <span class="at">p_family=</span> <span class="st">&quot;Lobster Two&quot;</span>,</span>
+<span id="cb1043-27"><a href="hex-stickers.html#cb1043-27" tabindex="-1"></a>  <span class="at">h_fill =</span><span class="st">&#39;gold&#39;</span>,</span>
+<span id="cb1043-28"><a href="hex-stickers.html#cb1043-28" tabindex="-1"></a>  <span class="at">h_color=</span><span class="st">&#39;hotpink&#39;</span>,</span>
+<span id="cb1043-29"><a href="hex-stickers.html#cb1043-29" tabindex="-1"></a>  <span class="at">h_size =</span> <span class="dv">2</span>,</span>
+<span id="cb1043-30"><a href="hex-stickers.html#cb1043-30" tabindex="-1"></a>  <span class="at">url=</span><span class="st">&quot;www.cat.foundation.com&quot;</span>,</span>
+<span id="cb1043-31"><a href="hex-stickers.html#cb1043-31" tabindex="-1"></a>  <span class="at">u_size=</span><span class="dv">4</span>,</span>
+<span id="cb1043-32"><a href="hex-stickers.html#cb1043-32" tabindex="-1"></a>  <span class="at">u_color =</span> <span class="st">&quot;violetred&quot;</span>,</span>
+<span id="cb1043-33"><a href="hex-stickers.html#cb1043-33" tabindex="-1"></a>  <span class="at">spotlight=</span>T</span>
+<span id="cb1043-34"><a href="hex-stickers.html#cb1043-34" tabindex="-1"></a></span>
+<span id="cb1043-35"><a href="hex-stickers.html#cb1043-35" tabindex="-1"></a>) <span class="sc">%&gt;%</span> print</span></code></pre></div>
 <p><img src="Ciencia-Datos-con-R_files/figure-html/H5-1.png" width="672" /></p>
 
 </div>
