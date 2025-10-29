@@ -41,6 +41,10 @@ string3
 ```
 
 
+***
+
+Caracteres especiales en cadenas de caracteres
+
 ```{r SR2}
 comilla_doble <- '\"' # ó '"'
 comilla_simple <- '\'' # ó "'"
@@ -53,6 +57,12 @@ comilla_ampersand
 
 ```
 & 
+
+***
+
+Backslash
+
+
 
 ```{r SR3} 
 x <- c("\"", "\\")
@@ -72,7 +82,7 @@ writeLines(x)
 
 
 
-
+***
 
 ## Para ver las opciones de caracteres y como trabajar cadenas de caracteres use **?"'"** para ver 
 
@@ -94,6 +104,10 @@ writeLines(x)
 ‘⁠\`⁠’	ASCII grave accent (backtick) ‘⁠`⁠’
 
 ⁠
+
+***
+
+
 ## Lista de caracteres especiales (unicodes)
 
 
@@ -133,6 +147,8 @@ Raymond
 ```
 
 
+***
+
 
 
 ## Temas: Cadenas de Caracteres
@@ -141,6 +157,7 @@ Raymond
  
 Solamente trabajermos con el paquete stringr, donde las funciones escrita de forma que sean más intuitivos para recordar.  Todas las funciones conmienzan con **str_**
 
+***
 
 ### El largo de una cadena de caracteres con **str_length**
 
@@ -150,11 +167,11 @@ str_length("Yo quiero un Lamborghini")
 ```
 
 
-
+***
 
 ### Combinar cadenas con **str_c**
 
-Nota aqui que une la primera oración con la segunda oración
+Nota aquí que une la primera oración con la segunda oración
 
 
 ```{r SR9}
@@ -166,6 +183,7 @@ str_c("Es una oración con muchas letras y palabras",
 
 ```
 
+***
 
 Usa el argumento **sep = "xxx  "** para controlar cómo separar las oraciones
 
@@ -180,7 +198,7 @@ str_c("Es una oración con muchas letras y palabras",
 ```
 
 
-  
+***
   
   - str_replace_na()
 
@@ -189,7 +207,9 @@ x <- c("Mi pelicula favorita es Cinema Paraiso", NA)
 x
 str_c("|-", x, "-|")
 ```
-  
+
+
+***
   
 ## Dividir cadenas basado en la posición de los caracteres en la cadena
 
@@ -201,8 +221,11 @@ x= c( "Piña", "Manzana", "Toronja")
 str_sub(x, 1,1)
 
 ```
-  
-### Seleccionar los caracteres al último de la palabra
+
+
+***
+
+### Seleccionar los caracteres al último de las palabras
 
 ```{r SR13}
 x= c( "Piña", "Manzana", "Toronja")
@@ -210,8 +233,33 @@ str_sub(x, -2,-1)
 
 
 ```
-  
-  
+
+
+***
+
+
+# You can also use `str_sub()` to modify strings:
+
+```{r}
+x <- "BBCDEF"
+str_sub(x, 1, 1) <- "A"; x
+
+x <- "BBCDEF"
+str_sub(x, -1, -1) <- "K"; x
+
+x <- "BBCDEF"
+str_sub(x, -2, -2) <- "GHIJ";
+
+x <- "BBCDEF"
+str_sub(x, -3, -3) <- "BC"; x
+
+x <- "BBCDEF"
+str_sub(x, 2, -2) <- ""; x
+
+
+```
+
+***
 
 ### Cambiar a todo minuscula
 
@@ -221,6 +269,8 @@ x= c( "Piña", "Manzana", "Toronja", "HAPPY")
 str_to_lower(x)
 ```
 
+***
+
 
 ### Cambiar a mayuscula
 
@@ -228,7 +278,11 @@ str_to_lower(x)
 x= c( "Piña", "Manzana", "Toronja")
 str_to_upper(x)
 ```
-  
+
+
+***
+
+
 ## Locales
 
   - ¿Qué es un locale?
@@ -245,7 +299,7 @@ str_order(x) # regresa el orden de las palabras
 str_sort(x) # reorganiza las palabras en orden alfabético
 ```
 
-
+***
   
 1.  **Ejercicios**:
 
@@ -265,14 +319,18 @@ Para visualizar patrones de letras
 ```{r SR17}
 
 library(stringr)
-x <- c("manzana", "banana", "pera")
+x <- c("manzana", "banana", "pera", "extraer")
 str_view(x, "er")
+
+
 ```
 
 
+***
+
 Ejemplo de como uno puede utiliza esas funciones
 
-
+str_detect()
  
 ```{r SR18}
 x= c( "Piña", "Manzana", "Toronja", "Jugo", "Monique", "Raymond")
@@ -282,7 +340,7 @@ str_detect(x, "ñ")
 ``` 
 
 
-### Detectar las palabras que comienzan con una letra específica con "^"
+### Detectar las palabras que comienzan con una letra específica con "^". Nota el uso de mayusculas y minusculas y sumamos cuantas palabras cumplen con la condición. 
 
 
 ```{r R19}
@@ -303,8 +361,13 @@ mean(str_detect(palabras, "[aáeéiíoóuú]$"))
 
 # ¿Qué proporción de palabras comunes terminan con una vocal especifica?
 mean(str_detect(x, "[o]$"))
+
+mean(str_detect(x, "[d]$")) # Raymond
 ```
 
+***
+
+Dataset: palabras
 
 - Comienza para mirar el archivo palabras
  
@@ -317,6 +380,7 @@ palabras
 ```
 
 
+***
 
 ```{r R22}
 # Encuentra todas las palabras que contengan al menos una vocal, y luego niégalo
@@ -334,7 +398,7 @@ identical(sin_vocales_1, sin_vocales_2)
 
 ```
 
-
+***
 
 Suma la cantidad de palabras que no tienen vocales?
 
@@ -357,14 +421,26 @@ df %>%
 
 
 
+```{r}
+library(readr)
+fragmentos_neruda_sep <- read_csv("Datos/fragmentos_neruda_sep.csv")
 
-Contar cuantas "a" hay en cada palabra
-
-```{r R24}
-x= c( "Piña", "Manzana", "Toronja", "Jugo")
-str_count(x, "a")
+fragmentos_neruda_sep
 ```
 
+
+***
+
+Contar cuantas "a" hay en cada palabra con str_count()
+
+```{r R24}
+#x= c( "Piña", "Manzana", "Toronja", "Jugo")
+
+
+str_count(fragmentos_neruda_sep, "e")
+```
+
+***
 
 ```{r R25}
 # En promedio, ¿cuántas vocales hay por palabra?
@@ -373,7 +449,7 @@ mean(str_count(palabras, "[aáeéiíoóuúü]"))
 mean(str_count(palabras, "[x]"))
 ```
 
-
+Contar cuantas vocales y consonantes hay en cada palabra
 
 ```{r R26}
 df %>% 

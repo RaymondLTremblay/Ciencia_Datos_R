@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo15 Tibbles | Ciencia de Datos con R</title>
+  <title>Capítulo21 You can also use str_sub() to modify strings: | Ciencia de Datos con R</title>
   <meta name="description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
   <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo15 Tibbles | Ciencia de Datos con R" />
+  <meta property="og:title" content="Capítulo21 You can also use str_sub() to modify strings: | Ciencia de Datos con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo15 Tibbles | Ciencia de Datos con R" />
+  <meta name="twitter:title" content="Capítulo21 You can also use str_sub() to modify strings: | Ciencia de Datos con R" />
   
   <meta name="twitter:description" content="Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="pipes.html"/>
-<link rel="next" href="importar-datos.html"/>
+<link rel="prev" href="cadena-de-caracteres-strings.html"/>
+<link rel="next" href="math-sci.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -643,283 +643,732 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="tibbles" class="section level1 hasAnchor" number="15">
-<h1><span class="header-section-number">Capítulo15</span> Tibbles<a href="tibbles.html#tibbles" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Fecha de la ultima revisión</p>
-<pre><code>## [1] &quot;2025-10-29&quot;</code></pre>
+<div id="you-can-also-use-str_sub-to-modify-strings" class="section level1 hasAnchor" number="21">
+<h1><span class="header-section-number">Capítulo21</span> You can also use <code>str_sub()</code> to modify strings:<a href="you-can-also-use-str_sub-to-modify-strings.html#you-can-also-use-str_sub-to-modify-strings" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb778-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb778-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">&quot;BBCDEF&quot;</span></span>
+<span id="cb778-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb778-2" tabindex="-1"></a><span class="fu">str_sub</span>(x, <span class="dv">1</span>, <span class="dv">1</span>) <span class="ot">&lt;-</span> <span class="st">&quot;A&quot;</span>; x</span></code></pre></div>
+<pre><code>## [1] &quot;ABCDEF&quot;</code></pre>
+<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb780-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb780-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">&quot;BBCDEF&quot;</span></span>
+<span id="cb780-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb780-2" tabindex="-1"></a><span class="fu">str_sub</span>(x, <span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="ot">&lt;-</span> <span class="st">&quot;K&quot;</span>; x</span></code></pre></div>
+<pre><code>## [1] &quot;BBCDEK&quot;</code></pre>
+<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb782-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb782-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">&quot;BBCDEF&quot;</span></span>
+<span id="cb782-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb782-2" tabindex="-1"></a><span class="fu">str_sub</span>(x, <span class="sc">-</span><span class="dv">2</span>, <span class="sc">-</span><span class="dv">2</span>) <span class="ot">&lt;-</span> <span class="st">&quot;GHIJ&quot;</span>;</span>
+<span id="cb782-3"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb782-3" tabindex="-1"></a></span>
+<span id="cb782-4"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb782-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">&quot;BBCDEF&quot;</span></span>
+<span id="cb782-5"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb782-5" tabindex="-1"></a><span class="fu">str_sub</span>(x, <span class="sc">-</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">3</span>) <span class="ot">&lt;-</span> <span class="st">&quot;BC&quot;</span>; x</span></code></pre></div>
+<pre><code>## [1] &quot;BBCBCEF&quot;</code></pre>
+<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb784-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb784-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">&quot;BBCDEF&quot;</span></span>
+<span id="cb784-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb784-2" tabindex="-1"></a><span class="fu">str_sub</span>(x, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">2</span>) <span class="ot">&lt;-</span> <span class="st">&quot;&quot;</span>; x</span></code></pre></div>
+<pre><code>## [1] &quot;BF&quot;</code></pre>
 <hr />
-<p>El tema proviene de los siguientes sitios.</p>
-<p>English:
-<a href="https://r4ds.had.co.nz/tibbles.html" class="uri">https://r4ds.had.co.nz/tibbles.html</a></p>
-<p>Español:
-<a href="https://es.r4ds.hadley.nz/10-tibble.html" class="uri">https://es.r4ds.hadley.nz/10-tibble.html</a></p>
-<hr />
-<div id="temas-el-paquete-tibble" class="section level2 hasAnchor" number="15.1">
-<h2><span class="header-section-number">15.1</span> Temas: El paquete Tibble<a href="tibbles.html#temas-el-paquete-tibble" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>as_tibble()</li>
-</ul>
-<hr />
-</div>
-<div id="crear-un-tibble" class="section level2 hasAnchor" number="15.2">
-<h2><span class="header-section-number">15.2</span> Crear un tibble<a href="tibbles.html#crear-un-tibble" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>tibble()</li>
-</ul>
-<p>Crear un tibble con la siguiente información. Una columna que tiene los valores del 1 al 8 que se llama “secuencia”, una segunda columna que tiene los siguientes valores 23,26, 24,26,27, 11,20,21 que se llama edad y una tercera columna con la siguiente información, Jose, Maria, Carol, Moncho, Liz, Maria, Jorge, Miguel, que ser llama Nombre</p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="tibbles.html#cb459-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb459-2"><a href="tibbles.html#cb459-2" tabindex="-1"></a><span class="co">#library(datos)</span></span>
-<span id="cb459-3"><a href="tibbles.html#cb459-3" tabindex="-1"></a></span>
-<span id="cb459-4"><a href="tibbles.html#cb459-4" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb459-5"><a href="tibbles.html#cb459-5" tabindex="-1"></a>  <span class="at">secuencia =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>),</span>
-<span id="cb459-6"><a href="tibbles.html#cb459-6" tabindex="-1"></a>  <span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">23</span>,<span class="dv">26</span>, <span class="dv">24</span>,<span class="dv">26</span>,<span class="dv">27</span>, <span class="cn">NA</span>),</span>
-<span id="cb459-7"><a href="tibbles.html#cb459-7" tabindex="-1"></a>  <span class="at">nombre =</span> <span class="fu">c</span>(<span class="st">&quot;Jose&quot;</span>, <span class="st">&quot;Maria&quot;</span>, <span class="st">&quot;Carol&quot;</span>, <span class="st">&quot;Moncho&quot;</span>, <span class="st">&quot;Liz&quot;</span>, <span class="st">&quot;Maria&quot;</span>)</span>
-<span id="cb459-8"><a href="tibbles.html#cb459-8" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## # A tibble: 6 × 3
-##   secuencia  edad nombre
-##       &lt;int&gt; &lt;dbl&gt; &lt;chr&gt; 
-## 1         1    23 Jose  
-## 2         2    26 Maria 
-## 3         3    24 Carol 
-## 4         4    26 Moncho
-## 5         5    27 Liz   
-## 6         6    NA Maria</code></pre>
+<div id="cambiar-a-todo-minuscula" class="section level3 hasAnchor" number="21.0.1">
+<h3><span class="header-section-number">21.0.1</span> Cambiar a todo minuscula<a href="you-can-also-use-str_sub-to-modify-strings.html#cambiar-a-todo-minuscula" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb786"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb786-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb786-1" tabindex="-1"></a>x<span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;Piña&quot;</span>, <span class="st">&quot;Manzana&quot;</span>, <span class="st">&quot;Toronja&quot;</span>, <span class="st">&quot;HAPPY&quot;</span>)</span>
+<span id="cb786-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb786-2" tabindex="-1"></a><span class="fu">str_to_lower</span>(x)</span></code></pre></div>
+<pre><code>## [1] &quot;piña&quot;    &quot;manzana&quot; &quot;toronja&quot; &quot;happy&quot;</code></pre>
 <hr />
 </div>
-<div id="crear-un-tribble" class="section level2 hasAnchor" number="15.3">
-<h2><span class="header-section-number">15.3</span> Crear un tribble<a href="tibbles.html#crear-un-tribble" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>tribble()</li>
-</ul>
-<p>Haga un tribble con las primera 3 lineas del tibble anterior</p>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="tibbles.html#cb461-1" tabindex="-1"></a><span class="fu">tribble</span>(</span>
-<span id="cb461-2"><a href="tibbles.html#cb461-2" tabindex="-1"></a>  <span class="sc">~</span>secuencia, <span class="sc">~</span>edad, <span class="sc">~</span>nombre,</span>
-<span id="cb461-3"><a href="tibbles.html#cb461-3" tabindex="-1"></a>  <span class="dv">1</span>, <span class="dv">23</span>, <span class="st">&quot;Jose&quot;</span>,</span>
-<span id="cb461-4"><a href="tibbles.html#cb461-4" tabindex="-1"></a>  <span class="dv">2</span>, <span class="dv">26</span>, <span class="st">&quot;Maria&quot;</span>,</span>
-<span id="cb461-5"><a href="tibbles.html#cb461-5" tabindex="-1"></a>  <span class="dv">3</span>, <span class="dv">23</span>, <span class="st">&quot;Carol&quot;</span></span>
-<span id="cb461-6"><a href="tibbles.html#cb461-6" tabindex="-1"></a>  </span>
-<span id="cb461-7"><a href="tibbles.html#cb461-7" tabindex="-1"></a>  </span>
-<span id="cb461-8"><a href="tibbles.html#cb461-8" tabindex="-1"></a>)</span></code></pre></div>
-<pre><code>## # A tibble: 3 × 3
-##   secuencia  edad nombre
-##       &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
-## 1         1    23 Jose  
-## 2         2    26 Maria 
-## 3         3    23 Carol</code></pre>
+<div id="cambiar-a-mayuscula" class="section level3 hasAnchor" number="21.0.2">
+<h3><span class="header-section-number">21.0.2</span> Cambiar a mayuscula<a href="you-can-also-use-str_sub-to-modify-strings.html#cambiar-a-mayuscula" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb788"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb788-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb788-1" tabindex="-1"></a>x<span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;Piña&quot;</span>, <span class="st">&quot;Manzana&quot;</span>, <span class="st">&quot;Toronja&quot;</span>)</span>
+<span id="cb788-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb788-2" tabindex="-1"></a><span class="fu">str_to_upper</span>(x)</span></code></pre></div>
+<pre><code>## [1] &quot;PIÑA&quot;    &quot;MANZANA&quot; &quot;TORONJA&quot;</code></pre>
 <hr />
 </div>
-<div id="tibble-vs.-data.frame" class="section level2 hasAnchor" number="15.4">
-<h2><span class="header-section-number">15.4</span> tibble vs. data.frame<a href="tibbles.html#tibble-vs.-data.frame" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="tibbles.html#cb463-1" tabindex="-1"></a>tb <span class="ot">=</span> <span class="fu">tibble</span>(</span>
-<span id="cb463-2"><a href="tibbles.html#cb463-2" tabindex="-1"></a>  <span class="at">a =</span> lubridate<span class="sc">::</span><span class="fu">now</span>() <span class="sc">+</span> <span class="fu">runif</span>(<span class="fl">1e2</span>) <span class="sc">*</span> <span class="dv">86400</span>,</span>
-<span id="cb463-3"><a href="tibbles.html#cb463-3" tabindex="-1"></a>  <span class="at">b =</span> lubridate<span class="sc">::</span><span class="fu">today</span>() <span class="sc">+</span> <span class="fu">runif</span>(<span class="fl">1e2</span>) <span class="sc">*</span> <span class="dv">30</span>,</span>
-<span id="cb463-4"><a href="tibbles.html#cb463-4" tabindex="-1"></a>  <span class="at">c =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>,</span>
-<span id="cb463-5"><a href="tibbles.html#cb463-5" tabindex="-1"></a>  <span class="at">d =</span> <span class="fu">runif</span>(<span class="fl">1e2</span>),</span>
-<span id="cb463-6"><a href="tibbles.html#cb463-6" tabindex="-1"></a>  <span class="at">e =</span> <span class="fu">sample</span>(letters, <span class="fl">1e2</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb463-7"><a href="tibbles.html#cb463-7" tabindex="-1"></a>)</span>
-<span id="cb463-8"><a href="tibbles.html#cb463-8" tabindex="-1"></a>tb</span></code></pre></div>
-<pre><code>## # A tibble: 100 × 5
-##    a                   b              c      d e    
-##    &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;
-##  1 2025-10-29 16:50:21 2025-11-16     1 0.559  o    
-##  2 2025-10-29 23:19:35 2025-10-29     2 0.250  o    
-##  3 2025-10-29 18:13:12 2025-10-31     3 0.0653 d    
-##  4 2025-10-30 15:59:26 2025-10-30     4 0.573  v    
-##  5 2025-10-29 23:31:41 2025-11-20     5 0.651  k    
-##  6 2025-10-30 07:43:31 2025-11-09     6 0.581  p    
-##  7 2025-10-30 12:21:36 2025-11-22     7 0.0175 x    
-##  8 2025-10-30 11:21:35 2025-11-09     8 0.0133 f    
-##  9 2025-10-30 05:36:19 2025-11-12     9 0.661  c    
-## 10 2025-10-30 11:44:31 2025-11-21    10 0.380  y    
-## # ℹ 90 more rows</code></pre>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="tibbles.html#cb465-1" tabindex="-1"></a>df_tb<span class="ot">=</span><span class="fu">as.data.frame</span>(tb)</span>
-<span id="cb465-2"><a href="tibbles.html#cb465-2" tabindex="-1"></a>df_tb</span></code></pre></div>
-<pre><code>##                       a          b   c          d e
-## 1   2025-10-29 16:50:21 2025-11-16   1 0.55895788 o
-## 2   2025-10-29 23:19:35 2025-10-29   2 0.24952694 o
-## 3   2025-10-29 18:13:12 2025-10-31   3 0.06531608 d
-## 4   2025-10-30 15:59:26 2025-10-30   4 0.57306761 v
-## 5   2025-10-29 23:31:41 2025-11-20   5 0.65098699 k
-## 6   2025-10-30 07:43:31 2025-11-09   6 0.58124937 p
-## 7   2025-10-30 12:21:36 2025-11-22   7 0.01748210 x
-## 8   2025-10-30 11:21:35 2025-11-09   8 0.01331984 f
-## 9   2025-10-30 05:36:19 2025-11-12   9 0.66064715 c
-## 10  2025-10-30 11:44:31 2025-11-21  10 0.38021846 y
-## 11  2025-10-30 15:53:48 2025-11-20  11 0.55374044 o
-## 12  2025-10-30 13:21:22 2025-11-09  12 0.57734132 r
-## 13  2025-10-30 13:46:01 2025-10-31  13 0.89874595 s
-## 14  2025-10-30 08:06:02 2025-11-11  14 0.02335350 s
-## 15  2025-10-30 02:45:11 2025-11-21  15 0.36233644 a
-## 16  2025-10-30 04:30:17 2025-11-05  16 0.79219053 c
-## 17  2025-10-30 05:48:09 2025-11-05  17 0.79451792 q
-## 18  2025-10-29 17:41:37 2025-11-08  18 0.03461087 h
-## 19  2025-10-29 22:19:50 2025-10-30  19 0.83758986 y
-## 20  2025-10-30 04:35:09 2025-11-09  20 0.08880666 h
-## 21  2025-10-29 20:55:20 2025-11-11  21 0.81779321 m
-## 22  2025-10-29 19:19:43 2025-11-25  22 0.88725936 k
-## 23  2025-10-30 08:14:04 2025-10-30  23 0.26002925 a
-## 24  2025-10-29 19:24:46 2025-11-09  24 0.31542900 t
-## 25  2025-10-30 02:01:50 2025-11-03  25 0.91124396 m
-## 26  2025-10-29 21:21:39 2025-11-12  26 0.69990520 u
-## 27  2025-10-30 06:32:47 2025-11-27  27 0.83810166 o
-## 28  2025-10-30 04:02:44 2025-11-01  28 0.39910988 q
-## 29  2025-10-30 13:57:28 2025-11-21  29 0.99993174 t
-## 30  2025-10-30 05:40:29 2025-11-07  30 0.66218230 y
-## 31  2025-10-30 00:38:17 2025-11-02  31 0.98046836 c
-## 32  2025-10-30 04:48:09 2025-11-10  32 0.13905381 o
-## 33  2025-10-30 08:50:03 2025-11-24  33 0.34755612 m
-## 34  2025-10-29 21:44:41 2025-11-17  34 0.99072892 t
-## 35  2025-10-30 12:58:03 2025-11-20  35 0.01158322 g
-## 36  2025-10-30 03:11:51 2025-11-18  36 0.59905566 w
-## 37  2025-10-30 01:13:04 2025-11-18  37 0.66253655 m
-## 38  2025-10-30 12:32:25 2025-11-06  38 0.81108752 p
-## 39  2025-10-29 20:11:47 2025-11-25  39 0.86941914 m
-## 40  2025-10-30 05:57:23 2025-11-22  40 0.18531162 v
-## 41  2025-10-30 13:45:51 2025-11-02  41 0.93845374 p
-## 42  2025-10-29 18:16:00 2025-11-08  42 0.98626153 o
-## 43  2025-10-29 18:12:58 2025-11-21  43 0.36978729 g
-## 44  2025-10-29 18:00:54 2025-11-09  44 0.40597546 h
-## 45  2025-10-29 16:25:28 2025-10-31  45 0.45127090 p
-## 46  2025-10-30 09:01:27 2025-11-02  46 0.83761479 d
-## 47  2025-10-30 05:53:40 2025-11-27  47 0.20941751 c
-## 48  2025-10-30 01:45:20 2025-11-23  48 0.99204004 y
-## 49  2025-10-30 02:02:56 2025-10-30  49 0.50421065 r
-## 50  2025-10-29 19:37:37 2025-11-09  50 0.33143023 g
-## 51  2025-10-30 15:01:12 2025-11-08  51 0.73076078 w
-## 52  2025-10-30 05:57:03 2025-11-04  52 0.46601006 v
-## 53  2025-10-30 02:26:13 2025-11-18  53 0.93914242 z
-## 54  2025-10-30 07:20:21 2025-11-24  54 0.88173091 s
-## 55  2025-10-30 00:19:04 2025-11-22  55 0.34532379 i
-## 56  2025-10-29 18:21:59 2025-11-16  56 0.58456342 l
-## 57  2025-10-29 16:24:04 2025-11-24  57 0.88058255 v
-## 58  2025-10-29 18:16:49 2025-10-30  58 0.22127013 v
-## 59  2025-10-30 07:57:26 2025-11-16  59 0.89288290 o
-## 60  2025-10-30 00:05:00 2025-11-04  60 0.02081485 y
-## 61  2025-10-29 20:42:46 2025-11-14  61 0.27143203 n
-## 62  2025-10-30 01:40:13 2025-11-05  62 0.95400736 c
-## 63  2025-10-29 23:47:00 2025-11-06  63 0.86419811 j
-## 64  2025-10-30 00:41:27 2025-11-07  64 0.25909042 i
-## 65  2025-10-30 08:39:29 2025-11-08  65 0.71488890 t
-## 66  2025-10-30 09:11:23 2025-11-07  66 0.14559841 m
-## 67  2025-10-30 06:18:16 2025-11-12  67 0.33884110 a
-## 68  2025-10-30 09:44:05 2025-11-11  68 0.85914380 c
-## 69  2025-10-30 06:47:34 2025-11-19  69 0.78041364 o
-## 70  2025-10-30 01:24:41 2025-11-18  70 0.83340269 v
-## 71  2025-10-30 12:14:29 2025-11-19  71 0.46138001 k
-## 72  2025-10-30 11:31:40 2025-11-20  72 0.95366063 x
-## 73  2025-10-29 22:09:28 2025-11-25  73 0.58594067 i
-## 74  2025-10-30 00:19:16 2025-11-14  74 0.07427914 i
-## 75  2025-10-29 16:38:38 2025-11-26  75 0.41196391 p
-## 76  2025-10-30 13:46:40 2025-11-08  76 0.64245513 l
-## 77  2025-10-30 01:53:18 2025-11-11  77 0.88572561 a
-## 78  2025-10-29 20:24:45 2025-11-27  78 0.27894255 z
-## 79  2025-10-30 02:18:53 2025-11-18  79 0.11545121 p
-## 80  2025-10-29 17:22:31 2025-11-24  80 0.27069348 w
-## 81  2025-10-30 07:08:15 2025-10-30  81 0.09039557 m
-## 82  2025-10-30 06:20:39 2025-11-27  82 0.84375956 u
-## 83  2025-10-29 21:47:55 2025-11-10  83 0.44452948 t
-## 84  2025-10-29 20:08:05 2025-11-06  84 0.17054338 a
-## 85  2025-10-30 02:09:01 2025-11-27  85 0.94064577 n
-## 86  2025-10-30 04:36:40 2025-11-03  86 0.55504992 s
-## 87  2025-10-29 19:49:53 2025-11-26  87 0.74138904 o
-## 88  2025-10-29 19:32:23 2025-11-09  88 0.69146950 m
-## 89  2025-10-30 07:40:20 2025-11-20  89 0.95055655 v
-## 90  2025-10-30 11:35:59 2025-11-24  90 0.50241356 h
-## 91  2025-10-30 11:55:36 2025-11-23  91 0.94041471 l
-## 92  2025-10-30 05:59:31 2025-11-09  92 0.66040567 e
-## 93  2025-10-29 23:51:37 2025-11-14  93 0.74075930 s
-## 94  2025-10-30 11:26:49 2025-11-14  94 0.49824345 q
-## 95  2025-10-29 16:05:56 2025-11-26  95 0.10436335 j
-## 96  2025-10-30 01:04:29 2025-10-29  96 0.06179632 g
-## 97  2025-10-30 04:07:06 2025-11-07  97 0.21776393 s
-## 98  2025-10-30 15:26:53 2025-10-29  98 0.15662152 x
-## 99  2025-10-30 02:10:22 2025-11-16  99 0.62424786 s
-## 100 2025-10-30 07:07:37 2025-10-31 100 0.39037936 c</code></pre>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="tibbles.html#cb467-1" tabindex="-1"></a>tb <span class="sc">%&gt;%</span></span>
-<span id="cb467-2"><a href="tibbles.html#cb467-2" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="at">width =</span> <span class="cn">Inf</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 100 × 5
-##   a                   b              c      d e    
-##   &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt;
-## 1 2025-10-29 16:50:21 2025-11-16     1 0.559  o    
-## 2 2025-10-29 23:19:35 2025-10-29     2 0.250  o    
-## 3 2025-10-29 18:13:12 2025-10-31     3 0.0653 d    
-## 4 2025-10-30 15:59:26 2025-10-30     4 0.573  v    
-## # ℹ 96 more rows</code></pre>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="tibbles.html#cb469-1" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">now</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;2025-10-29 16:02:39 AST&quot;</code></pre>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="tibbles.html#cb471-1" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">today</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;2025-10-29&quot;</code></pre>
+<div id="locales" class="section level2 hasAnchor" number="21.1">
+<h2><span class="header-section-number">21.1</span> Locales<a href="you-can-also-use-str_sub-to-modify-strings.html#locales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><p>To convert a data frame to a tibble use <strong>as.tibble</strong></p></li>
-<li><p>To convert a tibble to a data frame use <strong>as.data.frame</strong></p></li>
+<li>¿Qué es un locale?</li>
+<li>str_to_lower()</li>
+<li>str_to_upper()</li>
+<li>str_order() # que hace esta función?</li>
+<li>str_sort() # que hace esta función?</li>
 </ul>
+<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb790-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb790-1" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## [1] &quot;Piña&quot;    &quot;Manzana&quot; &quot;Toronja&quot;</code></pre>
+<div class="sourceCode" id="cb792"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb792-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb792-1" tabindex="-1"></a><span class="fu">str_order</span>(x) <span class="co"># regresa el orden de las palabras</span></span></code></pre></div>
+<pre><code>## [1] 2 1 3</code></pre>
+<div class="sourceCode" id="cb794"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb794-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb794-1" tabindex="-1"></a><span class="fu">str_sort</span>(x) <span class="co"># reorganiza las palabras en orden alfabético</span></span></code></pre></div>
+<pre><code>## [1] &quot;Manzana&quot; &quot;Piña&quot;    &quot;Toronja&quot;</code></pre>
 <hr />
-</div>
-<div id="diferencias-entre-un-tibble-y-un-data-frame." class="section level2 hasAnchor" number="15.5">
-<h2><span class="header-section-number">15.5</span> Diferencias entre un tibble y un data frame.<a href="tibbles.html#diferencias-entre-un-tibble-y-un-data-frame." class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>Tibbles tiene un buen método de impresión que muestra solo las primeras 10 filas y todas las columnas que caben en la pantalla.</li>
-<li>Tibbles no admite nombres de filas. Se eliminan al convertir a tibble o al crear subconjuntos:</li>
-</ul>
-<p>Operaciones aritméticas en tibbles</p>
-<p>A diferencia de los data frame, los tibbles NO admiten operaciones aritméticas en todas las columnas. El resultado  fuerza silenciosamente a un data frame.</p>
-<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="tibbles.html#cb473-1" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">b =</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb473-2"><a href="tibbles.html#cb473-2" tabindex="-1"></a>result<span class="ot">=</span>tbl <span class="sc">*</span> <span class="dv">2</span></span>
-<span id="cb473-3"><a href="tibbles.html#cb473-3" tabindex="-1"></a></span>
-<span id="cb473-4"><a href="tibbles.html#cb473-4" tabindex="-1"></a><span class="fu">is_tibble</span>(result)</span></code></pre></div>
-<pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="tibbles.html#cb475-1" tabindex="-1"></a><span class="fu">is.data.frame</span>(result)</span></code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="tibbles.html#cb477-1" tabindex="-1"></a>result2<span class="ot">=</span>tbl <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">c=</span>b<span class="sc">*</span><span class="dv">2</span>)</span>
-<span id="cb477-2"><a href="tibbles.html#cb477-2" tabindex="-1"></a>result2</span></code></pre></div>
-<pre><code>## # A tibble: 3 × 3
-##       a     b     c
-##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
-## 1     1     4     8
-## 2     2     5    10
-## 3     3     6    12</code></pre>
-<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="tibbles.html#cb479-1" tabindex="-1"></a><span class="fu">is_tibble</span>(result2)</span></code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
-<ul>
-<li>Los tibbles también son más estrictos con $. Tibbles nunca realiza coincidencias parciales y generará una advertencia y devolverá NULL si la columna no existe:</li>
-</ul>
-<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="tibbles.html#cb481-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">abc =</span> <span class="dv">1</span>)</span>
-<span id="cb481-2"><a href="tibbles.html#cb481-2" tabindex="-1"></a>df<span class="sc">$</span>a</span></code></pre></div>
-<pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="tibbles.html#cb483-1" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span>
-<span id="cb483-2"><a href="tibbles.html#cb483-2" tabindex="-1"></a></span>
-<span id="cb483-3"><a href="tibbles.html#cb483-3" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">abc =</span> <span class="dv">1</span>)</span>
-<span id="cb483-4"><a href="tibbles.html#cb483-4" tabindex="-1"></a>df2<span class="sc">$</span>abc <span class="co"># nota el error</span></span></code></pre></div>
-<pre><code>## [1] 1</code></pre>
-<ul>
-<li>Para extraer una columna de un tibble, use [[. Esto es más seguro que $ porque nunca realiza coincidencias parciales:</li>
-</ul>
-</div>
-<div id="selección-de-subconjuntos-de-datos" class="section level2 hasAnchor" number="15.6">
-<h2><span class="header-section-number">15.6</span> Selección de subconjuntos de datos<a href="tibbles.html#selección-de-subconjuntos-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="tibbles.html#cb485-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
-<span id="cb485-2"><a href="tibbles.html#cb485-2" tabindex="-1"></a></span>
-<span id="cb485-3"><a href="tibbles.html#cb485-3" tabindex="-1"></a><span class="fu">head</span>(vuelos<span class="sc">$</span>salida_programada, <span class="at">n=</span><span class="dv">20</span>) </span></code></pre></div>
-<pre><code>##  [1] 515 529 540 545 600 558 600 600 600 600 600 600 600 600 600 559 600 600 600
-## [20] 600</code></pre>
-<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="tibbles.html#cb487-1" tabindex="-1"></a>vuelos[[<span class="st">&quot;salida_programada&quot;</span>]] <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n=</span><span class="dv">20</span>)</span></code></pre></div>
-<pre><code>##  [1] 515 529 540 545 600 558 600 600 600 600 600 600 600 600 600 559 600 600 600
-## [20] 600</code></pre>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="tibbles.html#cb489-1" tabindex="-1"></a><span class="co">#Alternativas usar esta función dentro de pipe</span></span>
-<span id="cb489-2"><a href="tibbles.html#cb489-2" tabindex="-1"></a></span>
-<span id="cb489-3"><a href="tibbles.html#cb489-3" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> .<span class="sc">$</span>salida_programada <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n=</span><span class="dv">20</span>)</span></code></pre></div>
-<pre><code>##  [1] 515 529 540 545 600 558 600 600 600 600 600 600 600 600 600 559 600 600 600
-## [20] 600</code></pre>
-<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="tibbles.html#cb491-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> .[[<span class="st">&quot;salida_programada&quot;</span>]] <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n=</span><span class="dv">20</span>)</span></code></pre></div>
-<pre><code>##  [1] 515 529 540 545 600 558 600 600 600 600 600 600 600 600 600 559 600 600 600
-## [20] 600</code></pre>
-<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="tibbles.html#cb493-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> .[[<span class="st">&quot;atraso_salida&quot;</span>]] <span class="sc">|&gt;</span> </span>
-<span id="cb493-2"><a href="tibbles.html#cb493-2" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n=</span><span class="dv">20</span>)</span></code></pre></div>
-<pre><code>##  [1]  2  4  2 -1 -6 -4 -5 -3 -3 -2 -2 -2 -2 -2 -1  0 -1  0  0  1</code></pre>
 <ol style="list-style-type: decimal">
 <li><strong>Ejercicios</strong>:</li>
 </ol>
-<p>Hacer los ejercicios en la sección 10.5 del libro en español</p>
+<p>Hacer los ejercicios en la sección 14.2.5 del libro en español</p>
+<hr />
+</div>
+<div id="buscar-patrones" class="section level2 hasAnchor" number="21.2">
+<h2><span class="header-section-number">21.2</span> Buscar patrones<a href="you-can-also-use-str_sub-to-modify-strings.html#buscar-patrones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="coincidencia-básica" class="section level2 hasAnchor" number="21.3">
+<h2><span class="header-section-number">21.3</span> Coincidencia básica<a href="you-can-also-use-str_sub-to-modify-strings.html#coincidencia-básica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para visualizar patrones de letras</p>
+<ul>
+<li>str_view()</li>
+<li>str_view( , .x.)</li>
+</ul>
+<div class="sourceCode" id="cb796"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb796-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb796-1" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb796-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb796-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;manzana&quot;</span>, <span class="st">&quot;banana&quot;</span>, <span class="st">&quot;pera&quot;</span>, <span class="st">&quot;extraer&quot;</span>)</span>
+<span id="cb796-3"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb796-3" tabindex="-1"></a><span class="fu">str_view</span>(x, <span class="st">&quot;er&quot;</span>)</span></code></pre></div>
+<pre><code>## [3] │ p&lt;er&gt;a
+## [4] │ extra&lt;er&gt;</code></pre>
+<hr />
+<p>Ejemplo de como uno puede utiliza esas funciones</p>
+<p>str_detect()</p>
+<div class="sourceCode" id="cb798"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb798-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb798-1" tabindex="-1"></a>x<span class="ot">=</span> <span class="fu">c</span>( <span class="st">&quot;Piña&quot;</span>, <span class="st">&quot;Manzana&quot;</span>, <span class="st">&quot;Toronja&quot;</span>, <span class="st">&quot;Jugo&quot;</span>, <span class="st">&quot;Monique&quot;</span>, <span class="st">&quot;Raymond&quot;</span>)</span>
+<span id="cb798-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb798-2" tabindex="-1"></a><span class="fu">str_detect</span>(x, <span class="st">&quot;a&quot;</span>) <span class="co"># detectar la a</span></span></code></pre></div>
+<pre><code>## [1]  TRUE  TRUE  TRUE FALSE FALSE  TRUE</code></pre>
+<div class="sourceCode" id="cb800"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb800-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb800-1" tabindex="-1"></a><span class="fu">str_detect</span>(x, <span class="st">&quot;i&quot;</span>) <span class="co"># detectar la i</span></span></code></pre></div>
+<pre><code>## [1]  TRUE FALSE FALSE FALSE  TRUE FALSE</code></pre>
+<div class="sourceCode" id="cb802"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb802-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb802-1" tabindex="-1"></a><span class="fu">str_detect</span>(x, <span class="st">&quot;ñ&quot;</span>)</span></code></pre></div>
+<pre><code>## [1]  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<div id="detectar-las-palabras-que-comienzan-con-una-letra-específica-con-.-nota-el-uso-de-mayusculas-y-minusculas-y-sumamos-cuantas-palabras-cumplen-con-la-condición." class="section level3 hasAnchor" number="21.3.1">
+<h3><span class="header-section-number">21.3.1</span> Detectar las palabras que comienzan con una letra específica con “^”. Nota el uso de mayusculas y minusculas y sumamos cuantas palabras cumplen con la condición.<a href="you-can-also-use-str_sub-to-modify-strings.html#detectar-las-palabras-que-comienzan-con-una-letra-específica-con-.-nota-el-uso-de-mayusculas-y-minusculas-y-sumamos-cuantas-palabras-cumplen-con-la-condición." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb804"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb804-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb804-1" tabindex="-1"></a><span class="co"># ¿Cuántas palabras comunes empiezan con m o M?</span></span>
+<span id="cb804-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb804-2" tabindex="-1"></a><span class="co"># str_detect(x, &quot;^M&quot;)</span></span>
+<span id="cb804-3"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb804-3" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## [1] &quot;Piña&quot;    &quot;Manzana&quot; &quot;Toronja&quot; &quot;Jugo&quot;    &quot;Monique&quot; &quot;Raymond&quot;</code></pre>
+<div class="sourceCode" id="cb806"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb806-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb806-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">str_detect</span>(x, <span class="st">&quot;^m&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb808"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb808-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb808-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">str_detect</span>(x, <span class="st">&quot;^M&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+</div>
+<div id="detectar-las-palabras-que-terminan-con-una-letra-específica-con" class="section level3 hasAnchor" number="21.3.2">
+<h3><span class="header-section-number">21.3.2</span> Detectar las palabras que terminan con una letra específica con “$”<a href="you-can-also-use-str_sub-to-modify-strings.html#detectar-las-palabras-que-terminan-con-una-letra-específica-con" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb810-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb810-1" tabindex="-1"></a><span class="co"># ¿Qué proporción de palabras comunes terminan con una vocal?</span></span>
+<span id="cb810-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb810-2" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">str_detect</span>(palabras, <span class="st">&quot;[aáeéiíoóuú]$&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] 0.561</code></pre>
+<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb812-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb812-1" tabindex="-1"></a><span class="co"># ¿Qué proporción de palabras comunes terminan con una vocal especifica?</span></span>
+<span id="cb812-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb812-2" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">str_detect</span>(x, <span class="st">&quot;[o]$&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] 0.1666667</code></pre>
+<div class="sourceCode" id="cb814"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb814-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb814-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">str_detect</span>(x, <span class="st">&quot;[d]$&quot;</span>)) <span class="co"># Raymond</span></span></code></pre></div>
+<pre><code>## [1] 0.1666667</code></pre>
+<hr />
+<p>Dataset: palabras</p>
+<ul>
+<li><p>Comienza para mirar el archivo palabras</p></li>
+<li><p>Cuentas palabras tiene ese archivo?</p></li>
+</ul>
+<div class="sourceCode" id="cb816"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb816-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb816-1" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb816-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb816-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
+<span id="cb816-3"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb816-3" tabindex="-1"></a>palabras</span></code></pre></div>
+<pre><code>##    [1] &quot;a&quot;               &quot;abril&quot;           &quot;acción&quot;          &quot;acciones&quot;       
+##    [5] &quot;acerca&quot;          &quot;actitud&quot;         &quot;actividad&quot;       &quot;actividades&quot;    
+##    [9] &quot;acto&quot;            &quot;actual&quot;          &quot;acuerdo&quot;         &quot;adelante&quot;       
+##   [13] &quot;además&quot;          &quot;administración&quot;  &quot;afirmó&quot;          &quot;agua&quot;           
+##   [17] &quot;ahí&quot;             &quot;ahora&quot;           &quot;aire&quot;            &quot;al&quot;             
+##   [21] &quot;algo&quot;            &quot;alguien&quot;         &quot;algún&quot;           &quot;alguna&quot;         
+##   [25] &quot;algunas&quot;         &quot;algunos&quot;         &quot;allá&quot;            &quot;allí&quot;           
+##   [29] &quot;alrededor&quot;       &quot;alta&quot;            &quot;alto&quot;            &quot;ambiente&quot;       
+##   [33] &quot;ambos&quot;           &quot;américa&quot;         &quot;amigo&quot;           &quot;amigos&quot;         
+##   [37] &quot;amor&quot;            &quot;análisis&quot;        &quot;animales&quot;        &quot;ante&quot;           
+##   [41] &quot;anterior&quot;        &quot;antes&quot;           &quot;antonio&quot;         &quot;año&quot;            
+##   [45] &quot;años&quot;            &quot;aparece&quot;         &quot;apenas&quot;          &quot;apoyo&quot;          
+##   [49] &quot;aquel&quot;           &quot;aquella&quot;         &quot;aquellas&quot;        &quot;aquellos&quot;       
+##   [53] &quot;aquí&quot;            &quot;área&quot;            &quot;argentina&quot;       &quot;armas&quot;          
+##   [57] &quot;arriba&quot;          &quot;arte&quot;            &quot;artículo&quot;        &quot;así&quot;            
+##   [61] &quot;asimismo&quot;        &quot;asociación&quot;      &quot;aspecto&quot;         &quot;aspectos&quot;       
+##   [65] &quot;asunto&quot;          &quot;atención&quot;        &quot;atrás&quot;           &quot;aumento&quot;        
+##   [69] &quot;aun&quot;             &quot;aún&quot;             &quot;aunque&quot;          &quot;autor&quot;          
+##   [73] &quot;autoridades&quot;     &quot;ayer&quot;            &quot;ayuda&quot;           &quot;b&quot;              
+##   [77] &quot;baja&quot;            &quot;bajo&quot;            &quot;banco&quot;           &quot;barcelona&quot;      
+##   [81] &quot;base&quot;            &quot;bastante&quot;        &quot;bien&quot;            &quot;blanca&quot;         
+##   [85] &quot;blanco&quot;          &quot;boca&quot;            &quot;buen&quot;            &quot;buena&quot;          
+##   [89] &quot;bueno&quot;           &quot;buenos&quot;          &quot;busca&quot;           &quot;buscar&quot;         
+##   [93] &quot;c&quot;               &quot;cabeza&quot;          &quot;cabo&quot;            &quot;cada&quot;           
+##   [97] &quot;calidad&quot;         &quot;calle&quot;           &quot;cama&quot;            &quot;cámara&quot;         
+##  [101] &quot;cambio&quot;          &quot;cambios&quot;         &quot;camino&quot;          &quot;campaña&quot;        
+##  [105] &quot;campo&quot;           &quot;cantidad&quot;        &quot;capacidad&quot;       &quot;capaz&quot;          
+##  [109] &quot;capital&quot;         &quot;cara&quot;            &quot;carácter&quot;        &quot;características&quot;
+##  [113] &quot;cargo&quot;           &quot;carlos&quot;          &quot;carne&quot;           &quot;carrera&quot;        
+##  [117] &quot;carta&quot;           &quot;casa&quot;            &quot;casi&quot;            &quot;caso&quot;           
+##  [121] &quot;casos&quot;           &quot;causa&quot;           &quot;central&quot;         &quot;centro&quot;         
+##  [125] &quot;centros&quot;         &quot;cerca&quot;           &quot;chile&quot;           &quot;ciencia&quot;        
+##  [129] &quot;ciento&quot;          &quot;cierta&quot;          &quot;cierto&quot;          &quot;cinco&quot;          
+##  [133] &quot;cine&quot;            &quot;ciudad&quot;          &quot;civil&quot;           &quot;claro&quot;          
+##  [137] &quot;clase&quot;           &quot;club&quot;            &quot;color&quot;           &quot;comenzó&quot;        
+##  [141] &quot;comercio&quot;        &quot;comisión&quot;        &quot;como&quot;            &quot;cómo&quot;           
+##  [145] &quot;compañía&quot;        &quot;común&quot;           &quot;comunicación&quot;    &quot;comunidad&quot;      
+##  [149] &quot;con&quot;             &quot;concepto&quot;        &quot;conciencia&quot;      &quot;condiciones&quot;    
+##  [153] &quot;congreso&quot;        &quot;conjunto&quot;        &quot;conocer&quot;         &quot;conocimiento&quot;   
+##  [157] &quot;consecuencia&quot;    &quot;conseguir&quot;       &quot;consejo&quot;         &quot;considera&quot;      
+##  [161] &quot;constitución&quot;    &quot;construcción&quot;    &quot;consumo&quot;         &quot;contenido&quot;      
+##  [165] &quot;contra&quot;          &quot;contrario&quot;       &quot;control&quot;         &quot;corazón&quot;        
+##  [169] &quot;corte&quot;           &quot;cosa&quot;            &quot;cosas&quot;           &quot;costa&quot;          
+##  [173] &quot;creación&quot;        &quot;crecimiento&quot;     &quot;creo&quot;            &quot;crisis&quot;         
+##  [177] &quot;cuadro&quot;          &quot;cual&quot;            &quot;cuales&quot;          &quot;cualquier&quot;      
+##  [181] &quot;cuando&quot;          &quot;cuanto&quot;          &quot;cuarto&quot;          &quot;cuatro&quot;         
+##  [185] &quot;cuba&quot;            &quot;cuenta&quot;          &quot;cuerpo&quot;          &quot;cuestión&quot;       
+##  [189] &quot;cultura&quot;         &quot;cultural&quot;        &quot;curso&quot;           &quot;cuya&quot;           
+##  [193] &quot;cuyo&quot;            &quot;d&quot;               &quot;da&quot;              &quot;dado&quot;           
+##  [197] &quot;dan&quot;             &quot;dar&quot;             &quot;datos&quot;           &quot;de&quot;             
+##  [201] &quot;debe&quot;            &quot;deben&quot;           &quot;debía&quot;           &quot;debido&quot;         
+##  [205] &quot;decía&quot;           &quot;decir&quot;           &quot;decisión&quot;        &quot;defensa&quot;        
+##  [209] &quot;deja&quot;            &quot;dejar&quot;           &quot;dejó&quot;            &quot;del&quot;            
+##  [213] &quot;demás&quot;           &quot;demasiado&quot;       &quot;democracia&quot;      &quot;dentro&quot;         
+##  [217] &quot;derecha&quot;         &quot;derecho&quot;         &quot;derechos&quot;        &quot;desarrollo&quot;     
+##  [221] &quot;desde&quot;           &quot;deseo&quot;           &quot;después&quot;         &quot;destino&quot;        
+##  [225] &quot;día&quot;             &quot;diario&quot;          &quot;días&quot;            &quot;dice&quot;           
+##  [229] &quot;dicen&quot;           &quot;dicho&quot;           &quot;diciembre&quot;       &quot;diez&quot;           
+##  [233] &quot;diferencia&quot;      &quot;diferentes&quot;      &quot;difícil&quot;         &quot;dijo&quot;           
+##  [237] &quot;dinero&quot;          &quot;dio&quot;             &quot;dios&quot;            &quot;dirección&quot;      
+##  [241] &quot;director&quot;        &quot;distintas&quot;       &quot;distintos&quot;       &quot;diversas&quot;       
+##  [245] &quot;diversos&quot;        &quot;doctor&quot;          &quot;dólares&quot;         &quot;dolor&quot;          
+##  [249] &quot;domingo&quot;         &quot;don&quot;             &quot;donde&quot;           &quot;dónde&quot;          
+##  [253] &quot;dos&quot;             &quot;duda&quot;            &quot;durante&quot;         &quot;e&quot;              
+##  [257] &quot;economía&quot;        &quot;económica&quot;       &quot;económico&quot;       &quot;edad&quot;           
+##  [261] &quot;educación&quot;       &quot;efecto&quot;          &quot;efectos&quot;         &quot;ejemplo&quot;        
+##  [265] &quot;ejército&quot;        &quot;el&quot;              &quot;él&quot;              &quot;elecciones&quot;     
+##  [269] &quot;electoral&quot;       &quot;elementos&quot;       &quot;ella&quot;            &quot;ellas&quot;          
+##  [273] &quot;ello&quot;            &quot;ellos&quot;           &quot;embargo&quot;         &quot;empresa&quot;        
+##  [277] &quot;empresas&quot;        &quot;en&quot;              &quot;encima&quot;          &quot;encontrar&quot;      
+##  [281] &quot;encuentra&quot;       &quot;encuentran&quot;      &quot;encuentro&quot;       &quot;energía&quot;        
+##  [285] &quot;enero&quot;           &quot;enfermedad&quot;      &quot;entonces&quot;        &quot;entrada&quot;        
+##  [289] &quot;entrar&quot;          &quot;entre&quot;           &quot;época&quot;           &quot;equipo&quot;         
+##  [293] &quot;era&quot;             &quot;eran&quot;            &quot;es&quot;              &quot;esa&quot;            
+##  [297] &quot;esas&quot;            &quot;escuela&quot;         &quot;ese&quot;             &quot;esfuerzo&quot;       
+##  [301] &quot;eso&quot;             &quot;esos&quot;            &quot;espacio&quot;         &quot;españa&quot;         
+##  [305] &quot;español&quot;         &quot;española&quot;        &quot;españoles&quot;       &quot;especial&quot;       
+##  [309] &quot;especialmente&quot;   &quot;especie&quot;         &quot;espera&quot;          &quot;esta&quot;           
+##  [313] &quot;está&quot;            &quot;ésta&quot;            &quot;estaba&quot;          &quot;estaban&quot;        
+##  [317] &quot;estado&quot;          &quot;estados&quot;         &quot;estamos&quot;         &quot;están&quot;          
+##  [321] &quot;estar&quot;           &quot;estas&quot;           &quot;este&quot;            &quot;éste&quot;           
+##  [325] &quot;estilo&quot;          &quot;esto&quot;            &quot;estos&quot;           &quot;estoy&quot;          
+##  [329] &quot;estructura&quot;      &quot;estudio&quot;         &quot;estudios&quot;        &quot;estuvo&quot;         
+##  [333] &quot;etapa&quot;           &quot;etc&quot;             &quot;europa&quot;          &quot;europea&quot;        
+##  [337] &quot;evitar&quot;          &quot;ex&quot;              &quot;existe&quot;          &quot;existen&quot;        
+##  [341] &quot;existencia&quot;      &quot;éxito&quot;           &quot;experiencia&quot;     &quot;explicó&quot;        
+##  [345] &quot;expresión&quot;       &quot;exterior&quot;        &quot;fácil&quot;           &quot;falta&quot;          
+##  [349] &quot;familia&quot;         &quot;favor&quot;           &quot;fecha&quot;           &quot;felipe&quot;         
+##  [353] &quot;fernando&quot;        &quot;figura&quot;          &quot;fin&quot;             &quot;final&quot;          
+##  [357] &quot;finalmente&quot;      &quot;fiscal&quot;          &quot;flores&quot;          &quot;fondo&quot;          
+##  [361] &quot;forma&quot;           &quot;formación&quot;       &quot;formas&quot;          &quot;francia&quot;        
+##  [365] &quot;francisco&quot;       &quot;frente&quot;          &quot;fue&quot;             &quot;fuego&quot;          
+##  [369] &quot;fuentes&quot;         &quot;fuera&quot;           &quot;fueron&quot;          &quot;fuerte&quot;         
+##  [373] &quot;fuerza&quot;          &quot;fuerzas&quot;         &quot;función&quot;         &quot;fútbol&quot;         
+##  [377] &quot;futuro&quot;          &quot;g&quot;               &quot;garcía&quot;          &quot;general&quot;        
+##  [381] &quot;generales&quot;       &quot;gente&quot;           &quot;gobierno&quot;        &quot;gonzález&quot;       
+##  [385] &quot;gracias&quot;         &quot;grado&quot;           &quot;gran&quot;            &quot;grande&quot;         
+##  [389] &quot;grandes&quot;         &quot;grupo&quot;           &quot;grupos&quot;          &quot;guerra&quot;         
+##  [393] &quot;ha&quot;              &quot;haber&quot;           &quot;había&quot;           &quot;habían&quot;         
+##  [397] &quot;habla&quot;           &quot;hablar&quot;          &quot;habrá&quot;           &quot;habría&quot;         
+##  [401] &quot;hace&quot;            &quot;hacen&quot;           &quot;hacer&quot;           &quot;hacerlo&quot;        
+##  [405] &quot;hacia&quot;           &quot;hacía&quot;           &quot;haciendo&quot;        &quot;han&quot;            
+##  [409] &quot;has&quot;             &quot;hasta&quot;           &quot;hay&quot;             &quot;haya&quot;           
+##  [413] &quot;he&quot;              &quot;hecho&quot;           &quot;hechos&quot;          &quot;hemos&quot;          
+##  [417] &quot;hermano&quot;         &quot;hicieron&quot;        &quot;hija&quot;            &quot;hijo&quot;           
+##  [421] &quot;hijos&quot;           &quot;historia&quot;        &quot;hizo&quot;            &quot;hombre&quot;         
+##  [425] &quot;hombres&quot;         &quot;hora&quot;            &quot;horas&quot;           &quot;hospital&quot;       
+##  [429] &quot;hoy&quot;             &quot;hubiera&quot;         &quot;hubo&quot;            &quot;humana&quot;         
+##  [433] &quot;humano&quot;          &quot;humanos&quot;         &quot;i&quot;               &quot;iba&quot;            
+##  [437] &quot;idea&quot;            &quot;ideas&quot;           &quot;iglesia&quot;         &quot;igual&quot;          
+##  [441] &quot;ii&quot;              &quot;imagen&quot;          &quot;imágenes&quot;        &quot;importancia&quot;    
+##  [445] &quot;importante&quot;      &quot;importantes&quot;     &quot;imposible&quot;       &quot;incluso&quot;        
+##  [449] &quot;industria&quot;       &quot;información&quot;     &quot;informe&quot;         &quot;instituciones&quot;  
+##  [453] &quot;instituto&quot;       &quot;interés&quot;         &quot;intereses&quot;       &quot;interior&quot;       
+##  [457] &quot;internacional&quot;   &quot;investigación&quot;   &quot;ir&quot;              &quot;izquierda&quot;      
+##  [461] &quot;j&quot;               &quot;jamás&quot;           &quot;jefe&quot;            &quot;jorge&quot;          
+##  [465] &quot;josé&quot;            &quot;joven&quot;           &quot;jóvenes&quot;         &quot;juan&quot;           
+##  [469] &quot;juego&quot;           &quot;juez&quot;            &quot;juicio&quot;          &quot;julio&quot;          
+##  [473] &quot;junio&quot;           &quot;junto&quot;           &quot;justicia&quot;        &quot;la&quot;             
+##  [477] &quot;lado&quot;            &quot;larga&quot;           &quot;largo&quot;           &quot;las&quot;            
+##  [481] &quot;le&quot;              &quot;lejos&quot;           &quot;lenguaje&quot;        &quot;les&quot;            
+##  [485] &quot;ley&quot;             &quot;libertad&quot;        &quot;libre&quot;           &quot;libro&quot;          
+##  [489] &quot;libros&quot;          &quot;líder&quot;           &quot;línea&quot;           &quot;llama&quot;          
+##  [493] &quot;llamado&quot;         &quot;llega&quot;           &quot;llegado&quot;         &quot;llegar&quot;         
+##  [497] &quot;llegó&quot;           &quot;lleva&quot;           &quot;llevar&quot;          &quot;lo&quot;             
+##  [501] &quot;local&quot;           &quot;lópez&quot;           &quot;los&quot;             &quot;lucha&quot;          
+##  [505] &quot;luego&quot;           &quot;lugar&quot;           &quot;luis&quot;            &quot;luz&quot;            
+##  [509] &quot;m&quot;               &quot;madre&quot;           &quot;madrid&quot;          &quot;mal&quot;            
+##  [513] &quot;manera&quot;          &quot;mano&quot;            &quot;manos&quot;           &quot;mantener&quot;       
+##  [517] &quot;manuel&quot;          &quot;mañana&quot;          &quot;mar&quot;             &quot;marcha&quot;         
+##  [521] &quot;marco&quot;           &quot;maría&quot;           &quot;martín&quot;          &quot;marzo&quot;          
+##  [525] &quot;más&quot;             &quot;materia&quot;         &quot;material&quot;        &quot;máximo&quot;         
+##  [529] &quot;mayo&quot;            &quot;mayor&quot;           &quot;mayores&quot;         &quot;mayoría&quot;        
+##  [533] &quot;me&quot;              &quot;media&quot;           &quot;mediante&quot;        &quot;médico&quot;         
+##  [537] &quot;medida&quot;          &quot;medidas&quot;         &quot;medio&quot;           &quot;medios&quot;         
+##  [541] &quot;mejor&quot;           &quot;mejores&quot;         &quot;memoria&quot;         &quot;menor&quot;          
+##  [545] &quot;menos&quot;           &quot;mercado&quot;         &quot;mes&quot;             &quot;mesa&quot;           
+##  [549] &quot;meses&quot;           &quot;metros&quot;          &quot;méxico&quot;          &quot;mi&quot;             
+##  [553] &quot;mí&quot;              &quot;miedo&quot;           &quot;miembros&quot;        &quot;mientras&quot;       
+##  [557] &quot;miguel&quot;          &quot;mil&quot;             &quot;militar&quot;         &quot;militares&quot;      
+##  [561] &quot;millones&quot;        &quot;ministerio&quot;      &quot;ministro&quot;        &quot;minutos&quot;        
+##  [565] &quot;mira&quot;            &quot;mirada&quot;          &quot;mis&quot;             &quot;misma&quot;          
+##  [569] &quot;mismo&quot;           &quot;mismos&quot;          &quot;mitad&quot;           &quot;modelo&quot;         
+##  [573] &quot;modo&quot;            &quot;momento&quot;         &quot;momentos&quot;        &quot;movimiento&quot;     
+##  [577] &quot;mucha&quot;           &quot;muchas&quot;          &quot;mucho&quot;           &quot;muchos&quot;         
+##  [581] &quot;muerte&quot;          &quot;muerto&quot;          &quot;muestra&quot;         &quot;mujer&quot;          
+##  [585] &quot;mujeres&quot;         &quot;mundial&quot;         &quot;mundo&quot;           &quot;música&quot;         
+##  [589] &quot;muy&quot;             &quot;n&quot;               &quot;nacional&quot;        &quot;nada&quot;           
+##  [593] &quot;nadie&quot;           &quot;natural&quot;         &quot;naturaleza&quot;      &quot;necesario&quot;      
+##  [597] &quot;necesidad&quot;       &quot;negro&quot;           &quot;ni&quot;              &quot;ningún&quot;         
+##  [601] &quot;ninguna&quot;         &quot;niño&quot;            &quot;niños&quot;           &quot;nivel&quot;          
+##  [605] &quot;niveles&quot;         &quot;no&quot;              &quot;noche&quot;           &quot;nombre&quot;         
+##  [609] &quot;norte&quot;           &quot;nos&quot;             &quot;nosotros&quot;        &quot;noviembre&quot;      
+##  [613] &quot;nuestra&quot;         &quot;nuestras&quot;        &quot;nuestro&quot;         &quot;nuestros&quot;       
+##  [617] &quot;nueva&quot;           &quot;nuevas&quot;          &quot;nuevo&quot;           &quot;nuevos&quot;         
+##  [621] &quot;número&quot;          &quot;nunca&quot;           &quot;o&quot;               &quot;objetivo&quot;       
+##  [625] &quot;objeto&quot;          &quot;obra&quot;            &quot;obras&quot;           &quot;obstante&quot;       
+##  [629] &quot;ocasión&quot;         &quot;ocasiones&quot;       &quot;ocho&quot;            &quot;octubre&quot;        
+##  [633] &quot;oficial&quot;         &quot;ojos&quot;            &quot;operación&quot;       &quot;opinión&quot;        
+##  [637] &quot;oposición&quot;       &quot;orden&quot;           &quot;organización&quot;    &quot;origen&quot;         
+##  [641] &quot;oro&quot;             &quot;otra&quot;            &quot;otras&quot;           &quot;otro&quot;           
+##  [645] &quot;otros&quot;           &quot;p&quot;               &quot;pablo&quot;           &quot;paciente&quot;       
+##  [649] &quot;pacientes&quot;       &quot;padre&quot;           &quot;padres&quot;          &quot;país&quot;           
+##  [653] &quot;países&quot;          &quot;palabra&quot;         &quot;palabras&quot;        &quot;papel&quot;          
+##  [657] &quot;para&quot;            &quot;parece&quot;          &quot;parecía&quot;         &quot;parís&quot;          
+##  [661] &quot;parte&quot;           &quot;partes&quot;          &quot;participación&quot;   &quot;particular&quot;     
+##  [665] &quot;partido&quot;         &quot;partidos&quot;        &quot;partir&quot;          &quot;pasa&quot;           
+##  [669] &quot;pasado&quot;          &quot;pasar&quot;           &quot;paso&quot;            &quot;pasó&quot;           
+##  [673] &quot;paz&quot;             &quot;pedro&quot;           &quot;película&quot;        &quot;pensar&quot;         
+##  [677] &quot;peor&quot;            &quot;pequeña&quot;         &quot;pequeño&quot;         &quot;perdido&quot;        
+##  [681] &quot;período&quot;         &quot;permite&quot;         &quot;pero&quot;            &quot;persona&quot;        
+##  [685] &quot;personal&quot;        &quot;personas&quot;        &quot;pesar&quot;           &quot;pese&quot;           
+##  [689] &quot;pesetas&quot;         &quot;peso&quot;            &quot;pie&quot;             &quot;piel&quot;           
+##  [693] &quot;plan&quot;            &quot;plaza&quot;           &quot;plazo&quot;           &quot;población&quot;      
+##  [697] &quot;poco&quot;            &quot;pocos&quot;           &quot;podemos&quot;         &quot;poder&quot;          
+##  [701] &quot;podía&quot;           &quot;podrá&quot;           &quot;podría&quot;          &quot;policía&quot;        
+##  [705] &quot;política&quot;        &quot;políticas&quot;       &quot;político&quot;        &quot;políticos&quot;      
+##  [709] &quot;pone&quot;            &quot;poner&quot;           &quot;popular&quot;         &quot;por&quot;            
+##  [713] &quot;porque&quot;          &quot;posibilidad&quot;     &quot;posibilidades&quot;   &quot;posible&quot;        
+##  [717] &quot;posición&quot;        &quot;pp&quot;              &quot;práctica&quot;        &quot;precio&quot;         
+##  [721] &quot;precios&quot;         &quot;precisamente&quot;    &quot;pregunta&quot;        &quot;premio&quot;         
+##  [725] &quot;prensa&quot;          &quot;presencia&quot;       &quot;presenta&quot;        &quot;presente&quot;       
+##  [729] &quot;presidente&quot;      &quot;primer&quot;          &quot;primera&quot;         &quot;primeras&quot;       
+##  [733] &quot;primero&quot;         &quot;primeros&quot;        &quot;principal&quot;       &quot;principales&quot;    
+##  [737] &quot;principio&quot;       &quot;principios&quot;      &quot;problema&quot;        &quot;problemas&quot;      
+##  [741] &quot;proceso&quot;         &quot;producción&quot;      &quot;produce&quot;         &quot;producto&quot;       
+##  [745] &quot;productos&quot;       &quot;profesional&quot;     &quot;programa&quot;        &quot;programas&quot;      
+##  [749] &quot;pronto&quot;          &quot;propia&quot;          &quot;propio&quot;          &quot;propios&quot;        
+##  [753] &quot;propuesta&quot;       &quot;próximo&quot;         &quot;proyecto&quot;        &quot;proyectos&quot;      
+##  [757] &quot;prueba&quot;          &quot;psoe&quot;            &quot;pública&quot;         &quot;público&quot;        
+##  [761] &quot;pudo&quot;            &quot;pueblo&quot;          &quot;pueda&quot;           &quot;puede&quot;          
+##  [765] &quot;pueden&quot;          &quot;puedo&quot;           &quot;puerta&quot;          &quot;puerto&quot;         
+##  [769] &quot;pues&quot;            &quot;puesto&quot;          &quot;punto&quot;           &quot;puntos&quot;         
+##  [773] &quot;puso&quot;            &quot;que&quot;             &quot;qué&quot;             &quot;queda&quot;          
+##  [777] &quot;quedó&quot;           &quot;quería&quot;          &quot;quien&quot;           &quot;quién&quot;          
+##  [781] &quot;quienes&quot;         &quot;quiere&quot;          &quot;quiero&quot;          &quot;quizá&quot;          
+##  [785] &quot;r&quot;               &quot;radio&quot;           &quot;rafael&quot;          &quot;razón&quot;          
+##  [789] &quot;razones&quot;         &quot;real&quot;            &quot;realidad&quot;        &quot;realizar&quot;       
+##  [793] &quot;recuerdo&quot;        &quot;recursos&quot;        &quot;reforma&quot;         &quot;régimen&quot;        
+##  [797] &quot;región&quot;          &quot;relación&quot;        &quot;relaciones&quot;      &quot;república&quot;      
+##  [801] &quot;respecto&quot;        &quot;respuesta&quot;       &quot;resto&quot;           &quot;resulta&quot;        
+##  [805] &quot;resultado&quot;       &quot;resultados&quot;      &quot;reunión&quot;         &quot;revolución&quot;     
+##  [809] &quot;rey&quot;             &quot;riesgo&quot;          &quot;río&quot;             &quot;rodríguez&quot;      
+##  [813] &quot;rosa&quot;            &quot;s&quot;               &quot;sabe&quot;            &quot;saber&quot;          
+##  [817] &quot;sabía&quot;           &quot;sala&quot;            &quot;salida&quot;          &quot;salir&quot;          
+##  [821] &quot;salud&quot;           &quot;san&quot;             &quot;sangre&quot;          &quot;santa&quot;          
+##  [825] &quot;santiago&quot;        &quot;se&quot;              &quot;sé&quot;              &quot;sea&quot;            
+##  [829] &quot;sean&quot;            &quot;secretario&quot;      &quot;sector&quot;          &quot;sectores&quot;       
+##  [833] &quot;seguir&quot;          &quot;según&quot;           &quot;segunda&quot;         &quot;segundo&quot;        
+##  [837] &quot;seguridad&quot;       &quot;seguro&quot;          &quot;seis&quot;            &quot;semana&quot;         
+##  [841] &quot;semanas&quot;         &quot;sentido&quot;         &quot;señaló&quot;          &quot;señor&quot;          
+##  [845] &quot;señora&quot;          &quot;septiembre&quot;      &quot;ser&quot;             &quot;será&quot;           
+##  [849] &quot;serán&quot;           &quot;sería&quot;           &quot;serie&quot;           &quot;servicio&quot;       
+##  [853] &quot;servicios&quot;       &quot;si&quot;              &quot;sí&quot;              &quot;sido&quot;           
+##  [857] &quot;siempre&quot;         &quot;siendo&quot;          &quot;siete&quot;           &quot;siglo&quot;          
+##  [861] &quot;sigue&quot;           &quot;siguiente&quot;       &quot;siguientes&quot;      &quot;silencio&quot;       
+##  [865] &quot;sin&quot;             &quot;sino&quot;            &quot;siquiera&quot;        &quot;sistema&quot;        
+##  [869] &quot;sistemas&quot;        &quot;situación&quot;       &quot;sobre&quot;           &quot;social&quot;         
+##  [873] &quot;sociales&quot;        &quot;socialista&quot;      &quot;sociedad&quot;        &quot;sol&quot;            
+##  [877] &quot;sola&quot;            &quot;solamente&quot;       &quot;solo&quot;            &quot;sólo&quot;           
+##  [881] &quot;solución&quot;        &quot;somos&quot;           &quot;son&quot;             &quot;soy&quot;            
+##  [885] &quot;su&quot;              &quot;suelo&quot;           &quot;sueño&quot;           &quot;suerte&quot;         
+##  [889] &quot;suficiente&quot;      &quot;superior&quot;        &quot;supuesto&quot;        &quot;sur&quot;            
+##  [893] &quot;sus&quot;             &quot;tal&quot;             &quot;tales&quot;           &quot;también&quot;        
+##  [897] &quot;tampoco&quot;         &quot;tan&quot;             &quot;tanto&quot;           &quot;tarde&quot;          
+##  [901] &quot;te&quot;              &quot;teatro&quot;          &quot;técnica&quot;         &quot;televisión&quot;     
+##  [905] &quot;tema&quot;            &quot;temas&quot;           &quot;tendrá&quot;          &quot;tenemos&quot;        
+##  [909] &quot;tener&quot;           &quot;tengo&quot;           &quot;tenía&quot;           &quot;tenían&quot;         
+##  [913] &quot;tenido&quot;          &quot;teoría&quot;          &quot;tercera&quot;         &quot;términos&quot;       
+##  [917] &quot;texto&quot;           &quot;tiempo&quot;          &quot;tiempos&quot;         &quot;tiene&quot;          
+##  [921] &quot;tienen&quot;          &quot;tierra&quot;          &quot;tipo&quot;            &quot;tipos&quot;          
+##  [925] &quot;título&quot;          &quot;toda&quot;            &quot;todas&quot;           &quot;todavía&quot;        
+##  [929] &quot;todo&quot;            &quot;todos&quot;           &quot;toma&quot;            &quot;tomar&quot;          
+##  [933] &quot;torno&quot;           &quot;total&quot;           &quot;trabajadores&quot;    &quot;trabajar&quot;       
+##  [937] &quot;trabajo&quot;         &quot;tras&quot;            &quot;trata&quot;           &quot;tratamiento&quot;    
+##  [941] &quot;través&quot;          &quot;tres&quot;            &quot;tribunal&quot;        &quot;tu&quot;             
+##  [945] &quot;tú&quot;              &quot;tuvo&quot;            &quot;u&quot;               &quot;última&quot;         
+##  [949] &quot;último&quot;          &quot;últimos&quot;         &quot;un&quot;              &quot;una&quot;            
+##  [953] &quot;unas&quot;            &quot;única&quot;           &quot;único&quot;           &quot;unidad&quot;         
+##  [957] &quot;unidos&quot;          &quot;unión&quot;           &quot;universidad&quot;     &quot;uno&quot;            
+##  [961] &quot;unos&quot;            &quot;uso&quot;             &quot;usted&quot;           &quot;va&quot;             
+##  [965] &quot;valor&quot;           &quot;valores&quot;         &quot;vamos&quot;           &quot;van&quot;            
+##  [969] &quot;varias&quot;          &quot;varios&quot;          &quot;ve&quot;              &quot;veces&quot;          
+##  [973] &quot;ver&quot;             &quot;verdad&quot;          &quot;vez&quot;             &quot;vía&quot;            
+##  [977] &quot;viaje&quot;           &quot;victoria&quot;        &quot;vida&quot;            &quot;viejo&quot;          
+##  [981] &quot;viene&quot;           &quot;vino&quot;            &quot;vio&quot;             &quot;violencia&quot;      
+##  [985] &quot;visita&quot;          &quot;vista&quot;           &quot;visto&quot;           &quot;vivir&quot;          
+##  [989] &quot;voluntad&quot;        &quot;volver&quot;          &quot;volvió&quot;          &quot;voy&quot;            
+##  [993] &quot;voz&quot;             &quot;vuelta&quot;          &quot;vuelve&quot;          &quot;y&quot;              
+##  [997] &quot;ya&quot;              &quot;yo&quot;              &quot;zona&quot;            &quot;zonas&quot;</code></pre>
+<hr />
+<div class="sourceCode" id="cb818"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb818-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb818-1" tabindex="-1"></a><span class="co"># Encuentra todas las palabras que contengan al menos una vocal, y luego niégalo</span></span>
+<span id="cb818-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb818-2" tabindex="-1"></a>sin_vocales_1 <span class="ot">&lt;-</span> <span class="sc">!</span><span class="fu">str_detect</span>(palabras, <span class="st">&quot;[aáeéiíoóuúúü]&quot;</span>)</span>
+<span id="cb818-3"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb818-3" tabindex="-1"></a></span>
+<span id="cb818-4"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb818-4" tabindex="-1"></a></span>
+<span id="cb818-5"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb818-5" tabindex="-1"></a>sin_vocales_1</span></code></pre></div>
+<pre><code>##    [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##   [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##   [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##   [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##   [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##   [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##   [73] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##   [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+##   [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [145] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [157] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [169] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [181] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [193] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [205] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [217] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [229] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [241] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [253] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [265] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [277] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [289] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [301] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [313] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [325] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [337] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [349] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [361] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [373] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [385] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [397] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [409] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [421] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [433] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [445] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [457] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [469] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [481] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [493] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [505] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [517] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [529] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [541] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [553] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [565] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [577] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [589] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [601] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [613] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [625] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [637] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+##  [649] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [661] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [673] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [685] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [697] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [709] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+##  [721] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [733] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [745] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [757] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [769] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [781] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [793] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [805] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+##  [817] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [829] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [841] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [853] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [865] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [877] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [889] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [901] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [913] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [925] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [937] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [949] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [961] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [973] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [985] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+##  [997] FALSE FALSE FALSE FALSE</code></pre>
+<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb820-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb820-1" tabindex="-1"></a><span class="co"># Encuentra todas las palabras consistentes solo en consonantes (no vocales)</span></span>
+<span id="cb820-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb820-2" tabindex="-1"></a>sin_vocales_2 <span class="ot">&lt;-</span> <span class="fu">str_detect</span>(palabras, <span class="st">&quot;^[^aáeéiíoóuúúü]+$&quot;</span>)</span>
+<span id="cb820-3"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb820-3" tabindex="-1"></a></span>
+<span id="cb820-4"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb820-4" tabindex="-1"></a><span class="fu">identical</span>(sin_vocales_1, sin_vocales_2)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<hr />
+<p>Suma la cantidad de palabras que no tienen vocales?</p>
+<div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb822-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb822-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb822-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb822-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb822-3"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb822-3" tabindex="-1"></a>  <span class="at">palabra =</span> palabras, </span>
+<span id="cb822-4"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb822-4" tabindex="-1"></a>  <span class="at">i =</span> <span class="fu">seq_along</span>(palabra)</span>
+<span id="cb822-5"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb822-5" tabindex="-1"></a>) <span class="do">## poner los datos en un dataframe </span></span>
+<span id="cb822-6"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb822-6" tabindex="-1"></a></span>
+<span id="cb822-7"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb822-7" tabindex="-1"></a></span>
+<span id="cb822-8"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb822-8" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb822-9"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb822-9" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(palabras, <span class="st">&quot;x$&quot;</span>)) <span class="co"># filtrar todas la palabras para solamente las terminan en **x**</span></span></code></pre></div>
+<pre><code>## # A tibble: 1 × 2
+##   palabra     i
+##   &lt;chr&gt;   &lt;int&gt;
+## 1 ex        338</code></pre>
+<div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb824-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb824-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb824-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb824-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(palabras, <span class="st">&quot;z$&quot;</span>)) <span class="co"># filtrar todas la palabras para solamente las terminan en **z**</span></span></code></pre></div>
+<pre><code>## # A tibble: 10 × 2
+##    palabra       i
+##    &lt;chr&gt;     &lt;int&gt;
+##  1 capaz       108
+##  2 diez        232
+##  3 gonzález    384
+##  4 juez        470
+##  5 lópez       502
+##  6 luz         508
+##  7 paz         673
+##  8 rodríguez   812
+##  9 vez         975
+## 10 voz         993</code></pre>
+<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb826-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb826-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb826-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb826-2" tabindex="-1"></a>fragmentos_neruda_sep <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Datos/fragmentos_neruda_sep.csv&quot;</span>)</span>
+<span id="cb826-3"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb826-3" tabindex="-1"></a></span>
+<span id="cb826-4"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb826-4" tabindex="-1"></a>fragmentos_neruda_sep</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 2
+##       id texto                                                                  
+##    &lt;dbl&gt; &lt;chr&gt;                                                                  
+##  1     1 &quot;\&quot;Puedo\&quot; \&quot;escribir\&quot; \&quot;los\&quot; \&quot;versos\&quot; \&quot;más\&quot; \&quot;tristes\&quot; \&quot;esta\…
+##  2     2 &quot;\&quot;Es\&quot; \&quot;tan\&quot; \&quot;corto\&quot; \&quot;el\&quot; \&quot;amor,\&quot; \&quot;y\&quot; \&quot;es\&quot; \&quot;tan\&quot; \&quot;larg…
+##  3     3 &quot;\&quot;Me\&quot; \&quot;gustas\&quot; \&quot;cuando\&quot; \&quot;callas\&quot; \&quot;porque\&quot; \&quot;estás\&quot; \&quot;como\&quot;…
+##  4     4 &quot;\&quot;Para\&quot; \&quot;que\&quot; \&quot;nada\&quot; \&quot;nos\&quot; \&quot;separe\&quot; \&quot;que\&quot; \&quot;nada\&quot; \&quot;nos\&quot;…
+##  5     5 &quot;\&quot;En\&quot; \&quot;un\&quot; \&quot;beso\&quot; \&quot;sabrás\&quot; \&quot;todo\&quot; \&quot;lo\&quot; \&quot;que\&quot; \&quot;he\&quot; \&quot;ca…
+##  6     6 &quot;\&quot;Te\&quot; \&quot;amo\&quot; \&quot;como\&quot; \&quot;se\&quot; \&quot;aman\&quot; \&quot;ciertas\&quot; \&quot;cosas\&quot; \&quot;oscur…
+##  7     7 &quot;\&quot;Quiero\&quot; \&quot;hacer\&quot; \&quot;contigo\&quot; \&quot;lo\&quot; \&quot;que\&quot; \&quot;la\&quot; \&quot;primavera\&quot; …
+##  8     8 &quot;\&quot;Algún\&quot; \&quot;día\&quot; \&quot;en\&quot; \&quot;cualquier\&quot; \&quot;parte,\&quot; \&quot;en\&quot; \&quot;cualquier\…
+##  9     9 &quot;\&quot;Si\&quot; \&quot;nada\&quot; \&quot;nos\&quot; \&quot;salva\&quot; \&quot;de\&quot; \&quot;la\&quot; \&quot;muerte,\&quot; \&quot;al\&quot; \&quot;…
+## 10    10 &quot;\&quot;Podrán\&quot; \&quot;cortar\&quot; \&quot;todas\&quot; \&quot;las\&quot; \&quot;flores,\&quot; \&quot;pero\&quot; \&quot;no\&quot; \…</code></pre>
+<hr />
+<p>Contar cuantas “a” hay en cada palabra con str_count()</p>
+<div class="sourceCode" id="cb828"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb828-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb828-1" tabindex="-1"></a><span class="co">#x= c( &quot;Piña&quot;, &quot;Manzana&quot;, &quot;Toronja&quot;, &quot;Jugo&quot;)</span></span>
+<span id="cb828-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb828-2" tabindex="-1"></a></span>
+<span id="cb828-3"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb828-3" tabindex="-1"></a></span>
+<span id="cb828-4"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb828-4" tabindex="-1"></a><span class="fu">str_count</span>(fragmentos_neruda_sep, <span class="st">&quot;e&quot;</span>)</span></code></pre></div>
+<pre><code>## [1]  0 57</code></pre>
+<hr />
+<div class="sourceCode" id="cb830"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb830-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb830-1" tabindex="-1"></a><span class="co"># En promedio, ¿cuántas vocales hay por palabra?</span></span>
+<span id="cb830-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb830-2" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">str_count</span>(palabras, <span class="st">&quot;[aáeéiíoóuúü]&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] 2.72</code></pre>
+<div class="sourceCode" id="cb832"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb832-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb832-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">str_count</span>(palabras, <span class="st">&quot;[x]&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] 0.013</code></pre>
+<p>Contar cuantas vocales y consonantes hay en cada palabra</p>
+<div class="sourceCode" id="cb834"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb834-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb834-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb834-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb834-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb834-3"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb834-3" tabindex="-1"></a>    <span class="at">vocales =</span> <span class="fu">str_count</span>(palabra, <span class="st">&quot;[aáeéiíoóuúü]&quot;</span>), <span class="co"># Cuenta cuantas vocales </span></span>
+<span id="cb834-4"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb834-4" tabindex="-1"></a>    <span class="at">consonantes =</span> <span class="fu">str_count</span>(palabra, <span class="st">&quot;[^aáeéiíoóuúü]&quot;</span>) <span class="co"># cuenta cuantos consonantes</span></span>
+<span id="cb834-5"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb834-5" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>## # A tibble: 1,000 × 4
+##    palabra         i vocales consonantes
+##    &lt;chr&gt;       &lt;int&gt;   &lt;int&gt;       &lt;int&gt;
+##  1 a               1       1           0
+##  2 abril           2       2           3
+##  3 acción          3       3           3
+##  4 acciones        4       4           4
+##  5 acerca          5       3           3
+##  6 actitud         6       3           4
+##  7 actividad       7       4           5
+##  8 actividades     8       5           6
+##  9 acto            9       2           2
+## 10 actual         10       3           3
+## # ℹ 990 more rows</code></pre>
+<ul>
+<li>los puntos y caracteres especiales</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Ejercicios</strong>:</li>
+</ol>
+<p>Hacer los ejercicios en la sección 14.2.7.1 del libro en español</p>
+<hr />
+</div>
+</div>
+<div id="anclas" class="section level2 hasAnchor" number="21.4">
+<h2><span class="header-section-number">21.4</span> Anclas<a href="you-can-also-use-str_sub-to-modify-strings.html#anclas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>^ al principio</li>
+<li>$ al final</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Ejercicios</strong>:</li>
+</ol>
+<p>Hacer los ejercicios en la sección 14.2.8.1 del libro en español</p>
+<hr />
+</div>
+<div id="clases-de-caracteres-y-alternativas" class="section level2 hasAnchor" number="21.5">
+<h2><span class="header-section-number">21.5</span> Clases de caracteres y alternativas<a href="you-can-also-use-str_sub-to-modify-strings.html#clases-de-caracteres-y-alternativas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p></p></li>
+<li></li>
+<li><p>[abc]</p></li>
+<li><p>[^abc]</p></li>
+<li><p>$ . | ? * + ( ) [ {</p></li>
+</ul>
+<div class="sourceCode" id="cb836"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb836-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb836-1" tabindex="-1"></a><span class="fu">str_view</span>(<span class="fu">c</span>(<span class="st">&quot;cómo&quot;</span>, <span class="st">&quot;como&quot;</span>, <span class="st">&quot;Raymond&quot;</span>), <span class="st">&quot;c(ó|o)mo&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] │ &lt;cómo&gt;
+## [2] │ &lt;como&gt;</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Ejercicios</strong>:</li>
+</ol>
+<p>Hacer los ejercicios en la sección 14.2.9.1 del libro en español</p>
+<hr />
+</div>
+<div id="repetición" class="section level2 hasAnchor" number="21.6">
+<h2><span class="header-section-number">21.6</span> Repetición<a href="you-can-also-use-str_sub-to-modify-strings.html#repetición" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>?, 0 o 1, precencia o auscencia</li>
+<li>+, 1 o más</li>
+<li>*, 0 o más</li>
+<li>str_view()</li>
+<li>{n} : exactamente n</li>
+<li>{n, }: n o más</li>
+<li>{ , m}: no más de m</li>
+<li>{n, m}: entre n y m</li>
+<li>{n, m}?: la cadena más larga</li>
+<li>{n, m}+?: la cadena más corta</li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li><strong>Ejercicios</strong>:</li>
+</ol>
+<p>Hacer los ejercicios en la sección 14.2.10.1 del libro en español</p>
+<hr />
+</div>
+<div id="agrupamiento-y-referencias-previas" class="section level2 hasAnchor" number="21.7">
+<h2><span class="header-section-number">21.7</span> Agrupamiento y referencias previas<a href="you-can-also-use-str_sub-to-modify-strings.html#agrupamiento-y-referencias-previas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>str_view(frutas, “(..)\1”, match=TRUE)</li>
+</ul>
+<ol start="6" style="list-style-type: decimal">
+<li><strong>Ejercicios</strong>:</li>
+</ol>
+<p>Hacer los ejercicios en la sección 14.2.11.1 del libro en español</p>
+<hr />
+</div>
+<div id="herramientas-objetivos" class="section level2 hasAnchor" number="21.8">
+<h2><span class="header-section-number">21.8</span> Herramientas: Objetivos<a href="you-can-also-use-str_sub-to-modify-strings.html#herramientas-objetivos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Determinar qué cadenas coinciden con un patrón.</li>
+<li>Encontrar la posición de una coincidencia.</li>
+<li>Extraer el contenido de las coincidencias.</li>
+<li>Remplazar coincidencias con nuevos valores.</li>
+<li>Dividir una cadena de acuerdo a una coincidencia.</li>
+</ul>
+<div id="detectar-coincidencias" class="section level3 hasAnchor" number="21.8.1">
+<h3><span class="header-section-number">21.8.1</span> Detectar coincidencias<a href="you-can-also-use-str_sub-to-modify-strings.html#detectar-coincidencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>str_detect(x, “e”)</li>
+</ul>
+<div class="sourceCode" id="cb838"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb838-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb838-1" tabindex="-1"></a><span class="fu">library</span>(datos) </span>
+<span id="cb838-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb838-2" tabindex="-1"></a><span class="co">#fruit</span></span>
+<span id="cb838-3"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb838-3" tabindex="-1"></a><span class="fu">head</span>(palabras)</span></code></pre></div>
+<pre><code>## [1] &quot;a&quot;        &quot;abril&quot;    &quot;acción&quot;   &quot;acciones&quot; &quot;acerca&quot;   &quot;actitud&quot;</code></pre>
+<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb840-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb840-1" tabindex="-1"></a><span class="co"># Encuentra todas las palabras que contengan al menos una vocal, y luego niégalo</span></span>
+<span id="cb840-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb840-2" tabindex="-1"></a>sin_vocales_1 <span class="ot">&lt;-</span> <span class="sc">!</span><span class="fu">str_detect</span>(palabras, <span class="st">&quot;[aáeéiíoóuúúü]&quot;</span>)</span>
+<span id="cb840-3"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb840-3" tabindex="-1"></a></span>
+<span id="cb840-4"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb840-4" tabindex="-1"></a><span class="co">#sin_vocales_1</span></span>
+<span id="cb840-5"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb840-5" tabindex="-1"></a><span class="co"># Encuentra todas las palabras consistentes solo en consonantes (no vocales)</span></span>
+<span id="cb840-6"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb840-6" tabindex="-1"></a>sin_vocales_2 <span class="ot">&lt;-</span> <span class="fu">str_detect</span>(palabras, <span class="st">&quot;^[^aáeéiíoóuúúü]+$&quot;</span>)</span>
+<span id="cb840-7"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb840-7" tabindex="-1"></a><span class="co">#sin_vocales_1</span></span>
+<span id="cb840-8"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb840-8" tabindex="-1"></a><span class="fu">identical</span>(sin_vocales_1, sin_vocales_2)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb842"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb842-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb842-1" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<ul>
+<li>str_subset()</li>
+<li>seq_along()</li>
+<li>str_count()</li>
+</ul>
+<ol start="7" style="list-style-type: decimal">
+<li><strong>Ejercicios</strong>:</li>
+</ol>
+<p>Hacer los ejercicios en la sección 14.3.2 del libro en español</p>
+<hr />
+</div>
+</div>
+<div id="extraer-coincidencias" class="section level2 hasAnchor" number="21.9">
+<h2><span class="header-section-number">21.9</span> Extraer coincidencias<a href="you-can-also-use-str_sub-to-modify-strings.html#extraer-coincidencias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>str_extract()</li>
+<li>str_extract_all()</li>
+</ul>
+<ol start="8" style="list-style-type: decimal">
+<li><strong>Ejercicios</strong>:</li>
+</ol>
+<p>Hacer los ejercicios en la sección 14.3.3.1 del libro en español</p>
+<hr />
+</div>
+<div id="coincidencias-agrupadas" class="section level2 hasAnchor" number="21.10">
+<h2><span class="header-section-number">21.10</span> Coincidencias agrupadas:<a href="you-can-also-use-str_sub-to-modify-strings.html#coincidencias-agrupadas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>str_match*</li>
+</ul>
+<div class="sourceCode" id="cb843"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb843-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb843-1" tabindex="-1"></a>sustantivo <span class="ot">&lt;-</span> <span class="st">&quot;(el|la|los|las|lo|un|una|unos|unas) ([^ ]+)&quot;</span></span>
+<span id="cb843-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb843-2" tabindex="-1"></a></span>
+<span id="cb843-3"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb843-3" tabindex="-1"></a>tiene_sustantivo <span class="ot">&lt;-</span> oraciones <span class="sc">%&gt;%</span></span>
+<span id="cb843-4"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb843-4" tabindex="-1"></a>  <span class="fu">str_subset</span>(sustantivo)</span>
+<span id="cb843-5"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb843-5" tabindex="-1"></a></span>
+<span id="cb843-6"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb843-6" tabindex="-1"></a><span class="co">#tiene_sustantivo</span></span>
+<span id="cb843-7"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb843-7" tabindex="-1"></a>tiene_sustantivo <span class="sc">%&gt;%</span> </span>
+<span id="cb843-8"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb843-8" tabindex="-1"></a>  <span class="fu">str_extract</span>(sustantivo)</span></code></pre></div>
+<pre><code>##  [1] &quot;los de&quot;       &quot;el camión&quot;    &quot;la mejor&quot;     &quot;la cuenta&quot;    &quot;las ruinas.&quot; 
+##  [6] &quot;la hoja&quot;      &quot;la cocina.&quot;   &quot;la taza&quot;      &quot;el tanque.&quot;   &quot;el calor&quot;    
+## [11] &quot;el aire&quot;      &quot;lo en&quot;        &quot;el papel&quot;     &quot;la parte&quot;     &quot;el sofá&quot;     
+## [16] &quot;lo de&quot;        &quot;lo curó&quot;      &quot;los actores.&quot; &quot;la azul&quot;      &quot;el banco&quot;    
+## [21] &quot;una llama&quot;    &quot;la cabeza.&quot;   &quot;la ventana.&quot;  &quot;la hierba&quot;    &quot;el sol&quot;      
+## [26] &quot;el lugar&quot;     &quot;el sofá&quot;      &quot;un suéter&quot;    &quot;el gráfico&quot;   &quot;los encajes&quot; 
+## [31] &quot;el verde&quot;     &quot;la caja&quot;      &quot;la pistola&quot;   &quot;los niños&quot;    &quot;una delgada&quot; 
+## [36] &quot;lo en&quot;        &quot;la hierba&quot;    &quot;la primavera&quot; &quot;la es&quot;</code></pre>
+<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb845-1"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb845-1" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;los de&quot;      &quot;el camión&quot;   &quot;la mejor&quot;    &quot;la cuenta&quot;   &quot;las ruinas.&quot;</span></span>
+<span id="cb845-2"><a href="you-can-also-use-str_sub-to-modify-strings.html#cb845-2" tabindex="-1"></a><span class="co">#&gt;  [6] &quot;la hoja&quot;     &quot;la cocina.&quot;  &quot;la taza&quot;     &quot;el tanque.&quot;  &quot;el calor&quot;</span></span></code></pre></div>
+<ol start="8" style="list-style-type: decimal">
+<li><strong>Ejercicios</strong>:</li>
+</ol>
+<p>Hacer los ejercicios en la sección 14.3.4.1 del libro en español</p>
+<hr />
+</div>
+<div id="remplazar-coincidencias" class="section level2 hasAnchor" number="21.11">
+<h2><span class="header-section-number">21.11</span> Remplazar coincidencias<a href="you-can-also-use-str_sub-to-modify-strings.html#remplazar-coincidencias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>str_replace()</li>
+<li>str_replace_all()</li>
+</ul>
+<ol start="9" style="list-style-type: decimal">
+<li><strong>Ejercicios</strong>:</li>
+</ol>
+<p>Hacer los ejercicios en la sección 14.3.5.1 del libro en español</p>
+<hr />
+</div>
+<div id="divisiones" class="section level2 hasAnchor" number="21.12">
+<h2><span class="header-section-number">21.12</span> Divisiones<a href="you-can-also-use-str_sub-to-modify-strings.html#divisiones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>str_split()</li>
+<li>str_split(” “, simplify=TRUE)</li>
+<li>str_split(x, boundery(“word”))[[1]]</li>
+</ul>
+<ol start="10" style="list-style-type: decimal">
+<li><strong>Ejercicios</strong>:</li>
+</ol>
+<p>Hacer los ejercicios en la sección 14.3.6.1 del libro en español</p>
+<hr />
+</div>
+<div id="otro-tipos-de-patrones" class="section level2 hasAnchor" number="21.13">
+<h2><span class="header-section-number">21.13</span> Otro tipos de patrones<a href="you-can-also-use-str_sub-to-modify-strings.html#otro-tipos-de-patrones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>regex(“x”, ignore_case=TRUE)</li>
+<li>seperar números telefonicos</li>
+</ul>
+</div>
+<div id="stringi" class="section level2 hasAnchor" number="21.14">
+<h2><span class="header-section-number">21.14</span> stringi:<a href="you-can-also-use-str_sub-to-modify-strings.html#stringi" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol start="10" style="list-style-type: decimal">
+<li><strong>Ejercicios</strong>:</li>
+</ol>
+<p>Hacer los ejercicios en la sección 14.3.6.1 del libro en español
+Buscar 3 funciones en stringi y aplica y explica las funciones con un set de datos.</p>
+<hr />
 
 </div>
 </div>
@@ -928,8 +1377,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="pipes.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="importar-datos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="cadena-de-caracteres-strings.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="math-sci.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -960,7 +1409,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/15-Tibbles.Rmd",
+    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/20-Strings.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -968,7 +1417,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/RaymondLTremblay/Ciencia_Datos_R/blob/main/15-Tibbles.Rmd",
+    "link": "https://github.com/RaymondLTremblay/Ciencia_Datos_R/blob/main/20-Strings.Rmd",
     "text": null
   },
   "download": null,
