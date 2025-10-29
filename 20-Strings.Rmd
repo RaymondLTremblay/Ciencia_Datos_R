@@ -238,7 +238,7 @@ str_sub(x, -2,-1)
 ***
 
 
-# You can also use `str_sub()` to modify strings:
+## You can also use `str_sub()` to modify strings:
 
 ```{r}
 x <- "BBCDEF"
