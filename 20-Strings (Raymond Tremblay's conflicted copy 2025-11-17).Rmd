@@ -402,7 +402,7 @@ sin_vocales_1
 # Encuentra todas las palabras consistentes solo en consonantes (no vocales)
 sin_vocales_2 <- str_detect(palabras, "^[^aáeéiíoóuúúü]+$")
 
-head(identical(sin_vocales_1, sin_vocales_2), 100)
+identical(sin_vocales_1, sin_vocales_2)
 
 
 
@@ -466,7 +466,7 @@ df %>%
   mutate(
     vocales = str_count(palabra, "[aáeéiíoóuúü]"), # Cuenta cuantas vocales 
     consonantes = str_count(palabra, "[^aáeéiíoóuúü]") # cuenta cuantos consonantes
-  ) |> head(n=30)
+  )
 ```
 
  - los puntos y caracteres especiales
@@ -581,7 +581,7 @@ sin_vocales_1 <- !str_detect(palabras, "[aáeéiíoóuúúü]")
 # Encuentra todas las palabras consistentes solo en consonantes (no vocales)
 sin_vocales_2 <- str_detect(palabras, "^[^aáeéiíoóuúúü]+$")
 #sin_vocales_1
-head(identical(sin_vocales_1, sin_vocales_2), 30)
+identical(sin_vocales_1, sin_vocales_2)
 #> [1] TRUE
 ```
  
@@ -594,12 +594,6 @@ head(identical(sin_vocales_1, sin_vocales_2), 30)
 7.  **Ejercicios**:
 
 Hacer los ejercicios en la sección 14.3.2 del libro en español
-
-
-***
-
-Ejercicio
-
 
 ***
 
@@ -696,6 +690,8 @@ Buscar 3 funciones en stringi y aplica y explica las funciones con un set de dat
   
   
 ```{r}
+library(stringr)
+
 quijote <- read_lines("Datos/el_quijote.txt")
 
 head(quijote, n=10)
@@ -711,10 +707,9 @@ length(quijote)
 
 ```{r}
 quijote_palabras <- str_split(quijote, " ")
-
+head(quijote_palabras)
 quijote_palabras_vector <- unlist(quijote_palabras)
-
-head(quijote_palabras_vector) # obervar las primeras palabras
+head(quijote_palabras_vector, n=40) # obervar las primeras palabras
 
 length(quijote_palabras_vector) # cuantas palabras hay en total
 ```
@@ -794,10 +789,21 @@ stop_words <- c("que", "de", "y", "la", "el", "en", "a", "los", "del", "se",
                 "al", "lo", "como", "más", "pero", "sus", "le", "ya", "o", 
                 "este", "sí", "porque", "esta", "entre", "cuando", "muy", 
                 "sin", "sobre", "también", "me", "hasta", "hay", "donde", 
-                "quien")
+                "quien", "si", "todo", "nos", "ni", "parte", "él", "uno", "más", "mi" )
 
 quijote_palabras_vector_limpio <- quijote_palabras_vector[!str_detect(quijote_palabras_vector, 
-                                  str_c("^", stop_words, "$", collapse = "|"))]
+                                  str_c("^", stop_words_es, "$", collapse = "|"))]
+
+
+```
+ 
+ 
+```{r}
+library(stopwords)
+
+stop_words_es <- stopwords("es")
+stop_words_es
+
 
 
 ```
@@ -839,16 +845,9 @@ dt_ggversa <- dt[package == "ggversa", .N, by = country]
 print(dt_ggversa)
 ```
 
-```{r, eval=FALSE}
+```{r}
 #install.packages("packageRank")
 library(packageRank)
-
-# Define target countries
-target_countries <- c(
-  "United States", "Puerto Rico", "Spain", "Mexico", "Argentina", "Colombia", "Chile", "Peru",
-  "Venezuela", "Ecuador", "Guatemala", "Cuba", "Bolivia", "Honduras", "Paraguay", "El Salvador",
-  "Nicaragua", "Costa Rica", "Panama", "Uruguay", "Dominican Republic", "Equatorial Guinea"
-)
 
 # Downloads for ggversa by country (latest day)
 dates <- seq(as.Date("2025-10-01"), as.Date("2025-11-09"), by = "day")
@@ -860,22 +859,10 @@ results <- lapply(dates, function(d) {
   }, error = function(e) NULL)
 })
 
-
-
-# Combine and filter
+# Combine results
+library(dplyr)
 country_data <- bind_rows(results)
-filtered_data <- country_data %>% filter(country %in% target_countries)
-
-# Summarize
-summary <- filtered_data %>%
-  group_by(country) %>%
-  summarise(total_downloads = sum(downloads)) %>%
-  arrange(desc(total_downloads))
-
-print(summary)
-
-
-
+print(country_data)
 
 ```
 
@@ -890,10 +877,10 @@ table(quijote_palabras_vector_limpio) %>%
   sort(decreasing = TRUE) %>%
   head(40)
 ```
-
+, . ! : ' ?
 
 ```{r}
-clean=str_replace_all(quijote_palabras_vector_limpio, "[,\\.\\!\\:\\'\\?]", "")
+clean=str_replace_all(quijote_palabras_vector_limpio, "[,\\.\\!\\:\\'\\?\\-]", "")
 
 table(clean) %>%
   sort(decreasing = TRUE) %>%
@@ -922,8 +909,8 @@ Contabilizar la cantidad de veces los numeros aparecen en el texto
 ```{r}
 str(clean)
 
-library(purrr)
-numeros <- c("uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve", "diez")
+
+numeros <- c("uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve", "diez", "quijote")
 
 
 clean <- str_replace_all(clean, "[[:punct:]]", "")
@@ -935,162 +922,6 @@ print(counts)
 ```
 
 
-***
-
-```{r, echo=FALSE}
-library(readr)
-library(stringr)
-
-Alice <- read_lines("Datos/alice_original_full.txt")
-
-
-url <- "https://www.gutenberg.org/files/11/11-0.txt"
-download.file(url, destfile = "Datos/alice_original.txt", mode = "wb")
-
-
-Alice <- read_lines("Datos/alice_original.txt")
-
-head(Alice, n=10)
-
-tail(Alice, n=10)
-```
-
-
-### Cuantas oraciones tiene el text de Alice?
-
-```{r, echo=FALSE}
-length(Alice)
-```
-
-
-### Cuantas palabras tiene el texto de Alice?
-
-```{r, echo=FALSE}
-Alice_palabras <- str_split(Alice, " ")
-Alice_palabras_vector <- unlist(Alice_palabras)
-head(Alice_palabras_vector) # obervar las primeras palabras
-length(Alice_palabras_vector) # cuantas palabras hay en total
-```
-
-
-
-### Convertir todo a minusculas
-
-```{r, echo=FALSE}
-Alice_palabras_vector_lower <- str_to_lower(Alice_palabras_vector)
-```
-
-
-Determinar cuantas veces aparece la palabra "alice" en el texto
-
-```{r, echo=FALSE}
-sum(str_detect(Alice_palabras_vector_lower, "alice"))
-```
-
-
-
-###  ¿Cuántas palabras tienen más de 10 letras?
-
-```{r, echo=FALSE}
-sum(str_length(Alice_palabras_vector_lower) > 10)
-```
-
-### Remover todos las puntuaciones en el texto, usando "[[:punct:]]"
-
-```{r, echo=FALSE}
-Alice_palabras_vector_limpio <- str_replace_all(Alice_palabras_vector_lower, "[[:punct:]]", "")
-
-head(Alice_palabras_vector_limpio)
-
-
-```
-
-
-### Haz una lista de las 20 palabras más comunes en el texto de Alice
-
-```{r, echo=FALSE}
-table(Alice_palabras_vector_limpio) %>%
-  sort(decreasing = TRUE) %>%
-  head(20)
-```
-
-
-Remover los espacios vacios
-
-```{r, echo=FALSE}
-Alice_palabras_vector_limpio <- Alice_palabras_vector_limpio[Alice_palabras_vector_limpio != ""]
-
-
-```
-
-Haga una lista de las 20 palabras más comunes en el texto de Alice sin los espacios vacios, para averguar que removiste los espcios vacios
-
-```{r, echo=FALSE}
-table(Alice_palabras_vector_limpio) %>%
-  sort(decreasing = TRUE) %>%
-  head(20)
-```
-
-
-
-Ahora remueve todos ,los stopwords en ingles del texto de Alice usando la libreria stopwords
-```{r, echo=FALSE}
-library(stopwords)
-
-stop_words <- stopwords::stopwords("en") # obtener las palabras vacías en español
-
-Alice_palabras_vector_limpio2 <- Alice_palabras_vector_limpio[!str_detect(Alice_palabras_vector_limpio, 
-                                  str_c("^", stop_words, "$", collapse = "|"))]
-```
-
-
-
-Ahora enseñe las 20 palabras más comunes en el texto de Alice sin los stopwords
-
-```{r, echo=FALSE}
-table(Alice_palabras_vector_limpio2) %>%
-  sort(decreasing = TRUE) %>%
-  head(20)
-```
-
-
-Using the following list of main characters in the book, count how many times each character is mentioned in the text of Alice in Wonderland
-
- - Alice
- - White Rabbit
- - Mad Hatter
- - Hatter
- - Queen of Hearts
- - Queen
- - Cheshire Cat
- - March Hare
- - Caterpillar
- - Dormouse
- - King of Hearts
- - Gryphon
- - Mock Turtle
- - Dodo
- - Bill the Lizard
- - Knave of Hearts
- 
-```{r}
-characters <- c("Alice", "White Rabbit", "Rabbit", "Mad Hatter", "Hatter", "Queen of Hearts", "Queen",
-                "Cheshire Cat","Cat", "March Hare", "Caterpillar", "Dormouse", 
-                "King of Hearts", "King", "Gryphon", "Mock Turtle", "Dodo",  "Knave of Hearts")
-
-
-```
-
-
-```{r, echo=FALSE}
-counts <- sapply(characters, function(name) {
-  str_count(tolower(paste(Alice, collapse = " ")), tolower(name))
-})
-
-names(counts) <- characters
-print(counts)
-```
- 
 
 
 

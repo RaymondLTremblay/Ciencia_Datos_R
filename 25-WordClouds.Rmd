@@ -39,7 +39,7 @@ library(SnowballC) # paquete para trabajar en otro idioma aparte de ingles
 
 ```{r}
 
-demoFreq
+
 library(wordcloud2)
 head(demoFreq, n=10)
 wordcloud2(data = demoFreq)
@@ -66,7 +66,7 @@ Importar los datos de la web
 ```{r, echo=TRUE}
 filePath <- "http://www.sthda.com/sthda/RDoc/example-files/martin-luther-king-i-have-a-dream-speech.txt"
 text <- readLines(filePath)
-text
+head(text)
 ```
 
 
@@ -89,14 +89,14 @@ mi_texto=iconv(text,"WINDOWS-1252","UTF-8") # Use this for removing accents and 
 # Load the data as a corpus
 docs <- Corpus(VectorSource(mi_texto))
 
-docs
+head(docs)
 ```
 
 
 ## Mirar el documento, para evaluar su contenido
 
 ```{r, echo=TRUE}
-# inspect(docs) # quita el hashtag para ver el documento
+#inspect(docs) # quita el hashtag para ver el documento
 ```
 
 
@@ -173,8 +173,8 @@ Del paquete **wordcloud**
 #head(d)
 wordcloud(words = d$word, # las palabras
           freq = d$freq, # la frecuencia
-          min.freq = 10, # la frecuencia mínima
-          max.words=200, # el número máximo de palabras
+          min.freq = 1, # la frecuencia mínima
+          max.words=50, # el número máximo de palabras
           random.order=TRUE, # orden aleatorio
           rot.per=0.35, # rotación de las palabras
           colors=brewer.pal(8, "Dark2")) # colores
@@ -265,7 +265,7 @@ p_load("RColorBrewer") # Biblioteca para seleccionar una paleta de colores de nu
 library(readr)
 articulo_IA <- "https://gist.github.com/EverVino/7bdbbe7ebdff5987970036f52f0e384f/raw/3a1997b6f9e3471555a941f8812ada0cef84977d/gistfile1.txt"
 texto <- read_file(articulo_IA)
-#texto
+texto
 ```
 
 
@@ -273,7 +273,7 @@ texto <- read_file(articulo_IA)
 
 ```{r WC7}
 texto2 <- VCorpus(VectorSource(texto), 
-      readerControl = list(reader = readPlain, language = "es", load=TRUE))
+      readerControl = list(reader = readPlain, language = "es", load = TRUE))
 texto2
 
 #inspect(texto2)

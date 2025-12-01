@@ -27,6 +27,8 @@ rmd_files:
   - 23-Fechas-horas.Rmd
   - 24-HEX-stickers.Rmd
   - 25-WordClouds.Rmd
+  - 32-Alice-in-Wonderland.Rmd
+  - 31-tidyverse-avanzado.Rmd
   - 26-Leaflet-mapa-interactivo.Rmd
   - 27-Ejercicios-transformacion.Rmd
   - 28-Ejercicios-transformacion-2.Rmd

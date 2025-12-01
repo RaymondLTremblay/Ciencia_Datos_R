@@ -1,0 +1,512 @@
+x= c( "Piña", "Manzana", "Toronja", "Jugo")
+str_count(x, "a")
+# En promedio, ¿cuántas vocales hay por palabra?
+mean(str_count(palabras, "[aáeéiíoóuúü]"))
+mean(str_count(palabras, "[x]"))
+df %>%
+mutate(
+vocales = str_count(palabra, "[aáeéiíoóuúü]"), # Cuenta cuantas vocales
+consonantes = str_count(palabra, "[^aáeéiíoóuúü]") # cuenta cuantos consonantes
+)
+str_view(c("cómo", "como", "Raymond"), "c(ó|o)mo")
+Raymond = "\u048E\u0430\u042B\u043C\u043E\u043D\u0434, Asi se escribe mi nombre en ruso"
+Raymond
+fragmento_neruda_1_
+library(readr)
+fragmento_neruda_1_ <- read_csv("Datos/fragmento_neruda (1).csv")
+fragmento_neruda_1_
+str_count(fragmento_neruda_1_, "a")
+str_count(fragmento_neruda_1_, "a")
+library(readr)
+fragmentos_neruda_sep <- read_csv("Datos/fragmentos_neruda_sep.csv")
+fragmentos_neruda_sep
+str_count(fragmentos_neruda_sep, "a")
+str_count(fragmentos_neruda_sep, "a")
+str_count(fragmentos_neruda_sep, "b")
+str_count(fragmentos_neruda_sep, "x")
+a
+str_count(fragmentos_neruda_sep, "x")
+str_count(fragmentos_neruda_sep, "e")
+knitr::opts_chunk$set(echo = TRUE)
+x <- 1:70
+x
+x <- 1:70
+x
+case_when(
+x %% 35 == 0 ~ "fizz buzz",
+x %% 5 == 0 ~ "fizz",
+x %% 7 == 0 ~ "buzz",
+.default = as.character(x)
+)
+library(tidyverse)
+library(tidyverse)
+x <- 1:70
+x
+case_when(
+x %% 35 == 0 ~ "fizz buzz",
+x %% 5 == 0 ~ "fizz",
+x %% 7 == 0 ~ "buzz",
+.default = as.character(x)
+)
+c=c(1:10, <12, >18)
+c=c(1:10, "<12", ">18")
+c
+c=as_tibble(c)
+c
+c |> mutate(value = case_when(value == "<12" ~ 12,
+value == ">18" ~ 18,
+TRUE ~ as.numeric(value))
+)
+unique(c$value))
+unique(c$value)
+df=c |> mutate(value = case_when(value == "<12" ~ 12,
+value == ">18" ~ 18,
+TRUE ~ as.numeric(value))
+)
+unique(df$value)
+quijote <- read_lines("Datos/quijote.txt")
+quijote <- read_lines("Datos/el_quijote.txt")
+quijote
+head(quijote, n=10)
+length(quijote)
+quijote_palabras <- str_split(quijote, " ")
+quijote_palabras
+quijote_palabras <- str_split(quijote, " ")
+quijote_palabras_vector <- unlist(quijote_palabras)
+length(quijote_palabras_vector)
+sum(str_detect(quijote_palabras_vector, "caballero"))
+sum(str_length(quijote_palabras_vector) > 7)
+quijote_palabras_vector %>%
+str_length() %>%
+which.max() %>%
+quijote_palabras_vector[.]
+quijote_palabras_vector %>%
+str_length() %>%
+which.max()
+quijote_palabras_vector %>%
+str_length() %>%
+which.max() %>%
+quijote_palabras_vector[.]
+sum(str_detect(quijote, "Sancho Panza"))
+sum(str_detect(quijote, "Dios"))
+sum(str_detect(quijote_palabras_vector, "ñ"))
+sum(str_detect(quijote_palabras_vector, "ñ"))
+sum(str_detect(quijote_palabras_vector, "ñ"))
+sum(str_detect(quijote_palabras_vector, "ñ"))
+count(str_detect(quijote_palabras_vector, "[ñ]"))
+sum(str_detect(quijote_palabras_vector, "[ñ]"))
+head(quijote_palabras_vector)
+quijote_palabras <- str_split(quijote, " ")
+quijote_palabras_vector <- unlist(quijote_palabras)
+head(quijote_palabras_vector) # obervar las primeras palabras
+length(quijote_palabras_vector) # cuantas palabras hay en total
+# En promedio, ¿cuántas vocales hay por palabra?
+mean(str_count(palabras, "[aáeéiíoóuúü]"))
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+Sys.Date()
+library(tidyverse)
+library(datos)
+library(stringr)
+string1 <- "El Pequeño Principe; Saint Exupery"
+string2 <- "El segundo sexo: Simone de Beauvoir"
+string3 <- "El segundo sexo \\ Simone de Beauvoir"
+string1
+string2
+string3
+comilla_doble <- '\"' # ó '"'
+comilla_simple <- '\'' # ó "'"
+comilla_ampersand <- "&"
+comilla_doble
+comilla_simple
+comilla_ampersand
+x <- c("\"", "\\")
+x
+writeLines(x)
+"\n"
+"\t"
+?"'"
+x <- "\u00b5" # mu
+x
+y <- "\u00b6" # pilcrow
+y
+z <- "\u00A1" # ¡
+z
+w <- "\u01FC\u00b6" # Ǽ¶
+w
+Raymond = "\u048E\u0400\u042B\u043C\u043E\u043D\u0434, Asi se escribe mi nombre en ruso"
+Raymond
+library(stringr)
+str_length("Yo quiero un Lamborghini")
+str_c("Es una oración con muchas letras y palabras",
+"Mi pelicula favorita es Cinema Paraiso")
+str_c("Es una oración con muchas letras y palabras",
+"Mi pelicula favorita es Cinema Paraiso", sep = ", ")
+x <- c("Mi pelicula favorita es Cinema Paraiso", NA)
+x
+str_c("|-", x, "-|")
+x= c( "Piña", "Manzana", "Toronja")
+str_sub(x, 1,1)
+x= c( "Piña", "Manzana", "Toronja", "Hello")
+str_sub(x, -2,-1)
+x <- "BBCDEF"
+str_sub(x, 1, 1) <- "A"; x
+x <- "BBCDEF"
+str_sub(x, -1, -1) <- "K"; x
+x <- "BBCDEF"
+str_sub(x, -2, -2) <- "GHIJ"; x
+x <- "BBCDEF"
+str_sub(x, -3, -3) <- "BC"; x
+x <- "BBCDEF"
+str_sub(x, 2, -2) <- ""; x
+x= c( "Piña", "Manzana", "Toronja", "HAPPY")
+str_to_lower(x)
+x= c( "Piña", "Manzana", "Toronja")
+str_to_upper(x)
+x
+str_order(x) # regresa el orden de las palabras
+str_sort(x) # reorganiza las palabras en orden alfabético
+library(stringr)
+x <- c("manzana", "banana", "pera", "extraer")
+str_view(x, "er")
+x= c( "Piña", "Manzana", "Toronja", "Jugo", "Monique", "Raymond", "mami")
+str_detect(x, "a") # detectar la a
+str_detect(x, "i") # detectar la i
+str_detect(x, "ñ")
+# ¿Cuántas palabras comunes empiezan con m o M?
+# str_detect(x, "^M")
+x
+sum(str_detect(x, "^m"))
+sum(str_detect(x, "^M"))
+sum(str_detect(x, "^[mM]")) # ambas mayusculas y minusculas
+# ¿Qué proporción de palabras comunes terminan con una vocal?
+library(datos)
+mean(str_detect(palabras, "[aáeéiíoóuú]$"))
+# ¿Qué proporción de palabras comunes terminan con una vocal especifica?
+mean(str_detect(palabras, "[ao]$"))
+mean(str_detect(x, "[d]$")) # Raymond
+library(stringr)
+library(datos)
+palabras
+# Encuentra todas las palabras que contengan al menos una vocal, y luego niégalo
+sin_vocales_1 <- !str_detect(palabras, "[aáeéiíoóuúúü]")
+sin_vocales_1
+# Encuentra todas las palabras consistentes solo en consonantes (no vocales)
+sin_vocales_2 <- str_detect(palabras, "^[^aáeéiíoóuúúü]+$")
+identical(sin_vocales_1, sin_vocales_2)
+library(tidyverse)
+df <- tibble(
+palabra = palabras,
+i = seq_along(palabra)
+) ## poner los datos en un dataframe
+df %>%
+filter(str_detect(palabras, "x$")) # filtrar todas la palabras para solamente las terminan en **x**
+df %>%
+filter(str_detect(palabras, "z$")) # filtrar todas la palabras para solamente las terminan en **z**
+library(readr)
+fragmentos_neruda_sep <- read_csv("Datos/fragmentos_neruda_sep.csv")
+fragmentos_neruda_sep
+#x= c( "Piña", "Manzana", "Toronja", "Jugo")
+str_count(fragmentos_neruda_sep, "e")
+fragmentos_neruda_sep
+str_count(fragmentos_neruda_sep, "e")
+fragmentos_neruda_sep
+str_count(quijote_palabras_vector, "e")
+sum(str_count(quijote_palabras_vector, "e"))
+sum(str_count(quijote_palabras_vector, "[ñ]"))
+sum(str_count(quijote_palabras_vector, "ñ"))
+quijote_palabras_vector
+str_count(quijote_palabras_vector, "ñ")
+str_count(quijote_palabras_vector, "ñ"
+str_count(quijote_palabras_vector, "ñ"
+sum(str_count(quijote_palabras_vector, "ñ"))
+str_count(quijote_palabras_vector, "e")
+sum(str_count(quijote_palabras_vector, "ñ")) # cuantas veces aparece la letra ñ en total
+str_detect(quijote_palabras_vector, "ñ") # cuantas veces aparece la letra ñ en cada palabra
+quijote_palabras_vector[str_detect(quijote_palabras_vector, "ñ")] %>%
+head(10)
+str_detect(quijote_palabras_vector, "ñ") # cuantas veces aparece la letra ñ en cada palabra
+sum(str_detect(quijote_palabras_vector, "ñ")) # cuantas veces aparece la letra ñ en cada palabra
+sum(str_detect(quijote_palabras_vector, "ñ")) # cuantas veces aparece la letra ñ en cada palabra
+str_count(quijote_palabras_vector, "e") # cuantas veces aparece la letra e en cada palabra
+sum(str_count(quijote_palabras_vector, "e")) # cuantas veces aparece la letra e en total
+sum(str_detect(quijote_palabras_vector, "ñ")) # cuantas veces aparece la letra ñ en cada palabra
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+Sys.Date()
+library(tidyverse)
+library(datos)
+library(stringr)
+string1 <- "El Pequeño Principe; Saint Exupery"
+string2 <- "El segundo sexo: Simone de Beauvoir"
+string3 <- "El segundo sexo \\ Simone de Beauvoir"
+string1
+string2
+string3
+comilla_doble <- '\"' # ó '"'
+comilla_simple <- '\'' # ó "'"
+comilla_ampersand <- "&"
+comilla_doble
+comilla_simple
+comilla_ampersand
+x <- c("\"", "\\")
+x
+writeLines(x)
+"\n"
+"\t"
+?"'"
+x <- "\u00b5" # mu
+x
+y <- "\u00b6" # pilcrow
+y
+z <- "\u00A1" # ¡
+z
+w <- "\u01FC\u00b6" # Ǽ¶
+w
+Raymond = "\u048E\u0400\u042B\u043C\u043E\u043D\u0434, Asi se escribe mi nombre en ruso"
+Raymond
+library(stringr)
+str_length("Yo quiero un Lamborghini")
+str_c("Es una oración con muchas letras y palabras",
+"Mi pelicula favorita es Cinema Paraiso")
+str_c("Es una oración con muchas letras y palabras",
+"Mi pelicula favorita es Cinema Paraiso", sep = ", ")
+x <- c("Mi pelicula favorita es Cinema Paraiso", NA)
+x
+str_c("|-", x, "-|")
+x= c( "Piña", "Manzana", "Toronja")
+str_sub(x, 1,1)
+x= c( "Piña", "Manzana", "Toronja", "Hello")
+str_sub(x, -2,-1)
+x <- "BBCDEF"
+str_sub(x, 1, 1) <- "A"; x
+x <- "BBCDEF"
+str_sub(x, -1, -1) <- "K"; x
+x <- "BBCDEF"
+str_sub(x, -2, -2) <- "GHIJ"; x
+x <- "BBCDEF"
+str_sub(x, -3, -3) <- "BC"; x
+x <- "BBCDEF"
+str_sub(x, 2, -2) <- ""; x
+x= c( "Piña", "Manzana", "Toronja", "HAPPY")
+str_to_lower(x)
+x= c( "Piña", "Manzana", "Toronja")
+str_to_upper(x)
+x
+str_order(x) # regresa el orden de las palabras
+str_sort(x) # reorganiza las palabras en orden alfabético
+library(stringr)
+x <- c("manzana", "banana", "pera", "extraer")
+str_view(x, "er")
+x= c( "Piña", "Manzana", "Toronja", "Jugo", "Monique", "Raymond", "mami")
+str_detect(x, "a") # detectar la a
+str_detect(x, "i") # detectar la i
+str_detect(x, "ñ")
+# ¿Cuántas palabras comunes empiezan con m o M?
+# str_detect(x, "^M")
+x
+sum(str_detect(x, "^m"))
+sum(str_detect(x, "^M"))
+sum(str_detect(x, "^[mM]")) # ambas mayusculas y minusculas
+# ¿Qué proporción de palabras comunes terminan con una vocal?
+library(datos)
+mean(str_detect(palabras, "[aáeéiíoóuú]$"))
+# ¿Qué proporción de palabras comunes terminan con una vocal especifica?
+mean(str_detect(palabras, "[ao]$"))
+mean(str_detect(x, "[d]$")) # Raymond
+library(stringr)
+library(datos)
+palabras
+# Encuentra todas las palabras que contengan al menos una vocal, y luego niégalo
+sin_vocales_1 <- !str_detect(palabras, "[aáeéiíoóuúúü]")
+sin_vocales_1
+# Encuentra todas las palabras consistentes solo en consonantes (no vocales)
+sin_vocales_2 <- str_detect(palabras, "^[^aáeéiíoóuúúü]+$")
+identical(sin_vocales_1, sin_vocales_2)
+library(tidyverse)
+df <- tibble(
+palabra = palabras,
+i = seq_along(palabra)
+) ## poner los datos en un dataframe
+df %>%
+filter(str_detect(palabras, "x$")) # filtrar todas la palabras para solamente las terminan en **x**
+df %>%
+filter(str_detect(palabras, "z$")) # filtrar todas la palabras para solamente las terminan en **z**
+library(readr)
+fragmentos_neruda_sep <- read_csv("Datos/fragmentos_neruda_sep.csv")
+fragmentos_neruda_sep
+#x= c( "Piña", "Manzana", "Toronja", "Jugo")
+str_count(fragmentos_neruda_sep, "e")
+# En promedio, ¿cuántas vocales hay por palabra?
+mean(str_count(palabras, "[aáeéiíoóuúü]"))
+mean(str_count(palabras, "[x]"))
+df %>%
+mutate(
+vocales = str_count(palabra, "[aáeéiíoóuúü]"), # Cuenta cuantas vocales
+consonantes = str_count(palabra, "[^aáeéiíoóuúü]") # cuenta cuantos consonantes
+)
+str_view(c("cómo", "como", "Raymond"), "c(ó|o)mo")
+library(datos)
+#fruit
+head(palabras)
+# Encuentra todas las palabras que contengan al menos una vocal, y luego niégalo
+sin_vocales_1 <- !str_detect(palabras, "[aáeéiíoóuúúü]")
+#sin_vocales_1
+# Encuentra todas las palabras consistentes solo en consonantes (no vocales)
+sin_vocales_2 <- str_detect(palabras, "^[^aáeéiíoóuúúü]+$")
+#sin_vocales_1
+identical(sin_vocales_1, sin_vocales_2)
+#> [1] TRUE
+sustantivo <- "(el|la|los|las|lo|un|una|unos|unas) ([^ ]+)"
+tiene_sustantivo <- oraciones %>%
+str_subset(sustantivo)
+#tiene_sustantivo
+tiene_sustantivo %>%
+str_extract(sustantivo)
+#>  [1] "los de"      "el camión"   "la mejor"    "la cuenta"   "las ruinas."
+#>  [6] "la hoja"     "la cocina."  "la taza"     "el tanque."  "el calor"
+quijote <- read_lines("Datos/el_quijote.txt")
+head(quijote, n=10)
+length(quijote)
+quijote_palabras <- str_split(quijote, " ")
+quijote_palabras_vector <- unlist(quijote_palabras)
+head(quijote_palabras_vector) # obervar las primeras palabras
+length(quijote_palabras_vector) # cuantas palabras hay en total
+sum(str_detect(quijote_palabras_vector, "caballero"))
+sum(str_length(quijote_palabras_vector) > 7)
+quijote_palabras_vector %>%
+str_length() %>%
+which.max() %>%
+quijote_palabras_vector[.]
+sum(str_detect(quijote, "Sancho Panza"))
+sum(str_detect(quijote, "Dios"))
+str_count(quijote_palabras_vector, "e") # cuantas veces aparece la letra e en cada palabra
+sum(str_count(quijote_palabras_vector, "e")) # cuantas veces aparece la letra e en total
+sum(str_detect(quijote_palabras_vector, "ñ")) # cuantas veces aparece la letra ñ en cada palabra
+sum(str_detect(quijote_palabras_vector, "ó")) # cuantas veces aparece la letra ñ en cada palabra
+quijote_palabras <- str_split(quijote, " ")
+quijote_palabras_vector <- unlist(quijote_palabras)
+head(quijote_palabras_vector) # obervar las primeras palabras
+length(quijote_palabras_vector) # cuantas palabras hay en total
+sum(str_detect(quijote_palabras_vector, "caballero"))
+sum(str_length(quijote_palabras_vector) > 7)
+sum(str_length(quijote_palabras_vector) > 8)
+sum(str_length(quijote_palabras_vector) > 10)
+sum(str_detect(quijote, "Sancho Panza"))
+sum(str_detect(quijote, "Dios"))
+str_detect(quijote_palabras_vector, "e") # cuantas veces aparece la letra e en cada palabra
+sum(str_detect(quijote_palabras_vector, "e")) # cuantas veces aparece la letra e en total
+sum(str_detect(quijote_palabras_vector, "ó")) # cuantas veces aparece la letra ñ en cada palabra
+sum(str_detect(quijote_palabras_vector, "[aáeéiíoóuúúü]")) # cuantas veces aparece la letra ñ en cada palabra
+sum(str_detect(quijote_palabras_vector, "[ñ]"))
+sum(str_detect(quijote_palabras_vector, "[aáeéiíoóuúúü]")) # cuantas veces aparece la letra ñ en cada palabra
+sum(str_detect(quijote_palabras_vector, "[ñ]"))
+stop_words <- c("que", "de", "y", "la", "el", "en", "a", "los", "del", "se",
+"las", "un", "por", "con", "no", "una", "su", "para", "es",
+"al", "lo", "como", "más", "pero", "sus", "le", "ya", "o",
+"este", "sí", "porque", "esta", "entre", "cuando", "muy",
+"sin", "sobre", "también", "me", "hasta", "hay", "donde",
+"quien")
+quijote_palabras_vector_limpio <- quijote_palabras_vector[!str_detect(quijote_palabras_vector,
+str_c("^", stop_words, "$", collapse = "|"))]
+table(quijote_palabras_vector_limpio) %>%
+sort(decreasing = TRUE) %>%
+head(20)
+str_detect(quijote_palabras_vector, "e") |> head() # cuantas veces aparece la letra e en cada palabra
+sum(str_detect(quijote_palabras_vector, "e")) # cuantas veces aparece la letra e en total
+quijote <- read_lines("Datos/el_quijote.txt")
+library(tidyverse)
+library(datos)
+library(stringr)
+quijote <- read_lines("Datos/el_quijote.txt")
+head(quijote, n=10)
+library(stringr)
+library(stringr)
+quijote <- read_lines("Datos/el_quijote.txt")
+head(quijote, n=10)
+length(quijote)
+quijote_palabras <- str_split(quijote, " ")
+head(quijote_palabras)
+quijote_palabras_vector <- unlist(quijote_palabras)
+head(quijote_palabras_vector)
+head(quijote_palabras_vector, n=40)
+length(quijote_palabras_vector) # cuantas palabras hay en total
+head(quijote_palabras_vector, n=40) # obervar las primeras palabras
+stop_words <- c("que", "de", "y", "la", "el", "en", "a", "los", "del", "se",
+"las", "un", "por", "con", "no", "una", "su", "para", "es",
+"al", "lo", "como", "más", "pero", "sus", "le", "ya", "o",
+"este", "sí", "porque", "esta", "entre", "cuando", "muy",
+"sin", "sobre", "también", "me", "hasta", "hay", "donde",
+"quien")
+quijote_palabras_vector_limpio <- quijote_palabras_vector[!str_detect(quijote_palabras_vector,
+str_c("^", stop_words, "$", collapse = "|"))]
+table(quijote_palabras_vector_limpio) %>%
+sort(decreasing = TRUE) %>%
+head(40)
+stop_words <- c("que", "de", "y", "la", "el", "en", "a", "los", "del", "se",
+"las", "un", "por", "con", "no", "una", "su", "para", "es",
+"al", "lo", "como", "más", "pero", "sus", "le", "ya", "o",
+"este", "sí", "porque", "esta", "entre", "cuando", "muy",
+"sin", "sobre", "también", "me", "hasta", "hay", "donde",
+"quien", "si")
+quijote_palabras_vector_limpio <- quijote_palabras_vector[!str_detect(quijote_palabras_vector,
+str_c("^", stop_words, "$", collapse = "|"))]
+table(quijote_palabras_vector_limpio) %>%
+sort(decreasing = TRUE) %>%
+head(40)
+stop_words <- c("que", "de", "y", "la", "el", "en", "a", "los", "del", "se",
+"las", "un", "por", "con", "no", "una", "su", "para", "es",
+"al", "lo", "como", "más", "pero", "sus", "le", "ya", "o",
+"este", "sí", "porque", "esta", "entre", "cuando", "muy",
+"sin", "sobre", "también", "me", "hasta", "hay", "donde",
+"quien", "si", "todo", "nos", "ni", "parte", "él", "uno", "más", "mi" )
+quijote_palabras_vector_limpio <- quijote_palabras_vector[!str_detect(quijote_palabras_vector,
+str_c("^", stop_words, "$", collapse = "|"))]
+table(quijote_palabras_vector_limpio) %>%
+sort(decreasing = TRUE) %>%
+head(40)
+table(quijote_palabras_vector_limpio) %>%
+sort(decreasing = TRUE) %>%
+head(40)
+install.packages("stopwords")
+stop_words <- stopwords("es")
+stop_words_es <- stopwords("es")
+library(stopwords)
+stop_words_es <- stopwords("es")
+stop_words_es
+quijote_palabras_vector_limpio <- quijote_palabras_vector[!str_detect(quijote_palabras_vector,
+str_c("^", stop_words_es, "$", collapse = "|"))]
+table(quijote_palabras_vector_limpio) %>%
+sort(decreasing = TRUE) %>%
+head(40)
+clean=str_replace_all(quijote_palabras_vector_limpio, "[,\\.\\!\\:\\'\\?]", "")
+table(clean) %>%
+sort(decreasing = TRUE) %>%
+head(40)
+clean=str_replace_all(quijote_palabras_vector_limpio, "[,\\.\\!\\:\\'\\?\\-]", "")
+table(clean) %>%
+sort(decreasing = TRUE) %>%
+head(40)
+clean=str_replace_all(quijote_palabras_vector_limpio, "[,\\.\\!\\:\\'\\?\\-]", "x")
+table(clean) %>%
+sort(decreasing = TRUE) %>%
+head(40)
+clean=str_replace_all(quijote_palabras_vector_limpio, "[,\\.\\!\\:\\'\\?\\-]", "x")
+table(clean) %>%
+sort(decreasing = TRUE) %>%
+head(40)
+clean=str_replace_all(quijote_palabras_vector_limpio, "[,\\.\\!\\:\\'\\?\\-]", "")
+table(clean) %>%
+sort(decreasing = TRUE) %>%
+head(40)
+numeros <- c("uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve", "diez")
+clean <- str_replace_all(clean, "[[:punct:]]", "")
+clean_text <- paste(clean, collapse = " ")
+counts <- sapply(numeros, function(n) str_count(tolower(clean_text), fixed(n)))
+print(counts)
+numeros <- c("uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve", "diez", "quijote")
+clean <- str_replace_all(clean, "[[:punct:]]", "")
+clean_text <- paste(clean, collapse = " ")
+counts <- sapply(numeros, function(n) str_count(tolower(clean_text), fixed(n)))
+counts <- sapply(numeros, function(n) str_count(tolower(clean_text), fixed(n)))
+names(counts)<- numeros
+names(counts)<- numeros
+print(counts)

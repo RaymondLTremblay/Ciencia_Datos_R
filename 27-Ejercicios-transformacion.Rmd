@@ -34,9 +34,9 @@ gt(head(bateadores, n=3))
 ```{r AA3}
 max(bateadores$carreras)
 
-bateadores |> dplyr::select(id_jugador, carreras) |> 
-  arrange(desc(carreras)) |> 
-  slice_max(carreras)
+bateadores |> dplyr::select(id_jugador, al_bate) |> 
+  arrange(desc(al_bate)) |> 
+  slice_max(al_bate)
 
 ```
 
@@ -47,6 +47,8 @@ bateadores |> dplyr::select(id_jugador, carreras) |>
 ```{r AA4, eval=FALSE, echo=FALSE}
 
 bateadores |> select(id_jugador, al_bate) |> 
+  group_by(id_jugador) |>
+  summarise(al_bate=sum(al_bate)) |>
   arrange(desc(al_bate))
 
 ```
@@ -87,6 +89,11 @@ bateadores |> select(id_jugador, id_anio) |>
   group_by(id_jugador) |> 
   summarise(count_years= sum(duplicated(id_jugador))) |> 
   arrange(desc(count_years))
+
+bateadores |> 
+  group_by(id_jugador) |>
+  summarize(n=n_distinct(id_anio)) |>
+  arrange(desc(n))
 ```
 
 ------------------------------------------------------------------------

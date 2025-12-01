@@ -1,0 +1,224 @@
+# Temas Avanzados en Data Science con Tidyverse
+
+## Introducción
+Este documento presenta temas avanzados en el ecosistema **tidyverse** con ejemplos prácticos en R.
+
+### 1. Manipulación avanzada con dplyr
+
+Explicación: Uso de *tidy evaluation* para funciones personalizadas.
+
+
+
+```{r}
+library(dplyr)
+
+# Función personalizada con tidy evaluation
+mean_by_group <- function(data, group_var, value_var) {
+  data %>%
+    group_by({{ group_var }}) %>%
+    summarise(mean_value = mean({{ value_var }}, na.rm = TRUE))
+}
+
+df <- tibble(grupo = c("A", "A", "B", "B"), valor = c(10, 20, 30, 40)) # los datos
+
+mean_by_group(df, grupo, valor) # El uso de la funcón nueva
+```
+
+### Componentes clave:
+
+1. Definición de la función
+
+mean_by_group <- function(data, group_var, value_var) { ... }
+
+- data: El data frame o tibble que contiene los datos.
+- group_var: La variable por la que se agruparán los datos (por ejemplo, categoría).
+- value_var: La variable numérica de la que se calculará la media.
+
+
+
+2. {{ }} (Curly-curly operator):
+
+- Es parte del tidy evaluation en dplyr.
+- Permite que los argumentos group_var y value_var se pasen como nombres de columna sin comillas.
+- Sin esto, la función no podría interpretar correctamente los nombres de columna.
+
+
+3. group_by({{ group_var }}):
+
+- Agrupa el conjunto de datos por la variable indicada.
+- Ejemplo: Si group_var = especie, agrupa por especie.
+
+
+4. summarise(mean_value = mean({{ value_var }}, na.rm = TRUE)):
+
+- Calcula la media de la columna indicada (value_var) dentro de cada grupo.
+- na.rm = TRUE elimina valores faltantes (NA) para evitar errores.
+
+
+***
+
+
+## 2. Modelado con tidymodels
+Explicación: Flujo reproducible para regresión lineal.
+
+```{r}
+
+library(tidymodels)
+library(ggversa)  # Suponiendo que este paquete contiene el dataset
+
+# Cargar datos
+data(Lelto)
+
+
+# Creamos la receta
+receta <- recipe(T_Num ~ Inclinacion + DBH + Alt_m + Trail, data = Lelto)
+
+
+
+
+# Definir modelo
+modelo <- linear_reg() %>%
+  set_engine("lm")
+
+
+# Creamos el workflow
+wf <- workflow() %>%
+  add_recipe(receta) %>%
+  add_model(modelo)
+
+
+
+# Ajustamos el modelo
+ajuste <- wf %>%
+  fit(data = Lelto)
+
+
+
+# Extraer el modelo ajustado
+modelo_final <- extract_fit_parsnip(ajuste)
+
+# Ver resumen del modelo
+summary(modelo_final$fit)
+
+
+
+```
+
+
+```{r}
+
+library(tidymodels)
+data(mtcars)
+
+# Convertir variables a factores
+mtcars <- mtcars %>%
+  mutate(cyl = factor(cyl),
+         gear = factor(gear))
+
+
+receta <- recipe(mpg ~ wt + hp+ cyl + gear, data = mtcars)
+modelo <- linear_reg() %>% set_engine("lm")
+
+workflow() %>%
+  add_recipe(receta) %>%
+  add_model(modelo) %>%
+  fit(data = mtcars)
+```
+
+
+Ver los resultados del modelo y hacer predicciones.
+
+
+
+```{r}
+
+# Ajustar el modelo
+ajuste <- workflow() %>%
+  add_recipe(receta) %>%
+  add_model(modelo) %>%
+  fit(data = mtcars)
+
+
+# Extraer el modelo ajustado
+modelo_ajustado <- ajuste %>% extract_fit_parsnip()
+
+
+# Ver coeficientes
+
+modelo_ajustado %>% tidy()      # Coeficientes en formato tibble
+modelo_ajustado %>% glance()    # Métricas globales (R², AIC, etc.)
+summary(modelo_ajustado$fit)    # Resumen clásico del modelo lm
+
+
+# Predicciones y métricas
+predicciones <- predict(modelo_ajustado, mtcars)
+
+bind_cols(mtcars, predicciones) %>%
+  metrics(truth = mpg, estimate = .pred)
+
+```
+
+- extract_fit_parsnip() obtiene el modelo ajustado.
+- tidy() muestra coeficientes y errores estándar.
+- metrics() calcula métricas como RMSE, R², MAE.
+
+
+
+
+
+***
+
+## 3. Visualización avanzada con ggplot2
+
+Explicación: Facetas y escalas personalizadas.
+
+```{r}
+library(ggplot2)
+
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  facet_wrap(~ cyl) +
+  scale_y_log10() +
+  theme_minimal()
+```
+
+***
+
+
+## 4. Datos anidados y listas con purrr
+Explicación: Ajustar modelos por grupo y extraer coeficientes.
+
+```{r}
+library(tidyr)
+library(purrr)
+library(broom)
+
+nested <- mtcars %>%
+  group_by(cyl) %>%
+  nest()
+
+nested <- nested %>%
+  mutate(modelo = map(data, ~ lm(mpg ~ wt, data = .x)),
+         coeficientes = map(modelo, tidy))
+
+nested$data
+nested$modelo
+nested$coeficientes
+```
+
+
+La alternativa es hacer cada factor individualmente
+
+- Hacemos un modelo lm(mpg ~ wt) para cada subconjunto de datos agrupados por cyl == 6
+
+```{r}
+modelo_cyl6 <- lm(mpg ~ wt, data = filter(mtcars, cyl == 6))
+
+summary(modelo_cyl6)
+```
+
+
+***
+
+
+
