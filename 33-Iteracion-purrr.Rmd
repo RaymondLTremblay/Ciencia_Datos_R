@@ -1,0 +1,179 @@
+# Iteración: purrr
+
+El tema proviene de los siguientes sitios.
+
+English: <https://r4ds.had.co.nz/iteration.html>
+
+Español: <https://es.r4ds.hadley.nz/iteración.html>
+
+***
+
+Fecha de la última revisión
+```{r ITER0, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+Sys.Date()
+```
+
+## Temas: El paquete `purrr`
+
+  - La idea de iterar (repetir una acción)
+  - El bucle `for` de base R
+  - La familia `map()` de `purrr`
+  - Fórmulas anónimas con `~` y `.x`
+  - Iterar sobre dos listas con `map2()`
+  - Un modelo por grupo
+
+`purrr` es parte de `tidyverse`, así que se activa con `library(tidyverse)`.
+
+```{r ITER1}
+library(tidyverse)
+library(datos)
+```
+
+***
+
+## ¿Qué es iterar?
+
+**Iterar** es repetir la misma acción sobre cada elemento de una lista, vector o
+columna. Igual que con las funciones, la meta es **no repetir código**. Si las
+funciones evitan copiar y pegar código *dentro* de una tarea, la iteración evita
+copiar y pegar la *misma tarea* muchas veces.
+
+Supón que queremos la mediana de cada columna de este data frame:
+
+```{r ITER2}
+df <- tibble(
+  a = rnorm(10),
+  b = rnorm(10),
+  c = rnorm(10),
+  d = rnorm(10)
+)
+
+# Repetir a mano es tedioso y propenso a errores:
+median(df$a)
+median(df$b)
+median(df$c)
+median(df$d)
+```
+
+***
+
+## El bucle `for` de base R
+
+La forma clásica de iterar es con un bucle `for`:
+
+```{r ITER3}
+resultado <- vector("double", ncol(df))   # espacio para guardar la salida
+for (i in seq_along(df)) {                # para cada columna
+  resultado[[i]] <- median(df[[i]])       # calcular y guardar
+}
+resultado
+```
+
+Funciona, pero hay que escribir bastante "andamiaje" (crear el vector de salida,
+manejar el índice `i`). `purrr` simplifica esto.
+
+***
+
+## La familia `map()`
+
+Las funciones `map()` toman un vector o lista, aplican una función a **cada
+elemento**, y devuelven un resultado. Hay una versión por tipo de salida:
+
+  - `map()` devuelve una **lista**
+  - `map_dbl()` devuelve un vector de **dobles**
+  - `map_int()` devuelve un vector de **enteros**
+  - `map_chr()` devuelve un vector de **texto**
+  - `map_lgl()` devuelve un vector **lógico**
+
+```{r ITER4}
+map_dbl(df, median)   # la mediana de cada columna, en una sola línea
+map_dbl(df, mean)
+map_dbl(df, sd)
+```
+
+Compara: el bucle `for` completo de arriba se reduce a `map_dbl(df, median)`.
+
+***
+
+## Fórmulas anónimas con `~` y `.x`
+
+A veces necesitas una pequeña operación que no tiene nombre de función. Puedes
+escribirla como una **fórmula** empezando con `~`, y usar `.x` para representar
+"el elemento actual".
+
+```{r ITER5}
+# El rango (máximo - mínimo) de cada columna
+map_dbl(df, ~ max(.x) - min(.x))
+
+# ¿Cuántos valores positivos hay en cada columna?
+map_int(df, ~ sum(.x > 0))
+```
+
+Esto es muy útil con datos reales. Por ejemplo, el promedio de atraso de salida
+por mes en los vuelos:
+
+```{r ITER6}
+vuelos %>%
+  split(.$mes) %>%                                   # una lista: un data frame por mes
+  map_dbl(~ mean(.x$atraso_salida, na.rm = TRUE))    # promedio de atraso por mes
+```
+
+***
+
+## Iterar sobre dos listas con `map2()`
+
+Cuando necesitas recorrer **dos** listas en paralelo, usa `map2()`. Los elementos
+se representan con `.x` (de la primera) y `.y` (de la segunda).
+
+```{r ITER7}
+medias <- c(0, 10, 100)
+desv   <- c(1, 2, 3)
+
+# Generar 5 números al azar de cada combinación de media y desviación
+map2(medias, desv, ~ rnorm(5, mean = .x, sd = .y))
+```
+
+***
+
+## Un modelo por grupo
+
+Un uso poderoso es ajustar **un modelo por grupo**. Aquí ajustamos una regresión
+del atraso de llegada contra el de salida, por separado para cada aerolínea.
+
+> Nota: como el paquete `maps` también se carga en este libro, escribimos
+> `purrr::map()` de forma explícita para no confundirla con `maps::map()`.
+
+```{r ITER8}
+modelos <- vuelos %>%
+  split(.$aerolinea) %>%
+  purrr::map(~ lm(atraso_llegada ~ atraso_salida, data = .x))
+
+# Ver el R^2 de cada modelo
+modelos %>%
+  purrr::map(summary) %>%
+  map_dbl("r.squared") %>%
+  head()
+```
+
+Este patrón —dividir, aplicar un modelo a cada parte, y resumir— es la base del
+tema de *muchos modelos* con `purrr` y `broom`.
+
+***
+
+1.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 21.5 del libro en español.
+
+***
+
+2.  **Ejercicios**:
+
+Usa `map_dbl()` para calcular el número de valores únicos (`n_distinct()`) en cada
+columna del data frame `diamantes`.
+
+***
+
+3.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 21.9 del libro en español.

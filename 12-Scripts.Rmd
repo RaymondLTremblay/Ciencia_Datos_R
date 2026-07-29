@@ -1,6 +1,6 @@
 # Script
 
-Fecha de la ultima revisión
+Fecha de la última revisión
 
 ```{r echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
@@ -24,7 +24,7 @@ Español: <https://es.r4ds.hadley.nz/06-workflow-scripts.html>
 ## Scripts:
 
 -   Ejecutando códigos
--   Diagnostico de Rstudio
+-   Diagnóstico de Rstudio
 
 1.  **Ejercicios**:
 

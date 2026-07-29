@@ -1,4 +1,4 @@
-# Ecuaciones Matematicas {#math-sci}
+# Ecuaciones Matemáticas {#math-sci}
 
 
 ```{r echo=FALSE}
@@ -14,19 +14,19 @@ MathJax.Hub.Config({
 });
 </script>
 
-## Ecuaciones matemática
+## Ecuaciones matemáticas
 
-*TeX* es la mejor manera de escribir funciones matemáticas en R. Donald Knuth diseñó el paquete \TeX\ cuando se sintió frustrado por el tiempo que les tomaba a los tipógrafos y terminar su libro, que contenía mucha funciones matemática. Una característica interesante de _R Markdown_ es su capacidad para leer código LaTeX directamente. 
+*TeX* es la mejor manera de escribir funciones matemáticas en R. Donald Knuth diseñó el paquete \TeX\ cuando se sintió frustrado por el tiempo que les tomaba a los tipógrafos y terminar su libro, que contenía muchas funciones matemáticas. Una característica interesante de _R Markdown_ es su capacidad para leer código LaTeX directamente. 
 
 
-Si está haciendo una tesis, artículo cientíco, presentaciones o quiere aclarar en su documento las funciones que estas usando, típicamente esto involucrará muchas ecuaciones matemáticas. Por consecuencia querrá leer la siguiente sección que ha sido comentada. 
+Si está haciendo una tesis, artículo científico, presentaciones o quiere aclarar en su documento las funciones que estás usando, típicamente esto involucrará muchas ecuaciones matemáticas. Por consecuencia querrá leer la siguiente sección que ha sido comentada. 
 
 
 ***
 
 ### Matemática y Física
 
-El promedio $\bar{x}=\frac{\sum x_{i}}{n}$ se escribe como `$\bar{x}=\frac{\sum x_{i}}{n}$`.  Nota que para poner una ecuación en una línea se usa solamemente una `$` antes y depsues, si queremos que sea en una linea aparte se usa dos `$$` antes y despues.
+El promedio $\bar{x}=\frac{\sum x_{i}}{n}$ se escribe como `$\bar{x}=\frac{\sum x_{i}}{n}$`.  Nota que para poner una ecuación en una línea se usa solamente una `$` antes y después, si queremos que sea en una línea aparte se usa dos `$$` antes y después.
 
 $$\bar{x}=\frac{\sum x_{i}}{n}$$
 
@@ -111,7 +111,7 @@ Las fórmulas químicas se verán mejor si no están en cursiva. Evite la cursiv
 Entonces, $\mathrm{Fe_2^{2+}Cr_2O_4}$ es escrito como `$\mathrm{Fe_2^{2+}Cr_2O_4}$`.
 
 
-Esta fomula es parte de la frase $$\mathrm{Fe_2^{2+}Cr_2O_2}$$
+Esta fórmula es parte de la frase $$\mathrm{Fe_2^{2+}Cr_2O_2}$$
 
 
  - Exponente or Sobrescrito: $\mathrm{O^-}$ y se escribe como `$\mathrm{O^-}$`
@@ -129,13 +129,13 @@ $\mathrm{CuCl}$ $\bullet$ $\mathrm{7H_{2}O}$
 
 ## Símbolos comunes
 
-- Delta: $\Delta$ y se escribe como `$\Delta
+- Delta: $\Delta$ y se escribe como `$\Delta$`
 
  - Gamma mayúscula $\Gamma$
 
  - Gamma minúscula $\gamma$
 
- - Aquí esta mi súper formula de $\phi$ que voy a usar en el examen de matemáticas.
+ - Aquí está mi súper fórmula de $\phi$ que voy a usar en el examen de matemáticas.
 
  - Flecha de Reacción: $\longrightarrow$ or  $\xrightarrow{fabilous}$ y se escribe como `$\longrightarrow$` or  `$\xrightarrow{solution}$`
 
@@ -193,13 +193,13 @@ Muchos de los símbolos que necesitará se pueden encontrar en la página de mat
 
 Probablemente encontrará los recursos en <https://www.lecb.ncifcrf.gov/~toms/latex.html> útil, particularmente los enlaces a bsts de varias revistas. Quizás también le interese TeXShade para composición tipográfica de nucleótidos (<https://homepages.uni-tuebingen.de/beitz/txe.html>). Asegúrese de leer el capítulo anterior sobre gráficos y tablas.
 
-La formula del promedio 
+La fórmula del promedio 
 
 
 
 $\mu=\frac{\sum{x}_{i}}{n}$ se escribe asi `$\mu=\frac{\sum{x}_{i}}{n}$`
 
-NOTE la diferencia en tipo de letra.........entre las dos formulas
+NOTE la diferencia en tipo de letra.........entre las dos fórmulas
 
 Nota aqui que la formaula se escribe en la oración $\mathrm{\mu=\frac{\sum{x}_{i}}{n}}$ se escribe asi `$\mathrm{\mu=\frac{\sum{x}_{i}}{n}}$`
 

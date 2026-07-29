@@ -84,7 +84,7 @@ nueva_fechas <- fechas %>%
 nueva_fechas
 ```
 
-`lubridate` tiene varias funciones para extraer partes de la fecha, por ejemplo: año, mes, día, hora, minuto, y quatrimestre.
+`lubridate` tiene varias funciones para extraer partes de la fecha, por ejemplo: año, mes, día, hora, minuto, y cuatrimestre.
 
 ```{r FH5}
 nueva_fechas %>%
@@ -111,7 +111,7 @@ nueva_fechas %>%
 
 ## Intervalos y duraciones
 
-La función `interval()` crea un objeto R de intervalo de tiempo. En este caso, el intervalo entro la fecha en la tabla, y el día de hoy.  Nota que esto puede ser muy util si quiere calcular la cantidad de tiempo entre dos fechas.
+La función `interval()` crea un objeto R de intervalo de tiempo. En este caso, el intervalo entre la fecha en la tabla, y el día de hoy.  Nota que esto puede ser muy útil si quiere calcular la cantidad de tiempo entre dos fechas.
 
 
 ```{r FH7}
@@ -142,7 +142,7 @@ nueva_fechas %>%
   mutate(intervalo = fecha %--% today())
 ```
 
-Para saber el número del días en el intervalo, divida el intervalo por la función que corresponde a días, `days()`
+Para saber el número de días en el intervalo, divida el intervalo por la función que corresponde a días, `days()`
 
 ```{r FH10}
 nueva_fechas %>%
@@ -165,7 +165,7 @@ nueva_fechas %>%
 
 ## Ejercicio 
 
-Usa esta función y calcula el número de día que ha transcurido entre el día de su nacimiento y el día de hoy
+Usa esta función y calcula el número de día que ha transcurrido entre el día de su nacimiento y el día de hoy
 
 
 ```{r H12}
@@ -286,9 +286,9 @@ now()
   
   
 ### Fechas 
-  - yq() Year quarter (quaters are 1, 2, 3, 4, Jan-March, April-Jun, Jul-Sept, Oct-Dec)
+  - yq() Year quarter (quarters are 1, 2, 3, 4, Jan-March, April-Jun, Jul-Sept, Oct-Dec)
   
-```{r FH18}}
+```{r FH18}
 x =c("2012.1", "1970.4")
 yq(x)
 yq("2012.1")
@@ -447,7 +447,7 @@ vuelos_dt %>%
 
 Nota variables que no funciona
  
-```{r FH27}}
+```{r FH27}
 
 ymd(c("2010-10-10", "bananas"))
 
@@ -526,7 +526,7 @@ Hacer estos ejercicios en la sección 16.3.4 del libro en español.  Entregar po
 
 
 
-Confirma nuestra hipótesis de que las salidas programadas en los minutos 20-30 y 50-60 están casuadas por los vuelos programados que salen más temprano. Pista: crea una variable binaria que te diga si un vuelo tuvo o no demora.
+Confirma nuestra hipótesis de que las salidas programadas en los minutos 20-30 y 50-60 están causadas por los vuelos programados que salen más temprano. Pista: crea una variable binaria que te diga si un vuelo tuvo o no demora.
 
 ***  
 
@@ -617,7 +617,7 @@ years(1)
 ```
  
  
-```{r H36}}
+```{r H36}
 10 * (months(6) + days(1))
 #> [1] "60m 10d 0H 0M 0S"
 days(50) + hours(25) + minutes(2)
@@ -696,17 +696,17 @@ Hacer los ejercicios en la sección 16.4.5 del libro en español
 
 3.  **Ejercicios**:
 
-Seleccionar 3 archivos de los vuelos que salen o llegan a PR, (el codigo del aeropuerto es "SJU") de la base de datos de <https://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236>
-  Pueden ser el mismo mes en 3 diferente años o 3 diferentes mese en el mismo año.
+Seleccionar 3 archivos de los vuelos que salen o llegan a PR, (el código del aeropuerto es "SJU") de la base de datos de <https://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236>
+  Pueden ser el mismo mes en 3 diferentes años o 3 diferentes meses en el mismo año.
   
   
-  - Repite la mayoría de los análisis enseñado arriba (como practica).
+  - Repite la mayoría de los análisis enseñado arriba (como práctica).
   
-  - Evaluar el tiempo de retrazo de los vuelos que salen de SJU en cada periodo seleccionado, y haz *una* gráfica para visualizar el patrón
+  - Evaluar el tiempo de retraso de los vuelos que salen de SJU en cada periodo seleccionado, y haz *una* gráfica para visualizar el patrón
   
-  - Cual es el día preferible para no tener retraso
-  - Cual es la mejor hora de salida para no tener retraso
-  - Compara por lo menos 3 diferentes lineas saliendo de SJU y el periodo de retrazo.  
+  - Cuál es el día preferible para no tener retraso
+  - Cuál es la mejor hora de salida para no tener retraso
+  - Compara por lo menos 3 diferentes líneas saliendo de SJU y el periodo de retraso.  
   
   
   

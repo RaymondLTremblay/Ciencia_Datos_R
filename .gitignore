@@ -2,3 +2,14 @@
 .Rhistory
 .RData
 .Ruserdata
+
+# macOS
+.DS_Store
+
+# Dropbox conflicted copies
+*conflicted copy*
+
+# CRAN download-logs cache (packageRank / cranlogs).
+# These files are generated locally, are regenerable, and can exceed
+# GitHub's 100 MB per-file limit — never commit them.
+cran-mirror/

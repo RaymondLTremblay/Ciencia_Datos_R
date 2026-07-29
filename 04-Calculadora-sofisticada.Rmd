@@ -1,6 +1,6 @@
 # Calculadora sofisticada
 
-Fecha de la ultima revisión
+Fecha de la última revisión
 ```{r echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
@@ -9,7 +9,7 @@ Sys.Date()
 
 ***
 
-Activar los siguientes packetes
+Activar los siguientes paquetes
 
 ```{r CS1}
 library(tidyverse)
@@ -33,7 +33,7 @@ Español:
 
 ## Temas:
 
-  - Conocimiento básicos de programación
+  - Conocimientos básicos de programación
   - La importancia de los nombres
   - Usando funciones
   
@@ -50,7 +50,7 @@ Español:
 ```
 
 
-### Trigonometria
+### Trigonometría
 
 ```{r CS4}
 sin(pi/3)
@@ -174,7 +174,7 @@ millas |> dplyr::select(cilindros) |>
 
 
 
-#### Selecionar los diamantes mayor de 3 quilate
+#### Seleccionar los diamantes mayor de 3 quilate
 
 ```{r CS17}
 diamantes |> dplyr::select(quilate) |> 
@@ -182,7 +182,7 @@ diamantes |> dplyr::select(quilate) |>
 ```
 
 
-#### Selecionar los diamantes con igual o mayor de 4000 precio
+#### Seleccionar los diamantes con igual o mayor de 4000 precio
 
 ```{r CS18, echo=FALSE}
 #unique(diamantes$precio)

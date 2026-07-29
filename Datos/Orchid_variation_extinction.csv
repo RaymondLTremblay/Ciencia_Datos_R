@@ -1,0 +1,556 @@
+location,genero,especie,categoria_riesgo_binomial,sepal_w_cv_corrected,sepal_l_cv_corrected,petal_w_cv_corrected,petal_l_cv_corrected,labellum_w_cv_corrected,labellum_l_cv_corrected,column_l_cv_corrected,flower_stem_cv_corrected,dorsal_sepal_cv_corrected,lip_w_cv_corrected,lip_l_cv_corrected
+Caribbean,Dendrophylax,alcoa,Vulnerable,NA,NA,NA,0.018154762,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Dendrophylax,constanzense,Vulnerable,NA,NA,NA,0.017528736,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Dendrophylax,helorrhiza,Vulnerable,0.114784946,0.133187773,0.114784946,0.063541667,0.127083333,0.081989247,NA,NA,NA,NA,NA
+Caribbean,Dendrophylax,macrocarpa,Vulnerable,0.101666667,0.040666667,0.101666667,NA,NA,NA,-0.081989247,NA,NA,NA,NA
+Caribbean,Dilomilis,bissei,Vulnerable,0.033888889,0.042361111,0.033888889,0.025,NA,0.017732558,NA,NA,NA,NA,NA
+Caribbean,Dilomilis,scirpoidea,Vulnerable,0.01037415,0.041077441,0.01037415,0.029901961,0.068693694,0.080263158,0.00736715,NA,NA,NA,NA
+Caribbean,Domingoa,nodosa,Vulnerable,NA,NA,NA,0.017528736,0.050833333,0.01882716,0.039102564,NA,NA,NA,NA
+Caribbean,Eltropectris,calcarata,Vulnerable,NA,NA,NA,0.025416667,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Encyclia,grisebachia,Vulnerable,0.072619048,0.063541667,0.072619048,0.037195122,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Epidendrum,bahorucense,Vulnerable,0.056481481,0.093846154,0.056481481,0.050833333,0.046212121,NA,NA,NA,NA,NA,NA
+Caribbean,Epidendrum,crenulifforme,Vulnerable,0.039102564,0.011821705,0.039102564,0.009591195,0.052586207,0.080263158,0.056481481,NA,NA,NA,NA
+Caribbean,Epidendrum,dodii,Vulnerable,0.026754386,0.059803922,0.026754386,NA,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Epidendrum,zanonii,Vulnerable,0.056481481,0.207954545,0.056481481,0.046212121,0.101666667,0.026068376,0.056481481,NA,NA,NA,NA
+Caribbean,Eurystyles,alticola,Vulnerable,0.072619048,0.035057471,0.072619048,NA,0.101666667,0.050833333,NA,NA,NA,NA,NA
+Caribbean,Lepanthes,cassicula,Vulnerable,0.036309524,0.016464238,0.036309524,0.056481481,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Lepanthes,constanzae,Vulnerable,0.169444444,0.162666667,0.169444444,0.169444444,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Lepanthes,cryptantha,Vulnerable,0.101666667,0.094573643,0.101666667,NA,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Lepanthes,domingensis,Vulnerable,0.043571429,0.051346801,0.043571429,NA,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Lepanthes,eltoroensis,Vulnerable,0.127083333,0.065591398,0.127083333,NA,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Lepanthes,rudipetala,Vulnerable,0.082751938,0.082751938,0.082751938,0.046212121,NA,0.072619048,NA,NA,NA,NA,NA
+Caribbean,Lepanthes,teretipetala,Vulnerable,0.056481481,0.033888889,0.056481481,0.169444444,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Lepanthopsis,aristata,Vulnerable,NA,NA,NA,NA,NA,0.046212121,0.101666667,NA,NA,NA,NA
+Caribbean,Lepanthopsis,atrosetifera,Vulnerable,NA,NA,NA,NA,NA,NA,0.117307692,NA,NA,NA,NA
+Caribbean,Lepanthopsis,moniliformis,Vulnerable,0.046212121,0.029901961,0.046212121,NA,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Lepanthopsis,stellaris,Vulnerable,NA,NA,NA,NA,NA,NA,0.056481481,NA,NA,NA,NA
+Caribbean,Ornithidium,donaldeedodii,Vulnerable,0.046212121,0.040184453,0.046212121,0.013034188,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Pleurothallis,alainii,Vulnerable,0.046212121,0.070114943,0.046212121,0.072619048,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Pleurothallis,ciliifera,Vulnerable,NA,NA,NA,NA,0.101666667,0.026754386,NA,NA,NA,NA,NA
+Caribbean,Pleurothallis,cymbiformis,Vulnerable,NA,NA,NA,0.046212121,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Pleurothallis,Jesupii,Vulnerable,0.029901961,0.026406926,0.029901961,NA,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Pleurothallis,miguelii,Vulnerable,0.072619048,0.254166667,0.072619048,0.117307692,0.169444444,0.072619048,0.101666667,NA,NA,NA,NA
+Caribbean,Pleurothallis,spiloporphyrea,Vulnerable,0.026754386,0.047286822,0.026754386,0.101666667,NA,0.022101449,NA,NA,NA,NA,NA
+Caribbean,Psychilis,dodii,Vulnerable,0.084722222,0.070601852,0.084722222,NA,0.049193548,0.06469697,0.117307692,NA,NA,NA,NA
+Caribbean,Psychilis,domingensis,Vulnerable,0.067138365,0.125128205,0.067138365,0.096825397,NA,NA,0.106135531,NA,NA,NA,NA
+Caribbean,Psychilis,rubeniana,Vulnerable,0.190625,0.046743295,0.190625,0.066304348,NA,NA,0.046212121,NA,NA,NA,NA
+Caribbean,Psychilis,truncata tubichila,Vulnerable,0.101666667,0.116666667,0.101666667,0.112962963,NA,NA,0.084722222,NA,NA,NA,NA
+Caribbean,Psychilis,vernicosa,Vulnerable,0.145238095,0.057116105,0.145238095,0.020333333,NA,NA,0.016397849,NA,NA,NA,NA
+Caribbean,Quisqueya,karstii,Vulnerable,0.169444444,0.040666667,0.169444444,0.032446809,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Quisqueya,rosea,Vulnerable,NA,NA,NA,0.072619048,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Tetramicra,zanonii,Vulnerable,NA,NA,NA,NA,NA,0.01882716,NA,NA,NA,NA,NA
+Caribbean,Tolumnia,arizajuliana,Vulnerable,NA,NA,NA,0.016397849,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Tolumnia,caribensis,Vulnerable,0.072619048,0.031770833,0.072619048,0.056481481,NA,0.072619048,0.033888889,NA,NA,NA,NA
+Caribbean,Tolumnia,gundlachii,Vulnerable,0.084722222,0.038510101,0.084722222,0.029901961,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Tolumnia,henekenii,Vulnerable,0.101666667,NA,0.101666667,0.024206349,0.056481481,0.033888889,NA,NA,NA,NA,NA
+Caribbean,Tolumnia,tuerckheimii,Vulnerable,0.01882716,0.072619048,0.01882716,0.068693694,0.072619048,0.07570922,NA,NA,NA,NA,NA
+Caribbean,Tolumnia,usneoides,Vulnerable,0.056481481,0.127083333,0.056481481,0.112962963,0.029901961,0.110507246,NA,NA,NA,NA,NA
+Caribbean,trichopilia,fragrans,Vulnerable,0.084722222,0.026068376,0.084722222,0.016397849,0.063541667,0.025847458,0.087643678,NA,NA,NA,NA
+Vietnam,Paphiopedilum,maliponse Var. Malipoense,Vulnerable,0.217857143,0.134558824,0.217857143,0.141966967,0.088405797,0.092424242,NA,NA,NA,NA,NA
+Vietnam,Paphiopedilum,micranthum,Vulnerable,0.140602837,0.222395833,0.140602837,0.196774194,0.124259259,0.178246753,0.056481481,NA,NA,NA,NA
+Vietnam,Paphiopedilum,emersonii,Vulnerable,NA,NA,NA,NA,0.101666667,NA,0.056481481,NA,NA,NA,NA
+Vietnam,Paphiopedilum,barbiherum Var. Lockianum,Vulnerable,NA,NA,NA,NA,0.039102564,NA,0.050833333,NA,NA,NA,NA
+Vietnam,Paphiopedilum,tranlienianum,Vulnerable,NA,NA,NA,0.031770833,NA,0.013377193,0.056481481,NA,NA,NA,NA
+Vietnam,Paphiopedilum,helenae,Vulnerable,0.169444444,0.171122112,0.169444444,NA,0.072619048,0.101666667,0.046212121,NA,NA,NA,NA
+Vietnam,Paphiopedilum,henryanum,Vulnerable,0.04765625,0.022262774,0.04765625,0.01452381,0.025416667,0.038125,NA,NA,NA,NA,NA
+Vietnam,Paphiopedilum,gratrixianum,Vulnerable,0.011296296,0.020962199,0.011296296,0.036683849,0.039102564,0.012398374,0.046212121,NA,NA,NA,NA
+Vietnam,Paphiopedilum,callosum,Vulnerable,0.089705882,0.078205128,0.089705882,0.098099415,0.056481481,0.139975845,NA,NA,NA,NA,NA
+Vietnam,Paphiopedilum,purpuratum,Vulnerable,0.164230769,0.079427083,0.164230769,0.069032922,0.07570922,0.072619048,NA,NA,NA,NA,NA
+Vietnam,Paphiopedilum,aspersum,Vulnerable,0.084722222,0.084722222,0.084722222,0.029901961,NA,NA,NA,NA,NA,NA,NA
+Australia,Arachnorchis,argocalla,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.029901961,NA,NA
+Australia,Arachnorchis,audassi,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.039102564,0.063541667,0.072619048
+Australia,Arachnorchis,behrii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.072619048,0.039102564,0.063541667
+Australia,Arachnorchis,clavigera,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,NA,0.056481481,0.061
+Australia,Prasophyllum,fosteri,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.039102564,0.026754386,0.046212121
+Australia,Prasophyllum,affine,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.033888889,0.089705882,0.072619048
+Australia,Prasophyllum,amoenum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.01037415,0.039102564,0.042361111
+Australia,Prasophyllum,australe,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.117307692,0.080263158
+Australia,Prasophyllum,campestre,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.008615819,0.033888889,0.072619048
+Australia,Prasophyllum,castaneum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.006434599,0.026754386,0.036309524
+Australia,Prasophyllum,constrictum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.00736715,0.063541667,0.063541667
+Australia,Prasophyllum,exilis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.013034188,0.008615819,0.061
+Australia,Prasophyllum,goldsackii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.056481481,0.072619048,0.029901961
+Australia,Prasophyllum,litorale,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.063541667,0.066304348,0.039102564
+Australia,Prasophyllum,milfordense,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.033888889,0.033888889,0.029901961
+Australia,Prasophyllum,occultans,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.039102564,0.050833333
+Australia,Prasophyllum,pallidum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.039102564,0.050833333
+Australia,Prasophyllum,perangustum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.008615819,0.052586207,0.039102564
+Australia,Prasophyllum,pruinosum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.006434599,0.033888889,0.033888889
+Australia,Prasophyllum,pulchellum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.000848637,0.039102564,0.039102564
+Australia,Prasophyllum,retroflexum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.039102564,0.029901961
+Australia,Prasophyllum,robustum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.00513468,0.042361111,0.042361111
+Australia,Prasophyllum,spicatum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.046212121,0.089705882
+Australia,Prasophyllum,stellatum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.006434599,0.024206349,0.039102564
+Australia,Prasophyllum,suaveolens,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.035465116,0.101666667,0.101666667
+Australia,Prasophyllum,tadgellianum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.031122449,0.01037415,0.00571161
+Australia,Prasophyllum,taphanyx,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.01037415,0.036309524,0.017528736
+Australia,Prasophyllum,tunbridgense,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.029901961,0.022101449,0.072619048
+Australia,Prasophyllum,wallum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.046212121,0.033888889
+Vietnam,Paphiopedilum,vietnamense,Vulnerable,0.046212121,0.055454545,0.046212121,0.046212121,0.117307692,0.033888889,0.096825397,NA,NA,NA,NA
+Australia,Acianthus,ledwardii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.154710145,0.00513468,0.006434599,0.00513468
+Australia,Arachnorchis,cardiochila,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.254166667,0.008615819,0.029901961,0.050833333
+Australia,Corunastylis,nudiscapa,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.01882716,0.033888889,0.013034188
+Australia,Diuris,bracteata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.145238095,0.046212121,NA,0.084722222
+Caribbean,Broughtonia,sanguinea,Not Threatened,0.117307692,NA,0.117307692,NA,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Camaridium,micranthum,Not Threatened,0.046212121,0.027477477,0.046212121,0.080263158,0.094135802,0.075957854,0.039102564,NA,NA,NA,NA
+Caribbean,Campylocentrum,fasciola,Not Threatened,0.084722222,0.121031746,0.084722222,0.084722222,NA,0.020333333,0.101666667,NA,NA,NA,NA
+Caribbean,Campylocentrum,jamaicense,Not Threatened,NA,NA,NA,0.043930041,0.029901961,0.101666667,NA,NA,NA,NA,NA
+Caribbean,Campylocentrum,poeppigii,Not Threatened,0.026754386,0.084722222,0.026754386,0.046212121,0.096171171,0.096171171,NA,NA,NA,NA,NA
+Caribbean,Catasetum,integerrimum,Not Threatened,0.261868687,0.150617284,0.261868687,0.127083333,0.072619048,0.046212121,NA,NA,NA,NA,NA
+Caribbean,Cyrtopodium,punctatum,Not Threatened,0.127083333,0.175961538,0.127083333,0.180376344,NA,NA,0.084722222,NA,NA,NA,NA
+Caribbean,Encyclia,cajabanensis,Not Threatened,NA,0.069318182,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Epidendrum,ackermanii,Not Threatened,0.063541667,0.029901961,0.063541667,0.024206349,0.033888889,0.029901961,0.056481481,NA,NA,NA,NA
+Caribbean,Epidendrum,amphistomum,Not Threatened,0.169444444,0.145238095,0.169444444,0.084722222,0.132166667,0.132608696,0.103549383,NA,NA,NA,NA
+Caribbean,Epidendrum,anceps,Not Threatened,0.101666667,0.254166667,0.101666667,0.094774011,0.1525,0.184848485,0.101666667,NA,NA,NA,NA
+Caribbean,Epidendrum,angustilobum,Not Threatened,0.127083333,0.058513189,0.127083333,0.039869281,0.056481481,0.053109453,0.072619048,NA,NA,NA,NA
+Caribbean,Epidendrum,boricuarum,Not Threatened,0.217857143,0.104273504,0.217857143,0.046212121,0.083457711,0.112962963,NA,NA,NA,NA,NA
+Caribbean,Epidendrum,boricuomutelianum,Not Threatened,0.169444444,0.056481481,0.169444444,0.026754386,NA,0.046212121,0.039102564,NA,NA,NA,NA
+Caribbean,Epidendrum,caribiorum,Not Threatened,0.084722222,0.04937454,0.084722222,0.061,0.025416667,0.039102564,0.101666667,NA,NA,NA,NA
+Caribbean,Epidendrum,ciliare,Not Threatened,0.134386973,0.079074074,0.134386973,0.06517094,0.089705882,0.087643678,0.067777778,NA,NA,NA,NA
+Caribbean,Epidendrum,diffusum,Not Threatened,0.1525,0.102693603,0.1525,0.06407563,0.056481481,0.026754386,0.026754386,NA,NA,NA,NA
+Caribbean,Epidendrum,floridense,Not Threatened,0.127083333,0.069318182,0.127083333,0.169444444,0.175606061,0.145238095,0.049193548,NA,NA,NA,NA
+Caribbean,Epidendrum,nocturnum,Not Threatened,NA,NA,NA,0.147580645,0.05056719,0.169444444,0.043571429,NA,NA,NA,NA
+Caribbean,Epidendrum,orientale,Not Threatened,0.169444444,0.072619048,0.169444444,0.101666667,0.024206349,0.066304348,0.101666667,NA,NA,NA,NA
+Caribbean,Epidendrum,radicans,Not Threatened,0.050833333,0.030348259,0.050833333,NA,0.117307692,0.063541667,0.106395349,NA,NA,NA,NA
+Caribbean,Epidendrum,ramosum,Not Threatened,0.169444444,0.1525,0.169444444,0.084722222,0.101666667,0.101666667,0.101666667,NA,NA,NA,NA
+Caribbean,Epidendrum,repens,Not Threatened,0.031770833,0.058373206,0.031770833,0.046212121,0.072619048,0.024206349,0.101666667,NA,NA,NA,NA
+Caribbean,Epidendrum,rigidum,Not Threatened,NA,NA,NA,0.046212121,0.120151515,0.118378995,0.039102564,NA,NA,NA,NA
+Caribbean,Epidendrum,rivulare,Not Threatened,0.072619048,0.058653846,0.072619048,0.033888889,0.029901961,0.063541667,0.072619048,NA,NA,NA,NA
+Caribbean,Epidendrum,serrulatum,Not Threatened,NA,NA,NA,0.070780591,0.084722222,0.040900383,NA,NA,NA,NA,NA
+Caribbean,Epidendrum,strobiliferum,Not Threatened,0.13377193,0.065066667,0.13377193,0.031378601,0.056481481,0.065591398,NA,NA,NA,NA,NA
+Caribbean,Epidendrum,verrucosum,Not Threatened,0.039102564,0.018154762,0.039102564,0.01540404,NA,NA,0.024206349,NA,NA,NA,NA
+Caribbean,Epidendrum,vincentinum,Not Threatened,0.240789474,0.010590278,0.240789474,0.075,0.124259259,0.031770833,0.111585366,NA,NA,NA,NA
+Caribbean,Eulophia,alta,Not Threatened,0.154710145,0.155216285,0.154710145,0.101666667,NA,NA,0.046212121,NA,NA,NA,NA
+Caribbean,Habberia,alata,Not Threatened,0.101666667,0.127083333,0.101666667,0.072619048,NA,NA,0.046212121,NA,NA,NA,NA
+Caribbean,Habberia,eustachya,Not Threatened,0.117307692,0.072619048,0.117307692,0.169444444,0.169444444,0.094135802,NA,NA,NA,NA,NA
+Caribbean,Habberia,floribunda,Not Threatened,0.056481481,0.1525,0.056481481,0.089705882,0.072619048,0.169444444,NA,NA,NA,NA,NA
+Caribbean,Habberia,monorrhiza,Not Threatened,0.072619048,0.096825397,0.072619048,0.046212121,NA,NA,0.056481481,NA,NA,NA,NA
+Caribbean,Habberia,quinqueseta,Not Threatened,0.049193548,0.073493976,0.049193548,0.110507246,NA,0.060310734,NA,NA,NA,NA,NA
+Caribbean,Habberia,repens,Not Threatened,0.039102564,0.067777778,0.039102564,0.033888889,NA,0.026754386,NA,NA,NA,NA,NA
+Caribbean,Hapalorchis,lineatus,Not Threatened,0.072619048,0.117307692,0.072619048,0.077020202,0.046212121,0.089705882,0.101666667,NA,NA,NA,NA
+Caribbean,Ionopsis,satyrioides,Not Threatened,0.084722222,0.141860465,0.084722222,0.117307692,0.169444444,0.169444444,0.056481481,NA,NA,NA,NA
+Caribbean,Ionopsis,utricularioides,Not Threatened,0.101666667,0.162666667,0.101666667,0.101666667,0.154710145,0.13377193,0.072619048,NA,NA,NA,NA
+Caribbean,Isochilus,linearis,Not Threatened,0.101666667,0.162666667,0.101666667,0.145238095,0.217857143,0.127083333,0.110507246,NA,NA,NA,NA
+Caribbean,Jacquiniella,globosa,Not Threatened,NA,NA,NA,0.029901961,NA,0.01037415,0.024206349,NA,NA,NA,NA
+Caribbean,Jacquiniella,teretifolia,Not Threatened,0.127083333,0.133333333,0.127083333,0.091666667,0.013738739,0.022344322,0.016397849,NA,NA,NA,NA
+Caribbean,Leochilus,labiatus,Not Threatened,0.127083333,0.193650794,0.127083333,0.195512821,0.127083333,0.169444444,0.217857143,NA,NA,NA,NA
+Caribbean,Leochilus,puertoricensis,Not Threatened,0.127083333,0.193650794,0.127083333,0.145238095,0.101666667,0.195512821,0.101666667,NA,NA,NA,NA
+Caribbean,Lepanthes,rubripetala,Not Threatened,NA,NA,NA,0.046212121,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Lepanthes,selenitepala (ackermanii),Not Threatened,0.033888889,NA,0.033888889,NA,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Lepanthes,woodburyana,Not Threatened,0.127083333,0.081333333,0.127083333,NA,NA,0.101666667,NA,NA,NA,NA,NA
+Caribbean,Lepanthopsis,barahonensis,Not Threatened,NA,NA,NA,NA,NA,NA,-0.056481481,NA,NA,NA,NA
+Caribbean,Liparis,nervosa,Not Threatened,0.101666667,0.145238095,0.101666667,0.066304348,NA,NA,0.101666667,NA,NA,NA,NA
+Caribbean,Malaxis,massonii,Not Threatened,NA,NA,NA,0.072619048,0.046212121,0.063541667,NA,NA,NA,NA,NA
+Caribbean,Malaxis,spicata,Not Threatened,0.072619048,0.01918239,0.072619048,0.101666667,NA,0.063541667,-0.033888889,NA,NA,NA,NA
+Caribbean,Microchilus,familiaris,Not Threatened,NA,NA,NA,NA,NA,0.025416667,NA,NA,NA,NA,NA
+Caribbean,Microchilus,hirtellus,Not Threatened,NA,NA,NA,NA,NA,0.127083333,NA,NA,NA,NA,NA
+Caribbean,Microchilus,plantagineus,Not Threatened,0.127083333,0.09037037,0.127083333,0.084722222,NA,0.127083333,0.072619048,NA,NA,NA,NA
+Caribbean,Mormolyca,pudica,Not Threatened,0.039102564,0.023106061,0.039102564,NA,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Myrmecophila,thomsoniana,Not Threatened,0.094135802,0.102808989,0.094135802,0.072619048,0.111197917,0.035057471,0.017528736,NA,NA,NA,NA
+Caribbean,Myrmecophila,thomsoniana minor,Not Threatened,0.049836601,0.043727599,0.049836601,0.110507246,0.040666667,0.054464286,0.01882716,NA,NA,NA,NA
+Caribbean,Oeceoclades,maculata,Not Threatened,0.101666667,0.184848485,0.101666667,0.138636364,NA,NA,0.056481481,NA,NA,NA,NA
+Caribbean,Oncidium,altissimum,Not Threatened,0.084722222,0.032275132,0.084722222,0.036309524,NA,0.039102564,0.066304348,NA,NA,NA,NA
+Caribbean,Ornithidium,coccieum,Not Threatened,0.046212121,0.025416667,0.046212121,NA,0.072619048,0.033888889,NA,NA,NA,NA,NA
+Caribbean,Pelexia,adnata,Not Threatened,0.072619048,0.050833333,0.072619048,NA,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Phaius,tancarvilleae,Not Threatened,0.046212121,0.111505376,0.046212121,0.13377193,0.085822511,0.087643678,NA,NA,NA,NA,NA
+Caribbean,Platythelys,querceticola,Not Threatened,0.217857143,0.117307692,0.217857143,0.101666667,NA,0.084722222,NA,NA,NA,NA,NA
+Caribbean,Pleurothallis,angustifolia,Not Threatened,0.046212121,0.070114943,0.046212121,0.056481481,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Pleurothallis,cordniculata,Not Threatened,0.046212121,0.162666667,0.046212121,0.101666667,0.072619048,0.050833333,0.033888889,NA,NA,NA,NA
+Caribbean,Pleurothallis,domingensis,Not Threatened,0.033888889,0.156410256,0.033888889,0.033888889,0.101666667,0.039102564,NA,NA,NA,NA,NA
+Caribbean,Pleurothallis,pruinosa,Not Threatened,0.217857143,0.138636364,0.217857143,0.138636364,0.111585366,0.107828283,0.072619048,NA,NA,NA,NA
+Caribbean,Pleurothallis,pubescens,Not Threatened,0.066304348,0.157622739,0.066304348,0.072619048,0.056481481,0.066304348,0.101666667,NA,NA,NA,NA
+Caribbean,Pleurothallis,quadrifida,Not Threatened,0.033888889,0.075308642,0.033888889,0.046212121,0.101666667,0.056481481,NA,NA,NA,NA,NA
+Caribbean,Pleurothallis,ruscifolia,Not Threatened,0.101666667,0.214035088,0.101666667,0.209313725,0.056481481,0.101666667,NA,NA,NA,NA,NA
+Caribbean,Pleurothallis,schaferi,Not Threatened,0.066304348,0.12248996,0.066304348,0.046212121,0.022761194,NA,NA,NA,NA,NA,NA
+Caribbean,Pleurothallis,sertularioides,Not Threatened,0.046212121,0.112962963,0.046212121,0.089705882,0.169444444,0.13377193,0.072619048,NA,NA,NA,NA
+Caribbean,Pleurothallis,uncinata,Not Threatened,NA,NA,NA,0.039102564,NA,0.056481481,NA,NA,NA,NA,NA
+Caribbean,Polystachya,concreta,Not Threatened,0.127083333,0.132608696,0.127083333,0.101666667,NA,0.127083333,0.101666667,NA,NA,NA,NA
+Caribbean,Polystachya,foliosa,Not Threatened,0.169444444,0.112962963,0.169444444,NA,NA,0.101666667,NA,NA,NA,NA,NA
+Caribbean,Ponthieva,racemosa,Not Threatened,0.101666667,0.169444444,0.101666667,0.169444444,0.084722222,0.084722222,0.056481481,NA,NA,NA,NA
+Caribbean,Ponthieva,ventricosa,Not Threatened,0.072619048,0.196774194,0.072619048,0.066304348,NA,0.089705882,NA,NA,NA,NA,NA
+Caribbean,Prescottia,oligantha,Not Threatened,NA,NA,NA,0.101666667,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Prescottia,stachyodes,Not Threatened,NA,NA,NA,0.169444444,NA,0.209313725,0.041216216,NA,NA,NA,NA
+Caribbean,Prosthechea,boothiana,Not Threatened,NA,NA,NA,0.032446809,NA,0.039102564,0.039102564,NA,NA,NA,NA
+Caribbean,Prosthechea,cochleata,Not Threatened,0.101666667,0.154040404,0.101666667,0.11380597,0.112962963,0.157758621,0.072619048,NA,NA,NA,NA
+Caribbean,Prosthechea,fragrans,Not Threatened,0.089705882,0.1525,0.089705882,0.127083333,NA,NA,0.101666667,NA,NA,NA,NA
+Caribbean,Prosthechea,fuertesii,Not Threatened,0.080263158,0.111415525,0.080263158,0.18597561,0.066304348,0.131790123,0.061,NA,NA,NA,NA
+Caribbean,Prosthechea,pygmaea,Not Threatened,0.026754386,0.127083333,0.026754386,0.056481481,NA,NA,0.072619048,NA,NA,NA,NA
+Caribbean,Psychilis,atropurpurea,Not Threatened,0.223666667,0.074754902,0.223666667,0.048412698,NA,NA,0.033888889,NA,NA,NA,NA
+Caribbean,Psychilis,krugii,Not Threatened,NA,NA,NA,NA,NA,NA,0.101666667,NA,NA,NA,NA
+Caribbean,Psychilis,macconnelliae,Not Threatened,0.138636364,0.042361111,0.138636364,0.072619048,0.169444444,0.084722222,0.145238095,NA,NA,NA,NA
+Caribbean,Psychilis,monensis,Not Threatened,0.056481481,0.041496599,0.056481481,0.033888889,0.101666667,0.050833333,0.024206349,NA,NA,NA,NA
+Caribbean,Sacoila,lanceolata,Not Threatened,NA,NA,NA,0.147580645,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Spathoglottis,plicata,Not Threatened,0.127083333,0.150617284,0.127083333,0.089705882,NA,NA,0.061,NA,NA,NA,NA
+Caribbean,Spiranthes,torta,Not Threatened,0.072619048,0.187280702,0.072619048,NA,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Tolumnia,compressicaulis,Not Threatened,0.056481481,-0.052136752,0.056481481,0.096171171,0.064272031,0.037935323,NA,NA,NA,NA,NA
+Caribbean,Tolumnia,guianensis,Not Threatened,0.101666667,0.084722222,0.101666667,0.056481481,NA,0.106395349,NA,NA,NA,NA,NA
+Caribbean,Tolumnia,pulchella,Not Threatened,NA,NA,NA,0.127083333,0.058653846,0.037195122,NA,NA,NA,NA,NA
+Caribbean,Tolumnia,scandens,Not Threatened,0.101666667,0.112962963,0.101666667,0.020333333,0.153682171,0.169444444,0.046212121,NA,NA,NA,NA
+Caribbean,Tolumnia,triquetra,Not Threatened,0.117307692,0.039102564,0.117307692,0.063541667,NA,0.046212121,NA,NA,NA,NA,NA
+Caribbean,Tolumnia,variegata,Not Threatened,0.338888889,0.317708333,0.338888889,0.192816092,0.217857143,0.154710145,0.145238095,NA,NA,NA,NA
+Caribbean,Trichocentrum,undulatum,Not Threatened,0.050833333,0.01540404,0.050833333,0.056481481,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Triphora,surinamensis,Not Threatened,0.101666667,0.027477477,0.101666667,0.046212121,NA,NA,0.112962963,NA,NA,NA,NA
+Caribbean,Vanilla,barbellata,Not Threatened,0.072619048,0.046212121,0.072619048,0.072619048,NA,NA,0.09077381,NA,NA,NA,NA
+Caribbean,Vanilla,bicolor,Not Threatened,0.237222222,0.057330827,0.237222222,0.039869281,0.101666667,0.017528736,0.070601852,NA,NA,NA,NA
+Caribbean,Vanilla,claviculata,Not Threatened,0.066304348,0.079427083,0.066304348,NA,NA,NA,0.046212121,NA,NA,NA,NA
+Caribbean,Vanilla,dilloniana,Not Threatened,0.101666667,0.026260763,0.101666667,0.050274725,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Vanilla,mexicana,Not Threatened,NA,NA,NA,NA,NA,NA,0.056481481,NA,NA,NA,NA
+Caribbean,Vanilla,planifolia,Not Threatened,NA,NA,NA,NA,NA,NA,0.039102564,NA,NA,NA,NA
+Caribbean,Vanilla,poitaei,Not Threatened,0.042361111,0.030257937,0.042361111,NA,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Vanilla,pompona,Not Threatened,0.169444444,NA,0.169444444,NA,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Wullschlaegelia,aphylla,Not Threatened,0.056481481,0.277272727,0.056481481,0.217857143,0.160526316,0.127083333,NA,NA,NA,NA,NA
+Caribbean,Zeuxine,strateumatica,Not Threatened,0.101666667,0.169444444,0.101666667,0.101666667,0.169444444,NA,0.072619048,NA,NA,NA,NA
+Caribbean,Basiphyllaea,corallicola,Vulnerable,0.127083333,0.158854167,0.127083333,0.111585366,0.046212121,0.127083333,NA,NA,NA,NA,NA
+Caribbean,Bletia,patula,Vulnerable,0.151741294,0.063541667,0.151741294,0.101666667,0.111585366,0.075,0.110507246,NA,NA,NA,NA
+Caribbean,Campylocentrum,pygmaeum,Vulnerable,0.084722222,0.121031746,0.084722222,NA,0.1525,0.154710145,0.169444444,NA,NA,NA,NA
+Caribbean,Encyclia,bocourtii,Vulnerable,0.039102564,0.029468599,0.039102564,NA,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Encyclia,phoenicea,Vulnerable,0.169444444,0.139269406,0.169444444,0.124259259,NA,0.120532646,0.079074074,NA,NA,NA,NA
+Caribbean,Lankesterella,alainii,Vulnerable,0.169444444,0.168508287,0.169444444,0.092424242,0.130714286,0.052586207,NA,NA,NA,NA,NA
+Caribbean,Lankesterella,glandula,Vulnerable,0.056481481,0.115530303,0.056481481,NA,0.016397849,0.049193548,0.056481481,NA,NA,NA,NA
+Caribbean,Lepanthopsis,microlepanthes,Vulnerable,NA,NA,NA,NA,NA,NA,0.169444444,NA,NA,NA,NA
+Caribbean,Ponthieva,brittoniae,Vulnerable,0.101666667,0.119607843,0.101666667,0.063541667,NA,NA,0.10489418,NA,NA,NA,NA
+Caribbean,Quisqueya,ekmanii,Vulnerable,0.084722222,0.128228228,0.084722222,0.029901961,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Sudamerlycaste,pegueroi,Vulnerable,0.157758621,0.1278826,0.157758621,0.043930041,NA,NA,0.056481481,NA,NA,NA,NA
+Australia,Acianthus,collinus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.217857143,0.056481481,0.039102564,0.022101449
+Australia,Arachnorchis,cruciformis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.072619048,0.046212121,0.042361111
+Australia,Arachnorchis,magnifica,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.072619048,0.056481481,0.050833333
+Australia,Arachnorchis,pilotensis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.033888889,0.080263158,0.072619048
+Australia,Arachnorchis,toxochila,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.217857143,0.169444444,0.046212121,0.046212121
+Australia,Chiloglottis,seminuda,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.138636364,0.046212121,0.066304348,0.056481481
+Australia,Cryptostylis,erecta,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.231060606,0.072619048,0.101666667,0.101666667
+Australia,Prasophyllum,fecundum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.046212121,0.056481481
+Australia,Prasophyllum,fitzgeraldii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.039102564,0.050833333
+Australia,Prasophyllum,incopositum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.006434599,0.050833333
+Australia,Prasophyllum,morganii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.01037415,0.008615819,0.009242424
+Australia,Prasophyllum,subbisectum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.008615819,0.056481481
+Australia,Pterostylis,baptisii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,NA,0.046212121,0.050833333
+Caribbean,Pleurothallis,lanceola,Vulnerable,0.039102564,0.099186992,0.039102564,0.056481481,0.056481481,0.042361111,NA,NA,NA,NA,NA
+Caribbean,Psychilis,olivacea,Vulnerable,0.127083333,0.046212121,0.127083333,0.032795699,NA,NA,0.039102564,NA,NA,NA,NA
+Caribbean,Tolumnia,guibertiana,Not Threatened,0.056481481,0.072619048,0.056481481,0.078205128,0.180376344,0.127083333,0.072619048,NA,NA,NA,NA
+Caribbean,Tolumnia,lucayana,Vulnerable,0.117307692,0.108928571,0.117307692,0.089705882,0.056481481,0.046212121,NA,NA,NA,NA,NA
+Caribbean,Tolumnia,prionochila,Not Threatened,0.056481481,0.080263158,0.056481481,0.020333333,NA,0.130714286,0.101666667,NA,NA,NA,NA
+Vietnam,Paphiopedilum,villosum,Vulnerable,0.107017544,0.123381877,0.107017544,0.14906015,0.059803922,0.131790123,NA,NA,NA,NA,NA
+Australia,Arachnorchis,brownii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.046212121,0.094135802,0.145238095
+Australia,Arachnorchis,citrina,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.145238095,0.072619048,0.084722222,0.06199187
+Australia,Arachnorchis,granitora,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.138636364,0.056481481,0.042361111,0.050833333
+Australia,Arachnorchis,radiata,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.117307692,0.056481481,0.056481481
+Australia,Arachnorchis,splendens,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.231060606,0.29047619,0.096171171,0.039102564
+Australia,Oligochaetochilus,planulatus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,NA,0.039102564,0.061
+Australia,Oligochaetochilus,pusillus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.261868687,NA,0.017528736,0.039102564
+Australia,Oligochaetochilus,roensis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,NA,0.013034188,0.026754386
+Australia,Oligochaetochilus,rufus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.217857143,NA,0.056481481,0.072619048
+Australia,Oligochaetochilus,saxicola,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.203333333,NA,0.084722222,0.072619048
+Australia,Oligochaetochilus,setifer,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,NA,0.056481481,0.029901961
+Australia,Oligochaetochilus,spathulatus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.203333333,NA,0.039102564,0.050833333
+Australia,Oligochaetochilus,squamatus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.254166667,NA,0.01037415,0.029901961
+Australia,Oligochaetochilus,validus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.001274018,NA,0.013034188,0.003197065
+Australia,Oligochaetochilus,woollsii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.195512821,NA,0.072619048,0.024206349
+Australia,Oligochaetochilus,xerophilus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.127083333,NA,0.056481481,0.029901961
+Australia,Orthrocesar,strictum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.056481481,NA,0.127083333
+Australia,Oxysepala,gadgarrensis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.127083333,NA,0.039102564,0.026754386
+Australia,Oxysepala,lewisensis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.00736715,0.072619048,0.026754386,0.013034188
+Australia,Oxysepala,schilleriana,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.169444444,0.026754386,0.013034188
+Australia,Oxysepala,shepherdii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.145238095,0.072619048,0.026754386,0.013034188
+Australia,Oxysepala,wadsworthii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.072619048,0.039102564,0.026754386
+Australia,Oxysepala,windsorensis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.063541667,0.056481481,0.056481481
+Australia,Peristylus,candidus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.248758865,0.008615819,0.006434599,0.046212121
+Australia,Petalochilus,alatus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.1726874,0.013034188,0.046212121,0.056481481
+Australia,Petalochilus,atrochulis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.231060606,0.046212121,0.01882716,0.042361111
+Australia,Petalochilus,attenuatus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.013034188,NA,0.00513468
+Australia,Petalochilus,aurantiacus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.277272727,0.013034188,0.024206349,0.026754386
+Australia,Petalochilus,campbellii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.138636364,0.008615819,0.039102564,0.042361111
+Australia,Petalochilus,carneus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.178603604,0.072619048,0.061,0.061
+Australia,Petalochilus,cleistanthus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.209313725,0.056481481,0.066304348,0.072619048
+Australia,Petalochilus,coactilis,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.145238095,0.080263158,0.050833333,0.080263158
+Australia,Petalochilus,curtisepalus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.287318841,0.039102564,0.033888889,0.039102564
+Australia,Petalochilus,fuscatus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.209313725,0.013034188,0.024206349,0.046212121
+Australia,Petalochilus,gracillimus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.117307692,0.084722222,0.072619048
+Australia,Petalochilus,hillmanii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.084722222,0.056481481,0.072619048
+Australia,Petalochilus,maritiimus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.056481481,0.078205128,0.063541667
+Australia,Petalochilus,mentiens,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.305,0.01037415,0.046212121,0.024206349
+Australia,Petalochilus,ornatus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.145238095,0.008615819,0.056481481,0.024206349
+Australia,Petalochilus,pictus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.154710145,0.072619048,0.084722222,0.089705882
+Australia,Petalochilus,porphyreus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.138636364,0.072619048,0.056481481,0.080263158
+Australia,Petalochilus,prolattus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.084722222,0.042361111,0.046212121
+Australia,Petalochilus,pusillus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.217857143,0.028773585,0.056481481,0.056481481
+Australia,Petalochilus,quadrifarius,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.072619048,0.063541667,0.063541667
+Australia,Petalochilus,sylvicola,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.117307692,NA,0.01882716,0.042361111
+Australia,Petalochilus,tonelli,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.084722222,0.063541667,0.077020202,0.089705882
+Australia,Petalochilus,vulgaris,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.209313725,0.117307692,0.078205128,0.084722222
+Australia,Petalochilus,xantholeucus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.072619048,0.039102564,0.052586207
+Australia,Phaius,amboinensis,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.254166667,0.033888889,0.056481481,0.046212121
+Australia,Pheladenia,deformis,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.254166667,0.006434599,0.046212121,0.089705882
+Australia,Phoringopsis,byrnesii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.046212121,0.01037415,0.004663609
+Australia,Phoringopsis,dockrilli,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.046212121,0.01037415,0.003657074
+Australia,Phoringopsis,lavarackiana,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.254166667,0.072619048,0.011296296,0.039102564
+Australia,Plectorrhiza,brevilabris,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.013034188,0.039102564,0.039102564
+Australia,Plectorrhiza,erecta,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.026754386,0.006434599,0.008615819
+Australia,Plectorrhiza,tridentata,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.013034188,0.006434599,0.039102564
+Australia,Plexaure,crassiuscula,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.039102564,0.039102564
+Australia,Plexaure,limenophylax,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,NA,0.056481481,0.072619048
+Australia,Plexaure,listeri,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.026754386,0.026754386
+Australia,Praecoxanthus,aphyllus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.195512821,0.039102564,0.072619048,0.121031746
+Australia,Prasophyllum,alpestre,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.101666667,0.119607843
+Australia,Prasophyllum,alpinum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.013034188,0.035465116,0.072619048
+Australia,Prasophyllum,atratum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.039102564,0.072619048,0.050833333
+Australia,Prasophyllum,barnettii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.063541667,0.052586207
+Australia,Prasophyllum,brevilabre,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.033888889,0.072619048
+Australia,Prasophyllum,brownii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.056481481,0.049193548,0.06199187
+Australia,Prasophyllum,candidum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.006434599,0.039102564,0.072619048
+Australia,Prasophyllum,caricetum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.063541667,0.101666667,0.138636364
+Australia,Prasophyllum,caudiculum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.039102564,0.026754386,0.046212121
+Australia,Prasophyllum,concinnum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.112962963,0.117307692
+Australia,Prasophyllum,crebriflorum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.039102564,0.046212121
+Australia,Prasophyllum,cyphochilum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.008615819,0.029901961,0.046212121
+Australia,Prasophyllum,dossenum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.056481481,0.046212121,0.101666667
+Australia,Prasophyllum,drummondii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.056481481,0.056481481,0.056481481
+Australia,Prasophyllum,elatum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.004271709,0.029901961
+Australia,Prasophyllum,fimbria,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.039102564,0.154710145
+Australia,Prasophyllum,flavum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.008615819,0.072619048,0.084722222
+Australia,Prasophyllum,giganteum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.089705882,0.046212121,0.080263158
+Australia,Prasophyllum,gilgai,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.039102564,0.101666667,0.042361111
+Australia,Prasophyllum,gracile,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.017528736,0.013034188,0.008615819
+Australia,Prasophyllum,hians,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.063541667,0.029901961
+Australia,Prasophyllum,hygrophilum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.046212121,0.063541667
+Australia,Prasophyllum,incurvum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.039102564,0.056481481,0.053508772
+Australia,Prasophyllum,limnetes,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.039102564,0.039102564,0.039102564
+Australia,Prasophyllum,lindleyanum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.013034188,0.008615819,0.046212121
+Australia,Prasophyllum,maccanii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.101666667,0.112962963
+Australia,Prasophyllum,macrotys,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.00513468,0.029901961
+Australia,Prasophyllum,mimulum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.117307692,0.127083333
+Australia,Prasophyllum,murfetii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.063541667,0.029901961,0.042361111
+Australia,Prasophyllum,occidentale,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.039102564,0.00736715,0.050833333
+Australia,Prasophyllum,odoratum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.033888889,0.00571161,0.066304348
+Australia,Prasophyllum,ovale,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.039102564,0.039102564
+Australia,Prasophyllum,pallens,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.022101449,0.046212121
+Australia,Prasophyllum,parviflorum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.01037415,0.008615819,0.029901961
+Australia,Prasophyllum,patents,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.01037415,0.039102564
+Australia,Prasophyllum,paulinae,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.013034188,0.033888889,0.024206349
+Australia,Prasophyllum,plumiforme,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.013034188,0.00736715,0.006434599
+Australia,Prasophyllum,raedii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.056481481,0.072619048
+Australia,Prasophyllum,rogersii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.039102564,0.026754386,0.046212121
+Australia,Prasophyllum,rostratum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.063541667,0.026754386,0.072619048
+Australia,Prasophyllum,sargentii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.089705882,0.072619048,0.056481481
+Australia,Prasophyllum,solstitium,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.029901961,0.046212121
+Australia,Prasophyllum,sphacelatum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.039102564,0.056481481
+Australia,Prasophyllum,sylvestre,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.01037415,0.101666667,0.101666667
+Australia,Prasophyllum,triangulare,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.056481481,0.00513468,0.029901961
+Australia,Prasophyllum,truncatum,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.008615819,0.033888889,0.016397849
+Australia,Pterostylis,acuminata,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.127083333,NA,0.033888889,0.033888889
+Australia,Pterostylis,alpina,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.217857143,NA,0.039102564,0.039102564
+Australia,Pterostylis,anatona,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.254166667,NA,0.063541667,0.050833333
+Australia,Pterostylis,aneba,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.459920635,NA,0.039102564,0.046212121
+Australia,Pterostylis,crassichila,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.169444444,NA,0.056481481,0.035465116
+Australia,Pterostylis,dubia,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.217857143,NA,0.008615819,0.067777778
+Australia,Pterostylis,erecta,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.169444444,NA,0.056481481,0.039102564
+Australia,Pterostylis,hildae,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.217857143,NA,0.006434599,0.042361111
+Australia,Pterostylis,lustra,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.217857143,NA,0.039102564,0.127083333
+Australia,Pterostylis,monticola,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.169444444,NA,0.063541667,0.056481481
+Australia,Pterostylis,nutans,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.294298246,NA,0.006434599,0.063541667
+Australia,Pterostylis,oblonga,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.237222222,NA,0.013034188,0.046212121
+Australia,Pterostylis,oreophila,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.217857143,NA,0.056481481,0.107828283
+Australia,Pterostylis,pedunculata,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.31155914,NA,0.046212121,0.084722222
+Australia,Pterostylis,procera,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.138636364,NA,0.056481481,0.046212121
+Australia,Pterostylis,ripidaria,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.305,NA,0.039102564,0.056481481
+Australia,Pterostylis,scabrida,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.261868687,NA,0.008615819,0.056481481
+Australia,Pterostylis,stricta,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.254166667,NA,0.006434599,0.033888889
+Australia,Pterostylis,subtilis,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.178603604,NA,0.039102564,0.056481481
+Australia,Pyrorchis,forrestii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.254166667,0.033888889,0.033888889,0.052586207
+Australia,Pyrorchis,nigricans,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.254166667,0.084722222,0.072619048,0.046212121
+Australia,Rimacola,elliptica,Not Threatened,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.046212121,0.033888889,0.046212121
+Australia,Sarcochilus,aequalis,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.084722222,0.01037415,0.01037415
+Australia,Sarcochilus,argochilus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.056481481,0.072619048
+Australia,Sarcochilus,australis,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.101666667,NA,0.127083333
+Australia,Sarcochilus,borealis,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.039102564,0.072619048,0.084722222
+Australia,Sarcochilus,ceciliae,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.008615819,NA,0.101666667
+Australia,Sarcochilus,dilatatus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.101666667,NA,0.169444444
+Australia,Sarcochilus,eriochilus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.01037415,NA,0.013034188
+Australia,Sarcochilus,falcatus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.084722222,NA,0.101666667
+Australia,Sarcochilus,fitzgeraldii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,NA,0.084722222
+Australia,Sarcochilus,hartmannii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.117307692,NA,0.101666667
+Australia,Sarcochilus,hillii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.072619048,0.056481481
+Australia,Sarcochilus,hirticalcar,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.008615819,0.00513468,0.003657074
+Australia,Sarcochilus,minutiflos,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,NA,0.006434599
+Australia,Sarcochilus,parviflorus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.063541667,0.056481481,0.072619048
+Australia,Sarcochilus,roseus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.008615819,0.008615819,0.006434599
+Australia,Sarcochilus,serrulatus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.006434599,0.006434599
+Australia,Sarcochilus,spathulatus,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.101666667,NA,0.00513468
+Australia,Sarcochilus,weinthalii,Not Threatened,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,NA,0.017528736
+Australia,Serpenticaulis,johnsonii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.072619048,0.017528736,0.072619048
+Australia,Serpenticaulis,whitei,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.101666667,0.017528736,0.046212121
+Australia,Serpenticaulis,wolfei,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.026754386,0.013034188,0.016397849
+Australia,Simpliglottis,chlorantha,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.112962963,0.101666667,0.072619048,0.020333333
+Australia,Simpliglottis,cornuta,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.084722222,0.033888889,0.072619048
+Australia,Simpliglottis,grammata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.080263158,0.089705882,0.080263158
+Australia,Simpliglottis,gunnii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.112962963,0.101666667,0.066304348
+Australia,Simpliglottis,jeanesii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.110507246,0.063541667,0.072619048,0.066304348
+Australia,Simpliglottis,pluricallata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.063541667,0.072619048,0.032446809
+Australia,Simpliglottis,triceratops,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.231060606,0.080263158,0.092424242,0.056481481
+Australia,Simpliglottis,turfosa,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.072619048,0.022101449,0.020333333
+Australia,Simpliglottis,valida,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.138636364,0.138636364,0.072619048,0.070384615
+Australia,Speculantha,aphylla,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.184848485,NA,0.026754386,0.26057423
+Australia,Speculantha,atriola,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.138636364,NA,0.017528736,0.039102564
+Australia,Speculantha,nigricans,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.282407407,NA,0.017528736,0.033888889
+Australia,Speculantha,parviflora,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.261868687,NA,0.017528736,0.033888889
+Australia,Speculantha,uliginosa,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.217857143,NA,0.017528736,0.072619048
+Australia,Spiculaea,ciliata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.195512821,0.017528736,NA,NA
+Australia,Spiranthes,australis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.145238095,0.01037415,NA,0.465070922
+Australia,Stegostyla,alpina,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.117307692,0.121031746,0.117307692
+Australia,Stegostyla,angustata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.072619048,0.050833333,0.033888889
+Australia,Stegostyla,astrata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.046212121,0.063541667,0.072619048
+Australia,Stegostyla,clarkiae,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.254166667,0.039102564,0.018373494,0.020333333
+Australia,Stegostyla,congesta,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.254166667,0.039102564,0.050833333,0.056481481
+Australia,Stegostyla,cracens,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.154710145,0.169444444,0.072619048,0.033888889
+Australia,Stegostyla,cucullata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.138636364,0.039102564,0.029901961,0.046212121
+Australia,Stegostyla,dimorpha,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.046212121,0.084722222,0.056481481
+Australia,Stegostyla,gracilis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.008615819,0.056481481,0.066304348
+Australia,Stegostyla,hildae,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.217857143,0.039102564,0.029901961,0.039102564
+Australia,Stegostyla,iridescens,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.217857143,0.039102564,0.008615819,0.046212121
+Australia,Stegostyla,praecox,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.187280702,0.072619048,0.050833333,0.039102564
+Australia,Stegostyla,testacea,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.217857143,0.046212121,-0.056481481,0.046212121
+Australia,Stegostyla,transitoria,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.101666667,0.029901961,0.046212121
+Australia,Sullivania,aff. nigrita-1,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.195512821,0.013034188,0.039102564,0.050833333
+Australia,Sullivania,aff. nigrita-2,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.066304348,0.033888889,0.033888889
+Australia,Sullivania,aff. nigrita-3,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.209313725,0.017528736,0.008615819,0.063541667
+Australia,Sullivania,brockmanii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.117307692,0.046212121,0.056481481,0.066304348
+Australia,Sullivania,disjuncta,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.013034188,0.008615819,0.049193548
+Australia,Sullivania,dixonii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.046212121,0.046212121,0.056481481
+Australia,Sullivania,linearifolia,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.013034188,0.046212121,0.063541667
+Australia,Sullivania,lyonsii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.273717949,0.056481481,0.008615819,0.050833333
+Australia,Sullivania,minor,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.254166667,0.072619048,0.072619048,0.046212121
+Australia,Sullivania,nigrita,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.254166667,0.056481481,0.033888889,0.066304348
+Australia,Sullivania,terminalis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.013034188,0.026754386,0.050833333
+Australia,Sullivania,triens,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.209313725,0.013034188,0.024206349,0.066304348
+Australia,Tetrabaculum,cacatua,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.127083333,0.078205128
+Australia,Tetrabaculum,capitisyork,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.041216216,0.078205128
+Australia,Tetrabaculum,tetragonum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.072619048,0.056481481
+Australia,Thelychiton,adae,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.056481481,0.00513468,0.002839851
+Australia,Thelychiton,biconvexus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.050833333,0.046212121,0.036309524
+Australia,Thelychiton,brachypus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.013034188,0.017528736,0.006434599
+Australia,Thelychiton,capricornicus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.056481481,0.056481481
+Australia,Thelychiton,coriaceus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.056481481,0.072619048,0.092424242
+Australia,Thelychiton,curvicaulis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.050833333,0.042361111
+Australia,Thelychiton,epiphyticus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.056481481,0.042361111,0.078205128
+Australia,Thelychiton,falcorostrus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.039102564,0.000727229,0.000727229
+Australia,Thelychiton,finniganensis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.001962677,0.001821983
+Australia,Thelychiton,fleckeri,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.002554439,0.002554439
+Australia,Thelychiton,gracilicaulis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.046212121,0.033888889
+Australia,Thelychiton,howeanus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.046212121,0.033888889
+Australia,Thelychiton,jonesii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.003657074,0.003197065
+Australia,Thelychiton,kingianus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.138636364,0.056481481,0.052586207
+Australia,Thelychiton,macropus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.006434599,0.013034188,0.002554439
+Australia,Thelychiton,moorei,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.00513468,0.003197065
+Australia,Thelychiton,nitidus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.046212121,0.033888889
+Australia,Thelychiton,pedunculatus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.056481481,0.033888889,0.056481481
+Australia,Thelychiton,pulcherrimus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.084722222,0.003197065,0.001700111
+Australia,Thelychiton,rex,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.046212121,0.066304348
+Australia,Thelychiton,rupicola,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.056481481,0.026754386,0.050833333
+Australia,Thelychiton,speciosus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.066304348,0.101666667
+Australia,Thelychiton,spectabilis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.138636364,0.046212121,0.046212121
+Australia,Thelychiton,tarberi,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.127083333,0.063541667
+Australia,Thrixspermum,platystachys,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.008615819,0.002839851,0.001700111
+Australia,Thynninorchis,buntianis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.217857143,0.017528736,0.039102564,0.046212121
+Australia,Townsonia,viridis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.254166667,0.006434599,0.046212121,0.024206349
+Australia,Trachoma,speciosum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.01037415,0.013034188,0.003657074
+Australia,Trachoma,stellatum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.017528736,0.00736715,0.00513468
+Australia,Trachoma,subluteum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,NA,0.00513468,0.006434599
+Australia,Tropilis,aemula,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.046212121,0.039102564
+Australia,Tropilis,callitrophilis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.084722222,0.039102564,0.046212121
+Australia,Tropilis,crassa,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.022101449,0.039102564
+Australia,Tropilis,eburnea,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.01882716,0.039102564
+Australia,Tropilis,radiata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.039102564,0.039102564
+Australia,Urochilus,concavus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.254166667,NA,0.00571161,0.003657074
+Australia,Urochilus,sanguineus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.231060606,NA,0.00736715,0.004271709
+Australia,Urochilus,vittatus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.195512821,NA,0.008615819,0.006434599
+Australia,Vappodes,bigibba,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.050833333,0.001274018,0.001061239
+Australia,Vappodes,dicupha,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.039102564,0.004271709,0.001274018
+Australia,Vappodes,lithocola,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.039102564,0.042361111
+Caribbean,Broughtonia,ortgiesia,Vulnerable,NA,NA,NA,NA,NA,NA,0.056481481,NA,NA,NA,NA
+Caribbean,Cyclopogon,miradorensis,Vulnerable,NA,NA,NA,0.033888889,NA,NA,NA,NA,NA,NA,NA
+Caribbean,Cyrtochilum,dodianum,Vulnerable,0.127083333,0.110507246,0.127083333,0.094135802,0.127083333,0.072619048,0.026754386,NA,NA,NA,NA
+Caribbean,Epidendrum,abbottii,Vulnerable,0.072619048,0.026754386,0.072619048,0.013034188,0.00702765,0.016397849,0.063541667,NA,NA,NA,NA
+Caribbean,Neocogniauxia,hexaptera,Vulnerable,0.033888889,0.042361111,0.033888889,0.081989247,0.072619048,0.046212121,0.087643678,NA,NA,NA,NA
+Vietnam,Paphiopedilum,concolor,Vulnerable,0.084722222,0.1,0.084722222,0.063541667,0.081989247,0.059803922,0.066304348,NA,NA,NA,NA
+Vietnam,Paphiopedilum,hirsutissimum Var. esquirolei,Vulnerable,0.070780591,0.056169429,0.070780591,NA,0.153682171,0.079074074,NA,NA,NA,NA,NA
+Vietnam,Paphiopedilum,hirsutissimum Var. chiwuanum,Vulnerable,0.082751938,0.09348659,0.082751938,NA,0.056481481,0.092424242,NA,NA,NA,NA,NA
+Vietnam,Paphiopedilum,appletoniaum,Vulnerable,0.117307692,0.139694656,0.117307692,NA,NA,0.06199187,0.063541667,NA,NA,NA,NA
+Australia,Prasophyllum,secutum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.028773585,0.008615819,0.050833333
+Australia,Arachnorchis,necrophylla,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.127083333,0.063541667,0.081989247
+Australia,Arachnorchis,valida,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.039102564,0.050833333,0.056481481
+Australia,Calochilus,campestris,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.039102564,0.046212121,0.033888889
+Australia,Diuris,behrii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.217857143,0.112962963,NA,0.110507246
+Australia,Diuris,brevifolia,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.231060606,0.039102564,NA,0.056481481
+Australia,Diuris,sulphurea,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.217857143,0.092424242,NA,0.101666667
+Australia,Microtis,globula,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.013034188,0.026754386,0.013034188
+Australia,Prasophyllum,apoxychilum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.039102564,0.033888889,0.041216216
+Australia,Prasophyllum,colemaniae,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.006434599,0.00571161,0.003197065
+Australia,Prasophyllum,favonium,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.046212121,0.039102564,0.050833333
+Australia,Prasophyllum,fuscum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.039102564,0.026754386,0.029901961
+Australia,Prasophyllum,niphopedium,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.026754386,0.029901961,0.046212121
+Australia,Pterostylis,curta,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.254166667,NA,0.056481481,0.06517094
+Australia,Pterostylis,foliata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.217857143,NA,0.101666667,0.056481481
+Australia,Arachnorchis,brumalis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.217857143,0.072619048,0.033888889,0.046212121
+Australia,Arachnorchis,calcicola,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.169444444,0.089705882,0.066304348
+Australia,Arachnorchis,formosa,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.138636364,0.050833333,0.056481481
+Australia,Arachnorchis,ovata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.254166667,NA,0.039102564,0.050833333
+Australia,Arachnorchis,venusta,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.254166667,0.138636364,0.101666667,0.111585366
+Australia,Arachnorchis,versicolor,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.101666667,0.063541667,0.072619048
+Australia,Caleana,major,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,NA,0.046212121,0.052586207
+Australia,Calochilus,paludosus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.203333333,0.072619048,0.063541667,0.061
+Australia,Corunastylis,ciliata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.010815603,0.013034188,0.00736715
+Australia,Cryptostylis,subulata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.117307692,0.101666667,0.084722222,0.046212121
+Australia,Prasophyllum,bagoensis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.039102564,0.029901961,0.022101449
+Australia,Prasophyllum,olidum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.072619048,0.072619048
+Australia,Prasophyllum,petilum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.008615819,0.01037415,0.056481481
+Australia,Pterostylis,cullata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.209313725,NA,0.063541667,0.049193548
+Australia,Arachnorchis,caudata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.154710145,0.01037415,0.056481481,0.046212121
+Australia,Arachnorchis,christineae,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.117307692,0.169444444,0.046212121,0.046212121
+Australia,Arachnorchis,concolor,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.046212121,0.029901961,0.042361111
+Australia,Arachnorchis,dienema,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.266269841,0.039102564,0.112962963,0.107828283
+Australia,Arachnorchis,graniticola,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.127083333,0.101666667,0.072619048
+Australia,Arachnorchis,hastata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.084722222,0.072619048,0.046212121,0.033888889
+Australia,Arachnorchis,hoffmanii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.217857143,0.039102564,0.101666667,0.039102564
+Australia,Arachnorchis,huegelii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.209313725,0.117307692,0.107828283,0.067138365
+Australia,Arachnorchis,insularis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.072619048,0.063541667,0.066304348
+Australia,Arachnorchis,patersonii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.084722222,0.084722222,0.112962963,0.127083333
+Australia,Arachnorchis,procera,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.056481481,0.072619048,0.078205128
+Australia,Arachnorchis,pumila,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.101666667,0.101666667,-0.183,-0.183
+Australia,Arachnorchis,williamsiae,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.101666667,0.072619048,0.072619048
+Australia,Bryobium,irukandjianum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.415909091,NA,NA
+Australia,Calochilus,caeruleus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.117307692,0.046212121,0.13377193,0.033888889
+Australia,Chiloglottis,sphyrnoides,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.145238095,0.072619048,0.049193548,0.046212121
+Australia,Corunastylis,ectopa,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.01037415,0.01452381,0.033888889
+Australia,Corunastylis,nuda,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.016397849,0.026754386,0.017528736
+Australia,Corunastylis,rhyolitica,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.013034188,0.01540404,0.00736715
+Australia,Corunastylis,superba,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.008615819,0.008615819,0.003411633
+Australia,Corybas,abellianus,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,NA,NA
+Australia,Cryptostylis,hunteriana,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.354874214,0.101666667,0.072619048,0.124685535
+Australia,Diplodium,pulchellum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.217857143,NA,0.006434599,0.029901961
+Australia,Diuris,aequalis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.138636364,0.154710145,NA,0.046212121
+Australia,Diuris,drummondii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.072619048,NA,0.06517094
+Australia,Diuris,micrantha,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.084722222,NA,0.084722222
+Australia,Diuris,ochroma,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.254166667,0.063541667,NA,0.052586207
+Australia,Diuris,oporina,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.195512821,0.026754386,NA,0.033888889
+Australia,Diuris,parvipetala,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.195512821,0.050833333,NA,0.066304348
+Australia,Diuris,praecox,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.072619048,NA,0.072619048
+Australia,Diuris,tricolor,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.101666667,NA,0.101666667
+Australia,Diuris,venosa,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.305,0.195512821,NA,0.066304348
+Australia,Dockrillia,wassellii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.017528736,0.00736715,0.046212121
+Australia,Drakea,isolata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.254166667,0.033888889,0.008615819,0.056481481
+Australia,Eulophia,zollingeri,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.145238095,0.061,0.041216216,0.050833333
+Australia,Habenaria,harroldii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.254166667,0.026754386,0.029901961,0.056481481
+Australia,Habenaria,propinquior,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.00571161,NA,0.101666667
+Australia,Habenaria,rumphii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.127083333,0.008615819,0.004271709,0.036309524
+Australia,Hydrorchis,orbicularis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.013034188,0.013034188,0.01452381
+Australia,Microtis,rara,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.008615819,0.016397849,0.008615819
+Australia,Nervilia,crociformis,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,0.056481481,0.082751938,0.046212121
+Australia,Prasophyllum,calcicola,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.017528736,0.056481481
+Australia,Prasophyllum,diversiflorum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.046212121,0.101666667
+Australia,Prasophyllum,frenchii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.050833333,0.046212121,0.046212121
+Australia,Prasophyllum,incorrectum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.008615819,0.033888889,0.072619048
+Australia,Prasophyllum,montanum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.072619048,0.056481481,0.063541667
+Australia,Prasophyllum,pyriforme,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.063541667,0.029901961,0.072619048
+Australia,Prasophyllum,suttonii,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.006434599,0.006434599,0.003657074
+Australia,Prasophyllum,validum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.029901961,0.024206349,0.043571429
+Australia,Pterostylis,falcata,Vulnerable,NA,NA,NA,NA,NA,NA,NA,0.169444444,NA,0.072619048,0.077542373
+Australia,Thrixspermum,congestum,Vulnerable,NA,NA,NA,NA,NA,NA,NA,NA,0.008615819,0.013034188,0.00513468

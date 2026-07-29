@@ -8,9 +8,9 @@
 
 ## Capítulo de Transformación de Datos {.unnumbered}
 
-## Ejercicios con destrezar de aplicar algunas funciones de transformaciones de datos {.unnumbered}
+## Ejercicios con destrezas de aplicar algunas funciones de transformaciones de datos {.unnumbered}
 
-### Para tener los puntos tiene que enseñar TODOS los scripts, los resultados y explicar en palabra los que encontró dentro de un documento bien organizado. {.unnumbered}
+### Para tener los puntos tiene que enseñar TODOS los scripts, los resultados y explicar en palabras los que encontró dentro de un documento bien organizado. {.unnumbered}
 
 ```{r AA1}
 library(datos)
@@ -42,7 +42,7 @@ bateadores |> dplyr::select(id_jugador, al_bate) |>
 
 ------------------------------------------------------------------------
 
-## 2. ¿Cual es el nombre del bateador (id_jugador) que estuvo más veces "al_bate"? Prepara una lista del bateador más frecuente al bate al menos {.unnumbered}
+## 2. ¿Cuál es el nombre del bateador (id_jugador) que estuvo más veces "al_bate"? Prepara una lista del bateador más frecuente al bate al menos {.unnumbered}
 
 ```{r AA4, eval=FALSE, echo=FALSE}
 
@@ -55,7 +55,7 @@ bateadores |> select(id_jugador, al_bate) |>
 
 ------------------------------------------------------------------------
 
-## 3. ¿Cuales son las "ligas" de baseball (pelota) que estan incluida en este archivo? {.unnumbered}
+## 3. ¿Cuáles son las "ligas" de baseball (pelota) que están incluidas en este archivo? {.unnumbered}
 
 
 ```{r AA5, eval=FALSE, echo=FALSE}
@@ -67,7 +67,7 @@ unique(bateadores$id_liga)
 
 ## 4. Selecciona los años (1900, 1950, 2000 y 2020) y jonrones y hacer una tabla por año que demuestra el máximo de jonrones para cada año {.unnumbered}
 
-¿Cual fue el máximo de jonrones por año para los años selecionado? Haga una lista.
+¿Cuál fue el máximo de jonrones por año para los años seleccionados? Haga una lista.
 
 ```{r AA6, eval=FALSE, echo=FALSE}
 unique(bateadores$id_anio)
@@ -80,9 +80,9 @@ bateadores |> select(id_anio, cuadrangulares) |>
 
 ------------------------------------------------------------------------
 
-## 5. Haz una tabla de la los jugadores que juraron más años {.unnumbered}
+## 5. Haz una tabla de la los jugadores que jugaron más años {.unnumbered}
 
--   ¿Cual es el jugador que ha jugado más años?
+-   ¿Cuál es el jugador que ha jugado más años?
 
 ```{r AA7, eval=FALSE, echo=FALSE}
 bateadores |> select(id_jugador, id_anio) |> 
@@ -98,14 +98,14 @@ bateadores |>
 
 ------------------------------------------------------------------------
 
-## 6. Selecciona solamente la liga "AL", los años desde de 2000 en adelande, y determina cual es la suma de "carreras" anotadas por cada equipo. {.unnumbered}
+## 6. Selecciona solamente la liga "AL", los años desde 2000 en adelante, y determina cuál es la suma de "carreras" anotadas por cada equipo. {.unnumbered}
 
 -   a)  ¿Cual es el equipo que tiene mayor carreras?
 
 -   b)  ¿Cual es el equipo que tiene menor carreras?
 
--   c)  Como explica que ese equipo tiene tan poca carreras.
-        Piensa en un tipo de "Data wrangling", que podria explicar esto (BONO), si lo resuelve tendrá un bono
+-   c)  Como explica que ese equipo tiene tan pocas carreras.
+        Piensa en un tipo de "Data wrangling", que podría explicar esto (BONO), si lo resuelve tendrá un bono
 
 ```{r AA8, eval=FALSE, echo=FALSE}
 bateadores |> select(id_liga, id_anio, id_equipo, carreras) |> 

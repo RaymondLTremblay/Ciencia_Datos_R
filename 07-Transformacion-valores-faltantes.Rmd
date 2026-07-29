@@ -1,4 +1,4 @@
-# Transformacion: Valores Faltantes
+# Transformación: Valores Faltantes
 
 
 ```{r echo=FALSE}
@@ -20,7 +20,7 @@ library(datos)
 - NA: Not Available
 
 
-### ¿Qué pasa con los valores faltantes y resultados de anålisis sin sentido?
+### ¿Qué pasa con los valores faltantes y resultados de análisis sin sentido?
 
 ```{r TFV2}
 
@@ -48,7 +48,7 @@ NA - 3
 ```
 
 
-## Creeamos un df para aclarar estas operaciones con NA en un data frame
+## Creamos un df para aclarar estas operaciones con NA en un data frame
 
  - valores numéricos
  - variable lógica TRUE/FALSE
@@ -151,7 +151,7 @@ vuelos %>%
 
 Reemplazar los NA por "0" en el archivo de datos
 
-Cual es el problema de reemplazar los NA por 0?
+Cuál es el problema de reemplazar los NA por 0?
 
 
 ```{r TFV5}
@@ -165,7 +165,7 @@ datos_NA_df
 # reemplazar NA con 0
 
 datos_NA_df = datos_NA_df %>%
-  mutate(datos_0 = if_else(is.na(datos_NA), 99, datos_NA))
+  mutate(datos_0 = if_else(is.na(datos_NA), 0, datos_NA))
 
 
 datos_NA_df
@@ -179,9 +179,9 @@ datos_NA_df
 
 AHORA
 
-Alguin le dio un set de datos en Excel con O cuando no tenian datos
+Alguien le dio un set de datos en Excel con O cuando no tenían datos
 
-reemplace los valores de "zero" con NA con la funcion if_else de dplyr
+reemplace los valores de "zero" con NA con la función if_else de dplyr
 
 
 

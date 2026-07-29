@@ -1,4 +1,4 @@
-# Temas Avanzados en Data Science con Tidyverse
+ # Temas Avanzados en Data Science con Tidyverse
 
 ## Introducción
 Este documento presenta temas avanzados en el ecosistema **tidyverse** con ejemplos prácticos en R.
@@ -18,11 +18,37 @@ mean_by_group <- function(data, group_var, value_var) {
     group_by({{ group_var }}) %>%
     summarise(mean_value = mean({{ value_var }}, na.rm = TRUE))
 }
+mean_by_group
 
-df <- tibble(grupo = c("A", "A", "B", "B"), valor = c(10, 20, 30, 40)) # los datos
 
-mean_by_group(df, grupo, valor) # El uso de la funcón nueva
+df <- tibble(grupo = c("A", "A", "B", "B"), 
+             valor = c(10, 20, 30, 40)) # los datos
+
+mean_by_group(df, grupo, valor) # El uso de la función nueva
 ```
+
+Otro ejemplo
+
+```{r}
+dfnew= tibble(especie = c("setosa", "setosa", "versicolor", "versicolor"),
+              longitud_sepalo = c(5.1, 4.9, 7.0, 6.4))
+
+mean_by_group(dfnew, especie, longitud_sepalo)
+```
+
+
+```{r}
+mean_sd_by_group <- function(data, group_var, value_var) {
+  data %>%
+    group_by({{ group_var }}) %>%
+    summarise(sd_value = sd({{ value_var }}, na.rm = TRUE),
+              mean_value = mean({{ value_var }}, na.rm = TRUE))
+}
+
+mean_sd_by_group(dfnew, especie, longitud_sepalo)
+```
+
+
 
 ### Componentes clave:
 
@@ -55,13 +81,20 @@ mean_by_group <- function(data, group_var, value_var) { ... }
 - na.rm = TRUE elimina valores faltantes (NA) para evitar errores.
 
 
+```{r}
+datos=c(1, NA, 3:8, NA, 10:12)
+mean(datos, na.rm=TRUE)
+
+```
+
+
 ***
 
 
 ## 2. Modelado con tidymodels
 Explicación: Flujo reproducible para regresión lineal.
 
-```{r}
+```{r, echo= FALSE, eval=FALSE}
 
 library(tidymodels)
 library(ggversa)  # Suponiendo que este paquete contiene el dataset
@@ -117,7 +150,8 @@ mtcars <- mtcars %>%
 
 
 receta <- recipe(mpg ~ wt + hp+ cyl + gear, data = mtcars)
-modelo <- linear_reg() %>% set_engine("lm")
+modelo <- linear_reg() %>%
+          set_engine("lm")
 
 workflow() %>%
   add_recipe(receta) %>%
@@ -198,8 +232,8 @@ nested <- mtcars %>%
   nest()
 
 nested <- nested %>%
-  mutate(modelo = map(data, ~ lm(mpg ~ wt, data = .x)),
-         coeficientes = map(modelo, tidy))
+  mutate(modelo = purrr::map(data, ~ lm(mpg ~ wt, data = .x)),
+         coeficientes = purrr::map(modelo, tidy))
 
 nested$data
 nested$modelo

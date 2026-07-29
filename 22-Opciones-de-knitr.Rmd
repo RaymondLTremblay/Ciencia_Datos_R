@@ -7,9 +7,9 @@ Sys.Date()
 ```
 
 
-La mayoria de los ejemplos y ideas de esta seccieon proviene de **yihui** en el siguiente website <<https://yihui.org/knitr/>>
+La mayoría de los ejemplos y ideas de esta sección proviene de **yihui** en el siguiente website <<https://yihui.org/knitr/>>
 
-el paquete **knitr** fue desiñado para ser transparente para generar reporte de R, añadiendo componente de animación y Latex (Ecuaciones) y otras funciones.
+el paquete **knitr** fue diseñado para ser transparente para generar reporte de R, añadiendo componente de animación y Latex (Ecuaciones) y otras funciones.
 
 
 
@@ -24,7 +24,7 @@ Hay muchas opciones para determinar lo que hace un **chunk**
  - Code chunk: Código del chunk
  - Child Document: Documento asociados
  - Language engines: Asociación de lenguaje
- - Option Temnplate:
+ - Option Template:
  - Extracting source code:
  - Other chunk options:
  - Package Options:
@@ -57,14 +57,14 @@ opts_knit$set(eval.after = 'fig.cap')
 
 
 
-Los ejemplos aquí serán limitado a las alternativas para los documentos **.Rmd**
+Los ejemplos aquí serán limitados a las alternativas para los documentos **.Rmd**
  
  - Las opciones están escrita de forma de **tag=selección de la alternativa**.
  
  
  Opciones de bloques
  
- Se personaliza los bloques con "opeciones" **options** de los chunks.
+ Se personaliza los bloques con "opciones" **options** de los chunks.
  
  En la rueda de a la derecha de cada **chunk** hay opciones para seleccionar opciones.
  
@@ -86,7 +86,7 @@ Los ejemplos aquí serán limitado a las alternativas para los documentos **.Rmd
  
  
  
- - Comenzando con dandole un nombre al chunk "mi-chunk"
+ - Comenzando con dándole un nombre al chunk "mi-chunk"
 
 
 ```{r activar_tidyverse, echo=TRUE, message=FALSE}
@@ -186,7 +186,7 @@ ggplot(df, aes(letters, value, fill = letters)) +
 ***
 
 
-Figure aligment: default, left, right, and center
+Figure alignment: default, left, right, and center
 
 fig.align
 
@@ -215,7 +215,7 @@ AQUI el CHUNK
 
 ##### R Markdown wrapping
 
-codigo css
+código css
 
 <div style= "float:right;position: relative; top: -20px;">
 

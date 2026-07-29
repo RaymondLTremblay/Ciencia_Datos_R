@@ -1,6 +1,6 @@
 # Tibbles
 
-Fecha de la ultima revisión
+Fecha de la última revisión
 ```{r echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
@@ -31,7 +31,7 @@ Español:
 
  - tibble()
  
- Crear un tibble con la siguiente información.  Una columna que tiene los valores del 1 al 8 que se llama "secuencia", una segunda columna que tiene los siguientes valores 23,26, 24,26,27, 11,20,21 que se llama edad y una tercera columna con la siguiente información, Jose, Maria, Carol, Moncho, Liz, Maria, Jorge, Miguel, que ser llama Nombre 
+ Crear un tibble con la siguiente información.  Una columna que tiene los valores del 1 al 8 que se llama "secuencia", una segunda columna que tiene los siguientes valores 23,26, 24,26,27, 11,20,21 que se llama edad y una tercera columna con la siguiente información, Jose, Maria, Carol, Moncho, Liz, Maria, Jorge, Miguel, que se llama Nombre 
  
 ```{r T1}
 library(tidyverse)
@@ -52,7 +52,7 @@ tibble(
 
  - tribble()
  
- Haga un tribble con las primera 3 lineas del tibble anterior
+ Haga un tribble con las primeras 3 líneas del tibble anterior
  
 ```{r T2}
 tribble(

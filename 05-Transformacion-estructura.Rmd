@@ -1,4 +1,4 @@
-# Transformacion: Estructura de un archivo y selecionar datos
+# Transformación: Estructura de un archivo y seleccionar datos
 
 
 
@@ -28,7 +28,7 @@ head(vuelos)
 
 Mirar el archivo y entender la información antes de hacer cualquier analisis/
 
--   Cual son las variables
+-   Cuáles son las variables
 -   Cuales son. los tipos de datos
     -   **int** valores enteros,
     -   **dbl** números reales, significa dobles
@@ -36,8 +36,8 @@ Mirar el archivo y entender la información antes de hacer cualquier analisis/
     -   **dttm** fecha y tiempo, minutos
     -   **date** fecha
     -   **S3: POSIXct** Fecha y tiempo, minutos
-    -   **lgl** valores logicos "cierto" (TRUE) y "falso" (FALSE)
-    -   **fctr** factores categoricos.
+    -   **lgl** valores lógicos "cierto" (TRUE) y "falso" (FALSE)
+    -   **fctr** factores categóricos.
 
 Evalua en este archivo los tipos de variables que se encuentra.
 
@@ -54,14 +54,14 @@ sort(unique(vuelos$destino))
 
 ```
 
-### Seleciona los vuelos donde el destino es San Juan
+### Selecciona los vuelos donde el destino es San Juan
 
 ```{r TF4}
 vuelos %>%
   filter(destino=="SJU")
 ```
 
-### Selecciona los vuelos donde el destino es San Juan el dia de navidad
+### Selecciona los vuelos donde el destino es San Juan el día de navidad
 
 ```{r TF5}
 vuelos %>%
@@ -96,7 +96,7 @@ df_dia_cumpl
 -   Selecciona los mes, dia, destino, atraso_salida, atraso_llegada
 -   Selecciona solamente el mes de noviembre
 -   Selecciona solamente los vuelos a destino de a San Juan
--   oraganiza los datos en orden de más atraso_salido de mayor a menor
+-   organiza los datos en orden de más atraso_salido de mayor a menor
 
 ```{r TF7}
 names(vuelos)

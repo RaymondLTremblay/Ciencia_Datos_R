@@ -32,7 +32,7 @@ gt(tail(Covid, n=2))
 
 
 
-## 1. Calcular el promedio de Muertes por dia de nuevos muertos desde el comienzo hasta el ultimo dia del archivo {-}
+## 1. Calcular el promedio de Muertes por día de nuevos muertos desde el comienzo hasta el último día del archivo {-}
 
 
 ```{r AB4, eval=FALSE, echo=FALSE}
@@ -41,7 +41,7 @@ Covid |> dplyr::select(IncrementoMuertes) |>
 ```
 
 
-## 2. ¿Cual es la máximo de nuevos casos en un día {-}
+## 2. ¿Cuál es el máximo de nuevos casos en un día {-}
 
 ```{r AB5, eval=FALSE, echo=FALSE}
 Covid |> dplyr::select(IncCasosSaludNuevo) |> 
@@ -50,9 +50,9 @@ Covid |> dplyr::select(IncCasosSaludNuevo) |>
 ```
 
 
-## 3. ¿Calcular la cantidad cumulativa de numero de camas CamasICU {-}
+## 3. ¿Calcular la cantidad cumulativa de número de camas CamasICU {-}
 
- - Enseñe solamente las ultimas 4 filas
+ - Enseñe solamente las últimas 4 filas
 
 ```{r AB6, eval=FALSE, echo=FALSE}
 library(MASS)
@@ -76,7 +76,7 @@ library(GMCM) # cummean
 ```
 
 
-## 4. Haz una grafica de la varianza y como cambia atravez del tiempo. {-}
+## 4. Haz una gráfica de la varianza y como cambia a través del tiempo. {-}
 
  - usa puntos para cada fecha
  - añade una regresión LOESS

@@ -1,4 +1,4 @@
-# Visualizacion de datos
+# Visualización de datos
 
 
 
@@ -235,7 +235,7 @@ Hacer los ejercicios en la sección 3.2.4 del libro en español
 
 ***
 
-  - Aestética 
+  - Estética 
   
   ***
 
@@ -310,8 +310,8 @@ Ejercicio para entregar  ( 6 puntos)
 3. Utiliza los datos "PartosInfantes". Leen la información sobre el archivo
 Son tres graficas que tendrán que someter
 4. Hacer un gráfico de puntos entre el número de muertes de infante y la cantidad de madres que mueren en el parto. (1 punto)
-5. Añadir al gráfico anterior un modelo lineal (linear model). Y Demostrando todos los datos con un color por region geografica, o sea añadir un color a los puntos por Grupo "region geográfica". AM=America, EU= Union Europea, AF= Africa, O=Oceania, AS=Asia, Medio Oriente, (2 puntos)
-6. Enseña el modelo de regresion lineal solamente para AFRICA y ASIA (en la misma gráfica) (3 puntos)
+5. Añadir al gráfico anterior un modelo lineal (linear model). Y Demostrando todos los datos con un color por región geográfica, o sea añadir un color a los puntos por Grupo "region geográfica". AM=America, EU= Union Europea, AF= Africa, O=Oceania, AS=Asia, Medio Oriente, (2 puntos)
+6. Enseña el modelo de regresión lineal solamente para AFRICA y ASIA (en la misma gráfica) (3 puntos)
 
 Someter las tres gráficas en formato .jpeg o .png en el portal.  
 
@@ -330,14 +330,14 @@ library(ggversa)
 head(PartosInfantes)
 #unique(PartosInfantes$Pais)
 ```
-Hacer un grafico de puntos entre el numero de muertes por infante y la cantidad la cantidad de madres que mueren en el parto
+Hacer un gráfico de puntos entre el número de muertes por infante y la cantidad de madres que mueren en el parto
 ```{r VD17, eval=FALSE, include=FALSE}
 ggplot(PartosInfantes, aes(NMI, NMP))+
   geom_point()
 ```
 
 
-Añadir al grafico anterior un modelo lineal (linear model)
+Añadir al gráfico anterior un modelo lineal (linear model)
 
 
 ```{r VD18, eval=FALSE, include=FALSE}
@@ -354,7 +354,7 @@ Añadir un color a los puntos por grupo "region". AM=America, EU= Union Europea,
 unique(PartosInfantes$Grupo)
 ```
 
-Demostrando todos los datos con un color por region geografica, enseña el modelo de regresion lineal solamente para AFRICA
+Demostrando todos los datos con un color por región geográfica, enseña el modelo de regresión lineal solamente para AFRICA
 
 ```{r VD20, eval=FALSE, include=FALSE}
 ggplot(PartosInfantes, aes(NMI, NMP, colour=Grupo))+
@@ -371,7 +371,7 @@ ggplot(PartosInfantes, aes(NMI, NMP, colour=Grupo))+
 
 Buscar el error en el código.
 
-1. ¿Qué no va bien en este código? ¿Por qué hay puntos que no son azules en el siguiente codigo?
+1. ¿Qué no va bien en este código? ¿Por qué hay puntos que no son azules en el siguiente código?
 
 ```{r VD21, eval=FALSE, echo=TRUE}
 ggplot(data = millas) +
@@ -398,7 +398,7 @@ ggplot(data = millas) +
 ```
 
 
-3. ¿Por qué hay facetas que son vacias?
+3. ¿Por qué hay facetas que son vacías?
 
 
 4. Explica que hace "."? en estas funciones

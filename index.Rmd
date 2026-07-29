@@ -13,7 +13,7 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 
 description: |
-  Este libro digital es una introdución al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto.  El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación.  El libro es un trabajo en progreso y se actualizará periódicamente.
+  Este libro digital es una introducción al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto.  El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación.  El libro es un trabajo en progreso y se actualizará periódicamente.
 link-citations: yes
 
 editor_options: 
@@ -35,23 +35,23 @@ Sys.Date()
   
 **Oficina**: NL 104			 		 
 **Teléfono**: (787) 850-0000 (dept de biología)			  		
-**Coreo electrónico**: raymond.tremblay_at_upr_dot_edu	
+**Correo electrónico**: raymond.tremblay_at_upr_dot_edu	
  
 ***
 ### Horario de clase
 
-**Presentación de temas y discusión**: Lunes y miercoles 4:30-5:50pm (80 mins) (NOTE: Necesita traer su laptop!)   
+**Presentación de temas y discusión**: Lunes y miércoles 4:30-5:50pm (80 mins) (NOTE: Necesita traer su laptop!)   
 
 **Hora de consulta con Estudiantes**:  
 
-- Lunes y miercoles de 1:00 a 5:30pm (NL 104).    
+- Lunes y miércoles de 1:00 a 5:30pm (NL 104).    
 
 ***
 
 
 
 ### Libros sugeridos       
-- [Garrett Grolemund, Hadley Wickham. R for Data Science](https://r4ds.had.co.nz) En Ingles. 
+- [Garrett Grolemund, Hadley Wickham. R for Data Science](https://r4ds.had.co.nz) En Inglés. 
 - [Garrett Grolemund, Hadley Wickham. R para Ciencia de Datos](https://es.r4ds.hadley.nz) En Español.
 - [Tremblay y Hernández-Serrano, 2018](https://www.amazon.com/Gráficas-Versátiles-ggplot2-Análisis-Spanish-ebook/dp/B07P2Q87H2/ref=sr_1_1?dchild=1&keywords=Graficas+versatiles&qid=1591404029&sr=8-1).
 
@@ -86,7 +86,7 @@ Tema general del curso
 
 ***
 ### Puntuación: 
-Este curso sera evaluado con los siguiente items:
+Este curso será evaluado con los siguientes ítems:
 
 
 |Item                    |     Valor              |
@@ -105,7 +105,7 @@ Escala de Notas:
   * F (< 60) 
 
 ***
-### Examenes:
+### Exámenes:
 
 Ninguno 
 
@@ -118,12 +118,12 @@ En la clase las notas serán basado primeramente en la participación y algunas 
 
 ### Ejercicios  
 
-Los ejercicios están enfocado en la aplicación de conceptos y métodos discutido en la clase y solución de problemas. Se hará un esfuerza de usar datos reales para demostrar como trabajar con los análisis, tablas, y gráficos en R, RStudio y RMarkdown.  Típicamente, tendrán solamente una semana para hacer los ejercicios y entregarlos en formato *.html*.   
+Los ejercicios están enfocados en la aplicación de conceptos y métodos discutidos en la clase y solución de problemas. Se hará un esfuerzo de usar datos reales para demostrar cómo trabajar con los análisis, tablas, y gráficos en R, RStudio y RMarkdown.  Típicamente, tendrán solamente una semana para hacer los ejercicios y entregarlos en formato *.html*.   
 
 ***
 ### Faltar a clase y examen:
 
-*Los trabajos cortos y pruebas cortas NO se reponen*.  Si falta a la clase es su responsabilidad hablar con los otros estudiantes para saber lo que se discutió en la clase. Los examen se reponen solamente por una escusa valida.    
+*Los trabajos cortos y pruebas cortas NO se reponen*.  Si falta a la clase es su responsabilidad hablar con los otros estudiantes para saber lo que se discutió en la clase. Los exámenes se reponen solamente por una excusa válida.    
 
 ***
 ### Derechos de Estudiantes con Impedimentos
@@ -153,9 +153,9 @@ Los estudiantes no PUEDEN grabar la clase por forma de video o audio sin el perm
 
 ***
 ### Espacio libre de acoso sexual
-La Universidad de Puerto Rico prohíbe el descrimen por razón de sexo y género en todas sus modalidades, incluyendo el hostigamiento sexual. Según la Política Institucional contra el hostigamiento sexual, en la Universidad de Puerto Rico, Cert. Núm. 130 (2014-2015) de la Junta de Gobierno, si un(a) estudiante está siendo o fue afectado por conductas relacionadas a hostigamiento sexual, puede acudir ante la Oficina del Procurador Estudiantil, el Decanato de Estudiantes o el Coordinador de Cumplimiento con Título IX para una orientación o presentar una querella.
+La Universidad de Puerto Rico prohíbe el discrimen por razón de sexo y género en todas sus modalidades, incluyendo el hostigamiento sexual. Según la Política Institucional contra el hostigamiento sexual, en la Universidad de Puerto Rico, Cert. Núm. 130 (2014-2015) de la Junta de Gobierno, si un(a) estudiante está siendo o fue afectado por conductas relacionadas a hostigamiento sexual, puede acudir ante la Oficina del Procurador Estudiantil, el Decanato de Estudiantes o el Coordinador de Cumplimiento con Título IX para una orientación o presentar una querella.
 
 ***
 ### Protocolo de la Clase
-Los teléfonos mobiles serán apagado durante la clase.  Si necesita una calculadora traerla al salón. El teléfono no debería esta visible durante la clase al menos que pide permiso al instructor. Recuerda que que se usara computadoras portátiles en cada sesión.
+Los teléfonos móviles serán apagados durante la clase.  Si necesita una calculadora traerla al salón. El teléfono no debería estar visible durante la clase a menos que pida permiso al instructor. Recuerda que se usarán computadoras portátiles en cada sesión.
 

@@ -1,4 +1,4 @@
-# Transformacion: Rangos y otra funciones
+# Transformación: Rangos y otras funciones
 
 ```{r echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
@@ -11,7 +11,7 @@ R.version
 
 
 
-## Funciones en este modulo
+## Funciones en este módulo
 
  - min_rank() # asigna valores de rangos a los valores originales
  - row_number() # asigna valores de rangos a los valores originales
@@ -31,13 +31,13 @@ library(datos)
 
 
 
-## Pruebas no paraméticas
+## Pruebas no paramétricas
 
 La pruebas no paramétricas no son basado en distribución normal y los indices como promedio, desviación estándar no se usan. 
 
 ## min_rank() y \# min_rank(desc())
 
-Asignar valores de rangos a los valores originales o de más grande a meas pequeño o vise versa.
+Asignar valores de rangos a los valores originales o de más grande a más pequeño o viceversa.
 
 ```{r TR2}
 set.seed(45678)
@@ -188,7 +188,7 @@ flights %>%
 summarise(delay = mean(dep_delay, na.rm = TRUE))
 ```
 
-## La aerolinea peor en atraso de salidas 
+## La aerolínea peor en atraso de salidas 
 
 ```{r T13}
 flights %>%

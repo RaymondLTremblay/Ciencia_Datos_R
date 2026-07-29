@@ -1,6 +1,6 @@
-# Transformacion: Selecionar variables
+# Transformación: Seleccionar variables
 
-Fecha de la ultima revisión
+Fecha de la última revisión
 ```{r echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
@@ -16,7 +16,7 @@ Sys.Date()
   - everything() # selecciona todas las variables
   - if_else() # reemplaza valores en una columna basado en una condición
 
-Es una función para seleccionar basado en una caracteristicas del nombre de la columna
+Es una función para seleccionar basado en una características del nombre de la columna
 
 ```{r TS1}
 library(datos)
@@ -71,7 +71,7 @@ vuelos %>%
   select(contains("aeropuerto")) # nombre nuevo= nombre original
 ```
 
-## Reoganizar el orden de las columnas, usando select() y everything() en la misma función
+## Reorganizar el orden de las columnas, usando select() y everything() en la misma función
 
 ```{r TS3}
 head(vuelos)

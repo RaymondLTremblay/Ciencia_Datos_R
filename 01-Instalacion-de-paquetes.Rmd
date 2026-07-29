@@ -1,0 +1,123 @@
+# Instalación de paquetes
+
+Fecha de la última revisión
+```{r PAQ0, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+Sys.Date()
+```
+
+***
+
+## ¿Por qué esta página?
+
+A lo largo del libro usamos muchos paquetes de R. Un **paquete** es una colección
+de funciones, datos y documentación que amplía lo que R puede hacer. Antes de
+comenzar conviene **instalar de una sola vez** todos los paquetes que vamos a
+necesitar, para que ningún capítulo falle por un paquete que falta.
+
+Recuerda: solo hay que **instalar** un paquete una vez en la computadora (con
+`install.packages()`), pero hay que **activarlo** con `library()` en cada sesión
+en la que lo vayas a usar.
+
+***
+
+## Instalar todos los paquetes del libro
+
+Copia y ejecuta el siguiente bloque **una sola vez** en la consola de RStudio. El
+script revisa cuáles paquetes ya están instalados e instala **solamente los que
+falten**. Instala cada paquete por separado, de modo que si alguno no se puede
+instalar, los demás sí se instalan y al final se te informa cuáles fallaron.
+
+```{r PAQ1, eval=FALSE}
+paquetes_curso <- c(
+  # --- Núcleo: tidyverse y datos en español ---
+  "tidyverse", "datos", "ggversa",
+  "dplyr", "tidyr", "readr", "purrr", "stringr", "forcats",
+  "ggplot2", "lubridate", "magrittr",
+
+  # --- Datos de ejemplo ---
+  "nycflights13", "babynames", "nasaweather", "fueleconomy", "Lahman",
+
+  # --- Importar / limpiar / tablas ---
+  "readxl", "haven", "data.table", "hms", "zoo",
+  "gt", "flextable", "knitr", "bookdown", "gridExtra",
+
+  # --- Modelos y estadística ---
+  "modelr", "broom", "tidymodels", "MASS", "cumstats", "DescTools",
+  "GMCM", "TidyDensity",
+
+  # --- Mapas y visualización ---
+  "leaflet", "maps", "RColorBrewer",
+
+  # --- Hex stickers e imágenes ---
+  "hexSticker", "showtext", "sysfonts", "magick",
+
+  # --- Nubes de palabras / texto ---
+  "wordcloud", "wordcloud2", "tm", "SnowballC", "stopwords",
+
+  # --- Utilidades y datos externos ---
+  "pacman", "devtools", "rinat", "cranlogs", "packageRank"
+)
+
+faltantes <- setdiff(paquetes_curso, rownames(installed.packages()))
+
+fallidos <- character(0)
+for (p in faltantes) {
+  ok <- tryCatch({
+    install.packages(p, dependencies = TRUE)
+    TRUE
+  }, error = function(e) FALSE, warning = function(w) FALSE)
+  if (!ok || !(p %in% rownames(installed.packages()))) fallidos <- c(fallidos, p)
+}
+
+if (length(fallidos) == 0) {
+  message("¡Listo! Todos los paquetes del libro están instalados.")
+} else {
+  message("No se pudieron instalar automáticamente: ", paste(fallidos, collapse = ", "),
+          "\nInténtalos a mano con install.packages('nombre').")
+}
+```
+
+> Nota: `ggversa` (Gráficas Versátiles con `ggplot2`, de Tremblay &
+> Hernández-Serrano) está disponible en CRAN, así que se instala igual que los
+> demás con `install.packages("ggversa")`.
+
+***
+
+## Verificar qué está instalado
+
+Este bloque **no instala nada**; solamente te dice cuáles paquetes ya tienes y
+cuáles te faltan.
+
+```{r PAQ2, eval=FALSE}
+paquetes_curso <- c(
+  "tidyverse", "datos", "ggversa", "nycflights13", "babynames", "nasaweather",
+  "fueleconomy", "Lahman", "readxl", "haven", "data.table", "hms", "zoo",
+  "gt", "flextable", "knitr", "bookdown", "gridExtra", "modelr", "broom",
+  "tidymodels", "MASS", "cumstats", "DescTools", "GMCM", "TidyDensity",
+  "leaflet", "maps", "RColorBrewer", "hexSticker", "showtext", "sysfonts",
+  "magick", "wordcloud", "wordcloud2", "tm", "SnowballC", "stopwords",
+  "pacman", "devtools", "rinat", "cranlogs", "packageRank"
+)
+
+instalados <- paquetes_curso %in% rownames(installed.packages())
+data.frame(
+  paquete   = paquetes_curso,
+  instalado = ifelse(instalados, "sí", "NO — falta")
+)
+```
+
+***
+
+## Activar los paquetes principales
+
+En cada capítulo verás al inicio un bloque con `library()`. El más común es:
+
+```{r PAQ3, eval=FALSE}
+library(tidyverse)   # ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats
+library(datos)       # datos en español
+```
+
+Si al correr un capítulo aparece un error como
+`Error in library(xxx): there is no package called 'xxx'`, regresa a esta página
+y ejecuta el bloque de instalación de arriba.

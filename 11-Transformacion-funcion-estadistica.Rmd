@@ -1,4 +1,4 @@
-# Transformacion: Indices parametricos y no parametricos
+# Transformación: Índices paramétricos y no paramétricos
 
 ```{r TFE1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
@@ -6,18 +6,18 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 Sys.Date()
 ```
 
-## Funciones estadistica básicas:
+## Funciones estadísticas básicas:
 
 Tarea de grupo.
 
-Preparar un .rmd con la explicaciones de como utilizar la función mencionado abajo. Debe incluir
+Preparar un .rmd con las explicaciones de cómo utilizar la función mencionada abajo. Debe incluir
 
 1.  La definición de la función en palabra y matemática.
 2.  un script sencillo (con pocos datos) (uno o más ejemplos) para explicar la función
 3.  un script con los datos de "vuelos" o de "Covid-19 de PR".
 4.  a las 2:20pm cada grupo presentará su trabajo.
 5.  Después de la clase cada grupo, mejorará su .rmd con los comentarios recibidos.\
-6.  Domingo se subirá el .rmd y el .html en MSTeam (cada estudiante lo subirá: tendra el nombre de cada estudiante en el trabajo)
+6.  Domingo se subirá el .rmd y el .html en MSTeam (cada estudiante lo subirá: tendrá el nombre de cada estudiante en el trabajo)
 7.  El profesor revisará los trabajos y subsiguiente se distribuirá los .rmd y html a los estudiantes.
 
 -   IQR() \## G1

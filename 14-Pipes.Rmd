@@ -1,7 +1,7 @@
 # Pipes
 
 
-Fecha de la ultima revisión
+Fecha de la última revisión
 ```{r echo=FALSE}
 
 Sys.Date()
@@ -35,13 +35,13 @@ Los pipes que vamos a evaluar son los siguientes:
  - %>%     "Pipe"
  - %!>%  "Eager Pipe"
  - %$%    "Exposition pipe"
- - %<>%   "Assigment pipe"
+ - %<>%   "Assignment pipe"
 
  - %T>%   "Tee Pipe"
  - %in%   "In Pipe"
  
 
-Función basica para calcular el precio básico de de diamantes por quilates 
+Función básica para calcular el precio básico de diamantes por quilates 
 
 ```{r P1}
 head(diamonds, n=3)

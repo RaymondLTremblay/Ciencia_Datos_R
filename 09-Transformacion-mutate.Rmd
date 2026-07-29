@@ -1,4 +1,4 @@
-# Transformacion: Mutate, transmute, lag, lead, cumsum, cummean, cumvar
+# Transformación: Mutate, transmute, lag, lead, cumsum, cummean, cumvar
 
 
 
@@ -33,7 +33,7 @@ new_df
 
     
     
-## Crear un data frame más pequeño con las variables de interes
+## Crear un data frame más pequeño con las variables de interés
 
 
 ```{r TM3}
@@ -65,7 +65,7 @@ mutate(vuelos_sml,
 
 ## transmute()
 
-Para guardar solamente la nueva variable usa **transmutate**
+Para guardar solamente la nueva variable usa **transmute**
 
 ```{r TM5}
 
@@ -110,7 +110,7 @@ df %>%
 
 ## Usa "Lag" con "IncCasosSaludNuevo" en COVID-19 PR
 
-Evalúa la diferencia en números de casos entre 7 días de las semana en números de casos nuevos de COVID, "IncCasosSaludNuevo"
+Evalúa la diferencia en números de casos entre 7 días de la semana en números de casos nuevos de COVID, "IncCasosSaludNuevo"
 
 ```{r TM7}
 library(readr)
@@ -235,7 +235,7 @@ head(df)
 mean(df$value)
 
 
-library(MASS)
+# library(MASS)  # innecesario aquí y enmascara dplyr::select(); cmean()/cvar() vienen de TidyDensity
 library(TidyDensity)
 library(zoo)
 
@@ -254,7 +254,7 @@ df3
 
 ## Uso de varianza cumulativa en investigación:
 
-Un metodo para determinar si la cantidad de muestras recolectada es suficiente, es evaluar si la varianza cumulativa sigue cambiando cuando se añade nuevas recolección de datos.   
+Un método para determinar si la cantidad de muestras recolectada es suficiente, es evaluar si la varianza cumulativa sigue cambiando cuando se añade nuevas recolección de datos.   
 
 
 ```{r TM12}
@@ -271,7 +271,7 @@ ggplot(df3, aes(order, Var_cum))+
 
 ## Que pasa con las funciones **cmean**, **cvar** si hay NA en el archivo de datos?
 
-### Replacar los NA con 0, usando la función **replace_na()** con un valor especifico **replace_na("variable", 0)**
+### Reemplazar los NA con 0, usando la función **replace_na()** con un valor específico **replace_na("variable", 0)**
 
 
 ```{r TM13}

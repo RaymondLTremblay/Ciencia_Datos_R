@@ -133,9 +133,9 @@ w
 
 
 
-Escribir si nombre en el alfabeto Cyrilico
+Escribir su nombre en el alfabeto cirílico
 
- -  Vea este enlace para conocer el alfabeto cyrilico
+ -  Vea este enlace para conocer el alfabeto cirílico
 
 
 
@@ -160,7 +160,7 @@ necesito poner una letra extraña en mi frase, "\u048E".
 
  - library(stringr)
  
-Solamente trabajermos con el paquete stringr, donde las funciones escrita de forma que sean más intuitivos para recordar.  Todas las funciones conmienzan con **str_**
+Solamente trabajaremos con el paquete stringr, donde las funciones escritas de forma que sean más intuitivas para recordar.  Todas las funciones comienzan con **str_**
 
 ***
 
@@ -266,7 +266,7 @@ str_sub(x, 2, -2) <- ""; x
 
 ***
 
-### Cambiar a todo minuscula
+### Cambiar a todo minúscula
 
 
 ```{r SR14}
@@ -277,7 +277,7 @@ str_to_lower(x)
 ***
 
 
-### Cambiar a mayuscula
+### Cambiar a mayúscula
 
 ```{r SR15}
 x= c( "Piña", "Manzana", "Toronja")
@@ -334,7 +334,7 @@ str_view(x, "er")
 
 ***
 
-Ejemplo de como uno puede utiliza esas funciones
+Ejemplo de cómo uno puede utilizar esas funciones
 
 str_detect()
  
@@ -346,7 +346,7 @@ str_detect(x, "ñ")
 ``` 
 
 
-### Detectar las palabras que comienzan con una letra específica con "^". Nota el uso de mayusculas y minusculas y sumamos cuantas palabras cumplen con la condición. 
+### Detectar las palabras que comienzan con una letra específica con "^". Nota el uso de mayúsculas y minúsculas y sumamos cuantas palabras cumplen con la condición. 
 
 
 ```{r R19}
@@ -519,7 +519,7 @@ Hacer los ejercicios en la sección 14.2.9.1 del libro en español
 
 ## Repetición
 
- - ?, 0 o 1, precencia o auscencia
+ - ?, 0 o 1, presencia o ausencia
  - +, 1 o más
  - *, 0 o más
  - str_view()
@@ -672,7 +672,7 @@ Hacer los ejercicios en la sección 14.3.6.1 del libro en español
 ## Otro tipos de patrones
 
  - regex("x", ignore_case=TRUE)
- - seperar números telefonicos
+ - separar números telefónicos
  
 ## stringi: 
 
@@ -822,8 +822,8 @@ print(total_downloads)
 
 
 
-```{r}
-
+```{r eval=FALSE}
+# Desactivado para el build: install_github requiere credenciales de GitHub.
 #install.packages("devtools")
 devtools::install_github("arunsrinivasan/cran.stats")
 library(cran.stats)
@@ -974,7 +974,7 @@ length(Alice_palabras_vector) # cuantas palabras hay en total
 
 
 
-### Convertir todo a minusculas
+### Convertir todo a minúsculas
 
 ```{r, echo=FALSE}
 Alice_palabras_vector_lower <- str_to_lower(Alice_palabras_vector)
@@ -1015,7 +1015,7 @@ table(Alice_palabras_vector_limpio) %>%
 ```
 
 
-Remover los espacios vacios
+Remover los espacios vacíos
 
 ```{r, echo=FALSE}
 Alice_palabras_vector_limpio <- Alice_palabras_vector_limpio[Alice_palabras_vector_limpio != ""]

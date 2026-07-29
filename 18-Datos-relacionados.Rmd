@@ -127,7 +127,7 @@ babynames::babynames %>%
   filter(n>1)
 ```
 
-Cual fue el primer año que su nombre aparece en la base de datos
+¿Cuál fue el primer año que su nombre aparece en la base de datos?
 
 ```{r DR12}
 babynames::babynames %>% 

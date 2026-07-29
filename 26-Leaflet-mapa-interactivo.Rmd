@@ -79,7 +79,7 @@ library(flextable)
 
 
 
-Seleccionar un subgrupo de los datos, solamente lo primeros 100 datos
+Seleccionar un subgrupo de los datos, solamente los primeros 100 datos
 
 
 ```{r}
@@ -134,7 +134,7 @@ leaflet(EQ_100) %>%
 
  Pasos
  
- 1. Seleccionar los datos en el áreas de PR, latitud y longitud
+ 1. Seleccionar los datos en las áreas de PR, latitud y longitud
  2. Crear una paleta de colores/ o usar viridis
  3. Crear un mapa con los datos de los terremotos 
  
@@ -164,7 +164,7 @@ leaflet(EQ_100) %>%
 
 
 
-### AHora crea un mapa de los terremotos alrededor de Puerto Rico
+### Ahora crea un mapa de los terremotos alrededor de Puerto Rico
 
 
 
@@ -181,16 +181,16 @@ La función `get_inat_obs()` permite acceder a los datos disponibles en iNatural
 
 -   `geo`: Al igual que el parámetro `quality`, este parámetro cuyo valor es lógico (`TRUE` o `FALSE`), es para especificar que se quiere obtener sólo los datos que están georeferenciados (cuando se coloca como `TRUE`).
 
--   `maxresults`: A través del API (Interfaz de Programación de Aplicaciones) de iNaturalist se puede acceder a un máximo de 10,000 observaciones en una sola búsqueda. Con este parámetro, cuyo valor debe ser numérico, se especifica cuantas observaciones se desea obtener, y no se debe exceder de 10,000 por búsqueda.
+-   `maxresults`: A través del API (Interfaz de Programación de Aplicaciones) de iNaturalist se puede acceder a un máximo de 10,000 observaciones en una sola búsqueda. Con este parámetro, cuyo valor debe ser numérico, se especifica cuántas observaciones se desea obtener, y no se debe exceder de 10,000 por búsqueda.
 
 -   `bounds`: Un vector que contiene los límites geográficos de la búsqueda. Se puede insertar un cuadro delimitador ya especificado en un objeto, concatenar los valores del vector, o insertar un objeto de características simples (Simple Feature, sf). El argumento `bounds` es importante porque si obtenemos datos de iNaturalist, las únicas columnas que obtenemos con información acerca de la región o área donde se hicieron las observaciones son:\
 
 -   *place_guess*: Contiene el nombre de la región, pero su precisión y los nombres utilizados para cada región varía mucho.
 
--   *latitue*: Posición en el eje vertical del sistema de coordenadas.
+-   *latitude*: Posición en el eje vertical del sistema de coordenadas.
 
 -   *longitude*: Posición en el eje horizontal del sistema de coordenadas.\
-    Esto crea un problema a la hora del filtrar los datos por el nombre de una región, pues es difícil encontrar un solo valor que encompase a todas las variantes del nombre utilizado para esa región. iNaturalist se encuentra a nivel mundial, y usted puede acceder a todos esos datos. Sin embargo, hoy accederemos solamente a datos de Puerto Rico. Entonces, lo primero antes de acceder a lo datos de iNaturalist, es crear un objeto que contenga los límites geográficos de interés crea. Para esto se crea un objeto que contenga un cuadro delimitador (*bounding box*):
+    Esto crea un problema a la hora del filtrar los datos por el nombre de una región, pues es difícil encontrar un solo valor que encompase a todas las variantes del nombre utilizado para esa región. iNaturalist se encuentra a nivel mundial, y usted puede acceder a todos esos datos. Sin embargo, hoy accederemos solamente a datos de Puerto Rico. Entonces, lo primero antes de acceder a los datos de iNaturalist, es crear un objeto que contenga los límites geográficos de interés crea. Para esto se crea un objeto que contenga un cuadro delimitador (*bounding box*):
 
 ```{r, eval=TRUE}
 cajapr <- c(
@@ -262,7 +262,7 @@ leaflet(eulophia) %>%
   addTiles() %>% 
   addMarkers(lng = ~ longitude, 
              lat = ~ latitude, 
-             popup = ~ place_guess) #  cambiar a la variable de interes
+             popup = ~ place_guess) #  cambiar a la variable de interés
 ```
 
 La función `paste0` es una función base de R que concatena todos los elementos en una línea de caracteres. Los caracteres introducidos serán interpretados como UTF-8 o codificación de caracteres. Estos caracteres pueden ser mezclados con valores de una variable de caracteres en un data.frame. En el siguiente ejemplo se crea una etiqueta que contiene la ubicación y la especie observada. Se utiliza la función `paste0()` para combinar caracteres y las variables *scientific_name* y *place_guess* del data.frame.
@@ -295,7 +295,7 @@ Dentro de la función `awesomeIcons()` podemos especificar varios parámetros co
 
 -   `markerColor`: Para cambiar el color del marcador (parte que rodea el icono), utilizando la codificación de colores de schemecolor.
 
--   `iconColor`: Para cambiar el color del icono del marcadora, también con la codificación de schemecolor.
+-   `iconColor`: Para cambiar el color del icono del marcador, también con la codificación de schemecolor.
 
 
 
@@ -353,7 +353,7 @@ leaflet() %>%
 
 ## Trabajando Variables Categóricas con Leaflet:
 
-Es posible distinguir entre especies utilizando diferentes colores, pero debe utilizar la función `addCircleMarkers()` en lugar de `addAwesomeMarkers()`. Para colorear grupos en Leaflet es necesario generar una paleta de colores para las variables de interés de acuerdo al tipo de variable (*i.e.*, numérica, factorial). Para esto se utilizan las funciones `colorFactor()`, `colorNumeric()`, `colorBin()`, o `colorQuantile()`. `colorFactor()` y `colorNumeric()` generan paletas de colores para variables factoriales y numericas, respectivamente; mientras que `colorBin()` y `colorQuantile()` generan paletas de colores para valores numéricos resumidos en grupos.
+Es posible distinguir entre especies utilizando diferentes colores, pero debe utilizar la función `addCircleMarkers()` en lugar de `addAwesomeMarkers()`. Para colorear grupos en Leaflet es necesario generar una paleta de colores para las variables de interés de acuerdo al tipo de variable (*i.e.*, numérica, factorial). Para esto se utilizan las funciones `colorFactor()`, `colorNumeric()`, `colorBin()`, o `colorQuantile()`. `colorFactor()` y `colorNumeric()` generan paletas de colores para variables factoriales y numéricas, respectivamente; mientras que `colorBin()` y `colorQuantile()` generan paletas de colores para valores numéricos resumidos en grupos.
 
 En este caso se está trabajando con una variable factorial que divide las observaciones entre 3 especies de orquídeas. Primero se crea una paleta de colores para una variable factorial con la función `colorFactor()`. Bajo esta función se especifican los parámetros `palette` y `levels`. `palette`es para especificar la paleta de colores a utilizar y `levels`especifica los niveles de la variable factorial. La paleta de colores que se utiliza (`"Dark2"`) proviene del paquete RColorBrewer. Esta paleta de colores para los niveles de la variable factorial *scientific_name* del data.frame *eulophia* se guardará en un objeto llamado *pal*.
 

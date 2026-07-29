@@ -27,7 +27,7 @@ head(url_COVID_PR)
 
 ***
 
-1. Calcula los promedios en periodos de 7 (dias; promedio corriendo) y añádele a tu dataframe
+1. Calcula los promedios en periodos de 7 (días; promedio corriendo) y añádele a tu dataframe
 
 _ Usa la columna de IncCasosSaludNuevo para todos los cálculos
 

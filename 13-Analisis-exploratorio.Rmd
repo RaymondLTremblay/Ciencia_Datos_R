@@ -1,6 +1,6 @@
-# Analisis Exploratorio
+# Análisis Exploratorio
 
-Fecha de la ultima revisión
+Fecha de la última revisión
 ```{r echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
@@ -31,7 +31,7 @@ Español:
 ***
 
 
-## Terminos importantes
+## Términos importantes
   
   - variable
   - valor
@@ -113,7 +113,7 @@ Hacer los ejercicios en la sección 7.5.2.1 del libro en español
 
  - geom_point()
  - geom_hex()
- - geopm_boxplot()
+ - geom_boxplot()
  
 *** 
  
@@ -126,7 +126,7 @@ Hacer los ejercicios en la sección 7.5.3.1 del libro en español
  
 ### Patrones y modelos
 
- - construir un modelo estádistico
+ - construir un modelo estadístico
 
 
 

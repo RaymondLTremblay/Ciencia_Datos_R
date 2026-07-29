@@ -1,0 +1,209 @@
+# Funciones
+
+El tema proviene de los siguientes sitios.
+
+English: <https://r4ds.had.co.nz/functions.html>
+
+Español: <https://es.r4ds.hadley.nz/funciones.html>
+
+***
+
+Fecha de la última revisión
+```{r FUN0, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+Sys.Date()
+```
+
+## Temas:
+
+  - ¿Cuándo escribir una función?
+  - La anatomía de una función: nombre, argumentos y cuerpo
+  - Ejecución condicional: `if` y `else`
+  - Argumentos y valores por defecto
+  - Valores de retorno
+  - Un vistazo a los vectores
+
+> En el capítulo de *tidyverse avanzado* verás funciones más sofisticadas que
+> usan *tidy evaluation* (el operador `{{ }}`). Aquí construimos la base.
+
+***
+
+## ¿Cuándo escribir una función?
+
+Una **función** te permite darle un nombre a un bloque de código para poder
+reutilizarlo. La regla práctica es: **si copiaste y pegaste el mismo código más
+de dos veces, escribe una función**. Copiar y pegar es una de las fuentes de
+errores más comunes, porque es fácil olvidar cambiar el nombre de una variable en
+una de las copias.
+
+Observa este código que reescala tres columnas para que queden entre 0 y 1:
+
+```{r FUN1}
+df <- data.frame(
+  a = c(2, 5, 8, 1),
+  b = c(10, 20, 30, 40),
+  c = c(-5, 0, 5, 10)
+)
+
+df$a <- (df$a - min(df$a)) / (max(df$a) - min(df$a))
+df$b <- (df$b - min(df$b)) / (max(df$b) - min(df$b))
+df$c <- (df$c - min(df$c)) / (max(df$c) - min(df$c))
+df
+```
+
+¿Notaste el patrón repetido? Eso es una señal clara de que conviene una función.
+
+***
+
+## La anatomía de una función
+
+Toda función tiene tres partes:
+
+1. Un **nombre** (aquí, `reescalar01`).
+2. Los **argumentos** que van dentro de `function( )` (aquí, `x`).
+3. El **cuerpo**, el código dentro de las llaves `{ }`.
+
+```{r FUN2}
+reescalar01 <- function(x) {
+  rango <- range(x, na.rm = TRUE)
+  (x - rango[1]) / (rango[2] - rango[1])
+}
+
+# Probar la función con un ejemplo cuya respuesta ya conocemos
+reescalar01(c(0, 5, 10))
+```
+
+Ahora el código repetido se reduce a esto, mucho más fácil de leer y de corregir:
+
+```{r FUN3}
+df <- data.frame(
+  a = c(2, 5, 8, 1),
+  b = c(10, 20, 30, 40),
+  c = c(-5, 0, 5, 10)
+)
+
+df$a <- reescalar01(df$a)
+df$b <- reescalar01(df$b)
+df$c <- reescalar01(df$c)
+df
+```
+
+Una función siempre se debe **probar con valores cuya respuesta ya conoces** antes
+de confiar en ella.
+
+***
+
+## Ejecución condicional: `if` y `else`
+
+Dentro de una función puedes tomar decisiones con `if` y `else`.
+
+```{r FUN4}
+signo <- function(x) {
+  if (x > 0) {
+    "positivo"
+  } else if (x < 0) {
+    "negativo"
+  } else {
+    "cero"
+  }
+}
+
+signo(7)
+signo(-3)
+signo(0)
+```
+
+***
+
+## Argumentos y valores por defecto
+
+Los argumentos pueden tener un **valor por defecto**, que se usa cuando quien
+llama la función no especifica ese argumento.
+
+```{r FUN5}
+# Calcular la media recortada; por defecto recorta un 10%
+media_recortada <- function(x, recorte = 0.1) {
+  mean(x, trim = recorte, na.rm = TRUE)
+}
+
+valores <- c(1, 2, 3, 4, 5, 100)  # el 100 es un valor atípico
+media_recortada(valores)              # usa recorte = 0.1
+media_recortada(valores, recorte = 0.2)
+mean(valores)                          # comparación: la media normal
+```
+
+***
+
+## Valores de retorno
+
+Una función en R devuelve el valor de la **última línea** de su cuerpo. También
+puedes usar `return()` para devolver un valor antes del final, por ejemplo para
+salir temprano en un caso especial.
+
+```{r FUN6}
+coef_variacion <- function(x) {
+  if (mean(x, na.rm = TRUE) == 0) {
+    return(NA)   # evitar división por cero
+  }
+  sd(x, na.rm = TRUE) / mean(x, na.rm = TRUE)
+}
+
+coef_variacion(c(2, 4, 4, 4, 5, 5, 7, 9))
+coef_variacion(c(-5, 0, 5))   # la media es 0 -> NA
+```
+
+***
+
+## Un vistazo a los vectores
+
+Las funciones trabajan sobre **vectores**. Conocer los tipos básicos de vectores
+atómicos explica muchos "comportamientos raros" de R.
+
+```{r FUN7}
+lgl <- c(TRUE, FALSE, NA)       # lógico
+int <- c(1L, 5L, 10L)           # entero
+dbl <- c(1.5, 2.7, 3.14)        # doble (números reales)
+chr <- c("a", "b", "c")         # cadena de caracteres
+
+typeof(lgl)
+typeof(int)
+typeof(dbl)
+typeof(chr)
+```
+
+**Coerción:** cuando mezclas tipos, R convierte todo al tipo "más flexible".
+
+```{r FUN8}
+c(1, 2, "tres")     # todo se convierte en texto
+c(TRUE, 1L, 2.5)    # lógico -> entero -> doble
+```
+
+**Valores faltantes (`NA`):** casi cualquier operación con `NA` da `NA`. Por eso
+muchas funciones tienen el argumento `na.rm = TRUE`.
+
+```{r FUN9}
+x <- c(1, 2, NA, 4)
+mean(x)                # NA
+mean(x, na.rm = TRUE)  # 2.333...
+is.na(x)               # ¿cuáles son NA?
+```
+
+***
+
+1.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 19.2 del libro en español.
+
+***
+
+2.  **Ejercicios**:
+
+Escribe una función `fahrenheit_a_celsius()` que reciba una temperatura en grados
+Fahrenheit y devuelva grados Celsius. La fórmula es $C = (F - 32) \times 5/9$.
+Pruébala con `32` (debe dar 0) y con `212` (debe dar 100).
+
+***
+
+3.  **Ejercicios**:
+
+Hacer los ejercicios en la sección 19.4 del libro en español.

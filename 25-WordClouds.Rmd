@@ -16,7 +16,7 @@ Sys.Date()
 Para generar nubes de palabras con R. Se necesita los paquetes **wordcloud**, **RColorBrewer** y **wordcloud2**
 
 
-Ese ejemplo es una copia de la siguiente pagina de web
+Ese ejemplo es una copia de la siguiente página de web
 
 <http://www.sthda.com/english/wiki/word-cloud-generator-in-r-one-killer-function-to-do-everything-you-need>
 
@@ -28,7 +28,7 @@ library(wordcloud) # Un paquete para hacer word cloud
 library(wordcloud2) # paquete más sencillo para hacer word cloud2
 library(RColorBrewer) # paquete para cambiar los colores 
 library(tm)  # paquete de text mining
-library(SnowballC) # paquete para trabajar en otro idioma aparte de ingles
+library(SnowballC) # paquete para trabajar en otro idioma aparte de inglés
 
 ```
 
@@ -36,10 +36,11 @@ library(SnowballC) # paquete para trabajar en otro idioma aparte de ingles
 
 ## Usando los datos en el paquete wordcloud2 que se llama **demoFreq**
 
+https://raymondltremblay.github.io/Ciencia_Datos_R/appendix-a.html 
 
 ```{r}
 
-
+ #ejercicio-de-transformaci%C3%B3n
 library(wordcloud2)
 head(demoFreq, n=10)
 wordcloud2(data = demoFreq)
@@ -142,7 +143,7 @@ docs <- tm_map(docs, stripWhitespace)
 ## Crear una matriz de las palabras de mi documento
 
 ```{r}
-dtm <- TermDocumentMatrix(docs) # convirtir el texto en una lista de palabras
+dtm <- TermDocumentMatrix(docs) # convertir el texto en una lista de palabras
 m <- as.matrix(dtm) # convertir en una matriz
 v <- sort(rowSums(m),decreasing=TRUE) # ordenar las palabras por frecuencia
 d <- data.frame(word = names(v),freq=v) # crea un nuevo data frame de las palabras y su frecuencia
@@ -243,7 +244,7 @@ head(stopwords::stopwords("es", source = "snowball"), 30)
 
 Ejemplos #3
 
-Aqui un tercer ejemplo 
+Aquí un tercer ejemplo 
 
 
 
@@ -259,7 +260,7 @@ p_load("RColorBrewer") # Biblioteca para seleccionar una paleta de colores de nu
 ```
 
 
-## Un documento para hacer un word cloud "La intelegencia artifical"
+## Un documento para hacer un word cloud "La inteligencia artificial"
 
 ```{r WC6}
 library(readr)
@@ -285,7 +286,7 @@ texto2
 - remover las puntuaciones
 - cambiar a letras minúsculas
 - remover las palabras comunes en español
-- usar solamente la base de las palabres ("stem") por ejemplo remover las conjugaciones **espero**, **esparas**, **espera**, **esperamos**... se convierte en "esper"
+- usar solamente la base de las palabras ("stem") por ejemplo remover las conjugaciones **espero**, **esparas**, **espera**, **esperamos**... se convierte en "esper"
 - remover espacios blancos
 
 
@@ -328,7 +329,7 @@ texto2 <- tm_map(texto2, toSpace, "\\|")
 tabla_frecuencia <- DocumentTermMatrix(texto2)
 ```
 
-## Calcular la frecuencia de de cada palabra
+## Calcular la frecuencia de cada palabra
 
 
 ```{r WC12}
@@ -346,7 +347,7 @@ tabla_frecuencia<-as.data.frame(tabla_frecuencia)
 # Forzamos a que la columna de frecuencia contenga valores numéricos.
 tabla_frecuencia$frecuencia<-as.numeric(tabla_frecuencia$frecuencia)
 
-# Ordenamos muestra tabla de frecuencias de acuerdo a sus valores numéricos.
+# Ordenamos nuestra tabla de frecuencias de acuerdo a sus valores numéricos.
 tabla_frecuencia<-tabla_frecuencia[order(tabla_frecuencia$frecuencia, decreasing=TRUE),]
 
 

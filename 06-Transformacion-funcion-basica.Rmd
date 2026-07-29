@@ -1,6 +1,6 @@
-# Transformacion: Operaciones boolenas y logicas
+# Transformación: Operaciones booleanas y lógicas
 
-Fecha de la ultima revisión
+Fecha de la última revisión
 
 ```{r echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
@@ -58,7 +58,7 @@ Bollean, que incluye múltiples opciones %in%
 vuelos %>%
   dplyr::select(anio, mes, dia, atraso_llegada, destino) %>%
   filter(destino == "SJU") %>%
-  filter(mes == c(6:12) & dia == 25) %>%
+  filter(mes %in% c(6:12) & dia == 25) %>%
   group_by(dia, mes) %>%
   summarise(atraso = mean(atraso_llegada, na.rm = TRUE))
 
@@ -108,7 +108,7 @@ Como se seleccionaría los meses de diciembre pero desde la del 25 o más
 
 ## 
 
-!, **excluye algo**, En este caso estamos excluyendo las aerolinea "AA" y "DL"
+!, **excluye algo**, En este caso estamos excluyendo las aerolíneas "AA" y "DL"
 
 ```{r TFB6}
 
@@ -142,7 +142,7 @@ vuelos %>%
 
  b. Volaron a Houston (IAH o HOU)
 
-Cual son estos aeropuertos, Hou == Houston, IAH == George Bush, Texas
+Cuáles son estos aeropuertos, Hou == Houston, IAH == George Bush, Texas
 
 ```{r TFB8, echo=FALSE, eval=FALSE}
 vuelos %>% 
@@ -154,7 +154,7 @@ dplyr::select(anio, mes, dia, destino, aerolinea, atraso_llegada) %>%
 filter(destino %in% c("IAH", "HOU"))
 ```
 
- 2. Seleciona solamente los vuelos que fueron operados por United, American o Delta
+ 2. Selecciona solamente los vuelos que fueron operados por United, American o Delta
 
 ```{r TFB9, echo=FALSE, eval=FALSE}
 unique(vuelos$aerolinea)
@@ -177,7 +177,7 @@ filter(mes %in% c(7, 8, 9))
 ```
 
 
- 4. Selecciona solamente los vuelos excluyendo los dias del 2 al 29 de cualquier mes
+ 4. Selecciona solamente los vuelos excluyendo los días del 2 al 29 de cualquier mes
  
 ```{r, eval=FALSE, echo=FALSE}
 vuelos %>% 

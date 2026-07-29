@@ -1,7 +1,7 @@
 # Importar datos
 
 
-Fecha de la ultima revisión
+Fecha de la última revisión
 ```{r echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
@@ -15,11 +15,11 @@ Sys.Date()
 
 ------------------------------------------------------------------------
 
-## Datos importado de la web.
+## Datos importados de la web.
 
 ### Usar datos que provienen de una base de datos del web.
 
-Aquí un website que recopila la cantidad de personas vacunados en los EEUU.
+Aquí un website que recopila la cantidad de personas vacunadas en los EEUU.
 
 
 ```{r, message=FALSE, warning=FALSE}
@@ -51,7 +51,7 @@ COVID_DATA %>%
 
 ### COVID world
 
-Otro website de datos de COVID, estos representa los datos de todos los paises del mundo
+Otro website de datos de COVID, estos representan los datos de todos los países del mundo
 
 ```{r ID3,eval=FALSE, include=FALSE}
 url_COVID=fread("https://covid.ourworldindata.org/data/owid-covid-data.csv")
@@ -66,7 +66,7 @@ url_COVID %>%
 
 ***
 Para encontrar datos de PR vea el siguiente enlace: 
-Este sitio del gobierno de Puerto Rico almacen datos muchos diferentes tipos que estan relacionado a la isla.
+Este sitio del gobierno de Puerto Rico almacena datos muchos diferentes tipos que están relacionados a la isla.
 
 <https://datos.estadisticas.pr/dataset?res_format=CSV>
 
@@ -74,9 +74,9 @@ Este sitio del gobierno de Puerto Rico almacen datos muchos diferentes tipos que
 Nota que para leer los datos de un archivo CSV, se usa la función "fread()" del paquete "data.table".
 
 
-- Cuando entre a la pagina, selecciona uno de los archivos, por ejemplo **Facultad -Conservatorio de Musica**
-- Presione el boton "Explore" y selecciona "Preview"
-- Arriba de la pagina vera el enlace de **https://.........** para poner en un script.  
+- Cuando entre a la página, selecciona uno de los archivos, por ejemplo **Facultad -Conservatorio de Musica**
+- Presione el botón "Explore" y selecciona "Preview"
+- Arriba de la página verá el enlace de **https://.........** para poner en un script.  
 - Copie y pegue en el script.
   
   
@@ -116,7 +116,7 @@ head(nchs_births_2001)
 
 
 ## Ejercicio
- -  Selecciona solamente los datos de los bebes que nacieron primer mes del año, pero agrupado por el día de la semana y contabilizado
+ -  Selecciona solamente los datos de los bebés que nacieron primer mes del año, pero agrupado por el día de la semana y contabilizado
 
 ```{r ID7, eval=FALSE, echo=FALSE}
 
@@ -178,7 +178,7 @@ dim(url_COVID)
  
 ### Temas: Funciones para importar datos con el paquete readr
 
- - read_csv() # sepeardo por coma
+ - read_csv() # separado por coma
  - read_csv2() # separado por punto y coma
  - read_tsv() # separado por tab
  - read_delim() # separado por delimitador
@@ -343,7 +343,7 @@ parse_number("It cost $123.45")
 
 ***
 
-## Caderna de texto
+## Cadena de texto
 
   - parse_character()
   
@@ -368,7 +368,7 @@ library(readr)
 parse_character(x2, locale = locale(encoding = "Shift-JIS"))
 
 
-parse_character(x, locale = locale(encoding = "Shift-JIS"))
+parse_character(x2, locale = locale(encoding = "Shift-JIS"))
 #> [1] "こんにちは"
 ```  
  
@@ -408,7 +408,7 @@ Hacer los ejercicios en la sección 11.3.5 del libro en español
   - write_csv()
   - write_tsv()
   
-## Otro tipos de datos y paquetes
+## Otros tipos de datos y paquetes
 
   - library(haven) # SPSS, Stata y SAS
   - readxl() lee archivo Excel en formato .xls, xlsx

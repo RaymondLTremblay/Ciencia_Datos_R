@@ -1,7 +1,7 @@
 # Factores
 
 
-Fecha de la ultima revisión
+Fecha de la última revisión
 ```{r echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
@@ -13,7 +13,7 @@ Sys.Date()
 
 
 
-El tema proviene de los siguientes sitios. Aunque los ejemplos son distinctos
+El tema proviene de los siguientes sitios. Aunque los ejemplos son distintos
 
 English:
  <https://r4ds.had.co.nz/factors.html>
@@ -59,7 +59,7 @@ df
 ```
 
 
-## ¿Qué ocurrio en el gráfico?
+## ¿Qué ocurrió en el gráfico?
 
 ```{r F4, fig.width=3}
 library(tidyverse)
@@ -74,10 +74,10 @@ use **month.name**
 
 Hay variables ya descrita en R, para facilitar el uso de constantes 
 
- - LETTERS: Mayuscula
- - letters: minuscula
- - month.abb: abreviación de meses en Ingles
- - month.name: nombre de meses en Ingles
+ - LETTERS: Mayúscula
+ - letters: minúscula
+ - month.abb: abreviación de meses en Inglés
+ - month.name: nombre de meses en Inglés
  - pi = el valor de pi
 
 
@@ -126,7 +126,7 @@ ggplot(data=df, aes(x=Months, y=Attacks)) +
 
 
 
-### Usando la funciones factor y levels, estamos asignando los factores a un nivel específico en el orden de la lista
+### Usando las funciones factor y levels, estamos asignando los factores a un nivel específico en el orden de la lista
 
 ### parse_factor() is similar a factor(), but generates a warning if levels have been specified and some elements of x are not found in those levels.
 
@@ -144,7 +144,7 @@ y1
 ```
 
 
-Si quiere que los valores aparezca en el orden que aparecen en la base de datos use **unique(variable)**
+Si quiere que los valores aparezcan en el orden que aparecen en la base de datos use **unique(variable)**
 
 ```{r F8}
 
@@ -199,7 +199,7 @@ encuesta
 ```
 
 
-Contabilizar la cantidad de persona por "estado civil"
+Contabilizar la cantidad de personas por "estado civil"
 
 ```{r F12}
 df=encuesta %>% 
@@ -252,7 +252,7 @@ LOTS of text here to wrap around the figure.  dfghjlkjhgdgxchvbvcxcvbnnbvvbvbbvc
 
 
 
-## Haga un re-order por la cantidad de personas por religion
+## Haga un re-order por la cantidad de personas por religión
 
 ```{r F15, fig.ncol = 2}
 df2=encuesta %>% 
