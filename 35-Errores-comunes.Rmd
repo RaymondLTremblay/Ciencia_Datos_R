@@ -1,0 +1,202 @@
+# Errores comunes y cómo resolverlos {#errores}
+
+Fecha de la última revisión
+```{r c35-1, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+Sys.Date()
+```
+
+***
+
+Equivocarse **es parte normal de programar**. Hasta quienes llevan años usando R
+ven errores todos los días. La destreza que de verdad importa no es *evitar* los
+errores, sino **aprender a leerlos y resolverlos**, porque cuando hagas tu propio
+análisis nadie va a haber "arreglado" el código de antemano.
+
+::: {.nota}
+Un mensaje de error casi siempre te dice **dos cosas**: *qué* salió mal y, muchas
+veces, *dónde* (la función o la línea). Léelo despacio de arriba hacia abajo; la
+primera línea suele ser la más importante.
+:::
+
+En este capítulo provocamos **a propósito** los errores más frecuentes para que
+los reconozcas cuando aparezcan. En cada ejemplo verás el mensaje real de R y
+luego cómo resolverlo.
+
+```{r c35-2}
+library(dplyr)
+```
+
+***
+
+## `could not find function`
+
+```{r c35-3, error=TRUE}
+promedio(c(2, 4, 6))
+```
+
+::: {.peligro}
+`could not find function "promedio"` significa que R no conoce esa función. Las
+tres causas más comunes son: (1) escribiste mal el nombre, (2) **olvidaste activar
+el paquete** con `library()`, o (3) la función es de otro paquete que no está
+instalado. Solución: revisa la ortografía y corre el `library()` correspondiente.
+:::
+
+R **distingue mayúsculas de minúsculas**, así que `Sqrt` no es lo mismo que `sqrt`:
+
+```{r c35-4, error=TRUE}
+Sqrt(9)
+```
+
+::: {.consejo}
+Si una función "no existe" pero estás seguro de que sí, revisa las mayúsculas:
+`sqrt()`, no `Sqrt()`; `TRUE`, no `True`.
+:::
+
+***
+
+## `object ... not found`
+
+```{r c35-5, error=TRUE}
+resultado + 1
+```
+
+::: {.peligro}
+`object 'resultado' not found` quiere decir que usaste una variable que **todavía
+no existe**. Suele pasar cuando hay una errata en el nombre o cuando no corriste
+antes el bloque que crea esa variable. Solución: crea la variable primero
+(`resultado <- ...`) y ejecuta los bloques **en orden**.
+:::
+
+***
+
+## `non-numeric argument to binary operator`
+
+```{r c35-6, error=TRUE}
+"3" * 2
+```
+
+::: {.nota}
+R no puede multiplicar **texto** por un número: `"3"` (con comillas) es una cadena
+de caracteres, no el número `3`. Conviértelo con `as.numeric("3")` antes de operar.
+:::
+
+***
+
+## `unused argument`
+
+```{r c35-7, error=TRUE}
+mean(c(1, 2, 3), n = 2)
+```
+
+::: {.peligro}
+`unused argument (n = 2)` significa que le pasaste a la función un argumento que
+**no reconoce**. Casi siempre es un nombre de argumento equivocado. Revisa la
+ayuda con `?mean` para ver los nombres correctos (aquí no existe `n`; quizás
+querías `trim`).
+:::
+
+***
+
+## Confundir `=` con `==`
+
+```{r c35-8, error=TRUE}
+filter(mtcars, cyl = 6)
+```
+
+::: {.peligro}
+Dentro de `filter()` (y para comparar en general) se usa `==`, no `=`. Un solo `=`
+**asigna**; el doble `==` **compara**. Por suerte, `dplyr` hasta te sugiere la
+corrección: `cyl == 6`.
+:::
+
+***
+
+## El caso especial de `NA` (no es un error, pero engaña)
+
+Esto **no** produce un error, pero el resultado sorprende a muchos:
+
+```{r c35-9}
+mean(c(1, 2, NA))
+```
+
+::: {.advertencia}
+Casi cualquier cálculo con un valor faltante (`NA`) devuelve `NA`. No es un error:
+R te avisa que no puede calcular la media sin saber ese dato. La solución es pedir
+que ignore los faltantes con `na.rm = TRUE`:
+:::
+
+```{r c35-10}
+mean(c(1, 2, NA), na.rm = TRUE)
+```
+
+***
+
+## `cannot open file ... No such file or directory`
+
+```{r c35-11, error=TRUE}
+read.csv("mis_datos_que_no_existen.csv")
+```
+
+::: {.peligro}
+Este error aparece cuando R **no encuentra el archivo**. Las causas típicas son:
+el nombre está mal escrito, el archivo está en otra carpeta, o tu **directorio de
+trabajo** no es el que crees. La mejor prevención es trabajar siempre dentro de un
+**Proyecto de RStudio** y usar rutas relativas como `"Datos/mi_archivo.csv"`.
+:::
+
+***
+
+## `cannot open URL` (descargar datos de internet)
+
+Cuando un capítulo baja datos en vivo, por ejemplo con
+`fread("https://…")` o `download.file()`, y no hay conexión (o el servidor no
+responde), verás algo como esto:
+
+```
+Error in download.file(...) :
+  cannot open URL 'https://ejemplo.com/datos.csv'
+```
+
+*(No ejecutamos ese código aquí a propósito, para no depender de la red.)*
+
+::: {.advertencia}
+`cannot open URL` **no es un error de tu código**: significa que no hay internet o
+que el servidor está caído o lento. Verifica tu conexión y vuelve a intentar.
+:::
+
+Una técnica profesional para que tu análisis no se caiga por completo cuando esto
+pasa es **`tryCatch()`**: intenta la descarga en vivo y, si falla, usa una copia
+local que guardaste antes. Este es exactamente el patrón que usamos en el capítulo
+de mapas:
+
+```{r c35-12, eval=FALSE}
+datos <- tryCatch(
+  fread("https://ejemplo.com/datos.csv"),          # intenta en vivo
+  error = function(e) readr::read_csv("Datos/copia_local.csv")  # si falla, usa la copia
+)
+```
+
+::: {.consejo}
+Buena práctica: descarga los datos **una vez**, guárdalos con `write_csv()` en la
+carpeta `Datos/`, y en adelante trabaja con la copia local. Así tu análisis es
+reproducible aunque no tengas internet.
+:::
+
+***
+
+## Un método general para resolver errores
+
+1. **Lee el mensaje completo**, sobre todo la primera línea.
+2. Identifica la **función** o la **línea** que menciona.
+3. Pregúntate: ¿escribí bien el nombre?, ¿activé el paquete?, ¿existe la variable?,
+   ¿el archivo está donde digo?
+4. Si te atoras, **copia el mensaje de error y búscalo en internet**: casi siempre
+   alguien ya tuvo el mismo problema.
+5. Reduce el problema a un **ejemplo mínimo** que lo reproduzca; muchas veces al
+   simplificarlo descubres la causa.
+
+::: {.nota}
+Guarda la calma: un error no significa que "no sirves para esto". Significa que R
+necesita que le aclares algo. Cada error que resuelves te hace mejor analista.
+:::

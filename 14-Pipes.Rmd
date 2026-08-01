@@ -2,14 +2,14 @@
 
 
 Fecha de la última revisión
-```{r echo=FALSE}
+```{r c14-1, echo=FALSE}
 
 Sys.Date()
 ```
 
 ***
 
-```{r, message=FALSE}
+```{r c14-2, message=FALSE}
 library(tidyverse)
 library(magrittr) # El paquete de Pipe, se activa usando tidyverse
 ```
@@ -43,7 +43,7 @@ Los pipes que vamos a evaluar son los siguientes:
 
 Función básica para calcular el precio básico de diamantes por quilates 
 
-```{r P1}
+```{r c14-3}
 head(diamonds, n=3)
 
 diamonds$Precio_q = diamonds$price/diamonds$carat # crear una nueva variable
@@ -53,7 +53,7 @@ head(diamonds, n=3)
 
 
 
-```{r P2}
+```{r c14-4}
 diamonds2 <- diamonds %>% 
   dplyr::mutate(price_per_carat = price / carat)
 ```
@@ -62,7 +62,11 @@ diamonds2 <- diamonds %>%
 
 Calcular el promedio de precio por la calidad de los diamantes usando pipes
 
-```{r P3}
+::: {.nota}
+Desde la versión 4.1, R trae un pipe nativo `|>` que no requiere paquetes. El `%>%` proviene de `magrittr` y añade funciones extra como el marcador de posición `.`.
+:::
+
+```{r c14-5}
 diamonds %>% 
   group_by(cut) %>% 
   summarize(Precio_color= mean(price))
@@ -73,7 +77,7 @@ diamonds %>%
 
 Calcular el promedio de precio por color de los diamantes usando pipes
 
-```{r P4, eval=FALSE, echo=FALSE}
+```{r c14-6, eval=FALSE, echo=FALSE}
 diamonds %>% 
   group_by(color) %>% 
   summarize(Precio_color= mean(price))
@@ -89,7 +93,7 @@ diamonds %>%
 
 Un ejemplo básico del pipe
 
-```{r P5}
+```{r c14-7}
 car_data <- 
   mtcars %>%
   subset(hp > 100) %>%
@@ -101,7 +105,7 @@ car_data <-
 
 Un ejemplo sin usar el pipe para calcular la misma información
 
-```{r P6}
+```{r c14-8}
 car_data <- 
   transform(aggregate(. ~ cyl, 
                       data = subset(mtcars, hp > 100), 
@@ -114,7 +118,7 @@ car_data
 
 
 
-```{r P7}
+```{r c14-9}
 car_data <- 
   mtcars %>%
   subset(hp > 100) %>%
@@ -146,7 +150,7 @@ car_data <-
 
 ## %$%
  
-```{r P8}
+```{r c14-10}
 library(magrittr)
 
 #iris %>%
@@ -167,7 +171,7 @@ iris %>%
  
 ### Otro ejemplo de Pipe: %$%
  
-```{r P9}
+```{r c14-11}
 data.frame(z = rnorm(100)) %$% 
   ts.plot(z)
 
@@ -202,7 +206,7 @@ z1|>
 
  
  
-```{r P10}
+```{r c14-12}
 
 # Example 1
 head(iris)
@@ -229,7 +233,7 @@ head(x, 20)
  - Filter for values specific values within a variable
  
  
-```{r P11}
+```{r c14-13}
 
 # Example 1
 names(iris)
@@ -253,7 +257,7 @@ https://stackoverflow.com/questions/61196304/magrittr-tee-pipe-t-equivalent
 
 
  
-```{r P12}
+```{r c14-14}
 rnorm(200) %>%
 matrix(ncol = 2) %T>%
 plot %>%  # plot usually does not return anything. 

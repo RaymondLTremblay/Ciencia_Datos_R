@@ -15,6 +15,7 @@ bibliography: [book.bib, packages.bib]
 description: |
   Este libro digital es una introducción al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto.  El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación.  El libro es un trabajo en progreso y se actualizará periódicamente.
 link-citations: yes
+always_allow_html: true
 
 editor_options: 
   markdown: 
@@ -22,13 +23,24 @@ editor_options:
 ---
 
 
-```{r echo=FALSE}
+```{r idx-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
 ```
 
 # Ciencia de Datos con R
+
+```{r idx-2, echo=FALSE, out.width="42%", fig.align="center"}
+knitr::include_graphics("img/ANALITICA_Hex.png")
+```
+
+::: {.banner-cover}
+**¡Bienvenidos a BIOL4026!** Una introducción práctica y visual a la ciencia de
+datos con R, RStudio, RMarkdown y el `tidyverse`. Aprenderás a importar, ordenar,
+transformar, **visualizar** y modelar datos reales —de Puerto Rico y de la
+biología— para contestar preguntas cuantitativas.
+:::
 
 ***
 **Instructor:** Raymond L. Tremblay, PhD   
@@ -59,6 +71,11 @@ Sys.Date()
 
 ***
 ### Programados
+
+::: {.consejo}
+Instala R y RStudio (ambos gratuitos) antes de la primera clase. Luego abre el capítulo "Instalación de paquetes", que incluye un bloque para instalar de una sola vez todo lo necesario.
+:::
+
 - [R- free statistical programming language](https://cran.r-project.org/) 
 - [RStudio](https://rstudio.com)
 - MSExcel, Numbers o Google Sheet 
@@ -118,7 +135,11 @@ En la clase las notas serán basado primeramente en la participación y algunas 
 
 ### Ejercicios  
 
-Los ejercicios están enfocados en la aplicación de conceptos y métodos discutidos en la clase y solución de problemas. Se hará un esfuerzo de usar datos reales para demostrar cómo trabajar con los análisis, tablas, y gráficos en R, RStudio y RMarkdown.  Típicamente, tendrán solamente una semana para hacer los ejercicios y entregarlos en formato *.html*.   
+Los ejercicios están enfocados en la aplicación de conceptos y métodos discutidos en la clase y solución de problemas. Se hará un esfuerzo de usar datos reales para demostrar cómo trabajar con los análisis, tablas, y gráficos en R, RStudio y RMarkdown.  Típicamente, tendrán solamente una semana para hacer los ejercicios y entregarlos en formato *.html*.
+
+::: {.nota}
+Los ejercicios se entregan en formato `.html`, que se genera al hacer **Knit** de tu archivo `.Rmd` en RStudio.
+:::   
 
 ***
 ### Faltar a clase y examen:

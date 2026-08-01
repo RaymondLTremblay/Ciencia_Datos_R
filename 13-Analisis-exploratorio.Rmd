@@ -1,7 +1,7 @@
 # Análisis Exploratorio
 
 Fecha de la última revisión
-```{r echo=FALSE}
+```{r c13-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -72,6 +72,10 @@ Hacer los ejercicios en la sección 7.3.4 del libro en español
 
 
 Hacer los ejercicios en la sección 7.4.1 del libro en español
+
+::: {.nota}
+En R los valores faltantes se representan con `NA`. Funciones como `mean()` o `sum()` los propagan y devuelven `NA`, por eso conviene usar el argumento `na.rm = TRUE`.
+:::
 
 ***
 

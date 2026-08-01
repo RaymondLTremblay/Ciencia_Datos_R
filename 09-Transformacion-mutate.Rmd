@@ -14,14 +14,14 @@
     
     
 
-```{r TM1}
+```{r c09-1}
 library(tidyverse)
 library(datos)
 ```
 
 
   
-```{r TM2}
+```{r c09-2}
 names(vuelos)
 # |> es igual %>% 
 new_df=vuelos |> dplyr::select(distancia, tiempo_vuelo, atraso_salida,  atraso_llegada) |> 
@@ -36,7 +36,7 @@ new_df
 ## Crear un data frame más pequeño con las variables de interés
 
 
-```{r TM3}
+```{r c09-3}
 library(tidyverse)
 library(nycflights13)
 head(flights)
@@ -53,7 +53,7 @@ head(vuelos_sml)
 
 ## Crear nuevas variables
 
-```{r TM4}
+```{r c09-4}
 
 mutate(vuelos_sml,
   ganado = atraso_salida - atraso_llegada,
@@ -67,7 +67,11 @@ mutate(vuelos_sml,
 
 Para guardar solamente la nueva variable usa **transmute**
 
-```{r TM5}
+::: {.consejo}
+Usa `mutate()` cuando quieras conservar las columnas originales y añadir nuevas; usa `transmute()` cuando solo te interesen las columnas nuevas.
+:::
+
+```{r c09-5}
 
 flights |> transmute(
   gain = dep_delay - arr_delay,
@@ -83,7 +87,11 @@ flights |> transmute(
 
 Para calcular diferencias entre variables en la misma columna
 
-```{r TM6}
+::: {.advertencia}
+`lag()` y `lead()` trabajan según el orden actual de las filas. Ordena tus datos (por ejemplo por fecha con `arrange()`) antes de usarlas, o los desplazamientos no tendrán sentido.
+:::
+
+```{r c09-6}
 set.seed(12345) # que los datos sean al azar, siempre sean los mismo, se usa el "set.seed()" para enseñanza.
 #rnorm()  DATOS CON DISTRIBUCION NORMAL
 
@@ -112,7 +120,7 @@ df %>%
 
 Evalúa la diferencia en números de casos entre 7 días de la semana en números de casos nuevos de COVID, "IncCasosSaludNuevo"
 
-```{r TM7}
+```{r c09-7}
 library(readr)
 library(dplyr)
 #names(url_COVID_PR)
@@ -122,7 +130,7 @@ head(url_COVID_PR, 100)
 names(url_COVID_PR)
 ```
 
-```{r}
+```{r c09-8}
 
 df2=url_COVID_PR %>% 
   dplyr::select(IncCasosSaludNuevo) %>% 
@@ -153,7 +161,7 @@ df2 %>%
 
 is the "next" (lead()) values in a vector/column
 
-```{r TM8}
+```{r c09-9}
 set.seed(12345)
 data=rpois(15, 10)
 df=as.tibble(data)
@@ -175,7 +183,7 @@ df%>%
 
 Suma cumulativa: los valores se suman a los largo del vector o columna
 
-```{r TM9}
+```{r c09-10}
 set.seed(12345) # set.seed() es para que los datos NO sean al azar y se puede replicar los resultados, tipicamente esto se usa para enseñanzar. 
 
 
@@ -194,7 +202,7 @@ df %>%
 
 ```
 
-```{r TM10}
+```{r c09-11}
 url_COVID_PR <- read_csv("Datos/url_COVID_PR.csv")
 names(url_COVID_PR)
 head(url_COVID_PR)
@@ -214,8 +222,8 @@ mutate(suma=cumsum(IncCasosSaludNuevo))
 Para calcular el promedio cumulativo y la varianza
 
  - las funciones son
-  - cmean() # del paquete cumstats
-  - cvar() # del paquete cumstats
+  - cmean() # del paquete TidyDensity
+  - cvar() # del paquete TidyDensity
   
 Para calcular el promedio en periodos cumulativos 
 
@@ -223,9 +231,9 @@ Para calcular el promedio en periodos cumulativos
  - rollapply( ) # del paquete zoo para calcular el rolling varianza 
   
   
-  Vea las otras funciones en el paquete cumstats: hay otra que podría usar en sus estudios?
+  Vea las otras funciones cumulativas en el paquete TidyDensity (cmean, cvar, csd, cmedian, cskewness, ckurtosis): ¿hay otra que podría usar en sus estudios?
 
-```{r TM11}
+```{r c09-12}
 
 set.seed(678)
 x <- rnorm(1000, 5, .001)
@@ -257,7 +265,7 @@ df3
 Un método para determinar si la cantidad de muestras recolectada es suficiente, es evaluar si la varianza cumulativa sigue cambiando cuando se añade nuevas recolección de datos.   
 
 
-```{r TM12}
+```{r c09-13}
 df3$order=c(1:1000)
 df3
 
@@ -274,7 +282,7 @@ ggplot(df3, aes(order, Var_cum))+
 ### Reemplazar los NA con 0, usando la función **replace_na()** con un valor específico **replace_na("variable", 0)**
 
 
-```{r TM13}
+```{r c09-14}
 datos_NA=c(1:8, NA, 10:20)
 datos_NA=as.data.frame(datos_NA)
 
@@ -295,7 +303,7 @@ La función if_else() es una función de reemplazo de valores en una columna bas
 
 
 
-```{r TM14}
+```{r c09-15}
 library(tidyverse)
 library(dplyr)
 
@@ -311,7 +319,7 @@ some_data |>
 
 
 
-```{r TM15}
+```{r c09-16}
 plant_repr=tibble(num_flowers=c(0,0,0,0,1,2,0,1,2,0,2, 100, 1000))
 
 plant_repr

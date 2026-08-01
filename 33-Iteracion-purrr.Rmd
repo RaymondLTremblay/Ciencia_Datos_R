@@ -9,7 +9,7 @@ Español: <https://es.r4ds.hadley.nz/iteración.html>
 ***
 
 Fecha de la última revisión
-```{r ITER0, echo=FALSE}
+```{r c33-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 Sys.Date()
 ```
@@ -25,7 +25,7 @@ Sys.Date()
 
 `purrr` es parte de `tidyverse`, así que se activa con `library(tidyverse)`.
 
-```{r ITER1}
+```{r c33-2}
 library(tidyverse)
 library(datos)
 ```
@@ -41,7 +41,7 @@ copiar y pegar la *misma tarea* muchas veces.
 
 Supón que queremos la mediana de cada columna de este data frame:
 
-```{r ITER2}
+```{r c33-3}
 df <- tibble(
   a = rnorm(10),
   b = rnorm(10),
@@ -62,7 +62,7 @@ median(df$d)
 
 La forma clásica de iterar es con un bucle `for`:
 
-```{r ITER3}
+```{r c33-4}
 resultado <- vector("double", ncol(df))   # espacio para guardar la salida
 for (i in seq_along(df)) {                # para cada columna
   resultado[[i]] <- median(df[[i]])       # calcular y guardar
@@ -72,6 +72,10 @@ resultado
 
 Funciona, pero hay que escribir bastante "andamiaje" (crear el vector de salida,
 manejar el índice `i`). `purrr` simplifica esto.
+
+::: {.advertencia}
+Crea el vector de salida con su tamaño final *antes* del bucle. Hacerlo crecer dentro del `for` (por ejemplo con `c()` en cada vuelta) obliga a R a copiarlo una y otra vez y vuelve el código muy lento.
+:::
 
 ***
 
@@ -86,7 +90,7 @@ elemento**, y devuelven un resultado. Hay una versión por tipo de salida:
   - `map_chr()` devuelve un vector de **texto**
   - `map_lgl()` devuelve un vector **lógico**
 
-```{r ITER4}
+```{r c33-5}
 map_dbl(df, median)   # la mediana de cada columna, en una sola línea
 map_dbl(df, mean)
 map_dbl(df, sd)
@@ -102,7 +106,7 @@ A veces necesitas una pequeña operación que no tiene nombre de función. Puede
 escribirla como una **fórmula** empezando con `~`, y usar `.x` para representar
 "el elemento actual".
 
-```{r ITER5}
+```{r c33-6}
 # El rango (máximo - mínimo) de cada columna
 map_dbl(df, ~ max(.x) - min(.x))
 
@@ -113,7 +117,7 @@ map_int(df, ~ sum(.x > 0))
 Esto es muy útil con datos reales. Por ejemplo, el promedio de atraso de salida
 por mes en los vuelos:
 
-```{r ITER6}
+```{r c33-7}
 vuelos %>%
   split(.$mes) %>%                                   # una lista: un data frame por mes
   map_dbl(~ mean(.x$atraso_salida, na.rm = TRUE))    # promedio de atraso por mes
@@ -126,7 +130,7 @@ vuelos %>%
 Cuando necesitas recorrer **dos** listas en paralelo, usa `map2()`. Los elementos
 se representan con `.x` (de la primera) y `.y` (de la segunda).
 
-```{r ITER7}
+```{r c33-8}
 medias <- c(0, 10, 100)
 desv   <- c(1, 2, 3)
 
@@ -141,10 +145,11 @@ map2(medias, desv, ~ rnorm(5, mean = .x, sd = .y))
 Un uso poderoso es ajustar **un modelo por grupo**. Aquí ajustamos una regresión
 del atraso de llegada contra el de salida, por separado para cada aerolínea.
 
-> Nota: como el paquete `maps` también se carga en este libro, escribimos
-> `purrr::map()` de forma explícita para no confundirla con `maps::map()`.
+::: {.nota}
+Como el paquete `maps` también se carga en este libro, escribimos `purrr::map()` de forma explícita para no confundirla con `maps::map()`.
+:::
 
-```{r ITER8}
+```{r c33-9}
 modelos <- vuelos %>%
   split(.$aerolinea) %>%
   purrr::map(~ lm(atraso_llegada ~ atraso_salida, data = .x))

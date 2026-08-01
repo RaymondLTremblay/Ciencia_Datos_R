@@ -2,7 +2,7 @@
 
 
 
-```{r echo=FALSE}
+```{r c05-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -18,7 +18,7 @@ Español: <https://es.r4ds.hadley.nz/05-transform.html>
 
 ------------------------------------------------------------------------
 
-```{r TF1}
+```{r c05-2}
 library(tidyverse)
 library(datos)
 head(vuelos)
@@ -41,7 +41,7 @@ Mirar el archivo y entender la información antes de hacer cualquier analisis/
 
 Evalua en este archivo los tipos de variables que se encuentra.
 
-```{r TF2}
+```{r c05-3}
 vuelos
 ```
 
@@ -49,21 +49,25 @@ vuelos
 
 -   cual función usará
 
-```{r TF3}
+```{r c05-4}
 sort(unique(vuelos$destino))
 
 ```
 
 ### Selecciona los vuelos donde el destino es San Juan
 
-```{r TF4}
+```{r c05-5}
 vuelos %>%
   filter(destino=="SJU")
 ```
 
 ### Selecciona los vuelos donde el destino es San Juan el día de navidad
 
-```{r TF5}
+::: {.peligro}
+Para comparar dentro de `filter()` se usa `==` (doble igual); un solo `=` es asignación y dará error. Para comparar contra varios valores, usa `%in% c("AA", "UA")` en vez de repetir `==`. Encontrarás más errores frecuentes y cómo resolverlos en el capítulo *Errores comunes* (\@ref(errores)).
+:::
+
+```{r c05-6}
 vuelos %>%
   filter(destino=="SJU") %>%
   filter(mes==12, dia==25) %>% 
@@ -82,7 +86,7 @@ unique(vuelos$aerolinea)
 
 ### Selecciona los vuelos que salen de San Juan en el dia de ti cumpleaños y contabiliza cuanto hubo
 
-```{r TF6}
+```{r c05-7}
 df_dia_cumpl=vuelos %>%  
 filter(destino =="SJU") %>% 
   filter(mes== 2, dia %in% c(1,2)) |> 
@@ -98,7 +102,7 @@ df_dia_cumpl
 -   Selecciona solamente los vuelos a destino de a San Juan
 -   organiza los datos en orden de más atraso_salido de mayor a menor
 
-```{r TF7}
+```{r c05-8}
 names(vuelos)
 
 vuelos %>% 
@@ -130,7 +134,7 @@ vuelos %>%
     -   summarize(): resumir conjuntos de datos
     -   group_by(): agrupar por variables
 
-```{r TF8}
+```{r c05-9}
 library(datos)
 library(tidyverse)
 por_dia <- vuelos %>% # pipe
@@ -140,7 +144,7 @@ por_dia
 
 ```
 
-```{r TF9}
+```{r c05-10}
 ## The median of the data set by day of the month
 
 
@@ -163,7 +167,7 @@ por_dia_2
 -   operaciones boolean
 -   
 
-```{r TF10}
+```{r c05-11}
 # El valor más común en un conjunto de datos
 # Crear una función: no existe en los paquetes de R
 
@@ -190,7 +194,7 @@ por_dia_3
 Añadir el promedio, mediana y moda al mismo data frame
 
 
-```{r TF11}
+```{r c05-12}
 ## The mode of the value
 library(DescTools)
 
@@ -209,7 +213,7 @@ por_dia_4
 Aquí se agrupar por día y mes
 
 
-```{r TF12}
+```{r c05-13}
 
 library(tidyverse)
 library(datos)

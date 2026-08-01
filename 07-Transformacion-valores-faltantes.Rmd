@@ -1,7 +1,7 @@
 # Transformación: Valores Faltantes
 
 
-```{r echo=FALSE}
+```{r c07-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -9,7 +9,7 @@ Sys.Date()
 
 Fecha de la última revisión
 
-```{r TFV1}
+```{r c07-2}
 library(tidyverse)
 library(datos)
 ```
@@ -22,7 +22,7 @@ library(datos)
 
 ### ¿Qué pasa con los valores faltantes y resultados de análisis sin sentido?
 
-```{r TFV2}
+```{r c07-3}
 
 2^2
 1^2
@@ -54,7 +54,7 @@ NA - 3
  - variable lógica TRUE/FALSE
  - variable con NA y 0/1
 
-```{r}
+```{r c07-4}
 df=tribble(~values, ~T_F, ~NA_not,
              1, TRUE, NA,
              0, TRUE, 1,
@@ -70,7 +70,7 @@ df
 
 Ahora multiplicamos valores con la variable lógica.
 
-```{r}
+```{r c07-5}
 df |>
   mutate(values_TF = values * T_F)
 ```
@@ -78,7 +78,7 @@ df |>
 
 Multiplicamos la variable lógica con NA/1/0
 
-```{r}
+```{r c07-6}
 df |>
   mutate(values_TF = T_F * NA_not)
 ```
@@ -86,7 +86,7 @@ df |>
 
 Multiplicamos valores con la variable NA/1/0
 
-```{r}
+```{r c07-7}
 df |>
   mutate(valuesNA = values * NA_not)
 ```
@@ -98,7 +98,7 @@ df |>
 -   ¿Qué otras variables tienen valores faltantes?
 -   ¿Qué representan estas filas?
 
-```{r TFV2a}
+```{r c07-8}
 vuelos %>%
   dplyr::select(horario_salida, aerolinea) %>%
   is.na() %>%
@@ -110,7 +110,7 @@ vuelos %>%
 
 ## Seleccionar solamente los vuelos donde el "horario de salida" es desconocido
 
-```{r TVF3}
+```{r c07-9}
 vuelos %>%
   dplyr::select(anio, mes, dia, horario_salida, aerolinea) |>
   filter(is.na(horario_salida)) %>%
@@ -125,7 +125,11 @@ vuelos %>%
 -   na.rm=TRUE
 -   !is.na() = is not NA, pq al frente tiene "!"
 
-```{r TVF4}
+::: {.consejo}
+Para ignorar los `NA` en un cálculo usa el argumento `na.rm = TRUE` (por ejemplo `mean(x, na.rm = TRUE)`). Para eliminar filas con `NA` puedes usar `drop_na()`.
+:::
+
+```{r c07-10}
 no_cancelados <- vuelos %>%
   filter(!is.na(atraso_salida), !is.na(atraso_llegada))
 no_cancelados
@@ -153,8 +157,12 @@ Reemplazar los NA por "0" en el archivo de datos
 
 Cuál es el problema de reemplazar los NA por 0?
 
+::: {.peligro}
+Reemplazar `NA` por `0` cambia el significado de los datos: un valor desconocido no es lo mismo que un cero real. Esto distorsiona promedios, sumas y conteos, así que piénsalo bien antes de hacerlo. Encontrarás más errores frecuentes y cómo resolverlos en el capítulo *Errores comunes* (\@ref(errores)).
+:::
 
-```{r TFV5}
+
+```{r c07-11}
 
 
 datos_NA = c(1, NA, 3:8, NA, 10:12)
@@ -185,7 +193,7 @@ reemplace los valores de "zero" con NA con la función if_else de dplyr
 
 
 
-```{r}
+```{r c07-12}
 library(dplyr)
 Datos_Excel = c(1, 0, 3:8, 0, 10:12)
 

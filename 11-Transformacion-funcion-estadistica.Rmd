@@ -1,12 +1,16 @@
 # Transformación: Índices paramétricos y no paramétricos
 
-```{r TFE1, echo=FALSE}
+```{r c11-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
 ```
 
 ## Funciones estadísticas básicas:
+
+::: {.consejo}
+Casi todas estas funciones (`mean()`, `sd()`, `min()`, `max()`, `IQR()`...) devuelven `NA` si hay valores faltantes. Añade `na.rm = TRUE` para calcularlas ignorando los `NA`.
+:::
 
 Tarea de grupo.
 

@@ -1,7 +1,7 @@
 # Cadena de Caracteres = STRINGS
 
 
-```{r echo=FALSE}
+```{r c20-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -19,7 +19,7 @@ Español:
  
 
 
-```{r}
+```{r c20-2}
 library(tidyverse)
 library(datos)
 library(stringr)
@@ -29,7 +29,7 @@ library(stringr)
 
 ***
 
-```{r SR1}
+```{r c20-3}
 string1 <- "El Pequeño Principe; Saint Exupery"
 string2 <- "El segundo sexo: Simone de Beauvoir"
 string3 <- "El segundo sexo \\ Simone de Beauvoir"
@@ -45,7 +45,7 @@ string3
 
 Caracteres especiales en cadenas de caracteres
 
-```{r SR2}
+```{r c20-4}
 comilla_doble <- '\"' # ó '"'
 comilla_simple <- '\'' # ó "'"
 
@@ -64,7 +64,7 @@ Backslash
 
 
 
-```{r SR3} 
+```{r c20-5}
 x <- c("\"", "\\")
 x
 
@@ -74,7 +74,7 @@ writeLines(x)
 
 ## Caracteres especiales
 
-```{r SR4}
+```{r c20-6}
 "\n"
 "\t"
 ```
@@ -86,11 +86,12 @@ writeLines(x)
 
 ## Para ver las opciones de caracteres y como trabajar cadenas de caracteres use **?"'"** para ver 
 
-```{r SR5}
+```{r c20-7}
 ?"'"
 ```
 
 
+```
 ‘⁠\n⁠’	newline (aka ‘line feed’)
 ‘⁠\r⁠’	carriage return
 ‘⁠\t⁠’	tab
@@ -102,6 +103,7 @@ writeLines(x)
 ‘⁠\'⁠’	ASCII apostrophe ‘⁠'⁠’
 ‘⁠\"⁠’	ASCII quotation mark ‘⁠"⁠’
 ‘⁠\`⁠’	ASCII grave accent (backtick) ‘⁠`⁠’
+```
 
 ⁠
 
@@ -117,7 +119,7 @@ Vea el siguiente enlace para los unicodes
 
 
 
-```{r SR6}
+```{r c20-8}
 x <- "\u00b5" # mu
 x
 
@@ -143,14 +145,14 @@ Escribir su nombre en el alfabeto cirílico
 
 РЕЙМОНД
 
-```{r SR7}
+```{r c20-9}
 Raymond = "\u048E\u0400\u042B\u043C\u043E\u043D\u0434, Asi se escribe mi nombre en ruso"
 Raymond
 
 
 ```
 
-necesito poner una letra extraña en mi frase, "\u048E". 
+necesito poner una letra extraña en mi frase, `"\u048E"`. 
 
 ***
 
@@ -166,7 +168,7 @@ Solamente trabajaremos con el paquete stringr, donde las funciones escritas de f
 
 ### El largo de una cadena de caracteres con **str_length**
 
-```{r SR8}
+```{r c20-10}
 library(stringr)
 str_length("Yo quiero un Lamborghini")
 ```
@@ -179,7 +181,7 @@ str_length("Yo quiero un Lamborghini")
 Nota aquí que une la primera oración con la segunda oración
 
 
-```{r SR9}
+```{r c20-11}
 
 
 str_c("Es una oración con muchas letras y palabras", 
@@ -193,7 +195,7 @@ str_c("Es una oración con muchas letras y palabras",
 Usa el argumento **sep = "xxx  "** para controlar cómo separar las oraciones
 
 
-```{r SR10}
+```{r c20-12}
 
 
 str_c("Es una oración con muchas letras y palabras", 
@@ -207,7 +209,7 @@ str_c("Es una oración con muchas letras y palabras",
   
   - str_replace_na()
 
-```{r SR11} 
+```{r c20-13}
 x <- c("Mi pelicula favorita es Cinema Paraiso", NA)
 x
 str_c("|-", x, "-|")
@@ -221,7 +223,7 @@ str_c("|-", x, "-|")
   - str_sub()
   
   
-```{r SR12}
+```{r c20-14}
 x= c( "Piña", "Manzana", "Toronja")
 str_sub(x, 1,1)
 
@@ -232,7 +234,7 @@ str_sub(x, 1,1)
 
 ### Seleccionar los caracteres al último de las palabras
 
-```{r SR13}
+```{r c20-15}
 x= c( "Piña", "Manzana", "Toronja", "Hello")
 str_sub(x, -2,-1)
 
@@ -245,7 +247,7 @@ str_sub(x, -2,-1)
 
 ## You can also use `str_sub()` to modify strings:
 
-```{r}
+```{r c20-16}
 x <- "BBCDEF"
 str_sub(x, 1, 1) <- "A"; x
 
@@ -269,7 +271,7 @@ str_sub(x, 2, -2) <- ""; x
 ### Cambiar a todo minúscula
 
 
-```{r SR14}
+```{r c20-17}
 x= c( "Piña", "Manzana", "Toronja", "HAPPY")
 str_to_lower(x)
 ```
@@ -279,7 +281,7 @@ str_to_lower(x)
 
 ### Cambiar a mayúscula
 
-```{r SR15}
+```{r c20-18}
 x= c( "Piña", "Manzana", "Toronja")
 str_to_upper(x)
 ```
@@ -297,7 +299,7 @@ str_to_upper(x)
   - str_sort() # que hace esta función?
   
 
-```{r SR16}
+```{r c20-19}
 x
 
 str_order(x) # regresa el orden de las palabras
@@ -315,6 +317,10 @@ Hacer los ejercicios en la sección 14.2.5 del libro en español
   
 ## Buscar patrones
 
+::: {.historia}
+Las expresiones regulares surgieron en los años 1950 del trabajo del matemático Stephen Kleene sobre lenguajes formales, y hoy son el estándar para describir patrones de texto en casi todos los lenguajes de programación.
+:::
+
 ## Coincidencia básica
 
 Para visualizar patrones de letras
@@ -322,7 +328,7 @@ Para visualizar patrones de letras
  - str_view()
  - str_view( , .x.)
 
-```{r SR17}
+```{r c20-20}
 
 library(stringr)
 x <- c("manzana", "banana", "pera", "extraer")
@@ -338,7 +344,7 @@ Ejemplo de cómo uno puede utilizar esas funciones
 
 str_detect()
  
-```{r SR18}
+```{r c20-21}
 x= c( "Piña", "Manzana", "Toronja", "Jugo", "Monique", "Raymond", "mami")
 str_detect(x, "a") # detectar la a
 str_detect(x, "i") # detectar la i
@@ -349,7 +355,7 @@ str_detect(x, "ñ")
 ### Detectar las palabras que comienzan con una letra específica con "^". Nota el uso de mayúsculas y minúsculas y sumamos cuantas palabras cumplen con la condición. 
 
 
-```{r R19}
+```{r c20-22}
 # ¿Cuántas palabras comunes empiezan con m o M?
 # str_detect(x, "^M")
 x
@@ -363,7 +369,7 @@ sum(str_detect(x, "^[mM]")) # ambas mayusculas y minusculas
 ### Detectar las palabras que terminan con una letra específica con "$"
 
 
-```{r R20}
+```{r c20-23}
 # ¿Qué proporción de palabras comunes terminan con una vocal?
 
 library(datos)
@@ -383,7 +389,7 @@ Dataset: palabras
  
 - Cuentas palabras tiene ese archivo?
 
-```{r R21}
+```{r c20-24}
 library(stringr)
 library(datos)
 palabras
@@ -392,7 +398,7 @@ palabras
 
 ***
 
-```{r R22}
+```{r c20-25}
 # Encuentra todas las palabras que contengan al menos una vocal, y luego niégalo
 sin_vocales_1 <- !str_detect(palabras, "[aáeéiíoóuúúü]")
 
@@ -414,7 +420,7 @@ Suma la cantidad de palabras que no tienen vocales?
 
 
 
-```{r R23}
+```{r c20-26}
 library(tidyverse)
 df <- tibble(
   palabra = palabras, 
@@ -431,7 +437,7 @@ df %>%
 
 
 
-```{r}
+```{r c20-27}
 library(readr)
 fragmentos_neruda_sep <- read_csv("Datos/fragmentos_neruda_sep.csv")
 
@@ -443,7 +449,7 @@ fragmentos_neruda_sep
 
 Contar cuantas "a" hay en cada palabra con str_count()
 
-```{r R24}
+```{r c20-28}
 #x= c( "Piña", "Manzana", "Toronja", "Jugo")
 
 
@@ -452,7 +458,7 @@ str_count(fragmentos_neruda_sep, "e")
 
 ***
 
-```{r R25}
+```{r c20-29}
 # En promedio, ¿cuántas vocales hay por palabra?
 mean(str_count(palabras, "[aáeéiíoóuúü]"))
 
@@ -461,7 +467,7 @@ mean(str_count(palabras, "[x]"))
 
 Contar cuantas vocales y consonantes hay en cada palabra
 
-```{r R26}
+```{r c20-30}
 df %>% 
   mutate(
     vocales = str_count(palabra, "[aáeéiíoóuúü]"), # Cuenta cuantas vocales 
@@ -494,15 +500,15 @@ Hacer los ejercicios en la sección 14.2.8.1 del libro en español
 
 ## Clases de caracteres y alternativas
 
- - \d
- - \s
+ - `\d`
+ - `\s`
  - [abc]
  - [^abc]
  
  - $ . | ? * + ( ) [ {
  
 
-```{r SR27}
+```{r c20-31}
 str_view(c("cómo", "como", "Raymond"), "c(ó|o)mo")
 
 
@@ -565,7 +571,7 @@ Hacer los ejercicios en la sección 14.2.11.1 del libro en español
  - str_detect(x, "e")
 
  
-```{r SR28}
+```{r c20-32}
 library(datos) 
 #fruit
 head(palabras)
@@ -573,7 +579,7 @@ head(palabras)
  
  
  
-```{r SR29}
+```{r c20-33}
 # Encuentra todas las palabras que contengan al menos una vocal, y luego niégalo
 sin_vocales_1 <- !str_detect(palabras, "[aáeéiíoóuúúü]")
 
@@ -620,7 +626,7 @@ Hacer los ejercicios en la sección 14.3.3.1 del libro en español
 ## Coincidencias agrupadas:
 
  - str_match*
-```{r SR30}
+```{r c20-34}
 sustantivo <- "(el|la|los|las|lo|un|una|unos|unas) ([^ ]+)"
 
 tiene_sustantivo <- oraciones %>%
@@ -695,7 +701,7 @@ Buscar 3 funciones en stringi y aplica y explica las funciones con un set de dat
   
   
   
-```{r}
+```{r c20-35}
 quijote <- read_lines("Datos/el_quijote.txt")
 
 head(quijote, n=10)
@@ -703,13 +709,13 @@ head(quijote, n=10)
 
 ### Cuantas oraciones tiene el text primer capitulo de Quijote?
 
-```{r}
+```{r c20-36}
 length(quijote)
 ```
 
 ## Cuantas palabras tiene el primer capítulo de Quijote?
 
-```{r}
+```{r c20-37}
 quijote_palabras <- str_split(quijote, " ")
 
 quijote_palabras_vector <- unlist(quijote_palabras)
@@ -722,12 +728,12 @@ length(quijote_palabras_vector) # cuantas palabras hay en total
 ## Cuantas veces aparece la palabra "caballero" en el primer capitulo de Quijote?
 
 
-```{r}
+```{r c20-38}
 sum(str_detect(quijote_palabras_vector, "caballero"))
 ```
 
 ##  ¿Cuántas palabras tienen más de 10 letras?
-```{r}
+```{r c20-39}
 
 sum(str_length(quijote_palabras_vector) > 10)
 
@@ -737,7 +743,7 @@ sum(str_length(quijote_palabras_vector) > 10)
  
 ##  Cual es la palabra más larga
  
-```{r}
+```{r c20-40}
 quijote_palabras_vector %>%
   str_length() %>%
   which.max() %>%
@@ -747,14 +753,14 @@ quijote_palabras_vector %>%
 
 
 ## Cuantas veces aparace "Sancho Panza" en el primer capitulo de Quijote? 
-```{r}
+```{r c20-41}
 sum(str_detect(quijote, "Sancho Panza"))
 ```
  
  
 ##  Cuantas veces aparace "Dios" en el primer capitulo de Quijote?
  
-```{r}
+```{r c20-42}
 sum(str_detect(quijote, "Dios"))
 ```
  
@@ -763,7 +769,7 @@ sum(str_detect(quijote, "Dios"))
  !str_detect(palabras, "[aáeéiíoóuúúü]")
 
  
-```{r}
+```{r c20-43}
 
 
 str_detect(quijote_palabras_vector, "e") |> head() # cuantas veces aparece la letra e en cada palabra
@@ -776,7 +782,7 @@ sum(str_detect(quijote_palabras_vector, "e")) # cuantas veces aparece la letra e
 ## Cuantas palabras tienen ñ?
 
 
-```{r}
+```{r c20-44}
 sum(str_detect(quijote_palabras_vector, "[aáeéiíoóuúúü]")) # cuantas veces aparece la letra ñ en cada palabra
 
 sum(str_detect(quijote_palabras_vector, "[ñ]")) # cuantas veces aparece la letra ñ en total
@@ -787,7 +793,7 @@ sum(str_detect(quijote_palabras_vector, "[ñ]")) # cuantas veces aparece la let
 
 las palabras como "que", "de", "y", "la", "el", "en", "a", "los", "del", "se", "las", "un", "por", "con", "no", "una", "su", "para", "es", "al", "lo", "como", "más", "pero", "sus", "le", "ya", "o", "este", "sí", "porque", "esta", "entre", "cuando", "muy", "sin", "sobre", "también", "me", "hasta", "hay", "donde", "quien",  etc.
  
-```{r}
+```{r c20-45}
 
 stop_words <- c("que", "de", "y", "la", "el", "en", "a", "los", "del", "se", 
                 "las", "un", "por", "con", "no", "una", "su", "para", "es", 
@@ -803,7 +809,7 @@ quijote_palabras_vector_limpio <- quijote_palabras_vector[!str_detect(quijote_pa
 ```
  
  
-```{r}
+```{r c20-46}
 
 library(cranlogs)
 cranlogs_badge("ggversa", summary = "grand-total")
@@ -822,7 +828,7 @@ print(total_downloads)
 
 
 
-```{r eval=FALSE}
+```{r c20-47, eval=FALSE}
 # Desactivado para el build: install_github requiere credenciales de GitHub.
 #install.packages("devtools")
 devtools::install_github("arunsrinivasan/cran.stats")
@@ -839,7 +845,7 @@ dt_ggversa <- dt[package == "ggversa", .N, by = country]
 print(dt_ggversa)
 ```
 
-```{r, eval=FALSE}
+```{r c20-48, eval=FALSE}
 #install.packages("packageRank")
 library(packageRank)
 
@@ -885,14 +891,14 @@ print(summary)
 
 ## Contabilizar las palabras más comunes en el primer capitulo de Quijote
 
-```{r}
+```{r c20-49}
 table(quijote_palabras_vector_limpio) %>%
   sort(decreasing = TRUE) %>%
   head(40)
 ```
 
 
-```{r}
+```{r c20-50}
 clean=str_replace_all(quijote_palabras_vector_limpio, "[,\\.\\!\\:\\'\\?]", "")
 
 table(clean) %>%
@@ -901,6 +907,7 @@ table(clean) %>%
 ```
 
 
+```
 \\b[^\\s]*;[^\\s]*\\b matches:
 
 \\b: word boundary
@@ -908,9 +915,10 @@ table(clean) %>%
 ;: the semicolon
 [^\\s]*: more non-space characters
 \\b: word boundary
+```
 
 
-```{r}
+```{r c20-51}
 words_with_semicolon <- str_extract_all(clean, "\\b[^\\s]*;[^\\s]*\\b")[[1]]
 
 words_with_semicolon
@@ -919,7 +927,7 @@ words_with_semicolon
 
 Contabilizar la cantidad de veces los numeros aparecen en el texto
 
-```{r}
+```{r c20-52}
 str(clean)
 
 library(purrr)
@@ -937,7 +945,7 @@ print(counts)
 
 ***
 
-```{r, echo=FALSE}
+```{r c20-53, echo=FALSE}
 library(readr)
 library(stringr)
 
@@ -958,14 +966,14 @@ tail(Alice, n=10)
 
 ### Cuantas oraciones tiene el text de Alice?
 
-```{r, echo=FALSE}
+```{r c20-54, echo=FALSE}
 length(Alice)
 ```
 
 
 ### Cuantas palabras tiene el texto de Alice?
 
-```{r, echo=FALSE}
+```{r c20-55, echo=FALSE}
 Alice_palabras <- str_split(Alice, " ")
 Alice_palabras_vector <- unlist(Alice_palabras)
 head(Alice_palabras_vector) # obervar las primeras palabras
@@ -976,14 +984,14 @@ length(Alice_palabras_vector) # cuantas palabras hay en total
 
 ### Convertir todo a minúsculas
 
-```{r, echo=FALSE}
+```{r c20-56, echo=FALSE}
 Alice_palabras_vector_lower <- str_to_lower(Alice_palabras_vector)
 ```
 
 
 Determinar cuantas veces aparece la palabra "alice" en el texto
 
-```{r, echo=FALSE}
+```{r c20-57, echo=FALSE}
 sum(str_detect(Alice_palabras_vector_lower, "alice"))
 ```
 
@@ -991,13 +999,13 @@ sum(str_detect(Alice_palabras_vector_lower, "alice"))
 
 ###  ¿Cuántas palabras tienen más de 10 letras?
 
-```{r, echo=FALSE}
+```{r c20-58, echo=FALSE}
 sum(str_length(Alice_palabras_vector_lower) > 10)
 ```
 
 ### Remover todos las puntuaciones en el texto, usando "[[:punct:]]"
 
-```{r, echo=FALSE}
+```{r c20-59, echo=FALSE}
 Alice_palabras_vector_limpio <- str_replace_all(Alice_palabras_vector_lower, "[[:punct:]]", "")
 
 head(Alice_palabras_vector_limpio)
@@ -1008,7 +1016,7 @@ head(Alice_palabras_vector_limpio)
 
 ### Haz una lista de las 20 palabras más comunes en el texto de Alice
 
-```{r, echo=FALSE}
+```{r c20-60, echo=FALSE}
 table(Alice_palabras_vector_limpio) %>%
   sort(decreasing = TRUE) %>%
   head(20)
@@ -1017,7 +1025,7 @@ table(Alice_palabras_vector_limpio) %>%
 
 Remover los espacios vacíos
 
-```{r, echo=FALSE}
+```{r c20-61, echo=FALSE}
 Alice_palabras_vector_limpio <- Alice_palabras_vector_limpio[Alice_palabras_vector_limpio != ""]
 
 
@@ -1025,7 +1033,7 @@ Alice_palabras_vector_limpio <- Alice_palabras_vector_limpio[Alice_palabras_vect
 
 Haga una lista de las 20 palabras más comunes en el texto de Alice sin los espacios vacios, para averguar que removiste los espcios vacios
 
-```{r, echo=FALSE}
+```{r c20-62, echo=FALSE}
 table(Alice_palabras_vector_limpio) %>%
   sort(decreasing = TRUE) %>%
   head(20)
@@ -1034,7 +1042,7 @@ table(Alice_palabras_vector_limpio) %>%
 
 
 Ahora remueve todos ,los stopwords en ingles del texto de Alice usando la libreria stopwords
-```{r, echo=FALSE}
+```{r c20-63, echo=FALSE}
 library(stopwords)
 
 stop_words <- stopwords::stopwords("en") # obtener las palabras vacías en español
@@ -1047,7 +1055,7 @@ Alice_palabras_vector_limpio2 <- Alice_palabras_vector_limpio[!str_detect(Alice_
 
 Ahora enseñe las 20 palabras más comunes en el texto de Alice sin los stopwords
 
-```{r, echo=FALSE}
+```{r c20-64, echo=FALSE}
 table(Alice_palabras_vector_limpio2) %>%
   sort(decreasing = TRUE) %>%
   head(20)
@@ -1073,7 +1081,7 @@ Using the following list of main characters in the book, count how many times ea
  - Bill the Lizard
  - Knave of Hearts
  
-```{r}
+```{r c20-65}
 characters <- c("Alice", "White Rabbit", "Rabbit", "Mad Hatter", "Hatter", "Queen of Hearts", "Queen",
                 "Cheshire Cat","Cat", "March Hare", "Caterpillar", "Dormouse", 
                 "King of Hearts", "King", "Gryphon", "Mock Turtle", "Dodo",  "Knave of Hearts")
@@ -1082,7 +1090,7 @@ characters <- c("Alice", "White Rabbit", "Rabbit", "Mad Hatter", "Hatter", "Quee
 ```
 
 
-```{r, echo=FALSE}
+```{r c20-66, echo=FALSE}
 counts <- sapply(characters, function(name) {
   str_count(tolower(paste(Alice, collapse = " ")), tolower(name))
 })

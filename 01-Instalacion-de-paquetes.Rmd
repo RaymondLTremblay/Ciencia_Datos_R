@@ -1,7 +1,7 @@
 # Instalación de paquetes
 
 Fecha de la última revisión
-```{r PAQ0, echo=FALSE}
+```{r c01-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 Sys.Date()
 ```
@@ -19,6 +19,10 @@ Recuerda: solo hay que **instalar** un paquete una vez en la computadora (con
 `install.packages()`), pero hay que **activarlo** con `library()` en cada sesión
 en la que lo vayas a usar.
 
+::: {.peligro}
+Un error muy frecuente es instalar el paquete pero olvidar activarlo en la sesión. Si al usar una función aparece `could not find function`, casi siempre falta correr `library()`. Encontrarás más errores frecuentes y cómo resolverlos en el capítulo *Errores comunes* (\@ref(errores)).
+:::
+
 ***
 
 ## Instalar todos los paquetes del libro
@@ -28,7 +32,11 @@ script revisa cuáles paquetes ya están instalados e instala **solamente los qu
 falten**. Instala cada paquete por separado, de modo que si alguno no se puede
 instalar, los demás sí se instalan y al final se te informa cuáles fallaron.
 
-```{r PAQ1, eval=FALSE}
+::: {.advertencia}
+Instalar paquetes descarga archivos desde CRAN, así que necesitas conexión a internet. En una red lenta el proceso puede tardar varios minutos.
+:::
+
+```{r c01-2, eval=FALSE}
 paquetes_curso <- c(
   # --- Núcleo: tidyverse y datos en español ---
   "tidyverse", "datos", "ggversa",
@@ -43,7 +51,7 @@ paquetes_curso <- c(
   "gt", "flextable", "knitr", "bookdown", "gridExtra",
 
   # --- Modelos y estadística ---
-  "modelr", "broom", "tidymodels", "MASS", "cumstats", "DescTools",
+  "modelr", "broom", "tidymodels", "MASS", "DescTools",
   "GMCM", "TidyDensity",
 
   # --- Mapas y visualización ---
@@ -78,9 +86,11 @@ if (length(fallidos) == 0) {
 }
 ```
 
-> Nota: `ggversa` (Gráficas Versátiles con `ggplot2`, de Tremblay &
-> Hernández-Serrano) está disponible en CRAN, así que se instala igual que los
-> demás con `install.packages("ggversa")`.
+::: {.nota}
+`ggversa` (Gráficas Versátiles con `ggplot2`, de Tremblay &
+Hernández-Serrano) está disponible en CRAN, así que se instala igual que los
+demás con `install.packages("ggversa")`.
+:::
 
 ***
 
@@ -89,12 +99,12 @@ if (length(fallidos) == 0) {
 Este bloque **no instala nada**; solamente te dice cuáles paquetes ya tienes y
 cuáles te faltan.
 
-```{r PAQ2, eval=FALSE}
+```{r c01-3, eval=FALSE}
 paquetes_curso <- c(
   "tidyverse", "datos", "ggversa", "nycflights13", "babynames", "nasaweather",
   "fueleconomy", "Lahman", "readxl", "haven", "data.table", "hms", "zoo",
   "gt", "flextable", "knitr", "bookdown", "gridExtra", "modelr", "broom",
-  "tidymodels", "MASS", "cumstats", "DescTools", "GMCM", "TidyDensity",
+  "tidymodels", "MASS", "DescTools", "GMCM", "TidyDensity",
   "leaflet", "maps", "RColorBrewer", "hexSticker", "showtext", "sysfonts",
   "magick", "wordcloud", "wordcloud2", "tm", "SnowballC", "stopwords",
   "pacman", "devtools", "rinat", "cranlogs", "packageRank"
@@ -113,7 +123,7 @@ data.frame(
 
 En cada capítulo verás al inicio un bloque con `library()`. El más común es:
 
-```{r PAQ3, eval=FALSE}
+```{r c01-4, eval=FALSE}
 library(tidyverse)   # ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats
 library(datos)       # datos en español
 ```

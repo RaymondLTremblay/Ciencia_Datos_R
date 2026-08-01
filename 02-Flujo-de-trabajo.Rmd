@@ -12,7 +12,7 @@ Español:
 ***
 
 Fecha de la última revisión
-```{r FT1, echo=FALSE}
+```{r c02-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -30,6 +30,10 @@ Sys.Date()
   
 ## Creación de un proyecto:
 
+::: {.consejo}
+Usa Proyectos de RStudio (menú `File → New Project`): mantienen juntos tus datos, scripts y resultados, y evitan depender de `setwd()`, que hace tu código difícil de compartir.
+:::
+
   - crear un proyecto para cada curso.
   - crear un proyecto para cada investigación.
   - No se te olvida de añadir tus archivos de datos en el proyecto.
@@ -42,7 +46,7 @@ Sys.Date()
   
 ***
   
-```{r FT2}
+```{r c02-2}
 #install.packages("tidyverse")
 library(tidyverse) # ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats
 
@@ -52,7 +56,7 @@ library(datos)
 
 ### Un set de sobre carros en el archivo (paquete) **datos**
 
-```{r FT3}
+```{r c02-3}
 millas
 
 ```
@@ -60,20 +64,20 @@ millas
 
 ### Mi primer gráfico
 
-```{r FT4}
+```{r c02-4}
 ggplot(data = millas) +
   geom_point(mapping = aes(x = cilindrada, y = autopista))
 ```
 
 
 ### Las funciones **head** y **tail**
-```{r FT5}
+```{r c02-5}
 ggplot(data=millas)
 ```
 
 
 
-```{r FT6}
+```{r c02-6}
 millas
 head(millas, n=3) # las primeras 6 filas
 tail(millas, n=10) # las últimas 10 filas
@@ -83,7 +87,7 @@ tail(millas, n=10) # las últimas 10 filas
 ## Información sobre el archivo
 Usa el signo de interrogación **?** antes del nombre de la función o archivo. Remueve el "#" para ver el resultado
 
-```{r FT7}
+```{r c02-7}
 #?millas
 
 
@@ -95,7 +99,7 @@ Usa el signo de interrogación **?** antes del nombre de la función o archivo. 
 
 ### Las dimensiones del archivo
 
-```{r FT8}
+```{r c02-8}
 dim(millas) # dimension of data frame
 ```
 
@@ -107,7 +111,7 @@ dim(millas) # dimension of data frame
 - nombre de las variables (nombre de las columnas)
 - si quiere tener un color para cada grupo
 
-```{r FT9}
+```{r c02-9}
 ggplot(data = millas) +
   geom_point(mapping = aes(x = cilindrada, y = autopista,  colour=fabricante))
 ```
@@ -117,7 +121,11 @@ ggplot(data = millas) +
 
 La función **shape** es para cambiar el estilo de los puntos
 
-```{r FT10}
+::: {.peligro}
+Los colores en hexadecimal deben empezar con `#`, por ejemplo `color = "#369787"`. Sin el `#`, R no reconoce el código y marcará error.
+:::
+
+```{r c02-10}
 ggplot(data = millas) +
  geom_point(mapping = aes(x = cilindrada, y = autopista), shape=23, color = "369787", fill="yellow")
 ```
@@ -127,17 +135,21 @@ ggplot(data = millas) +
 
 Como salvar la figura en formato recuperable para subir en otros documentos o compartir
 
-```{r FT11}
+::: {.nota}
+`ggsave()` guarda el último gráfico que creaste y lo escribe en tu directorio de trabajo. La extensión del nombre (`.png`, `.jpg`, `.tiff`) determina el formato del archivo.
+:::
+
+```{r c02-11}
  ggplot(data = millas) +
    geom_point(mapping = aes(x = cilindrada, y = autopista), color = "blue")
 
-ggsave("cilindro_milla.jpg") #. png, .tiff
+ggsave("img/cilindro_milla.jpg") #. png, .tiff
 
 ```
 
 
 
-```{r FT12}
+```{r c02-12}
 millas
 ```
 
@@ -159,7 +171,7 @@ Ejercicio para someter:
    e. subir el gráfico aquí
 
 
-```{r FT13}
+```{r c02-13}
 
 library(ggversa)
 head(Anolis)
@@ -177,41 +189,41 @@ Aquí usamos el conjunto de datos de **diamantes** que se encuentra en el paquet
 
 
 #### Los primeros datos de un archivo
-```{r FT14}
+```{r c02-14}
 head(diamantes)
 ```
 
 #### La cantidad de fila
-```{r FT15}
+```{r c02-15}
 nrow(diamantes)
 ```
 
 #### La cantidad de columnas (variables)
-```{r FT16}
+```{r c02-16}
 ncol(diamantes)
 ```
 
 #### Las dimensiones de un archivo
 
-```{r FT17}
+```{r c02-17}
 dim(diamantes)
 ```
 
 #### El valor máximo de una variable
 
-```{r FT18}
+```{r c02-18}
 max(diamantes$precio)
 ```
 
 #### El valor mínimo de una variable
 
-```{r FT19}
+```{r c02-19}
 min(diamantes$precio)
 ```
 
 #### Los valores discretos de una variable
 
-```{r FT20}
+```{r c02-20}
 unique(diamantes$corte)
 ```
 
@@ -224,7 +236,7 @@ unique(diamantes$corte)
 
 
 
-```{r FT21}
+```{r c02-21}
 library(readr)
 Vuelos_SJU_2018_Ene <- read_csv("Datos/Vuelos_SJU_2018_Ene.csv")
 

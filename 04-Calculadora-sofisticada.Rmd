@@ -1,7 +1,7 @@
 # Calculadora sofisticada
 
 Fecha de la última revisión
-```{r echo=FALSE}
+```{r c04-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -11,7 +11,7 @@ Sys.Date()
 
 Activar los siguientes paquetes
 
-```{r CS1}
+```{r c04-2}
 library(tidyverse)
 library(datos)
 ```
@@ -39,20 +39,20 @@ Español:
   
 ### Sumar  
   
-```{r CS2}
+```{r c04-3}
 2+2
 ```
 
 ### Exactamente como una calculadora
 
-```{r CS3}
+```{r c04-4}
 (23+3+3)^2+2
 ```
 
 
 ### Trigonometría
 
-```{r CS4}
+```{r c04-5}
 sin(pi/3)
 ```
 
@@ -60,14 +60,18 @@ sin(pi/3)
 ### Log natural y a base 10
 
 
-```{r CS5}
+```{r c04-6}
 log(100)
 log10(100)
 ```
 
 ### Asignaciones de variables
 
-```{r CS6}
+::: {.peligro}
+Para asignar un valor puedes usar `<-` o `=`, pero para **comparar** dos cosas se usa `==` (doble igual). Confundir `=` con `==` es uno de los errores más comunes al empezar. Encontrarás más errores frecuentes y cómo resolverlos en el capítulo *Errores comunes* (\@ref(errores)).
+:::
+
+```{r c04-7}
 x<- 4
 x
 y=3
@@ -82,27 +86,27 @@ x/y
 
 - la función "seq" para secuencia
 
-```{r CS7}
+```{r c04-8}
 edad_nd=seq(101, 110)
 edad_nd
 ```
 
 - variables asignada
 
-```{r CS8}
+```{r c04-9}
 edad_uprh=c(11:20)
 edad_uprh
 ```
 
 ### Unir variables en un data frame
 
-```{r CS9}
+```{r c04-10}
 edad=data.frame(edad_nd, edad_uprh)
 edad
 ```
 
 
-```{r CS10}
+```{r c04-11}
 edad$diff=edad$edad_nd-edad$edad_uprh
 edad
 
@@ -115,21 +119,21 @@ edad
 ### Errores cuando a variables no tienen la misma cantidad de entradas
 
 
-```{r CS11}
+```{r c04-12}
 edad_nd_1=base::seq(101, 111)
 edad_nd_1
 ```
 
 - variables asignada
 
-```{r CS12}
+```{r c04-13}
 edad_uprh_1=c(11:20, NA)
 edad_uprh_1
 ```
 
 ### Unir variables en un data frame
 
-```{r CS13}
+```{r c04-14}
 edad_1=data.frame(edad_nd_1, edad_uprh_1)
 edad_1
 ```
@@ -137,7 +141,7 @@ edad_1
 
 ### Cuantos valores hay en una variable
 
-```{r CS14}
+```{r c04-15}
 length(edad_uprh)
 
 length(edad$tres)
@@ -149,18 +153,22 @@ length(edad)
 
 - Primero visualizar los datos
 
-```{r CS15}
+```{r c04-16}
 library(datos)
 millas
 ```
 
 #### Seleccionar los carros que tienen cilindros igual a 8 (solamente)
 
+::: {.historia}
+El pipe `%>%` lo creó Stefan Milton Bache en el paquete `magrittr` (2014); su nombre juega con el cuadro de Magritte "Ceci n'est pas une pipe". Desde 2021, R incluye su propio pipe nativo `|>`.
+:::
+
 La función de Pipe.    %>% o |>
 
 
 
-```{r CS16}
+```{r c04-17}
 library(tidyverse)
 millas
 names(millas)
@@ -176,7 +184,7 @@ millas |> dplyr::select(cilindros) |>
 
 #### Seleccionar los diamantes mayor de 3 quilate
 
-```{r CS17}
+```{r c04-18}
 diamantes |> dplyr::select(quilate) |> 
   filter(quilate > 3)
 ```
@@ -184,7 +192,7 @@ diamantes |> dplyr::select(quilate) |>
 
 #### Seleccionar los diamantes con igual o mayor de 4000 precio
 
-```{r CS18, echo=FALSE}
+```{r c04-19, echo=FALSE}
 #unique(diamantes$precio)
 
 dia_4000 = diamantes |> dplyr::select(precio) |> 
@@ -198,7 +206,7 @@ head(dia_4000)
 #### Contabiliza cuantos diamantes tienen un valor de $4000 o más
 
 
-```{r CS19, contar las cantidad lineas}
+```{r c04-20, contar las cantidad lineas}
 
 nrow(dia_4000) 
 

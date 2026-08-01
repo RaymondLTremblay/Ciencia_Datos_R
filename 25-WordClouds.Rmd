@@ -1,7 +1,7 @@
 # Nubes de palabra en R
 
 
-```{r echo=FALSE}
+```{r c25-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -20,7 +20,7 @@ Ese ejemplo es una copia de la siguiente página de web
 
 <http://www.sthda.com/english/wiki/word-cloud-generator-in-r-one-killer-function-to-do-everything-you-need>
 
-```{r}
+```{r c25-2}
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(tm, SnowballC, wordcloud, RColorBrewer, wordcloud2)
 
@@ -38,7 +38,7 @@ library(SnowballC) # paquete para trabajar en otro idioma aparte de inglés
 
 https://raymondltremblay.github.io/Ciencia_Datos_R/appendix-a.html 
 
-```{r}
+```{r c25-3, eval=knitr::is_html_output()}
 
  #ejercicio-de-transformaci%C3%B3n
 library(wordcloud2)
@@ -64,18 +64,37 @@ wordcloud2(data = demoFreq)
 
 Importar los datos de la web
 
-```{r, echo=TRUE}
+::: {.advertencia}
+Este bloque **descarga un texto desde internet**, así que necesita conexión. Si el
+servidor no responde verás `cannot open the connection` o `cannot open URL`: no es
+un error de tu código, sino de la red o del servidor. Por eso lo envolvemos en
+`tryCatch()`, de modo que si la descarga falla se usa una copia local y el análisis
+continúa. Encontrarás más sobre estos errores en el capítulo *Errores comunes*
+(\@ref(errores)).
+:::
+
+```{r c25-4, echo=TRUE}
 filePath <- "http://www.sthda.com/sthda/RDoc/example-files/martin-luther-king-i-have-a-dream-speech.txt"
-text <- readLines(filePath)
+
+# Intenta leer el discurso desde la web; si no hay conexión o el servidor no
+# responde, usa un texto local de ejemplo para que el análisis no se detenga.
+text <- tryCatch(
+  suppressWarnings(readLines(filePath)),
+  error = function(e) readLines("Datos/alice_original.txt")
+)
 head(text)
 ```
 
 
 
-Importar un texto de su computadora en formato **.txt** No va a funcionar el formato **.doc** de MSWord. 
+Importar un texto de su computadora en formato **.txt** No va a funcionar el formato **.doc** de MSWord.
+
+::: {.peligro}
+Guarda tu documento como texto plano (`.txt`) antes de leerlo con `readLines()`. Un archivo `.doc` o `.docx` guarda el formato en binario y obtendrás caracteres ilegibles en lugar del texto.
+::: 
 
 
-```{r, echo=TRUE, eval=FALSE}
+```{r c25-5, echo=TRUE, eval=FALSE}
 #mi_texto <- readLines(file.choose())
 
 ```
@@ -83,7 +102,7 @@ Importar un texto de su computadora en formato **.txt** No va a funcionar el for
 
 ## Subir el texto en formato **Corpus**
 
-```{r, echo=TRUE}
+```{r c25-6, echo=TRUE}
 
 mi_texto=iconv(text,"WINDOWS-1252","UTF-8") # Use this for removing accents and non - english characters
 
@@ -96,7 +115,7 @@ head(docs)
 
 ## Mirar el documento, para evaluar su contenido
 
-```{r, echo=TRUE}
+```{r c25-7, echo=TRUE}
 #inspect(docs) # quita el hashtag para ver el documento
 ```
 
@@ -104,7 +123,7 @@ head(docs)
 
 ## Transformar el texto para reemplazar algunos caracteres especiales, y remplazarlos por espacio en blanco
 
-```{r, echo=TRUE}
+```{r c25-8, echo=TRUE}
 toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
 docs <- tm_map(docs, toSpace, "-")
 docs <- tm_map(docs, toSpace, "@")
@@ -114,7 +133,7 @@ docs <- tm_map(docs, toSpace, "\\|")
 
 ## el paquete **tm** es para **text mining**
 
-```{r, echo=TRUE}
+```{r c25-9, echo=TRUE}
 # Convert the text to lower case
 docs <- tm_map(docs, content_transformer(tolower))
 
@@ -142,7 +161,7 @@ docs <- tm_map(docs, stripWhitespace)
 
 ## Crear una matriz de las palabras de mi documento
 
-```{r}
+```{r c25-10}
 dtm <- TermDocumentMatrix(docs) # convertir el texto en una lista de palabras
 m <- as.matrix(dtm) # convertir en una matriz
 v <- sort(rowSums(m),decreasing=TRUE) # ordenar las palabras por frecuencia
@@ -170,7 +189,7 @@ pollinators
 
 Del paquete **wordcloud**
 
-```{r WC1, echo=TRUE,  warning=FALSE}
+```{r c25-11, echo=TRUE,  warning=FALSE}
 #head(d)
 wordcloud(words = d$word, # las palabras
           freq = d$freq, # la frecuencia
@@ -192,7 +211,7 @@ wordcloud(words = d$word, # las palabras
 Del paquete **wordcloud2**
 
 
-```{r WC2, echo=TRUE}
+```{r c25-12, echo=TRUE, eval=knitr::is_html_output()}
 wordcloud2(data = d)
 ```
 
@@ -210,7 +229,7 @@ wordcloud2(data = d)
 
 ## En español
 
-```{r WC3, echo=TRUE, eval=FALSE}
+```{r c25-13, echo=TRUE, eval=FALSE}
 # from CRAN
 install.packages("stopwords")
 
@@ -222,7 +241,7 @@ install.packages("stopwords")
 
 ### Las 30 primeras palabras en la lista de stopword del paquete "stopwords" en español 
 
-```{r WC4}
+```{r c25-14}
 head(stopwords::stopwords("es", source = "snowball"), 30)
 ```
 
@@ -248,7 +267,7 @@ Aquí un tercer ejemplo
 
 
 
-```{r WC5}
+```{r c25-15}
 # install.packages("pacman") # Si no tiene instalada la Biblioteca Pacman ejecutar esta línea de código
 library("pacman")
 
@@ -262,7 +281,7 @@ p_load("RColorBrewer") # Biblioteca para seleccionar una paleta de colores de nu
 
 ## Un documento para hacer un word cloud "La inteligencia artificial"
 
-```{r WC6}
+```{r c25-16}
 library(readr)
 articulo_IA <- "https://gist.github.com/EverVino/7bdbbe7ebdff5987970036f52f0e384f/raw/3a1997b6f9e3471555a941f8812ada0cef84977d/gistfile1.txt"
 texto <- read_file(articulo_IA)
@@ -272,7 +291,7 @@ texto
 
 ## Convertir su documento en **Corpus** y identificar que es en español
 
-```{r WC7}
+```{r c25-17}
 texto2 <- VCorpus(VectorSource(texto), 
       readerControl = list(reader = readPlain, language = "es", load = TRUE))
 texto2
@@ -289,9 +308,13 @@ texto2
 - usar solamente la base de las palabras ("stem") por ejemplo remover las conjugaciones **espero**, **esparas**, **espera**, **esperamos**... se convierte en "esper"
 - remover espacios blancos
 
+::: {.consejo}
+Quita siempre los "stopwords" del idioma correcto. Si tu texto está en español usa `stopwords("es")` y no la lista en inglés, o palabras como "de", "la" y "que" dominarán la nube.
+:::
 
 
-```{r WC8}
+
+```{r c25-18}
 texto2 <- tm_map(texto2, removeNumbers)
 texto2 <- tm_map(texto2, removePunctuation)
 texto2 <- tm_map(texto2, tolower)
@@ -305,7 +328,7 @@ texto2 <- tm_map(texto2, stripWhitespace)
 
 ## Transformar el texto en un documento de texto sencillo (Plain Text)
 
-```{r WC9}
+```{r c25-19}
 texto2 <- tm_map(texto2, PlainTextDocument)
 ```
 
@@ -315,7 +338,7 @@ texto2 <- tm_map(texto2, PlainTextDocument)
 
 ## Transformar el texto para reemplazar algunos caracteres especiales
 
-```{r WC10, echo=TRUE, eval=FALSE}
+```{r c25-20, echo=TRUE, eval=FALSE}
 toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
 #texto2 <- tm_map(texto2, toSpace, "-")
 texto2 <- tm_map(texto2, toSpace, "@")
@@ -325,14 +348,14 @@ texto2 <- tm_map(texto2, toSpace, "\\|")
 
 ## Crear una matriz de las palabras
 
-```{r WC11}
+```{r c25-21}
 tabla_frecuencia <- DocumentTermMatrix(texto2)
 ```
 
 ## Calcular la frecuencia de cada palabra
 
 
-```{r WC12}
+```{r c25-22}
 tabla_frecuencia <- cbind(palabras = tabla_frecuencia$dimnames$Terms, 
                           frecuencia = tabla_frecuencia$v)
 ```
@@ -340,7 +363,7 @@ tabla_frecuencia <- cbind(palabras = tabla_frecuencia$dimnames$Terms,
 
 
 
-```{r WC13}
+```{r c25-23}
 # Convertimos los valores enlazados con cbind a un objeto dataframe.
 tabla_frecuencia<-as.data.frame(tabla_frecuencia) 
 
@@ -355,7 +378,7 @@ head(tabla_frecuencia) # aqui vemos las 6 palabras más comunes en el texto
 
 ```
 
-```{r WC14}
+```{r c25-24}
 wordcloud(words = tabla_frecuencia$palabras, 
           freq = tabla_frecuencia$frecuencia,
           min.freq = 5, 

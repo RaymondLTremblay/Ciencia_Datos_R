@@ -2,7 +2,7 @@
 
 Fecha de la última revisión
 
-```{r echo=FALSE}
+```{r c12-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -26,11 +26,15 @@ Español: <https://es.r4ds.hadley.nz/06-workflow-scripts.html>
 -   Ejecutando códigos
 -   Diagnóstico de Rstudio
 
+::: {.consejo}
+No copies y pegues en la consola: coloca el cursor en la línea (o selecciona varias) y ejecútala con Cmd/Ctrl+Enter directamente desde el script.
+:::
+
 1.  **Ejercicios**:
 
 Hacer los ejercicios en la sección 6.3 del libro en español
 
-```{r SC1}
+```{r c12-2}
 library(dplyr)
 library(datos)
 library(nycflights13)
@@ -45,7 +49,7 @@ no_cancelado %>%
   summarise(media = mean(atraso_salida))
 ```
 
-```{r SC2}
+```{r c12-3}
 x <- 10 
 ```
 

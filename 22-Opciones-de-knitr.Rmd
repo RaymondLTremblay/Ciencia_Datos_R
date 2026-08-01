@@ -1,6 +1,6 @@
 # Opciones de Knitr
 
-```{r echo=FALSE}
+```{r c22-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -40,7 +40,7 @@ Este **chunk** es para que la información de los chunk en la parte de **knitr**
 
 
 
-```{r new_chunk_option}
+```{r c22-2}
 library(knitr)
 hook_chunk = knit_hooks$get('chunk')
 knit_hooks$set(chunk = function(x, options) {
@@ -88,8 +88,12 @@ Los ejemplos aquí serán limitados a las alternativas para los documentos **.Rm
  
  - Comenzando con dándole un nombre al chunk "mi-chunk"
 
+::: {.consejo}
+Ponerle nombre a cada chunk (como `mi-chunk`) facilita localizar errores, navegar por el documento y reutilizar el caché de los cálculos costosos.
+:::
 
-```{r activar_tidyverse, echo=TRUE, message=FALSE}
+
+```{r c22-3, echo=TRUE, message=FALSE}
 
 library(tidyverse)
 ```
@@ -97,7 +101,7 @@ library(tidyverse)
 
 **algun_nombre, echo=TRUE**
 
-```{r}
+```{r c22-4}
 
 ```
 
@@ -109,7 +113,7 @@ library(tidyverse)
  
 
 
-```{r, message=TRUE, warning=TRUE, echo=TRUE}
+```{r c22-5, message=TRUE, warning=TRUE, echo=TRUE}
 library(tidyverse)
 ```
 
@@ -121,12 +125,12 @@ library(tidyverse)
 Nota aquí tengo include=FALSE, por consecuencia cuando se hace un knit, no se ve lo que hay en el chunk.  
   - Ahora cambialo a TRUE
 
-```{r car data, echo=TRUE, eval=TRUE}
+```{r c22-6, echo=TRUE, eval=TRUE}
 head(cars)
 ```
 
 
-```{r include_true, include=TRUE, echo_opts=TRUE}
+```{r c22-7, include=TRUE, echo_opts=TRUE}
 head(cars)
 ```
 
@@ -136,16 +140,16 @@ head(cars)
 
 Añade una figura 
 
-```{r eval=FALSE, echo=FALSE, fig.cap='El nombre de mi figura.', fig.topcaption=TRUE}
+```{r c22-8, eval=FALSE, echo=FALSE, fig.cap='El nombre de mi figura.', fig.topcaption=TRUE}
 plot(cars)
 ```
 
-```{r, eval=FALSE}
+```{r c22-9, eval=FALSE}
 data=c(1:100)
 ```
 
 
-```{r}
+```{r c22-10}
 mean(data)
 ```
 
@@ -154,14 +158,14 @@ mean(data)
 
 
 
-```{r OK1, include=TRUE, fig.cap='El nombre de mi figura.', fig.topcaption=TRUE, echo_opts=TRUE}
+```{r c22-11, include=TRUE, fig.cap='El nombre de mi figura.', fig.topcaption=TRUE, echo_opts=TRUE}
 plot(cars)
 ```
 
 
 
 ***
-```{r OK, include=TRUE, fig.cap= "An incredible figure", echo_opts=TRUE}
+```{r c22-12, include=TRUE, fig.cap= "An incredible figure", echo_opts=TRUE}
 library(ggplot2)
 df <- data.frame(letters = letters[10:15], value = 1)
 
@@ -174,7 +178,7 @@ ggplot(df, aes(letters, value, fill = letters)) +
 
 ***
 
-```{r OK3, include=TRUE, fig.cap= "An incredible figure", fig.width = 3, fig.height = 3, echo_opts=TRUE, echo=FALSE}
+```{r c22-13, include=TRUE, fig.cap= "An incredible figure", fig.width = 3, fig.height = 3, echo_opts=TRUE, echo=FALSE}
 library(ggplot2)
 df <- data.frame(letters = letters[1:5], value = 1)
 
@@ -190,7 +194,7 @@ Figure alignment: default, left, right, and center
 
 fig.align
 
-```{r OK4, include=TRUE, fig.cap= "caption", fig.width = 3, fig.height = 3, fig.align='right', echo_opts=TRUE}
+```{r c22-14, include=TRUE, fig.cap= "caption", fig.width = 3, fig.height = 3, fig.align='right', echo_opts=TRUE}
 library(ggplot2)
 df <- data.frame(letters = letters[1:5], value = 1)
 
@@ -219,7 +223,7 @@ código css
 
 <div style= "float:right;position: relative; top: -20px;">
 
-```{r OK5, include=TRUE, echo=TRUE, fig.cap= "caption", fig.width = 2.6, fig.height = 2.6, fig.align='right', echo=FALSE}
+```{r c22-15, include=TRUE, echo=TRUE, fig.cap= "caption", fig.width = 2.6, fig.height = 2.6, fig.align='right', echo=FALSE}
 df <- data.frame(letters = letters[1:5], value = 1)
 
 ggplot(df, aes(letters, value, fill = letters)) +
@@ -247,26 +251,26 @@ Note that the `echo = TRUE` parameter was added to the code chunk to have printi
 
 
 
-```{r OK6, include=TRUE, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
+```{r c22-16, include=TRUE, eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
 x=c(1:10)
 x
 ```
 
 
 
-```{r OK7, include=TRUE, message=FALSE}
+```{r c22-17, include=TRUE, message=FALSE}
 library(MASS)
 ```
 
 
 
-```{r OK8, include=TRUE, warning=FALSE}
+```{r c22-18, include=TRUE, warning=FALSE}
 library(dplyr)
 library(MASS)
 ```
 
 
-```{r OK9, include=TRUE, results='asis'}
+```{r c22-19, include=TRUE, results='asis'}
 cat("I'm raw **Markdown** content.\n",
     "\n",
                "➪ My poetry of Puerto Rico\n")

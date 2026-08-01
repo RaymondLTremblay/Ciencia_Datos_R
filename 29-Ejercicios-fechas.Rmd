@@ -1,15 +1,15 @@
 # Appendix C {.unnumbered}
 
-```{r AC1, echo=FALSE}
+```{r c29-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
 ```
 ------------------------------------------------------------------------
 
-```{r AC2}
+```{r c29-2}
 library(readr)
-HIV <- read_csv("HIV.csv")
+HIV <- read_csv("Datos/HIV.csv")
 
 
 HIV
@@ -22,13 +22,13 @@ HIV
 
 
 
-```{r AC3}
+```{r c29-3}
 library(tidyverse)
 ```
 
 https://www.stat.berkeley.edu/~s133/dates.html
 
-```{r AC4}
+```{r c29-4}
 
 
 
@@ -41,6 +41,10 @@ HIV
 
 ## Calculate the age of individuals when they were diagnosed with HIV {-}
 
+::: {.peligro}
+Al convertir años de dos dígitos con `%y`, R puede asignar el siglo equivocado (por ejemplo, "69" podría leerse como 2069). Por eso aquí se fuerza `19%y` para las fechas de nacimiento.
+:::
+
 ## Calculate the time between the date of diagnosis of HIV and the date of death. {-}
 
 
@@ -48,7 +52,7 @@ HIV
 
 
 
-```{r AC5}
+```{r c29-5}
 
 HIV= HIV |>  
   mutate(date_d=mdy(date_of_death),
@@ -59,7 +63,7 @@ HIV
 ```
 
 
-```{r AC6}
+```{r c29-6}
 HIV1 <- HIV %>% 
   mutate(hiv_date = mdy(hiv_date))
 
@@ -73,7 +77,7 @@ HIV2
 
 ```
 
-```{r AC7}
+```{r c29-7}
 HIV3 <- HIV2 %>% 
   mutate(date_of_death = mdy(date_of_death))
 
@@ -89,7 +93,7 @@ HIV4
 ## Calculate the difference in life between the date of diagnosis and death {-}
 
 
-```{r AC8}
+```{r c29-8}
 
 HIV$months= floor(time_length(difftime(HIV$date_d, HIV$hiv_d), "months"))
 HIV$months

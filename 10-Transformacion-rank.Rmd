@@ -1,6 +1,6 @@
 # Transformación: Rangos y otras funciones
 
-```{r echo=FALSE}
+```{r c10-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -24,7 +24,7 @@ R.version
  - rollmean()
 
  
-```{r TR1}
+```{r c10-2}
 library(tidyverse)
 library(datos)
 ```
@@ -39,7 +39,7 @@ La pruebas no paramétricas no son basado en distribución normal y los indices 
 
 Asignar valores de rangos a los valores originales o de más grande a más pequeño o viceversa.
 
-```{r TR2}
+```{r c10-3}
 set.seed(45678)
   x <- sample(1:50, 10)
 head(x)
@@ -56,7 +56,7 @@ df %>%
 
 Qué hace la función **row_number**?
 
-```{r TR3}
+```{r c10-4}
 set.seed(45678)
 y <- c(10,21,22,NA,5,4)
 head(y)
@@ -71,7 +71,11 @@ df %>%
 
 ## dense_rank()
 
-```{r TR4}
+::: {.nota}
+`min_rank()`, `dense_rank()` y `row_number()` se diferencian en cómo tratan los empates: `min_rank()` deja huecos tras un empate, `dense_rank()` no deja huecos y `row_number()` da un valor distinto a cada fila.
+:::
+
+```{r c10-5}
 set.seed(45678)
 z <- c(10,12,12,NA,51,4)
 df=as.tibble(z)
@@ -91,7 +95,7 @@ df %>%
 
 ## la función **percent_rank()**
 
-```{r TR5}
+```{r c10-6}
 set.seed(45678)
 w <- c(1,2,2,NA,5,4)
 w
@@ -107,7 +111,7 @@ df %>%
 
 ## la función **percent_rank()** sin **NA**
 
-```{r TR6}
+```{r c10-7}
 set.seed(45678)
 x2 <- sample(1:50, 7)
 df2=as.tibble(x2)
@@ -123,7 +127,7 @@ df2 %>%
 
 Es la suma cumulativa de los rangos
 
-```{r TR7}
+```{r c10-8}
 set.seed(45678)
   x <- c(1,2,3,NA,5,4, 10, 8)
   x
@@ -144,7 +148,7 @@ Hacer los ejercicios en la sección 5.5.2 del libro en español
 
 Encuentra los 10 vuelos más retrasados utilizando una función de ordenamiento. ¿Cómo quieres manejar los empates? Lee atentamente la documentación de min_rank().
 
-```{r TR8}
+```{r c10-9}
 names(vuelos)
 vuelos%>%
   dplyr::select(atraso_salida, aerolinea)%>%
@@ -153,7 +157,7 @@ vuelos%>%
   head(n=10)
 ```
 
-```{r TR9}
+```{r c10-10}
 names(vuelos)
 vuelos %>% 
   arrange(atraso_salida) %>% 
@@ -166,7 +170,7 @@ vuelos %>%
 
 ## Resúmenes con summarise() by group using group_by()
 
-```{r TR10}
+```{r c10-11}
 library(datos)
 library(nycflights13)
 summarise(flights, delay = mean(dep_delay, na.rm = TRUE))
@@ -176,13 +180,13 @@ flights %>%
   summarise(delay = mean(dep_delay, na.rm = TRUE))
 ```
 
-```{r T11}
+```{r c10-12}
 by_day <- group_by(flights, year, month, day)
 
 summarise(by_day, delay = mean(dep_delay, na.rm = TRUE))
 ```
 
-```{r T12}
+```{r c10-13}
 flights %>% 
   group_by(year, month, day) %>% 
 summarise(delay = mean(dep_delay, na.rm = TRUE))
@@ -190,14 +194,14 @@ summarise(delay = mean(dep_delay, na.rm = TRUE))
 
 ## La aerolínea peor en atraso de salidas 
 
-```{r T13}
+```{r c10-14}
 flights %>%
 group_by(carrier) %>%
 summarise(delay = mean(dep_delay, na.rm = TRUE)) %>%
 arrange(desc(delay))
 ```
 
-```{r T14}
+```{r c10-15}
 by_dest <- group_by(flights, dest)
 by_dest
 delay <- summarise(by_dest,
@@ -221,7 +225,7 @@ ggplot(data = delay, aes(x = dist, y = delay)) +
 
 
 
-```{r T15}
+```{r c10-16}
 names(delay)
 head(delay)
 ggplot(data = delay, aes(x = dist, y = delay, label=dest)) +
@@ -238,7 +242,7 @@ Rolling average:
 
 <https://stackoverflow.com/questions/743812/calculating-moving-average>
 
-```{r TR16}
+```{r c10-17}
 library(tidyverse)
 library(zoo)
 

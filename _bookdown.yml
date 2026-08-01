@@ -1,11 +1,11 @@
-book_filename: "Ciencia Datos con R"
+book_filename: "Ciencia_Datos_con_R"
 output_dir: docs
 delete_merged_file: true
 rmd_files:
   - index.Rmd
   - 01-Instalacion-de-paquetes.Rmd
   - 02-Flujo-de-trabajo.Rmd
-  - 03-Visualizacion-datos.Rmd
+  - 03-Visualizacion-Datos.Rmd
   - 04-Calculadora-sofisticada.Rmd
   - 05-Transformacion-estructura.Rmd
   - 06-Transformacion-funcion-basica.Rmd
@@ -15,6 +15,7 @@ rmd_files:
   - 10-Transformacion-rank.Rmd
   - 11-Transformacion-funcion-estadistica.Rmd
   - 12-Scripts.Rmd
+  - 35-Errores-comunes.Rmd
   - 13-Analisis-exploratorio.Rmd
   - 14-Pipes.Rmd
   - 15-Tibbles.Rmd

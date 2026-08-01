@@ -1,4 +1,4 @@
- # Temas Avanzados en Data Science con Tidyverse
+# Temas Avanzados en Data Science con Tidyverse
 
 ## Introducción
 Este documento presenta temas avanzados en el ecosistema **tidyverse** con ejemplos prácticos en R.
@@ -9,7 +9,7 @@ Explicación: Uso de *tidy evaluation* para funciones personalizadas.
 
 
 
-```{r}
+```{r c31-1}
 library(dplyr)
 
 # Función personalizada con tidy evaluation
@@ -29,7 +29,7 @@ mean_by_group(df, grupo, valor) # El uso de la función nueva
 
 Otro ejemplo
 
-```{r}
+```{r c31-2}
 dfnew= tibble(especie = c("setosa", "setosa", "versicolor", "versicolor"),
               longitud_sepalo = c(5.1, 4.9, 7.0, 6.4))
 
@@ -37,7 +37,7 @@ mean_by_group(dfnew, especie, longitud_sepalo)
 ```
 
 
-```{r}
+```{r c31-3}
 mean_sd_by_group <- function(data, group_var, value_var) {
   data %>%
     group_by({{ group_var }}) %>%
@@ -80,8 +80,12 @@ mean_by_group <- function(data, group_var, value_var) { ... }
 - Calcula la media de la columna indicada (value_var) dentro de cada grupo.
 - na.rm = TRUE elimina valores faltantes (NA) para evitar errores.
 
+::: {.peligro}
+Si olvidas `na.rm = TRUE`, funciones como `mean()` o `sd()` devuelven `NA` en cuanto la columna tiene un solo valor faltante, en vez de calcular el promedio.
+:::
 
-```{r}
+
+```{r c31-4}
 datos=c(1, NA, 3:8, NA, 10:12)
 mean(datos, na.rm=TRUE)
 
@@ -94,7 +98,7 @@ mean(datos, na.rm=TRUE)
 ## 2. Modelado con tidymodels
 Explicación: Flujo reproducible para regresión lineal.
 
-```{r, echo= FALSE, eval=FALSE}
+```{r c31-5, echo= FALSE, eval=FALSE}
 
 library(tidymodels)
 library(ggversa)  # Suponiendo que este paquete contiene el dataset
@@ -138,7 +142,7 @@ summary(modelo_final$fit)
 ```
 
 
-```{r}
+```{r c31-6}
 
 library(tidymodels)
 data(mtcars)
@@ -164,7 +168,7 @@ Ver los resultados del modelo y hacer predicciones.
 
 
 
-```{r}
+```{r c31-7}
 
 # Ajustar el modelo
 ajuste <- workflow() %>%
@@ -206,7 +210,7 @@ bind_cols(mtcars, predicciones) %>%
 
 Explicación: Facetas y escalas personalizadas.
 
-```{r}
+```{r c31-8}
 library(ggplot2)
 
 ggplot(mtcars, aes(x = wt, y = mpg)) +
@@ -222,7 +226,7 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
 ## 4. Datos anidados y listas con purrr
 Explicación: Ajustar modelos por grupo y extraer coeficientes.
 
-```{r}
+```{r c31-9}
 library(tidyr)
 library(purrr)
 library(broom)
@@ -245,7 +249,7 @@ La alternativa es hacer cada factor individualmente
 
 - Hacemos un modelo lm(mpg ~ wt) para cada subconjunto de datos agrupados por cyl == 6
 
-```{r}
+```{r c31-10}
 modelo_cyl6 <- lm(mpg ~ wt, data = filter(mtcars, cyl == 6))
 
 summary(modelo_cyl6)

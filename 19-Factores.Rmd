@@ -2,7 +2,7 @@
 
 
 Fecha de la última revisión
-```{r echo=FALSE}
+```{r c19-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -22,7 +22,7 @@ Español:
  <https://es.r4ds.hadley.nz/15-factors.html>
  
  
-```{r message=FALSE, warning=FALSE}
+```{r c19-2, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(datos)
 library(forcats)
@@ -33,7 +33,7 @@ library(forcats)
  
  
 ***
-```{r F1, background='#2dc0cc'}
+```{r c19-3, background='#2dc0cc'}
 
 month <-c("December" ,"January", "March", "April")
 
@@ -44,7 +44,7 @@ str(x)
 ```
 
 
-```{r F2}
+```{r c19-4}
 valores <- c(7, 3, 2, 10)
 
 
@@ -53,7 +53,7 @@ valores <- c(7, 3, 2, 10)
 
 Unir las dos listas
 
-```{r F3}
+```{r c19-5}
 df=as.data.frame(cbind(month, valores, x))
 df
 ```
@@ -61,7 +61,7 @@ df
 
 ## ¿Qué ocurrió en el gráfico?
 
-```{r F4, fig.width=3}
+```{r c19-6, fig.width=3}
 library(tidyverse)
 
 ggplot(df, aes(month, valores))+
@@ -88,7 +88,7 @@ See this website for more details
 https://datacornering.com/how-to-get-the-month-name-from-the-number-in-r/
 
 
-```{r F5}
+```{r c19-7}
 LETTERS
 letters
 month.abb
@@ -99,7 +99,7 @@ pi
 
 
 
-```{r F6}
+```{r c19-8}
 
 df <- data.frame(Months=c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"),
                 Attacks=c(49, 70, 49, 44, 53, 35, 33, 36, 47, 40, 44, 32))
@@ -130,7 +130,7 @@ ggplot(data=df, aes(x=Months, y=Attacks)) +
 
 ### parse_factor() is similar a factor(), but generates a warning if levels have been specified and some elements of x are not found in those levels.
 
-```{r F7}
+```{r c19-9}
 x1= c("Dic", "Ene", "Mar", "Dii") # Nota que esta lista tengo un mes que se llama "Dii"
 
 niveles_meses=c("Ene", "Mar", "Dic")
@@ -146,7 +146,7 @@ y1
 
 Si quiere que los valores aparezcan en el orden que aparecen en la base de datos use **unique(variable)**
 
-```{r F8}
+```{r c19-10}
 
 df_est=data.frame(Nombre_est=c("Monica", "Isabela", "Juan", "Robo", "Pepito"),
                   Nota_Final=c(99, 27, 89, 91, 27))
@@ -164,13 +164,13 @@ ggplot(df_est, aes(fct1, Nota_Final))+
   geom_point()
 ```
 
-```{r F9}
+```{r c19-11}
 f2 <- x1 %>% factor() %>% fct_inorder()
 f2
 
 ```
 
-```{r F10}
+```{r c19-12}
 levels(f2)
 ```
 
@@ -193,7 +193,7 @@ levels(f2)
 
 
 
-```{r F11}
+```{r c19-13}
 library(datos)
 encuesta
 ```
@@ -201,7 +201,7 @@ encuesta
 
 Contabilizar la cantidad de personas por "estado civil"
 
-```{r F12}
+```{r c19-14}
 df=encuesta %>% 
    count(estado_civil)
 df
@@ -209,7 +209,7 @@ df
 knitr
 
 
-```{r F13, fig.width=10}
+```{r c19-15, fig.width=10}
 
 unique(df$estado_civil)
 
@@ -228,7 +228,7 @@ ggplot(df,
 
 ## A smaller figure to the right, with floating text
 
-```{r F14, echo=FALSE, out.width= "50%", out.extra='style="float:right; padding:10px"'}
+```{r c19-16, echo=FALSE, out.width= "50%", out.extra=if (knitr::is_html_output()) 'style="float:right; padding:10px"'}
 
 df %>%
   mutate(estado_civil = fct_reorder(estado_civil, n)) %>%
@@ -254,7 +254,7 @@ LOTS of text here to wrap around the figure.  dfghjlkjhgdgxchvbvcxcvbnnbvvbvbbvc
 
 ## Haga un re-order por la cantidad de personas por religión
 
-```{r F15, fig.ncol = 2}
+```{r c19-17, fig.ncol = 2}
 df2=encuesta %>% 
    count(religion)
 
@@ -273,6 +273,10 @@ Hacer los ejercicios en la sección 15.3.1 del libro en español
 
 ## Modificar el orden de los factores
 
+::: {.consejo}
+Usa `fct_reorder()` para ordenar los niveles de un factor según otra variable (por ejemplo la frecuencia o la media). Los gráficos quedan mucho más fáciles de leer que con el orden alfabético por defecto.
+:::
+
    - fct_reorder()
    - !is.na( ) remover los "NA"
    - fct_infreq()
@@ -282,7 +286,7 @@ Hacer los ejercicios en la sección 15.3.1 del libro en español
    - fct_lump()
 
 
-```{r F16}
+```{r c19-18}
 
 
 #model=lm(y~x, df)
@@ -309,12 +313,12 @@ min(encuesta$horas_tv, na.rm = TRUE)
 
 ### Nota el efecto de añadir un "-" antes de **edad** 
 
-```{r F17}
+```{r c19-19}
 ggplot(resumen_religion, aes(edad, fct_reorder(religion, -edad))) +
   geom_point()
 ```
 
-```{r F18}
+```{r c19-20}
 resumen_religion %>%
   mutate(religion = fct_reorder(religion, horas_tv)) %>%
   ggplot(aes(horas_tv, religion)) +
@@ -328,7 +332,7 @@ Description
 fct_reorder() is useful for 1d displays where the factor is mapped to position; fct_reorder2() for 2d displays where the factor is mapped to a non-position aesthetic. last2() and first2() are helpers for fct_reorder2(); last2() finds the last value of y when sorted by x; first2() finds the first value.
 
 
-```{r F19}
+```{r c19-21}
 resumen_ingreso <- encuesta %>%
   group_by(ingreso) %>%
   summarise(
@@ -349,7 +353,7 @@ Reorder factor levels by hand
 Description
 This is a generalisation of stats::relevel() that allows you to move any number of levels to any location.
 
-```{r F20}
+```{r c19-22}
 ggplot(resumen_ingreso, aes(edad, fct_relevel(ingreso, "No aplica"))) +
   geom_point()
 ```

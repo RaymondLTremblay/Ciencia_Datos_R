@@ -9,7 +9,7 @@ Español: <https://es.r4ds.hadley.nz/conceptos-b%C3%A1sicos-de-modelos.html>
 ***
 
 Fecha de la última revisión
-```{r MOD0, echo=FALSE}
+```{r c34-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 Sys.Date()
 ```
@@ -21,12 +21,11 @@ Sys.Date()
   - Predicciones con `data_grid()` y `add_predictions()`
   - Residuales con `add_residuals()`
 
-> Este capítulo usa el enfoque de `modelr` (el del libro *R for Data Science*).
-> Para un flujo más moderno con `tidymodels`, y para dar formato matemático a los
-> ejes con LaTeX, mira los capítulos de *tidyverse avanzado* y de *ecuaciones
-> matemáticas*.
+::: {.nota}
+Este capítulo usa el enfoque de `modelr` (el del libro *R for Data Science*). Para un flujo más moderno con `tidymodels`, y para dar formato matemático a los ejes con LaTeX, mira los capítulos de *tidyverse avanzado* y de *ecuaciones matemáticas*.
+:::
 
-```{r MOD1}
+```{r c34-2}
 library(tidyverse)
 library(modelr)
 library(datos)
@@ -41,7 +40,7 @@ Usaremos los `diamantes`. A primera vista, los diamantes de peor calidad parecen
 costar más, porque el peso (`quilate`) influye fuertemente en el precio. Primero
 miramos la relación entre peso y precio:
 
-```{r MOD2}
+```{r c34-3}
 ggplot(diamantes, aes(quilate, precio)) +
   geom_hex(bins = 40)
 ```
@@ -50,7 +49,11 @@ La relación se ve curva. Nos enfocamos en los diamantes de menos de 2.5 quilate
 (el 99.7% de los datos) y aplicamos una **transformación logarítmica**, que
 convierte la relación en una línea recta:
 
-```{r MOD3}
+::: {.consejo}
+Cuando una relación se ve curva o los datos están muy sesgados, una transformación logarítmica a menudo la endereza y facilita ajustar un modelo lineal.
+:::
+
+```{r c34-4}
 diamantes2 <- diamantes %>%
   filter(quilate <= 2.5) %>%
   mutate(log_precio = log2(precio),
@@ -67,7 +70,7 @@ ggplot(diamantes2, aes(log_quilates, log_precio)) +
 La función `lm()` ajusta un modelo lineal. La fórmula `y ~ x` se lee "`y`
 explicada por `x`".
 
-```{r MOD4}
+```{r c34-5}
 mod_diamantes <- lm(log_precio ~ log_quilates, data = diamantes2)
 mod_diamantes
 ```
@@ -81,7 +84,7 @@ Para ver lo que el modelo "aprendió", generamos una cuadrícula de valores de
 `add_predictions()`. Deshacemos la transformación logarítmica para volver a la
 escala original de precio.
 
-```{r MOD5}
+```{r c34-6}
 cuadricula <- diamantes2 %>%
   data_grid(quilate = seq_range(quilate, 20)) %>%
   mutate(log_quilates = log2(quilate)) %>%
@@ -103,7 +106,11 @@ Los **residuales** son lo que el modelo *no* explica: la diferencia entre el val
 observado y el predicho. Si el modelo es bueno, al graficar los residuales no debe
 quedar ningún patrón evidente.
 
-```{r MOD6}
+::: {.advertencia}
+Si en la gráfica de residuales todavía ves una tendencia o una forma clara, el modelo se está perdiendo algo: considera transformar las variables o añadir más predictores.
+:::
+
+```{r c34-7}
 diamantes2 <- diamantes2 %>%
   add_residuals(mod_diamantes, "lresid")
 

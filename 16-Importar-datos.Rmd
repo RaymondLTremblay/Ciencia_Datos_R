@@ -2,7 +2,7 @@
 
 
 Fecha de la última revisión
-```{r echo=FALSE}
+```{r c16-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -17,18 +17,22 @@ Sys.Date()
 
 ## Datos importados de la web.
 
+::: {.advertencia}
+Los ejemplos de esta sección **descargan datos en vivo desde internet** con `fread("https://…")`, así que necesitas conexión para ejecutarlos. Si ves `Error in download.file(...): cannot open URL` o un `HTTP error`, revisa tu conexión o inténtalo más tarde: el servidor puede estar caído o tardar en responder. Una buena práctica es descargar el archivo una vez y guardarlo con `write_csv()` en `Datos/` para no depender de la red. Encontrarás más errores frecuentes y cómo resolverlos en el capítulo *Errores comunes* (\@ref(errores)).
+:::
+
 ### Usar datos que provienen de una base de datos del web.
 
 Aquí un website que recopila la cantidad de personas vacunadas en los EEUU.
 
 
-```{r, message=FALSE, warning=FALSE}
+```{r c16-2, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(data.table)
 ```
 
 
-```{r ID1, eval=FALSE, include=FALSE}
+```{r c16-3, eval=FALSE, include=FALSE}
 library(tidyverse)
 library(data.table)
 COVID_DATA<-fread("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/us_state_vaccinations.csv")
@@ -42,7 +46,7 @@ head(COVID_DATA)
 
 Seleccionar solamente los datos de Puerto Rico
 
-```{r ID2,eval=FALSE, include=FALSE}
+```{r c16-4, eval=FALSE, include=FALSE}
 COVID_DATA %>% 
   filter(location=="Puerto Rico") %>%
   arrange(date) %>% 
@@ -53,7 +57,7 @@ COVID_DATA %>%
 
 Otro website de datos de COVID, estos representan los datos de todos los países del mundo
 
-```{r ID3,eval=FALSE, include=FALSE}
+```{r c16-5, eval=FALSE, include=FALSE}
 url_COVID=fread("https://covid.ourworldindata.org/data/owid-covid-data.csv")
 head(url_COVID)
 
@@ -80,7 +84,7 @@ Nota que para leer los datos de un archivo CSV, se usa la función "fread()" del
 - Copie y pegue en el script.
   
   
-```{r ID4, echo=FALSE, eval=FALSE}
+```{r c16-6, echo=FALSE, eval=FALSE}
 library(data.table)
 musica=fread("https://datos.estadisticas.pr/dataset/dcb39773-3056-4d3d-91f8-a6ad6884ef52/resource/a632a85a-0d6d-4828-8a24-cbbdee4cec8f/download/facultad_-_conservatorio_de_musica-1.csv")
 
@@ -91,7 +95,7 @@ head(musica)
 
 
 
-```{r ID5, echo=FALSE, eval=FALSE}
+```{r c16-7, echo=FALSE, eval=FALSE}
 
 library(data.table)
 birth=fread("https://datos.estadisticas.pr/dataset/87620d17-bf63-445c-bb71-aca1a41c9077/resource/92728670-42cb-49d4-8fd3-cffdb6e54372/download/natlterr2014.csv")
@@ -106,7 +110,7 @@ Otra alternativa es bajar los datos en formato .csv o Excel y subirlo a su proye
  
 
 
-```{r ID6, echo=FALSE, eval=FALSE}
+```{r c16-8, echo=FALSE, eval=FALSE}
 
 library(readr)
 nchs_births_2001 <- read_csv("nchs_births_2001.csv")
@@ -118,7 +122,7 @@ head(nchs_births_2001)
 ## Ejercicio
  -  Selecciona solamente los datos de los bebés que nacieron primer mes del año, pero agrupado por el día de la semana y contabilizado
 
-```{r ID7, eval=FALSE, echo=FALSE}
+```{r c16-9, eval=FALSE, echo=FALSE}
 
 nchs_births_2001 %>%
   group_by(WEEKDAY) %>% 
@@ -129,7 +133,7 @@ nchs_births_2001 %>%
 
 
 
-```{r ID8, echo=FALSE, eval=FALSE}
+```{r c16-10, echo=FALSE, eval=FALSE}
 nchs_births_2001 |> dplyr::select(BIRMON, CSEX) |> 
   group_by()
 unique(nchs_births_2001$STATENAT)
@@ -144,9 +148,12 @@ unique(nchs_births_2001$RB)
 
 COVID_PR
 
-```{r ID9, DatosMortandad20, echo=FALSE, eval=FALSE}
+```{r c16-11, DatosMortandad20, echo=FALSE, eval=FALSE}
 library(data.table)
-url_COVID_PR=fread("https://raw.githubusercontent.com/rafalab/pr-covid/master/dashboard/data/DatosMortalidad.csv")
+url_COVID_PR=tryCatch(
+  fread("https://raw.githubusercontent.com/rafalab/pr-covid/master/dashboard/data/DatosMortalidad.csv"),
+  error = function(e) readr::read_csv("Datos/url_COVID_PR.csv")
+)
 
 #write_csv(url_COVID_PR, "url_COVID_PR.csv")
 
@@ -163,7 +170,7 @@ dim(url_COVID)
 
 -   Calcula la cantidad de muertes por día en PR, y el máximo de muerto en un día por COVID
 
-```{r ID10, echo=FALSE, eval=FALSE}
+```{r c16-12, echo=FALSE, eval=FALSE}
  url_COVID_PR %>% 
   dplyr::select(IncrementoMuertes) %>% 
   summarise(Prom_muerte_dia = mean(IncrementoMuertes, na.rm = TRUE),
@@ -189,7 +196,7 @@ dim(url_COVID)
 
  
  
-```{r ID11}
+```{r c16-13}
 library(tidyverse)
 library(readr)
 Newborn_Karn_Penrose <- read_csv("Datos/Newborn_Karn_Penrose.csv")
@@ -211,14 +218,14 @@ Hacer una columna de la proporción de los niños que no sobrevivieron.
 
 
 Newborn_Karn_Penrose %>%
-select(Count_Non_survivors, Count_Total_Birth) %>%
+dplyr::select(Count_Non_survivors, Count_Total_Birth) %>%
 arrange(Count_Total_Birth, Count_Non_survivors) %>%
 mutate(Perc_sobrevivieron = Count_Non_survivors/Count_Total_Birth)
 
 
 
 
-```{r ID12}
+```{r c16-14}
 
 Newborn_Karn_Penrose %>% 
   mutate(Percent_Decease = Count_Non_survivors/Count_Total_Birth)
@@ -229,7 +236,7 @@ Newborn_Karn_Penrose %>%
 
 
 Newborn_Karn_Penrose %>%
-select(Count_Non_survivors, Count_Total_Birth, Birth_weight) %>%
+dplyr::select(Count_Non_survivors, Count_Total_Birth, Birth_weight) %>%
 arrange(Count_Total_Birth, Count_Non_survivors) %>%
 mutate(porc_sobrevivieron = Count_Non_survivors / Count_Total_Birth)%>%
 ggplot(aes(x= Birth_weight, y=porc_sobrevivieron))+
@@ -237,7 +244,7 @@ geom_point()+
 geom_smooth()
 
 
-```{r ID13}
+```{r c16-15}
 Newborn_Karn_Penrose %>% 
   mutate(Percent_Decease = Count_Non_survivors/Count_Total_Birth) %>% 
   ggplot(aes(Birth_weight, Percent_Decease)) + 
@@ -248,7 +255,7 @@ Newborn_Karn_Penrose %>%
 
 
 
-```{r ID14, warning=FALSE, message=FALSE}
+```{r c16-16, warning=FALSE, message=FALSE}
 Newborn_Karn_Penrose %>% 
   mutate(Percent_Decease = Count_Non_survivors/Count_Total_Birth) %>% 
   ggplot(aes(Birth_weight, Percent_Decease)) + 
@@ -257,7 +264,7 @@ Newborn_Karn_Penrose %>%
   facet_wrap(~Mother_age)
 ```  
 
-```{r ID15, warning=FALSE, message=FALSE}
+```{r c16-17, warning=FALSE, message=FALSE}
 
 Newborn_Karn_Penrose %>% 
   mutate(Percent_Decease = Count_Non_survivors/Count_Total_Birth) %>% 
@@ -286,7 +293,7 @@ Hacer los ejercicios en la sección 11.2.2 del libro en español
  - str(parse_logical())
  
  
-```{r ID16}
+```{r c16-18}
 
 x= c("TRUE", "FALSE", "NA")
 x   
@@ -314,7 +321,7 @@ str(parse_date(c("2010-01-01", "1979-10-14")))
 
 ```
 
-```{r ID17}
+```{r c16-19}
 m=c("$4000", "$500" )
 parse_number(m)
 
@@ -350,14 +357,14 @@ parse_number("It cost $123.45")
   - charToRaw()
   
   
-```{r ID18}
+```{r c16-20}
 charToRaw("Ramn")
 
 ```
   
   
 
-```{r ID19} 
+```{r c16-21}
 x1 <- "El Ni\xf1o was particularly bad this year"
 x2 <- "\x82\xb1\x82\xf1\x82\xc9\x82\xbf\x82\xcd"
 x3 <- "The boy was particularly bad this year"
@@ -376,7 +383,7 @@ parse_character(x2, locale = locale(encoding = "Shift-JIS"))
   - guess_encoding(charToRaw())
   
   
-```{r ID20}
+```{r c16-22}
 guess_encoding(charToRaw(x3))
 ```
   
@@ -404,6 +411,10 @@ Hacer los ejercicios en la sección 11.3.5 del libro en español
  - guess_parser
  
 ## Escribir un Archivo
+
+::: {.consejo}
+Después de descargar datos de internet, guárdalos con `write_csv()` para trabajar sin depender de la conexión en la próxima sesión.
+:::
 
   - write_csv()
   - write_tsv()

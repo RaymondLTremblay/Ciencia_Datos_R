@@ -1,7 +1,7 @@
 # Tibbles
 
 Fecha de la última revisión
-```{r echo=FALSE}
+```{r c15-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -23,6 +23,10 @@ Español:
 
 ## Temas: El paquete Tibble
 
+::: {.historia}
+Los `tibble` son la versión moderna del `data.frame` dentro del tidyverse: hacen menos «magia» automática (no cambian nombres ni tipos de columna) y ofrecen una impresión más legible en la consola.
+:::
+
   - as_tibble()
 
 ***  
@@ -33,7 +37,7 @@ Español:
  
  Crear un tibble con la siguiente información.  Una columna que tiene los valores del 1 al 8 que se llama "secuencia", una segunda columna que tiene los siguientes valores 23,26, 24,26,27, 11,20,21 que se llama edad y una tercera columna con la siguiente información, Jose, Maria, Carol, Moncho, Liz, Maria, Jorge, Miguel, que se llama Nombre 
  
-```{r T1}
+```{r c15-2}
 library(tidyverse)
 #library(datos)
 
@@ -54,7 +58,7 @@ tibble(
  
  Haga un tribble con las primeras 3 líneas del tibble anterior
  
-```{r T2}
+```{r c15-3}
 tribble(
   ~secuencia, ~edad, ~nombre,
   1, 23, "Jose",
@@ -71,7 +75,7 @@ tribble(
 ## tibble vs. data.frame
 
 
-```{r T3}
+```{r c15-4}
 tb = tibble(
   a = lubridate::now() + runif(1e2) * 86400,
   b = lubridate::today() + runif(1e2) * 30,
@@ -87,7 +91,7 @@ df_tb
 
 
 
-```{r T4}
+```{r c15-5}
 tb %>%
   print(n = 4, width = Inf)
 
@@ -122,7 +126,7 @@ A diferencia de los data frame, los tibbles NO admiten operaciones aritméticas 
 
 
 
-```{r T5}
+```{r c15-6}
 
 tbl <- tibble(a = 1:3, b = 4:6)
 result=tbl * 2
@@ -134,7 +138,7 @@ is.data.frame(result)
 
 
 
-```{r T6}
+```{r c15-7}
 
 result2=tbl |> mutate(c=b*2)
 result2
@@ -146,7 +150,7 @@ is_tibble(result2)
 - Los tibbles también son más estrictos con $. Tibbles nunca realiza coincidencias parciales y generará una advertencia y devolverá NULL si la columna no existe:
 
 
-```{r T7}
+```{r c15-8}
 df <- data.frame(abc = 1)
 df$a
 #> [1] 1
@@ -159,7 +163,7 @@ df2$abc # nota el error
 
 ## Selección de subconjuntos de datos
 
-```{r T8}
+```{r c15-9}
 library(datos)
 
 head(vuelos$salida_programada, n=20) 

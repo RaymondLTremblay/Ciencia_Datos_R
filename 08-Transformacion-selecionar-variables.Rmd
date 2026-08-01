@@ -1,7 +1,7 @@
 # Transformación: Seleccionar variables
 
 Fecha de la última revisión
-```{r echo=FALSE}
+```{r c08-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -18,7 +18,11 @@ Sys.Date()
 
 Es una función para seleccionar basado en una características del nombre de la columna
 
-```{r TS1}
+::: {.consejo}
+Los ayudantes como `starts_with()`, `ends_with()` y `contains()` te evitan escribir cada nombre de columna a mano, sobre todo en tablas con muchas variables.
+:::
+
+```{r c08-2}
 library(datos)
 names(vuelos)
 library(tidyverse)
@@ -29,29 +33,29 @@ vuelos %>%
 
 
 
-```{r}
+```{r c08-3}
 vuelos %>% 
   dplyr::select(starts_with("horario"))
 ```
 
 
-```{r}
+```{r c08-4}
 vuelos %>% 
   dplyr::select(ends_with("salida"))
 ```
 
 
-```{r}
+```{r c08-5}
 vuelos %>% 
   dplyr::select(contains("salida"))
 ```
 
-```{r}
+```{r c08-6}
 vuelos %>% 
   dplyr::select(contains("ue"))
 
 ```
-```{r}
+```{r c08-7}
 #vuelos %>%
 # dplyr::filter(contains("AA")) # no funciona con filter
 
@@ -64,16 +68,16 @@ vuelos %>%
 
 Cambiar el nombre de la columna
 
-```{r TS2}
+```{r c08-8}
 vuelos %>% 
   rename(aeropuerto_origen=origen) %>% 
   rename(aeropuerto_destino=destino) %>% 
-  select(contains("aeropuerto")) # nombre nuevo= nombre original
+  dplyr::select(contains("aeropuerto")) # nombre nuevo= nombre original
 ```
 
 ## Reorganizar el orden de las columnas, usando select() y everything() en la misma función
 
-```{r TS3}
+```{r c08-9}
 head(vuelos)
 vuelos %>% 
     dplyr::select(distancia, aerolinea, everything())
@@ -81,7 +85,7 @@ vuelos %>%
 
 Seleccionar de un conjunto de variables en orden que aparece en el data.frame
 
-```{r TS4}
+```{r c08-10}
 vuelos |> dplyr::select(mes:salida_programada)
 
 x=c(10:15)
@@ -107,7 +111,7 @@ Hacer los ejercicios en la sección 5.4.1 del libro en español
 https://es.r4ds.hadley.nz/05-transform.html#ejercicios-2
 
 
-```{r}
+```{r c08-11}
 ?mean
 
 ```

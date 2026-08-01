@@ -1,6 +1,6 @@
 # Appendix D {.unnumbered}
 
-```{r AD1, echo=FALSE}
+```{r c30-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -17,7 +17,7 @@ Usa los datos de COVID-19 en Puerto Rico (PR) del Departamento de Salud de PR.
 
 
 
-```{r AD2}
+```{r c30-2}
 url_COVID_PR <- read_csv("Datos/url_COVID_PR.csv")
 
 head(url_COVID_PR)
@@ -29,6 +29,10 @@ head(url_COVID_PR)
 
 1. Calcula los promedios en periodos de 7 (días; promedio corriendo) y añádele a tu dataframe
 
+::: {.nota}
+Un promedio *cumulativo* (`cummean`) usa todos los datos desde el inicio hasta cada fecha, mientras que un promedio *corriendo* o móvil (`rollmean` con ventana de 7 días) solo promedia los días más cercanos.
+:::
+
 _ Usa la columna de IncCasosSaludNuevo para todos los cálculos
 
 - Enseñe las primeras 20 filas de tu dataframe con las nuevas columnas añadidas
@@ -36,7 +40,7 @@ _ Usa la columna de IncCasosSaludNuevo para todos los cálculos
 
 
 
-```{r AD3, warning=FALSE, message=FALSE, echo=FALSE }
+```{r c30-3, warning=FALSE, message=FALSE, echo=FALSE}
 Cummulativo=url_COVID_PR %>% 
   dplyr::select(Fecha, IncCasosSaludNuevo) |> 
   dplyr::select(IncCasosSaludNuevo) %>% 
@@ -53,7 +57,7 @@ Cummulativo=url_COVID_PR %>%
 
 
 2. Haz una figura que muestra el cambio en el promedio cumulativo corriendo de casos nuevos.
-```{r AD5, warning=FALSE, message=FALSE, echo=FALSE}
+```{r c30-4, warning=FALSE, message=FALSE, echo=FALSE}
 
  
   ggplot(Cummulativo, aes(x=1:nrow(url_COVID_PR))) +

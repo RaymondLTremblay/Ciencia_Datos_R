@@ -3,15 +3,19 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">Ciencia_Datos_R</a></li>
+        <li><a href="./">🌊 Ciencia de Datos con R</a></li>
       after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-    edit: https://github.com/USERNAME/REPO/edit/BRANCH/%s
-    #download: ["pdf", "epub"]
-#bookdown::pdf_book:
- # includes:
- #   in_header: preamble.tex
- # latex_engine: xelatex
-#  citation_package: natbib
-#  keep_tex: yes
-# bookdown::epub_book: default
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con bookdown</a></li>
+    edit: https://github.com/RaymondLTremblay/Ciencia_Datos_R/edit/main/%s
+    download: ["pdf", "epub"]
+    sharing:
+      github: yes
+      facebook: no
+      twitter: no
+      all: ["facebook", "twitter", "linkedin"]
+bookdown::pdf_book:
+  latex_engine: xelatex
+  includes:
+    in_header: preamble.tex
+  keep_tex: no
+bookdown::epub_book: default

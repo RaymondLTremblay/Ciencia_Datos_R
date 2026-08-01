@@ -1,15 +1,42 @@
+# --- RStudio ---
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
 
-# macOS
+# --- Sistema operativo / Dropbox ---
 .DS_Store
-
-# Dropbox conflicted copies
 *conflicted copy*
 
-# CRAN download-logs cache (packageRank / cranlogs).
-# These files are generated locally, are regenerable, and can exceed
-# GitHub's 100 MB per-file limit — never commit them.
+# --- Salida temporal de bookdown / knitr ---
+_book/
+_bookdown_files/
+file*/
+*.knit.md
+*.utf8.md
+Ciencia_Datos_con_R.Rmd
+Ciencia_Datos_con_R_files/
+Ciencia-Datos-con-R_files/
+
+# --- Artefactos de LaTeX / PDF (la causa del error \@writefile) ---
+*.aux
+*.toc
+*.lof
+*.lot
+*.out
+*.log
+*.idx
+*.ind
+*.ilg
+*.synctex.gz
+Ciencia_Datos_con_R.tex
+Ciencia-Datos-con-R.*
+
+# --- Imagenes generadas por los capitulos (se recrean en img/) ---
+img/cilindro_milla.jpg
+img/hex_sticker_cat.jpg
+img/hex_meow_software.png
+
+# --- Carpeta de revision y datos grandes ---
+_to_delete/
 cran-mirror/

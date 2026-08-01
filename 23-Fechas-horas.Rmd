@@ -1,7 +1,7 @@
 # Fechas, horas y minutas
 
 
-```{r echo=FALSE}
+```{r c23-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -29,6 +29,10 @@ Español:
   
 ## Creando fechas/horas
 
+::: {.historia}
+En R y en los sistemas tipo Unix el tiempo se cuenta como el número de segundos (o días) transcurridos desde la medianoche del 1 de enero de 1970, conocida como la época Unix. Por eso `as.numeric()` de una fecha devuelve los días desde ese punto.
+:::
+
   - date, <date>
   - time, <time>
   - date-time, <dttm>
@@ -37,7 +41,7 @@ Español:
 
 https://github.com/edgararuiz/guias-rapidas/blob/master/fechas.pdf
 
-```{r}
+```{r c23-2}
 library(tidyverse)
 library(lubridate) # paquete para convertir fechas
 
@@ -48,13 +52,13 @@ tidyverse_packages() # lista completa de los paquetes activado con **tidyverse**
 
 La función `today()` regresa la fecha de hoy, similar a `Sys.date()`
 
-```{r FH1}
+```{r c23-3}
 today()
 ```
 
 Use la función de `tribble()`, del paquete `tibble`, para crear una tabla manualmente
 
-```{r FH2}
+```{r c23-4}
 fechas <- tribble(
   ~ codigo, ~ fecha,
     "001",    "01/01/2019 00:00:00",
@@ -68,16 +72,20 @@ fechas
 
 Hay varias opciones para convertir texto a fechas, el más usado es `mdy_hms()`, pero en este caso el formato utilizado no funciona bien.
 
+::: {.peligro}
+Un error muy común es usar `mdy()` cuando las fechas están en formato día/mes/año. Como no existe un mes 31, obtendrás `NA` o fechas equivocadas; elige la función (`dmy()`, `mdy()`, `ymd()`) según el orden real de la fecha.
+:::
+
 ### Un error tipico
 
-```{r FH3}
+```{r c23-5}
 fechas %>%
   mutate(fecha = mdy_hms(fecha))
 ```
 
 Ya que el día es el primero, y no el mes, usamos `dmy_hms()`
 
-```{r FH4}
+```{r c23-6}
 nueva_fechas <- fechas %>%
   mutate(fecha = dmy_hms(fecha))
 
@@ -86,7 +94,7 @@ nueva_fechas
 
 `lubridate` tiene varias funciones para extraer partes de la fecha, por ejemplo: año, mes, día, hora, minuto, y cuatrimestre.
 
-```{r FH5}
+```{r c23-7}
 nueva_fechas %>%
   mutate(a = year(fecha),
          m = month(fecha),
@@ -99,7 +107,7 @@ nueva_fechas %>%
 
 Las funciones `round_date()`, `ceiling_date()` y `floor_date()` permiten redondear la fecha al número más cercano de la unidad especificada
 
-```{r FH6}
+```{r c23-8}
 nueva_fechas %>%
   mutate(
     redondear = round_date(fecha, unit = " month"), # round_date es redondea al mes más cercano
@@ -114,7 +122,7 @@ nueva_fechas %>%
 La función `interval()` crea un objeto R de intervalo de tiempo. En este caso, el intervalo entre la fecha en la tabla, y el día de hoy.  Nota que esto puede ser muy útil si quiere calcular la cantidad de tiempo entre dos fechas.
 
 
-```{r FH7}
+```{r c23-9}
 nueva_fechas %>%
   mutate(intervalo = interval(fecha, today())) # intervalo entre la fecha y hoy
 ```
@@ -125,7 +133,7 @@ nueva_fechas %>%
 
 `int_length()` regresa el número de segundos dentro del intervalo
 
-```{r FH8}
+```{r c23-10}
 nueva_fechas %>%
   mutate(
     intervalo = interval(fecha, today()), #
@@ -137,14 +145,14 @@ nueva_fechas %>%
 
 Compara con el script anterior
 
-```{r FH9}
+```{r c23-11}
 nueva_fechas %>%
   mutate(intervalo = fecha %--% today())
 ```
 
 Para saber el número de días en el intervalo, divida el intervalo por la función que corresponde a días, `days()`
 
-```{r FH10}
+```{r c23-12}
 nueva_fechas %>%
   mutate(dias = fecha %--% today() / days(),
          anio= fecha %--% today() / years()) # número de días en el intervalo
@@ -157,7 +165,7 @@ nueva_fechas %>%
 
 Intervalo entre una lista de fecha y otra fecha y hora específica
 
-```{r FH11}
+```{r c23-13}
 nueva_fechas %>%
   mutate(dias = fecha %--% "2020-01-01 00:00:00" / days())
 ```
@@ -168,7 +176,7 @@ nueva_fechas %>%
 Usa esta función y calcula el número de día que ha transcurrido entre el día de su nacimiento y el día de hoy
 
 
-```{r H12}
+```{r c23-14}
 
 segundos = "2018-08-14 00:00:00" %--% today()/seconds()
 segundos
@@ -195,7 +203,7 @@ millisecond
 
 Los resultados se pueden visualizar usando `ggplot2`
 
-```{r FH13}
+```{r c23-15}
 nueva_fechas %>%
   mutate(dias = fecha %--% today() / years()) %>%
   ggplot() +
@@ -226,14 +234,14 @@ nueva_fechas %>%
 ## as.duration
 
 `as.duration()` crea un objecto en R que contiene la duración del intervalo de tiempo.  
-```{r FH14}
+```{r c23-16}
 nueva_fechas %>%
   mutate(desde_hoy = as.duration(fecha %--% today())) # duración desde la fecha hasta hoy
 ```
 
 El objeto de duración de tiempo se puede filtrar fácilmente basado en una variedad de tipo de tiempos.  En este caso, semanas `dweeks()` crea un objeto de duración de la largura especificada
 
-```{r FH15}
+```{r c23-17}
 nueva_fechas %>%
   mutate(desde_hoy = as.duration(fecha %--% today())) %>%
   filter(desde_hoy > dyears(7))
@@ -244,7 +252,7 @@ nueva_fechas %>%
 
 Otra opción es `ddays()`. 
 
-```{r FH16}
+```{r c23-18}
 nueva_fechas %>%
   mutate(desde_hoy = as.duration(fecha %--% today())) %>%
   filter(desde_hoy < ddays(2500))  # Nota que se puede filtrar por el número de días que han acumulado
@@ -257,7 +265,7 @@ nueva_fechas %>%
    
    
    
-```{r FH17}
+```{r c23-19}
 today()
 now()
 ```
@@ -288,7 +296,7 @@ now()
 ### Fechas 
   - yq() Year quarter (quarters are 1, 2, 3, 4, Jan-March, April-Jun, Jul-Sept, Oct-Dec)
   
-```{r FH18}
+```{r c23-20}
 x =c("2012.1", "1970.4")
 yq(x)
 yq("2012.1")
@@ -310,7 +318,7 @@ Unir el año, mes, día, hora y minutos que estén en diferentes columnas en uno
 - sumamente practico cuando se tiene una base de datos con las fechas en diferentes columnas
 
  
-```{r FH19}
+```{r c23-21}
 library(datos)
 head(vuelos)
 vuelos %>%
@@ -323,7 +331,7 @@ vuelos %>%
 Unir el año, mes, día, hora  que estén en diferentes columnas en uno
 
 
-```{r FH20}
+```{r c23-22}
 vuelos %>%
   dplyr::select(anio, mes, dia, hora, minuto) %>%
   mutate(salida2 = make_date(anio, mes, dia))
@@ -334,7 +342,7 @@ vuelos %>%
  
  ## Conversión de fechas que no son estándar
  
-```{r FH21}
+```{r c23-23}
 
 Datos_raros=tribble(~Ind, ~Persona, ~fecha_de_nacimiento,
                     1, "Abuela", "1/1/30",
@@ -345,19 +353,19 @@ Datos_raros
 ```
  
  
-```{r FH22}
+```{r c23-24}
 Datos_raros %>%
   mutate(nueva_fecha = mdy(fecha_de_nacimiento))
 
 ```
 
 
-```{r}
+```{r c23-25}
 as.Date(0, origin = "1970-01-01")
 # Returns "1970-01-01"
 ```
 
-```{r}
+```{r c23-26}
 
 
 df <- tibble(
@@ -389,7 +397,7 @@ df
 ## %/%: integer division  
 
 
-```{r FH23}
+```{r c23-27}
 vuelos |> dplyr::select(tiempo_vuelo) |> 
   mutate(t=tiempo_vuelo %/% 100) |>  # Division
   mutate(m= tiempo_vuelo %% 100)     # modulus... Cambia el 100 para 1, 10, 1000... y mira cual es el resultado
@@ -404,7 +412,7 @@ vuelos |> dplyr::select(tiempo_vuelo) |>
  
  
  
-```{r FH24}
+```{r c23-28}
 
 names(vuelos)
 hacer_fechahora_100 <- function(anio, mes, dia, tiempo) {
@@ -430,14 +438,14 @@ head(vuelos_dt)
 
 
  
-```{r FH25}
+```{r c23-29}
 vuelos_dt %>%
   ggplot(aes(horario_salida)) +
   geom_freqpoly(binwidth = 86400) # 86400 segundos = 1 día
 ```
  
  
-```{r FH26}
+```{r c23-30}
 vuelos_dt %>%
   filter(horario_salida < ymd(20130102)) %>%
   ggplot(aes(horario_salida)) +
@@ -447,7 +455,7 @@ vuelos_dt %>%
 
 Nota variables que no funciona
  
-```{r FH27}
+```{r c23-31}
 
 ymd(c("2010-10-10", "bananas"))
 
@@ -455,7 +463,7 @@ ymd(c("2010-10-10", "bananas"))
  
 
 
-```{r FH28}
+```{r c23-32}
 d1 <- "Jan 1, 2010"
 d1
 mdy(d1)
@@ -481,7 +489,7 @@ mdy(d7)
 ```
  
  
-```{r FH29}
+```{r c23-33}
 mdy(d1)
 ymd(d2)
 dmy(d3)
@@ -534,7 +542,7 @@ Confirma nuestra hipótesis de que las salidas programadas en los minutos 20-30 
 
 ## duraciones
  
-```{r FH30}
+```{r c23-34}
 # ¿Qué edad tiene Charles Darwin?  fecha de naciemiento February 12, 1809
 edad_h <- today() - ymd("1809-02-12")
 edad_h <- today() - ymd(18090212)
@@ -547,7 +555,7 @@ x=as.duration(edad_h)
  
  Otras funciones de duración
  
-```{r FH31}
+```{r c23-35}
 dseconds(15)
 
 dminutes(10)
@@ -567,7 +575,7 @@ dyears(1)
  
  
  
-```{r FH32}
+```{r c23-36}
 2 * dyears(1)
 
 dyears(1) + dweeks(12) + dhours(15)
@@ -577,7 +585,7 @@ dyears(1) + dweeks(12) + dhours(15)
 
 
 
-```{r FH33}
+```{r c23-37}
 ayer <- today() - ddays(1)
 anio_pasado <- today() - dyears(1)
 
@@ -588,7 +596,7 @@ anio_pasado
 
 ## períodos
  
-```{r FH34}
+```{r c23-38}
 una_pm <- ymd_hms("2016-03-12 13:00:00", tz = "America/New_York")
 
 una_pm
@@ -598,7 +606,7 @@ una_pm + ddays(1)
 ```
  
  
-```{r FH35}
+```{r c23-39}
 seconds(15)
 #> [1] "15S"
 minutes(10)
@@ -617,7 +625,7 @@ years(1)
 ```
  
  
-```{r H36}
+```{r c23-40}
 10 * (months(6) + days(1))
 #> [1] "60m 10d 0H 0M 0S"
 days(50) + hours(25) + minutes(2)
@@ -626,7 +634,7 @@ days(50) + hours(25) + minutes(2)
  
 
 
-```{r FH37}
+```{r c23-41}
 # Un año bisiesto
 ymd("2016-01-01") + dyears(1)
 #> [1] "2016-12-31 06:00:00 UTC"
@@ -640,7 +648,7 @@ una_pm + days(1)
 #> [1] "2016-03-13 13:00:00 EDT"
 ```
 
-```{r FH38}
+```{r c23-42}
 10 * (months(6) + days(1))
 #> [1] "60m 10d 0H 0M 0S"
 days(50) + hours(25) + minutes(2)

@@ -1,7 +1,7 @@
 # Datos Ordenados
 
 
-```{r echo=FALSE}
+```{r c17-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -22,19 +22,27 @@ Español:
 
 ## Temas: Datos Ordenados
 
+::: {.nota}
+Datos ordenados (tidy data): cada variable es una columna, cada observación es una fila y cada valor ocupa su propia celda. Con este formato el tidyverse trabaja de forma más natural.
+:::
+
 ### El paquete tidyr
+
+::: {.consejo}
+Las funciones `pivot_longer()` y `pivot_wider()` de `tidyr` son las herramientas principales para pasar los datos entre el formato ancho y el formato largo.
+:::
 
 Ver vignettes  
 
 
 
-```{r} 
+```{r c17-2}
  library(tidyverse)
 library(datos)
 ``` 
  
  
-```{r DO1}
+```{r c17-3}
 tabla1
 
 tabla2

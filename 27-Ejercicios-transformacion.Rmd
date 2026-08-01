@@ -12,7 +12,7 @@
 
 ### Para tener los puntos tiene que enseñar TODOS los scripts, los resultados y explicar en palabras los que encontró dentro de un documento bien organizado. {.unnumbered}
 
-```{r AA1}
+```{r c27-1}
 library(datos)
 attach(bateadores)
 library(tidyverse)
@@ -21,7 +21,11 @@ library(gt)
 
 Use el data frame de "bateadores" en el paquete "datos".
 
-```{r AA2}
+::: {.nota}
+El paquete `datos` ofrece versiones en español de conjuntos de datos clásicos, con los nombres de las variables traducidos (por ejemplo, `carreras`, `al_bate` o `id_jugador`).
+:::
+
+```{r c27-2}
 
 gt(head(bateadores, n=3))
 
@@ -31,7 +35,7 @@ gt(head(bateadores, n=3))
 
 ## 1. Busca el bateador que tuvo más carreras en cualquier año {.unnumbered}
 
-```{r AA3}
+```{r c27-3}
 max(bateadores$carreras)
 
 bateadores |> dplyr::select(id_jugador, al_bate) |> 
@@ -44,9 +48,9 @@ bateadores |> dplyr::select(id_jugador, al_bate) |>
 
 ## 2. ¿Cuál es el nombre del bateador (id_jugador) que estuvo más veces "al_bate"? Prepara una lista del bateador más frecuente al bate al menos {.unnumbered}
 
-```{r AA4, eval=FALSE, echo=FALSE}
+```{r c27-4, eval=FALSE, echo=FALSE}
 
-bateadores |> select(id_jugador, al_bate) |> 
+bateadores |> dplyr::select(id_jugador, al_bate) |> 
   group_by(id_jugador) |>
   summarise(al_bate=sum(al_bate)) |>
   arrange(desc(al_bate))
@@ -58,7 +62,7 @@ bateadores |> select(id_jugador, al_bate) |>
 ## 3. ¿Cuáles son las "ligas" de baseball (pelota) que están incluidas en este archivo? {.unnumbered}
 
 
-```{r AA5, eval=FALSE, echo=FALSE}
+```{r c27-5, eval=FALSE, echo=FALSE}
 
 unique(bateadores$id_liga)
 ```
@@ -69,9 +73,9 @@ unique(bateadores$id_liga)
 
 ¿Cuál fue el máximo de jonrones por año para los años seleccionados? Haga una lista.
 
-```{r AA6, eval=FALSE, echo=FALSE}
+```{r c27-6, eval=FALSE, echo=FALSE}
 unique(bateadores$id_anio)
-bateadores |> select(id_anio, cuadrangulares) |> 
+bateadores |> dplyr::select(id_anio, cuadrangulares) |> 
   filter(id_anio %in% c(1900, 1950, 2000, 2020)) |> 
   group_by(id_anio) |> 
   summarise(max=max(cuadrangulares))
@@ -84,8 +88,8 @@ bateadores |> select(id_anio, cuadrangulares) |>
 
 -   ¿Cuál es el jugador que ha jugado más años?
 
-```{r AA7, eval=FALSE, echo=FALSE}
-bateadores |> select(id_jugador, id_anio) |> 
+```{r c27-7, eval=FALSE, echo=FALSE}
+bateadores |> dplyr::select(id_jugador, id_anio) |> 
   group_by(id_jugador) |> 
   summarise(count_years= sum(duplicated(id_jugador))) |> 
   arrange(desc(count_years))
@@ -107,8 +111,8 @@ bateadores |>
 -   c)  Como explica que ese equipo tiene tan pocas carreras.
         Piensa en un tipo de "Data wrangling", que podría explicar esto (BONO), si lo resuelve tendrá un bono
 
-```{r AA8, eval=FALSE, echo=FALSE}
-bateadores |> select(id_liga, id_anio, id_equipo, carreras) |> 
+```{r c27-8, eval=FALSE, echo=FALSE}
+bateadores |> dplyr::select(id_liga, id_anio, id_equipo, carreras) |> 
   filter(id_liga == "AL") |> 
   filter(id_anio %in% c(2000:2020)) |> 
   group_by(id_equipo) |> 
@@ -117,8 +121,8 @@ bateadores |> select(id_liga, id_anio, id_equipo, carreras) |>
 
 ------------------------------------------------------------------------
 
-```{r AA9, eval=FALSE, echo=FALSE}
-bateadores |> select(id_liga, id_anio, id_equipo) |> 
+```{r c27-9, eval=FALSE, echo=FALSE}
+bateadores |> dplyr::select(id_liga, id_anio, id_equipo) |> 
   filter(id_liga == "AL") |> 
   filter(id_anio %in% c(2000:2020)) |> 
   group_by(id_equipo) |> 

@@ -1,14 +1,268 @@
-p.caption {
-  color: #777;
-  margin-top: 10px;
+/* ============================================================
+   Ciencia de Datos con R — BIOL4026
+   Tema "Caribe" (teal / océano + oro), vibrante y amigable
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Poppins:wght@500;600;700&display=swap');
+
+:root {
+  --teal-700: #0b5f77;
+  --teal-600: #0e7c9b;
+  --teal-500: #12b3d6;
+  --teal-050: #eaf6fa;
+  --gold:     #f4a300;
+  --gold-050: #fff7e6;
+  --ink:      #0b3a49;
+  --text:     #22333b;
 }
-p code {
-  white-space: inherit;
+
+/* ---------- Tipografía base del contenido ---------- */
+.book .book-body .page-wrapper .page-inner section.normal {
+  font-family: 'Nunito', -apple-system, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text);
 }
-pre {
-  word-break: normal;
-  word-wrap: normal;
+
+/* Preservar figuras/tablas ya definidas */
+p.caption { color: #6b7d84; margin-top: 10px; font-style: italic; }
+p code { white-space: inherit; }
+pre { word-break: normal; word-wrap: normal; }
+pre code { white-space: inherit; }
+
+/* ---------- Encabezados ---------- */
+.book .book-body .page-inner section.normal h1,
+.book .book-body .page-inner section.normal h2,
+.book .book-body .page-inner section.normal h3,
+.book .book-body .page-inner section.normal h4 {
+  font-family: 'Poppins', -apple-system, "Segoe UI", sans-serif;
+  font-weight: 700;
+  line-height: 1.25;
 }
-pre code {
-  white-space: inherit;
+.book .book-body .page-inner section.normal h1 {
+  color: var(--ink);
+  border-bottom: 3px solid var(--teal-500);
+  padding-bottom: .3em;
+  margin-top: .2em;
+}
+.book .book-body .page-inner section.normal h2 {
+  color: var(--teal-600);
+  border-bottom: 2px solid var(--teal-050);
+  padding-bottom: .25em;
+  margin-top: 1.6em;
+}
+.book .book-body .page-inner section.normal h3 { color: var(--teal-700); margin-top: 1.3em; }
+.book .book-body .page-inner section.normal h4 { color: var(--ink); font-weight: 600; }
+
+/* Números de capítulo/sección en oro */
+.book .book-body .page-inner section.normal .header-section-number { color: var(--gold); font-weight: 700; }
+
+/* ---------- Enlaces ---------- */
+.book .book-body .page-wrapper .page-inner section.normal a {
+  color: var(--teal-600);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(18,179,214,.35);
+  transition: color .15s ease, border-color .15s ease, background .15s ease;
+}
+.book .book-body .page-wrapper .page-inner section.normal a:hover {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* ---------- Código en línea ---------- */
+.book .book-body .page-inner section.normal code {
+  background: var(--teal-050);
+  color: var(--teal-700);
+  padding: .12em .42em;
+  border-radius: 6px;
+  font-size: .88em;
+  font-family: "SFMono-Regular", "JetBrains Mono", Consolas, Menlo, monospace;
+}
+
+/* ---------- Bloques de código ---------- */
+.book .book-body .page-inner section.normal pre {
+  background: #f6fbfd;
+  border: 1px solid #dcecf1;
+  border-left: 4px solid var(--teal-500);
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: 0 1px 2px rgba(11,58,73,.05);
+}
+.book .book-body .page-inner section.normal pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: .9em;
+}
+
+/* ---------- Citas -> cajas de "Nota" ---------- */
+.book .book-body .page-inner section.normal blockquote {
+  background: var(--gold-050);
+  border-left: 5px solid var(--gold);
+  border-radius: 10px;
+  padding: .85em 1.15em;
+  margin: 1.4em 0;
+  color: #5a4410;
+}
+.book .book-body .page-inner section.normal blockquote p { margin: 0; }
+
+/* ---------- Reglas horizontales (***) ---------- */
+.book .book-body .page-inner section.normal hr {
+  border: none;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal-500), var(--gold));
+  border-radius: 3px;
+  opacity: .5;
+  margin: 2.2em 0;
+}
+
+/* ---------- Tablas ---------- */
+.book .book-body .page-inner section.normal table {
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(11,58,73,.10);
+  margin: 1.2em 0;
+}
+.book .book-body .page-inner section.normal table thead th {
+  background: var(--teal-600);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  border: none;
+  padding: 10px 14px;
+}
+.book .book-body .page-inner section.normal table td { padding: 8px 14px; border-top: 1px solid #e7eef1; }
+.book .book-body .page-inner section.normal table tbody tr:nth-child(even) { background: #f2fbfd; }
+.book .book-body .page-inner section.normal table tbody tr:hover { background: var(--teal-050); }
+
+/* ---------- Imágenes ---------- */
+.book .book-body .page-inner section.normal img {
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(11,58,73,.12);
+  max-width: 100%;
+}
+
+/* ---------- Barra lateral (tabla de contenido) ---------- */
+.book .book-summary {
+  background: #f7fcfd;
+  border-right: 1px solid #e3eef2;
+  font-family: 'Nunito', sans-serif;
+}
+.book .book-summary ul.summary li a {
+  color: #33525c;
+  transition: color .15s ease, background .15s ease;
+}
+.book .book-summary ul.summary li a:hover {
+  color: var(--teal-600);
+  background: var(--teal-050);
+}
+.book .book-summary ul.summary li.active > a {
+  color: #fff !important;
+  background: var(--teal-600) !important;
+  border-left: 4px solid var(--gold);
+  font-weight: 700;
+}
+.book .book-summary ul.summary li.header {
+  color: var(--ink);
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+/* ---------- Barra superior ---------- */
+.book .book-header { border-bottom: 1px solid #e3eef2; }
+.book .book-header h1 { font-family: 'Poppins', sans-serif; color: var(--ink); }
+.book .book-header .btn:hover { color: var(--teal-600); }
+
+/* ============================================================
+   CAJAS DE AVISO (callouts)
+   Uso en los .Rmd (Pandoc fenced divs):
+     ::: {.nota}
+     Texto de la nota...
+     :::
+   Clases: .nota .consejo .advertencia .peligro .historia
+   ============================================================ */
+.book .book-body .page-inner section.normal div.nota,
+.book .book-body .page-inner section.normal div.consejo,
+.book .book-body .page-inner section.normal div.advertencia,
+.book .book-body .page-inner section.normal div.peligro,
+.book .book-body .page-inner section.normal div.historia {
+  border-radius: 10px;
+  border-left: 5px solid;
+  padding: .85em 1.15em;
+  margin: 1.6em 0;
+  box-shadow: 0 1px 3px rgba(11,58,73,.06);
+}
+.book .book-body .page-inner section.normal div.nota > :last-child,
+.book .book-body .page-inner section.normal div.consejo > :last-child,
+.book .book-body .page-inner section.normal div.advertencia > :last-child,
+.book .book-body .page-inner section.normal div.peligro > :last-child,
+.book .book-body .page-inner section.normal div.historia > :last-child { margin-bottom: 0; }
+
+.book .book-body .page-inner section.normal div.nota::before,
+.book .book-body .page-inner section.normal div.consejo::before,
+.book .book-body .page-inner section.normal div.advertencia::before,
+.book .book-body .page-inner section.normal div.peligro::before,
+.book .book-body .page-inner section.normal div.historia::before {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: .95em;
+  margin-bottom: .45em;
+}
+
+/* Nota — teal */
+.book .book-body .page-inner section.normal div.nota {
+  background: var(--teal-050); border-left-color: var(--teal-500);
+}
+.book .book-body .page-inner section.normal div.nota::before {
+  content: "📝  Nota"; color: var(--teal-700);
+}
+/* Consejo (tip) — verde */
+.book .book-body .page-inner section.normal div.consejo {
+  background: #e9f7f0; border-left-color: #2e9e6b;
+}
+.book .book-body .page-inner section.normal div.consejo::before {
+  content: "💡  Consejo"; color: #1f7a53;
+}
+/* Advertencia (warning) — ámbar/oro */
+.book .book-body .page-inner section.normal div.advertencia {
+  background: var(--gold-050); border-left-color: var(--gold);
+}
+.book .book-body .page-inner section.normal div.advertencia::before {
+  content: "⚠️  Advertencia"; color: #8a5a00;
+}
+/* Peligro (danger / error común) — rojo */
+.book .book-body .page-inner section.normal div.peligro {
+  background: #fdecea; border-left-color: #e0483a;
+}
+.book .book-body .page-inner section.normal div.peligro::before {
+  content: "⛔  ¡Cuidado! (error común)"; color: #a5271b;
+}
+/* Historia (dato curioso) — morado */
+.book .book-body .page-inner section.normal div.historia {
+  background: #f1ecfa; border-left-color: #7c5cbf;
+}
+.book .book-body .page-inner section.normal div.historia::before {
+  content: "📜  Un poco de historia"; color: #4a3585;
+}
+
+/* ---------- Banner de bienvenida (portada) ---------- */
+.book .book-body .page-inner section.normal div.banner-cover {
+  background: linear-gradient(120deg, var(--teal-600), var(--teal-500));
+  color: #fff;
+  border-radius: 14px;
+  padding: 1.15em 1.5em;
+  margin: 1.2em 0 1.8em;
+  font-size: 1.06em;
+  line-height: 1.6;
+  box-shadow: 0 5px 16px rgba(14,124,155,.28);
+}
+.book .book-body .page-inner section.normal div.banner-cover code {
+  background: rgba(255,255,255,.22); color: #fff;
+}
+.book .book-body .page-inner section.normal div.banner-cover a {
+  color: #fff; border-bottom-color: rgba(255,255,255,.6);
 }

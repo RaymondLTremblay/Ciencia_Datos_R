@@ -2,7 +2,7 @@
 
 
 
-```{r echo=FALSE}
+```{r c03-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -39,7 +39,7 @@ Español:
 
 ### Los paquetes
 
-```{r VD1}
+```{r c03-2}
 library(tidyverse)
 library(ggversa)
 library(datos)
@@ -49,8 +49,12 @@ library(datos)
 
 ### Facet_wrap
 
+::: {.consejo}
+`facet_wrap(~ variable)` divide el gráfico en un panel por cada categoría de la variable; es ideal para comparar grupos sin saturar una sola figura.
+:::
 
-```{r VD2}
+
+```{r c03-3}
 ggplot(data = Anolis) +
   geom_point(aes(x = SVL, y = TAIL, color=SEX_AGE))+
   facet_wrap(~Survey_Site)
@@ -59,7 +63,7 @@ ggplot(data = Anolis) +
 ### Regresión lineal
 
 
-```{r VD3} 
+```{r c03-4}
 # izquierda
 ggplot(data = millas) +
   geom_point(aes(x = cilindrada, y = autopista))
@@ -78,14 +82,14 @@ Vea este enlace para información sobre la regresión LOESS
 
 <<https://en.wikipedia.org/wiki/Local_regression>>
 
-```{r}
+```{r c03-5}
 ggplot(data = millas) +
   geom_smooth(mapping = aes(x = cilindrada, y = autopista))+  # y = mx+b
   geom_point(aes(x = cilindrada, y = autopista))
 ```  
   
 
-```{r VD4, warning=FALSE}
+```{r c03-6, warning=FALSE}
 names(millas)
 
 
@@ -103,7 +107,7 @@ ggplot(data = millas) +
 
 ### Regresión LOESS de un grupo
 
-```{r VD5}
+```{r c03-7}
 ggplot(millas,aes(x = cilindrada, y = autopista)) +
   geom_point(aes(color = clase)) +
   geom_smooth(data = filter(millas, clase == "suv"), se =TRUE)
@@ -111,7 +115,7 @@ ggplot(millas,aes(x = cilindrada, y = autopista)) +
 
 ### Regresión LOESS: 
 
-```{r VD6}
+```{r c03-8}
 ggplot(data = millas, mapping = aes(x = cilindrada, y = autopista)) +
   geom_point() +
   geom_smooth()
@@ -122,7 +126,7 @@ ggplot(data = millas, mapping = aes(x = cilindrada, y = autopista)) +
 
 
 
-```{r VD7}
+```{r c03-9}
 ggplot(millas, mapping = aes(x = cilindrada, y = autopista)) +
   geom_point(mapping = aes(color = clase)) +
   geom_smooth(method=lm)
@@ -130,7 +134,7 @@ ggplot(millas, mapping = aes(x = cilindrada, y = autopista)) +
 
 ### geom_bar()
 
-```{r VD8}
+```{r c03-10}
 ggplot(diamantes) +
   geom_bar(aes(x = precio))
 ```
@@ -139,7 +143,7 @@ ggplot(diamantes) +
 ### Puntos con intervalo mínimo y máximo
 
 
-```{r VD9}
+```{r c03-11}
 ggplot(diamantes) +
   stat_summary(
     mapping = aes(x = color, y = precio),
@@ -153,7 +157,7 @@ ggplot(diamantes) +
 ### geom_boxplot
 
 
-```{r V10}
+```{r c03-12}
 ggplot(millas, aes(x = clase, y = autopista)) +
   geom_boxplot()
 
@@ -168,7 +172,7 @@ ggplot( millas, aes(x = clase, y = autopista)) +
 
 
 
-```{r VD11}
+```{r c03-13}
 bar <- ggplot(data = diamantes) +
   geom_bar(aes(x = corte, fill = corte),
     show.legend = FALSE,
@@ -180,26 +184,26 @@ bar <- ggplot(data = diamantes) +
 
 #### geom_bar
 
-```{r VD12}
+```{r c03-14}
 bar
 ```
 
 #### geom_bar & flip coordinates
 
-```{r VD13}
+```{r c03-15}
 bar + coord_flip()
 ```
 
 
 #### geom_bar & circular distribution
-```{r VD14}
+```{r c03-16}
 bar + coord_polar()
 ```
 
 
 Donut Chart
 
-```{r}
+```{r c03-17}
 
 library(ggplot2)
 library(gridExtra)
@@ -318,7 +322,7 @@ Someter las tres gráficas en formato .jpeg o .png en el portal.
 
 
 
-```{r VD15}
+```{r c03-18}
 library(ggplot2)
 library(tidyverse)
 library(ggversa)
@@ -326,12 +330,12 @@ library(ggversa)
 ```
 
 
-```{r VD16}
+```{r c03-19}
 head(PartosInfantes)
 #unique(PartosInfantes$Pais)
 ```
 Hacer un gráfico de puntos entre el número de muertes por infante y la cantidad de madres que mueren en el parto
-```{r VD17, eval=FALSE, include=FALSE}
+```{r c03-20, eval=FALSE, include=FALSE}
 ggplot(PartosInfantes, aes(NMI, NMP))+
   geom_point()
 ```
@@ -340,7 +344,7 @@ ggplot(PartosInfantes, aes(NMI, NMP))+
 Añadir al gráfico anterior un modelo lineal (linear model)
 
 
-```{r VD18, eval=FALSE, include=FALSE}
+```{r c03-21, eval=FALSE, include=FALSE}
 ggplot(PartosInfantes, aes(NMI, NMP))+
   geom_point()+
   geom_smooth(method=lm)
@@ -349,14 +353,14 @@ ggplot(PartosInfantes, aes(NMI, NMP))+
 
 Añadir un color a los puntos por grupo "region". AM=America, EU= Union Europea, AF= Africa, O=Oceania, AS=Asia, Medio Oriente, 
 
-```{r VD19, eval=FALSE, include=FALSE}
+```{r c03-22, eval=FALSE, include=FALSE}
 #PartosInfantes
 unique(PartosInfantes$Grupo)
 ```
 
 Demostrando todos los datos con un color por región geográfica, enseña el modelo de regresión lineal solamente para AFRICA
 
-```{r VD20, eval=FALSE, include=FALSE}
+```{r c03-23, eval=FALSE, include=FALSE}
 ggplot(PartosInfantes, aes(NMI, NMP, colour=Grupo))+
   geom_point()+
   geom_smooth(method=lm, data = filter(PartosInfantes, Grupo == "AF"), se=FALSE)+
@@ -373,7 +377,7 @@ Buscar el error en el código.
 
 1. ¿Qué no va bien en este código? ¿Por qué hay puntos que no son azules en el siguiente código?
 
-```{r VD21, eval=FALSE, echo=TRUE}
+```{r c03-24, eval=FALSE, echo=TRUE}
 ggplot(data = millas) +
    geom_point(mapping = aes(x = cilindrada, y = autopista, color = "blue"))
 ```
@@ -382,7 +386,7 @@ ggplot(data = millas) +
 
 2. Por que la gráfica no se produce en el siguiente código
 
-```{r VD22, eval=FALSE}
+```{r c03-25, eval=FALSE}
 ggplot(data = millas)
 + geom_point(mapping = aes(x = cilindrada, y = autopista))
 
@@ -391,7 +395,7 @@ ggplot(data = millas)
 ```
 ## Vea el siguiente gráfico
 
-```{r VD23}
+```{r c03-26}
 ggplot(data = millas) +
   geom_point(mapping = aes(x = cilindrada, y = autopista)) +
   facet_grid(traccion ~ cilindros)
@@ -403,7 +407,7 @@ ggplot(data = millas) +
 
 4. Explica que hace "."? en estas funciones
 
-```{r VD24}
+```{r c03-27}
 ggplot(data = millas) +
   geom_point(mapping = aes(x = cilindrada, y = autopista)) +
   facet_grid(traccion ~ .)
@@ -416,7 +420,7 @@ ggplot(data = millas) +
 5. Qué hace **nrow** en este código
 
 
-```{r VD25}
+```{r c03-28}
 ggplot(data = millas) +
   geom_point(mapping = aes(x = cilindrada, y = autopista)) +
   facet_wrap(~ clase, nrow = 2)

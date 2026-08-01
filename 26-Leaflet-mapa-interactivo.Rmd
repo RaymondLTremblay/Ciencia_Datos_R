@@ -1,13 +1,13 @@
 # Leaflet: Mapas interactivos
 
 
-```{r echo=FALSE}
+```{r c26-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
 ```
 
-```{r}
+```{r c26-2}
 library(tidyverse)
 ```
 
@@ -15,22 +15,31 @@ library(tidyverse)
 
 Website:  https://earthquake.usgs.gov/earthquakes/feed/v1.0/csv.php
 
+::: {.advertencia}
+Este capítulo **descarga datos en vivo desde internet**. Si al ejecutar ves un error como `Error in download.file(...): cannot open URL` o un `HTTP error`, casi siempre significa que no hay conexión a internet o que el servidor no está respondiendo en ese momento. Verifica tu conexión y vuelve a intentar. En este libro el código usa una copia local guardada en `Datos/` cuando la descarga falla, para que el capítulo siempre se pueda generar. Encontrarás más errores frecuentes y cómo resolverlos en el capítulo *Errores comunes* (\@ref(errores)).
+:::
 
-```{r}
+
+```{r c26-3}
 library(data.table)
-earthquakes <- fread("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.csv")
+# Intenta bajar los datos en vivo del USGS; si no hay conexión o el servidor
+# no responde, usa la copia local guardada en Datos/.
+earthquakes <- tryCatch(
+  fread("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.csv"),
+  error = function(e) readr::read_csv("Datos/Earthquake_all_month.csv")
+)
 
 head(earthquakes, n=10)
 
 unique(earthquakes$type)
 ```
 
-```{r}
+```{r c26-4}
 earthquakes %>% 
   filter(type=="sonic boom")
 ```
 
-```{r}
+```{r c26-5}
 quarry_blasts=earthquakes %>% 
   filter(type=="quarry blast")
 ```
@@ -43,7 +52,7 @@ quarry_blasts=earthquakes %>%
 
 Use esta alternativa si bajo los datos a su computadora
 
-```{r, eval=TRUE}
+```{r c26-6, eval=TRUE}
 #library(readr)
 #Earthquake_all_month <- read_csv("Datos/Earthquake_all_month.csv")
 
@@ -52,12 +61,12 @@ Use esta alternativa si bajo los datos a su computadora
 ```
 
 
-```{r nombre de las variables}
+```{r c26-7}
 names(earthquakes)
 ```
 
 
-```{r, tipos de datos str}
+```{r c26-8, tipos de datos str}
 str(earthquakes)
 ```
 
@@ -67,7 +76,7 @@ str(earthquakes)
 
 ## Importación de Paquetes y Datos
 
-```{r}
+```{r c26-9}
 library(tidyverse)
 library(leaflet)
 #library(rinat)
@@ -82,7 +91,7 @@ library(flextable)
 Seleccionar un subgrupo de los datos, solamente los primeros 100 datos
 
 
-```{r}
+```{r c26-10}
 nrow(earthquakes)
 
 EQ_100 = earthquakes |> slice(1:100)
@@ -94,13 +103,13 @@ head(EQ_100)
 
 ## Mapa básico con Leaflet
 
-```{r}
+```{r c26-11}
 names(earthquakes)
 ```
 
 
 
-```{r}
+```{r c26-12, eval=knitr::is_html_output()}
 
 leaflet(EQ_100) %>% 
   addTiles() %>% 
@@ -139,7 +148,7 @@ leaflet(EQ_100) %>%
  3. Crear un mapa con los datos de los terremotos 
  
 
-```{r, echo, eval=TRUE}
+```{r c26-13, echo, eval=knitr::is_html_output()}
 names(EQ_100)
 unique(EQ_100$type)
 pal = colorFactor(palette = "magma", domain = NULL)
@@ -175,6 +184,10 @@ Los datos a utilizar se obtendrán desde iNaturalist, una aplicación con base e
 
 La función `get_inat_obs()` permite acceder a los datos disponibles en iNaturalist, especificando los siguientes parámetros:
 
+::: {.advertencia}
+`get_inat_obs()` consulta la API de iNaturalist en tiempo real: requiere conexión a internet y el número de observaciones puede variar entre ejecuciones a medida que la comunidad añade registros.
+:::
+
 -   `taxon_name`: La especies de interés, siempre escrita entre comillas ("). Puede utilizar nombre común o científico.
 
 -   `quality`: Siendo una aplicación basada en ciencia ciudadana, la calidad de algunos datos podría ser baja, debido a que les falta información - como nombre científico o ubicación - o que contienen información errónea - especies mal identificadas-. Colocando `'research'` en este parámetro se especifica que se desea obtener sólo aquellas observaciones con alta calidad - que tengan información completa y cuya identificación haya sido confirmada por varias personas de la comunidad -.
@@ -192,7 +205,7 @@ La función `get_inat_obs()` permite acceder a los datos disponibles en iNatural
 -   *longitude*: Posición en el eje horizontal del sistema de coordenadas.\
     Esto crea un problema a la hora del filtrar los datos por el nombre de una región, pues es difícil encontrar un solo valor que encompase a todas las variantes del nombre utilizado para esa región. iNaturalist se encuentra a nivel mundial, y usted puede acceder a todos esos datos. Sin embargo, hoy accederemos solamente a datos de Puerto Rico. Entonces, lo primero antes de acceder a los datos de iNaturalist, es crear un objeto que contenga los límites geográficos de interés crea. Para esto se crea un objeto que contenga un cuadro delimitador (*bounding box*):
 
-```{r, eval=TRUE}
+```{r c26-14, eval=TRUE}
 cajapr <- c(
   17.75, #Latitud Sur
    -67.4, #Longitud Oeste
@@ -204,20 +217,27 @@ cajapr
 ```
 
 
-```{r}
+```{r c26-15}
 library(rinat)
 ```
 
 
 Ahora podemos acceder a datos de Puerto Rico utilizando el objeto `cajapr`. Para este ejercicio utilizaremos datos de orquídeas pertenecientes al género *Eulophia*. En Puerto Rico se han reportado 3 especies de este género *Eulophia alta*, *Eulophia maculata* y *Eulophia graminea*. De estos, sólo *E. alta* es considerada nativa de la isla. Entonces, utilizando la función `get_inat_obs` podemos acceder a los datos de *Eulophia* en Puerto Rico
 
-```{r}
+```{r c26-16}
 
-eulophia <- get_inat_obs(taxon_name = "Eulophia", 
-                            quality = 'research', 
-                            geo = T, 
-                            maxresults = 1000,
-                            #bounds = cajapr)
+# Intenta consultar iNaturalist en vivo y guarda una copia local; si la
+# consulta falla (sin conexión o API no disponible), usa esa copia.
+eulophia <- tryCatch(
+  {
+    d <- get_inat_obs(taxon_name = "Eulophia",
+                      quality = 'research',
+                      geo = TRUE,
+                      maxresults = 1000)
+    readr::write_csv(d, "Datos/eulophia_inat.csv")
+    d
+  },
+  error = function(e) readr::read_csv("Datos/eulophia_inat.csv")
 )
 
 eulophia$scientific_name <- as.factor(eulophia$scientific_name)
@@ -229,7 +249,7 @@ flextable(head(eulophia)) # Para ver las primeras 6 lineas en una tabla bonita
 bounds = cajapr
 Con el siguiente código podemos ver de forma rápida cuántas observaciones de cada especie hemos obtenido de iNaturalist:
 
-```{r}
+```{r c26-17}
 summary(as.factor(eulophia$scientific_name))
 ```
 
@@ -239,14 +259,14 @@ Ahora que hemos obtenido los datos, podemos observar su distribución en el mapa
 
 La función base del paquete leaflet es `leaflet()`, con esta se activa un artilugio (*widget* en inglés) sobre el cuál se construye el mapa. Esta función debe estar unida a otra función como `addTiles()` que añade el mapa.
 
-```{r, eval=TRUE}
+```{r c26-18, eval=knitr::is_html_output()}
 leaflet() %>% 
   addTiles() 
 ```
 
 Una vez tenemos el artilugio y el mapa, añadimos una capa que incluye los datos que se desean visualizar con marcadores sobre el mapa con la función `addMarkers()` dentro del cual se deben especificar los parámetros `lng` (longitud) y `lat` (latitud). Note que también se especifica el data.frame que contiene los datos bajo la función `leaflet()`. Cuando se trabaja en Leaflet, al especificar las variables a utilizar, es necesario colocar una virgulilla (\~) antes de la variable. Esto le deja saber a R que lo que se especifica es una variable dentro del data.frame mencionado en la primera capa bajo la función `leaflet()`.
 
-```{r, eval=TRUE}
+```{r c26-19, eval=knitr::is_html_output()}
 names(eulophia)
 leaflet(eulophia) %>% 
   addTiles() %>% 
@@ -256,7 +276,7 @@ leaflet(eulophia) %>%
 
 Una vez los marcadores están establecidos, es posible añadir etiquetas que contengan información acerca de las observaciones con el parámetro `popup` de la función `addMarkers()`. Por ejemplo, se pueden colocar etiquetas que contengan información del lugar de la observación especificando que la etiqueta contenga la información de la variable *place_guess*. Para ver la etiqueta debe hacer clic sobre el marcador de interés.
 
-```{r, eval=TRUE}
+```{r c26-20, eval=knitr::is_html_output()}
 names(eulophia)
 leaflet(eulophia) %>% 
   addTiles() %>% 
@@ -267,7 +287,7 @@ leaflet(eulophia) %>%
 
 La función `paste0` es una función base de R que concatena todos los elementos en una línea de caracteres. Los caracteres introducidos serán interpretados como UTF-8 o codificación de caracteres. Estos caracteres pueden ser mezclados con valores de una variable de caracteres en un data.frame. En el siguiente ejemplo se crea una etiqueta que contiene la ubicación y la especie observada. Se utiliza la función `paste0()` para combinar caracteres y las variables *scientific_name* y *place_guess* del data.frame.
 
-```{r, eval=TRUE}
+```{r c26-21, eval=knitr::is_html_output()}
 leaflet(eulophia) %>% 
   addTiles() %>% 
   addMarkers(lng = ~ longitude, 
@@ -299,7 +319,7 @@ Dentro de la función `awesomeIcons()` podemos especificar varios parámetros co
 
 
 
-```{r, eval=TRUE}
+```{r c26-22, eval=knitr::is_html_output()}
 leaflet() %>% 
   addTiles() %>% 
   addAwesomeMarkers(lng = eulophia$longitude, 
@@ -316,7 +336,7 @@ leaflet() %>%
 
 Cuando se visualiza una gran cantidad de datos, esto puede resultar en el solapamiento de los marcadores, lo cual no es muy agradable a la vista. Es posible crear agregados que ayuden a visualizar mejor y faciliten el movimiento a través del mapa con el parámetro `clusterOptions` bajo la función `addAwesomeMarkers()`. El valor de este parámetro debe ser la función `markerClusterOptions()`.
 
-```{r, eval=TRUE}
+```{r c26-23, eval=knitr::is_html_output()}
 leaflet() %>% 
   addTiles() %>% 
   addAwesomeMarkers(lng = eulophia$longitude, lat = eulophia$latitude, 
@@ -334,7 +354,7 @@ leaflet() %>%
 
 Y para culminar, es posible cambiar el diseño del mapa utilizando la función `addProviderTiles()` en lugar de `addTiles()`. Puede echar un vistazo a los diferentes diseños disponibles para Leaflet la página de [proveedores de Leaflet](http://leaflet-extras.github.io/leaflet-providers/preview/) en GitHub. Actualmente Leaflet en R admite diseños de los siguientes proveedores: OpenStreetMap, MapQuestOpen, Stamen, Esri and OpenWeatherMap.
 
-```{r, eval=TRUE}
+```{r c26-24, eval=knitr::is_html_output()}
 icon1 <- awesomeIcons(icon = "smile-o",
                       iconColor = "#FFFFFF",
                       library = "fa",
@@ -357,7 +377,7 @@ Es posible distinguir entre especies utilizando diferentes colores, pero debe ut
 
 En este caso se está trabajando con una variable factorial que divide las observaciones entre 3 especies de orquídeas. Primero se crea una paleta de colores para una variable factorial con la función `colorFactor()`. Bajo esta función se especifican los parámetros `palette` y `levels`. `palette`es para especificar la paleta de colores a utilizar y `levels`especifica los niveles de la variable factorial. La paleta de colores que se utiliza (`"Dark2"`) proviene del paquete RColorBrewer. Esta paleta de colores para los niveles de la variable factorial *scientific_name* del data.frame *eulophia* se guardará en un objeto llamado *pal*.
 
-```{r, eval=TRUE}
+```{r c26-25, eval=TRUE}
 mypal <- colorFactor(palette = 'Set3',
             levels = levels(eulophia$scientific_name))
 
@@ -369,7 +389,7 @@ mypal <- colorFactor(palette = 'Set3',
 
 Ahora que se ha especificado los colores para los valores factoriales, es posible utilizar el objeto pal para colorear los marcadores circulares del mapa de Leaflet de acuerdo a la especie observada especificando el parámetro color
 
-```{r, eval=TRUE}
+```{r c26-26, eval=knitr::is_html_output()}
 leaflet(eulophia) %>% 
   addTiles() %>% 
   addCircleMarkers(lng = ~ longitude, lat = ~ latitude,
@@ -390,7 +410,7 @@ Para ayudar con la visualización de datos pertenecientes a diferentes grupos, e
 
 -   `title`: El título de la leyenda especificado como una línea de caracteres.
 
-```{r, eval=TRUE}
+```{r c26-27, eval=knitr::is_html_output()}
 leaflet(eulophia) %>% 
   addTiles() %>% 
   addCircleMarkers(lng = ~ longitude, lat = ~ latitude,
@@ -406,7 +426,7 @@ leaflet(eulophia) %>%
 ```
 
 
-```{r, eval=TRUE}
+```{r c26-28, eval=knitr::is_html_output()}
 iconcolor <- function(scienctific_name)
 
 leaflet() %>% 
@@ -430,7 +450,7 @@ leaflet() %>%
 
 
 
-```{r, echo=FALSE, eval=TRUE}
+```{r c26-29, echo=FALSE, eval=FALSE}
 library(dplyr)
 library(leaflet)
 
@@ -450,7 +470,7 @@ addMarkers(icon = ~quakeIcons[group])
 
 
 
-```{r, echo=FALSE, eval=FALSE}
+```{r c26-30, echo=FALSE, eval=FALSE}
 function getColor(d) {
   return d >= 1966 ? 'green'  #// Means: if (d >= 1966) return 'green' else…
     d >= 1960 ? 'black'   # if (d >= 1960) return 'black' else etc…

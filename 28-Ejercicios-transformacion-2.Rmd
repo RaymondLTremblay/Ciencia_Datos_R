@@ -1,6 +1,6 @@
 # Appendix B {.unnumbered}
 
-```{r AB1, echo=FALSE}
+```{r c28-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
@@ -15,7 +15,11 @@ Sys.Date()
 
 ### LEEN bien lo que estoy pidiendo. El nombre de las columnas pueden engañar!!! {-}
 
-```{r AB2}
+::: {.advertencia}
+El código lee los datos con `fread()` desde una URL de GitHub, por lo que necesitas conexión a internet para ejecutarlo.
+:::
+
+```{r c28-2}
 library(tidyverse)
 library(data.table)
 url_COVID_PR=fread("https://raw.githubusercontent.com/rafalab/pr-covid/master/dashboard/data/DatosMortalidad.csv")
@@ -24,7 +28,7 @@ url_COVID_PR=fread("https://raw.githubusercontent.com/rafalab/pr-covid/master/da
 
 
 
-```{r AB3}
+```{r c28-3}
 library(gt)
 Covid=url_COVID_PR
 gt(tail(Covid, n=2))
@@ -35,7 +39,7 @@ gt(tail(Covid, n=2))
 ## 1. Calcular el promedio de Muertes por día de nuevos muertos desde el comienzo hasta el último día del archivo {-}
 
 
-```{r AB4, eval=FALSE, echo=FALSE}
+```{r c28-4, eval=FALSE, echo=FALSE}
 Covid |> dplyr::select(IncrementoMuertes) |> 
   summarize(mean=mean(IncrementoMuertes, na.rm = TRUE))
 ```
@@ -43,7 +47,7 @@ Covid |> dplyr::select(IncrementoMuertes) |>
 
 ## 2. ¿Cuál es el máximo de nuevos casos en un día {-}
 
-```{r AB5, eval=FALSE, echo=FALSE}
+```{r c28-5, eval=FALSE, echo=FALSE}
 Covid |> dplyr::select(IncCasosSaludNuevo) |> 
   summarize(mean=mean(IncCasosSaludNuevo, na.rm = TRUE))
 
@@ -54,7 +58,7 @@ Covid |> dplyr::select(IncCasosSaludNuevo) |>
 
  - Enseñe solamente las últimas 4 filas
 
-```{r AB6, eval=FALSE, echo=FALSE}
+```{r c28-6, eval=FALSE, echo=FALSE}
 library(MASS)
 library(GMCM) # cummean
 #library(cumstats)
@@ -67,7 +71,7 @@ library(GMCM) # cummean
 
 
 
-```{r AB7, eval=FALSE, echo=FALSE}
+```{r c28-7, eval=FALSE, echo=FALSE}
 #cum_x=Covid |> dplyr::select(Ventiladores) |> 
 #         mutate(suma=cummean(replace_na(Ventiladores, 0))) %>% 
 #         mutate(Var_cum=cumstats::cumvar(replace_na(Ventiladores, 0)))
@@ -85,7 +89,7 @@ library(GMCM) # cummean
  - cambia el color de la linea
 
 
-```{r AB8, eval=FALSE, echo=FALSE}
+```{r c28-8, eval=FALSE, echo=FALSE}
 #cum_x$order=c(1:587)
 
 #ggplot(cum_x, aes(order, Var_cum))+

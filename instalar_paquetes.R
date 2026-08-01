@@ -1,6 +1,6 @@
 # =====================================================================
 # instalar_paquetes.R  —  Ciencia de Datos con R (BIOL4026)
-# ---------------------------------------------------------------------
+# ------------------------------------a---------------------------------
 # Instala todos los paquetes que usa el libro que NO estén ya instalados.
 # Uso: abre este archivo en RStudio y presiona "Source", o en la consola:
 #      source("instalar_paquetes.R")

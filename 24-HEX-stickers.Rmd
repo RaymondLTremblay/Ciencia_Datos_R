@@ -1,13 +1,13 @@
 # Hex Stickers
 
-```{r echo=FALSE}
+```{r c24-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
 ```
 
 
-```{r H1, message=FALSE}
+```{r c24-2, message=FALSE}
 library(hexSticker) 
 library(magick)
 library(sysfonts)
@@ -19,7 +19,7 @@ library(tidyverse)
 ## La función y los valores "default"
 
 
-```{r H2, eval=FALSE, message=FALSE}
+```{r c24-3, eval=FALSE, message=FALSE}
 sticker(
   subplot, # position and size of subplot
   s_x = 0.8,
@@ -62,7 +62,7 @@ sticker(
 
 **Arguments**
 
-```{r, H3, echo=FALSE}
+```{r c24-4, H3, echo=FALSE}
 argumentos=tribble(
   ~Función, ~Descripción,
   "subplot"	, "subplot",
@@ -134,7 +134,7 @@ argumentos=tribble(
 ```
 
 
-```{r H4}
+```{r c24-5}
 library(gt)
 gt(argumentos)
 ```
@@ -151,7 +151,11 @@ sysfonts::font_add_google("Young Serif") ## No baja
 
 ## Ejemplo de Crear un Hex con un gatito
 
-```{r H5}
+::: {.consejo}
+Para usar una fuente de Google, cárgala con `font_add_google()` y activa `showtext_auto()` antes de llamar a `sticker()`. Si no, el texto no se dibujará con la fuente elegida.
+:::
+
+```{r c24-6}
 
 #font_files()  #a list of all fonts available
 
@@ -168,8 +172,8 @@ sysfonts::font_add_google("Monsieur La Doulaise")
 
 
 
-cat_img=image_read('cat.jpg')
-analitica_img=image_read('Analitica3.png')
+cat_img=image_read('img/cat.jpg')
+analitica_img=image_read('img/Analitica3.png')
 
 
 
@@ -183,6 +187,7 @@ showtext_auto()
 sticker(
   subplot= cat_img,
   package="Meow \n software",
+  filename = "img/hex_meow_software.png",
   s_width =.55,
   s_height = .55,
   s_x=1,
@@ -203,6 +208,6 @@ sticker(
 ) %>% print
 
 
-save_sticker("hex_sticker_cat.jpg")
+save_sticker("img/hex_sticker_cat.jpg")
 ```
 
