@@ -765,9 +765,23 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="paso-1" class="section level2 hasAnchor" number="30.3">
 <h2><span class="header-section-number">30.3</span> Paso 1<a href="nubes-de-palabra-en-r.html#paso-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Importar los datos de la web</p>
+<div class="advertencia">
+<p>Este bloque <strong>descarga un texto desde internet</strong>, así que necesita conexión. Si el
+servidor no responde verás <code>cannot open the connection</code> o <code>cannot open URL</code>: no es
+un error de tu código, sino de la red o del servidor. Por eso lo envolvemos en
+<code>tryCatch()</code>, de modo que si la descarga falla se usa una copia local y el análisis
+continúa. Encontrarás más sobre estos errores en el capítulo <em>Errores comunes</em>
+(<a href="errores.html#errores">14</a>).</p>
+</div>
 <div class="sourceCode" id="cb1227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1227-1"><a href="nubes-de-palabra-en-r.html#cb1227-1" tabindex="-1"></a>filePath <span class="ot">&lt;-</span> <span class="st">&quot;http://www.sthda.com/sthda/RDoc/example-files/martin-luther-king-i-have-a-dream-speech.txt&quot;</span></span>
-<span id="cb1227-2"><a href="nubes-de-palabra-en-r.html#cb1227-2" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">readLines</span>(filePath)</span>
-<span id="cb1227-3"><a href="nubes-de-palabra-en-r.html#cb1227-3" tabindex="-1"></a><span class="fu">head</span>(text)</span></code></pre></div>
+<span id="cb1227-2"><a href="nubes-de-palabra-en-r.html#cb1227-2" tabindex="-1"></a></span>
+<span id="cb1227-3"><a href="nubes-de-palabra-en-r.html#cb1227-3" tabindex="-1"></a><span class="co"># Intenta leer el discurso desde la web; si no hay conexión o el servidor no</span></span>
+<span id="cb1227-4"><a href="nubes-de-palabra-en-r.html#cb1227-4" tabindex="-1"></a><span class="co"># responde, usa un texto local de ejemplo para que el análisis no se detenga.</span></span>
+<span id="cb1227-5"><a href="nubes-de-palabra-en-r.html#cb1227-5" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(</span>
+<span id="cb1227-6"><a href="nubes-de-palabra-en-r.html#cb1227-6" tabindex="-1"></a>  <span class="fu">suppressWarnings</span>(<span class="fu">readLines</span>(filePath)),</span>
+<span id="cb1227-7"><a href="nubes-de-palabra-en-r.html#cb1227-7" tabindex="-1"></a>  <span class="at">error =</span> <span class="cf">function</span>(e) <span class="fu">readLines</span>(<span class="st">&quot;Datos/alice_original.txt&quot;</span>)</span>
+<span id="cb1227-8"><a href="nubes-de-palabra-en-r.html#cb1227-8" tabindex="-1"></a>)</span>
+<span id="cb1227-9"><a href="nubes-de-palabra-en-r.html#cb1227-9" tabindex="-1"></a><span class="fu">head</span>(text)</span></code></pre></div>
 <pre><code>## [1] &quot;&quot;                                                                                                                                           
 ## [2] &quot;And so even though we face the difficulties of today and tomorrow, I still have a dream. It is a dream deeply rooted in the American dream.&quot;
 ## [3] &quot; &quot;                                                                                                                                          

@@ -1710,43 +1710,43 @@ Buscar 3 funciones en stringi y aplica y explica las funciones con un set de dat
 <pre><code>## [1] &quot;[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/ggversa?color=blue)](https://r-pkg.org/pkg/ggversa)&quot;</code></pre>
 <div class="sourceCode" id="cb906"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb906-1"><a href="cadena-de-caracteres-strings.html#cb906-1" tabindex="-1"></a><span class="fu">cran_downloads</span>(<span class="at">packages =</span> <span class="st">&quot;ggversa&quot;</span>, <span class="at">when =</span> <span class="st">&quot;last-month&quot;</span>)</span></code></pre></div>
 <pre><code>##          date count package
-## 1  2026-07-01    33 ggversa
-## 2  2026-07-02     8 ggversa
-## 3  2026-07-03    13 ggversa
-## 4  2026-07-04    15 ggversa
-## 5  2026-07-05     3 ggversa
-## 6  2026-07-06    10 ggversa
-## 7  2026-07-07    13 ggversa
-## 8  2026-07-08     4 ggversa
-## 9  2026-07-09     6 ggversa
-## 10 2026-07-10     4 ggversa
-## 11 2026-07-11     2 ggversa
-## 12 2026-07-12     6 ggversa
-## 13 2026-07-13     9 ggversa
-## 14 2026-07-14     9 ggversa
-## 15 2026-07-15     6 ggversa
-## 16 2026-07-16    14 ggversa
-## 17 2026-07-17     4 ggversa
-## 18 2026-07-18     5 ggversa
-## 19 2026-07-19     5 ggversa
-## 20 2026-07-20     3 ggversa
-## 21 2026-07-21     3 ggversa
-## 22 2026-07-22     5 ggversa
-## 23 2026-07-23     3 ggversa
-## 24 2026-07-24     5 ggversa
-## 25 2026-07-25     2 ggversa
-## 26 2026-07-26     1 ggversa
-## 27 2026-07-27     3 ggversa
-## 28 2026-07-28     2 ggversa
-## 29 2026-07-29     6 ggversa
-## 30 2026-07-30     1 ggversa</code></pre>
+## 1  2026-07-02     8 ggversa
+## 2  2026-07-03    13 ggversa
+## 3  2026-07-04    15 ggversa
+## 4  2026-07-05     3 ggversa
+## 5  2026-07-06    10 ggversa
+## 6  2026-07-07    13 ggversa
+## 7  2026-07-08     4 ggversa
+## 8  2026-07-09     6 ggversa
+## 9  2026-07-10     4 ggversa
+## 10 2026-07-11     2 ggversa
+## 11 2026-07-12     6 ggversa
+## 12 2026-07-13     9 ggversa
+## 13 2026-07-14     9 ggversa
+## 14 2026-07-15     6 ggversa
+## 15 2026-07-16    14 ggversa
+## 16 2026-07-17     4 ggversa
+## 17 2026-07-18     5 ggversa
+## 18 2026-07-19     5 ggversa
+## 19 2026-07-20     3 ggversa
+## 20 2026-07-21     3 ggversa
+## 21 2026-07-22     5 ggversa
+## 22 2026-07-23     3 ggversa
+## 23 2026-07-24     5 ggversa
+## 24 2026-07-25     2 ggversa
+## 25 2026-07-26     1 ggversa
+## 26 2026-07-27     3 ggversa
+## 27 2026-07-28     2 ggversa
+## 28 2026-07-29     6 ggversa
+## 29 2026-07-30     1 ggversa
+## 30 2026-07-31     7 ggversa</code></pre>
 <div class="sourceCode" id="cb908"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb908-1"><a href="cadena-de-caracteres-strings.html#cb908-1" tabindex="-1"></a><span class="co"># Replace start date with the earliest date ggversa is available on CRAN</span></span>
 <span id="cb908-2"><a href="cadena-de-caracteres-strings.html#cb908-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">cran_downloads</span>(<span class="st">&quot;ggversa&quot;</span>, <span class="at">from =</span> <span class="st">&quot;2017-08-05&quot;</span>, <span class="at">to =</span> <span class="fu">Sys.Date</span>())</span>
 <span id="cb908-3"><a href="cadena-de-caracteres-strings.html#cb908-3" tabindex="-1"></a></span>
 <span id="cb908-4"><a href="cadena-de-caracteres-strings.html#cb908-4" tabindex="-1"></a><span class="co"># Sum all daily downloads</span></span>
 <span id="cb908-5"><a href="cadena-de-caracteres-strings.html#cb908-5" tabindex="-1"></a>total_downloads <span class="ot">&lt;-</span> <span class="fu">sum</span>(df<span class="sc">$</span>count, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb908-6"><a href="cadena-de-caracteres-strings.html#cb908-6" tabindex="-1"></a><span class="fu">print</span>(total_downloads)</span></code></pre></div>
-<pre><code>## [1] 36569</code></pre>
+<pre><code>## [1] 36576</code></pre>
 <div class="sourceCode" id="cb910"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb910-1"><a href="cadena-de-caracteres-strings.html#cb910-1" tabindex="-1"></a><span class="co"># Desactivado para el build: install_github requiere credenciales de GitHub.</span></span>
 <span id="cb910-2"><a href="cadena-de-caracteres-strings.html#cb910-2" tabindex="-1"></a><span class="co">#install.packages(&quot;devtools&quot;)</span></span>
 <span id="cb910-3"><a href="cadena-de-caracteres-strings.html#cb910-3" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;arunsrinivasan/cran.stats&quot;</span>)</span>
