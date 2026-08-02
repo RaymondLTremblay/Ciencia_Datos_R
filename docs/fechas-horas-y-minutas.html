@@ -768,6 +768,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="el-paquete-lubridate" class="section level2 hasAnchor" number="25.3">
 <h2><span class="header-section-number">25.3</span> El paquete <code>lubridate</code><a href="fechas-horas-y-minutas.html#el-paquete-lubridate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="funcion">
+<p><strong><code>ymd()</code>, <code>mdy()</code>, <code>dmy()</code> (lubridate)</strong> — convertir texto a fechas.</p>
+<ul>
+<li><strong>Qué hacen:</strong> interpretan una cadena según el <strong>orden</strong> de sus partes: <code>ymd("2024-03-01")</code>, <code>mdy("3/1/2024")</code>, <code>dmy("1/3/2024")</code>.</li>
+<li><strong>Con hora:</strong> añade <code>_hms</code>, <code>_hm</code> o <code>_h</code> (p. ej. <code>dmy_hms()</code>).</li>
+<li><strong>Extraer partes:</strong> <code>year()</code>, <code>month()</code>, <code>day()</code>, <code>wday()</code> (día de la semana).</li>
+</ul>
+</div>
 <p>La función <code>today()</code> regresa la fecha de hoy, similar a <code>Sys.date()</code></p>
 <div class="sourceCode" id="cb959"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb959-1"><a href="fechas-horas-y-minutas.html#cb959-1" tabindex="-1"></a><span class="fu">today</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;2026-08-01&quot;</code></pre>
@@ -1003,7 +1011,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb999"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb999-1"><a href="fechas-horas-y-minutas.html#cb999-1" tabindex="-1"></a><span class="fu">today</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;2026-08-01&quot;</code></pre>
 <div class="sourceCode" id="cb1001"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1001-1"><a href="fechas-horas-y-minutas.html#cb1001-1" tabindex="-1"></a><span class="fu">now</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;2026-08-01 14:53:31 AST&quot;</code></pre>
+<pre><code>## [1] &quot;2026-08-01 23:30:36 AST&quot;</code></pre>
 </div>
 <div id="fechas-con-años-meses-y-días" class="section level3 hasAnchor" number="25.8.2">
 <h3><span class="header-section-number">25.8.2</span> Fechas con años, meses y días<a href="fechas-horas-y-minutas.html#fechas-con-a%C3%B1os-meses-y-d%C3%ADas" class="anchor-section" aria-label="Anchor link to header"></a></h3>

@@ -188,7 +188,8 @@ pre code { white-space: inherit; }
 .book .book-body .page-inner section.normal div.consejo,
 .book .book-body .page-inner section.normal div.advertencia,
 .book .book-body .page-inner section.normal div.peligro,
-.book .book-body .page-inner section.normal div.historia {
+.book .book-body .page-inner section.normal div.historia,
+.book .book-body .page-inner section.normal div.funcion {
   border-radius: 10px;
   border-left: 5px solid;
   padding: .85em 1.15em;
@@ -199,13 +200,15 @@ pre code { white-space: inherit; }
 .book .book-body .page-inner section.normal div.consejo > :last-child,
 .book .book-body .page-inner section.normal div.advertencia > :last-child,
 .book .book-body .page-inner section.normal div.peligro > :last-child,
-.book .book-body .page-inner section.normal div.historia > :last-child { margin-bottom: 0; }
+.book .book-body .page-inner section.normal div.historia > :last-child,
+.book .book-body .page-inner section.normal div.funcion > :last-child { margin-bottom: 0; }
 
 .book .book-body .page-inner section.normal div.nota::before,
 .book .book-body .page-inner section.normal div.consejo::before,
 .book .book-body .page-inner section.normal div.advertencia::before,
 .book .book-body .page-inner section.normal div.peligro::before,
-.book .book-body .page-inner section.normal div.historia::before {
+.book .book-body .page-inner section.normal div.historia::before,
+.book .book-body .page-inner section.normal div.funcion::before {
   display: block;
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
@@ -247,6 +250,16 @@ pre code { white-space: inherit; }
 }
 .book .book-body .page-inner section.normal div.historia::before {
   content: "📜  Un poco de historia"; color: #4a3585;
+}
+/* Función en R (qué hace / argumentos / cómo leer la salida) — teal oscuro */
+.book .book-body .page-inner section.normal div.funcion {
+  background: #e6f4f8; border-left-color: var(--teal-600);
+}
+.book .book-body .page-inner section.normal div.funcion::before {
+  content: "⚙️  La función en R"; color: var(--teal-700);
+}
+.book .book-body .page-inner section.normal div.funcion code {
+  background: #d3ebf2; color: var(--teal-700);
 }
 
 /* ---------- Banner de bienvenida (portada) ---------- */

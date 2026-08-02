@@ -858,6 +858,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="rename" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> rename()<a href="transformación-seleccionar-variables.html#rename" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="funcion">
+<p><strong><code>rename(nuevo = viejo)</code></strong> — cambiar el nombre de columnas.</p>
+<ul>
+<li><strong>Qué hace:</strong> renombra columnas; el <strong>nombre nuevo va primero</strong>, el original después.</li>
+<li><strong>Relacionadas:</strong> <code>select(nuevo = viejo, ...)</code> renombra y selecciona a la vez; <code>everything()</code> reordena poniendo unas columnas al frente y el resto después.</li>
+</ul>
+</div>
 <p>Cambiar el nombre de la columna</p>
 <div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="transformación-seleccionar-variables.html#cb259-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
 <span id="cb259-2"><a href="transformación-seleccionar-variables.html#cb259-2" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">aeropuerto_origen=</span>origen) <span class="sc">%&gt;%</span> </span>

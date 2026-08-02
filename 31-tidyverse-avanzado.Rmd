@@ -5,6 +5,14 @@ Este documento presenta temas avanzados en el ecosistema **tidyverse** con ejemp
 
 ### 1. Manipulación avanzada con dplyr
 
+::: {.funcion}
+**Evaluación *tidy*: `{{ }}` y `:=`** — funciones que reciben nombres de columnas.
+
+- **`{{ var }}`** ("embrace"): permite pasar el nombre de una columna como argumento a una función que usa dplyr por dentro.
+- **`:=`:** se usa en `mutate`/`summarise` cuando el nombre de la nueva columna también es una variable.
+- **Para qué:** escribir tus propias funciones reutilizables sobre pipelines de dplyr.
+:::
+
 Explicación: Uso de *tidy evaluation* para funciones personalizadas.
 
 

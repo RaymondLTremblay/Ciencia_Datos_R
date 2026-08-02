@@ -842,6 +842,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="contabilizar-los-na" class="section level2 hasAnchor" number="8.3">
 <h2><span class="header-section-number">8.3</span> Contabilizar los NA<a href="transformación-valores-faltantes.html#contabilizar-los-na" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="funcion">
+<p><strong><code>is.na()</code></strong> e <strong><code>if_else()</code></strong> — detectar y reemplazar valores faltantes.</p>
+<ul>
+<li><strong><code>is.na(x)</code>:</strong> devuelve <code>TRUE</code> donde hay <code>NA</code>; con <code>!is.na(x)</code> te quedas con lo que NO falta.</li>
+<li><strong><code>if_else(condición, sí, no)</code>:</strong> reemplaza según una condición (p. ej. <code>if_else(is.na(x), 0, x)</code>).</li>
+<li><strong>Ojo:</strong> cualquier operación con <code>NA</code> da <code>NA</code>; por eso muchas funciones necesitan <code>na.rm = TRUE</code>.</li>
+</ul>
+</div>
 <ul>
 <li>¿Cuántos vuelos tienen datos faltantes en horario_salida?</li>
 <li>¿Qué otras variables tienen valores faltantes?</li>

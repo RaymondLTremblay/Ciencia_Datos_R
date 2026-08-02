@@ -788,6 +788,14 @@ Este sitio del gobierno de Puerto Rico almacena datos muchos diferentes tipos qu
 <li>read_positions()</li>
 <li>read_table()</li>
 </ul>
+<div class="funcion">
+<p><strong><code>read_csv()</code></strong> (readr) y <strong><code>fread()</code></strong> (data.table) — importar datos.</p>
+<ul>
+<li><strong><code>read_csv("archivo.csv")</code>:</strong> lee un CSV a un tibble; variantes: <code>read_csv2()</code> (separado por <code>;</code>), <code>read_tsv()</code> (tabs), <code>read_delim()</code> (delimitador a elección).</li>
+<li><strong><code>fread("https://…")</code>:</strong> rápido y práctico para leer directamente desde una URL.</li>
+<li><strong><code>write_csv(objeto, "archivo.csv")</code>:</strong> guarda tus datos para no depender de la red.</li>
+</ul>
+</div>
 <div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="importar-datos.html#cb523-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb523-2"><a href="importar-datos.html#cb523-2" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb523-3"><a href="importar-datos.html#cb523-3" tabindex="-1"></a>Newborn_Karn_Penrose <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Datos/Newborn_Karn_Penrose.csv&quot;</span>)</span>
@@ -867,6 +875,14 @@ geom_smooth()</p>
 </div>
 <div id="segmentar-un-vector" class="section level2 hasAnchor" number="18.5">
 <h2><span class="header-section-number">18.5</span> Segmentar un vector<a href="importar-datos.html#segmentar-un-vector" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="funcion">
+<p><strong><code>parse_*()</code></strong> (readr) — convertir texto al tipo correcto.</p>
+<ul>
+<li><strong>Qué hacen:</strong> <code>parse_integer()</code>, <code>parse_double()</code>, <code>parse_number()</code>, <code>parse_logical()</code>, <code>parse_date()</code>, <code>parse_factor()</code> convierten cadenas de texto a números, fechas, etc.</li>
+<li><strong><code>parse_number("$123.45")</code>:</strong> extrae el número ignorando símbolos como <code>$</code> o <code>%</code>.</li>
+<li><strong><code>locale = locale(...)</code>:</strong> controla la codificación, el separador de miles y el formato de fecha.</li>
+</ul>
+</div>
 <ul>
 <li>str(parse_logical())</li>
 </ul>

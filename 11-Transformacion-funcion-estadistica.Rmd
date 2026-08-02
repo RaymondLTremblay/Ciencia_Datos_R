@@ -12,6 +12,16 @@ Sys.Date()
 Casi todas estas funciones (`mean()`, `sd()`, `min()`, `max()`, `IQR()`...) devuelven `NA` si hay valores faltantes. Añade `na.rm = TRUE` para calcularlas ignorando los `NA`.
 :::
 
+::: {.funcion}
+**Funciones estadísticas de resumen** — cada una devuelve un solo número.
+
+- **Centro:** `mean()` (promedio), `median()` (mediana).
+- **Dispersión:** `sd()` (desviación estándar), `IQR()` (rango intercuartil), `mad()` (desviación absoluta mediana).
+- **Extremos y posición:** `min()`, `max()`, `quantile()`, `first()`, `last()`.
+- **Recuerda:** añade `na.rm = TRUE` si hay valores faltantes.
+:::
+
+
 Tarea de grupo.
 
 Preparar un .rmd con las explicaciones de cómo utilizar la función mencionada abajo. Debe incluir

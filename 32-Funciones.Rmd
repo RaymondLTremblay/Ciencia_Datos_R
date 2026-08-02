@@ -62,6 +62,18 @@ df
 
 ## La anatomía de una función
 
+::: {.historia}
+**R** es un lenguaje de *programación funcional*: las funciones son "ciudadanos de primera clase" (se pueden guardar en variables y pasar a otras funciones). Heredó esta filosofía del lenguaje **S** y de **Scheme**, que inspiraron a sus creadores.
+:::
+
+::: {.funcion}
+**`function(argumentos) { cuerpo }`** — crear tu propia función.
+
+- **Estructura:** `nombre <- function(x) { ... }`; se llama luego con `nombre(valor)`.
+- **Argumentos:** pueden tener valores por defecto (`function(x, recorte = 0.1)`).
+- **Retorno:** devuelve el último valor evaluado, o el que indiques con `return()`.
+:::
+
 Toda función tiene tres partes:
 
 1. Un **nombre** (aquí, `reescalar01`).

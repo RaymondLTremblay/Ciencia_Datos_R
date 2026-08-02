@@ -67,6 +67,14 @@ ggplot(diamantes2, aes(log_quilates, log_precio)) +
 
 ## Ajustar un modelo lineal con `lm()`
 
+::: {.funcion}
+**`lm()`, `data_grid()`, `add_predictions()`, `add_residuals()` (modelr)** — modelar y explorar.
+
+- **`lm(y ~ x, data)`:** ajusta un modelo lineal.
+- **`data_grid()`:** crea una rejilla de valores de las predictoras.
+- **`add_predictions()` / `add_residuals()`:** añaden columnas con las predicciones y los residuales del modelo, cómodas para graficar.
+:::
+
 La función `lm()` ajusta un modelo lineal. La fórmula `y ~ x` se lee "`y`
 explicada por `x`".
 

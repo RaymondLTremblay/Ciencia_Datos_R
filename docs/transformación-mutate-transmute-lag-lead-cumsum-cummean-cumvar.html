@@ -735,6 +735,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 -   cumsum() # suma cumulativa
 -   cummean() # promedio cumulativo
 -   cumvar() # varianza cumulativa</code></pre>
+<div class="funcion">
+<p><strong><code>mutate()</code></strong> y <strong><code>transmute()</code></strong> — crear columnas nuevas.</p>
+<ul>
+<li><strong><code>mutate(nueva = expresión)</code>:</strong> añade columnas calculadas y <strong>conserva</strong> las demás.</li>
+<li><strong><code>transmute()</code>:</strong> igual, pero <strong>solo</strong> deja las columnas nuevas.</li>
+<li><strong>Uso:</strong> la expresión puede combinar otras columnas (p. ej. <code>velocidad = distancia / tiempo</code>).</li>
+</ul>
+</div>
 <div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb273-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb273-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb273-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span></code></pre></div>
 <div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb274-1" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
@@ -858,6 +866,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="lag" class="section level2 hasAnchor" number="10.5">
 <h2><span class="header-section-number">10.5</span> lag()<a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#lag" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="funcion">
+<p><strong><code>lag()</code></strong> y <strong><code>lead()</code></strong> — valor anterior / siguiente.</p>
+<ul>
+<li><strong><code>lag(x, n)</code>:</strong> trae el valor de <code>n</code> filas <strong>atrás</strong> (por defecto 1); útil para calcular cambios (<code>x - lag(x)</code>).</li>
+<li><strong><code>lead(x, n)</code>:</strong> trae el valor de <code>n</code> filas <strong>adelante</strong>.</li>
+<li><strong>Requisito:</strong> ordena las filas primero (<code>arrange()</code>), porque operan según el orden actual.</li>
+</ul>
+</div>
 <p>Para calcular diferencias entre variables en la misma columna</p>
 <div class="advertencia">
 <p><code>lag()</code> y <code>lead()</code> trabajan según el orden actual de las filas. Ordena tus datos (por ejemplo por fecha con <code>arrange()</code>) antes de usarlas, o los desplazamientos no tendrán sentido.</p>
@@ -1003,7 +1019,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>is the “next” (lead()) values in a vector/column</p>
 <div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb303-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
 <span id="cb303-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb303-2" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">rpois</span>(<span class="dv">15</span>, <span class="dv">10</span>)</span>
-<span id="cb303-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb303-3" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as.tibble</span>(data)</span>
+<span id="cb303-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb303-3" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as_tibble</span>(data)</span>
 <span id="cb303-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb303-4" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>## # A tibble: 15 × 1
 ##    value
@@ -1071,6 +1087,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="cumsum" class="section level2 hasAnchor" number="10.8">
 <h2><span class="header-section-number">10.8</span> cumsum<a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cumsum" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="funcion">
+<p><strong><code>cumsum()</code>, <code>cmean()</code>, <code>cvar()</code></strong> — acumulados.</p>
+<ul>
+<li><strong><code>cumsum(x)</code>:</strong> suma acumulada a lo largo de la columna.</li>
+<li><strong><code>cmean()</code> / <code>cvar()</code></strong> (paquete <strong>TidyDensity</strong>): promedio y varianza acumulados.</li>
+<li><strong>Uso típico:</strong> ver cómo evoluciona un total o un promedio a medida que se añaden datos.</li>
+</ul>
+</div>
 <p>Suma cumulativa: los valores se suman a los largo del vector o columna</p>
 <div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb309-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>) <span class="co"># set.seed() es para que los datos NO sean al azar y se puede replicar los resultados, tipicamente esto se usa para enseñanzar. </span></span>
 <span id="cb309-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb309-2" tabindex="-1"></a></span>
@@ -1079,7 +1103,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb309-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb309-5" tabindex="-1"></a></span>
 <span id="cb309-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb309-6" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>##  [1] 14  3 10 12  8 10 13 11  8  2</code></pre>
-<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb311-1" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as.tibble</span>(x)</span>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb311-1" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as_tibble</span>(x)</span>
 <span id="cb311-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb311-2" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 1
 ##    value
@@ -1168,7 +1192,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb321-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">5</span>, .<span class="dv">001</span>)</span>
 <span id="cb321-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb321-3" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>
 <pre><code>## [1] 4.999227 5.000933 5.000466 4.998915 4.997844 4.999281</code></pre>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb323-1" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as.tibble</span>(x)</span>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb323-1" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as_tibble</span>(x)</span>
 <span id="cb323-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb323-2" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 1
 ##   value

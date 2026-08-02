@@ -194,6 +194,14 @@ dim(url_COVID)
  - read_positions() 
  - read_table() 
 
+::: {.funcion}
+**`read_csv()`** (readr) y **`fread()`** (data.table) — importar datos.
+
+- **`read_csv("archivo.csv")`:** lee un CSV a un tibble; variantes: `read_csv2()` (separado por `;`), `read_tsv()` (tabs), `read_delim()` (delimitador a elección).
+- **`fread("https://…")`:** rápido y práctico para leer directamente desde una URL.
+- **`write_csv(objeto, "archivo.csv")`:** guarda tus datos para no depender de la red.
+:::
+
  
  
 ```{r c16-13}
@@ -289,6 +297,14 @@ Hacer los ejercicios en la sección 11.2.2 del libro en español
 ***
 
 ## Segmentar un vector
+
+::: {.funcion}
+**`parse_*()`** (readr) — convertir texto al tipo correcto.
+
+- **Qué hacen:** `parse_integer()`, `parse_double()`, `parse_number()`, `parse_logical()`, `parse_date()`, `parse_factor()` convierten cadenas de texto a números, fechas, etc.
+- **`parse_number("$123.45")`:** extrae el número ignorando símbolos como `$` o `%`.
+- **`locale = locale(...)`:** controla la codificación, el separador de miles y el formato de fecha.
+:::
 
  - str(parse_logical())
  

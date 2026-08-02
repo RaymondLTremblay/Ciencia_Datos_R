@@ -30,6 +30,10 @@ Español:
 
 ## Temas: El paquete "magrittr" y sus funciones
 
+::: {.historia}
+El operador pipe `%>%` fue creado por **Stefan Milton Bache** en el paquete **magrittr** (2014); el nombre juega con el cuadro de Magritte *«Ceci n'est pas une pipe»*. Fue tan popular que en 2021 R incorporó su propio pipe nativo `|>`. La idea: leer el código de izquierda a derecha, como una receta de pasos.
+:::
+
 Los pipes que vamos a evaluar son los siguientes:
 
  - %>%     "Pipe"
@@ -39,6 +43,15 @@ Los pipes que vamos a evaluar son los siguientes:
 
  - %T>%   "Tee Pipe"
  - %in%   "In Pipe"
+
+::: {.funcion}
+**Los pipes de magrittr** — encadenar operaciones.
+
+- **`%>%` / `|>`:** pasa el resultado de la izquierda como primer argumento de la derecha.
+- **`%$%`:** expone las columnas para usarlas por nombre (p. ej. `cor(x, y)`).
+- **`%<>%`:** aplica y **reasigna** al objeto original.
+- **`%T>%`:** ejecuta un paso "lateral" (como `plot`) y sigue pasando el objeto original.
+:::
  
 
 Función básica para calcular el precio básico de diamantes por quilates 

@@ -196,6 +196,14 @@ names(Lahman::People)
 ## Uniones de transformaciones
 
  - mutating join
+
+::: {.funcion}
+**`left_join()`, `inner_join()`, `full_join()`, `right_join()`** (dplyr) — combinar tablas.
+
+- **Qué hacen:** unen dos tablas emparejando filas por una columna **clave** (`by =`).
+- **`left_join(x, y)`:** conserva todas las filas de `x`; **`inner_join`** solo las coincidencias; **`full_join`** todas las de ambas.
+- **De filtro:** `semi_join()` y `anti_join()` no añaden columnas, solo filtran filas de `x`.
+:::
  
 ```{r c18-21}
 vuelos2 <- vuelos %>%

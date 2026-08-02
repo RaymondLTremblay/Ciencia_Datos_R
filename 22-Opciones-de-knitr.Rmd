@@ -32,7 +32,21 @@ Hay muchas opciones para determinar lo que hace un **chunk**
  
 
 
-## Para ver las opciones de **knitr** de los chunk 
+## Para ver las opciones de **knitr** de los chunk
+
+::: {.historia}
+**knitr** fue creado por **Yihui Xie** en 2012; es el motor que ejecuta el código de R dentro de los documentos R Markdown y "teje" (*knit*) el resultado junto con el texto. Sustituyó a Sweave con una sintaxis más flexible.
+:::
+
+::: {.funcion}
+**Opciones de los chunks** — controlan qué se muestra.
+
+- **`echo=FALSE`:** oculta el código (muestra solo el resultado).
+- **`eval=FALSE`:** muestra el código pero no lo ejecuta.
+- **`include=FALSE`:** ejecuta el código pero no muestra nada.
+- **`warning=FALSE` / `message=FALSE`:** ocultan avisos y mensajes.
+- **`fig.width` / `fig.height` / `out.width`:** tamaño de las figuras.
+::: 
 
 
 Este **chunk** es para que la información de los chunk en la parte de **knitr** se vea.   

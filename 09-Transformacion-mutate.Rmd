@@ -11,6 +11,14 @@
     -   cumsum() # suma cumulativa
     -   cummean() # promedio cumulativo
     -   cumvar() # varianza cumulativa
+
+::: {.funcion}
+**`mutate()`** y **`transmute()`** — crear columnas nuevas.
+
+- **`mutate(nueva = expresión)`:** añade columnas calculadas y **conserva** las demás.
+- **`transmute()`:** igual, pero **solo** deja las columnas nuevas.
+- **Uso:** la expresión puede combinar otras columnas (p. ej. `velocidad = distancia / tiempo`).
+:::
     
     
 
@@ -84,6 +92,14 @@ flights |> transmute(
 
 
 ## lag()
+
+::: {.funcion}
+**`lag()`** y **`lead()`** — valor anterior / siguiente.
+
+- **`lag(x, n)`:** trae el valor de `n` filas **atrás** (por defecto 1); útil para calcular cambios (`x - lag(x)`).
+- **`lead(x, n)`:** trae el valor de `n` filas **adelante**.
+- **Requisito:** ordena las filas primero (`arrange()`), porque operan según el orden actual.
+:::
 
 Para calcular diferencias entre variables en la misma columna
 
@@ -164,7 +180,7 @@ is the "next" (lead()) values in a vector/column
 ```{r c09-9}
 set.seed(12345)
 data=rpois(15, 10)
-df=as.tibble(data)
+df=as_tibble(data)
 df
 
 df %>% 
@@ -181,6 +197,14 @@ df%>%
 
 ## cumsum
 
+::: {.funcion}
+**`cumsum()`, `cmean()`, `cvar()`** — acumulados.
+
+- **`cumsum(x)`:** suma acumulada a lo largo de la columna.
+- **`cmean()` / `cvar()`** (paquete **TidyDensity**): promedio y varianza acumulados.
+- **Uso típico:** ver cómo evoluciona un total o un promedio a medida que se añaden datos.
+:::
+
 Suma cumulativa: los valores se suman a los largo del vector o columna
 
 ```{r c09-10}
@@ -190,7 +214,7 @@ set.seed(12345) # set.seed() es para que los datos NO sean al azar y se puede re
 x <- sample(1:15, 10, replace=TRUE) # sample es para seleccionar valores al azar de un vector
 
 x
-df=as.tibble(x)
+df=as_tibble(x)
 df
 
 df %>% 
@@ -238,7 +262,7 @@ Para calcular el promedio en periodos cumulativos
 set.seed(678)
 x <- rnorm(1000, 5, .001)
 head(x)
-df=as.tibble(x)
+df=as_tibble(x)
 head(df)
 mean(df$value)
 

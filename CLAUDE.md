@@ -56,11 +56,22 @@ https://raymondltremblay.github.io/Ciencia_Datos_R/.
   labels. Fix only clear Spanish typos in `#` comments.
 - Preserve YAML (index only), `***` separators, headings, URLs, and LaTeX/math.
 
+## Pedagogical callouts (pandoc fenced divs, styled in `style.css`)
+
+- Chapters use fenced-div callouts `::: {.class} … :::`. Classes in use:
+  `nota`, `consejo`, `advertencia`, `peligro`, `historia`, `banner-cover`, and
+  **`funcion`** (added Aug 2026: a teal ⚙️ box explaining what an R function
+  does, its key arguments, and how to read its output — 2–4 sentences).
+- The **`.funcion`** and **`.historia`** callouts were swept across the content
+  chapters (03–34) so students get moderate-depth prose on each new function and
+  a short note on who developed the ideas/tools. Keep this pattern for new
+  chapters: introduce a function with a `.funcion` callout, and add a `.historia`
+  callout where a distribution, test, package, or concept has a notable origin.
+
 ## Housekeeping notes
 
 - The repo contains Dropbox **"conflicted copy"** files (e.g.
   `20-Strings (… conflicted copy …).Rmd`, several `.Rhistory (… conflicted copy)`)
   that are not in `_bookdown.yml`; they are safe to delete.
-- Known non-blocking code items still open: `09-Transformacion-mutate.Rmd` uses
-  deprecated `as.tibble()` (should be `as_tibble()`); `19-Factores.Rmd` has
-  `sd_edad = min(horas_tv, …)` (variable named "sd" but computes a min).
+- RESOLVED (Aug 2026): `09-Transformacion-mutate.Rmd` deprecated `as.tibble()` →
+  `as_tibble()`; `19-Factores.Rmd` `sd_edad = min(...)` → `sd(edad)`. Both fixed.

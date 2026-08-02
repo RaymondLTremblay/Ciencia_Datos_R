@@ -740,6 +740,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <hr />
 <div id="temas-el-paquete-magrittr-y-sus-funciones" class="section level2 hasAnchor" number="16.1">
 <h2><span class="header-section-number">16.1</span> Temas: El paquete “magrittr” y sus funciones<a href="pipes.html#temas-el-paquete-magrittr-y-sus-funciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="historia">
+<p>El operador pipe <code>%&gt;%</code> fue creado por <strong>Stefan Milton Bache</strong> en el paquete <strong>magrittr</strong> (2014); el nombre juega con el cuadro de Magritte <em>«Ceci n’est pas une pipe»</em>. Fue tan popular que en 2021 R incorporó su propio pipe nativo <code>|&gt;</code>. La idea: leer el código de izquierda a derecha, como una receta de pasos.</p>
+</div>
 <p>Los pipes que vamos a evaluar son los siguientes:</p>
 <ul>
 <li><p>%&gt;% “Pipe”</p></li>
@@ -749,6 +752,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li><p>%T&gt;% “Tee Pipe”</p></li>
 <li><p>%in% “In Pipe”</p></li>
 </ul>
+<div class="funcion">
+<p><strong>Los pipes de magrittr</strong> — encadenar operaciones.</p>
+<ul>
+<li><strong><code>%&gt;%</code> / <code>|&gt;</code>:</strong> pasa el resultado de la izquierda como primer argumento de la derecha.</li>
+<li><strong><code>%$%</code>:</strong> expone las columnas para usarlas por nombre (p. ej. <code>cor(x, y)</code>).</li>
+<li><strong><code>%&lt;&gt;%</code>:</strong> aplica y <strong>reasigna</strong> al objeto original.</li>
+<li><strong><code>%T&gt;%</code>:</strong> ejecuta un paso “lateral” (como <code>plot</code>) y sigue pasando el objeto original.</li>
+</ul>
+</div>
 <p>Función básica para calcular el precio básico de diamantes por quilates</p>
 <div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="pipes.html#cb451-1" tabindex="-1"></a><span class="fu">head</span>(diamonds, <span class="at">n=</span><span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 10

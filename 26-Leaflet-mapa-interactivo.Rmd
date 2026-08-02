@@ -103,6 +103,18 @@ head(EQ_100)
 
 ## Mapa básico con Leaflet
 
+::: {.historia}
+**Leaflet** es una biblioteca de **JavaScript** para mapas interactivos, creada por **Volodymyr Agafonkin** en 2011. Su ventaja es que es ligera y funciona en cualquier navegador. **RStudio/Posit** creó el paquete **leaflet** para R en 2015, permitiendo construir estos mapas sin escribir JavaScript. Los mapas base ("tiles") provienen de **OpenStreetMap**, un proyecto colaborativo y abierto de cartografía mundial.
+:::
+
+::: {.funcion}
+**`leaflet()`** — construye un mapa interactivo por capas, de forma parecida a `ggplot()`, pero uniendo las capas con el *pipe* (`%>%`).
+
+- **`leaflet(data)`:** inicia el mapa con un conjunto de datos.
+- **`addTiles()`:** añade el mapa base (por defecto, de OpenStreetMap).
+- **`addMarkers()` / `addCircleMarkers()`:** colocan puntos; `~longitude` y `~latitude` (la tilde `~`) indican qué columnas usar para las coordenadas, y `popup` el texto que aparece al hacer clic.
+:::
+
 ```{r c26-11}
 names(earthquakes)
 ```

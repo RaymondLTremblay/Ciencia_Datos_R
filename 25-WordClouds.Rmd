@@ -15,6 +15,19 @@ Sys.Date()
 
 Para generar nubes de palabras con R. Se necesita los paquetes **wordcloud**, **RColorBrewer** y **wordcloud2**
 
+::: {.historia}
+La **minería de texto** (*text mining*) —analizar palabras con la computadora para descubrir patrones— tiene raíces en la lingüística computacional de los años 1950 y 60. Las **nubes de palabras** se popularizaron en la web alrededor de 2004 con sitios como *Flickr* y *Wordle*, mostrando el tamaño de cada palabra según su frecuencia. En R, el paquete **wordcloud** de **Ian Fellows** (2011) y el paquete **tm** (*text mining*) de **Ingo Feinerer** llevaron estas ideas al análisis de datos reproducible.
+:::
+
+::: {.funcion}
+**`wordcloud()`** y **`wordcloud2()`** — dibujan una nube donde el tamaño de cada palabra es proporcional a su frecuencia.
+
+- **`words`, `freq`:** el vector de palabras y su vector de frecuencias (normalmente calculados con el paquete **tm**).
+- **`min.freq`:** frecuencia mínima para que una palabra aparezca; **`max.words`:** número máximo de palabras a mostrar.
+- **`colors`:** la paleta de colores, a menudo de `brewer.pal()` del paquete **RColorBrewer**.
+- **`wordcloud2()`** es una versión interactiva (HTML) que produce nubes más vistosas; recibe un `data.frame` con columnas de palabra y frecuencia.
+:::
+
 
 Ese ejemplo es una copia de la siguiente página de web
 

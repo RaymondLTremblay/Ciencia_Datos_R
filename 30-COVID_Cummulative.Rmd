@@ -33,6 +33,14 @@ head(url_COVID_PR)
 Un promedio *cumulativo* (`cummean`) usa todos los datos desde el inicio hasta cada fecha, mientras que un promedio *corriendo* o móvil (`rollmean` con ventana de 7 días) solo promedia los días más cercanos.
 :::
 
+::: {.funcion}
+**`cummean()`** (paquete **dplyr**) y **`rollmean()`** (paquete **zoo**) — resumen una serie de valores a lo largo del tiempo.
+
+- **`cummean(x)`:** devuelve el promedio *acumulado* — cada valor es el promedio de todos los datos hasta esa fila.
+- **`rollmean(x, k = 7, fill = NA, align = "left")`:** el promedio *móvil* de una ventana de `k` días; `fill = NA` rellena los extremos donde no hay ventana completa y `align` fija dónde se ancla la ventana.
+- **`rollapply(x, width, FUN)`:** versión general que aplica *cualquier* función (aquí `var`) sobre una ventana móvil.
+:::
+
 _ Usa la columna de IncCasosSaludNuevo para todos los cálculos
 
 - Enseñe las primeras 20 filas de tu dataframe con las nuevas columnas añadidas

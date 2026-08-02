@@ -45,6 +45,18 @@ library(ggversa)
 library(datos)
 ```
 
+::: {.historia}
+**ggplot2** implementa la *gramática de gráficos* (*Grammar of Graphics*), un marco propuesto por **Leland Wilkinson** en 1999. **Hadley Wickham** lo llevó a R en 2007, con la idea de construir cualquier gráfico por capas. Hoy es uno de los paquetes más usados del mundo R.
+:::
+
+::: {.funcion}
+**`ggplot(data) + geom_*(aes(...))`** — construye gráficos por capas.
+
+- **`ggplot(data)`:** define el conjunto de datos.
+- **`aes(x, y, color, ...)`:** la *estética* — conecta variables con los ejes, el color, la forma, etc.
+- **`+ geom_*()`:** la geometría (`geom_point`, `geom_smooth`, `geom_bar`, `geom_boxplot`…). Las capas se **suman** con `+`.
+:::
+
 
 
 ### Facet_wrap
@@ -61,6 +73,14 @@ ggplot(data = Anolis) +
 ```
 
 ### Regresión lineal
+
+::: {.funcion}
+**`geom_smooth(method = ...)`** — añade una línea de tendencia.
+
+- **Qué hace:** ajusta y dibuja una curva que resume la relación entre `x` e `y`, con su banda de confianza.
+- **`method = "lm"`:** recta de regresión lineal. Sin especificar `method`, usa **LOESS** (una curva suave local) para muestras no muy grandes.
+- **`se = FALSE`:** oculta la banda de confianza.
+:::
 
 
 ```{r c03-4}

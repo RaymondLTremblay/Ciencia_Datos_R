@@ -134,6 +134,20 @@ vuelos %>%
     -   summarize(): resumir conjuntos de datos
     -   group_by(): agrupar por variables
 
+::: {.funcion}
+**Los verbos de dplyr** — cada uno hace una cosa y se encadenan con el pipe.
+
+- **`filter()`:** selecciona **filas** por condición.
+- **`select()`:** selecciona **columnas**.
+- **`arrange()`:** **ordena** las filas (`desc()` para descendente).
+- **`group_by()` + `summarise()`:** agrupa y calcula un **resumen** por grupo (media, mediana, conteo…).
+- **`mutate()`:** crea columnas nuevas (ver capítulo de *mutate*).
+:::
+
+::: {.historia}
+**dplyr** fue creado por **Hadley Wickham** (2014) como una "gramática de la manipulación de datos": un pequeño conjunto de verbos con nombres de acción. Sustituyó al paquete anterior `plyr` con una sintaxis más clara y rápida.
+:::
+
 ```{r c05-9}
 library(datos)
 library(tidyverse)

@@ -775,6 +775,15 @@ English: <a href="https://r4ds.had.co.nz/transform.html" class="uri">https://r4d
 <li>“&lt;=” es menor o igual</li>
 <li>“&gt;=” es mayor o igual</li>
 </ul>
+<div class="funcion">
+<p><strong><code>filter()</code> con operadores lógicos</strong> — combinar condiciones.</p>
+<ul>
+<li><strong><code>&amp;</code></strong> (y), <strong><code>|</code></strong> (o), <strong><code>!</code></strong> (no / excluir).</li>
+<li><strong><code>%in% c(...)</code>:</strong> ¿el valor está en esta lista? (evita repetir <code>==</code>).</li>
+<li><strong><code>between(x, a, b)</code>:</strong> equivale a <code>x &gt;= a &amp; x &lt;= b</code>.</li>
+<li><strong>Comparaciones:</strong> <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>.</li>
+</ul>
+</div>
 <p>Bollean, que incluye múltiples opciones %in%</p>
 <div class="peligro">
 <p>No confundas <code>=</code> con <code>==</code>. Un solo <code>=</code> asigna un valor, mientras que <code>==</code> compara si dos valores son iguales; dentro de <code>filter()</code> siempre se usa <code>==</code>. Para comparar contra varios valores usa <code>%in%</code> en lugar de encadenar muchos <code>==</code>. Encontrarás más errores frecuentes y cómo resolverlos en el capítulo <em>Errores comunes</em> (<a href="errores.html#errores">14</a>).</p>
@@ -948,6 +957,13 @@ English: <a href="https://r4ds.had.co.nz/transform.html" class="uri">https://r4d
 <div id="la-función-arrange" class="section level3 hasAnchor" number="7.4.1">
 <h3><span class="header-section-number">7.4.1</span> La función arrange()<a href="transformación-operaciones-booleanas-y-lógicas.html#la-funci%C3%B3n-arrange" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>arrange()</p>
+<div class="funcion">
+<p><strong><code>arrange()</code></strong> — ordenar las filas.</p>
+<ul>
+<li><strong>Qué hace:</strong> reordena el data frame según una o más columnas (ascendente por defecto).</li>
+<li><strong><code>desc(col)</code>:</strong> orden descendente (de mayor a menor).</li>
+</ul>
+</div>
 <hr />
 <div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="transformación-operaciones-booleanas-y-lógicas.html#cb180-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> </span>
 <span id="cb180-2"><a href="transformación-operaciones-booleanas-y-lógicas.html#cb180-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(horario_salida) <span class="sc">%&gt;%</span> </span>

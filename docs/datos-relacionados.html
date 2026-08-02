@@ -1083,6 +1083,14 @@ ggplot2::diamonds</p>
 <ul>
 <li>mutating join</li>
 </ul>
+<div class="funcion">
+<p><strong><code>left_join()</code>, <code>inner_join()</code>, <code>full_join()</code>, <code>right_join()</code></strong> (dplyr) — combinar tablas.</p>
+<ul>
+<li><strong>Qué hacen:</strong> unen dos tablas emparejando filas por una columna <strong>clave</strong> (<code>by =</code>).</li>
+<li><strong><code>left_join(x, y)</code>:</strong> conserva todas las filas de <code>x</code>; <strong><code>inner_join</code></strong> solo las coincidencias; <strong><code>full_join</code></strong> todas las de ambas.</li>
+<li><strong>De filtro:</strong> <code>semi_join()</code> y <code>anti_join()</code> no añaden columnas, solo filtran filas de <code>x</code>.</li>
+</ul>
+</div>
 <div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="datos-relacionados.html#cb641-1" tabindex="-1"></a>vuelos2 <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span></span>
 <span id="cb641-2"><a href="datos-relacionados.html#cb641-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(anio, dia, hora, origen, destino, codigo_cola, aerolinea)</span>
 <span id="cb641-3"><a href="datos-relacionados.html#cb641-3" tabindex="-1"></a>vuelos2</span></code></pre></div>

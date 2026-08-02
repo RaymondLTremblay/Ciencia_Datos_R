@@ -731,6 +731,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>Este documento presenta temas avanzados en el ecosistema <strong>tidyverse</strong> con ejemplos prácticos en R.</p>
 <div id="manipulación-avanzada-con-dplyr" class="section level3 hasAnchor" number="31.1.1">
 <h3><span class="header-section-number">31.1.1</span> 1. Manipulación avanzada con dplyr<a href="temas-avanzados-en-data-science-con-tidyverse.html#manipulaci%C3%B3n-avanzada-con-dplyr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="funcion">
+<p><strong>Evaluación <em>tidy</em>: <code>{{ }}</code> y <code>:=</code></strong> — funciones que reciben nombres de columnas.</p>
+<ul>
+<li><strong><code>{{ var }}</code></strong> (“embrace”): permite pasar el nombre de una columna como argumento a una función que usa dplyr por dentro.</li>
+<li><strong><code>:=</code>:</strong> se usa en <code>mutate</code>/<code>summarise</code> cuando el nombre de la nueva columna también es una variable.</li>
+<li><strong>Para qué:</strong> escribir tus propias funciones reutilizables sobre pipelines de dplyr.</li>
+</ul>
+</div>
 <p>Explicación: Uso de <em>tidy evaluation</em> para funciones personalizadas.</p>
 <div class="sourceCode" id="cb1258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1258-1"><a href="temas-avanzados-en-data-science-con-tidyverse.html#cb1258-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1258-2"><a href="temas-avanzados-en-data-science-con-tidyverse.html#cb1258-2" tabindex="-1"></a></span>

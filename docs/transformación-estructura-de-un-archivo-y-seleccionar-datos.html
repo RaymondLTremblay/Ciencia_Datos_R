@@ -937,6 +937,19 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>group_by(): agrupar por variables</li>
 </ul></li>
 </ul>
+<div class="funcion">
+<p><strong>Los verbos de dplyr</strong> — cada uno hace una cosa y se encadenan con el pipe.</p>
+<ul>
+<li><strong><code>filter()</code>:</strong> selecciona <strong>filas</strong> por condición.</li>
+<li><strong><code>select()</code>:</strong> selecciona <strong>columnas</strong>.</li>
+<li><strong><code>arrange()</code>:</strong> <strong>ordena</strong> las filas (<code>desc()</code> para descendente).</li>
+<li><strong><code>group_by()</code> + <code>summarise()</code>:</strong> agrupa y calcula un <strong>resumen</strong> por grupo (media, mediana, conteo…).</li>
+<li><strong><code>mutate()</code>:</strong> crea columnas nuevas (ver capítulo de <em>mutate</em>).</li>
+</ul>
+</div>
+<div class="historia">
+<p><strong>dplyr</strong> fue creado por <strong>Hadley Wickham</strong> (2014) como una “gramática de la manipulación de datos”: un pequeño conjunto de verbos con nombres de acción. Sustituyó al paquete anterior <code>plyr</code> con una sintaxis más clara y rápida.</p>
+</div>
 <div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="transformación-estructura-de-un-archivo-y-seleccionar-datos.html#cb153-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span>
 <span id="cb153-2"><a href="transformación-estructura-de-un-archivo-y-seleccionar-datos.html#cb153-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb153-3"><a href="transformación-estructura-de-un-archivo-y-seleccionar-datos.html#cb153-3" tabindex="-1"></a>por_dia <span class="ot">&lt;-</span> vuelos <span class="sc">%&gt;%</span> <span class="co"># pipe</span></span>

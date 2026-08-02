@@ -757,6 +757,17 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <hr />
 <div id="variación" class="section level3 hasAnchor" number="15.2.1">
 <h3><span class="header-section-number">15.2.1</span> Variación<a href="análisis-exploratorio.html#variaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="historia">
+<p>El <strong>análisis exploratorio de datos</strong> (EDA) fue impulsado por <strong>John W. Tukey</strong>, quien publicó el libro <em>Exploratory Data Analysis</em> en 1977. Su idea: antes de probar hipótesis, hay que <strong>mirar</strong> los datos con gráficos sencillos para descubrir patrones, valores típicos y atípicos.</p>
+</div>
+<div class="funcion">
+<p><strong><code>count()</code> y los <code>geom_*</code> de exploración</strong> — resumir y visualizar.</p>
+<ul>
+<li><strong><code>count(variable)</code>:</strong> cuenta cuántas observaciones hay por categoría.</li>
+<li><strong>Una variable:</strong> <code>geom_histogram()</code> / <code>geom_bar()</code> para ver su distribución.</li>
+<li><strong>Dos variables:</strong> <code>geom_point()</code>, <code>geom_boxplot()</code>, <code>geom_count()</code>, <code>geom_tile()</code>, <code>geom_hex()</code> según los tipos.</li>
+</ul>
+</div>
 <ul>
 <li>visualización de las distribuciones</li>
 <li>count()</li>

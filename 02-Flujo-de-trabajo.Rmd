@@ -34,6 +34,10 @@ Sys.Date()
 Usa Proyectos de RStudio (menú `File → New Project`): mantienen juntos tus datos, scripts y resultados, y evitan depender de `setwd()`, que hace tu código difícil de compartir.
 :::
 
+::: {.historia}
+**RStudio**, el entorno de trabajo que usamos, fue creado por **JJ Allaire** y lanzado en 2011; la empresa se renombró **Posit** en 2022. Los *Proyectos* de RStudio nacieron para mantener cada análisis autocontenido y reproducible.
+:::
+
   - crear un proyecto para cada curso.
   - crear un proyecto para cada investigación.
   - No se te olvida de añadir tus archivos de datos en el proyecto.
@@ -71,6 +75,13 @@ ggplot(data = millas) +
 
 
 ### Las funciones **head** y **tail**
+
+::: {.funcion}
+**`head(x, n)`** y **`tail(x, n)`** — primeras y últimas filas.
+
+- **Qué hacen:** `head()` muestra las primeras `n` filas de un data frame (o elementos de un vector) y `tail()` las últimas. Por defecto `n = 6`.
+- **Uso:** echar un vistazo rápido a los datos sin imprimirlos completos.
+:::
 ```{r c02-5}
 ggplot(data=millas)
 ```
@@ -184,6 +195,14 @@ head(Anolis)
 
 
 ### Extracción de valores de un conjunto de datos
+
+::: {.funcion}
+**`dim()`, `nrow()`, `ncol()`, `unique()`** — explorar la forma de los datos.
+
+- **`dim(x)`:** filas y columnas; **`nrow(x)`** / **`ncol(x)`** dan cada una por separado.
+- **`unique(x$col)`:** los valores distintos de una columna (útil para variables categóricas).
+- **`max()` / `min()`:** valor máximo/mínimo de una variable numérica.
+:::
 
 Aquí usamos el conjunto de datos de **diamantes** que se encuentra en el paquete **ggplot2**
 

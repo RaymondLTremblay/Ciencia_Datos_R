@@ -177,6 +177,14 @@ levels(f2)
 
 ## Temas:
  - library(forcats)
+
+::: {.funcion}
+**`factor()` y las funciones `fct_*` (forcats)** — manejar variables categóricas.
+
+- **`factor(x, levels = ...)`:** define una variable categórica y el **orden** de sus niveles.
+- **`fct_reorder(f, y)`:** reordena los niveles según otra variable (ideal para gráficos).
+- **Otras:** `fct_infreq()` (por frecuencia), `fct_rev()` (invertir), `fct_relevel()` (mover niveles a mano).
+:::
  
  - sort()
  - factor()
@@ -298,7 +306,7 @@ resumen_religion <- encuesta %>%
   summarise(
     edad = mean(edad, na.rm = TRUE),
     horas_tv = mean(horas_tv, na.rm = TRUE),
-    sd_edad =  min(horas_tv, na.rm = TRUE),
+    sd_edad = sd(edad, na.rm = TRUE),
     n = n()
   )
 resumen_religion

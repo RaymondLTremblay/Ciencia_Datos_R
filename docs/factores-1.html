@@ -856,13 +856,23 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="temas-4" class="section level2 hasAnchor" number="21.2">
 <h2><span class="header-section-number">21.2</span> Temas:<a href="factores-1.html#temas-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><p>library(forcats)</p></li>
-<li><p>sort()</p></li>
-<li><p>factor()</p></li>
-<li><p>parse_factor()</p></li>
-<li><p>unique()</p></li>
-<li><p>fact_inorder()</p></li>
-<li><p>levels()</p></li>
+<li>library(forcats)</li>
+</ul>
+<div class="funcion">
+<p><strong><code>factor()</code> y las funciones <code>fct_*</code> (forcats)</strong> — manejar variables categóricas.</p>
+<ul>
+<li><strong><code>factor(x, levels = ...)</code>:</strong> define una variable categórica y el <strong>orden</strong> de sus niveles.</li>
+<li><strong><code>fct_reorder(f, y)</code>:</strong> reordena los niveles según otra variable (ideal para gráficos).</li>
+<li><strong>Otras:</strong> <code>fct_infreq()</code> (por frecuencia), <code>fct_rev()</code> (invertir), <code>fct_relevel()</code> (mover niveles a mano).</li>
+</ul>
+</div>
+<ul>
+<li>sort()</li>
+<li>factor()</li>
+<li>parse_factor()</li>
+<li>unique()</li>
+<li>fact_inorder()</li>
+<li>levels()</li>
 </ul>
 <div id="datos-encuesta-social-general" class="section level3 hasAnchor" number="21.2.1">
 <h3><span class="header-section-number">21.2.1</span> Datos : Encuesta Social General<a href="factores-1.html#datos-encuesta-social-general" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -969,28 +979,28 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb746-7"><a href="factores-1.html#cb746-7" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
 <span id="cb746-8"><a href="factores-1.html#cb746-8" tabindex="-1"></a>    <span class="at">edad =</span> <span class="fu">mean</span>(edad, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb746-9"><a href="factores-1.html#cb746-9" tabindex="-1"></a>    <span class="at">horas_tv =</span> <span class="fu">mean</span>(horas_tv, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb746-10"><a href="factores-1.html#cb746-10" tabindex="-1"></a>    <span class="at">sd_edad =</span>  <span class="fu">min</span>(horas_tv, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb746-10"><a href="factores-1.html#cb746-10" tabindex="-1"></a>    <span class="at">sd_edad =</span> <span class="fu">sd</span>(edad, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
 <span id="cb746-11"><a href="factores-1.html#cb746-11" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
 <span id="cb746-12"><a href="factores-1.html#cb746-12" tabindex="-1"></a>  )</span>
 <span id="cb746-13"><a href="factores-1.html#cb746-13" tabindex="-1"></a>resumen_religion</span></code></pre></div>
 <pre><code>## # A tibble: 15 × 5
 ##    religion                edad horas_tv sd_edad     n
 ##    &lt;fct&gt;                  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;
-##  1 Sin respuesta           49.5     2.72    2.72    93
-##  2 No sabe                 35.9     4.62    4.62    15
-##  3 Inter o no confesional  40.0     2.87    2.87   109
-##  4 Nativa americana        38.9     3.46    3.46    23
-##  5 Cristiana               40.1     2.79    2.79   689
-##  6 Cristiana ortodoxa      50.4     2.42    2.42    95
-##  7 Musulmana/Islam         37.6     2.44    2.44   104
-##  8 Otra religión oriental  45.9     1.67    1.67    32
-##  9 Hinduismo               37.7     1.89    1.89    71
-## 10 Budismo                 44.7     2.38    2.38   147
-## 11 Otra                    41.0     2.73    2.73   224
-## 12 Ninguna                 41.2     2.71    2.71  3523
-## 13 Judía                   52.4     2.52    2.52   388
-## 14 Católica                46.9     2.96    2.96  5124
-## 15 Protestante             49.9     3.15    3.15 10846</code></pre>
+##  1 Sin respuesta           49.5     2.72      NA    93
+##  2 No sabe                 35.9     4.62      NA    15
+##  3 Inter o no confesional  40.0     2.87      NA   109
+##  4 Nativa americana        38.9     3.46      NA    23
+##  5 Cristiana               40.1     2.79      NA   689
+##  6 Cristiana ortodoxa      50.4     2.42      NA    95
+##  7 Musulmana/Islam         37.6     2.44      NA   104
+##  8 Otra religión oriental  45.9     1.67      NA    32
+##  9 Hinduismo               37.7     1.89      NA    71
+## 10 Budismo                 44.7     2.38      NA   147
+## 11 Otra                    41.0     2.73      NA   224
+## 12 Ninguna                 41.2     2.71      NA  3523
+## 13 Judía                   52.4     2.52      NA   388
+## 14 Católica                46.9     2.96      NA  5124
+## 15 Protestante             49.9     3.15      NA 10846</code></pre>
 <div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb748-1"><a href="factores-1.html#cb748-1" tabindex="-1"></a><span class="fu">ggplot</span>(resumen_religion, <span class="fu">aes</span>(edad, religion)) <span class="sc">+</span> </span>
 <span id="cb748-2"><a href="factores-1.html#cb748-2" tabindex="-1"></a>   <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="Ciencia_Datos_con_R_files/figure-html/c19-18-1.png" alt="" width="672" /></p>

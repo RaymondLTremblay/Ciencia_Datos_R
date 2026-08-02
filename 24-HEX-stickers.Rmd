@@ -18,6 +18,19 @@ library(tidyverse)
 
 ## La función y los valores "default"
 
+::: {.historia}
+Los **hex stickers** (calcomanías hexagonales) se popularizaron en la comunidad de R alrededor de 2015, impulsados por desarrolladores de **RStudio/Posit** y el proyecto **rOpenSci**. El formato hexagonal permite unir las calcomanías sin dejar huecos —como un panal— por lo que se convirtió en la forma estándar de identificar paquetes de R en conferencias y computadoras portátiles. El paquete **hexSticker**, de **Guangchuang Yu**, automatiza su creación.
+:::
+
+::: {.funcion}
+**`sticker()`** — crea una calcomanía hexagonal a partir de una imagen o gráfico.
+
+- **`subplot`:** la imagen o gráfico (`ggplot`) que va en el centro; `s_x`, `s_y`, `s_width`, `s_height` controlan su posición y tamaño.
+- **`package`:** el texto (normalmente el nombre del paquete); `p_size`, `p_color`, `p_family` ajustan su tipografía.
+- **`h_fill`, `h_color`, `h_size`:** color de relleno, color y grosor del borde del hexágono.
+- **`filename`:** dónde se guarda; la extensión (`.png`, `.svg`) decide el formato de salida.
+:::
+
 
 ```{r c24-3, eval=FALSE, message=FALSE}
 sticker(

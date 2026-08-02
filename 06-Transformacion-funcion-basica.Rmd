@@ -52,6 +52,15 @@ Aquí se agrupa por día y mes
 -   "\<=" es menor o igual
 -   "\>=" es mayor o igual
 
+::: {.funcion}
+**`filter()` con operadores lógicos** — combinar condiciones.
+
+- **`&`** (y), **`|`** (o), **`!`** (no / excluir).
+- **`%in% c(...)`:** ¿el valor está en esta lista? (evita repetir `==`).
+- **`between(x, a, b)`:** equivale a `x >= a & x <= b`.
+- **Comparaciones:** `==`, `!=`, `<`, `>`, `<=`, `>=`.
+:::
+
 Bollean, que incluye múltiples opciones %in%
 
 ::: {.peligro}
@@ -272,6 +281,13 @@ filter(is.na(horario_salida)) |>
 ### La función arrange()
 
 arrange()
+
+::: {.funcion}
+**`arrange()`** — ordenar las filas.
+
+- **Qué hace:** reordena el data frame según una o más columnas (ascendente por defecto).
+- **`desc(col)`:** orden descendente (de mayor a menor).
+:::
 
 ------------------------------------------------------------------------
 

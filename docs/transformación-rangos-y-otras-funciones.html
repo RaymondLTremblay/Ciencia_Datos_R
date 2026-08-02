@@ -765,6 +765,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="min_rank-y-min_rankdesc" class="section level2 hasAnchor" number="11.3">
 <h2><span class="header-section-number">11.3</span> min_rank() y # min_rank(desc())<a href="transformación-rangos-y-otras-funciones.html#min_rank-y-min_rankdesc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Asignar valores de rangos a los valores originales o de más grande a más pequeño o viceversa.</p>
+<div class="funcion">
+<p><strong><code>min_rank()</code>, <code>dense_rank()</code>, <code>row_number()</code></strong> — asignar rangos.</p>
+<ul>
+<li><strong>Qué hacen:</strong> convierten valores en su <strong>posición</strong> (rango) de menor a mayor; <code>desc()</code> invierte el orden.</li>
+<li><strong>Diferencia en empates:</strong> <code>min_rank()</code> deja huecos, <code>dense_rank()</code> no, <code>row_number()</code> da un número único a cada fila.</li>
+<li><strong>Relacionadas:</strong> <code>percent_rank()</code> y <code>cume_dist()</code> dan rangos en escala 0–1.</li>
+</ul>
+</div>
 <div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="transformación-rangos-y-otras-funciones.html#cb350-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">45678</span>)</span>
 <span id="cb350-2"><a href="transformación-rangos-y-otras-funciones.html#cb350-2" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>, <span class="dv">10</span>)</span>
 <span id="cb350-3"><a href="transformación-rangos-y-otras-funciones.html#cb350-3" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>

@@ -790,6 +790,17 @@ manejar el índice <code>i</code>). <code>purrr</code> simplifica esto.</p>
 </div>
 <div id="la-familia-map" class="section level2 hasAnchor" number="27.4">
 <h2><span class="header-section-number">27.4</span> La familia <code>map()</code><a href="iteración-purrr.html#la-familia-map" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="historia">
+<p>La idea de <strong><code>map</code></strong> (aplicar una función a cada elemento) viene de la programación funcional y del lenguaje <strong>Lisp</strong> (años 1960). El paquete <strong>purrr</strong>, de <strong>Hadley Wickham</strong> y <strong>Lionel Henry</strong>, la trajo al tidyverse con una familia de funciones de tipos predecibles.</p>
+</div>
+<div class="funcion">
+<p><strong>La familia <code>map()</code> (purrr)</strong> — aplicar una función a cada elemento.</p>
+<ul>
+<li><strong><code>map(x, f)</code>:</strong> aplica <code>f</code> a cada elemento y devuelve una <strong>lista</strong>.</li>
+<li><strong>Variantes por tipo:</strong> <code>map_dbl()</code>, <code>map_int()</code>, <code>map_chr()</code>, <code>map_lgl()</code> devuelven un vector del tipo indicado.</li>
+<li><strong>Fórmula anónima:</strong> <code>~ f(.x)</code> define una función corta donde <code>.x</code> es cada elemento; <code>map2()</code> itera sobre dos listas a la vez.</li>
+</ul>
+</div>
 <p>Las funciones <code>map()</code> toman un vector o lista, aplican una función a <strong>cada
 elemento</strong>, y devuelven un resultado. Hay una versión por tipo de salida:</p>
 <ul>

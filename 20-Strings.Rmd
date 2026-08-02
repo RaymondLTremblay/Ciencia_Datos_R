@@ -164,6 +164,16 @@ necesito poner una letra extraña en mi frase, `"\u048E"`.
  
 Solamente trabajaremos con el paquete stringr, donde las funciones escritas de forma que sean más intuitivas para recordar.  Todas las funciones comienzan con **str_**
 
+::: {.funcion}
+**Las funciones `str_*` (stringr)** — trabajar con texto.
+
+- **`str_length(x)`:** número de caracteres.
+- **`str_c(...)`:** une cadenas (concatena).
+- **`str_sub(x, a, b)`:** extrae o reemplaza una porción por posición.
+- **`str_to_lower()` / `str_to_upper()`:** cambian mayúsculas/minúsculas.
+- **`str_detect()`, `str_replace()`, `str_view()`:** buscan y reemplazan patrones (regex).
+:::
+
 ***
 
 ### El largo de una cadena de caracteres con **str_length**

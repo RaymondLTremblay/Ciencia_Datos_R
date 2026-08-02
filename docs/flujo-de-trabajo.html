@@ -750,6 +750,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="consejo">
 <p>Usa Proyectos de RStudio (menú <code>File → New Project</code>): mantienen juntos tus datos, scripts y resultados, y evitan depender de <code>setwd()</code>, que hace tu código difícil de compartir.</p>
 </div>
+<div class="historia">
+<p><strong>RStudio</strong>, el entorno de trabajo que usamos, fue creado por <strong>JJ Allaire</strong> y lanzado en 2011; la empresa se renombró <strong>Posit</strong> en 2022. Los <em>Proyectos</em> de RStudio nacieron para mantener cada análisis autocontenido y reproducible.</p>
+</div>
 <ul>
 <li>crear un proyecto para cada curso.</li>
 <li>crear un proyecto para cada investigación.</li>
@@ -793,6 +796,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="las-funciones-head-y-tail" class="section level3 hasAnchor" number="3.2.3">
 <h3><span class="header-section-number">3.2.3</span> Las funciones <strong>head</strong> y <strong>tail</strong><a href="flujo-de-trabajo.html#las-funciones-head-y-tail" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="funcion">
+<p><strong><code>head(x, n)</code></strong> y <strong><code>tail(x, n)</code></strong> — primeras y últimas filas.</p>
+<ul>
+<li><strong>Qué hacen:</strong> <code>head()</code> muestra las primeras <code>n</code> filas de un data frame (o elementos de un vector) y <code>tail()</code> las últimas. Por defecto <code>n = 6</code>.</li>
+<li><strong>Uso:</strong> echar un vistazo rápido a los datos sin imprimirlos completos.</li>
+</ul>
+</div>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="flujo-de-trabajo.html#cb11-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>millas)</span></code></pre></div>
 <p><img src="Ciencia_Datos_con_R_files/figure-html/c02-5-1.png" alt="" width="672" /></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="flujo-de-trabajo.html#cb12-1" tabindex="-1"></a>millas</span></code></pre></div>
@@ -925,6 +935,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="extracción-de-valores-de-un-conjunto-de-datos" class="section level3 hasAnchor" number="3.3.5">
 <h3><span class="header-section-number">3.3.5</span> Extracción de valores de un conjunto de datos<a href="flujo-de-trabajo.html#extracci%C3%B3n-de-valores-de-un-conjunto-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="funcion">
+<p><strong><code>dim()</code>, <code>nrow()</code>, <code>ncol()</code>, <code>unique()</code></strong> — explorar la forma de los datos.</p>
+<ul>
+<li><strong><code>dim(x)</code>:</strong> filas y columnas; <strong><code>nrow(x)</code></strong> / <strong><code>ncol(x)</code></strong> dan cada una por separado.</li>
+<li><strong><code>unique(x$col)</code>:</strong> los valores distintos de una columna (útil para variables categóricas).</li>
+<li><strong><code>max()</code> / <code>min()</code>:</strong> valor máximo/mínimo de una variable numérica.</li>
+</ul>
+</div>
 <p>Aquí usamos el conjunto de datos de <strong>diamantes</strong> que se encuentra en el paquete <strong>ggplot2</strong></p>
 <div id="los-primeros-datos-de-un-archivo" class="section level4 hasAnchor" number="3.3.5.1">
 <h4><span class="header-section-number">3.3.5.1</span> Los primeros datos de un archivo<a href="flujo-de-trabajo.html#los-primeros-datos-de-un-archivo" class="anchor-section" aria-label="Anchor link to header"></a></h4>

@@ -755,6 +755,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="nota">
 <p>Un promedio <em>cumulativo</em> (<code>cummean</code>) usa todos los datos desde el inicio hasta cada fecha, mientras que un promedio <em>corriendo</em> o móvil (<code>rollmean</code> con ventana de 7 días) solo promedia los días más cercanos.</p>
 </div>
+<div class="funcion">
+<p><strong><code>cummean()</code></strong> (paquete <strong>dplyr</strong>) y <strong><code>rollmean()</code></strong> (paquete <strong>zoo</strong>) — resumen una serie de valores a lo largo del tiempo.</p>
+<ul>
+<li><strong><code>cummean(x)</code>:</strong> devuelve el promedio <em>acumulado</em> — cada valor es el promedio de todos los datos hasta esa fila.</li>
+<li><strong><code>rollmean(x, k = 7, fill = NA, align = "left")</code>:</strong> el promedio <em>móvil</em> de una ventana de <code>k</code> días; <code>fill = NA</code> rellena los extremos donde no hay ventana completa y <code>align</code> fija dónde se ancla la ventana.</li>
+<li><strong><code>rollapply(x, width, FUN)</code>:</strong> versión general que aplica <em>cualquier</em> función (aquí <code>var</code>) sobre una ventana móvil.</li>
+</ul>
+</div>
 <p>_ Usa la columna de IncCasosSaludNuevo para todos los cálculos</p>
 <ul>
 <li>Enseñe las primeras 20 filas de tu dataframe con las nuevas columnas añadidas</li>

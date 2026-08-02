@@ -775,6 +775,14 @@ convierte la relación en una línea recta:</p>
 </div>
 <div id="ajustar-un-modelo-lineal-con-lm" class="section level2 hasAnchor" number="28.3">
 <h2><span class="header-section-number">28.3</span> Ajustar un modelo lineal con <code>lm()</code><a href="modelos-modelr.html#ajustar-un-modelo-lineal-con-lm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="funcion">
+<p><strong><code>lm()</code>, <code>data_grid()</code>, <code>add_predictions()</code>, <code>add_residuals()</code> (modelr)</strong> — modelar y explorar.</p>
+<ul>
+<li><strong><code>lm(y ~ x, data)</code>:</strong> ajusta un modelo lineal.</li>
+<li><strong><code>data_grid()</code>:</strong> crea una rejilla de valores de las predictoras.</li>
+<li><strong><code>add_predictions()</code> / <code>add_residuals()</code>:</strong> añaden columnas con las predicciones y los residuales del modelo, cómodas para graficar.</li>
+</ul>
+</div>
 <p>La función <code>lm()</code> ajusta un modelo lineal. La fórmula <code>y ~ x</code> se lee “<code>y</code>
 explicada por <code>x</code>”.</p>
 <div class="sourceCode" id="cb1212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1212-1"><a href="modelos-modelr.html#cb1212-1" tabindex="-1"></a>mod_diamantes <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_precio <span class="sc">~</span> log_quilates, <span class="at">data =</span> diamantes2)</span>

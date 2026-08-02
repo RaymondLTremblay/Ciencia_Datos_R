@@ -33,6 +33,14 @@ Los `tibble` son la versión moderna del `data.frame` dentro del tidyverse: hace
   
 ## Crear un tibble
 
+::: {.funcion}
+**`tibble()`, `tribble()`, `as_tibble()`** — crear tablas modernas.
+
+- **`tibble(col = valores, ...)`:** crea un tibble por columnas.
+- **`tribble(~col1, ~col2, v, v, ...)`:** lo crea **fila por fila** (cómodo para tablas pequeñas escritas a mano).
+- **`as_tibble(df)`:** convierte un `data.frame` en tibble.
+:::
+
  - tibble()
  
  Crear un tibble con la siguiente información.  Una columna que tiene los valores del 1 al 8 que se llama "secuencia", una segunda columna que tiene los siguientes valores 23,26, 24,26,27, 11,20,21 que se llama edad y una tercera columna con la siguiente información, Jose, Maria, Carol, Moncho, Liz, Maria, Jorge, Miguel, que se llama Nombre 
@@ -104,7 +112,7 @@ lubridate::today()
 
 
 
-- To convert a data frame to a tibble use **as.tibble**
+- To convert a data frame to a tibble use **as_tibble()**
 
 - To convert a tibble to a data frame use **as.data.frame**
 

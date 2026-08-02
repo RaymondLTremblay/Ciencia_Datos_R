@@ -733,6 +733,18 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1217-4"><a href="hex-stickers.html#cb1217-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <div id="la-función-y-los-valores-default" class="section level2 hasAnchor" number="29.1">
 <h2><span class="header-section-number">29.1</span> La función y los valores “default”<a href="hex-stickers.html#la-funci%C3%B3n-y-los-valores-default" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="historia">
+<p>Los <strong>hex stickers</strong> (calcomanías hexagonales) se popularizaron en la comunidad de R alrededor de 2015, impulsados por desarrolladores de <strong>RStudio/Posit</strong> y el proyecto <strong>rOpenSci</strong>. El formato hexagonal permite unir las calcomanías sin dejar huecos —como un panal— por lo que se convirtió en la forma estándar de identificar paquetes de R en conferencias y computadoras portátiles. El paquete <strong>hexSticker</strong>, de <strong>Guangchuang Yu</strong>, automatiza su creación.</p>
+</div>
+<div class="funcion">
+<p><strong><code>sticker()</code></strong> — crea una calcomanía hexagonal a partir de una imagen o gráfico.</p>
+<ul>
+<li><strong><code>subplot</code>:</strong> la imagen o gráfico (<code>ggplot</code>) que va en el centro; <code>s_x</code>, <code>s_y</code>, <code>s_width</code>, <code>s_height</code> controlan su posición y tamaño.</li>
+<li><strong><code>package</code>:</strong> el texto (normalmente el nombre del paquete); <code>p_size</code>, <code>p_color</code>, <code>p_family</code> ajustan su tipografía.</li>
+<li><strong><code>h_fill</code>, <code>h_color</code>, <code>h_size</code>:</strong> color de relleno, color y grosor del borde del hexágono.</li>
+<li><strong><code>filename</code>:</strong> dónde se guarda; la extensión (<code>.png</code>, <code>.svg</code>) decide el formato de salida.</li>
+</ul>
+</div>
 <div class="sourceCode" id="cb1218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1218-1"><a href="hex-stickers.html#cb1218-1" tabindex="-1"></a><span class="fu">sticker</span>(</span>
 <span id="cb1218-2"><a href="hex-stickers.html#cb1218-2" tabindex="-1"></a>  subplot, <span class="co"># position and size of subplot</span></span>
 <span id="cb1218-3"><a href="hex-stickers.html#cb1218-3" tabindex="-1"></a>  <span class="at">s_x =</span> <span class="fl">0.8</span>,</span>

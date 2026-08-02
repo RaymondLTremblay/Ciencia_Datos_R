@@ -81,6 +81,18 @@ Crea el vector de salida con su tamaño final *antes* del bucle. Hacerlo crecer 
 
 ## La familia `map()`
 
+::: {.historia}
+La idea de **`map`** (aplicar una función a cada elemento) viene de la programación funcional y del lenguaje **Lisp** (años 1960). El paquete **purrr**, de **Hadley Wickham** y **Lionel Henry**, la trajo al tidyverse con una familia de funciones de tipos predecibles.
+:::
+
+::: {.funcion}
+**La familia `map()` (purrr)** — aplicar una función a cada elemento.
+
+- **`map(x, f)`:** aplica `f` a cada elemento y devuelve una **lista**.
+- **Variantes por tipo:** `map_dbl()`, `map_int()`, `map_chr()`, `map_lgl()` devuelven un vector del tipo indicado.
+- **Fórmula anónima:** `~ f(.x)` define una función corta donde `.x` es cada elemento; `map2()` itera sobre dos listas a la vez.
+:::
+
 Las funciones `map()` toman un vector o lista, aplican una función a **cada
 elemento**, y devuelven un resultado. Hay una versión por tipo de salida:
 

@@ -739,10 +739,21 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="nota">
 <p>Datos ordenados (tidy data): cada variable es una columna, cada observación es una fila y cada valor ocupa su propia celda. Con este formato el tidyverse trabaja de forma más natural.</p>
 </div>
+<div class="historia">
+<p>El concepto de <em>tidy data</em> (datos ordenados) fue formalizado por <strong>Hadley Wickham</strong> en un influyente artículo de 2014. La idea —una variable por columna, una observación por fila— unificó la forma de preparar datos para el análisis.</p>
+</div>
 <div id="el-paquete-tidyr" class="section level3 hasAnchor" number="19.1.1">
 <h3><span class="header-section-number">19.1.1</span> El paquete tidyr<a href="datos-ordenados.html#el-paquete-tidyr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div class="consejo">
 <p>Las funciones <code>pivot_longer()</code> y <code>pivot_wider()</code> de <code>tidyr</code> son las herramientas principales para pasar los datos entre el formato ancho y el formato largo.</p>
+</div>
+<div class="funcion">
+<p><strong><code>pivot_longer()</code></strong> y <strong><code>pivot_wider()</code></strong> (tidyr) — cambiar la forma de la tabla.</p>
+<ul>
+<li><strong><code>pivot_longer()</code>:</strong> pasa de <strong>ancho a largo</strong> (junta varias columnas en pares nombre–valor).</li>
+<li><strong><code>pivot_wider()</code>:</strong> pasa de <strong>largo a ancho</strong> (reparte una columna en varias).</li>
+<li><strong>Uso:</strong> dejar los datos <em>ordenados</em> para poder graficar y resumir con facilidad.</li>
+</ul>
 </div>
 <p>Ver vignettes</p>
 <div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="datos-ordenados.html#cb571-1" tabindex="-1"></a> <span class="fu">library</span>(tidyverse)</span>

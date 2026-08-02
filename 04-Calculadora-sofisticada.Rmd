@@ -86,6 +86,14 @@ x/y
 
 - la función "seq" para secuencia
 
+::: {.funcion}
+**`seq()`, `c()`, `length()`** — crear y medir vectores.
+
+- **`c(1, 2, 3)`:** combina valores en un vector; **`11:20`** genera una secuencia consecutiva.
+- **`seq(101, 110)`:** secuencia con más control (inicio, fin, paso).
+- **`length(x)`:** cuántos elementos tiene un vector.
+:::
+
 ```{r c04-8}
 edad_nd=seq(101, 110)
 edad_nd
@@ -165,6 +173,14 @@ El pipe `%>%` lo creó Stefan Milton Bache en el paquete `magrittr` (2014); su n
 :::
 
 La función de Pipe.    %>% o |>
+
+::: {.funcion}
+**`select()`** y **`filter()`** (paquete **dplyr**) — elegir columnas y filas.
+
+- **`select(columna)`:** se queda con las **columnas** indicadas.
+- **`filter(condición)`:** se queda con las **filas** que cumplen una condición (p. ej. `cilindros == 8`).
+- **El pipe `|>` / `%>%`:** encadena pasos, pasando el resultado de uno como entrada del siguiente.
+:::
 
 
 

@@ -748,6 +748,19 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="para-ver-las-opciones-de-knitr-de-los-chunk" class="section level2 hasAnchor" number="24.1">
 <h2><span class="header-section-number">24.1</span> Para ver las opciones de <strong>knitr</strong> de los chunk<a href="opciones-de-knitr.html#para-ver-las-opciones-de-knitr-de-los-chunk" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="historia">
+<p><strong>knitr</strong> fue creado por <strong>Yihui Xie</strong> en 2012; es el motor que ejecuta el código de R dentro de los documentos R Markdown y “teje” (<em>knit</em>) el resultado junto con el texto. Sustituyó a Sweave con una sintaxis más flexible.</p>
+</div>
+<div class="funcion">
+<p><strong>Opciones de los chunks</strong> — controlan qué se muestra.</p>
+<ul>
+<li><strong><code>echo=FALSE</code>:</strong> oculta el código (muestra solo el resultado).</li>
+<li><strong><code>eval=FALSE</code>:</strong> muestra el código pero no lo ejecuta.</li>
+<li><strong><code>include=FALSE</code>:</strong> ejecuta el código pero no muestra nada.</li>
+<li><strong><code>warning=FALSE</code> / <code>message=FALSE</code>:</strong> ocultan avisos y mensajes.</li>
+<li><strong><code>fig.width</code> / <code>fig.height</code> / <code>out.width</code>:</strong> tamaño de las figuras.</li>
+</ul>
+</div>
 <p>Este <strong>chunk</strong> es para que la información de los chunk en la parte de <strong>knitr</strong> se vea.</p>
 <div class="sourceCode" id="cb939"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb939-1"><a href="opciones-de-knitr.html#cb939-1" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
 <span id="cb939-2"><a href="opciones-de-knitr.html#cb939-2" tabindex="-1"></a>hook_chunk <span class="ot">=</span> knit_hooks<span class="sc">$</span><span class="fu">get</span>(<span class="st">&#39;chunk&#39;</span>)</span>

@@ -26,10 +26,22 @@ Español:
 Datos ordenados (tidy data): cada variable es una columna, cada observación es una fila y cada valor ocupa su propia celda. Con este formato el tidyverse trabaja de forma más natural.
 :::
 
+::: {.historia}
+El concepto de *tidy data* (datos ordenados) fue formalizado por **Hadley Wickham** en un influyente artículo de 2014. La idea —una variable por columna, una observación por fila— unificó la forma de preparar datos para el análisis.
+:::
+
 ### El paquete tidyr
 
 ::: {.consejo}
 Las funciones `pivot_longer()` y `pivot_wider()` de `tidyr` son las herramientas principales para pasar los datos entre el formato ancho y el formato largo.
+:::
+
+::: {.funcion}
+**`pivot_longer()`** y **`pivot_wider()`** (tidyr) — cambiar la forma de la tabla.
+
+- **`pivot_longer()`:** pasa de **ancho a largo** (junta varias columnas en pares nombre–valor).
+- **`pivot_wider()`:** pasa de **largo a ancho** (reparte una columna en varias).
+- **Uso:** dejar los datos *ordenados* para poder graficar y resumir con facilidad.
 :::
 
 Ver vignettes  

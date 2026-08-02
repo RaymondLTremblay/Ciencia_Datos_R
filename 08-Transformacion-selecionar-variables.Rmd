@@ -66,6 +66,13 @@ vuelos %>%
 
 ## rename()
 
+::: {.funcion}
+**`rename(nuevo = viejo)`** — cambiar el nombre de columnas.
+
+- **Qué hace:** renombra columnas; el **nombre nuevo va primero**, el original después.
+- **Relacionadas:** `select(nuevo = viejo, ...)` renombra y selecciona a la vez; `everything()` reordena poniendo unas columnas al frente y el resto después.
+:::
+
 Cambiar el nombre de la columna
 
 ```{r c08-8}

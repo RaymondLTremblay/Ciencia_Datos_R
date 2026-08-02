@@ -43,6 +43,18 @@ Español:
   
 ### Variación
 
+::: {.historia}
+El **análisis exploratorio de datos** (EDA) fue impulsado por **John W. Tukey**, quien publicó el libro *Exploratory Data Analysis* en 1977. Su idea: antes de probar hipótesis, hay que **mirar** los datos con gráficos sencillos para descubrir patrones, valores típicos y atípicos.
+:::
+
+::: {.funcion}
+**`count()` y los `geom_*` de exploración** — resumir y visualizar.
+
+- **`count(variable)`:** cuenta cuántas observaciones hay por categoría.
+- **Una variable:** `geom_histogram()` / `geom_bar()` para ver su distribución.
+- **Dos variables:** `geom_point()`, `geom_boxplot()`, `geom_count()`, `geom_tile()`, `geom_hex()` según los tipos.
+:::
+
  - visualización de las distribuciones
  - count()
  - cut_width()

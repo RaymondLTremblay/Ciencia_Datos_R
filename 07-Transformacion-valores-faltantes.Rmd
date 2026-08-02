@@ -94,6 +94,14 @@ df |>
 
 ## Contabilizar los NA
 
+::: {.funcion}
+**`is.na()`** e **`if_else()`** — detectar y reemplazar valores faltantes.
+
+- **`is.na(x)`:** devuelve `TRUE` donde hay `NA`; con `!is.na(x)` te quedas con lo que NO falta.
+- **`if_else(condición, sí, no)`:** reemplaza según una condición (p. ej. `if_else(is.na(x), 0, x)`).
+- **Ojo:** cualquier operación con `NA` da `NA`; por eso muchas funciones necesitan `na.rm = TRUE`.
+:::
+
 -   ¿Cuántos vuelos tienen datos faltantes en horario_salida?
 -   ¿Qué otras variables tienen valores faltantes?
 -   ¿Qué representan estas filas?

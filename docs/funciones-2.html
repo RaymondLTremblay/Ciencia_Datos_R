@@ -778,6 +778,17 @@ una de las copias.</p>
 </div>
 <div id="la-anatomía-de-una-función" class="section level2 hasAnchor" number="26.3">
 <h2><span class="header-section-number">26.3</span> La anatomía de una función<a href="funciones-2.html#la-anatom%C3%ADa-de-una-funci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="historia">
+<p><strong>R</strong> es un lenguaje de <em>programación funcional</em>: las funciones son “ciudadanos de primera clase” (se pueden guardar en variables y pasar a otras funciones). Heredó esta filosofía del lenguaje <strong>S</strong> y de <strong>Scheme</strong>, que inspiraron a sus creadores.</p>
+</div>
+<div class="funcion">
+<p><strong><code>function(argumentos) { cuerpo }</code></strong> — crear tu propia función.</p>
+<ul>
+<li><strong>Estructura:</strong> <code>nombre &lt;- function(x) { ... }</code>; se llama luego con <code>nombre(valor)</code>.</li>
+<li><strong>Argumentos:</strong> pueden tener valores por defecto (<code>function(x, recorte = 0.1)</code>).</li>
+<li><strong>Retorno:</strong> devuelve el último valor evaluado, o el que indiques con <code>return()</code>.</li>
+</ul>
+</div>
 <p>Toda función tiene tres partes:</p>
 <ol style="list-style-type: decimal">
 <li>Un <strong>nombre</strong> (aquí, <code>reescalar01</code>).</li>

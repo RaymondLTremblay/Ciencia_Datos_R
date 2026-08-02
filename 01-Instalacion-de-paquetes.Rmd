@@ -15,9 +15,21 @@ de funciones, datos y documentación que amplía lo que R puede hacer. Antes de
 comenzar conviene **instalar de una sola vez** todos los paquetes que vamos a
 necesitar, para que ningún capítulo falle por un paquete que falta.
 
+::: {.historia}
+**CRAN** (*Comprehensive R Archive Network*), la red oficial de paquetes de R, funciona desde 1997 y hoy alberga más de 20,000 paquetes. El **tidyverse** —una colección de paquetes con una filosofía común para la ciencia de datos— fue creado por **Hadley Wickham** y su equipo en RStudio (hoy Posit); el nombre se popularizó alrededor de 2016.
+:::
+
 Recuerda: solo hay que **instalar** un paquete una vez en la computadora (con
 `install.packages()`), pero hay que **activarlo** con `library()` en cada sesión
 en la que lo vayas a usar.
+
+::: {.funcion}
+**`install.packages("paquete")`** y **`library(paquete)`** — instalar vs. activar.
+
+- **`install.packages("x")`:** descarga e instala el paquete desde internet (CRAN). Se hace **una sola vez** por computadora.
+- **`library(x)`:** carga el paquete en la sesión actual para poder usar sus funciones. Se hace **en cada sesión**.
+- **Regla de oro:** instalar = una vez; activar con `library()` = cada vez que abres R.
+:::
 
 ::: {.peligro}
 Un error muy frecuente es instalar el paquete pero olvidar activarlo en la sesión. Si al usar una función aparece `could not find function`, casi siempre falta correr `library()`. Encontrarás más errores frecuentes y cómo resolverlos en el capítulo *Errores comunes* (\@ref(errores)).
