@@ -1,0 +1,257 @@
+---
+title: "Soluciones: Capítulo Transformación (mutate, transmute, lag, lead, cumsum, cummean, cumvar)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+library(TidyDensity)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: mutate() con `millas`
+
+```{r sol09-1}
+names(millas)
+
+millas_nuevo <- millas |>
+  mutate(promedio_millas = (ciudad + autopista) / 2,
+         diferencia      = autopista - ciudad)
+
+millas_nuevo
+
+# ¿Cuál clase tiene la mayor diferencia promedio?
+millas_nuevo |>
+  group_by(clase) |>
+  summarise(dif_promedio = mean(diferencia, na.rm = TRUE),
+            n = n()) |>
+  arrange(desc(dif_promedio))
+```
+
+**Respuesta esperada:** las clases más livianas y pequeñas (compactos y
+subcompactos) ganan más millas por galón en carretera que en ciudad. El punto
+pedagógico: `mutate()` conserva todas las columnas originales.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: unidades
+
+```{r sol09-2}
+millas |>
+  mutate(km_por_litro = autopista * 0.425144) |>
+  group_by(fabricante) |>
+  summarise(promedio = mean(km_por_litro, na.rm = TRUE)) |>
+  arrange(desc(promedio))
+
+# Comparación usando "ciudad"
+millas |>
+  mutate(km_por_litro_ciudad = ciudad * 0.425144) |>
+  group_by(fabricante) |>
+  summarise(promedio = mean(km_por_litro_ciudad, na.rm = TRUE)) |>
+  arrange(desc(promedio))
+```
+
+**Punto de discusión:** el orden de los fabricantes cambia poco, porque la
+conversión es una constante multiplicativa (no cambia el orden). Lo que sí puede
+cambiar el orden es usar `ciudad` en vez de `autopista`, porque algunos modelos
+pierden mucho más rendimiento en ciudad que otros.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: transmute() vs mutate()
+
+```{r sol09-3}
+# transmute: solo la columna nueva
+millas |>
+  transmute(razon = autopista / ciudad)
+
+# mutate: la columna nueva más las 11 originales
+millas |>
+  mutate(razon = autopista / ciudad)
+
+ncol(transmute(millas, razon = autopista / ciudad))
+ncol(mutate(millas, razon = autopista / ciudad))
+```
+
+**Respuesta:** `transmute()` devuelve 1 columna, `mutate()` devuelve 12. Una
+`razon` mayor que 1 significa que el vehículo rinde más en carretera que en
+ciudad, que es lo normal (menos frenadas y arranques).
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: lag() con `clima`
+
+```{r sol09-4}
+names(clima)
+
+ewr_enero <- clima |>
+  filter(origen == "EWR", mes == 1) |>
+  arrange(fecha_hora)
+
+ewr_enero_lag <- ewr_enero |>
+  select(fecha_hora, temperatura) |>
+  mutate(temp_anterior = lag(temperatura),
+         cambio_temp   = temperatura - lag(temperatura))
+
+ewr_enero_lag
+
+# El mayor aumento de una hora a la otra
+ewr_enero_lag |>
+  slice_max(cambio_temp, n = 5)
+
+# ¿Cuántos NA?
+sum(is.na(ewr_enero_lag$cambio_temp))
+```
+
+**Respuesta:** la primera fila es `NA` porque no existe una hora anterior a la
+primera. Hay que ordenar por `fecha_hora` primero, porque `lag()` trabaja con el
+orden de las filas, no con el tiempo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: lead()
+
+```{r sol09-5}
+ewr_enero |>
+  select(fecha_hora, humedad) |>
+  mutate(humedad_en_3h  = lead(humedad, 3),
+         cambio_humedad = humedad_en_3h - humedad)
+```
+
+**Respuesta:** aparecen 3 `NA`, y están al **final** de la tabla (con `lag(x, 3)`
+estarían al principio). `lead()` mira hacia adelante, así que a las últimas tres
+filas les falta el futuro.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: cumsum() con la lluvia
+
+```{r sol09-6}
+lluvia <- ewr_enero |>
+  select(fecha_hora, precipitacion) |>
+  mutate(precipitacion = replace_na(precipitacion, 0),
+         lluvia_acumulada = cumsum(precipitacion))
+
+lluvia
+
+ggplot(lluvia, aes(fecha_hora, lluvia_acumulada)) +
+  geom_line() +
+  labs(x = "Fecha y hora", y = "Lluvia acumulada (pulgadas)",
+       title = "Lluvia acumulada, EWR, enero")
+```
+
+**Puntos de discusión:** si queda un solo `NA`, todo lo que viene después de ese
+`NA` también sale `NA`, porque la suma acumulada arrastra el valor faltante.
+Sustituir por 0 supone que "no se midió" es igual a "no llovió", que no siempre
+es cierto. La curva sube en escalones: llueve en pocos eventos, no parejo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7: ¿cuántas observaciones son suficientes?
+
+```{r sol09-7}
+esfuerzo <- ewr_enero |>
+  select(fecha_hora, temperatura) |>
+  slice(1:300) |>
+  mutate(orden        = row_number(),
+         prom_acum    = cummean(temperatura),
+         var_acum     = TidyDensity::cvar(temperatura))
+
+esfuerzo
+
+ggplot(esfuerzo, aes(orden, prom_acum)) +
+  geom_line() +
+  labs(x = "Número de observaciones", y = "Promedio acumulado")
+
+ggplot(esfuerzo, aes(orden, var_acum)) +
+  geom_line() +
+  labs(x = "Número de observaciones", y = "Varianza acumulada")
+```
+
+**Respuesta esperada:** el promedio se estabiliza mucho antes que la varianza.
+Este es el argumento del capítulo: la varianza acumulada que sigue subiendo o
+bajando es señal de que todavía falta muestreo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 8: if_else()
+
+```{r sol09-8}
+# Dos categorías
+millas |>
+  mutate(eficiencia = if_else(autopista >= 30, "eficiente", "no eficiente")) |>
+  count(eficiencia)
+
+# Tres categorías con if_else anidado
+millas_cat <- millas |>
+  mutate(eficiencia = if_else(autopista < 20, "bajo",
+                      if_else(autopista < 30, "medio", "alto")))
+
+millas_cat |>
+  count(clase, eficiencia) |>
+  pivot_wider(names_from = eficiencia, values_from = n, values_fill = 0)
+```
+
+**Respuesta:** las pickups y los SUV caen casi todos en "bajo"; los subcompactos
+y compactos se reparten entre "medio" y "alto". Alternativa más limpia para
+discutir en clase: `case_when()`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 9 (reto): group_by() con lag()
+
+```{r sol09-9}
+diario <- clima |>
+  group_by(origen, mes, dia) |>
+  summarise(temp_promedio = mean(temperatura, na.rm = TRUE), .groups = "drop") |>
+  arrange(origen, mes, dia)
+
+# CORRECTO: agrupar por origen antes de usar lag()
+diario_ok <- diario |>
+  group_by(origen) |>
+  mutate(cambio = temp_promedio - lag(temp_promedio)) |>
+  ungroup()
+
+diario_ok
+
+# ¿Cuántos días fueron más calientes que el día anterior?
+diario_ok |>
+  filter(!is.na(cambio)) |>
+  group_by(origen) |>
+  summarise(dias_mas_calientes = sum(cambio > 0),
+            total = n())
+
+# INCORRECTO: sin agrupar, el primer día de un aeropuerto se resta
+# con el último día del aeropuerto anterior
+diario_mal <- diario |>
+  mutate(cambio = temp_promedio - lag(temp_promedio))
+
+# Las filas donde cambia el aeropuerto son las que salen mal
+diario_mal |>
+  mutate(origen_anterior = lag(origen)) |>
+  filter(origen != origen_anterior)
+```
+
+**Respuesta:** sin `group_by(origen)` hay 2 filas mal calculadas (una por cada
+cambio de aeropuerto), y con el agrupamiento correcto esas filas son `NA`, que es
+lo que debe ser.
+
+------------------------------------------------------------------------

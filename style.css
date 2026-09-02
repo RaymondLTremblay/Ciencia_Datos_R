@@ -279,3 +279,22 @@ pre code { white-space: inherit; }
 .book .book-body .page-inner section.normal div.banner-cover a {
   color: #fff; border-bottom-color: rgba(255,255,255,.6);
 }
+
+/* Ejercicio (para que el estudiante escriba su propio script) */
+.book .book-body .page-inner section.normal div.ejercicio {
+  border-radius: 10px;
+  border-left: 5px solid #c2477f;
+  padding: .85em 1.15em;
+  margin: 1.6em 0;
+  box-shadow: 0 1px 3px rgba(11,58,73,.06);
+  background: #fdf0f5;
+}
+.book .book-body .page-inner section.normal div.ejercicio > :last-child { margin-bottom: 0; }
+.book .book-body .page-inner section.normal div.ejercicio::before {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: .95em;
+  margin-bottom: .45em;
+  content: "✏️  Ejercicio"; color: #93265c;
+}

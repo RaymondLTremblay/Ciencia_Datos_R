@@ -59,14 +59,48 @@ https://raymondltremblay.github.io/Ciencia_Datos_R/.
 ## Pedagogical callouts (pandoc fenced divs, styled in `style.css`)
 
 - Chapters use fenced-div callouts `::: {.class} … :::`. Classes in use:
-  `nota`, `consejo`, `advertencia`, `peligro`, `historia`, `banner-cover`, and
+  `nota`, `consejo`, `advertencia`, `peligro`, `historia`, `banner-cover`,
   **`funcion`** (added Aug 2026: a teal ⚙️ box explaining what an R function
-  does, its key arguments, and how to read its output — 2–4 sentences).
+  does, its key arguments, and how to read its output — 2–4 sentences), and
+  **`ejercicio`** (added Sept 2026, see the next section).
 - The **`.funcion`** and **`.historia`** callouts were swept across the content
   chapters (03–34) so students get moderate-depth prose on each new function and
   a short note on who developed the ideas/tools. Keep this pattern for new
   chapters: introduce a function with a `.funcion` callout, and add a `.historia`
   callout where a distribution, test, package, or concept has a notable origin.
+
+## Ejercicios en cada capítulo (REGLA VIGENTE desde septiembre 2026)
+
+Problema que esto resuelve: los estudiantes copian y pegan el script de los
+ejemplos sin entenderlo, y no aprenden. Desde el capítulo de `mutate`
+(`09-Transformacion-mutate.Rmd`, Capítulo 10 del libro) **en adelante, TODO
+capítulo lleva ejercicios**. Aplica también a los capítulos anteriores cuando se
+revisen.
+
+Reglas, sin excepción:
+
+1. **Varios ejercicios por capítulo**, no uno solo: un ejercicio corto después de
+   cada idea o función que se enseña, y al final un reto integrador que combine
+   dos o más funciones del capítulo.
+2. **Datos distintos a los del ejemplo.** Si el capítulo enseña con `vuelos` o
+   con el COVID de PR, los ejercicios usan otro conjunto (por ejemplo `millas`,
+   `clima`, `bateadores`, `diamantes` del paquete `datos`). El estudiante no
+   puede resolverlo cambiando un nombre de columna en el script copiado.
+3. **NUNCA se enseña el script de la solución en el capítulo.** El ejercicio va
+   en una caja `::: {.ejercicio} … :::` con: el conjunto de datos, lo que hay que
+   lograr, y una línea de verificación ("tu tabla debe tener…", "debe haber
+   exactamente un NA…"). Se añade un chunk vacío con
+   `# Escribe tu código aquí` y `eval=FALSE`, con etiqueta única
+   (`c09-ej1`, `c09-ej2`, …).
+4. Al menos una pregunta por ejercicio se contesta **en palabras**, no con
+   código: qué significa el resultado, por qué salió un `NA`, cuál es el supuesto.
+5. **Las soluciones van en `Soluciones/`**, un archivo por capítulo
+   (`Soluciones/09-Soluciones-Transformacion-mutate.Rmd`). Esa carpeta NO se
+   lista en `_bookdown.yml`, así que no se publica en el sitio del curso; existe
+   en GitHub para el profesor. Cada solución incluye el script y una nota de
+   "respuesta esperada" para discutir en clase.
+6. Al principio de la sección de ejercicios del capítulo va una caja `.nota` que
+   recuerda que hay que entregar script, resultado y explicación en palabras.
 
 ## Housekeeping notes
 
