@@ -52,6 +52,31 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/wordcloud2-0.0.1/wordcloud.css" rel="stylesheet" />
+<script src="libs/wordcloud2-0.0.1/wordcloud2-all.js"></script>
+<script src="libs/wordcloud2-0.0.1/hover.js"></script>
+<script src="libs/wordcloud2-binding-0.2.1/wordcloud2.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.3/leaflet.js"></script>
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+<link href="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.css" rel="stylesheet" />
+<script src="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.min.js"></script>
+<link href="libs/fontawesome-4.7.0/font-awesome.min.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet" />
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
+<script src="libs/leaflet-providers-3.0.0/leaflet-providers.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.3/leaflet-providers-plugin.js"></script>
 
 
 <style type="text/css">
@@ -339,9 +364,11 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.1" data-path="pipes.html"><a href="pipes.html#temas-el-paquete-magrittr-y-sus-funciones"><i class="fa fa-check"></i><b>16.1</b> Temas: El paquete “magrittr” y sus funciones</a></li>
 <li class="chapter" data-level="16.2" data-path="pipes.html"><a href="pipes.html#pipes-1"><i class="fa fa-check"></i><b>16.2</b> %&gt;% pipes</a></li>
 <li class="chapter" data-level="16.3" data-path="pipes.html"><a href="pipes.html#alternativas-a-los-pipes"><i class="fa fa-check"></i><b>16.3</b> Alternativas a los pipes</a></li>
-<li><a href="pipes.html#otro-ejemplo-de-pipe" id="toc-otro-ejemplo-de-pipe"><span class="toc-section-number">16.4</span> %<span class="math inline">\(%
-### Otro ejemplo de Pipe: %\)</span>%</a></li>
-<li class="chapter" data-level="16.5" data-path="pipes.html"><a href="pipes.html#section-1"><i class="fa fa-check"></i><b>16.5</b> %&lt;&gt;%</a></li>
+<li class="chapter" data-level="16.4" data-path="pipes.html"><a href="pipes.html#section-1"><i class="fa fa-check"></i><b>16.4</b> %$%</a>
+<ul>
+<li class="chapter" data-level="16.4.1" data-path="pipes.html"><a href="pipes.html#otro-ejemplo-de-pipe"><i class="fa fa-check"></i><b>16.4.1</b> Otro ejemplo de Pipe: %$%</a></li>
+</ul></li>
+<li class="chapter" data-level="16.5" data-path="pipes.html"><a href="pipes.html#section-2"><i class="fa fa-check"></i><b>16.5</b> %&lt;&gt;%</a></li>
 <li class="chapter" data-level="16.6" data-path="pipes.html"><a href="pipes.html#in"><i class="fa fa-check"></i><b>16.6</b> %in%</a></li>
 <li class="chapter" data-level="16.7" data-path="pipes.html"><a href="pipes.html#t"><i class="fa fa-check"></i><b>16.7</b> %T&gt;%</a></li>
 </ul></li>
@@ -501,13 +528,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="24" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html"><i class="fa fa-check"></i><b>24</b> Opciones de Knitr</a>
 <ul>
-<li class="chapter" data-level="24.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#para-ver-las-opciones-de-knitr-de-los-chunk"><i class="fa fa-check"></i><b>24.1</b> Para ver las opciones de <strong>knitr</strong> de los chunk</a>
+<li class="chapter" data-level="24.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#para-ver-las-opciones-de-knitr-de-los-chunk"><i class="fa fa-check"></i><b>24.1</b> Para ver las opciones de <strong>knitr</strong> de los chunk</a></li>
+<li class="chapter" data-level="24.2" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#tablas-de-opciones-principales"><i class="fa fa-check"></i><b>24.2</b> Tablas de opciones principales</a>
 <ul>
-<li class="chapter" data-level="24.1.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#otras-funciones-de-knitr"><i class="fa fa-check"></i><b>24.1.1</b> OTRAS funciones de knitr</a></li>
+<li class="chapter" data-level="24.2.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#otras-funciones-de-knitr"><i class="fa fa-check"></i><b>24.2.1</b> OTRAS funciones de knitr</a></li>
 </ul></li>
-<li class="chapter" data-level="24.2" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#emoji-or-symbols"><i class="fa fa-check"></i><b>24.2</b> Emoji or Symbols</a>
+<li class="chapter" data-level="24.3" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#emoji-or-symbols"><i class="fa fa-check"></i><b>24.3</b> Emoji or Symbols</a>
 <ul>
-<li class="chapter" data-level="24.2.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#select-under-the-edit-emoji-symbols."><i class="fa fa-check"></i><b>24.2.1</b> Select Under the Edit ➡ Emoji &amp; Symbols.</a></li>
+<li class="chapter" data-level="24.3.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#select-under-the-edit-emoji-symbols."><i class="fa fa-check"></i><b>24.3.1</b> Select Under the Edit ➡ Emoji &amp; Symbols.</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="25" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html"><i class="fa fa-check"></i><b>25</b> Fechas, horas y minutas</a>
@@ -640,20 +668,21 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="32.8" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#trabajando-variables-categ%C3%B3ricas-con-leaflet"><i class="fa fa-check"></i><b>32.8</b> Trabajando Variables Categóricas con Leaflet:</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path=""><a href="#appendix-appendix"><i class="fa fa-check"></i>(APPENDIX) Appendix</a>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appendix-a.html"><a href="appendix-a.html"><i class="fa fa-check"></i><b>A</b> Appendix A</a>
 <ul>
-<li class="chapter" data-level="32.9" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#ejercicio-de-transformaci%C3%B3n"><i class="fa fa-check"></i><b>32.9</b> Ejercicio de Transformación</a></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#cap%C3%ADtulo-de-transformaci%C3%B3n-de-datos"><i class="fa fa-check"></i>Capítulo de Transformación de Datos</a></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#ejercicios-con-destrezas-de-aplicar-algunas-funciones-de-transformaciones-de-datos"><i class="fa fa-check"></i>Ejercicios con destrezas de aplicar algunas funciones de transformaciones de datos</a>
+<li class="chapter" data-level="A.1" data-path="appendix-a.html"><a href="appendix-a.html#ejercicio-de-transformaci%C3%B3n"><i class="fa fa-check"></i><b>A.1</b> Ejercicio de Transformación</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#cap%C3%ADtulo-de-transformaci%C3%B3n-de-datos"><i class="fa fa-check"></i>Capítulo de Transformación de Datos</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#ejercicios-con-destrezas-de-aplicar-algunas-funciones-de-transformaciones-de-datos"><i class="fa fa-check"></i>Ejercicios con destrezas de aplicar algunas funciones de transformaciones de datos</a>
 <ul>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#para-tener-los-puntos-tiene-que-ense%C3%B1ar-todos-los-scripts-los-resultados-y-explicar-en-palabras-los-que-encontr%C3%B3-dentro-de-un-documento-bien-organizado."><i class="fa fa-check"></i>Para tener los puntos tiene que enseñar TODOS los scripts, los resultados y explicar en palabras los que encontró dentro de un documento bien organizado.</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#para-tener-los-puntos-tiene-que-ense%C3%B1ar-todos-los-scripts-los-resultados-y-explicar-en-palabras-los-que-encontr%C3%B3-dentro-de-un-documento-bien-organizado."><i class="fa fa-check"></i>Para tener los puntos tiene que enseñar TODOS los scripts, los resultados y explicar en palabras los que encontró dentro de un documento bien organizado.</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#busca-el-bateador-que-tuvo-m%C3%A1s-carreras-en-cualquier-a%C3%B1o"><i class="fa fa-check"></i>1. Busca el bateador que tuvo más carreras en cualquier año</a></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#cu%C3%A1l-es-el-nombre-del-bateador-id_jugador-que-estuvo-m%C3%A1s-veces-al_bate-prepara-una-lista-del-bateador-m%C3%A1s-frecuente-al-bate-al-menos"><i class="fa fa-check"></i>2. ¿Cuál es el nombre del bateador (id_jugador) que estuvo más veces “al_bate”? Prepara una lista del bateador más frecuente al bate al menos</a></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#cu%C3%A1les-son-las-ligas-de-baseball-pelota-que-est%C3%A1n-incluidas-en-este-archivo"><i class="fa fa-check"></i>3. ¿Cuáles son las “ligas” de baseball (pelota) que están incluidas en este archivo?</a></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#selecciona-los-a%C3%B1os-1900-1950-2000-y-2020-y-jonrones-y-hacer-una-tabla-por-a%C3%B1o-que-demuestra-el-m%C3%A1ximo-de-jonrones-para-cada-a%C3%B1o"><i class="fa fa-check"></i>4. Selecciona los años (1900, 1950, 2000 y 2020) y jonrones y hacer una tabla por año que demuestra el máximo de jonrones para cada año</a></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#haz-una-tabla-de-la-los-jugadores-que-jugaron-m%C3%A1s-a%C3%B1os"><i class="fa fa-check"></i>5. Haz una tabla de la los jugadores que jugaron más años</a></li>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#selecciona-solamente-la-liga-al-los-a%C3%B1os-desde-2000-en-adelante-y-determina-cu%C3%A1l-es-la-suma-de-carreras-anotadas-por-cada-equipo."><i class="fa fa-check"></i>6. Selecciona solamente la liga “AL”, los años desde 2000 en adelante, y determina cuál es la suma de “carreras” anotadas por cada equipo.</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#busca-el-bateador-que-tuvo-m%C3%A1s-carreras-en-cualquier-a%C3%B1o"><i class="fa fa-check"></i>1. Busca el bateador que tuvo más carreras en cualquier año</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#cu%C3%A1l-es-el-nombre-del-bateador-id_jugador-que-estuvo-m%C3%A1s-veces-al_bate-prepara-una-lista-del-bateador-m%C3%A1s-frecuente-al-bate-al-menos"><i class="fa fa-check"></i>2. ¿Cuál es el nombre del bateador (id_jugador) que estuvo más veces “al_bate”? Prepara una lista del bateador más frecuente al bate al menos</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#cu%C3%A1les-son-las-ligas-de-baseball-pelota-que-est%C3%A1n-incluidas-en-este-archivo"><i class="fa fa-check"></i>3. ¿Cuáles son las “ligas” de baseball (pelota) que están incluidas en este archivo?</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#selecciona-los-a%C3%B1os-1900-1950-2000-y-2020-y-jonrones-y-hacer-una-tabla-por-a%C3%B1o-que-demuestra-el-m%C3%A1ximo-de-jonrones-para-cada-a%C3%B1o"><i class="fa fa-check"></i>4. Selecciona los años (1900, 1950, 2000 y 2020) y jonrones y hacer una tabla por año que demuestra el máximo de jonrones para cada año</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#haz-una-tabla-de-la-los-jugadores-que-jugaron-m%C3%A1s-a%C3%B1os"><i class="fa fa-check"></i>5. Haz una tabla de la los jugadores que jugaron más años</a></li>
+<li class="chapter" data-level="" data-path="appendix-a.html"><a href="appendix-a.html#selecciona-solamente-la-liga-al-los-a%C3%B1os-desde-2000-en-adelante-y-determina-cu%C3%A1l-es-la-suma-de-carreras-anotadas-por-cada-equipo."><i class="fa fa-check"></i>6. Selecciona solamente la liga “AL”, los años desde 2000 en adelante, y determina cuál es la suma de “carreras” anotadas por cada equipo.</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="appendix-b.html"><a href="appendix-b.html"><i class="fa fa-check"></i>Appendix B</a>
 <ul>
@@ -675,7 +704,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="appendix-d.html"><a href="appendix-d.html"><i class="fa fa-check"></i>Appendix D</a>
 <ul>
-<li class="chapter" data-level="32.10" data-path="appendix-d.html"><a href="appendix-d.html#covid-19-cumulativo"><i class="fa fa-check"></i><b>32.10</b> COVID 19 Cumulativo</a></li>
+<li class="chapter" data-level="A.2" data-path="appendix-d.html"><a href="appendix-d.html#covid-19-cumulativo"><i class="fa fa-check"></i><b>A.2</b> COVID 19 Cumulativo</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con bookdown</a></li>
@@ -725,19 +754,9 @@ script del ejercicio lo escribes tú: copiar y pegar no enseña.</p>
 (1) el script, (2) el resultado y (3) una explicación <strong>en palabras</strong> de lo que
 encontraste.</p>
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb2-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.2.1     ✔ readr     2.2.0
-## ✔ forcats   1.0.1     ✔ stringr   1.6.0
-## ✔ ggplot2   4.0.3     ✔ tibble    3.3.1
-## ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
-## ✔ purrr     1.2.2     
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb4-1" tabindex="-1"></a><span class="fu">library</span>(datos)</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb5-1" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb277-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb277-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb277-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb278-1" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
 <pre><code>##  [1] &quot;anio&quot;               &quot;mes&quot;                &quot;dia&quot;               
 ##  [4] &quot;horario_salida&quot;     &quot;salida_programada&quot;  &quot;atraso_salida&quot;     
 ##  [7] &quot;horario_llegada&quot;    &quot;llegada_programada&quot; &quot;atraso_llegada&quot;    
@@ -745,12 +764,12 @@ encontraste.</p>
 ## [13] &quot;origen&quot;             &quot;destino&quot;            &quot;tiempo_vuelo&quot;      
 ## [16] &quot;distancia&quot;          &quot;hora&quot;               &quot;minuto&quot;            
 ## [19] &quot;fecha_hora&quot;</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb7-1" tabindex="-1"></a><span class="co"># |&gt; es igual %&gt;% </span></span>
-<span id="cb7-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb7-2" tabindex="-1"></a>new_df<span class="ot">=</span>vuelos <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(distancia, tiempo_vuelo, atraso_salida,  atraso_llegada) <span class="sc">|&gt;</span> </span>
-<span id="cb7-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb7-3" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">ganancia =</span> atraso_salida <span class="sc">-</span> atraso_llegada,</span>
-<span id="cb7-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb7-4" tabindex="-1"></a>          <span class="at">velocidad =</span> distancia <span class="sc">/</span> tiempo_vuelo <span class="sc">*</span> <span class="dv">60</span>)</span>
-<span id="cb7-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb7-5" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb7-6" tabindex="-1"></a>new_df</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb280-1" tabindex="-1"></a><span class="co"># |&gt; es igual %&gt;% </span></span>
+<span id="cb280-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb280-2" tabindex="-1"></a>new_df<span class="ot">=</span>vuelos <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(distancia, tiempo_vuelo, atraso_salida,  atraso_llegada) <span class="sc">|&gt;</span> </span>
+<span id="cb280-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb280-3" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">ganancia =</span> atraso_salida <span class="sc">-</span> atraso_llegada,</span>
+<span id="cb280-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb280-4" tabindex="-1"></a>          <span class="at">velocidad =</span> distancia <span class="sc">/</span> tiempo_vuelo <span class="sc">*</span> <span class="dv">60</span>)</span>
+<span id="cb280-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb280-5" tabindex="-1"></a></span>
+<span id="cb280-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb280-6" tabindex="-1"></a>new_df</span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 6
 ##    distancia tiempo_vuelo atraso_salida atraso_llegada ganancia velocidad
 ##        &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;          &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
@@ -768,9 +787,9 @@ encontraste.</p>
 </div>
 <div id="crear-un-data-frame-más-pequeño-con-las-variables-de-interés" class="section level2 hasAnchor" number="10.2">
 <h2><span class="header-section-number">10.2</span> Crear un data frame más pequeño con las variables de interés<a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#crear-un-data-frame-m%C3%A1s-peque%C3%B1o-con-las-variables-de-inter%C3%A9s" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb9-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb9-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb9-2" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
-<span id="cb9-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb9-3" tabindex="-1"></a><span class="fu">head</span>(flights)</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb282-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb282-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb282-2" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb282-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb282-3" tabindex="-1"></a><span class="fu">head</span>(flights)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 19
 ##    year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
 ##   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
@@ -783,7 +802,7 @@ encontraste.</p>
 ## # ℹ 11 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
 ## #   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
 ## #   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb11-1" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb284-1" tabindex="-1"></a><span class="fu">names</span>(vuelos)</span></code></pre></div>
 <pre><code>##  [1] &quot;anio&quot;               &quot;mes&quot;                &quot;dia&quot;               
 ##  [4] &quot;horario_salida&quot;     &quot;salida_programada&quot;  &quot;atraso_salida&quot;     
 ##  [7] &quot;horario_llegada&quot;    &quot;llegada_programada&quot; &quot;atraso_llegada&quot;    
@@ -791,13 +810,13 @@ encontraste.</p>
 ## [13] &quot;origen&quot;             &quot;destino&quot;            &quot;tiempo_vuelo&quot;      
 ## [16] &quot;distancia&quot;          &quot;hora&quot;               &quot;minuto&quot;            
 ## [19] &quot;fecha_hora&quot;</code></pre>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb13-1" tabindex="-1"></a>  vuelos_sml <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(vuelos, </span>
-<span id="cb13-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb13-2" tabindex="-1"></a>  anio<span class="sc">:</span>dia, </span>
-<span id="cb13-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb13-3" tabindex="-1"></a>  <span class="fu">starts_with</span>(<span class="st">&quot;atraso&quot;</span>), </span>
-<span id="cb13-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb13-4" tabindex="-1"></a>  distancia, </span>
-<span id="cb13-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb13-5" tabindex="-1"></a>  tiempo_vuelo</span>
-<span id="cb13-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb13-6" tabindex="-1"></a>)</span>
-<span id="cb13-7"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb13-7" tabindex="-1"></a><span class="fu">head</span>(vuelos_sml)</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb286-1" tabindex="-1"></a>  vuelos_sml <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(vuelos, </span>
+<span id="cb286-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb286-2" tabindex="-1"></a>  anio<span class="sc">:</span>dia, </span>
+<span id="cb286-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb286-3" tabindex="-1"></a>  <span class="fu">starts_with</span>(<span class="st">&quot;atraso&quot;</span>), </span>
+<span id="cb286-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb286-4" tabindex="-1"></a>  distancia, </span>
+<span id="cb286-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb286-5" tabindex="-1"></a>  tiempo_vuelo</span>
+<span id="cb286-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb286-6" tabindex="-1"></a>)</span>
+<span id="cb286-7"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb286-7" tabindex="-1"></a><span class="fu">head</span>(vuelos_sml)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 7
 ##    anio   mes   dia atraso_salida atraso_llegada distancia tiempo_vuelo
 ##   &lt;int&gt; &lt;int&gt; &lt;int&gt;         &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;
@@ -810,10 +829,10 @@ encontraste.</p>
 </div>
 <div id="crear-nuevas-variables" class="section level2 hasAnchor" number="10.3">
 <h2><span class="header-section-number">10.3</span> Crear nuevas variables<a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#crear-nuevas-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb15-1" tabindex="-1"></a><span class="fu">mutate</span>(vuelos_sml,</span>
-<span id="cb15-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb15-2" tabindex="-1"></a>  <span class="at">ganado =</span> atraso_salida <span class="sc">-</span> atraso_llegada,</span>
-<span id="cb15-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb15-3" tabindex="-1"></a>  <span class="at">velocidad =</span> distancia <span class="sc">/</span> tiempo_vuelo <span class="sc">*</span> <span class="dv">60</span></span>
-<span id="cb15-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb15-4" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb288-1" tabindex="-1"></a><span class="fu">mutate</span>(vuelos_sml,</span>
+<span id="cb288-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb288-2" tabindex="-1"></a>  <span class="at">ganado =</span> atraso_salida <span class="sc">-</span> atraso_llegada,</span>
+<span id="cb288-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb288-3" tabindex="-1"></a>  <span class="at">velocidad =</span> distancia <span class="sc">/</span> tiempo_vuelo <span class="sc">*</span> <span class="dv">60</span></span>
+<span id="cb288-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb288-4" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 9
 ##     anio   mes   dia atraso_salida atraso_llegada distancia tiempo_vuelo ganado
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;         &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;  &lt;dbl&gt;
@@ -844,7 +863,7 @@ palabras, no solamente con la tabla.</li>
 <p><em>Verifica:</em> tu tabla debe conservar todas las columnas originales de <code>millas</code>
 más las dos nuevas.</p>
 </div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb17-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb290-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 <div class="ejercicio">
 <p><strong>Ejercicio 2: cuidado con las unidades</strong></p>
 <p>En <code>millas</code> el rendimiento está en millas por galón. Crea la variable
@@ -855,7 +874,7 @@ más las dos nuevas.</p>
 ¿Por qué crees que pasa eso?</li>
 </ol>
 </div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb18-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb291-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 </div>
 <div id="transmute" class="section level2 hasAnchor" number="10.4">
 <h2><span class="header-section-number">10.4</span> transmute()<a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#transmute" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -863,11 +882,11 @@ más las dos nuevas.</p>
 <div class="consejo">
 <p>Usa <code>mutate()</code> cuando quieras conservar las columnas originales y añadir nuevas; usa <code>transmute()</code> cuando solo te interesen las columnas nuevas.</p>
 </div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb19-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">transmute</span>(</span>
-<span id="cb19-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb19-2" tabindex="-1"></a>  <span class="at">gain =</span> dep_delay <span class="sc">-</span> arr_delay,</span>
-<span id="cb19-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb19-3" tabindex="-1"></a>  <span class="at">hours =</span> air_time <span class="sc">/</span> <span class="dv">60</span>,</span>
-<span id="cb19-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb19-4" tabindex="-1"></a>  <span class="at">gain_per_hour =</span> gain <span class="sc">/</span> hours</span>
-<span id="cb19-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb19-5" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb292-1" tabindex="-1"></a>flights <span class="sc">|&gt;</span> <span class="fu">transmute</span>(</span>
+<span id="cb292-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb292-2" tabindex="-1"></a>  <span class="at">gain =</span> dep_delay <span class="sc">-</span> arr_delay,</span>
+<span id="cb292-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb292-3" tabindex="-1"></a>  <span class="at">hours =</span> air_time <span class="sc">/</span> <span class="dv">60</span>,</span>
+<span id="cb292-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb292-4" tabindex="-1"></a>  <span class="at">gain_per_hour =</span> gain <span class="sc">/</span> hours</span>
+<span id="cb292-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb292-5" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## # A tibble: 336,776 × 3
 ##     gain hours gain_per_hour
 ##    &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;
@@ -893,7 +912,7 @@ primero con <code>transmute()</code> y después con <code>mutate()</code>.</p>
 <li>¿Qué significa biológicamente (o mecánicamente) que <code>razon</code> sea mayor que 1?</li>
 </ol>
 </div>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb21-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb294-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 </div>
 <div id="lag" class="section level2 hasAnchor" number="10.5">
 <h2><span class="header-section-number">10.5</span> lag()<a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#lag" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -909,13 +928,13 @@ primero con <code>transmute()</code> y después con <code>mutate()</code>.</p>
 <div class="advertencia">
 <p><code>lag()</code> y <code>lead()</code> trabajan según el orden actual de las filas. Ordena tus datos (por ejemplo por fecha con <code>arrange()</code>) antes de usarlas, o los desplazamientos no tendrán sentido.</p>
 </div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb22-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>) <span class="co"># que los datos sean al azar, siempre sean los mismo, se usa el &quot;set.seed()&quot; para enseñanza.</span></span>
-<span id="cb22-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb22-2" tabindex="-1"></a><span class="co">#rnorm()  DATOS CON DISTRIBUCION NORMAL</span></span>
-<span id="cb22-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb22-3" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb22-4" tabindex="-1"></a></span>
-<span id="cb22-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb22-5" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">rpois</span>(<span class="dv">14</span>, <span class="dv">10</span>)</span>
-<span id="cb22-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb22-6" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as_tibble</span>(data)</span>
-<span id="cb22-7"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb22-7" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb295-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>) <span class="co"># que los datos sean al azar, siempre sean los mismo, se usa el &quot;set.seed()&quot; para enseñanza.</span></span>
+<span id="cb295-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb295-2" tabindex="-1"></a><span class="co">#rnorm()  DATOS CON DISTRIBUCION NORMAL</span></span>
+<span id="cb295-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb295-3" tabindex="-1"></a></span>
+<span id="cb295-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb295-4" tabindex="-1"></a></span>
+<span id="cb295-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb295-5" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">rpois</span>(<span class="dv">14</span>, <span class="dv">10</span>)</span>
+<span id="cb295-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb295-6" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as_tibble</span>(data)</span>
+<span id="cb295-7"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb295-7" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>## # A tibble: 14 × 1
 ##    value
 ##    &lt;int&gt;
@@ -933,11 +952,11 @@ primero con <code>transmute()</code> y después con <code>mutate()</code>.</p>
 ## 12    10
 ## 13     9
 ## 14    11</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb24-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb24-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb24-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb24-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lag1=</span><span class="fu">lag</span>(value)) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb24-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lag3=</span><span class="fu">lag</span>(value, <span class="dv">3</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb24-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lag7=</span><span class="fu">lag</span>(value,<span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb297-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb297-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb297-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
+<span id="cb297-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb297-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lag1=</span><span class="fu">lag</span>(value)) <span class="sc">%&gt;%</span> </span>
+<span id="cb297-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb297-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lag3=</span><span class="fu">lag</span>(value, <span class="dv">3</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb297-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb297-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lag7=</span><span class="fu">lag</span>(value,<span class="dv">5</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 14 × 4
 ##    value  lag1  lag3  lag7
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
@@ -955,12 +974,12 @@ primero con <code>transmute()</code> y después con <code>mutate()</code>.</p>
 ## 12    10     9     8    11
 ## 13     9    10    11     7
 ## 14    11     9     9     8</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb26-1" tabindex="-1"></a><span class="do">## Calcular la diferencia usando lag</span></span>
-<span id="cb26-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb26-2" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb26-3" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb26-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb26-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb26-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lag1=</span><span class="fu">lag</span>(value)) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb26-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Changes=</span>value<span class="sc">-</span><span class="fu">lag</span>(value, <span class="dv">1</span>)) <span class="co"># El cambio en posición de los valores entre las filas</span></span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb299-1" tabindex="-1"></a><span class="do">## Calcular la diferencia usando lag</span></span>
+<span id="cb299-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb299-2" tabindex="-1"></a></span>
+<span id="cb299-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb299-3" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb299-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb299-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
+<span id="cb299-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb299-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lag1=</span><span class="fu">lag</span>(value)) <span class="sc">%&gt;%</span> </span>
+<span id="cb299-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb299-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Changes=</span>value<span class="sc">-</span><span class="fu">lag</span>(value, <span class="dv">1</span>)) <span class="co"># El cambio en posición de los valores entre las filas</span></span></code></pre></div>
 <pre><code>## # A tibble: 14 × 3
 ##    value  lag1 Changes
 ##    &lt;int&gt; &lt;int&gt;   &lt;int&gt;
@@ -982,20 +1001,11 @@ primero con <code>transmute()</code> y después con <code>mutate()</code>.</p>
 <div id="usa-lag-con-inccasossaludnuevo-en-covid-19-pr" class="section level2 hasAnchor" number="10.6">
 <h2><span class="header-section-number">10.6</span> Usa “Lag” con “IncCasosSaludNuevo” en COVID-19 PR<a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#usa-lag-con-inccasossaludnuevo-en-covid-19-pr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Evalúa la diferencia en números de casos entre 7 días de la semana en números de casos nuevos de COVID, “IncCasosSaludNuevo”</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb28-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb28-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb28-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb28-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb28-3" tabindex="-1"></a><span class="co">#names(url_COVID_PR)</span></span>
-<span id="cb28-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb28-4" tabindex="-1"></a>url_COVID_PR <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Datos/url_COVID_PR.csv&quot;</span>)</span></code></pre></div>
-<pre><code>## New names:
-## Rows: 587 Columns: 18
-## ── Column specification
-## ──────────────────────────────────────────────────────── Delimiter: &quot;,&quot; chr
-## (1): Fecha dbl (17): ...1, Muertes, IncrementoMuertes, CasosPCR_Salud,
-## IncCasosPCR_Salu...
-## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
-## Specify the column types or set `show_col_types = FALSE` to quiet this message.
-## • `` -&gt; `...1`</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb30-1" tabindex="-1"></a><span class="fu">head</span>(url_COVID_PR, <span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb301-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb301-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb301-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb301-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb301-3" tabindex="-1"></a><span class="co">#names(url_COVID_PR)</span></span>
+<span id="cb301-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb301-4" tabindex="-1"></a>url_COVID_PR <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Datos/url_COVID_PR.csv&quot;</span>)</span>
+<span id="cb301-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb301-5" tabindex="-1"></a><span class="fu">head</span>(url_COVID_PR, <span class="dv">100</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 100 × 18
 ##     ...1 Fecha   Muertes IncrementoMuertes CasosPCR_Salud IncCasosPCR_Salud
 ##    &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;             &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;
@@ -1014,23 +1024,23 @@ primero con <code>transmute()</code> y después con <code>mutate()</code>.</p>
 ## #   HospitCOV19 &lt;dbl&gt;, CamasICU &lt;dbl&gt;, CamasICU_disp &lt;dbl&gt;, Ventiladores &lt;dbl&gt;,
 ## #   MuertesSalud &lt;dbl&gt;, IncMueSalud &lt;dbl&gt;, VacDoses &lt;dbl&gt;, VacAdm &lt;dbl&gt;,
 ## #   N1MoreDoses &lt;dbl&gt;, N2Doses &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb32-1" tabindex="-1"></a><span class="co">#names(url_COVID_PR)</span></span>
-<span id="cb32-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb32-2" tabindex="-1"></a><span class="fu">names</span>(url_COVID_PR)</span></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb303-1" tabindex="-1"></a><span class="co">#names(url_COVID_PR)</span></span>
+<span id="cb303-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb303-2" tabindex="-1"></a><span class="fu">names</span>(url_COVID_PR)</span></code></pre></div>
 <pre><code>##  [1] &quot;...1&quot;               &quot;Fecha&quot;              &quot;Muertes&quot;           
 ##  [4] &quot;IncrementoMuertes&quot;  &quot;CasosPCR_Salud&quot;     &quot;IncCasosPCR_Salud&quot; 
 ##  [7] &quot;CasosSaludNuevo&quot;    &quot;IncCasosSaludNuevo&quot; &quot;HospitCOV19&quot;       
 ## [10] &quot;CamasICU&quot;           &quot;CamasICU_disp&quot;      &quot;Ventiladores&quot;      
 ## [13] &quot;MuertesSalud&quot;       &quot;IncMueSalud&quot;        &quot;VacDoses&quot;          
 ## [16] &quot;VacAdm&quot;             &quot;N1MoreDoses&quot;        &quot;N2Doses&quot;</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb34-1" tabindex="-1"></a>df2<span class="ot">=</span>url_COVID_PR <span class="sc">%&gt;%</span> </span>
-<span id="cb34-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb34-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(IncCasosSaludNuevo) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb34-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Cambios_Casos=</span>IncCasosSaludNuevo<span class="sc">-</span><span class="fu">lag</span>(IncCasosSaludNuevo,<span class="dv">7</span>)) </span>
-<span id="cb34-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb34-4" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb34-5" tabindex="-1"></a></span>
-<span id="cb34-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb34-6" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb34-7" tabindex="-1"></a></span>
-<span id="cb34-8"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb34-8" tabindex="-1"></a></span>
-<span id="cb34-9"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb34-9" tabindex="-1"></a>df2</span></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb305-1" tabindex="-1"></a>df2<span class="ot">=</span>url_COVID_PR <span class="sc">%&gt;%</span> </span>
+<span id="cb305-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb305-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(IncCasosSaludNuevo) <span class="sc">%&gt;%</span> </span>
+<span id="cb305-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb305-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Cambios_Casos=</span>IncCasosSaludNuevo<span class="sc">-</span><span class="fu">lag</span>(IncCasosSaludNuevo,<span class="dv">7</span>)) </span>
+<span id="cb305-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb305-4" tabindex="-1"></a></span>
+<span id="cb305-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb305-5" tabindex="-1"></a></span>
+<span id="cb305-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb305-6" tabindex="-1"></a></span>
+<span id="cb305-7"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb305-7" tabindex="-1"></a></span>
+<span id="cb305-8"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb305-8" tabindex="-1"></a></span>
+<span id="cb305-9"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb305-9" tabindex="-1"></a>df2</span></code></pre></div>
 <pre><code>## # A tibble: 587 × 2
 ##    IncCasosSaludNuevo Cambios_Casos
 ##                 &lt;dbl&gt;         &lt;dbl&gt;
@@ -1045,14 +1055,14 @@ primero con <code>transmute()</code> y después con <code>mutate()</code>.</p>
 ##  9                 14            11
 ## 10                 12             9
 ## # ℹ 577 more rows</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb36-1" tabindex="-1"></a>df2 <span class="sc">%&gt;%</span> </span>
-<span id="cb36-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb36-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(IncCasosSaludNuevo, Cambios_Casos) <span class="sc">%&gt;%</span> </span>
-<span id="cb36-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb36-3" tabindex="-1"></a>  <span class="fu">colMeans</span>(<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb307-1" tabindex="-1"></a>df2 <span class="sc">%&gt;%</span> </span>
+<span id="cb307-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb307-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(IncCasosSaludNuevo, Cambios_Casos) <span class="sc">%&gt;%</span> </span>
+<span id="cb307-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb307-3" tabindex="-1"></a>  <span class="fu">colMeans</span>(<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## IncCasosSaludNuevo      Cambios_Casos 
 ##        257.8310580          0.4507772</code></pre>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb38-1" tabindex="-1"></a><span class="co">#df2 %&gt;% </span></span>
-<span id="cb38-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb38-2" tabindex="-1"></a><span class="co">#  select()</span></span>
-<span id="cb38-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb38-3" tabindex="-1"></a><span class="co">#  slice(na.rm=TRUE) # lets you index rows by their (integer) locations. It allows you to select, remove, and duplicate rows. It is accompanied by a number of helpers for common use cases</span></span></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb309-1" tabindex="-1"></a><span class="co">#df2 %&gt;% </span></span>
+<span id="cb309-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb309-2" tabindex="-1"></a><span class="co">#  select()</span></span>
+<span id="cb309-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb309-3" tabindex="-1"></a><span class="co">#  slice(na.rm=TRUE) # lets you index rows by their (integer) locations. It allows you to select, remove, and duplicate rows. It is accompanied by a number of helpers for common use cases</span></span></code></pre></div>
 <hr />
 <div class="ejercicio">
 <p><strong>Ejercicio 4: <code>lag()</code> con datos de clima</strong></p>
@@ -1068,15 +1078,15 @@ de tres aeropuertos de Nueva York. Mira primero <code>names(clima)</code>.</p>
 <p><em>Verifica:</em> <code>cambio_temp</code> debe tener exactamente un <code>NA</code>, y debe estar en la
 primera fila.</p>
 </div>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb39-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb310-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 </div>
 <div id="lead" class="section level2 hasAnchor" number="10.7">
 <h2><span class="header-section-number">10.7</span> lead(),<a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#lead" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>is the “next” (lead()) values in a vector/column</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb40-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb40-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb40-2" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">rpois</span>(<span class="dv">15</span>, <span class="dv">10</span>)</span>
-<span id="cb40-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb40-3" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as_tibble</span>(data)</span>
-<span id="cb40-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb40-4" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb311-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb311-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb311-2" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">rpois</span>(<span class="dv">15</span>, <span class="dv">10</span>)</span>
+<span id="cb311-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb311-3" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as_tibble</span>(data)</span>
+<span id="cb311-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb311-4" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>## # A tibble: 15 × 1
 ##    value
 ##    &lt;int&gt;
@@ -1095,10 +1105,10 @@ primera fila.</p>
 ## 13     9
 ## 14    11
 ## 15    13</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb42-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb42-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb42-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
-<span id="cb42-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb42-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lead1=</span><span class="fu">lead</span>(value)) <span class="sc">%&gt;%</span> </span>
-<span id="cb42-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb42-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lead3=</span><span class="fu">lead</span>(value, <span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb313-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb313-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb313-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
+<span id="cb313-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb313-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lead1=</span><span class="fu">lead</span>(value)) <span class="sc">%&gt;%</span> </span>
+<span id="cb313-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb313-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lead3=</span><span class="fu">lead</span>(value, <span class="dv">3</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 15 × 3
 ##    value lead1 lead3
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;
@@ -1117,11 +1127,11 @@ primera fila.</p>
 ## 13     9    11    NA
 ## 14    11    13    NA
 ## 15    13    NA    NA</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb44-1" tabindex="-1"></a><span class="co"># Calculate the change in value from one (1) time period and four (4) time periods</span></span>
-<span id="cb44-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb44-2" tabindex="-1"></a>df<span class="sc">%&gt;%</span> </span>
-<span id="cb44-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb44-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb44-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lead1=</span>value<span class="sc">-</span><span class="fu">lead</span>(value)) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb44-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lead7=</span>value<span class="sc">-</span><span class="fu">lead</span>(value, <span class="dv">7</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb315-1" tabindex="-1"></a><span class="co"># Calculate the change in value from one (1) time period and four (4) time periods</span></span>
+<span id="cb315-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb315-2" tabindex="-1"></a>df<span class="sc">%&gt;%</span> </span>
+<span id="cb315-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb315-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
+<span id="cb315-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb315-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lead1=</span>value<span class="sc">-</span><span class="fu">lead</span>(value)) <span class="sc">%&gt;%</span> </span>
+<span id="cb315-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb315-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lead7=</span>value<span class="sc">-</span><span class="fu">lead</span>(value, <span class="dv">7</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 15 × 3
 ##    value lead1 lead7
 ##    &lt;int&gt; &lt;int&gt; &lt;int&gt;
@@ -1151,7 +1161,7 @@ primera fila.</p>
 comparando con lo que pasó en el ejercicio anterior con <code>lag()</code>.</li>
 </ol>
 </div>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb46-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb317-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 </div>
 <div id="cumsum" class="section level2 hasAnchor" number="10.8">
 <h2><span class="header-section-number">10.8</span> cumsum<a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cumsum" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1164,15 +1174,15 @@ comparando con lo que pasó en el ejercicio anterior con <code>lag()</code>.</li
 </ul>
 </div>
 <p>Suma cumulativa: los valores se suman a los largo del vector o columna</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb47-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>) <span class="co"># set.seed() es para que los datos NO sean al azar y se puede replicar los resultados, tipicamente esto se usa para enseñanzar. </span></span>
-<span id="cb47-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb47-2" tabindex="-1"></a></span>
-<span id="cb47-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb47-3" tabindex="-1"></a></span>
-<span id="cb47-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb47-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, <span class="dv">10</span>, <span class="at">replace=</span><span class="cn">TRUE</span>) <span class="co"># sample es para seleccionar valores al azar de un vector</span></span>
-<span id="cb47-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb47-5" tabindex="-1"></a></span>
-<span id="cb47-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb47-6" tabindex="-1"></a>x</span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb318-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>) <span class="co"># set.seed() es para que los datos NO sean al azar y se puede replicar los resultados, tipicamente esto se usa para enseñanzar. </span></span>
+<span id="cb318-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb318-2" tabindex="-1"></a></span>
+<span id="cb318-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb318-3" tabindex="-1"></a></span>
+<span id="cb318-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb318-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>, <span class="dv">10</span>, <span class="at">replace=</span><span class="cn">TRUE</span>) <span class="co"># sample es para seleccionar valores al azar de un vector</span></span>
+<span id="cb318-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb318-5" tabindex="-1"></a></span>
+<span id="cb318-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb318-6" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>##  [1] 14  3 10 12  8 10 13 11  8  2</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb49-1" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as_tibble</span>(x)</span>
-<span id="cb49-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb49-2" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb320-1" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as_tibble</span>(x)</span>
+<span id="cb320-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb320-2" tabindex="-1"></a>df</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 1
 ##    value
 ##    &lt;int&gt;
@@ -1186,9 +1196,9 @@ comparando con lo que pasó en el ejercicio anterior con <code>lag()</code>.</li
 ##  8    11
 ##  9     8
 ## 10     2</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb51-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb51-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb51-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
-<span id="cb51-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb51-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">suma=</span><span class="fu">cumsum</span>(value))</span></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb322-1" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
+<span id="cb322-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb322-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
+<span id="cb322-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb322-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">suma=</span><span class="fu">cumsum</span>(value))</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 2
 ##    value  suma
 ##    &lt;int&gt; &lt;int&gt;
@@ -1202,24 +1212,15 @@ comparando con lo que pasó en el ejercicio anterior con <code>lag()</code>.</li
 ##  8    11    81
 ##  9     8    89
 ## 10     2    91</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb53-1" tabindex="-1"></a>url_COVID_PR <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Datos/url_COVID_PR.csv&quot;</span>)</span></code></pre></div>
-<pre><code>## New names:
-## Rows: 587 Columns: 18
-## ── Column specification
-## ──────────────────────────────────────────────────────── Delimiter: &quot;,&quot; chr
-## (1): Fecha dbl (17): ...1, Muertes, IncrementoMuertes, CasosPCR_Salud,
-## IncCasosPCR_Salu...
-## ℹ Use `spec()` to retrieve the full column specification for this data. ℹ
-## Specify the column types or set `show_col_types = FALSE` to quiet this message.
-## • `` -&gt; `...1`</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb55-1" tabindex="-1"></a><span class="fu">names</span>(url_COVID_PR)</span></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb324-1" tabindex="-1"></a>url_COVID_PR <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Datos/url_COVID_PR.csv&quot;</span>)</span>
+<span id="cb324-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb324-2" tabindex="-1"></a><span class="fu">names</span>(url_COVID_PR)</span></code></pre></div>
 <pre><code>##  [1] &quot;...1&quot;               &quot;Fecha&quot;              &quot;Muertes&quot;           
 ##  [4] &quot;IncrementoMuertes&quot;  &quot;CasosPCR_Salud&quot;     &quot;IncCasosPCR_Salud&quot; 
 ##  [7] &quot;CasosSaludNuevo&quot;    &quot;IncCasosSaludNuevo&quot; &quot;HospitCOV19&quot;       
 ## [10] &quot;CamasICU&quot;           &quot;CamasICU_disp&quot;      &quot;Ventiladores&quot;      
 ## [13] &quot;MuertesSalud&quot;       &quot;IncMueSalud&quot;        &quot;VacDoses&quot;          
 ## [16] &quot;VacAdm&quot;             &quot;N1MoreDoses&quot;        &quot;N2Doses&quot;</code></pre>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb57-1" tabindex="-1"></a><span class="fu">head</span>(url_COVID_PR)</span></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb326-1" tabindex="-1"></a><span class="fu">head</span>(url_COVID_PR)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 18
 ##    ...1 Fecha   Muertes IncrementoMuertes CasosPCR_Salud IncCasosPCR_Salud
 ##   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;             &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;
@@ -1233,9 +1234,9 @@ comparando con lo que pasó en el ejercicio anterior con <code>lag()</code>.</li
 ## #   HospitCOV19 &lt;dbl&gt;, CamasICU &lt;dbl&gt;, CamasICU_disp &lt;dbl&gt;, Ventiladores &lt;dbl&gt;,
 ## #   MuertesSalud &lt;dbl&gt;, IncMueSalud &lt;dbl&gt;, VacDoses &lt;dbl&gt;, VacAdm &lt;dbl&gt;,
 ## #   N1MoreDoses &lt;dbl&gt;, N2Doses &lt;dbl&gt;</code></pre>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb59-1" tabindex="-1"></a>url_COVID_PR <span class="sc">%&gt;%</span></span>
-<span id="cb59-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb59-2" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(IncCasosSaludNuevo, CasosSaludNuevo) <span class="sc">%&gt;%</span></span>
-<span id="cb59-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb59-3" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">suma=</span><span class="fu">cumsum</span>(IncCasosSaludNuevo))</span></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb328-1" tabindex="-1"></a>url_COVID_PR <span class="sc">%&gt;%</span></span>
+<span id="cb328-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb328-2" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(IncCasosSaludNuevo, CasosSaludNuevo) <span class="sc">%&gt;%</span></span>
+<span id="cb328-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb328-3" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">suma=</span><span class="fu">cumsum</span>(IncCasosSaludNuevo))</span></code></pre></div>
 <pre><code>## # A tibble: 587 × 3
 ##    IncCasosSaludNuevo CasosSaludNuevo  suma
 ##                 &lt;dbl&gt;           &lt;dbl&gt; &lt;dbl&gt;
@@ -1262,7 +1263,7 @@ con <code>replace_na()</code> y explica qué supuesto estás haciendo al sustitu
 forma de la curva: ¿llovió parejo todo el mes o en pocos eventos?</li>
 </ol>
 </div>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb61-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb330-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 </div>
 <div id="cmean-and-cvar-del-paquete-tidydensity" class="section level2 hasAnchor" number="10.9">
 <h2><span class="header-section-number">10.9</span> cmean() and cvar() del paquete TidyDensity<a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cmean-and-cvar-del-paquete-tidydensity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1278,12 +1279,12 @@ forma de la curva: ¿llovió parejo todo el mes o en pocos eventos?</li>
 <li>rollapply( ) # del paquete zoo para calcular el rolling varianza</li>
 </ul>
 <p>Vea las otras funciones cumulativas en el paquete TidyDensity (cmean, cvar, csd, cmedian, cskewness, ckurtosis): ¿hay otra que podría usar en sus estudios?</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb62-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">678</span>)</span>
-<span id="cb62-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb62-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">5</span>, .<span class="dv">001</span>)</span>
-<span id="cb62-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb62-3" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb331-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">678</span>)</span>
+<span id="cb331-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb331-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">5</span>, .<span class="dv">001</span>)</span>
+<span id="cb331-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb331-3" tabindex="-1"></a><span class="fu">head</span>(x)</span></code></pre></div>
 <pre><code>## [1] 4.999227 5.000933 5.000466 4.998915 4.997844 4.999281</code></pre>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb64-1" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as_tibble</span>(x)</span>
-<span id="cb64-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb64-2" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb333-1" tabindex="-1"></a>df<span class="ot">=</span><span class="fu">as_tibble</span>(x)</span>
+<span id="cb333-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb333-2" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 1
 ##   value
 ##   &lt;dbl&gt;
@@ -1293,34 +1294,21 @@ forma de la curva: ¿llovió parejo todo el mes o en pocos eventos?</li>
 ## 4  5.00
 ## 5  5.00
 ## 6  5.00</code></pre>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb66-1" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>value)</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb335-1" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>value)</span></code></pre></div>
 <pre><code>## [1] 4.999966</code></pre>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb68-1" tabindex="-1"></a><span class="co"># library(MASS)  # innecesario aquí y enmascara dplyr::select(); cmean()/cvar() vienen de TidyDensity</span></span>
-<span id="cb68-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb68-2" tabindex="-1"></a><span class="fu">library</span>(TidyDensity)</span></code></pre></div>
-<pre><code>## 
-## == Welcome to TidyDensity ===========================================================================
-## If you find this package useful, please leave a star: 
-##    https://github.com/spsanderson/TidyDensity&#39;
-## 
-## If you encounter a bug or want to request an enhancement please file an issue at:
-##    https://github.com/spsanderson/TidyDensity/issues
-## 
-## Thank you for using TidyDensity!</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb70-1" tabindex="-1"></a><span class="fu">library</span>(zoo)</span></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;zoo&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     as.Date, as.Date.numeric</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb73-1" tabindex="-1"></a>df3<span class="ot">=</span>df <span class="sc">%&gt;%</span> </span>
-<span id="cb73-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb73-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
-<span id="cb73-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb73-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Prom_cum=</span><span class="fu">cmean</span>(value)) <span class="sc">%&gt;%</span> </span>
-<span id="cb73-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb73-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Var_cum=</span>TidyDensity<span class="sc">::</span><span class="fu">cvar</span>(value)) <span class="sc">|&gt;</span> </span>
-<span id="cb73-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb73-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">promedio_corriendo=</span> zoo<span class="sc">::</span><span class="fu">rollmean</span>(value, <span class="at">k=</span><span class="dv">7</span>, <span class="at">fill=</span><span class="cn">NA</span>, <span class="at">align=</span><span class="st">&quot;left&quot;</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb73-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb73-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">varianza_corriendo=</span> zoo<span class="sc">::</span><span class="fu">rollapply</span>(value, <span class="at">width=</span><span class="dv">7</span>, <span class="at">FUN=</span>var, <span class="at">fill=</span><span class="cn">NA</span>, <span class="at">align=</span><span class="st">&quot;left&quot;</span>))</span>
-<span id="cb73-7"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb73-7" tabindex="-1"></a></span>
-<span id="cb73-8"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb73-8" tabindex="-1"></a></span>
-<span id="cb73-9"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb73-9" tabindex="-1"></a>df3</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-1" tabindex="-1"></a><span class="co"># library(MASS)  # innecesario aquí y enmascara dplyr::select(); cmean()/cvar() vienen de TidyDensity</span></span>
+<span id="cb337-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-2" tabindex="-1"></a><span class="fu">library</span>(TidyDensity)</span>
+<span id="cb337-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-3" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb337-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-4" tabindex="-1"></a></span>
+<span id="cb337-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-5" tabindex="-1"></a>df3<span class="ot">=</span>df <span class="sc">%&gt;%</span> </span>
+<span id="cb337-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-6" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(value) <span class="sc">%&gt;%</span> </span>
+<span id="cb337-7"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Prom_cum=</span><span class="fu">cmean</span>(value)) <span class="sc">%&gt;%</span> </span>
+<span id="cb337-8"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Var_cum=</span>TidyDensity<span class="sc">::</span><span class="fu">cvar</span>(value)) <span class="sc">|&gt;</span> </span>
+<span id="cb337-9"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">promedio_corriendo=</span> zoo<span class="sc">::</span><span class="fu">rollmean</span>(value, <span class="at">k=</span><span class="dv">7</span>, <span class="at">fill=</span><span class="cn">NA</span>, <span class="at">align=</span><span class="st">&quot;left&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb337-10"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">varianza_corriendo=</span> zoo<span class="sc">::</span><span class="fu">rollapply</span>(value, <span class="at">width=</span><span class="dv">7</span>, <span class="at">FUN=</span>var, <span class="at">fill=</span><span class="cn">NA</span>, <span class="at">align=</span><span class="st">&quot;left&quot;</span>))</span>
+<span id="cb337-11"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-11" tabindex="-1"></a></span>
+<span id="cb337-12"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-12" tabindex="-1"></a></span>
+<span id="cb337-13"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb337-13" tabindex="-1"></a>df3</span></code></pre></div>
 <pre><code>## # A tibble: 1,000 × 5
 ##    value Prom_cum       Var_cum promedio_corriendo varianza_corriendo
 ##    &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;              &lt;dbl&gt;              &lt;dbl&gt;
@@ -1339,8 +1327,8 @@ forma de la curva: ¿llovió parejo todo el mes o en pocos eventos?</li>
 <div id="uso-de-varianza-cumulativa-en-investigación" class="section level2 hasAnchor" number="10.10">
 <h2><span class="header-section-number">10.10</span> Uso de varianza cumulativa en investigación:<a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#uso-de-varianza-cumulativa-en-investigaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Un método para determinar si la cantidad de muestras recolectada es suficiente, es evaluar si la varianza cumulativa sigue cambiando cuando se añade nuevas recolección de datos.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb75-1" tabindex="-1"></a>df3<span class="sc">$</span>order<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>)</span>
-<span id="cb75-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb75-2" tabindex="-1"></a>df3</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb339-1" tabindex="-1"></a>df3<span class="sc">$</span>order<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>)</span>
+<span id="cb339-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb339-2" tabindex="-1"></a>df3</span></code></pre></div>
 <pre><code>## # A tibble: 1,000 × 6
 ##    value Prom_cum       Var_cum promedio_corriendo varianza_corriendo order
 ##    &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;              &lt;dbl&gt;              &lt;dbl&gt; &lt;int&gt;
@@ -1355,14 +1343,9 @@ forma de la curva: ¿llovió parejo todo el mes o en pocos eventos?</li>
 ##  9  5.00     5.00   0.00000115                5.00        0.00000131      9
 ## 10  5.00     5.00   0.00000113                5.00        0.00000132     10
 ## # ℹ 990 more rows</code></pre>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb77-1" tabindex="-1"></a><span class="fu">ggplot</span>(df3, <span class="fu">aes</span>(order, Var_cum))<span class="sc">+</span></span>
-<span id="cb77-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb77-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb77-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb77-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
-<pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula = &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
-<pre><code>## Warning: Removed 1 row containing non-finite outside the scale range
-## (`stat_smooth()`).</code></pre>
-<pre><code>## Warning: Removed 1 row containing missing values or values outside the scale range
-## (`geom_point()`).</code></pre>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb341-1" tabindex="-1"></a><span class="fu">ggplot</span>(df3, <span class="fu">aes</span>(order, Var_cum))<span class="sc">+</span></span>
+<span id="cb341-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb341-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb341-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb341-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
 <p><img src="Ciencia_Datos_con_R_files/figure-html/c09-13-1.png" alt="" width="672" /></p>
 <hr />
 </div>
@@ -1370,13 +1353,13 @@ forma de la curva: ¿llovió parejo todo el mes o en pocos eventos?</li>
 <h2><span class="header-section-number">10.11</span> Que pasa con las funciones <strong>cmean</strong>, <strong>cvar</strong> si hay NA en el archivo de datos?<a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#que-pasa-con-las-funciones-cmean-cvar-si-hay-na-en-el-archivo-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="reemplazar-los-na-con-0-usando-la-función-replace_na-con-un-valor-específico-replace_navariable-0" class="section level3 hasAnchor" number="10.11.1">
 <h3><span class="header-section-number">10.11.1</span> Reemplazar los NA con 0, usando la función <strong>replace_na()</strong> con un valor específico <strong>replace_na(“variable”, 0)</strong><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#reemplazar-los-na-con-0-usando-la-funci%C3%B3n-replace_na-con-un-valor-espec%C3%ADfico-replace_navariable-0" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb81-1" tabindex="-1"></a>datos_NA<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="cn">NA</span>, <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>)</span>
-<span id="cb81-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb81-2" tabindex="-1"></a>datos_NA<span class="ot">=</span><span class="fu">as.data.frame</span>(datos_NA)</span>
-<span id="cb81-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb81-3" tabindex="-1"></a></span>
-<span id="cb81-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb81-4" tabindex="-1"></a>datos_NA <span class="sc">%&gt;%</span> </span>
-<span id="cb81-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb81-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(datos_NA) <span class="sc">%&gt;%</span> </span>
-<span id="cb81-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb81-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Prom_cum=</span><span class="fu">cmean</span>(datos_NA)) <span class="sc">%&gt;%</span> </span>
-<span id="cb81-7"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb81-7" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Var_cum=</span><span class="fu">cvar</span>(datos_NA)) </span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb342-1" tabindex="-1"></a>datos_NA<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="cn">NA</span>, <span class="dv">10</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb342-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb342-2" tabindex="-1"></a>datos_NA<span class="ot">=</span><span class="fu">as.data.frame</span>(datos_NA)</span>
+<span id="cb342-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb342-3" tabindex="-1"></a></span>
+<span id="cb342-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb342-4" tabindex="-1"></a>datos_NA <span class="sc">%&gt;%</span> </span>
+<span id="cb342-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb342-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(datos_NA) <span class="sc">%&gt;%</span> </span>
+<span id="cb342-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb342-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Prom_cum=</span><span class="fu">cmean</span>(datos_NA)) <span class="sc">%&gt;%</span> </span>
+<span id="cb342-7"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb342-7" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="at">Var_cum=</span><span class="fu">cvar</span>(datos_NA)) </span></code></pre></div>
 <pre><code>##    datos_NA Prom_cum  Var_cum
 ## 1         1      1.0      NaN
 ## 2         2      1.5 0.500000
@@ -1398,7 +1381,7 @@ forma de la curva: ¿llovió parejo todo el mes o en pocos eventos?</li>
 ## 18       18       NA       NA
 ## 19       19       NA       NA
 ## 20       20       NA       NA</code></pre>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb83-1" tabindex="-1"></a><span class="co"># Solución para resolver los NA.   Cual problema hay con usar NA?</span></span></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb344-1" tabindex="-1"></a><span class="co"># Solución para resolver los NA.   Cual problema hay con usar NA?</span></span></code></pre></div>
 <hr />
 <div class="ejercicio">
 <p><strong>Ejercicio 7: ¿cuántas observaciones son suficientes?</strong></p>
@@ -1412,17 +1395,17 @@ filas de <code>temperatura</code> de EWR en enero (ordenadas por <code>fecha_hor
 promedio? ¿Y la varianza? ¿Cuál de las dos necesita más datos?</li>
 </ol>
 </div>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb84-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb345-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 </div>
 </div>
 <div id="if_else" class="section level2 hasAnchor" number="10.12">
 <h2><span class="header-section-number">10.12</span> if_else()<a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#if_else" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La función if_else() es una función de reemplazo de valores en una columna basado en una condición</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb85-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb85-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb85-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb85-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb85-3" tabindex="-1"></a></span>
-<span id="cb85-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb85-4" tabindex="-1"></a>some_data <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">day =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb85-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb85-5" tabindex="-1"></a>some_data</span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb346-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb346-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb346-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb346-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb346-3" tabindex="-1"></a></span>
+<span id="cb346-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb346-4" tabindex="-1"></a>some_data <span class="ot">=</span> <span class="fu">tibble</span>(<span class="at">day =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb346-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb346-5" tabindex="-1"></a>some_data</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 1
 ##      day
 ##    &lt;int&gt;
@@ -1436,8 +1419,8 @@ promedio? ¿Y la varianza? ¿Cuál de las dos necesita más datos?</li>
 ##  8     8
 ##  9     9
 ## 10    10</code></pre>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb87-1" tabindex="-1"></a>some_data <span class="sc">|&gt;</span> </span>
-<span id="cb87-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb87-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day_p =</span> <span class="fu">if_else</span>(day <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>), <span class="st">&quot;pre&quot;</span>, <span class="st">&quot;normal&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb348-1" tabindex="-1"></a>some_data <span class="sc">|&gt;</span> </span>
+<span id="cb348-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb348-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day_p =</span> <span class="fu">if_else</span>(day <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>), <span class="st">&quot;pre&quot;</span>, <span class="st">&quot;normal&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 2
 ##      day day_p 
 ##    &lt;int&gt; &lt;chr&gt; 
@@ -1451,9 +1434,9 @@ promedio? ¿Y la varianza? ¿Cuál de las dos necesita más datos?</li>
 ##  8     8 normal
 ##  9     9 normal
 ## 10    10 normal</code></pre>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb89-1" tabindex="-1"></a>plant_repr<span class="ot">=</span><span class="fu">tibble</span>(<span class="at">num_flowers=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>, <span class="dv">100</span>, <span class="dv">1000</span>))</span>
-<span id="cb89-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb89-2" tabindex="-1"></a></span>
-<span id="cb89-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb89-3" tabindex="-1"></a>plant_repr</span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb350-1" tabindex="-1"></a>plant_repr<span class="ot">=</span><span class="fu">tibble</span>(<span class="at">num_flowers=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">2</span>, <span class="dv">100</span>, <span class="dv">1000</span>))</span>
+<span id="cb350-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb350-2" tabindex="-1"></a></span>
+<span id="cb350-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb350-3" tabindex="-1"></a>plant_repr</span></code></pre></div>
 <pre><code>## # A tibble: 13 × 1
 ##    num_flowers
 ##          &lt;dbl&gt;
@@ -1470,9 +1453,9 @@ promedio? ¿Y la varianza? ¿Cuál de las dos necesita más datos?</li>
 ## 11           2
 ## 12         100
 ## 13        1000</code></pre>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb91-1" tabindex="-1"></a>plant_repr <span class="sc">|&gt;</span> </span>
-<span id="cb91-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb91-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flower_status =</span> <span class="fu">if_else</span>(num_flowers <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&quot;not reproductive&quot;</span>,</span>
-<span id="cb91-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb91-3" tabindex="-1"></a>                                 <span class="st">&quot;reproductive&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb352-1" tabindex="-1"></a>plant_repr <span class="sc">|&gt;</span> </span>
+<span id="cb352-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb352-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flower_status =</span> <span class="fu">if_else</span>(num_flowers <span class="sc">==</span> <span class="dv">0</span>, <span class="st">&quot;not reproductive&quot;</span>,</span>
+<span id="cb352-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb352-3" tabindex="-1"></a>                                 <span class="st">&quot;reproductive&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 13 × 2
 ##    num_flowers flower_status   
 ##          &lt;dbl&gt; &lt;chr&gt;           
@@ -1489,9 +1472,9 @@ promedio? ¿Y la varianza? ¿Cuál de las dos necesita más datos?</li>
 ## 11           2 reproductive    
 ## 12         100 reproductive    
 ## 13        1000 reproductive</code></pre>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb93-1" tabindex="-1"></a>plant_repr <span class="sc">|&gt;</span> </span>
-<span id="cb93-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb93-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flower_status =</span> <span class="fu">if_else</span>(num_flowers <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="st">&quot;not reproductive&quot;</span>,</span>
-<span id="cb93-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb93-3" tabindex="-1"></a>                                 <span class="st">&quot;reproductive&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb354-1" tabindex="-1"></a>plant_repr <span class="sc">|&gt;</span> </span>
+<span id="cb354-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb354-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flower_status =</span> <span class="fu">if_else</span>(num_flowers <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>), <span class="st">&quot;not reproductive&quot;</span>,</span>
+<span id="cb354-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb354-3" tabindex="-1"></a>                                 <span class="st">&quot;reproductive&quot;</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 13 × 2
 ##    num_flowers flower_status   
 ##          &lt;dbl&gt; &lt;chr&gt;           
@@ -1508,12 +1491,12 @@ promedio? ¿Y la varianza? ¿Cuál de las dos necesita más datos?</li>
 ## 11           2 reproductive    
 ## 12         100 reproductive    
 ## 13        1000 reproductive</code></pre>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb95-1" tabindex="-1"></a>plant_repr <span class="sc">|&gt;</span></span>
-<span id="cb95-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb95-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flower_status =</span> </span>
-<span id="cb95-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb95-3" tabindex="-1"></a>           <span class="fu">if_else</span>(num_flowers <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>), </span>
-<span id="cb95-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb95-4" tabindex="-1"></a>                                 <span class="st">&quot;not reproductive&quot;</span>,</span>
-<span id="cb95-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb95-5" tabindex="-1"></a>           <span class="fu">if_else</span>(num_flowers <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>), <span class="st">&quot;reproductive&quot;</span>,</span>
-<span id="cb95-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb95-6" tabindex="-1"></a>                                <span class="st">&quot;super reproductive&quot;</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb356-1" tabindex="-1"></a>plant_repr <span class="sc">|&gt;</span></span>
+<span id="cb356-2"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb356-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flower_status =</span> </span>
+<span id="cb356-3"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb356-3" tabindex="-1"></a>           <span class="fu">if_else</span>(num_flowers <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">0</span>), </span>
+<span id="cb356-4"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb356-4" tabindex="-1"></a>                                 <span class="st">&quot;not reproductive&quot;</span>,</span>
+<span id="cb356-5"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb356-5" tabindex="-1"></a>           <span class="fu">if_else</span>(num_flowers <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>), <span class="st">&quot;reproductive&quot;</span>,</span>
+<span id="cb356-6"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb356-6" tabindex="-1"></a>                                <span class="st">&quot;super reproductive&quot;</span>)))</span></code></pre></div>
 <pre><code>## # A tibble: 13 × 2
 ##    num_flowers flower_status     
 ##          &lt;dbl&gt; &lt;chr&gt;             
@@ -1543,7 +1526,7 @@ y “no eficiente” en los demás casos.</li>
 toda de una sola categoría?</li>
 </ol>
 </div>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb97-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb358-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 <div class="ejercicio">
 <p><strong>Ejercicio 9 (reto integrador): combinar <code>group_by()</code> con <code>lag()</code></strong></p>
 <p>Con <code>clima</code> completo (los tres aeropuertos, todo el año):</p>
@@ -1557,7 +1540,7 @@ día de un aeropuerto se va a restar con el primer día del siguiente.</li>
 agrupas primero.</li>
 </ol>
 </div>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb98-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="transformación-mutate-transmute-lag-lead-cumsum-cummean-cumvar.html#cb359-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 
 </div>
 </div>

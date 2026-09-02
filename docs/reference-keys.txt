@@ -14,9 +14,11 @@ descripción-del-curso
 objetivos-del-curso
 puntuación
 exámenes
+presentación-final
 conferencias
 ejercicios
-faltar-a-clase-y-examen
+entregas-tardías
+faltar-a-clase
 derechos-de-estudiantes-con-impedimentos
 integridad-académica
 comentario-sobre-grabar-videos-yo-audio-de-las-clases
@@ -383,6 +385,3 @@ trabajando-variables-categóricas-con-leaflet
 appendix-a
 ejercicio-de-transformación
 covid-19-cumulativo
-presentación-final
-entregas-tardías
-faltar-a-clase
