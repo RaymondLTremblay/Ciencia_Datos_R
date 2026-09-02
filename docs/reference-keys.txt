@@ -383,3 +383,6 @@ trabajando-variables-categóricas-con-leaflet
 appendix-a
 ejercicio-de-transformación
 covid-19-cumulativo
+presentación-final
+entregas-tardías
+faltar-a-clase

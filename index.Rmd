@@ -1,6 +1,6 @@
 ---
 title: "Ciencia de Datos con R"
- 
+
 output:
   bookdown::gitbook:
     highlight: tango
@@ -17,9 +17,9 @@ description: |
 link-citations: yes
 always_allow_html: true
 
-editor_options: 
-  markdown: 
-    wrap: 72    
+editor_options:
+  markdown:
+    wrap: 72
 ---
 
 
@@ -43,31 +43,33 @@ biología— para contestar preguntas cuantitativas.
 :::
 
 ***
-**Instructor:** Raymond L. Tremblay, PhD   
-  
-**Oficina**: NL 104			 		 
-**Teléfono**: (787) 850-0000 (dept de biología)			  		
-**Correo electrónico**: raymond.tremblay_at_upr_dot_edu	
- 
+**Instructor:** Raymond L. Tremblay, PhD
+
+**Oficina**: NL 104
+**Teléfono**: (787) 850-0000 (dept de biología)
+**Correo electrónico**: raymond.tremblay_at_upr_dot_edu
+
 ***
 ### Horario de clase
 
-**Presentación de temas y discusión**: Lunes y miércoles 4:30-5:50pm (80 mins) (NOTE: Necesita traer su laptop!)   
+**Presentación de temas y discusión**: Lunes y miércoles 4:30-5:50pm (80 mins) NOTE: Necesita traer su laptop!
 
-**Hora de consulta con Estudiantes**:  
+**Hora de consulta con Estudiantes**:
 
-- Lunes y miércoles de 1:00 a 5:30pm (NL 104).    
+NL 104.
+- Lunes y miércoles de 9:00 a 12:30pm
+- martes y jueves de 1:00 a 2:00pm
 
 ***
 
 
 
-### Libros sugeridos       
-- [Garrett Grolemund, Hadley Wickham. R for Data Science](https://r4ds.had.co.nz) En Inglés. 
+### Libros sugeridos
+- [Garrett Grolemund, Hadley Wickham. R for Data Science (2.ª ed.)](https://r4ds.hadley.nz) En Inglés.
 - [Garrett Grolemund, Hadley Wickham. R para Ciencia de Datos](https://es.r4ds.hadley.nz) En Español.
 - [Tremblay y Hernández-Serrano, 2018](https://www.amazon.com/Gráficas-Versátiles-ggplot2-Análisis-Spanish-ebook/dp/B07P2Q87H2/ref=sr_1_1?dchild=1&keywords=Graficas+versatiles&qid=1591404029&sr=8-1).
 
-•	Artículos revisados por pares serán asignados para fomentar el método de utilizar estas herramientas en ciencias. 
+•	Artículos revisados por pares serán asignados para fomentar el método de utilizar estas herramientas en ciencias.
 
 ***
 ### Programados
@@ -76,75 +78,93 @@ biología— para contestar preguntas cuantitativas.
 Instala R y RStudio (ambos gratuitos) antes de la primera clase. Luego abre el capítulo "Instalación de paquetes", que incluye un bloque para instalar de una sola vez todo lo necesario.
 :::
 
-- [R- free statistical programming language](https://cran.r-project.org/) 
+- [R- free statistical programming language](https://cran.r-project.org/)
 - [RStudio](https://rstudio.com)
-- MSExcel, Numbers o Google Sheet 
+- MSExcel, Numbers o Google Sheet
 
 ***
 
-### Prerequisitos    
+### Prerequisitos
 
-Ninguno 
+Ninguno formal. Se recomienda haber aprobado previamente el curso complementario de estadística, **BIOL3740 (Bioestadística)**, ya que este curso asume familiaridad con conceptos estadísticos básicos y se concentra en la organización, manipulación y visualización de datos.
 
 ***
-### Descripción del curso 
+### Descripción del curso
 
-Estudio de diferentes técnicas estadísticas con aplicación a la Biología. Se enfatizará en la estadística descriptiva, análisis de regresiones y correlaciones, pruebas de hipótesis paramétricas y no paramétricas y análisis de frecuencias y varianza. Se hará énfasis en los supuestos de las pruebas, para seleccionar cual método estadístico es adecuado para el diseño experimental y la distribución de los datos. Además, se utilizarán las computadoras como mecanismos para facilitar y agilizar el cómputo y análisis estadístico.
+Este curso introduce las técnicas modernas de ciencia de datos aplicadas a la biología usando R, RStudio y RMarkdown. El énfasis está en el flujo de trabajo completo con datos: importar, organizar, limpiar, transformar, visualizar y comunicar datos de manera reproducible con el ecosistema `tidyverse`. Se trabaja con datos reales para demostrar cómo producir análisis, tablas, gráficas y documentos profesionales para la ciencia. El curso complementa —y asume familiaridad básica con— el curso de bioestadística (BIOL3740), en el cual se estudian a fondo las pruebas de hipótesis, sus supuestos y la selección del método estadístico según el diseño experimental.
 
 ***
 
 ### Objetivos del curso
 
-Tema general del curso
--	Desarrollar destrezas de organizar y evaluar datos para contestar preguntas cuantitativas con R, RStudio, RMarkdown y Quarto y otros programados
+**Tema general:** desarrollar destrezas para organizar, transformar, visualizar y comunicar datos con el fin de contestar preguntas cuantitativas usando R, RStudio y RMarkdown.
 
+Al finalizar el curso, el estudiante podrá:
 
- 
+- Importar y organizar datos de distintas fuentes.
+- Limpiar y transformar datos con `dplyr` y `tidyr`, incluyendo la combinación de datos relacionados.
+- Visualizar datos de forma efectiva con `ggplot2`.
+- Trabajar con cadenas de texto (`stringr`), factores (`forcats`) y fechas y horas (`lubridate`).
+- Escribir funciones e iterar procesos con `purrr`.
+- Construir y visualizar modelos básicos con `modelr`.
+- Producir documentos y sitios web reproducibles con RMarkdown.
+- Comunicar resultados cuantitativos de manera clara y profesional.
 
 ***
-### Puntuación: 
+### Puntuación:
 Este curso será evaluado con los siguientes ítems:
 
 
 |Item                    |     Valor              |
 |:--------------------|-------------------:|
-| Ejercicios práctico (10-15 total) |	  80%|     
+| Ejercicios prácticos (10-15 total) |	  55%|
+| Presentación final (sitio web en RMarkdown) | 25% |
 | Participación en clase |10%|
 | Asistencia a clase |10%|
 
-NOTE: 
-Escala de Notas: 
+NOTE:
+Escala de Notas:
 
-  * A (100 to 90) 
-  * B (89 to 80) 
-  * C (79 to 70) 
-  * D (69 to 60) 
-  * F (< 60) 
+  * A (100 to 90)
+  * B (89 to 80)
+  * C (79 to 70)
+  * D (69 to 60)
+  * F (< 60)
 
 ***
 ### Exámenes:
 
-Ninguno 
+Ninguno.
+
+***
+### Presentación final
+
+El semestre culmina con una presentación final en la que cada estudiante construye y presenta su propio sitio web reproducible en RMarkdown (con su archivo `.yml` y su hoja de estilo `.css`). El proyecto integra las destrezas del semestre —importar, organizar, transformar, visualizar y comunicar datos— y vale el 25% de la nota final.
 
 ***
 ### Conferencias
 
-En la clase las notas serán basado primeramente en la participación y algunas pruebas cortas.  Su participación es esencial para el aprendizaje (y para un ambiente positivo). Aprender *NO* es un proceso pasivo: los estudiantes deben participar haciendo preguntas y discutir el material con su conocimiento anterior (Su bagaje de conocimiento).  
+En la clase las notas serán basado primeramente en la participación y algunas pruebas cortas.  Su participación es esencial para el aprendizaje (y para un ambiente positivo). Aprender *NO* es un proceso pasivo: los estudiantes deben participar haciendo preguntas y discutir el material con su conocimiento anterior (Su bagaje de conocimiento).
 
 ***
 
-### Ejercicios  
+### Ejercicios
 
 Los ejercicios están enfocados en la aplicación de conceptos y métodos discutidos en la clase y solución de problemas. Se hará un esfuerzo de usar datos reales para demostrar cómo trabajar con los análisis, tablas, y gráficos en R, RStudio y RMarkdown.  Típicamente, tendrán solamente una semana para hacer los ejercicios y entregarlos en formato *.html*.
 
 ::: {.nota}
 Los ejercicios se entregan en formato `.html`, que se genera al hacer **Knit** de tu archivo `.Rmd` en RStudio.
-:::   
+:::
 
 ***
-### Faltar a clase y examen:
+### Entregas tardías
 
-*Los trabajos cortos y pruebas cortas NO se reponen*.  Si falta a la clase es su responsabilidad hablar con los otros estudiantes para saber lo que se discutió en la clase. Los exámenes se reponen solamente por una excusa válida.    
+Los ejercicios deben entregarse en la fecha y hora indicadas. **Por cada día de tardanza se descontará el 10% de la puntuación del trabajo** (por ejemplo, un ejercicio entregado con dos días de retraso recibe un descuento del 20%). A partir del décimo día calendario de tardanza, el trabajo recibe una puntuación de cero. Solo se considerarán excepciones con una excusa válida y documentada.
+
+***
+### Faltar a clase:
+
+*Los trabajos cortos y pruebas cortas NO se reponen*.  Si falta a la clase es su responsabilidad hablar con los otros estudiantes para saber lo que se discutió en la clase. La presentación final se repone solamente por una excusa válida.
 
 ***
 ### Derechos de Estudiantes con Impedimentos
@@ -170,7 +190,7 @@ disciplinario establecido en el Reglamento General de Estudiantes de la UPR vige
 
 ***
 ### Comentario sobre grabar videos y/o audio de las clases
-Los estudiantes no PUEDEN grabar la clase por forma de video o audio sin el permiso del profesor.  Algunos estudiantes con necesidades especiales pueden hablar con el profesor para pedir el permiso.  La solicitud y aprobación del permiso tiene que ser por escrito (por ejemplo por email).  
+Los estudiantes no PUEDEN grabar la clase por forma de video o audio sin el permiso del profesor.  Algunos estudiantes con necesidades especiales pueden hablar con el profesor para pedir el permiso.  La solicitud y aprobación del permiso tiene que ser por escrito (por ejemplo por email).
 
 ***
 ### Espacio libre de acoso sexual
@@ -179,4 +199,5 @@ La Universidad de Puerto Rico prohíbe el discrimen por razón de sexo y género
 ***
 ### Protocolo de la Clase
 Los teléfonos móviles serán apagados durante la clase.  Si necesita una calculadora traerla al salón. El teléfono no debería estar visible durante la clase a menos que pida permiso al instructor. Recuerda que se usarán computadoras portátiles en cada sesión.
+
 

@@ -127,3 +127,26 @@ https://es.r4ds.hadley.nz/05-transform.html#ejercicios-2
 
 ------------------------------------------------------------------------
 
+```{r}
+library(readr)
+url_COVID_PR <- read_csv("Datos/url_COVID_PR.csv")
+
+url_COVID_PR
+```
+
+
+```{r}
+
+library(tidyverse)
+df2=url_COVID_PR %>% 
+  dplyr::select(IncCasosSaludNuevo) %>% 
+  mutate(Cambios_Casos=IncCasosSaludNuevo-lag(IncCasosSaludNuevo,7)) 
+
+
+
+
+
+df2
+```
+
+
