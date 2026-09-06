@@ -1,0 +1,316 @@
+---
+title: "Soluciones: Capítulo Ecuaciones matemáticas (LaTeX en R Markdown)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  bookdown::html_document2:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Corresponde a: 21-Ecuaciones-matematicas.Rmd (Capítulo 23 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_23_ecuaciones.Rmd
+
+Nota: este archivo usa bookdown::html_document2 a propósito, para que el
+Ejercicio 5 (ecuación numerada y referencia cruzada) se pueda ver funcionando.
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+Estas son soluciones **de referencia**. En LaTeX casi siempre hay más de una
+manera de escribir la misma fórmula; lo que se evalúa es que **componga
+correctamente** y que el estudiante sepa explicar qué hace cada pieza.
+
+En cada ejercicio va primero el código y debajo cómo se ve.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: en la línea y aparte
+
+En la línea: `` $\bar{x} = \frac{\sum x_i}{n}$ ``
+
+El promedio $\bar{x} = \frac{\sum x_i}{n}$ se calcula así.
+
+Aparte: `` $$\bar{x} = \frac{\sum x_i}{n}$$ ``
+
+$$\bar{x} = \frac{\sum x_i}{n}$$
+
+**Respuesta esperada.** Un signo de dólar a cada lado para la versión en la
+línea, dos para la versión aparte. Es la única diferencia.
+
+Sobre cuándo usar cada una: la versión **en la línea** para una fórmula corta que
+forma parte de la frase, porque sacarla aparte rompe la lectura. La versión
+**aparte** cuando la fórmula es larga, cuando lleva sumatorias o fracciones (que
+en la línea se comprimen y se leen mal), o cuando hay que referirse a ella más
+adelante.
+
+Detalle que conviene señalar: en la versión en la línea, la fracción sale
+apretada, y por eso muchas revistas piden que las fracciones dentro de un párrafo
+se escriban con barra, $\sum x_i / n$, en vez de con `\frac`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: las llaves que faltan
+
+Correcta:
+
+`` $$s^2 = \frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}$$ ``
+
+$$s^2 = \frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}$$
+
+Sin llaves, a propósito:
+
+`` $$s^2 = \frac{\sum_i=1^n (x_i - \bar{x})^2}{n-1}$$ ``
+
+$$s^2 = \frac{\sum_i=1^n (x_i - \bar{x})^2}{n-1}$$
+
+**Respuesta esperada.** En la versión mala, `\sum_i=1^n` pone como subíndice
+**solo la i** y como superíndice **solo la n**; el `=1` se queda suelto en la
+línea principal, al lado del signo de sumatoria. El resultado es una fórmula que
+compila sin dar error y que dice otra cosa.
+
+Ese es el punto del ejercicio y hay que insistir en él: LaTeX **no avisa**. Una
+fórmula mal agrupada no produce ningún mensaje, produce una fórmula equivocada,
+igual que el `read_csv()` sin `locale` del capítulo de importar datos.
+
+Por qué es difícil de ver en una fórmula larga: porque el ojo lee la fórmula como
+un todo y reconoce la forma general, que es la correcta. La diferencia está en la
+posición vertical de dos caracteres pequeños. La defensa es la misma de siempre:
+componer las piezas por separado antes de juntarlas.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: sumatorias con límites
+
+Shannon:
+
+`` $$H' = -\sum_{i=1}^{S} p_i \ln p_i$$ ``
+
+$$H' = -\sum_{i=1}^{S} p_i \ln p_i$$
+
+Pielou:
+
+`` $$J' = \frac{H'}{\ln S}$$ ``
+
+$$J' = \frac{H'}{\ln S}$$
+
+Y la comparación que se pedía:
+
+`$\ln$` da $\ln$, recto; `$ln$` da $ln$, en cursiva y con las dos letras
+separadas como si fueran dos variables multiplicadas.
+
+**Respuesta esperada.** Los límites salen arriba y abajo del signo porque la
+fórmula está en modo **aparte** (`$$`). En modo en línea, LaTeX los pone a los
+lados para no romper el renglón; si se quieren arriba y abajo también en la
+línea, hay que añadir `\limits`.
+
+Por qué `\ln` sale recto y `ln` en cursiva: dentro de una fórmula, LaTeX supone
+que **cada letra suelta es una variable**, y las variables van en cursiva. Así
+que `ln` lo interpreta como "ele por ene". Los comandos como `\ln`, `\log`,
+`\max`, `\sin` y `\exp` existen precisamente para decirle "esto es el nombre de
+una función, no un producto de variables", y además le dan el espaciado correcto.
+
+Es la misma idea que `\mathrm{}` del Ejercicio 6, y conviene decirlo en clase para
+que las dos cosas queden conectadas.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: fracciones y raíces
+
+Error estándar:
+
+`` $$s_{\bar{x}} = \frac{s}{\sqrt{n}}$$ ``
+
+$$s_{\bar{x}} = \frac{s}{\sqrt{n}}$$
+
+Estadístico t:
+
+`` $$t = \frac{\bar{x} - \mu}{s / \sqrt{n}}$$ ``
+
+$$t = \frac{\bar{x} - \mu}{s / \sqrt{n}}$$
+
+Con la fracción anidada de verdad, que es lo que pedía el enunciado:
+
+`` $$t = \frac{\bar{x} - \mu}{\frac{s}{\sqrt{n}}}$$ ``
+
+$$t = \frac{\bar{x} - \mu}{\frac{s}{\sqrt{n}}}$$
+
+Y la versión para poner dentro de un párrafo:
+
+`$t = (\bar{x} - \mu) / (s / \sqrt{n})$` da $t = (\bar{x} - \mu) / (s / \sqrt{n})$
+
+**Respuesta esperada.** Las dos versiones del estadístico t son correctas y vale
+la pena aceptar cualquiera de las dos, pero conviene comentar la diferencia: la
+fracción anidada es más fiel a como se escribe a mano y sale visualmente
+apretada; la de la barra es más legible. En un artículo se ve más la segunda.
+
+La raíz tiene que cubrir **solo la n**: `\sqrt{n}`, no `\sqrt{n-1}` ni
+`\sqrt n - 1`. Es otro caso de llaves.
+
+Sobre la versión en la línea, lo que hay que ver en la entrega es que el
+estudiante haya añadido **paréntesis**. Al pasar de `\frac` a la barra, la
+agrupación que antes era visual desaparece, y sin paréntesis
+$\bar{x} - \mu / s / \sqrt{n}$ significa otra cosa completamente distinta.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: una ecuación numerada
+
+El código:
+
+````
+\begin{equation}
+  \frac{dN}{dt} = rN \left( 1 - \frac{N}{K} \right)
+  (\#eq:logistica)
+\end{equation}
+````
+
+Y así se ve, con su número:
+
+\begin{equation}
+  \frac{dN}{dt} = rN \left( 1 - \frac{N}{K} \right)
+  (\#eq:logistica)
+\end{equation}
+
+El crecimiento logístico está descrito por la ecuación \@ref(eq:logistica).
+
+**Respuesta esperada.** Lo que hay que ver en la entrega: el entorno `equation`,
+la etiqueta `(\#eq:algo)` **dentro** del entorno, y la referencia
+`\@ref(eq:algo)` en el texto.
+
+Detalle de calidad que vale un comentario: `\left(` y `\right)` en vez de
+paréntesis normales hacen que los paréntesis crezcan hasta abarcar la fracción.
+Con paréntesis normales quedan pequeños y la fórmula se ve mal.
+
+Por qué no funciona en la hoja del estudiante: la numeración de ecuaciones y las
+referencias cruzadas son de **bookdown**, no de R Markdown. En un
+`output: html_document` la ecuación sale sin número y `\@ref(eq:logistica)` sale
+como texto literal.
+
+La línea que hay que cambiar en el YAML:
+
+````
+output: bookdown::html_document2
+````
+
+Este archivo de soluciones la usa, y por eso aquí sí se ve la numeración
+funcionando. Es una buena demostración para hacer en clase con el proyector.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: cuando la cursiva estorba
+
+Hardy-Weinberg:
+
+`` $$p^2 + 2pq + q^2 = 1$$ ``
+
+$$p^2 + 2pq + q^2 = 1$$
+
+Fotosíntesis con `\mathrm{}`:
+
+`` $$\mathrm{6CO_2 + 6H_2O} \longrightarrow \mathrm{C_6H_{12}O_6 + 6O_2}$$ ``
+
+$$\mathrm{6CO_2 + 6H_2O} \longrightarrow \mathrm{C_6H_{12}O_6 + 6O_2}$$
+
+Sin `\mathrm{}`:
+
+`` $$6CO_2 + 6H_2O \longrightarrow C_6H_{12}O_6 + 6O_2$$ ``
+
+$$6CO_2 + 6H_2O \longrightarrow C_6H_{12}O_6 + 6O_2$$
+
+**Respuesta esperada.** La diferencia se ve enseguida: sin `\mathrm{}` las letras
+salen en cursiva y con un espaciado distinto, porque LaTeX cree que son
+variables multiplicadas entre sí.
+
+Fíjate en el `C_6H_{12}O_6`: el 12 necesita llaves y el 6 no. Es el Ejercicio 2
+otra vez, aplicado a química.
+
+Sobre Hardy-Weinberg: `p` y `q` **sí** van en cursiva, y esta es la parte que más
+se falla. Son **variables**, las frecuencias alélicas, no nombres de sustancias.
+La regla general que se busca en la explicación: en cursiva lo que representa una
+cantidad que puede cambiar de valor ($p$, $n$, $x$, $\lambda$); en letra recta lo
+que es un nombre fijo (los elementos químicos, los nombres de funciones como
+$\ln$, las unidades como $\mathrm{mg}$).
+
+Sobre la última pregunta, que es la más fina: el subíndice de $x_i$ va en
+**cursiva**, porque la `i` es un índice que varía; el subíndice de
+$\mathrm{CO_2}$ va **recto**, porque el 2 es parte del nombre de la molécula, no
+una variable. No es el mismo caso, aunque los dos se escriban con `_`. Aceptar
+cualquier respuesta que note que el 2 no es una variable.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): una matriz de población
+
+El código:
+
+````
+$$
+\mathbf{n}(t+1) = \mathbf{A}\,\mathbf{n}(t), \qquad
+\mathbf{A} =
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & a_{33}
+\end{bmatrix}
+$$
+````
+
+Y se ve así:
+
+$$
+\mathbf{n}(t+1) = \mathbf{A}\,\mathbf{n}(t), \qquad
+\mathbf{A} =
+\begin{bmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & a_{33}
+\end{bmatrix}
+$$
+
+**Respuesta esperada.** Lo esencial es el entorno `bmatrix`, el `&` entre
+columnas y las dos barras invertidas al final de cada fila menos la última.
+
+Detalles que suman: `\mathbf{}` para poner en negrita la matriz y el vector, que
+es la convención en ecología de poblaciones; y `\qquad` para separar las dos
+partes de la línea.
+
+Las tres variantes:
+
+- `bmatrix`: corchetes rectos. Es la que se usa para una matriz.
+- `pmatrix`: paréntesis. También común, sobre todo en la literatura más vieja.
+- `vmatrix`: barras verticales, que en notación matemática significan
+  **determinante**, no matriz.
+
+Por eso, en un artículo sobre matrices de proyección: `bmatrix` (o `pmatrix`)
+para la matriz $\mathbf{A}$, y `vmatrix` **solo** cuando se hable del
+determinante. Usar `vmatrix` para la matriz sería decir algo distinto de lo que
+uno quiere decir.
+
+**Punto para discutir en clase.** Este es el bono con más futuro para quien vaya
+a trabajar con modelos matriciales de población: es exactamente la notación de
+Caswell, y la van a necesitar en cuanto escriban su primer manuscrito.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Reparto sugerido: 3 puntos porque la fórmula componga correctamente y 2 por la
+explicación.
+
+Los ejercicios 2 y 6 son los importantes, y por la misma razón: LaTeX **no avisa**
+cuando una fórmula está mal agrupada o mal tipografiada. Sale algo, y ese algo
+parece bien. Es la misma clase de error silencioso que el `locale` en importar
+datos y el `inner_join()` en datos relacionados, y vale la pena decirlo así, para
+que vean el patrón.
+
+Errores frecuentes en las entregas:
+
+- Olvidar las llaves en `C_{12}` o en `e^{-2x}`.
+- Escribir `ln`, `max` o `log` a mano, en cursiva.
+- Poner la etiqueta `(\#eq:...)` fuera del entorno `equation`.
+- Usar `*` para multiplicar dentro de una fórmula. En notación matemática se usa
+  `\times` o `\cdot`, o nada.

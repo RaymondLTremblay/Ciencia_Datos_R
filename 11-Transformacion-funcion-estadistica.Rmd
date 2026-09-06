@@ -1,19 +1,67 @@
 # Transformación: Índices paramétricos y no paramétricos
 
+Fecha de la última revisión
+
 ```{r c11-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
 ```
 
-## Funciones estadísticas básicas:
+------------------------------------------------------------------------
+
+El tema proviene de los siguientes sitios.
+
+English: <https://r4ds.had.co.nz/transform.html>
+
+Español: <https://es.r4ds.hadley.nz/05-transform.html>
+
+------------------------------------------------------------------------
+
+## Temas
+
+-   Qué quiere decir paramétrico y no paramétrico
+-   Medidas de centro: `mean()`, `median()`
+-   Medidas de dispersión: `sd()`, `IQR()`, `mad()`
+-   Medidas de posición y extremos: `min()`, `max()`, `quantile()`, `first()`, `last()`
+-   Cómo se reporta un número: `signif()`, `round()`
+-   Valores faltantes y `na.rm`
+
+------------------------------------------------------------------------
+
+## Paquetes
+
+```{r c11-paquetes}
+library(tidyverse)
+library(datos)
+```
+
+------------------------------------------------------------------------
+
+## ¿Qué quiere decir paramétrico y no paramétrico?
+
+Un índice **paramétrico** describe los datos suponiendo que vienen de una
+distribución con cierta forma, casi siempre la normal, y usa **todas** las
+observaciones: el promedio y la desviación estándar son los dos ejemplos
+clásicos. Un índice **no paramétrico** no supone ninguna forma y se apoya en el
+orden de los datos, no en su magnitud: la mediana, el rango intercuartil y la
+desviación absoluta mediana.
+
+La consecuencia práctica es la que hay que recordar: un solo valor extremo mueve
+mucho al promedio y a la desviación estándar, y casi no mueve a la mediana ni al
+rango intercuartil. Por eso, cuando la distribución tiene una cola larga, los
+índices no paramétricos describen mejor lo que es típico.
+
+------------------------------------------------------------------------
+
+## Funciones estadísticas básicas
 
 ::: {.consejo}
 Casi todas estas funciones (`mean()`, `sd()`, `min()`, `max()`, `IQR()`...) devuelven `NA` si hay valores faltantes. Añade `na.rm = TRUE` para calcularlas ignorando los `NA`.
 :::
 
 ::: {.funcion}
-**Funciones estadísticas de resumen** — cada una devuelve un solo número.
+**Funciones estadísticas de resumen**, cada una devuelve un solo número.
 
 - **Centro:** `mean()` (promedio), `median()` (mediana).
 - **Dispersión:** `sd()` (desviación estándar), `IQR()` (rango intercuartil), `mad()` (desviación absoluta mediana).
@@ -21,42 +69,227 @@ Casi todas estas funciones (`mean()`, `sd()`, `min()`, `max()`, `IQR()`...) devu
 - **Recuerda:** añade `na.rm = TRUE` si hay valores faltantes.
 :::
 
+### Un ejemplo mínimo de cada una
 
-Tarea de grupo.
+```{r c11-ejemplo}
+x <- c(4, 8, 15, 16, 23, 42, NA)
 
-Preparar un .rmd con las explicaciones de cómo utilizar la función mencionada abajo. Debe incluir
+mean(x, na.rm = TRUE)      # centro, paramétrico
+median(x, na.rm = TRUE)    # centro, no paramétrico
+
+sd(x, na.rm = TRUE)        # dispersión, paramétrica
+IQR(x, na.rm = TRUE)       # dispersión, no paramétrica
+mad(x, na.rm = TRUE)       # dispersión, no paramétrica y robusta
+
+min(x, na.rm = TRUE)
+max(x, na.rm = TRUE)
+quantile(x, c(0.25, 0.50, 0.75), na.rm = TRUE)
+
+first(x)                   # el primero en el orden de las filas
+last(x)                    # el último en el orden de las filas
+
+signif(mean(x, na.rm = TRUE), 3)   # 3 cifras significativas
+round(mean(x, na.rm = TRUE), 2)    # 2 decimales
+```
+
+::: {.nota}
+`first()` y `last()` **no** son `min()` y `max()`. Leen la posición de la fila,
+no el tamaño del valor, así que dependen del orden de la tabla: si no ordenaste
+con `arrange()`, el resultado puede cambiar sin que te des cuenta.
+:::
+
+::: {.historia}
+La mediana y el rango intercuartil se volvieron herramientas de uso diario con
+**John W. Tukey**, que en *Exploratory Data Analysis* (1977) propuso resumir
+cualquier variable con cinco números resistentes a los valores extremos. La
+desviación absoluta mediana es todavía más vieja, aparece en trabajos de
+**Gauss**, y fue rescatada en los años setenta por la estadística robusta de
+**Peter J. Huber** y **Frank Hampel**.
+:::
+
+------------------------------------------------------------------------
+
+## Tarea de grupo
+
+Preparar un .rmd con las explicaciones de cómo utilizar la función asignada. Debe incluir
 
 1.  La definición de la función en palabra y matemática.
 2.  un script sencillo (con pocos datos) (uno o más ejemplos) para explicar la función
 3.  un script con los datos de "vuelos" o de "Covid-19 de PR".
 4.  a las 2:20pm cada grupo presentará su trabajo.
-5.  Después de la clase cada grupo, mejorará su .rmd con los comentarios recibidos.\
+5.  Después de la clase cada grupo, mejorará su .rmd con los comentarios recibidos.
 6.  Domingo se subirá el .rmd y el .html en MSTeam (cada estudiante lo subirá: tendrá el nombre de cada estudiante en el trabajo)
 7.  El profesor revisará los trabajos y subsiguiente se distribuirá los .rmd y html a los estudiantes.
 
--   IQR() \## G1
+| Grupo | Función | Tipo de índice |
+|:--|:--|:--|
+| G1 | `IQR()` | dispersión, no paramétrico |
+| G2 | `mad()` | dispersión, no paramétrico |
+| G3 | `first()` y `last()` | posición |
+| G4 | `quantile()` | posición, no paramétrico |
+| G5 | `signif()` | presentación del resultado |
+| sin asignar | `min()`, `max()` | extremos |
+| sin asignar | `mean()`, `sd()` | centro y dispersión, paramétricos |
 
--   mad() \## G2
+------------------------------------------------------------------------
 
--   first() \## G3
+## Ejercicios del libro R4DS
 
--   last() \## G3
+Hacer los ejercicios en la sección 5.7.1 del libro en español.
 
--   quantile() \## G4
+------------------------------------------------------------------------
 
--   signif() \## G5
+## Ejercicios del capítulo
 
-    -   min()
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los ejercicios usan `paises` y `diamantes` del paquete `datos`, no
+`vuelos` ni los datos de COVID de Puerto Rico. La hoja completa para entregar
+está en `Ejercicios/Ejercicios_Capitulo_12_indices.Rmd`.
 
--   max()
+La idea de fondo es siempre la misma: para cada pregunta hay un índice
+**paramétrico** (promedio, desviación estándar), que supone una distribución bien
+portada, y uno **no paramétrico** (mediana, rango intercuartil, `mad()`), que no
+lo supone. Casi todos los ejercicios piden calcular los dos y decidir cuál
+describe mejor los datos.
+:::
 
--   mean()
+Empieza creando el subconjunto de un solo año:
 
--   sd() \*\*\*
+```{r c11-base, eval=FALSE}
+library(tidyverse)
+library(datos)
+p2007 <- paises |> filter(anio == 2007)
+```
 
-1.  **Ejercicios**:
+::: {.ejercicio}
+**Ejercicio 1: `mean()` y `median()`.** Con `p2007`, calcula por `continente` el
+promedio, la mediana y el número de países, y añade la diferencia entre promedio
+y mediana.
 
-Hacer los ejercicios en la sección 5.7.1 del libro en español
+*Verifica:* la suma de los conteos debe dar el número de países de `p2007`.
+
+**En palabras:** ¿qué te dice el **signo** de esa diferencia sobre la forma de la
+distribución? Si el promedio es menor que la mediana, ¿hacia dónde hay valores
+extremos?
+:::
+
+```{r c11-ej1, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+::: {.ejercicio}
+**Ejercicio 2: `sd()` e `IQR()`.** Con `p2007`, calcula por continente la
+desviación estándar y el rango intercuartil de `esperanza_de_vida`. Ordena por
+cada una de las dos y compara los dos ordenamientos.
+
+**En palabras:** uno de los dos índices es la distancia típica al promedio y el
+otro es el ancho de la mitad central de los datos. Di cuál es cuál, y explica qué
+significa que los dos ordenamientos no coincidan.
+:::
+
+```{r c11-ej2, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+::: {.ejercicio}
+**Ejercicio 3: `mad()`, la dispersión robusta.** Usa `pib_per_capita` en
+`p2007`. Calcula promedio, mediana, desviación estándar y `mad()`, y haz un
+histograma con el promedio y la mediana marcados. Después elimina los cinco
+países con el `pib_per_capita` más alto y repite los cuatro cálculos.
+
+**En palabras:** ¿cuáles medidas cambiaron mucho y cuáles casi no se movieron?
+Esa es la definición práctica de **robusto**: explícala con tus propios números.
+:::
+
+```{r c11-ej3, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+::: {.ejercicio}
+**Ejercicio 4: `quantile()`.** Con `p2007` y `pib_per_capita`, calcula el primer
+cuartil, la mediana, el tercer cuartil y los percentiles 10 y 90. Dentro de
+`summarise()` pide **una** probabilidad a la vez.
+
+*Verifica:* el rango intercuartil del ejercicio anterior tiene que ser igual a la
+diferencia entre el tercer cuartil y el primero.
+
+**En palabras:** interpreta el percentil 90 en una oración completa, del tipo "el
+90 % de los países tiene un producto interno bruto por persona menor de ...".
+:::
+
+```{r c11-ej4, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+::: {.ejercicio}
+**Ejercicio 5: `min()`, `max()` y el rango.** Con `p2007`, saca por continente el
+mínimo, el máximo y la diferencia entre los dos, y usa `slice_max()` y
+`slice_min()` para identificar cuál país está en cada extremo.
+
+**En palabras:** el rango se calcula con exactamente dos observaciones de todo el
+continente. ¿Por qué eso lo hace una medida frágil, y cuál de las medidas de los
+ejercicios 2 y 3 preferirías para comparar la variabilidad entre continentes?
+:::
+
+```{r c11-ej5, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+::: {.ejercicio}
+**Ejercicio 6: `first()`, `last()` y el orden.** Con `paises` completo, agrupa
+por `pais`, **ordena por `anio`** y calcula la esperanza de vida del primer año,
+la del último y el cambio. Enseña los cinco países que más subieron y los que
+bajaron. Repite el cálculo sin ordenar y compara.
+
+**En palabras:** ¿por qué `first()` y `last()` no son lo mismo que `min()` y
+`max()`, aunque en esta variable muchas veces coincidan?
+:::
+
+```{r c11-ej6, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+::: {.ejercicio}
+**Ejercicio 7: los `NA` y `na.rm`.** A partir de `p2007`, crea una columna igual
+a `pib_per_capita` pero con `NA` en los países cuyo valor sea mayor de 40000.
+Calcula el promedio sin `na.rm = TRUE` y con `na.rm = TRUE`, y compáralo con el
+promedio original.
+
+**En palabras:** ¿qué tendría que ser cierto sobre los datos que faltan para que
+el promedio con `na.rm = TRUE` siga siendo honesto? En este caso, ¿se cumple?
+:::
+
+```{r c11-ej7, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+::: {.ejercicio}
+**Ejercicio 8 (reto integrador): paramétrico frente a no paramétrico.** Con
+`diamantes`, calcula para `precio` el promedio, la mediana, la desviación
+estándar, el rango intercuartil y `mad()`, y haz un histograma. Repite todo con
+`log10(precio)`.
+
+**En palabras:** si tuvieras que describir el precio de un diamante típico con
+**dos** números, ¿cuáles escogerías y por qué? ¿Se parecen más el promedio y la
+mediana después de la transformación? ¿Qué le pasa a las unidades de tu respuesta
+cuando trabajas en escala logarítmica?
+:::
+
+```{r c11-ej8, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+------------------------------------------------------------------------
 
 ------------------------------------------------------------------------
 

@@ -22,39 +22,71 @@ Español:
 
 ## Temas: Datos Ordenados
 
+ - Las tres reglas de los datos ordenados
+ - Por qué conviene ordenarlos, aunque cueste trabajo
+ - `pivot_longer()`: de ancho a largo
+ - `pivot_wider()`: de largo a ancho
+ - `separate()` y `unite()`: partir y juntar columnas
+ - Valores faltantes implícitos y explícitos
+
+***
+
+## Paquetes
+
+```{r c17-paquetes}
+library(tidyverse)
+library(datos)
+```
+
+***
+
+## Las tres reglas
+
 ::: {.nota}
 Datos ordenados (tidy data): cada variable es una columna, cada observación es una fila y cada valor ocupa su propia celda. Con este formato el tidyverse trabaja de forma más natural.
 :::
 
+Las tres reglas están relacionadas: si cumples dos, la tercera sale sola. En la
+práctica se reducen a dos instrucciones:
+
+1. **Pon cada conjunto de datos en su propia tabla.**
+2. **Pon cada variable en su propia columna.**
+
+Lo difícil no es la definición, es reconocer **cuál es la variable** en un
+conjunto concreto. Y eso depende de la pregunta: en una tabla de mediciones
+repetidas, ¿la variable es "el peso" o son "el peso en enero" y "el peso en
+julio"? Casi siempre la respuesta correcta es la primera, y la fecha es otra
+variable.
+
 ::: {.historia}
-El concepto de *tidy data* (datos ordenados) fue formalizado por **Hadley Wickham** en un influyente artículo de 2014. La idea —una variable por columna, una observación por fila— unificó la forma de preparar datos para el análisis.
+El concepto de *tidy data* (datos ordenados) fue formalizado por **Hadley Wickham** en un influyente artículo de 2014. La idea (una variable por columna, una observación por fila) unificó la forma de preparar datos para el análisis.
 :::
 
-### El paquete tidyr
+### ¿Por qué molestarse?
 
-::: {.consejo}
-Las funciones `pivot_longer()` y `pivot_wider()` de `tidyr` son las herramientas principales para pasar los datos entre el formato ancho y el formato largo.
-:::
+Ordenar una tabla da trabajo y no produce ningún resultado nuevo, así que la
+pregunta es legítima. Hay dos razones.
 
-::: {.funcion}
-**`pivot_longer()`** y **`pivot_wider()`** (tidyr) — cambiar la forma de la tabla.
+La primera es **consistencia**: si todos los conjuntos tienen la misma forma, las
+herramientas que aprendiste sirven para todos. No hay que reaprender nada al
+cambiar de proyecto.
 
-- **`pivot_longer()`:** pasa de **ancho a largo** (junta varias columnas en pares nombre–valor).
-- **`pivot_wider()`:** pasa de **largo a ancho** (reparte una columna en varias).
-- **Uso:** dejar los datos *ordenados* para poder graficar y resumir con facilidad.
-:::
+La segunda es que R **trabaja por columnas**. `mutate()` opera sobre una columna
+entera, `group_by()` agrupa por los valores de una columna, `ggplot()` mapea una
+columna a un eje. Cuando la variable que te interesa está repartida entre cinco
+columnas, ninguna de esas herramientas sirve: no puedes agrupar por "el año" si
+el año es el nombre de la columna en vez de un valor.
 
-Ver vignettes  
+***
 
+## Las cinco tablas del ejemplo
 
+Los cinco conjuntos siguientes contienen **exactamente la misma información**:
+casos de tuberculosis y población de tres países en 1999 y en 2000. Lo único que
+cambia es la forma. Míralos con calma antes de seguir: solo uno de ellos está
+ordenado.
 
 ```{r c17-2}
- library(tidyverse)
-library(datos)
-``` 
- 
- 
-```{r c17-3}
 tabla1
 
 tabla2
@@ -64,4 +96,354 @@ tabla3
 tabla4a
 
 tabla4b
+```
+
+La respuesta es `tabla1`: tiene cuatro columnas (`pais`, `anio`, `casos`,
+`poblacion`) y cada una es una variable. Las otras cuatro están mal, cada una a
+su manera:
+
+- **`tabla2`** mete dos variables distintas (`casos` y `población`) en una sola
+  columna de valores, y usa otra columna para decir cuál es cuál. Cada
+  observación quedó partida en dos filas.
+- **`tabla3`** guarda dos valores en la misma celda: `745/19987071` es texto, no
+  un número, y no se puede dividir ni graficar.
+- **`tabla4a`** y **`tabla4b`** usan los **años como nombres de columna**. El año
+  es una variable y está escondido en la cabecera. Además hacen falta dos tablas
+  para lo que debería ser una.
+
+::: {.consejo}
+Una señal casi infalible de que una tabla no está ordenada: los nombres de las
+columnas son **valores** (`1999`, `2000`, `enero`, `febrero`, `control`,
+`tratamiento`) en vez de nombres de variables.
+:::
+
+Con `tabla1`, calcular la tasa de casos por cada diez mil habitantes es una línea:
+
+```{r c17-3}
+tabla1 |> 
+  mutate(tasa = casos / poblacion * 10000)
+```
+
+Con cualquiera de las otras cuatro, hay que ordenarlas primero. De eso trata el
+resto del capítulo.
+
+***
+
+## El paquete tidyr
+
+::: {.consejo}
+Las funciones `pivot_longer()` y `pivot_wider()` de `tidyr` son las herramientas principales para pasar los datos entre el formato ancho y el formato largo.
+:::
+
+::: {.funcion}
+**`pivot_longer()`** y **`pivot_wider()`** (tidyr): cambiar la forma de la tabla.
+
+- **`pivot_longer()`:** pasa de **ancho a largo** (junta varias columnas en pares nombre-valor).
+- **`pivot_wider()`:** pasa de **largo a ancho** (reparte una columna en varias).
+- **Uso:** dejar los datos *ordenados* para poder graficar y resumir con facilidad.
+:::
+
+Las dos son opuestas: lo que hace una, la otra lo deshace. Casi siempre se usa
+`pivot_longer()`, porque el problema más común con diferencia es el de los
+nombres de columna que en realidad son valores.
+
+### `pivot_longer()`: de ancho a largo
+
+`tabla4a` tiene los años como nombres de columna. Para arreglarla hay que
+contestar tres preguntas:
+
+1. **¿Cuáles columnas hay que mover?** Aquí, `1999` y `2000`. Van entre acentos
+   graves porque un nombre que empieza por número no es un nombre válido en R.
+2. **¿Cómo se llama la variable escondida en los nombres?** Se llama `anio`, y
+   eso va en `names_to`.
+3. **¿Cómo se llama la variable escondida en los valores?** Se llama `casos`, y
+   eso va en `values_to`.
+
+```{r c17-4}
+tabla4a |> 
+  pivot_longer(
+    cols      = c(`1999`, `2000`),
+    names_to  = "anio",
+    values_to = "casos"
+  )
+```
+
+La tabla pasó de 3 filas y 3 columnas a 6 filas y 3 columnas. Es más **larga** y
+más **estrecha**, y de ahí el nombre de la función.
+
+::: {.advertencia}
+El `anio` que sale de `pivot_longer()` es **texto**, no un número, porque venía
+de un nombre de columna y los nombres son texto. Si vas a ordenar por año o
+restar años, conviértelo: `mutate(anio = as.integer(anio))`, o usa
+`names_transform = list(anio = as.integer)` dentro de la misma llamada.
+:::
+
+Lo mismo con la tabla de población, y después se unen las dos por sus columnas
+comunes:
+
+```{r c17-5}
+tabla4a_larga <- tabla4a |> 
+  pivot_longer(c(`1999`, `2000`), names_to = "anio", values_to = "casos")
+
+tabla4b_larga <- tabla4b |> 
+  pivot_longer(c(`1999`, `2000`), names_to = "anio", values_to = "poblacion")
+
+left_join(tabla4a_larga, tabla4b_larga)
+```
+
+El resultado es `tabla1`. Ese `left_join()` es el tema del capítulo siguiente; por
+ahora basta con ver que dos tablas ordenadas se combinan sin esfuerzo, y dos
+tablas desordenadas no.
+
+### `pivot_wider()`: de largo a ancho
+
+El problema de `tabla2` es el contrario: una observación está repartida en varias
+filas. Aquí las preguntas son dos:
+
+1. **¿Cuál columna tiene los nombres de las variables nuevas?** `tipo`, que va en
+   `names_from`.
+2. **¿Cuál columna tiene los valores?** `cuenta`, que va en `values_from`.
+
+```{r c17-6}
+tabla2 |> 
+  pivot_wider(
+    names_from  = tipo,
+    values_from = cuenta
+  )
+```
+
+De 12 filas a 6. Fíjate en que la columna nueva se llama `población`, con acento,
+porque ese era el valor que estaba dentro de la columna `tipo`: `pivot_wider()`
+usa los valores tal como vienen para nombrar las columnas.
+
+::: {.consejo}
+`pivot_wider()` se usa mucho menos que `pivot_longer()` para ordenar datos, pero
+es la herramienta de siempre para **presentar** un resultado. Una tabla larga es
+la que R quiere; una tabla ancha es la que un lector entiende de un vistazo.
+:::
+
+***
+
+## `separate()` y `unite()`
+
+Estas dos resuelven el problema de `tabla3`: dos valores metidos en la misma
+celda.
+
+::: {.funcion}
+**`separate()`** y **`unite()`** (tidyr): partir una columna en varias, y juntar varias en una.
+
+- **`separate(columna, into = c("a", "b"), sep = "/")`:** parte por el separador que le digas. Si no le dices ninguno, parte por el primer carácter que no sea alfanumérico.
+- **`convert = TRUE`:** después de partir, adivina el tipo de las columnas nuevas. Sin esto, todo sale como texto.
+- **`unite(nueva, a, b, sep = "_")`:** el camino contrario, junta varias columnas en una.
+:::
+
+```{r c17-7}
+tabla3 |> 
+  separate(tasa, into = c("casos", "poblacion"), sep = "/")
+```
+
+Funciona, pero mira los tipos: `casos` y `poblacion` son texto. Con
+`convert = TRUE` quedan numéricos y ya se puede calcular con ellos:
+
+```{r c17-8}
+tabla3 |> 
+  separate(tasa, into = c("casos", "poblacion"), sep = "/", convert = TRUE) |> 
+  mutate(tasa = casos / poblacion * 10000)
+```
+
+`unite()` hace el camino de vuelta:
+
+```{r c17-9}
+tabla3 |> 
+  separate(tasa, into = c("casos", "poblacion"), sep = "/") |> 
+  unite(tasa_otra_vez, casos, poblacion, sep = "/")
+```
+
+::: {.nota}
+En las versiones recientes de `tidyr` estas dos funciones tienen sucesoras con
+nombres más precisos: `separate_wider_delim()`, `separate_wider_position()` y
+`separate_longer_delim()`. Hacen lo mismo con más control y mejores mensajes de
+error. `separate()` y `unite()` siguen funcionando, y son las que usa el libro de
+R4DS en el que se basa el curso.
+:::
+
+Ver vignettes: <https://tidyr.tidyverse.org/articles/pivot.html>
+
+***
+
+## Valores faltantes implícitos y explícitos
+
+Un valor puede faltar de dos maneras, y la diferencia importa.
+
+- **Explícito:** ahí está la fila, con un `NA` en la celda. Se ve.
+- **Implícito:** la fila sencillamente no existe. No se ve, y por eso es más
+  peligroso.
+
+Cambiar la forma de una tabla convierte una clase en la otra. Al pasar a ancho,
+las combinaciones que no existían aparecen como `NA`; al pasar a largo, esos `NA`
+se pueden volver a quitar.
+
+```{r c17-10}
+mediciones <- tibble(
+  parcela = c("P1", "P1", "P2"),
+  anio    = c(2023, 2024, 2023),
+  plantas = c(12, 15, 30)
+)
+
+mediciones
+
+mediciones |> 
+  pivot_wider(names_from = anio, values_from = plantas)
+```
+
+La parcela P2 no tenía fila para 2024: era un faltante **implícito**. Al
+ensanchar la tabla se hizo **explícito**, y ahora se ve.
+
+::: {.consejo}
+`complete(parcela, anio)` hace explícitos todos los faltantes sin cambiar la
+forma de la tabla, y es la manera de contestar la pregunta "¿me falta algún dato
+que debería estar?". Es de las primeras cosas que conviene correr con datos de
+campo.
+:::
+
+***
+
+## Ejercicios del libro R4DS
+
+Hacer los ejercicios de las secciones 12.2.1, 12.3.3 y 12.4.3 del libro en
+español.
+
+***
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los ejercicios usan `paises` y `millas` del paquete `datos`, y
+tablas que escribirás a mano, no las `tabla1` a `tabla4b` del capítulo. La hoja
+completa para entregar está en
+`Ejercicios/Ejercicios_Capitulo_19_datos-ordenados.Rmd`.
+:::
+
+### Ejercicio 1. ¿Está ordenada?
+
+::: {.ejercicio}
+Mira `paises` con `glimpse()`. Contesta, columna por columna, si cada una es una
+variable, y decide si la tabla está ordenada.
+
+**Verificación:** `paises` tiene 1704 filas y 6 columnas.
+
+**En palabras:** justifica tu respuesta con las tres reglas. ¿Cuál es la
+observación en esta tabla: un país, o un país en un año?
+:::
+
+```{r c17-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. De largo a ancho
+
+::: {.ejercicio}
+Con `paises`, quédate solo con `pais`, `anio` y `esperanza_de_vida`, y ensancha
+la tabla con `pivot_wider()` para que cada año sea una columna.
+
+**Verificación:** la tabla ancha debe tener **142 filas** y **13 columnas** (el
+país más los doce años).
+
+**En palabras:** esta tabla ancha, ¿está ordenada? ¿Para qué sirve mejor que la
+original, y para qué sirve peor?
+:::
+
+```{r c17-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Y de vuelta
+
+::: {.ejercicio}
+Toma la tabla ancha del ejercicio anterior y devuélvela a la forma larga con
+`pivot_longer()`. Ocúpate de que `anio` vuelva a ser numérico.
+
+**Verificación:** la tabla debe volver a tener 1704 filas, y `anio` debe ser
+numérico, no texto.
+
+**En palabras:** si no conviertes `anio`, ¿qué pasa al ordenar con `arrange()`?
+Pruébalo y explica el resultado.
+:::
+
+```{r c17-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Dos columnas que son una variable
+
+::: {.ejercicio}
+En `millas`, `ciudad` y `autopista` son dos columnas, pero miden **lo mismo** en
+dos condiciones distintas. Pásalas a formato largo con `names_to = "tipo_de_via"`
+y `values_to = "millas_por_galon"`.
+
+**Verificación:** la tabla larga debe tener **468 filas** y **11 columnas**.
+
+**En palabras:** con la tabla larga, haz un diagrama de caja del consumo por
+`tipo_de_via`. ¿Podrías haber hecho esa gráfica con la tabla original? Explica
+por qué no de una sola vez.
+:::
+
+```{r c17-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Juntar y volver a partir
+
+::: {.ejercicio}
+Con `paises`, usa `unite()` para crear una columna `pais_anio` que junte `pais` y
+`anio` con un guion bajo. Después usa `separate()` para deshacerlo.
+
+**Verificación:** después de `separate()` sin `convert = TRUE`, `anio` es
+**texto**; con `convert = TRUE`, vuelve a ser numérico.
+
+**En palabras:** ¿por qué `separate()` no puede adivinar el tipo por su cuenta?
+¿Y qué pasaría si algún país tuviera un guion bajo en el nombre?
+:::
+
+```{r c17-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. El faltante que no se ve
+
+::: {.ejercicio}
+Escribe a mano una tabla de cuatro parcelas medidas en tres años, pero **quita
+tres combinaciones a propósito**. Ensánchala con `pivot_wider()` y después usa
+`complete()` sobre la tabla original.
+
+**Verificación:** la tabla ancha debe enseñar exactamente tres `NA`, y
+`complete()` debe llevar la tabla larga a 12 filas.
+
+**En palabras:** las dos maneras enseñan los mismos tres huecos. ¿Cuál usarías en
+un análisis de datos de campo y por qué? ¿Qué habría pasado si nunca los hubieras
+hecho explícitos y hubieras calculado un promedio por parcela?
+:::
+
+```{r c17-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). Desordenar a propósito
+
+::: {.ejercicio}
+Convierte `millas` en una tabla del estilo de `tabla4a`: una fila por `clase`,
+una columna por `anio`, y en las celdas el promedio de `autopista`.
+
+**Verificación:** 7 filas y 3 columnas, y los nombres de dos de las columnas son
+años.
+
+**En palabras:** acabas de producir una tabla **desordenada** a propósito, y sin
+embargo es la que pondrías en un informe. Explica esa contradicción: ¿cuándo
+conviene una tabla ordenada y cuándo una ancha?
+:::
+
+```{r c17-ej7, eval=FALSE}
+# Escribe tu código aquí
 ```

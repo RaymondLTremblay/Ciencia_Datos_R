@@ -1,0 +1,224 @@
+---
+title: "Ejercicios del Capítulo 20"
+subtitle: "Datos relacionados: claves, left_join, inner_join, anti_join y semi_join"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 20 del libro del curso.
+
+Los ejercicios usan `millas` y `paises` del paquete `datos`, más una tabla de consulta que vas a escribir tú mismo. No usan `vuelos`, `aerolineas`, `aeropuertos`, `aviones` ni `clima`, que son las tablas del capítulo.
+
+La idea de fondo es una costumbre, no una función: **comprobar `nrow()` antes y después de cada unión**. Casi todos los desastres con datos relacionados se detectan así.
+
+Los ejercicios 2 a 7 se apoyan unos en otros: la tabla de consulta que escribas en el Ejercicio 2 se usa en todos los demás. Escríbela bien desde el principio.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra y se vea la tabla.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Encontrar la clave | 5 |
+| 2 | Tu propia tabla de consulta | 5 |
+| 3 | `left_join()` frente a `inner_join()` | 5 |
+| 4 | `anti_join()` para diagnosticar | 5 |
+| 5 | La clave duplicada | 5 |
+| 6 | Cuando las columnas se llaman distinto | 5 |
+| **Total** | | **30** |
+| 7 (bono) | `semi_join()` frente a `%in%` | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+---
+
+# Ejercicio 1. Encontrar la clave (5 puntos)
+
+Con `paises`:
+
+1. Comprueba si `pais` por sí solo es una clave: `count(pais)` seguido de `filter(n > 1)`.
+2. Comprueba si la combinación de `pais` y `anio` lo es.
+3. Comprueba también que la columna clave no tenga valores faltantes.
+
+*Verifica:* la primera prueba devuelve **142** filas (una por país, con `n` igual a 12); la segunda devuelve una tabla **vacía**.
+
+4. Una tabla vacía es la prueba **superada**. Explica por qué, con tus palabras.
+5. ¿Cuál es entonces la clave primaria de `paises`?
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. Tu propia tabla de consulta (5 puntos)
+
+1. Averigua cuántos fabricantes distintos hay en `millas`:
+
+```{r ej2-pista, eval=FALSE}
+n_distinct(millas$fabricante)
+millas |> count(fabricante)
+```
+
+2. Escribe con `tribble()` una tabla llamada `origen_fabricante`, con dos columnas: `fabricante` y `pais_origen`. Incluye **solo la mitad** de los fabricantes, más o menos. Los nombres tienen que estar escritos **exactamente** como aparecen en `millas`.
+3. Únela a `millas` con `left_join()` y guarda el resultado en `millas_origen`.
+
+*Verifica:* `millas_origen` tiene las mismas **234** filas que `millas`, y la columna `pais_origen` tiene `NA` en las filas de los fabricantes que dejaste fuera.
+
+4. Cuenta cuántos `NA` te quedaron.
+5. Los `NA` no son un error aquí. ¿Qué te están diciendo?
+6. ¿Por qué `left_join()` es la unión correcta para añadir una tabla de consulta?
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. `left_join()` frente a `inner_join()` (5 puntos)
+
+1. Repite la unión del ejercicio anterior, pero con `inner_join()`.
+2. Compara `nrow()` de los dos resultados.
+
+*Verifica:* el `inner_join()` devuelve **menos** de 234 filas; el `left_join()` devuelve exactamente 234. La diferencia es igual al número de `NA` que contaste en el Ejercicio 2.
+
+3. El `inner_join()` no dio ningún error ni ninguna advertencia. Explica por qué eso lo hace **más** peligroso que un error.
+4. ¿Cuál costumbre, de una sola línea, te habría protegido?
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. `anti_join()` para diagnosticar (5 puntos)
+
+1. Usa `anti_join()` para averiguar **cuáles** fabricantes de `millas` no están en `origen_fabricante`.
+2. Cuenta cuántos vehículos representan.
+
+*Verifica:* la lista coincide exactamente con los fabricantes que dejaste fuera a propósito, y el número de vehículos es igual a la diferencia entre las dos uniones del Ejercicio 3.
+
+3. Haz también el `anti_join()` **en el otro sentido**: qué hay en `origen_fabricante` que no está en `millas`. Si escribiste bien los nombres, debe salir vacío. Si no, acabas de encontrar tu errata.
+4. `anti_join()` no añade ninguna columna. ¿Para qué sirve entonces?
+5. Describe una situación de tu propio trabajo o de tu tesis donde lo usarías.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. La clave duplicada (5 puntos)
+
+1. Haz una copia de tu tabla de consulta y añádele una **segunda fila** para un fabricante que ya estaba, con otro país. Usa `bind_rows()` o escríbela de nuevo.
+2. Comprueba la clave de esa tabla nueva con `count(fabricante) |> filter(n > 1)`.
+3. Vuelve a hacer el `left_join()` con ella.
+
+*Verifica:* el resultado tiene **más** de 234 filas, y los vehículos de ese fabricante aparecen duplicados.
+
+4. ¿Cuántas filas de más salieron? Explica por qué es exactamente esa cantidad y no otra.
+5. Si después de esta unión calcularas el consumo promedio en autopista por `clase`, ¿estaría mal el resultado? Explica en qué sentido, y compruébalo comparando con el promedio de la tabla original.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. Cuando las columnas se llaman distinto (5 puntos)
+
+1. Cambia el nombre de la columna de tu tabla de consulta, de `fabricante` a `marca`, con `rename()`.
+2. Intenta el `left_join()` sin tocar nada más, en un bloque con `error=TRUE`, y copia el mensaje.
+3. Arréglalo con la forma `by = c("fabricante" = "marca")`.
+
+*Verifica:* el intento sin arreglar da error; la versión arreglada vuelve a dar 234 filas.
+
+4. Explica qué te estaba diciendo el mensaje de error.
+5. En `by = c("fabricante" = "marca")`, ¿cuál de los dos nombres pertenece a cuál tabla? ¿Cómo lo recuerdas?
+
+```{r ej6a, error=TRUE}
+# El intento que falla
+
+```
+
+```{r ej6b}
+# La versión arreglada
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). `semi_join()` frente a `%in%` (5 puntos adicionales)
+
+Quédate con los vehículos de `millas` cuyo fabricante **sí** está en `origen_fabricante`, de dos maneras:
+
+1. Con `semi_join()`.
+2. Con `filter(fabricante %in% origen_fabricante$fabricante)`.
+
+*Verifica:* las dos dan exactamente la misma tabla: el mismo número de filas y las mismas **11** columnas.
+
+3. Si las dos dan lo mismo, ¿para qué existe `semi_join()`? Piensa en qué pasaría si la condición dependiera de **dos** columnas a la vez.
+4. ¿Qué pasaría si usaras `inner_join()` en lugar de `semi_join()`? Pruébalo con la tabla de consulta **duplicada** del Ejercicio 5 y compara el número de filas y de columnas de los tres.
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

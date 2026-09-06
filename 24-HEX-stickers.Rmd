@@ -16,19 +16,90 @@ library(tidyverse)
 
 ```
 
+## Temas
+
+ - Qué es un hex sticker y por qué son hexagonales
+ - `sticker()` y sus tres grupos de argumentos
+ - El sistema de coordenadas: dónde va cada cosa
+ - Fuentes: `sysfonts` y `showtext`
+ - Guardar: png, svg y resolución
+ - Consejos de diseño para que se lea a dos centímetros
+
+***
+
+## Qué es un hex sticker
+
+Un **hex sticker** es una calcomanía hexagonal que identifica un paquete, un
+proyecto o un laboratorio. La forma no es un capricho: los hexágonos **teselan**,
+es decir, encajan unos con otros sin dejar huecos, así que se pueden pegar en una
+laptop formando un panal. Los círculos y los cuadrados no dan ese resultado.
+
+La comunidad de R acordó un **estándar de tamaño y proporciones** para que las
+calcomanías de distintas personas encajen entre sí. Antes de mandar a imprimir
+conviene consultarlo, porque un hexágono con proporciones propias no encaja con
+los demás y se nota.
+
+::: {.nota}
+El estándar y las medidas exactas están documentados en el repositorio
+`terinjokes/StickersStandard` de GitHub, y hay una galería de calcomanías de
+paquetes en <http://hexb.in>. Comprueba ahí las medidas antes de mandar a
+imprimir; `hexSticker` genera las proporciones correctas por defecto, pero la
+imprenta necesita el tamaño físico y el margen de corte.
+:::
+
+Este capítulo es distinto a los demás del libro: no hay datos que analizar, hay un
+objeto que diseñar. Aun así encaja aquí por dos razones. La primera es que el
+`subplot` de una calcomanía puede ser un `ggplot`, así que todo lo aprendido sobre
+gráficas se aplica. La segunda es que hacer una calcomanía obliga a pensar en algo
+que casi nunca se piensa: **qué se ve y qué no cuando la figura mide dos
+centímetros**.
+
+***
+
 ## La función y los valores "default"
 
 ::: {.historia}
-Los **hex stickers** (calcomanías hexagonales) se popularizaron en la comunidad de R alrededor de 2015, impulsados por desarrolladores de **RStudio/Posit** y el proyecto **rOpenSci**. El formato hexagonal permite unir las calcomanías sin dejar huecos —como un panal— por lo que se convirtió en la forma estándar de identificar paquetes de R en conferencias y computadoras portátiles. El paquete **hexSticker**, de **Guangchuang Yu**, automatiza su creación.
+Los **hex stickers** (calcomanías hexagonales) se popularizaron en la comunidad de R alrededor de 2015, impulsados por desarrolladores de **RStudio/Posit** y el proyecto **rOpenSci**. El formato hexagonal permite unir las calcomanías sin dejar huecos (como un panal), por lo que se convirtió en la forma estándar de identificar paquetes de R en conferencias y computadoras portátiles. El paquete **hexSticker**, de **Guangchuang Yu**, automatiza su creación.
 :::
 
 ::: {.funcion}
-**`sticker()`** — crea una calcomanía hexagonal a partir de una imagen o gráfico.
+**`sticker()`**: crea una calcomanía hexagonal a partir de una imagen o gráfico.
 
 - **`subplot`:** la imagen o gráfico (`ggplot`) que va en el centro; `s_x`, `s_y`, `s_width`, `s_height` controlan su posición y tamaño.
 - **`package`:** el texto (normalmente el nombre del paquete); `p_size`, `p_color`, `p_family` ajustan su tipografía.
 - **`h_fill`, `h_color`, `h_size`:** color de relleno, color y grosor del borde del hexágono.
 - **`filename`:** dónde se guarda; la extensión (`.png`, `.svg`) decide el formato de salida.
+:::
+
+La lista de argumentos asusta al principio y en realidad son **tres grupos**, cada
+uno con su prefijo:
+
+- **`s_`** es el *subplot*, la imagen o gráfica del centro.
+- **`p_`** es el *package*, el texto principal.
+- **`u_`** es la *url*, el texto pequeño del borde de abajo.
+- **`h_`** es el *hexágono* en sí: relleno, borde y grosor.
+- **`l_`** es el *spotlight*, un brillo opcional en diagonal.
+
+En cuanto reconoces los prefijos, la lista deja de dar miedo: son cinco cosas con
+sus propias posiciones, tamaños y colores.
+
+### El sistema de coordenadas
+
+Este es el detalle que más tiempo ahorra y que no está en ninguna parte de la
+documentación de forma clara: **el hexágono ocupa un cuadrado que va de 0 a 2 en
+los dos ejes, con el centro en (1, 1)**.
+
+Por eso:
+
+- `s_x = 1, s_y = 1` deja la imagen justo en el centro;
+- `p_y = 1.5` sube el texto hacia la parte de arriba;
+- `u_y = 0.08` deja la url pegada al borde inferior;
+- `s_width` y `s_height` son fracciones, así que `0.5` es media anchura.
+
+::: {.consejo}
+No intentes calcular las posiciones: **prueba y mira**. Cambia un número, vuelve a
+generar la calcomanía, y repite. Es más rápido que razonarlo, y en cinco intentos
+ya le agarras el truco a la escala.
 :::
 
 
@@ -75,7 +146,7 @@ sticker(
 
 **Arguments**
 
-```{r c24-4, H3, echo=FALSE}
+```{r c24-4, echo=FALSE}
 argumentos=tribble(
   ~Función, ~Descripción,
   "subplot"	, "subplot",
@@ -152,17 +223,81 @@ library(gt)
 gt(argumentos)
 ```
 
-Other Details,
- - The extension given in filename determines the graphics device that is used to render the sticker, e.g. filename = 'sticker.png' creates a png file and filename = 'sticker.svg' creates a svg file. For a list of supported graphics devices please see the documentation of ggplot2::ggsave()
+### Las fuentes
 
+Aquí está el tropiezo clásico del capítulo: la fuente que escoges en `p_family`
+tiene que estar **disponible para R**, y las fuentes de tu computadora no lo están
+automáticamente. El proceso son siempre tres pasos:
 
+1. `sysfonts::font_add_google("Nombre de la fuente")` baja la fuente de Google
+   Fonts.
+2. `showtext::showtext_auto()` le dice a R que use `showtext` para dibujar texto.
+3. `showtext_opts(dpi = 300)` hace que el tamaño del texto cuadre con la
+   resolución de salida.
 
+Sin el paso 2, la fuente se baja y no se usa, y el texto sale en la tipografía por
+defecto sin que nada avise.
 
-sysfonts::font_add_google("Sixtyfour Convergence")
+```{r c24-fuentes, eval=FALSE}
 sysfonts::font_add_google("Rubik")
-sysfonts::font_add_google("Young Serif") ## No baja
+sysfonts::font_add_google("Sixtyfour Convergence")
+sysfonts::font_add_google("Young Serif")   # esta no siempre baja
+```
+
+::: {.advertencia}
+No todas las fuentes de Google Fonts bajan bien, y las que fallan lo hacen en
+silencio o con un error poco claro. Si el texto no sale como esperabas, comprueba
+primero que la fuente esté cargada, con `sysfonts::font_families()`. Y ten un plan
+B: una fuente muy elaborada se ve preciosa en la pantalla y se vuelve ilegible
+impresa a dos centímetros.
+:::
+
+### Guardar la calcomanía
+
+La **extensión** del nombre del archivo decide el formato: `"sticker.png"` produce
+un png y `"sticker.svg"` produce un svg. `hexSticker` usa por dentro
+`ggplot2::ggsave()`, así que sirve cualquier formato que esa función acepte.
+
+::: {.funcion}
+**Formatos de salida**: cuál usar según para qué.
+
+- **`.png` con `dpi = 300` o más:** para imprimir. Es un mapa de puntos, así que el tamaño físico y la resolución hay que decidirlos al generarlo.
+- **`.svg`:** vectorial, se puede agrandar sin perder calidad y la imprenta suele preferirlo. La pega es que el `subplot`, si era una foto, sigue siendo una foto por dentro.
+- **`save_sticker("archivo.png")`:** guarda la última calcomanía dibujada, sin tener que repetir toda la llamada a `sticker()`.
+:::
+
+### Consejos de diseño
+
+Una calcomanía se ve **impresa y pequeña**, no en la pantalla y grande, y eso
+cambia todas las decisiones:
+
+- **Contraste antes que color bonito.** Texto claro sobre fondo oscuro o al revés.
+  Dos colores de intensidad parecida se ven bien en el monitor y se convierten en
+  una mancha al imprimirse.
+- **Una sola idea en el centro.** Una figura con detalle fino desaparece. Si el
+  `subplot` es un `ggplot`, quítale los ejes, la leyenda y la rejilla con
+  `theme_void()`.
+- **El nombre corto y grande.** Si no se lee de un vistazo, no sirve.
+- **La url es opcional y casi siempre estorba.** Solo ponla si de verdad quieres
+  que alguien la teclee.
+
+::: {.consejo}
+Prueba de fuego: genera la calcomanía, ábrela, y **aléjala hasta que ocupe el
+tamaño de una moneda**. Si a esa distancia no se distingue qué es y qué dice, hay
+que simplificarla.
+:::
+
+
+
+
+***
 
 ## Ejemplo de Crear un Hex con un gatito
+
+El ejemplo siguiente junta todo lo anterior: carga una fuente de Google, activa
+`showtext`, lee una imagen con `magick::image_read()` y llama a `sticker()` con
+las posiciones y los colores puestos a mano. Fíjate en el `spotlight = T` del
+final, que añade el brillo diagonal.
 
 ::: {.consejo}
 Para usar una fuente de Google, cárgala con `font_add_google()` y activa `showtext_auto()` antes de llamar a `sticker()`. Si no, el texto no se dibujará con la fuente elegida.
@@ -224,3 +359,144 @@ sticker(
 save_sticker("img/hex_sticker_cat.jpg")
 ```
 
+
+***
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Este capítulo no produce números sino
+un objeto de diseño, así que la entrega es distinta: cada ejercicio necesita **el
+código**, **la imagen resultante** (insértala en el documento con
+`knitr::include_graphics()`) y **una explicación en palabras** de las decisiones
+que tomaste. Las decisiones son lo que se evalúa: por qué ese color, ese tamaño,
+esa fuente. Guarda todas tus calcomanías en una carpeta `img/ejercicios/`. La hoja
+completa para entregar está en `Ejercicios/Ejercicios_Capitulo_29_hex.Rmd`.
+:::
+
+### Ejercicio 1. Una calcomanía a partir de una gráfica
+
+::: {.ejercicio}
+Haz un `ggplot` sencillo con `millas` (por ejemplo `cilindrada` contra
+`autopista`), quítale todo lo que sobra con `theme_void()`, y úsalo como
+`subplot` de una calcomanía llamada `millas`.
+
+**Verificación:** el archivo `.png` tiene que existir y verse. Compruébalo con
+`file.exists()`.
+
+**En palabras:** compara tu calcomanía con la misma gráfica **sin**
+`theme_void()`. ¿Qué desapareció y por qué mejora a este tamaño?
+:::
+
+```{r c24-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. El sistema de coordenadas
+
+::: {.ejercicio}
+Partiendo de la calcomanía del ejercicio anterior, genera **cuatro** versiones
+cambiando solo las posiciones: la gráfica arriba y el texto abajo, las dos
+centradas y superpuestas, la gráfica muy pequeña en una esquina, y la gráfica
+ocupando casi todo el hexágono.
+
+**Verificación:** las cuatro tienen que salir distintas y todas legibles dentro
+del hexágono, sin nada cortado por el borde.
+
+**En palabras:** anota qué valores de `s_x`, `s_y`, `p_x` y `p_y` usaste en cada
+una. ¿Cuál es el centro exacto del hexágono, y cómo lo dedujiste?
+:::
+
+```{r c24-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Fuentes
+
+::: {.ejercicio}
+Baja **dos** fuentes distintas de Google Fonts con `font_add_google()`, una de
+palo seco y otra decorativa, y haz la misma calcomanía con cada una.
+
+**Verificación:** las dos versiones tienen que verse con tipografías claramente
+distintas. Si salen iguales, se te olvidó `showtext_auto()`.
+
+**En palabras:** reduce las dos imágenes al tamaño de una moneda y míralas.
+¿Cuál sigue siendo legible? ¿Cambia tu opinión sobre cuál es más bonita?
+:::
+
+```{r c24-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Contraste
+
+::: {.ejercicio}
+Haz dos calcomanías con exactamente el mismo contenido: una con **buen** contraste
+entre el texto y el fondo, y otra con dos colores de intensidad parecida (por
+ejemplo verde medio sobre azul medio).
+
+**Verificación:** las dos tienen que existir como archivos. Insértalas una al lado
+de la otra en el documento.
+
+**En palabras:** describe qué le pasa a la mala cuando la miras de lejos. Busca
+qué son la **luminosidad** y el **contraste** de un color y explica en dos
+oraciones por qué dos colores distintos pueden verse igual de oscuros.
+:::
+
+```{r c24-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Los adornos
+
+::: {.ejercicio}
+Añádele a tu calcomanía la url de un sitio (real o inventado) con `url` y sus
+argumentos `u_`, y prueba también `spotlight = TRUE` con distintos valores de
+`l_alpha`.
+
+**Verificación:** la url tiene que quedar pegada al borde de abajo, sin salirse
+del hexágono y sin tocar la gráfica.
+
+**En palabras:** ¿aporta algo la url a esta calcomanía en concreto? ¿Y el
+spotlight? Defiende quitarlos o dejarlos.
+:::
+
+```{r c24-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Formatos
+
+::: {.ejercicio}
+Guarda la misma calcomanía en `.png` con `dpi = 300` y en `.svg`. Compara el
+tamaño de los dos archivos con `file.size()` y ábrelos los dos, agrandándolos
+mucho.
+
+**Verificación:** al agrandar mucho, uno de los dos se ve pixelado y el otro no.
+
+**En palabras:** ¿cuál se pixela y por qué? ¿Cuál mandarías a una imprenta? Y una
+pregunta más fina: si el `subplot` fuera una **foto** en vez de un `ggplot`, ¿el
+`.svg` seguiría siendo perfectamente escalable? Justifícalo.
+:::
+
+```{r c24-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). La tuya
+
+::: {.ejercicio}
+Diseña la calcomanía de **tu** proyecto: tu tesis, tu laboratorio, tu curso o un
+paquete que te gustaría escribir. Aplica todo lo del capítulo.
+
+**Verificación:** tiene que pasar la prueba de la moneda: se entiende qué es y qué
+dice al tamaño de una moneda.
+
+**En palabras:** escribe un párrafo justificando cada decisión: la imagen, el
+color, la fuente y el tamaño del texto. Pídele a un compañero que la mire dos
+segundos y te diga qué entendió, y anota lo que te dijo.
+:::
+
+```{r c24-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

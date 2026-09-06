@@ -1,0 +1,222 @@
+---
+title: "Ejercicios del Capítulo 27"
+subtitle: "Iteración: for, map, fórmulas anónimas, across, safely y walk"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 27 del libro del curso.
+
+Los ejercicios usan `millas` del paquete `datos`, no el `df` de números al azar, `vuelos` ni `diamantes`, que son los del capítulo.
+
+Hay una idea que recorre todo el capítulo y que se evalúa varias veces: **la variante más específica es la mejor**. `map_dbl()` se queja cuando el resultado no es un número; `map()` se traga cualquier cosa y te deja el problema para más tarde.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Del `for` al `map()` | 5 |
+| 2 | El tipo importa | 5 |
+| 3 | Fórmulas anónimas | 5 |
+| 4 | Un modelo por grupo | 5 |
+| 5 | `across()` | 5 |
+| 6 | Cuando una vuelta falla | 5 |
+| **Total** | | **30** |
+| 7 (bono) | `walk()` y `map2()` | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+---
+
+# Ejercicio 1. Del `for` al `map()` (5 puntos)
+
+1. Quédate con las columnas numéricas de `millas`.
+2. Escribe un bucle `for` que calcule el promedio de cada una, **creando el vector de salida con su tamaño final antes del bucle**.
+3. Escribe la misma cosa con `map_dbl()`, en una línea.
+
+*Verifica:* `millas` tiene **5** columnas numéricas, y los dos caminos dan exactamente los mismos cinco números. Compruébalo con `all.equal()`.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+4. Cuenta cuántas líneas ocupa cada versión.
+5. ¿Cuál de las partes del `for` desapareció al usar `map_dbl()`?
+6. ¿Por qué esa parte era justamente la que más errores causa? Piensa en qué pasa si el vector de salida se crea del tamaño equivocado, o si se hace crecer con `c()` dentro del bucle.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. El tipo importa (5 puntos)
+
+Cuenta los valores distintos de **todas** las columnas de `millas` con `n_distinct()`, de tres maneras:
+
+1. Con `map_dbl()`.
+2. Con `map_chr()`.
+3. Con `map()` a secas.
+
+*Verifica:* una de las tres da error y las otras dos funcionan, pero devuelven cosas de **clase distinta**. Compruébalo con `class()`.
+
+```{r ej2a}
+# Las que funcionan
+
+```
+
+```{r ej2b, error=TRUE}
+# La que falla
+
+```
+
+4. ¿Por qué falla la que falla? Copia el mensaje.
+5. ¿Cuál de las tres usarías y por qué?
+6. Relaciónalo con la idea que recorre el curso: un error inmediato vale más que un resultado raro que se descubre tres pasos después.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. Fórmulas anónimas (5 puntos)
+
+1. Con `map_int()` y una fórmula anónima con `~` y `.x`, cuenta cuántos valores distintos hay en cada columna de `millas`.
+2. Con `map_lgl()`, averigua cuáles columnas son numéricas.
+
+*Verifica:* `map_lgl(millas, is.numeric)` da **5** valores `TRUE`, y `clase` sale con **7** valores distintos.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+3. Escribe la misma fórmula anónima de las tres maneras que existen: con `~ .x`, con `\(x)` y con `function(x)`. Comprueba que las tres dan lo mismo.
+4. ¿Cuál prefieres y por qué? ¿Cuál crees que te va a resultar más fácil de leer dentro de un año?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Un modelo por grupo (5 puntos)
+
+1. Divide `millas` por `clase` con `split()`.
+2. Ajusta, para cada clase, una regresión de `autopista` contra `cilindrada`.
+3. Saca el $R^2$ de cada una.
+4. Cuenta también cuántos vehículos tiene cada clase.
+
+*Verifica:* salen **7** modelos y 7 valores de $R^2$, todos entre 0 y 1.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+5. ¿En cuál clase explica mejor la cilindrada el consumo, y en cuál peor?
+6. Mira cuántos vehículos tiene cada clase antes de sacar conclusiones. ¿Te fías igual del $R^2$ de una clase con 5 vehículos que del de una con 62? Explica por qué.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. `across()` (5 puntos)
+
+1. Consigue el resultado del Ejercicio 1 otra vez, pero con `across()` dentro de `summarise()`.
+2. Hazlo ahora **por clase**, con `group_by()`.
+
+*Verifica:* la primera versión da una tabla de **1 fila y 5 columnas**; la segunda, una de **7 filas**.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+3. Compara la salida de `map_dbl()` del Ejercicio 1 con la de `across()`. ¿Qué te da una que no te da la otra?
+4. ¿Cuál de las dos podrías haber usado para hacer la versión por clase, y cuál no sin complicarte bastante?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. Cuando una vuelta falla (5 puntos)
+
+1. Escribe una función que calcule el promedio de `autopista` de un grupo, pero que **dé error** si el grupo tiene menos de 10 filas.
+2. Aplícala a los grupos de `clase` con `map()` a secas, en un bloque con `error=TRUE`.
+3. Aplícala otra vez con `safely()`.
+4. Separa los resultados de los errores con `map("result")`, `map("error")` y `compact()`.
+
+*Verifica:* con `map()` a secas se detiene todo y no obtienes ningún resultado. Con `safely()` obtienes los promedios de las clases que sí tenían suficientes filas, y los nombres de las que fallaron.
+
+```{r ej6a, error=TRUE}
+# Con map() a secas
+
+```
+
+```{r ej6b}
+# Con safely()
+
+```
+
+5. ¿Cuál clase fue la culpable? ¿Por qué?
+6. ¿Por qué `safely()` es imprescindible cuando procesas cien archivos y no sabes si alguno está corrupto?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). `walk()` y `map2()` (5 puntos adicionales)
+
+1. Crea la carpeta `Datos/por_clase/` con `dir.create()`.
+2. Con `walk()`, guarda un archivo `.csv` por cada `clase` de `millas` dentro de esa carpeta, con el nombre de la clase en el nombre del archivo.
+3. Haz lo mismo con `map2()`, pasando en paralelo la lista de tablas y la lista de nombres de archivo.
+
+*Verifica:* quedan **7** archivos en la carpeta. Compruébalo con `list.files("Datos/por_clase")`.
+
+```{r ej7, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+4. ¿Qué habría pasado si hubieras usado `map()` en vez de `walk()`? Pruébalo.
+5. Si `map()` hace lo mismo, ¿por qué existe `walk()`?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

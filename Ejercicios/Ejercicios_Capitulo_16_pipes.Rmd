@@ -1,0 +1,249 @@
+---
+title: "Ejercicios del Capítulo 16"
+subtitle: "Pipes: %>%, |>, el marcador de posición, %$%, %<>%, %T>% y %in%"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 16 del libro del curso.
+
+Los ejercicios usan `millas` y `paises` del paquete `datos`, en español, y no `mtcars`, `iris` ni `diamonds`, que son los conjuntos con los que se enseña en el capítulo.
+
+Varios ejercicios te piden **provocar un error a propósito** para ver qué pasa. Para que el documento compile igual, añade `error=TRUE` a las opciones de ese bloque.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra (o que muestre el error que se pedía).
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | De código anidado a código con pipes | 5 |
+| 2 | El marcador de posición `.` | 5 |
+| 3 | `%>%` y el pipe nativo lado a lado | 5 |
+| 4 | `%$%` con una función que quiere vectores | 5 |
+| 5 | Por qué `%<>%` es peligroso | 5 |
+| 6 | `%T>%`, el paso de lado | 5 |
+| **Total** | | **30** |
+| 7 (bono) | `%in%` no es un pipe | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(magrittr)
+library(datos)
+```
+
+```{r base, eval=FALSE}
+p2007 <- paises |> filter(anio == 2007)
+```
+
+---
+
+# Ejercicio 1. De adentro hacia afuera, a de arriba hacia abajo (5 puntos)
+
+Este código anidado funciona, pero es ilegible:
+
+```
+arrange(summarise(group_by(filter(paises, anio == 2007), continente),
+                  esperanza_media = mean(esperanza_de_vida)),
+        desc(esperanza_media))
+```
+
+1. Córrelo tal cual para saber cuál es el resultado que hay que reproducir.
+2. Reescríbelo con pipes, **un paso por línea**.
+
+*Verifica:* tu tabla debe tener **5** filas, una por continente, y el mismo orden que la versión anidada.
+
+3. ¿En qué orden hay que leer la versión anidada para entenderla? ¿Y la tuya?
+4. Cuenta cuántas veces aparece un paréntesis de cierre seguido en cada versión. ¿Qué te dice eso?
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. El marcador de posición `.` (5 puntos)
+
+Con `paises` del año 2007:
+
+1. Ajusta un modelo lineal de `esperanza_de_vida` en función de `pib_per_capita`, **dentro de una cadena de pipes**, con `lm()`. Como `lm()` quiere la fórmula en primer lugar, vas a necesitar `data = .`.
+2. Mira los coeficientes con `coef()` o `summary()`.
+
+*Verifica:* el coeficiente de `pib_per_capita` tiene que salir **positivo**.
+
+3. Prueba la misma cadena **sin** el punto, en un bloque con `error=TRUE`, y copia el mensaje.
+4. Explica en palabras qué recibió `lm()` como primer argumento cuando quitaste el punto, y por qué eso no podía funcionar.
+
+```{r ej2a}
+# Escribe tu código aquí
+
+```
+
+```{r ej2b, error=TRUE}
+# La versión sin el punto
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. `%>%` y `|>` lado a lado (5 puntos)
+
+Con `millas`:
+
+1. Escribe **la misma** cadena dos veces, una con `%>%` y otra con `|>`: filtra los vehículos de 2008, agrupa por `clase`, calcula el promedio de `autopista` y ordena de mayor a menor.
+2. Después escribe, cada una en su propio bloque con `error=TRUE`, estas dos líneas **sin paréntesis**: `millas %>% nrow` y `millas |> nrow`.
+
+*Verifica:* las dos cadenas tienen que dar exactamente la misma tabla; **una** de las dos líneas sin paréntesis da error.
+
+3. ¿Cuál de las dos falló y por qué?
+4. ¿Cuál de los dos pipes usarías por defecto? ¿En qué caso cambiarías de opinión?
+
+```{r ej3a}
+# Las dos cadenas
+
+```
+
+```{r ej3b, error=TRUE}
+# Las dos líneas sin paréntesis
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. `%$%` con una función que quiere vectores (5 puntos)
+
+Con `millas`, calcula la correlación entre `cilindrada` y `autopista` de tres maneras:
+
+1. Con `cor(millas$cilindrada, millas$autopista)`.
+2. Con `%$%`.
+3. Con `summarise()` dentro de una cadena de pipes normal.
+
+Y una cuarta, que **no** funciona: la misma llamada a `cor()` pero con `%>%` en vez de `%$%`, en un bloque con `error=TRUE`.
+
+*Verifica:* las tres que funcionan dan el mismo número, **negativo** y con valor absoluto mayor que **0.7**.
+
+4. ¿Qué mensaje da la versión con `%>%` y por qué?
+5. ¿Cuál de las tres que sí funcionan usarías en un análisis tuyo? Justifica.
+
+```{r ej4a}
+# Las tres que funcionan
+
+```
+
+```{r ej4b, error=TRUE}
+# La que no funciona
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. Por qué `%<>%` es peligroso (5 puntos)
+
+1. Haz una copia: `millas_copia <- millas`.
+2. Mira los primeros valores de `millas_copia$autopista`.
+3. Corre `millas_copia$autopista %<>% sqrt` y vuelve a mirarlos.
+4. Corre **la misma línea otra vez** y míralos una tercera vez.
+
+*Verifica:* `millas$autopista` sigue intacto, pero `millas_copia$autopista` cambió las **dos** veces.
+
+5. Explica en palabras por qué esto rompe la reproducibilidad de un script: ¿qué pasa si alguien corre tu documento dos veces?
+6. Escribe debajo la versión con `mutate()` que consigue lo mismo **sin** ese problema.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. `%T>%`, el paso de lado (5 puntos)
+
+Con `millas`, en **una sola cadena**:
+
+1. Toma `millas`, quédate solo con `cilindrada` y `autopista`, dibuja el par con `plot()` **en el medio** de la cadena usando `%T>%`, y termina calculando el promedio de las dos columnas con `colMeans()`.
+2. Prueba primero la misma cadena con `%>%` en vez de `%T>%`, en un bloque con `error=TRUE`.
+
+*Verifica:* con `%T>%` sale la gráfica **y** un vector de dos promedios.
+
+3. ¿Qué recibió `colMeans()` cuando usaste `%>%`? ¿Por qué?
+4. Escribe cómo harías lo mismo sin `%T>%`, usando un objeto intermedio. ¿Cuál de las dos versiones prefieres y por qué?
+
+```{r ej6a, error=TRUE}
+# La versión con %>% que falla
+
+```
+
+```{r ej6b}
+# La versión con %T>%
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). `%in%` no es un pipe (5 puntos adicionales)
+
+Con `paises` del año 2007:
+
+1. Filtra los países de tres continentes de dos maneras: con `|` repetido tres veces, y con `%in%`.
+2. Contesta **con código**: ¿qué devuelve `NA %in% c(1, 2)`? ¿Y `NA == 1`?
+
+*Verifica:* las dos maneras de filtrar dan exactamente la misma tabla.
+
+3. `%in%` se escribe con signos de porcentaje a los lados, igual que los pipes, pero no lo es. Explica en una oración qué hace realmente.
+4. Explica por qué la diferencia entre lo que devuelve `NA %in% ...` y lo que devuelve `NA == ...` puede cambiar el resultado de un filtro.
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

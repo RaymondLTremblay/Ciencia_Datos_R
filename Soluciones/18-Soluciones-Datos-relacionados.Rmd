@@ -1,0 +1,296 @@
+---
+title: "Soluciones: Capítulo Datos relacionados (claves, left_join, inner_join, anti_join, semi_join)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Corresponde a: 18-Datos-relacionados.Rmd (Capítulo 20 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_20_datos-relacionados.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. La tabla de consulta la inventa cada
+estudiante, así que los números exactos de los ejercicios 2 a 7 **cambian de una
+entrega a otra**. Lo que tiene que cuadrar son las relaciones entre ellos:
+
+- `left_join()` siempre 234 filas;
+- `inner_join()` = 234 menos los `NA`;
+- `anti_join()` = exactamente esa diferencia.
+
+Si esas tres cosas no cuadran entre sí, hay un error en alguna parte.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: encontrar la clave
+
+```{r sol18-1}
+paises |> count(pais) |> filter(n > 1)
+# 142 filas, todas con n = 12
+
+paises |> count(pais, anio) |> filter(n > 1)
+# "# A tibble: 0 x 3": vacía
+
+paises |> filter(is.na(pais) | is.na(anio))
+# también vacía
+```
+
+**Respuesta esperada.** `pais` solo **no** es clave: cada país aparece doce
+veces, una por año, y por eso la primera prueba devuelve las 142 filas. La
+combinación `pais` + `anio` **sí** lo es: la segunda prueba devuelve una tabla
+vacía.
+
+Por qué una tabla vacía es la prueba superada: la prueba pregunta "enséñame lo
+que se repite". Si no hay nada que enseñar, es que nada se repite, y eso es
+exactamente lo que significa ser una clave. Cuesta un poco acostumbrarse porque
+en el resto del curso una tabla vacía suele ser mala noticia.
+
+La clave primaria de `paises` es, por tanto, la **pareja** `pais` y `anio`.
+
+**Punto para discutir en clase.** Aquí se puede preguntar cuál sería la clave si
+la tabla tuviera dos regiones dentro de cada país. La respuesta (país + región +
+año) enseña que la clave crece con el detalle de los datos, y que no hay nada de
+raro en una clave de tres o cuatro columnas.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: tu propia tabla de consulta
+
+```{r sol18-2a}
+n_distinct(millas$fabricante)   # 15
+millas |> count(fabricante)
+```
+
+```{r sol18-2b}
+origen_fabricante <- tribble(
+  ~fabricante,  ~pais_origen,
+  "audi",       "Alemania",
+  "volkswagen", "Alemania",
+  "toyota",     "Japón",
+  "honda",      "Japón",
+  "nissan",     "Japón",
+  "subaru",     "Japón",
+  "hyundai",    "Corea del Sur"
+)
+
+millas_origen <- millas |> 
+  left_join(origen_fabricante, by = "fabricante")
+
+nrow(millas_origen)                      # 234
+sum(is.na(millas_origen$pais_origen))    # los que quedaron fuera
+```
+
+**Respuesta esperada.** `millas` tiene **15** fabricantes. La tabla de consulta
+de cada estudiante será distinta; lo que hay que verificar es que después del
+`left_join()` sigan siendo **234 filas** y que aparezcan `NA`.
+
+Qué dicen los `NA`: "esta fila no encontró pareja en la tabla de consulta". No es
+un fallo de R ni un dato perdido, es información. En un caso real querría decir
+que a la tabla de consulta le falta una categoría, o que el nombre está escrito
+de otra manera en las dos tablas.
+
+Por qué `left_join()` es la unión correcta: porque la tabla de la izquierda es
+**la tabla de datos** y la de la derecha es solo una ayuda. La unión no debe
+cambiar cuántos vehículos tienes, solo añadirles una columna. `left_join()`
+garantiza eso; ninguna de las otras tres lo hace.
+
+Error frecuente: escribir `"Audi"` con mayúscula en la tabla de consulta. En
+`millas` está en minúscula, así que no empareja, y el estudiante ve `NA` donde no
+los esperaba. Es un error productivo y conviene dejar que lo descubran solos con
+el Ejercicio 4.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: `left_join()` frente a `inner_join()`
+
+```{r sol18-3}
+con_left  <- millas |> left_join(origen_fabricante,  by = "fabricante")
+con_inner <- millas |> inner_join(origen_fabricante, by = "fabricante")
+
+nrow(con_left)    # 234
+nrow(con_inner)   # menos de 234
+nrow(con_left) - nrow(con_inner) == sum(is.na(con_left$pais_origen))   # TRUE
+```
+
+**Respuesta esperada.** `left_join()` da 234 y `inner_join()` da menos. La
+diferencia es **exactamente** el número de `NA` del ejercicio anterior, y esa
+igualdad es la que hay que buscar en la entrega: demuestra que el estudiante
+entendió qué se perdió.
+
+Por qué es más peligroso que un error: un error detiene el trabajo y obliga a
+mirarlo. Un `inner_join()` que borra la tercera parte de los datos devuelve una
+tabla perfectamente normal, con nombres de columna correctos y números creíbles.
+El análisis sigue, las gráficas salen bonitas, y la conclusión está mal. No hay
+nada en la pantalla que avise.
+
+La costumbre que protege: comparar `nrow()` antes y después de unir. Se puede
+escribir como una línea que se lee sola:
+
+```{r sol18-3b}
+stopifnot(nrow(con_left) == nrow(millas))
+```
+
+Si algún día deja de cumplirse, el script para solo, en el sitio exacto.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: `anti_join()` para diagnosticar
+
+```{r sol18-4}
+sin_pareja <- millas |> 
+  anti_join(origen_fabricante, by = "fabricante")
+
+sin_pareja |> count(fabricante)
+nrow(sin_pareja)   # = 234 - nrow(con_inner)
+
+# En el otro sentido: ¿escribí bien los nombres?
+origen_fabricante |> 
+  anti_join(millas, by = "fabricante")
+# debe salir vacía
+```
+
+**Respuesta esperada.** La lista coincide con los fabricantes que el estudiante
+dejó fuera, y `nrow(sin_pareja)` es igual a la diferencia del Ejercicio 3.
+
+El `anti_join()` **en el otro sentido** es la parte más útil del ejercicio y la
+que más se olvida. Si devuelve filas, es que hay un nombre en la tabla de
+consulta que no existe en `millas`: una mayúscula, un espacio, `"vw"` en vez de
+`"volkswagen"`. Quien haya escrito `"Audi"` lo descubre aquí.
+
+Para qué sirve si no añade columnas: sirve para **preguntar**, no para
+transformar. Contesta "¿qué se me está quedando fuera?", que es la pregunta que
+hay que hacerse antes de confiar en cualquier unión.
+
+Situaciones del trabajo propio que suelen mencionar, y todas valen: individuos
+marcados en campo que no aparecen en la hoja de laboratorio; códigos de parcela
+que están en el archivo de coordenadas pero no en el de censos; especies con el
+nombre escrito de dos maneras entre dos años de muestreo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: la clave duplicada
+
+```{r sol18-5}
+origen_dup <- origen_fabricante |> 
+  bind_rows(tibble(fabricante = "toyota", pais_origen = "Japón (planta EEUU)"))
+
+origen_dup |> count(fabricante) |> filter(n > 1)   # toyota, n = 2
+
+con_dup <- millas |> left_join(origen_dup, by = "fabricante")
+
+nrow(con_dup)                    # más de 234
+millas |> count(fabricante) |> filter(fabricante == "toyota")
+```
+
+**Respuesta esperada.** El resultado tiene más de 234 filas, y las de `toyota`
+aparecen dos veces.
+
+Cuántas de más y por qué: exactamente **tantas como vehículos toyota haya en
+`millas`**. Cada uno de ellos encontró **dos** parejas en la tabla de consulta, y
+la unión produce una fila por cada pareja. Si hay 34 toyotas, salen 34 filas de
+más. Que el estudiante haga esa cuenta y le cuadre es lo que se evalúa aquí.
+
+Si después se calcula el promedio por clase, **sí está mal**, y de una manera
+concreta: los toyotas pesan el doble que los demás en el promedio, porque están
+contados dos veces. No es que el promedio sea imposible de calcular, es que
+responde a una pregunta que nadie hizo. Comparar con el promedio de la tabla
+original lo demuestra en dos líneas.
+
+**Punto para discutir en clase.** Este es el error más caro del capítulo y el más
+difícil de ver, porque una tabla con 20 filas de más se ve igual que una correcta.
+La única defensa es comprobar la clave de la tabla de consulta **antes** de unir.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: cuando las columnas se llaman distinto
+
+```{r sol18-6a}
+origen_marca <- origen_fabricante |> rename(marca = fabricante)
+
+millas |> left_join(origen_marca)
+# Error in `left_join()`: `by` must be supplied when `x` and `y` have no
+# common variables.
+```
+
+```{r sol18-6b}
+millas |> left_join(origen_marca, by = c("fabricante" = "marca")) |> nrow()
+# 234
+```
+
+**Respuesta esperada.** Sin `by`, `dplyr` intenta la unión natural, busca columnas
+con el mismo nombre en las dos tablas, no encuentra ninguna, y se queja. El
+mensaje dice literalmente que hay que dar un `by` porque no hay variables
+comunes.
+
+Cuál nombre es de cuál tabla: **el de la izquierda del igual es el de la tabla de
+la izquierda**, es decir, el de `x`, la que va primero en la llamada. La regla
+mnemotécnica que suele funcionar: se lee en el mismo orden en que están escritas
+las tablas, `x` primero y `y` después.
+
+Error frecuente: escribirlo al revés, `by = c("marca" = "fabricante")`. El
+mensaje de error es claro (dice que `marca` no existe en `x`), así que se corrige
+solo si el estudiante lo lee.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): `semi_join()` frente a `%in%`
+
+```{r sol18-7}
+con_semi <- millas |> semi_join(origen_fabricante, by = "fabricante")
+
+con_in <- millas |> filter(fabricante %in% origen_fabricante$fabricante)
+
+nrow(con_semi) == nrow(con_in)     # TRUE
+ncol(con_semi)                     # 11
+identical(con_semi, con_in)        # TRUE
+
+# Con la tabla duplicada del ejercicio 5:
+nrow(millas |> semi_join(origen_dup,  by = "fabricante"))   # igual que antes
+nrow(millas |> inner_join(origen_dup, by = "fabricante"))   # más filas
+ncol(millas |> inner_join(origen_dup, by = "fabricante"))   # 12, no 11
+```
+
+**Respuesta esperada.** Las dos primeras dan exactamente la misma tabla, 11
+columnas incluidas.
+
+Para qué existe `semi_join()` entonces: para cuando la condición depende de
+**más de una columna**. Con `%in%` habría que construir una columna combinada a
+mano (`paste(a, b)`) y comparar cadenas de texto, lo cual funciona hasta que
+aparece un valor con un guion o un espacio. `semi_join(x, y, by = c("a", "b"))`
+lo hace bien y de una vez.
+
+La comparación con `inner_join()` es la parte importante del bono:
+
+- `semi_join()` con la tabla duplicada devuelve **el mismo número de filas** que
+  con la tabla limpia, porque solo filtra: nunca duplica.
+- `inner_join()` con la tabla duplicada devuelve **más filas** y además una
+  columna de más.
+
+Es decir: cuando lo único que quieres es filtrar, `semi_join()` es más seguro que
+`inner_join()`, y por una razón concreta, no por gusto.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Como cada estudiante inventa su tabla de consulta, no hay una hoja de respuestas
+con números fijos. Lo que hay que verificar es la **coherencia interna**:
+
+- Ejercicio 2: 234 filas después del `left_join()`.
+- Ejercicio 3: `nrow(left) - nrow(inner)` = número de `NA` del Ejercicio 2.
+- Ejercicio 4: `nrow(anti_join)` = esa misma diferencia, y el `anti_join()` en el
+  otro sentido vacío.
+- Ejercicio 5: filas de más = número de vehículos del fabricante duplicado.
+
+El Ejercicio 5 es el más importante del capítulo. El 3 y el 4 son los que
+instalan la costumbre de comprobar `nrow()`, que es lo único de este capítulo que
+de verdad les va a hacer falta toda la vida.

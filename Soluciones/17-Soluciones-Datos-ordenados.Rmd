@@ -1,0 +1,301 @@
+---
+title: "Soluciones: Capítulo Datos ordenados (pivot_longer, pivot_wider, separate, unite, complete)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Corresponde a: 17-Datos-ordenados.Rmd (Capítulo 19 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_19_datos-ordenados.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: ¿está ordenada?
+
+```{r sol17-1}
+glimpse(paises)
+dim(paises)   # 1704 6
+```
+
+**Respuesta esperada.** Sí, `paises` está ordenada. Las seis columnas son seis
+variables: `pais`, `continente`, `anio`, `esperanza_de_vida`, `poblacion` y
+`pib_per_capita`. Cada fila es un valor de cada una y cada celda tiene un solo
+valor.
+
+La observación es **un país en un año**, no un país. Se sabe mirando los datos:
+`Afganistán` aparece doce veces, una por año. 142 países por 12 años dan las 1704
+filas, y esa multiplicación es la mejor manera de contestar la pregunta.
+
+Vale la pena señalar que `continente` se repite doce veces por país, y que eso
+**no** es un error de diseño: en una tabla ordenada, una variable que solo depende
+del país se repite en cada fila de ese país. Quien quiera evitar la repetición
+necesita dos tablas y un `join`, que es el capítulo siguiente.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: de largo a ancho
+
+```{r sol17-2}
+paises_ancha <- paises |> 
+  select(pais, anio, esperanza_de_vida) |> 
+  pivot_wider(names_from = anio, values_from = esperanza_de_vida)
+
+paises_ancha
+dim(paises_ancha)   # 142 13
+```
+
+**Respuesta esperada.** 142 filas y 13 columnas: `pais` más los doce años, de
+1952 a 2007.
+
+¿Está ordenada? **No.** Los nombres de doce de las trece columnas son valores del
+año, no nombres de variables. Es exactamente el problema de `tabla4a`.
+
+Para qué sirve mejor: para **mirarla**. Un lector ve de un vistazo la trayectoria
+de cada país en una sola línea, y comparar el primer año con el último es
+inmediato. También sirve para calcular a mano diferencias entre dos años
+concretos.
+
+Para qué sirve peor: para casi todo lo demás. No se puede graficar la esperanza
+de vida contra el año, porque el año no es una columna. No se puede agrupar por
+año, ni filtrar por año, ni calcular un promedio por década. Un buen ejemplo
+concreto que suelen dar: `ggplot(aes(x = anio, y = esperanza_de_vida))` no tiene
+de dónde sacar ninguna de las dos.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: y de vuelta
+
+```{r sol17-3a}
+paises_larga <- paises_ancha |> 
+  pivot_longer(
+    cols      = -pais,
+    names_to  = "anio",
+    values_to = "esperanza_de_vida"
+  )
+
+nrow(paises_larga)          # 1704
+class(paises_larga$anio)    # "character"
+```
+
+```{r sol17-3b}
+paises_larga2 <- paises_ancha |> 
+  pivot_longer(
+    cols            = -pais,
+    names_to        = "anio",
+    values_to       = "esperanza_de_vida",
+    names_transform = list(anio = as.integer)
+  )
+
+class(paises_larga2$anio)   # "integer"
+```
+
+```{r sol17-3c}
+paises_larga |> arrange(anio) |> head()
+```
+
+**Respuesta esperada.** Las dos versiones vuelven a 1704 filas. La diferencia es
+el tipo de `anio`.
+
+Con `anio` como texto, `arrange()` ordena **alfabéticamente**. Con estos años, de
+1952 a 2007, el orden alfabético y el numérico coinciden por casualidad, porque
+todos tienen cuatro dígitos y empiezan por 1 o por 2. Conviene aprovechar para
+enseñar por qué eso es una trampa: en cuanto los valores tengan distinto número de
+dígitos, el orden alfabético pone `"10"` antes que `"9"`. Se puede demostrar en
+clase con `sort(c("9", "10", "100"))`.
+
+Por qué `pivot_longer()` devuelve texto: porque los valores de `anio` **eran
+nombres de columna**, y los nombres de columna en R son siempre cadenas de texto.
+La función no tiene manera de saber que esa cadena representaba un número, así
+que no se lo inventa. El argumento `names_transform` existe precisamente para
+decírselo.
+
+También vale la solución con `mutate(anio = as.integer(anio))` después del pivot.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: dos columnas que son una variable
+
+```{r sol17-4a}
+millas_larga <- millas |> 
+  pivot_longer(
+    cols      = c(ciudad, autopista),
+    names_to  = "tipo_de_via",
+    values_to = "millas_por_galon"
+  )
+
+dim(millas_larga)   # 468 11
+```
+
+```{r sol17-4b}
+ggplot(millas_larga, aes(x = tipo_de_via, y = millas_por_galon)) +
+  geom_boxplot()
+
+ggplot(millas_larga, aes(x = tipo_de_via, y = millas_por_galon)) +
+  geom_boxplot() +
+  facet_wrap(~ clase)
+```
+
+**Respuesta esperada.** 468 filas (234 por 2) y 11 columnas: se fueron dos y
+llegaron dos.
+
+La primera gráfica enseña lo esperado, que el rendimiento en autopista es más
+alto. La segunda enseña lo interesante: la **brecha** entre ciudad y autopista no
+es igual en todas las clases. En los pickup y los SUV las dos cajas están bajas y
+cerca; en los compactos y subcompactos la diferencia es mucho mayor.
+
+Por qué no se podía con la tabla original: `ggplot()` mapea **una columna** a cada
+eje. Con `ciudad` y `autopista` en columnas separadas, no hay ninguna columna que
+diga "tipo de vía", así que no hay nada que poner en el eje horizontal. Se podrían
+dibujar dos capas `geom_boxplot()` a mano, una por columna, pero entonces no
+comparten eje, no hay leyenda y no se puede usar `facet_wrap()`. Esta es la
+demostración más clara del capítulo de por qué ordenar sirve para algo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: juntar y volver a partir
+
+```{r sol17-5}
+paises_unida <- paises |> 
+  unite(pais_anio, pais, anio, sep = "_")
+
+head(paises_unida$pais_anio)
+
+sin_convert <- paises_unida |> 
+  separate(pais_anio, into = c("pais", "anio"), sep = "_")
+class(sin_convert$anio)   # "character"
+
+con_convert <- paises_unida |> 
+  separate(pais_anio, into = c("pais", "anio"), sep = "_", convert = TRUE)
+class(con_convert$anio)   # "integer"
+
+nrow(sin_convert); nrow(con_convert)   # 1704 las dos
+```
+
+**Respuesta esperada.** Sin `convert`, `anio` es texto; con `convert = TRUE`,
+numérico. 1704 filas en los dos casos.
+
+Por qué no adivina sola: porque `separate()` parte **texto**, y lo que sale de
+partir texto es texto. Adivinar el tipo cuesta trabajo (hay que mirar la columna
+entera) y a veces se equivoca, así que `tidyr` prefiere no hacerlo salvo que se lo
+pidas. Es la misma filosofía del tibble: hacer menos y avisar más.
+
+El caso del guion bajo en el nombre: `separate()` parte por **cada** aparición del
+separador, así que un país llamado `Costa_Rica` produciría tres pedazos para dos
+huecos, y `tidyr` avisaría con "Expected 2 pieces". En estos datos no pasa porque
+`unite()` usó un guion bajo y ningún nombre lo tiene, pero es la razón por la que
+conviene escoger un separador que no exista en los datos, como `"|"` o `"::"`.
+
+**Punto para discutir en clase.** Este ejercicio parece artificial y no lo es: es
+exactamente lo que hay que hacer con una columna que llega como
+`"2016-08-01 15:30"` o como `"Aguadilla-03"`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: el faltante que no se ve
+
+```{r sol17-6a}
+mediciones <- tribble(
+  ~parcela, ~anio, ~plantas,
+  "P1",      2022,       12,
+  "P1",      2023,       15,
+  "P1",      2024,       18,
+  "P2",      2022,       30,
+  "P2",      2023,       28,
+  "P3",      2022,       44,
+  "P3",      2024,       40,
+  "P4",      2023,        9,
+  "P4",      2024,       11
+)
+
+nrow(mediciones)   # 9
+```
+
+```{r sol17-6b}
+mediciones |> 
+  pivot_wider(names_from = anio, values_from = plantas)
+# 4 filas, 4 columnas, con tres NA
+```
+
+```{r sol17-6c}
+mediciones |> 
+  complete(parcela, anio)
+# 12 filas: las 9 originales más las 3 que faltaban, con NA en plantas
+```
+
+**Respuesta esperada.** La tabla ancha tiene 4 filas y 4 columnas con exactamente
+tres `NA`. `complete()` lleva la tabla larga de 9 a 12 filas.
+
+Cuál usar en datos de campo: **`complete()`**, y por dos razones. La primera es
+que no cambia la forma de la tabla, así que el resto del análisis sigue igual. La
+segunda es que se puede correr como una **revisión**, comparando `nrow()` antes y
+después: si el número sube, hay datos que faltan y hay que averiguar por qué. La
+tabla ancha sirve para verlo de un vistazo, pero no encaja con el resto del flujo
+de trabajo.
+
+Lo que habría pasado sin hacerlos explícitos: el promedio por parcela se habría
+calculado sobre **distinto número de años** en cada parcela, sin que nada avisara.
+P1 tendría promedio de tres años, P2 y P3 de dos, P4 de dos. Comparar esos cuatro
+números como si fueran comparables es un error, y es invisible: no hay `NA`, no
+hay advertencia, solo cuatro promedios de aspecto normal. Es la misma lección del
+tercer mes incompleto en el capítulo de importar datos.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): desordenar a propósito
+
+```{r sol17-7}
+tabla_informe <- millas |> 
+  group_by(clase, anio) |> 
+  summarise(autopista_promedio = mean(autopista), .groups = "drop") |> 
+  pivot_wider(names_from = anio, values_from = autopista_promedio) |> 
+  mutate(diferencia = `2008` - `1999`)
+
+tabla_informe
+```
+
+**Respuesta esperada.** Siete filas (una por clase) y tres columnas antes de
+añadir la diferencia: `clase`, `1999` y `2008`. La columna `diferencia` sale casi
+toda cerca de cero: entre 1999 y 2008 el rendimiento en autopista apenas cambió,
+que es de por sí un resultado que da para conversación.
+
+Fíjate en que para calcular la diferencia hubo que escribir `` `2008` `` y
+`` `1999` `` entre acentos graves, otra vez porque un nombre no puede empezar por
+número. Es un recordatorio de que las tablas anchas son incómodas de programar.
+
+La contradicción, resuelta: **ordenada para calcular, ancha para enseñar.** Las
+dos formas son correctas, sirven para cosas distintas y convertir de una a la otra
+cuesta una línea. El error no es usar una tabla ancha; el error es hacer el
+análisis sobre ella.
+
+La regla que se busca, escrita con sus palabras: mientras estés calculando,
+agrupando, filtrando o graficando, la tabla va larga y ordenada; solo en el último
+paso, el de presentar, se ensancha con `pivot_wider()`. Ninguna tabla ancha
+debería ser la entrada de otro cálculo.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+El Ejercicio 4 es el más importante del capítulo: es el único donde el estudiante
+ve con sus propios ojos que una gráfica es **imposible** con la tabla desordenada
+y trivial con la ordenada. Si hay poco tiempo para corregir, ese es el que hay que
+leer con cuidado.
+
+Resultados comparables: 1704 por 6 (Ej. 1), 142 por 13 (Ej. 2), 1704 y el tipo de
+`anio` (Ej. 3), 468 por 11 (Ej. 4), 1704 en los dos casos (Ej. 5), tres `NA` y 12
+filas (Ej. 6), 7 filas (Ej. 7).

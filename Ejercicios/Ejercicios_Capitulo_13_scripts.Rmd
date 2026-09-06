@@ -1,0 +1,195 @@
+---
+title: "Ejercicios del Capítulo 13"
+subtitle: "Script: la consola y el script, proyectos, rutas, source() y estilo"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 13 del libro del curso.
+
+Este capítulo no trata de una función nueva sino de una **forma de trabajar**, así que hay menos ejercicios que en los capítulos anteriores, pero cada uno hay que hacerlo de verdad dentro de RStudio. Leerlos no basta: el Ejercicio 3 te pide crear un archivo, y el Ejercicio 5 te pide reiniciar R.
+
+Los ejercicios usan `millas` del paquete `datos`, no `vuelos`, que es el conjunto con el que se enseña en el capítulo.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra y produzca la tabla o el valor.
+3. **Una explicación en palabras** en el espacio marcado. Una tabla sola no contesta la pregunta.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*. Si el documento no compila, no se puede corregir.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | El directorio de trabajo: `getwd()` y `list.files()` | 5 |
+| 2 | De la consola al script | 5 |
+| 3 | Tu propio archivo de funciones y `source()` | 5 |
+| 4 | Reescribir un script para que se entienda | 5 |
+| 5 | La prueba de la sesión limpia | 5 |
+| **Total** | | **25** |
+| 6 (bono) | Secciones y navegación | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre y se muestra (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+Antes de empezar, mira qué tienes:
+
+```{r explorar, eval=FALSE}
+names(millas)
+head(millas)
+```
+
+---
+
+# Ejercicio 1. ¿Dónde está parada tu sesión? (5 puntos)
+
+1. Corre `getwd()` y anota la carpeta que devuelve.
+2. Corre `list.files()` y mira la lista de archivos que R ve desde ahí.
+
+*Verifica:* entre los nombres que devuelve `list.files()` debe aparecer el de este mismo archivo `.Rmd`. Si no aparece, no estás donde crees que estás.
+
+3. Explica en palabras: si el archivo `datos.csv` estuviera guardado en tu Escritorio y escribieras `read_csv("datos.csv")`, ¿lo encontraría R? ¿Por qué sí o por qué no?
+4. Explica también qué ventaja tiene abrir un **Proyecto de RStudio** en lugar de escribir `setwd()` al principio del script.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. De la consola al script (5 puntos)
+
+Con `millas`:
+
+1. En la **consola**, prueba hasta lograr una tabla con el consumo promedio en `autopista` para cada `clase`, ordenada de mayor a menor. Añade también el número de vehículos de cada clase con `n()`.
+2. Cuando funcione, pega **solo** las líneas que funcionaron en el bloque de abajo.
+
+*Verifica:* tu tabla debe tener **7 filas**, una por clase, la suma de la columna de `n()` debe dar el total de filas de `millas`, y `pickup` debe quedar en el **último** lugar.
+
+3. Explica en palabras por qué el resultado de `pickup` tiene sentido, y por qué no conviene dejar en el script las líneas que probaste y no funcionaron.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. Tu propio archivo de funciones y `source()` (5 puntos)
+
+1. Crea, **en la misma carpeta de este documento**, un archivo de texto llamado `funciones_millas.R`.
+2. Dentro de ese archivo escribe **una sola función**, llamada `resumen_clase()`, que reciba una tabla y devuelva el promedio de `autopista` por `clase`, ordenado de mayor a menor. El archivo no debe contener nada más: ni `library()`, ni pruebas, ni resultados impresos.
+3. En el bloque de abajo, cárgalo con `source("funciones_millas.R")` y usa la función con `millas`.
+
+*Verifica:* después del `source()`, `exists("resumen_clase")` debe devolver `TRUE`, y el resultado debe ser el mismo del Ejercicio 2.
+
+4. Explica en palabras qué ganas al tener la función en su propio archivo en lugar de copiarla en cada análisis nuevo.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Reescribir un script para que se entienda (5 puntos)
+
+El siguiente código funciona, pero está escrito de manera que nadie lo entiende:
+
+```
+x=millas
+y=x[x$anio==2008,]
+z=mean(y$ciudad)
+z
+```
+
+1. Cópialo tal cual en el bloque de abajo y córrelo, para saber cuál es el número que hay que reproducir.
+2. Reescríbelo debajo: con nombres de objetos que se entiendan solos, con el operador `<-`, en estilo tidyverse (`filter()` y `summarise()`), y con **dos comentarios** que expliquen *por qué* se hace cada paso, no *qué* hace la línea.
+
+*Verifica:* tu versión tiene que dar exactamente el mismo número que la versión original.
+
+3. Explica en palabras cuál de todos los cambios que hiciste ayuda más a alguien que lea el script dentro de seis meses.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. La prueba de la sesión limpia (5 puntos)
+
+1. Guarda este documento.
+2. Reinicia R con *Session > Restart R*.
+3. Sin correr nada a mano, haz *Knit* del documento completo.
+
+*Verifica:* el documento tiene que compilar sin errores desde una sesión recién reiniciada.
+
+4. Explica en palabras: si se cayó, ¿en qué bloque fue y qué faltaba ahí? Si compiló a la primera, ¿qué costumbre tuya lo hizo posible?
+5. Explica también por qué un análisis que solo funciona sin reiniciar R no se considera reproducible.
+
+```{r ej5}
+# Escribe tu código aquí, si lo necesitas
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6 (BONO). Secciones y navegación (5 puntos adicionales)
+
+1. Organiza este documento (o el archivo `funciones_millas.R`) en al menos **tres** secciones, usando comentarios que terminen en cuatro guiones o más, por ejemplo `# Paquetes ----`.
+2. Abre el esquema con Cmd/Ctrl + Shift + O y toma una captura de pantalla, o describe lo que ves.
+
+*Verifica:* el esquema debe mostrar tus tres secciones.
+
+3. Explica en palabras en qué se parecen estas secciones a los encabezados `#` y `##` de R Markdown, y en qué se diferencian.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

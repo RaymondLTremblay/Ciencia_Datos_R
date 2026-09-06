@@ -1,0 +1,262 @@
+---
+title: "Ejercicios del Capítulo 11"
+subtitle: "Transformación: rangos (min_rank, dense_rank, row_number, percent_rank, cume_dist) y promedios móviles"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 11 del libro del curso.
+
+Este documento es tu entrega. Escribe tu propio código: el código de los ejemplos del capítulo te sirve de modelo, pero copiar y pegar no enseña. Los ejercicios usan conjuntos de datos **distintos** a los de los ejemplos del capítulo (`diamantes` y `paises` del paquete `datos`), así que no vas a poder resolverlos cambiando el nombre de una columna en un script copiado.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra y produzca la tabla o la gráfica.
+3. **Una explicación en palabras** de lo que encontraste, en el espacio marcado. Una tabla sola no contesta la pregunta.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*. Si el documento no compila, no se puede corregir.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | `min_rank()` y `desc()` | 5 |
+| 2 | Empates: `min_rank()`, `dense_rank()`, `row_number()` | 5 |
+| 3 | Rangos y valores faltantes | 5 |
+| 4 | `percent_rank()` y `cume_dist()` | 5 |
+| 5 | `first()`, `last()` y `nth()` | 5 |
+| 6 | `group_by()` con `summarise()` | 5 |
+| 7 | Rangos dentro de grupos | 5 |
+| 8 | `rollmean()`: promedio móvil | 5 |
+| **Total** | | **40** |
+| 9 (bono) | Percentiles por grupo | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre y se muestra (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+library(zoo)   # para rollmean() en el Ejercicio 8
+```
+
+Antes de empezar, mira qué tienes:
+
+```{r explorar, eval=FALSE}
+names(diamantes)
+head(diamantes)
+names(paises)
+head(paises)
+```
+
+---
+
+# Ejercicio 1. `min_rank()` y `desc()` (5 puntos)
+
+Trabaja con **`diamantes`** (NO con `vuelos`). Para no arrastrar 54,000 filas, empieza tomando una muestra:
+
+```{r muestra, eval=FALSE}
+set.seed(2026)
+dm <- slice_sample(diamantes, n = 500)
+```
+
+1. Añade a `dm` la columna `rango_precio` con el rango del `precio` de menor a mayor.
+2. Añade `rango_precio_desc`, el rango de mayor a menor, usando `desc()`.
+3. Enseña los 10 diamantes más caros de tu muestra.
+4. ¿Cuánto suman `rango_precio` y `rango_precio_desc` en una misma fila? ¿Es siempre el mismo número? Explica qué significa eso.
+
+*Verifica:* la fila con el precio más alto debe tener `rango_precio_desc` igual a 1.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. Los empates: tres funciones que no son lo mismo (5 puntos)
+
+Usa la misma muestra `dm`. La variable `quilate` tiene muchos valores repetidos, así que es ideal para ver qué pasa con los empates.
+
+1. Crea de una vez tres columnas sobre `quilate`: `r_min = min_rank(quilate)`, `r_dense = dense_rank(quilate)` y `r_fila = row_number(quilate)`.
+2. Ordena por `quilate` y enseña las primeras 20 filas.
+3. Busca un valor de `quilate` que se repita y compara las tres columnas en esas filas.
+4. Explica en palabras la diferencia entre las tres: ¿cuál deja huecos después de un empate, cuál no deja huecos, y cuál le da un número distinto a cada fila aunque estén empatadas?
+
+*Verifica:* el valor máximo de `r_dense` tiene que ser menor o igual que el de `r_min`.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. ¿Qué hacen los rangos con los valores faltantes? (5 puntos)
+
+Los diamantes no traen valores faltantes, así que vas a crear unos.
+
+1. A partir de `dm`, crea `precio_na`, igual a `precio` pero con `NA` cuando el precio sea mayor de 10000. Usa `if_else()`.
+2. Cuenta cuántos `NA` te quedaron.
+3. Calcula `min_rank(precio_na)` y `row_number(precio_na)`.
+4. ¿Qué rango recibe una fila con `NA`? ¿Se lo saltan, reciben el último lugar, o quedan como `NA`? Contesta mirando el resultado, no de memoria.
+5. ¿Por qué esto importa cuando quieres los "10 más grandes" de una variable con datos incompletos?
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. `percent_rank()` y `cume_dist()` (5 puntos)
+
+Con la muestra `dm`:
+
+1. Crea `pr = percent_rank(quilate)` y `cd = cume_dist(quilate)`.
+2. Enseña la fila del diamante más pequeño y la del más grande. ¿Qué valor toma cada índice en los extremos?
+3. Busca un diamante de aproximadamente 1 quilate y lee sus dos valores.
+4. Explica en palabras la diferencia entre las dos medidas: una contesta "¿qué proporción de los diamantes es más pequeña que este?" y la otra "¿qué proporción es menor o igual que este?". Di cuál es cuál y por qué el mínimo vale 0 en una y no en la otra.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. `first()`, `last()` y `nth()` (5 puntos)
+
+Cambia al conjunto **`paises`**, que tiene esperanza de vida, población y producto interno bruto por persona para muchos países, cada cinco años.
+
+1. Filtra un país (por ejemplo `"Costa Rica"`) y **ordena por `anio`**.
+2. Con `summarise()`, saca `primera = first(esperanza_de_vida)`, `ultima = last(esperanza_de_vida)` y el cambio entre las dos.
+3. Usa `nth(esperanza_de_vida, 5)` para sacar el quinto valor de la serie. ¿A qué año corresponde?
+4. Corre lo mismo **sin** ordenar por `anio` primero. ¿Cambia el resultado? Explica por qué `first()` y `last()` dependen del orden de las filas y no del tiempo.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. `group_by()` con `summarise()` (5 puntos)
+
+Vuelve a `diamantes`, ahora con el conjunto completo.
+
+1. Calcula, por cada categoría de `corte`: el número de diamantes (`n()`), el precio promedio y el quilate promedio.
+2. Ordena de mayor a menor precio promedio.
+3. El corte `"Ideal"` es el mejor corte. ¿Sale con el precio promedio más alto? Contesta con el resultado en la mano.
+4. Mira la columna del quilate promedio y propón una explicación de lo que ves. Esto se contesta **en palabras**, es la parte importante del ejercicio.
+
+*Verifica:* la suma de la columna `n()` debe dar el número total de filas de `diamantes`.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7. Rangos dentro de grupos (5 puntos)
+
+Sigue con `diamantes` completo.
+
+1. Agrupa por `corte` y crea `rango = min_rank(desc(precio))` dentro de cada grupo.
+2. Filtra `rango <= 3` para quedarte con los tres diamantes más caros **de cada corte** y acuérdate de `ungroup()`.
+3. ¿Cuántas filas te quedaron? ¿Coincide con lo que esperabas? Si te salieron más, mira si hay empates.
+4. Haz lo mismo **sin** `group_by()` y compara: ¿de qué corte salen esas tres filas? Explica por qué agrupar antes cambia por completo la pregunta que estás contestando.
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 8. `rollmean()`: el promedio móvil (5 puntos)
+
+Regresa a `paises`, con el país que escogiste en el Ejercicio 5, ordenado por `anio`.
+
+1. Calcula tres promedios móviles de `esperanza_de_vida` con ventana de 3 observaciones: centrado, `align = "right"` y `align = "left"`. Usa `fill = NA`.
+2. Enseña la tabla completa con las cuatro columnas (el valor original y los tres promedios móviles).
+3. ¿En qué posiciones aparece `NA` en cada una de las tres versiones? Explica por qué cambian de lugar.
+4. Grafica la serie original y el promedio móvil centrado en la misma gráfica. ¿Qué hace el promedio móvil con las subidas y bajadas de la serie?
+
+```{r ej8}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 9 (BONO). Percentiles por grupo (5 puntos adicionales)
+
+Este ejercicio es opcional y vale 5 puntos de bono sobre los 40 puntos regulares.
+
+Con `diamantes` completo:
+
+1. Dentro de cada `color`, calcula `cume_dist(precio)`.
+2. Quédate con los diamantes que están en el 5 % más caro **de su propio color**.
+3. Cuenta cuántos son por color. ¿Salen números parecidos? ¿Por qué tenían que salir aproximadamente proporcionales al tamaño de cada grupo?
+4. Ahora repite el paso 2 pero con el 5 % más caro de **toda** la tabla, sin agrupar. Compara las dos listas y explica en palabras cuál de las dos contesta la pregunta "¿cuáles son los diamantes caros para su color?".
+
+```{r ej9}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+**Antes de entregar:** haz *Knit* al documento completo y confirma que corre de principio a fin sin errores.

@@ -1,4 +1,6 @@
-# Appendix D {.unnumbered}
+# (APPENDIX) Apéndice {.unnumbered}
+
+# Apéndice A: COVID-19 acumulativo {.unnumbered}
 
 ```{r c30-1, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
@@ -9,7 +11,7 @@ Sys.Date()
 
 *** 
 
-## COVID 19 Cumulativo
+## COVID 19 Cumulativo {-}
 
 
 Usa los datos de COVID-19 en Puerto Rico (PR) del Departamento de Salud de PR.

@@ -1,0 +1,299 @@
+---
+title: "Soluciones: Capítulo Modelos con modelr (lm, coeficientes, residuales, predicciones)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Corresponde a: 34-Modelos-modelr.Rmd (Capítulo 28 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_28_modelos.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(modelr)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. En este capítulo el reparto de puntos es
+distinto a propósito: 1 punto por el script, 1 por el resultado y **3 por la
+interpretación**. Conviene decírselo antes de que entreguen.
+
+Los valores numéricos que aparecen abajo son aproximados; lo que tiene que
+coincidir es el signo, el orden de magnitud y el patrón.
+
+```{r sol34-0}
+p2007 <- paises |> filter(anio == 2007)
+```
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: el modelo más sencillo
+
+```{r sol34-1}
+mod1 <- lm(autopista ~ cilindrada, data = millas)
+coef(mod1)
+summary(mod1)$r.squared
+
+ggplot(millas, aes(cilindrada, autopista)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+**Respuesta esperada.** Intercepto alrededor de 35.7 y pendiente alrededor de
+-3.5. El $R^2$ ronda 0.59.
+
+La traducción a palabras, que es lo que se evalúa: **por cada litro más de
+cilindrada, el rendimiento en autopista baja unas 3.5 millas por galón, en
+promedio.** Hay que exigir el "en promedio": el modelo describe la tendencia, no
+cada carro.
+
+Sobre el intercepto: es el rendimiento predicho para un motor de **cero litros**,
+que no existe. No es un error ni un problema; simplemente el intercepto aquí no
+tiene interpretación física, solo sirve para colocar la recta a la altura
+correcta. Es un buen momento para mencionar que centrar la variable (restarle su
+media) haría que el intercepto sí significara algo: el rendimiento de un motor de
+tamaño promedio.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: los residuales delatan
+
+```{r sol34-2}
+millas_r <- millas |> add_residuals(mod1)
+
+ggplot(millas_r, aes(cilindrada, resid)) +
+  geom_hline(yintercept = 0, colour = "grey50") +
+  geom_point() +
+  geom_smooth(se = FALSE)
+```
+
+**Respuesta esperada.** Los residuales forman una **curva**: por debajo de cero en
+la zona intermedia (alrededor de 4 a 5 litros) y por encima en los dos extremos,
+sobre todo a la izquierda, en los motores pequeños.
+
+Qué significa: la relación real **no es una recta**, es curva. El modelo lineal
+subestima el consumo de los motores pequeños y de los grandes, y lo sobreestima en
+el medio. La familia de modelos escogida (rectas) no contiene ninguna que se
+ajuste bien.
+
+Qué hacer a continuación, cualquiera de estas y todas valen:
+
+- transformar, por ejemplo `log(autopista) ~ log(cilindrada)`, que es lo que hizo
+  el capítulo con los diamantes;
+- añadir un término cuadrático, `autopista ~ cilindrada + I(cilindrada^2)`;
+- añadir otra variable que explique lo que falta, que es el Ejercicio 5.
+
+**Punto para discutir en clase.** Este ejercicio es la razón por la que la
+advertencia del capítulo dice "mira los residuales antes que el $R^2$". Aquí el
+$R^2$ de 0.59 no está mal para datos reales, y sin embargo la gráfica de
+residuales dice a gritos que el modelo está equivocado.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: enderezar con logaritmos
+
+```{r sol34-3}
+mod_crudo <- lm(esperanza_de_vida ~ pib_per_capita, data = p2007)
+summary(mod_crudo)$r.squared        # alrededor de 0.34
+
+mod_log <- lm(esperanza_de_vida ~ log2(pib_per_capita), data = p2007)
+summary(mod_log)$r.squared          # alrededor de 0.65
+coef(mod_log)
+
+ggplot(p2007, aes(pib_per_capita, esperanza_de_vida)) + geom_point()
+ggplot(p2007, aes(log2(pib_per_capita), esperanza_de_vida)) +
+  geom_point() + geom_smooth(method = "lm", se = FALSE)
+```
+
+**Respuesta esperada.** El $R^2$ casi se duplica al pasar al logaritmo, y la nube
+se endereza de forma evidente.
+
+La interpretación que se busca: la pendiente ronda los **4 años y medio**, así que
+**cada vez que el PIB per cápita se duplica, la esperanza de vida sube unos 4 o 5
+años**. Es un resultado que se entiende de inmediato y que además es el correcto
+conceptualmente: lo que importa no es cuántos dólares más, sino cuántas **veces**
+más.
+
+Por qué `log2()` y no `log()` natural: porque una unidad de `log2` es exactamente
+"el doble", que es algo que se puede decir en una frase. Con logaritmo natural, una
+unidad es "multiplicar por 2.718", que no significa nada para nadie. Los dos
+modelos son equivalentes y dan el mismo $R^2$; la diferencia es solo de
+comunicación, y por eso importa.
+
+Sobre los residuales: suelen quedar por debajo varios países africanos con
+epidemias en curso en 2007, y por encima algunos países asiáticos y
+latinoamericanos con esperanza de vida alta para su ingreso. Cualquier país bien
+identificado vale; lo que se evalúa es que hayan mirado.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: una predictora categórica
+
+```{r sol34-4a}
+mod_clase <- lm(autopista ~ clase, data = millas)
+coef(mod_clase)   # 7 coeficientes
+
+millas |> group_by(clase) |> summarise(m = mean(autopista))
+```
+
+```{r sol34-4b}
+millas_p <- millas |> mutate(clase = fct_relevel(factor(clase), "pickup"))
+mod_clase2 <- lm(autopista ~ clase, data = millas_p)
+coef(mod_clase2)
+
+# las predicciones son idénticas
+all.equal(unname(predict(mod_clase)), unname(predict(mod_clase2)))   # TRUE
+```
+
+**Respuesta esperada.** Siete coeficientes: el intercepto más seis diferencias. La
+clase que falta es **`2seater`**, la primera en orden alfabético, que quedó
+absorbida en el intercepto. El intercepto vale lo mismo que el promedio de
+`autopista` de los `2seater`, alrededor de 24.8. Y el intercepto más el
+coeficiente de `clasecompact` da el promedio de los compactos.
+
+Con `pickup` como referencia, **todos** los coeficientes cambian, incluido el
+intercepto, y varios cambian de signo. Pero las predicciones son exactamente las
+mismas.
+
+La explicación que se busca: el modelo es el mismo, lo único que cambió es **desde
+dónde se miden las diferencias**. Un modelo con una predictora categórica dice
+"cada clase tiene su propio promedio"; la referencia es solo el punto de partida
+que se escoge para escribirlos. Por eso la elección de la referencia es una
+decisión de **presentación**, y conviene escoger la categoría contra la que tenga
+sentido comparar: el control en un experimento, la especie de referencia, el año
+base.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: dos predictoras
+
+```{r sol34-5}
+mod2 <- lm(autopista ~ cilindrada + clase, data = millas)
+
+summary(mod1)$r.squared   # ~0.59
+summary(mod2)$r.squared   # ~0.77
+
+coef(mod1)["cilindrada"]  # ~ -3.53
+coef(mod2)["cilindrada"]  # ~ -2.0, bastante menos negativo
+
+millas |> 
+  add_residuals(mod2) |> 
+  ggplot(aes(cilindrada, resid)) +
+  geom_hline(yintercept = 0, colour = "grey50") +
+  geom_point() +
+  geom_smooth(se = FALSE)
+```
+
+**Respuesta esperada.** El $R^2$ sube de forma clara y los residuales quedan
+bastante más planos, aunque no perfectos.
+
+Por qué cambió el coeficiente de `cilindrada`: porque **contesta otra pregunta**.
+
+- En el Ejercicio 1 contestaba: "si comparo dos vehículos cualesquiera y uno tiene
+  un litro más, ¿cuánto rinde menos?". Y en esa comparación va mezclado que los
+  motores grandes suelen estar en SUV y pickups, que además son pesados. El
+  coeficiente recogía las dos cosas a la vez.
+- Aquí contesta: "**manteniendo la clase constante**, si comparo dos vehículos de
+  la misma clase y uno tiene un litro más, ¿cuánto rinde menos?". Al fijar la
+  clase, la parte que se debía al tamaño del vehículo se va al coeficiente de
+  `clase`, y a `cilindrada` le queda solo su efecto propio, que es menor.
+
+Ese es el concepto central del ejercicio y hay que exigirlo: **el coeficiente de
+una variable depende de qué otras variables estén en el modelo.** No existe "el"
+efecto de la cilindrada; existe su efecto en un modelo concreto.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: predecir, y hasta dónde
+
+```{r sol34-6}
+rejilla <- millas |> 
+  data_grid(cilindrada = seq_range(cilindrada, 20)) |> 
+  add_predictions(mod1)
+
+ggplot(millas, aes(cilindrada, autopista)) +
+  geom_point() +
+  geom_line(data = rejilla, aes(y = pred), colour = "red", linewidth = 1)
+```
+
+```{r sol34-6b}
+absurda <- tibble(cilindrada = c(8, 10, 12, 15)) |> 
+  add_predictions(mod1)
+
+absurda
+# en 15 litros la predicción sale negativa
+```
+
+**Respuesta esperada.** Para 15 litros el modelo predice un rendimiento
+**negativo**, alrededor de menos 17 millas por galón. Un carro que produce
+gasolina mientras anda.
+
+Por qué el modelo no se queja: porque un modelo lineal es una fórmula, y una
+fórmula se puede evaluar en cualquier número. `lm()` no guarda ninguna memoria de
+en qué rango se ajustó, y `predict()` no comprueba nada. La responsabilidad es
+enteramente del usuario.
+
+La regla que se busca, escrita con sus palabras: **no usar una predicción fuera
+del rango de los datos con los que se ajustó el modelo.** Y una versión más
+práctica: antes de predecir, comparar el `range()` de la variable nueva con el
+`range()` de los datos originales.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): cerrar el círculo
+
+```{r sol34-7}
+millas |> 
+  add_residuals(mod1) |> 
+  ggplot(aes(clase, resid)) +
+  geom_hline(yintercept = 0, colour = "grey50") +
+  geom_boxplot()
+```
+
+**Respuesta esperada.** La caja de `2seater` queda claramente por encima de cero,
+y las de `pickup` y `suv` también quedan altas; `midsize` y `compact` quedan
+alrededor de cero o por debajo.
+
+Qué significa un residual positivo: **este vehículo rinde más de lo que el modelo
+predice para su cilindrada.** Es decir, "mejor de lo que le tocaría por el tamaño
+de su motor".
+
+El paralelo con los diamantes, que es lo que se evalúa:
+
+| | Diamantes | Millas |
+|:--|:--|:--|
+| Lo que sorprendía | el mejor corte parecía el más barato | los deportivos parecían gastar poco para su motor |
+| Variable escondida | el **quilate** (los Ideal son más pequeños) | el **peso o tamaño** del vehículo (los 2seater son livianos) |
+| Cómo se resuelve | modelar el precio con el quilate y mirar los residuales | modelar el consumo con la cilindrada y mirar los residuales |
+| Qué se ve entonces | el corte Ideal sí vale más | los 2seater sí rinden más de lo esperable |
+
+En los dos casos el modelo se usó **no para predecir sino para descontar** un
+patrón conocido, y así dejar a la vista el que estaba tapado. Que el estudiante
+sepa contar ese paralelo es la mejor señal de que entendió para qué sirve un
+modelo.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Reparto: script (1), resultado visible (1), **interpretación (3)**. Es al revés
+que en la mayoría de los capítulos y es deliberado.
+
+Los tres ejercicios que separan a quien entendió son el 2, el 5 y el 7:
+
+- el 2 porque enseña que un $R^2$ decente puede convivir con un modelo equivocado;
+- el 5 porque el "manteniendo lo demás constante" es la idea que peor se entiende
+  de toda la estadística aplicada;
+- el 7 porque cierra un hilo que quedó abierto trece capítulos antes.
+
+Resultados comparables: pendiente negativa e intercepto sobre 30 (Ej. 1), curva en
+los residuales (Ej. 2), $R^2$ que casi se duplica (Ej. 3), 7 coeficientes y
+predicciones idénticas tras `fct_relevel()` (Ej. 4), coeficiente de `cilindrada`
+menos negativo (Ej. 5), predicción negativa en 15 litros (Ej. 6), caja de
+`2seater` sobre cero (Ej. 7).

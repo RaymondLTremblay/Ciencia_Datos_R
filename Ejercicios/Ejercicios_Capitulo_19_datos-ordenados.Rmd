@@ -1,0 +1,209 @@
+---
+title: "Ejercicios del Capítulo 19"
+subtitle: "Datos ordenados: pivot_longer, pivot_wider, separate, unite y los faltantes implícitos"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 19 del libro del curso.
+
+Los ejercicios usan `paises` y `millas` del paquete `datos`, y tablas que vas a escribir a mano. No usan las `tabla1` a `tabla4b`, que son las del capítulo.
+
+La idea de fondo del capítulo es una sola: **la forma de la tabla no es un detalle**. La misma información se puede escribir de cinco maneras, y solo una deja que las herramientas del tidyverse funcionen sin pelear.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra y se vea la tabla.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | ¿Está ordenada? | 5 |
+| 2 | De largo a ancho | 5 |
+| 3 | Y de vuelta | 5 |
+| 4 | Dos columnas que son una variable | 5 |
+| 5 | Juntar y volver a partir | 5 |
+| 6 | El faltante que no se ve | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Desordenar a propósito | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+---
+
+# Ejercicio 1. ¿Está ordenada? (5 puntos)
+
+1. Mira `paises` con `glimpse()`.
+2. Escribe, columna por columna, si cada una es una variable o no.
+
+*Verifica:* `paises` tiene **1704** filas y **6** columnas.
+
+3. ¿Está ordenada la tabla? Justifícalo con las tres reglas del capítulo.
+4. ¿Cuál es la **observación** en esta tabla: un país, o un país en un año? Explica cómo lo sabes mirando los datos.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. De largo a ancho (5 puntos)
+
+1. Con `paises`, quédate solo con `pais`, `anio` y `esperanza_de_vida`.
+2. Ensancha la tabla con `pivot_wider()` para que cada año sea una columna. Guárdala en `paises_ancha`.
+
+*Verifica:* `paises_ancha` debe tener **142 filas** y **13 columnas**: el país más los doce años.
+
+3. ¿Está ordenada esta tabla ancha? Justifícalo.
+4. ¿Para qué sirve **mejor** que la original, y para qué sirve **peor**? Da un ejemplo concreto de cada cosa.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. Y de vuelta (5 puntos)
+
+1. Toma `paises_ancha` y devuélvela a la forma larga con `pivot_longer()`.
+2. Hazlo primero **sin** convertir `anio`, y comprueba su tipo con `class()`.
+3. Hazlo otra vez ocupándote de que `anio` vuelva a ser numérico.
+
+*Verifica:* la tabla vuelve a tener **1704** filas, y en la segunda versión `anio` es numérico, no texto.
+
+4. Con la versión donde `anio` quedó como texto, ordena con `arrange(anio)` y mira el resultado. Explica lo que pasó.
+5. ¿Por qué `pivot_longer()` devuelve texto y no números?
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Dos columnas que son una variable (5 puntos)
+
+En `millas`, `ciudad` y `autopista` son dos columnas, pero miden **lo mismo** (millas por galón) en dos condiciones distintas.
+
+1. Pásalas a formato largo con `pivot_longer()`, usando `names_to = "tipo_de_via"` y `values_to = "millas_por_galon"`. Guárdala en `millas_larga`.
+
+*Verifica:* `millas_larga` debe tener **468 filas** y **11 columnas**.
+
+2. Con `millas_larga`, haz un diagrama de caja del consumo según `tipo_de_via`.
+3. Haz otro separando además por `clase`.
+
+*Verifica:* la segunda gráfica debe enseñar que la diferencia entre ciudad y autopista no es igual en todas las clases.
+
+4. ¿Podrías haber hecho la primera gráfica con la tabla original, en una sola llamada a `ggplot()`? Explica por qué no.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. Juntar y volver a partir (5 puntos)
+
+1. Con `paises`, usa `unite()` para crear una columna `pais_anio` que junte `pais` y `anio` con un guion bajo.
+2. Deshazlo con `separate()`, **sin** `convert = TRUE`, y mira el tipo de `anio`.
+3. Deshazlo otra vez **con** `convert = TRUE`.
+
+*Verifica:* sin `convert`, `anio` es texto; con `convert = TRUE`, vuelve a ser numérico. En los dos casos hay 1704 filas.
+
+4. ¿Por qué `separate()` no puede adivinar el tipo por su cuenta si no se lo pides?
+5. ¿Qué pasaría si algún país tuviera un guion bajo en el nombre? Piensa qué le ocurriría a la separación y cómo lo evitarías.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. El faltante que no se ve (5 puntos)
+
+1. Escribe a mano, con `tribble()`, una tabla de **cuatro parcelas** medidas en **tres años** (`parcela`, `anio`, `plantas`), pero **quita tres combinaciones a propósito**. Te deben quedar 9 filas.
+2. Ensánchala con `pivot_wider()`.
+3. Sobre la tabla larga original, usa `complete(parcela, anio)`.
+
+*Verifica:* la tabla ancha enseña exactamente **tres** `NA`, y `complete()` lleva la tabla larga a **12** filas.
+
+4. Las dos maneras enseñan los mismos tres huecos. ¿Cuál usarías en un análisis de datos de campo y por qué?
+5. ¿Qué habría pasado si nunca los hubieras hecho explícitos y hubieras calculado un promedio de `plantas` por parcela?
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). Desordenar a propósito (5 puntos adicionales)
+
+1. Convierte `millas` en una tabla del estilo de `tabla4a`: una fila por `clase`, una columna por `anio`, y en las celdas el promedio de `autopista`.
+
+*Verifica:* **7** filas y **3** columnas, y los nombres de dos de las columnas son años.
+
+2. Añade una columna con la diferencia entre los dos años.
+3. Acabas de producir una tabla **desordenada** a propósito, y sin embargo es la que pondrías en un informe. Explica esa contradicción.
+4. ¿Cuándo conviene una tabla ordenada y cuándo una ancha? Escribe una regla que puedas usar tú mismo el próximo semestre.
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

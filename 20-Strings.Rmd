@@ -160,12 +160,20 @@ necesito poner una letra extraña en mi frase, `"\u048E"`.
 
 ## Temas: Cadenas de Caracteres
 
+ - Lo básico: largo, unir, cortar, mayúsculas y minúsculas
+ - Qué es una expresión regular y por qué vale la pena aprenderla
+ - Anclas: `^` y `$`
+ - Clases de caracteres y alternativas
+ - Repetición: `?`, `+`, `*`, `{n,m}`
+ - Agrupamiento y referencias previas
+ - Las cinco herramientas: detectar, extraer, agrupar, reemplazar y dividir
+
  - library(stringr)
  
 Solamente trabajaremos con el paquete stringr, donde las funciones escritas de forma que sean más intuitivas para recordar.  Todas las funciones comienzan con **str_**
 
 ::: {.funcion}
-**Las funciones `str_*` (stringr)** — trabajar con texto.
+**Las funciones `str_*` (stringr)**: trabajar con texto.
 
 - **`str_length(x)`:** número de caracteres.
 - **`str_c(...)`:** une cadenas (concatena).
@@ -255,7 +263,7 @@ str_sub(x, -2,-1)
 ***
 
 
-## You can also use `str_sub()` to modify strings:
+## También se puede usar `str_sub()` para modificar una cadena
 
 ```{r c20-16}
 x <- "BBCDEF"
@@ -319,7 +327,7 @@ str_sort(x) # reorganiza las palabras en orden alfabético
 
 ***
   
-1.  **Ejercicios**:
+**Ejercicios del libro R4DS.**
 
 Hacer los ejercicios en la sección 14.2.5 del libro en español
 
@@ -489,7 +497,7 @@ df %>%
  
  
  
-2.  **Ejercicios**:
+**Ejercicios del libro R4DS.**
 
 Hacer los ejercicios en la sección 14.2.7.1 del libro en español
 
@@ -498,11 +506,35 @@ Hacer los ejercicios en la sección 14.2.7.1 del libro en español
 
 ## Anclas
 
+Sin ancla, un patrón se busca **en cualquier parte** de la cadena. Las anclas
+dicen dónde tiene que estar:
+
  - ^ al principio
  - $ al final
+
+::: {.funcion}
+**`^` y `$`**: anclar el patrón a un extremo de la cadena.
+
+- **`"^a"`:** empieza por `a`.
+- **`"a$"`:** termina en `a`.
+- **`"^abc$"`:** la cadena es **exactamente** `abc`, ni una letra más.
+- **En inglés hay una regla mnemotécnica que se recuerda sola:** *if you begin with power (`^`), you end up with money (`$`)*.
+:::
+
+```{r c20-anclas}
+palabras |> str_subset("^y") |> head()      # empiezan por y
+palabras |> str_subset("z$")  |> head()     # terminan en z
+palabras |> str_subset("^...$") |> head()   # exactamente tres letras
+```
+
+::: {.advertencia}
+Sin anclas, `str_detect(x, "sol")` encuentra también `"solución"`, `"consola"` y
+`"girasol"`. Es el error más común al empezar con expresiones regulares: uno cree
+que está buscando una palabra y en realidad está buscando un pedazo de palabra.
+:::
  
 
-3.  **Ejercicios**:
+**Ejercicios del libro R4DS.**
 
 Hacer los ejercicios en la sección 14.2.8.1 del libro en español
 
@@ -510,10 +542,25 @@ Hacer los ejercicios en la sección 14.2.8.1 del libro en español
 
 ## Clases de caracteres y alternativas
 
+Una **clase de caracteres** dice "aquí va uno cualquiera de estos". Una
+**alternativa** dice "aquí va esto o aquello".
+
  - `\d`
  - `\s`
  - [abc]
  - [^abc]
+
+::: {.funcion}
+**Clases de caracteres**: un solo carácter, escogido de un conjunto.
+
+- **`\d`:** cualquier dígito. **`\s`:** cualquier espacio en blanco (espacio, tabulador, salto de línea).
+- **`[abc]`:** la `a`, la `b` o la `c`. **`[^abc]`:** cualquier carácter **menos** esos tres.
+- **`[a-z]`, `[0-9]`:** rangos. **`.`:** cualquier carácter, sea el que sea.
+- **`gato|perro`:** alternativa. Con paréntesis se acota el alcance, como en `c(ó|o)mo`, que es lo que hace el ejemplo de abajo.
+:::
+
+Estos son los caracteres que tienen significado especial y que hay que
+**escapar** si quieres buscarlos tal cual:
  
  - $ . | ? * + ( ) [ {
  
@@ -523,8 +570,22 @@ str_view(c("cómo", "como", "Raymond"), "c(ó|o)mo")
 
 
 ```
+
+::: {.advertencia}
+Para buscar un punto de verdad hay que escribir el patrón con **dos** barras
+invertidas. La razón es que hay dos traducciones seguidas: primero R lee la
+cadena y convierte las dos barras en una, y solo entonces la expresión regular
+lee esa barra como "el carácter siguiente es literal". Es el tropiezo clásico del
+capítulo, y si te pasa no lo estás haciendo mal: le pasa a todo el mundo.
+:::
+
+```{r c20-clases}
+palabras |> str_subset("^[aeiou]") |> head()   # empiezan por vocal
+str_detect("El precio es $19.99", "\\$")        # un signo de dólar literal
+str_detect(c("R.4", "R4"), "R\\.4")             # un punto literal
+```
  
-4.  **Ejercicios**:
+**Ejercicios del libro R4DS.**
 
 Hacer los ejercicios en la sección 14.2.9.1 del libro en español
 
@@ -534,6 +595,9 @@ Hacer los ejercicios en la sección 14.2.9.1 del libro en español
 
 
 ## Repetición
+
+Los cuantificadores dicen **cuántas veces** se repite lo que va justo antes: una
+letra, una clase de caracteres o un grupo entre paréntesis.
 
  - ?, 0 o 1, presencia o ausencia
  - +, 1 o más
@@ -545,9 +609,29 @@ Hacer los ejercicios en la sección 14.2.9.1 del libro en español
  - {n, m}: entre n y m
  - {n, m}?: la cadena más larga
  - {n, m}+?: la cadena más corta
+
+::: {.consejo}
+Los tres primeros se usan el 95 % de las veces y vale la pena aprenderlos de
+memoria: `?` es "quizás", `+` es "al menos uno" y `*` es "los que sea, incluso
+ninguno". Las llaves son para cuando necesitas un número exacto, como en un
+código de tres letras (`"[A-Z]{3}"`) o un año (`"\\d{4}"`).
+:::
+
+```{r c20-repeticion}
+palabras |> str_subset("[aeiou]{3}") |> head()    # tres vocales seguidas
+palabras |> str_subset("^.{10,}$") |> head()      # diez letras o más
+str_extract("Muestreo del 2016 al 2024", "\\d{4}")
+```
+
+::: {.advertencia}
+Por defecto los cuantificadores son **glotones**: se llevan todo lo que pueden.
+En `"<a> y <b>"`, el patrón `"<.+>"` no encuentra `<a>` sino `<a> y <b>`, porque
+`.+` se comió también lo del medio. Añadiendo un `?` detrás (`"<.+?>"`) se vuelven
+perezosos y paran en cuanto pueden.
+:::
  
  
-5.  **Ejercicios**:
+**Ejercicios del libro R4DS.**
 
 Hacer los ejercicios en la sección 14.2.10.1 del libro en español
 
@@ -556,10 +640,31 @@ Hacer los ejercicios en la sección 14.2.10.1 del libro en español
  
 ## Agrupamiento y referencias previas
 
+Los paréntesis hacen dos cosas a la vez. La primera ya la vimos: **agrupan**, para
+que un cuantificador o una alternativa se aplique a todo el grupo. La segunda es
+que R **recuerda** lo que encontró dentro de cada paréntesis, y se puede volver a
+usar más adelante en el mismo patrón con `\\1`, `\\2`, etc. Eso se llama una
+**referencia previa**.
+
+`(..)\\1` quiere decir: "dos caracteres cualesquiera, y otra vez esos mismos dos".
+Es decir, busca pares de letras repetidos, como el `nana` de banana.
+
  - str_view(frutas, "(..)\\1", match=TRUE)
+
+```{r c20-grupos}
+palabras |> str_subset("(..)\\1") |> head()        # un par de letras repetido
+palabras |> str_subset("(.)\\1") |> head()         # una letra doble: ll, rr, cc
+```
+
+::: {.consejo}
+Las referencias previas sirven sobre todo para **encontrar duplicados**: palabras
+con una sílaba repetida, nombres escritos dos veces seguidas en una celda, un
+código que se copió por error. Y con `str_replace()` sirven para reordenar: el
+patrón captura dos pedazos y el reemplazo los pone al revés con `\\2 \\1`.
+:::
  
 
-6.  **Ejercicios**:
+**Ejercicios del libro R4DS.**
 
 Hacer los ejercicios en la sección 14.2.11.1 del libro en español
 
@@ -568,6 +673,21 @@ Hacer los ejercicios en la sección 14.2.11.1 del libro en español
 
 
 ## Herramientas: Objetivos
+
+Con las expresiones regulares aprendidas, `stringr` ofrece cinco familias de
+funciones. Casi todo lo que se hace con texto es una de estas cinco cosas:
+
+| Objetivo | Función | Qué devuelve |
+|:--|:--|:--|
+| ¿Coincide? | `str_detect()`, `str_subset()` | `TRUE`/`FALSE`, o las cadenas que sí |
+| ¿Dónde? | `str_locate()` | las posiciones |
+| ¿Qué encontró? | `str_extract()`, `str_extract_all()` | el texto que coincidió |
+| Por partes | `str_match()` | una columna por cada grupo entre paréntesis |
+| Cambiar | `str_replace()`, `str_replace_all()` | la cadena con el cambio hecho |
+| Partir | `str_split()` | una lista de pedazos |
+
+Casi todas tienen una versión `_all`: la corriente actúa sobre la **primera**
+coincidencia de cada cadena y la `_all` sobre **todas**.
 
  - Determinar qué cadenas coinciden con un patrón.
  - Encontrar la posición de una coincidencia.
@@ -607,7 +727,7 @@ head(identical(sin_vocales_1, sin_vocales_2), 30)
  
  
  
-7.  **Ejercicios**:
+**Ejercicios del libro R4DS.**
 
 Hacer los ejercicios en la sección 14.3.2 del libro en español
 
@@ -622,18 +742,39 @@ Ejercicio
 
 ## Extraer coincidencias
 
+`str_detect()` contesta sí o no; `str_extract()` devuelve **el pedazo de texto**
+que coincidió. Es la función que convierte texto sucio en datos: sacar el año de
+una cita, el número de una etiqueta de herbario, el código de parcela de un
+nombre de archivo.
+
  - str_extract()
  - str_extract_all()
+
+::: {.funcion}
+**`str_extract()`** y **`str_extract_all()`** (stringr): sacar lo que coincidió.
+
+- **`str_extract(x, patron)`:** devuelve la **primera** coincidencia de cada cadena, y `NA` si no hubo ninguna.
+- **`str_extract_all(x, patron)`:** devuelve **todas**, en una lista. Con `simplify = TRUE` devuelve una matriz.
+- **Ojo:** que devuelva `NA` no es un error, significa que esa cadena no tenía nada que extraer. Cuéntalos.
+:::
  
 
 
-8.  **Ejercicios**:
+**Ejercicios del libro R4DS.**
 
 Hacer los ejercicios en la sección 14.3.3.1 del libro en español
 
 ***
  
 ## Coincidencias agrupadas:
+
+`str_match()` va un paso más allá que `str_extract()`: además de la coincidencia
+completa, devuelve **una columna por cada paréntesis** del patrón. Es la manera
+de partir un texto con estructura en varias variables de una sola vez.
+
+En el ejemplo, el patrón tiene dos grupos: el artículo (`el|la|los|...`) y la
+palabra que le sigue. `str_extract()` devolvería las dos cosas pegadas;
+`str_match()` las devuelve en columnas separadas.
 
  - str_match*
 ```{r c20-34}
@@ -650,7 +791,7 @@ tiene_sustantivo %>%
 ```
 
 
-8.  **Ejercicios**:
+**Ejercicios del libro R4DS.**
 
 Hacer los ejercicios en la sección 14.3.4.1 del libro en español
 
@@ -658,12 +799,32 @@ Hacer los ejercicios en la sección 14.3.4.1 del libro en español
 
 ## Remplazar coincidencias
 
-
  - str_replace()
  - str_replace_all()
+
+::: {.funcion}
+**`str_replace()`** y **`str_replace_all()`** (stringr): cambiar lo que coincidió.
+
+- **`str_replace(x, patron, nuevo)`:** cambia la **primera** coincidencia de cada cadena.
+- **`str_replace_all(x, patron, nuevo)`:** cambia **todas**. Es la que se usa casi siempre.
+- **Varios cambios a la vez:** `str_replace_all(x, c("a" = "1", "b" = "2"))`, con un vector con nombres.
+- **En el reemplazo** se pueden usar las referencias previas: `\\1`, `\\2`, para reordenar lo que el patrón capturó.
+:::
+
+```{r c20-replace}
+str_replace_all("uno-dos-tres", "-", " ")
+
+str_replace_all(c("2016-08-01", "2016-06-15"), "(\\d{4})-(\\d{2})-(\\d{2})", "\\3/\\2/\\1")
+```
+
+::: {.consejo}
+Antes de reemplazar en serio, **mira lo que vas a cambiar**: corre primero
+`str_subset()` o `str_view()` con el mismo patrón. Un reemplazo mal hecho es de
+las pocas operaciones de este curso que no se pueden deshacer.
+:::
  
  
-9.  **Ejercicios**:
+**Ejercicios del libro R4DS.**
 
 Hacer los ejercicios en la sección 14.3.5.1 del libro en español
 
@@ -672,13 +833,21 @@ Hacer los ejercicios en la sección 14.3.5.1 del libro en español
 
 ## Divisiones
 
+`str_split()` parte una cadena en pedazos. La diferencia con `separate()`, del
+capítulo de datos ordenados, es que `separate()` trabaja sobre una **columna de
+una tabla** y `str_split()` sobre un **vector cualquiera**, y devuelve una lista
+porque cada cadena puede partirse en un número distinto de pedazos.
+
+`boundary("word")` es la manera correcta de partir un texto en palabras: en vez
+de partir por el espacio, entiende dónde acaba una palabra de verdad, sin dejarse
+la puntuación pegada. Es lo que usan los ejemplos del Quijote más adelante.
 
   - str_split()
   - str_split(" ", simplify=TRUE)
   - str_split(x, boundery("word"))[[1]]
   
 
-10.  **Ejercicios**:
+**Ejercicios del libro R4DS.**
 
 Hacer los ejercicios en la sección 14.3.6.1 del libro en español
 
@@ -687,12 +856,32 @@ Hacer los ejercicios en la sección 14.3.6.1 del libro en español
   
 ## Otro tipos de patrones
 
+Todas las funciones de `stringr` aceptan, en vez de un patrón normal, una de
+estas envolturas:
+
  - regex("x", ignore_case=TRUE)
  - separar números telefónicos
- 
+
+::: {.funcion}
+**Envolturas del patrón**: cambiar cómo se interpreta lo que buscas.
+
+- **`regex(x, ignore_case = TRUE)`:** no distinguir mayúsculas de minúsculas. Con `comments = TRUE` puedes escribir el patrón en varias líneas y comentarlo, cosa que se agradece en patrones largos.
+- **`fixed("a.b")`:** buscar el texto **tal cual**, sin interpretar nada. Es más rápido y evita tener que escapar; el problema es que con acentos y letras no inglesas puede fallar.
+- **`coll()`:** comparar respetando las reglas del idioma. Es la más lenta y la única correcta cuando hay que comparar texto en español teniendo en cuenta acentos y ñ.
+- **`boundary("word")`:** buscar límites de palabra en vez de un patrón.
+:::
+
 ## stringi: 
 
-10.  **Ejercicios**:
+`stringr` está construido encima de `stringi`, que es mucho más grande: unas 250
+funciones frente a las 50 y pico de `stringr`. `stringr` escogió a propósito un
+subconjunto pequeño y con nombres consistentes, que es lo que hace falta el 95 %
+de las veces. Cuando te falte algo (transliterar, ordenar según un idioma,
+detectar el idioma de un texto), búscalo en `stringi`, donde las funciones
+empiezan por `stri_`.
+
+
+**Ejercicios del libro R4DS.**
 
 Hacer los ejercicios en la sección 14.3.6.1 del libro en español
 Buscar 3 funciones en stringi y aplica y explica las funciones con un set de datos.
@@ -707,7 +896,7 @@ Buscar 3 funciones en stringi y aplica y explica las funciones con un set de dat
  
 ##   El texto de Quijote
   
-###   how to import a .txt file in R
+###   Cómo importar un archivo .txt en R
   
   
   
@@ -1112,3 +1301,153 @@ print(counts)
 
 
 
+
+***
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los ejercicios usan `millas` y `paises` del paquete `datos`, más
+un vector de códigos sucios que vas a escribir tú, no `palabras`, `oraciones`, el
+Quijote ni Alicia, que son los del capítulo. La hoja completa para entregar está
+en `Ejercicios/Ejercicios_Capitulo_22_strings.Rmd`.
+
+Un aviso técnico: algunas columnas de texto llegan como **factor**, y las
+funciones `str_*` esperan texto. Si una te da un error raro, comprueba con
+`class()` y envuélvela en `as.character()`.
+:::
+
+### Ejercicio 1. Lo básico
+
+::: {.ejercicio}
+Datos: `millas`. Crea una columna `etiqueta` que junte `fabricante` y `modelo`
+con un espacio, en mayúsculas, y otra columna con su largo en caracteres.
+
+**Verificación:** las dos columnas nuevas deben tener 234 valores y ningún `NA`.
+La etiqueta más larga debe pasar de 25 caracteres.
+
+**En palabras:** ¿cuál es el modelo con el nombre más largo y cuál el más corto?
+¿Por qué `str_length()` no es lo mismo que contar las letras a mano en un texto
+con acentos?
+:::
+
+```{r c20-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Anclas
+
+::: {.ejercicio}
+Datos: los nombres de país de `paises`, sin repetir. Encuentra los que empiezan
+por vocal, los que terminan en `a`, y los que cumplen **las dos** cosas.
+
+**Verificación:** la tercera lista tiene que ser más corta que las otras dos, y
+todos sus elementos deben aparecer también en ellas.
+
+**En palabras:** haz la misma búsqueda **sin** anclas, solo con `"a"`, y compara.
+Explica con un ejemplo concreto qué encontró de más.
+:::
+
+```{r c20-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Sacar el número de un código sucio
+
+::: {.ejercicio}
+Escribe a mano este vector, que imita cómo llegan los códigos de parcela de una
+libreta de campo:
+
+`codigos <- c("P-01", "p 2", "PARCELA_3", "  P04  ", "parcela 5", "P6")`
+
+Extrae el número de cada uno con `str_extract()` y conviértelo a numérico.
+
+**Verificación:** debes obtener los números del 1 al 6, en ese orden, sin ningún
+`NA`.
+
+**En palabras:** ¿por qué `"P-01"` y `"P6"` se resuelven con el mismo patrón,
+aunque uno tenga guion y ceros y el otro no? ¿Qué pasaría si un código fuera
+`"P-01-bis"`?
+:::
+
+```{r c20-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Normalizar
+
+::: {.ejercicio}
+Sigue con `codigos`. Conviértelos todos a la forma `P01`, `P02`, ..., `P06`:
+quita los espacios de los extremos, pásalos a mayúscula, quita guiones y guiones
+bajos, y rellena el número a dos dígitos.
+
+**Verificación:** los seis resultados deben ser exactamente
+`"P01" "P02" "P03" "P04" "P05" "P06"`, y `n_distinct()` debe dar 6.
+
+**En palabras:** antes de normalizar, `n_distinct(codigos)` también daba 6, pero
+eso era una coincidencia. Explica qué habría pasado si la libreta tuviera `"P-01"`
+y `"p 1"`, que son la misma parcela.
+:::
+
+```{r c20-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Contar palabras
+
+::: {.ejercicio}
+Toma esta frase: `"El muestreo se hizo en 2016, 2017 y 2018."`. Pártela en
+palabras de dos maneras: con `str_split(" ")` y con
+`str_split(boundary("word"))`.
+
+**Verificación:** las dos maneras dan un número **distinto** de elementos.
+
+**En palabras:** compara las dos listas elemento por elemento y explica qué hace
+distinto `boundary("word")`. ¿Cuál de las dos usarías para contar las palabras de
+un texto y por qué?
+:::
+
+```{r c20-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Las cinco herramientas, una sola pregunta
+
+::: {.ejercicio}
+Datos: `millas`, columna `modelo`. La pregunta es siempre la misma, "¿cuáles
+modelos tienen un número en el nombre?", contestada de cinco maneras:
+`str_detect()`, `str_subset()`, `str_which()`, `str_extract()` y
+`str_replace()`.
+
+**Verificación:** `sum(str_detect(...))`, `length(str_subset(...))` y
+`length(str_which(...))` tienen que dar **el mismo número**.
+
+**En palabras:** las cinco funciones usan el mismo patrón y devuelven cosas
+distintas. Haz una tabla de dos columnas diciendo qué devuelve cada una y en qué
+situación la usarías.
+:::
+
+```{r c20-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). Referencias previas
+
+::: {.ejercicio}
+Con los nombres de país de `paises`, encuentra los que tienen una **letra doble**
+(dos iguales seguidas) y los que tienen un **par de letras repetido**.
+
+**Verificación:** las dos listas son **distintas**, y ninguna contiene a la otra:
+tiene que haber al menos un nombre en cada una que no esté en la otra.
+Compruébalo con `setdiff()` en los dos sentidos.
+
+**En palabras:** explica la diferencia entre los dos patrones. Después describe
+un caso de tus propios datos donde te serviría buscar algo repetido: piensa en
+nombres de especie tecleados dos veces, o en un código copiado por error.
+:::
+
+```{r c20-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

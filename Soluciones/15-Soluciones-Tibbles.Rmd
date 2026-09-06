@@ -1,0 +1,278 @@
+---
+title: "Soluciones: Capítulo Tibbles (tibble, tribble, as_tibble, impresión, $ frente a [[ y [)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+
+Corresponde a: 15-Tibbles.Rmd (Capítulo 17 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_17_tibbles.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: completar el tibble
+
+```{r sol15-1a}
+personas <- tibble(
+  secuencia = 1:8,
+  edad      = c(23, 26, 24, 26, 27, 11, 20, 21),
+  nombre    = c("Jose", "Maria", "Carol", "Moncho",
+                "Liz", "Maria", "Jorge", "Miguel")
+)
+
+personas
+dim(personas)   # 8 3
+```
+
+```{r sol15-1b}
+tibble(
+  secuencia = 1:8,
+  edad      = c(23, 26, 24, 26, 27, 11, 20),   # solo siete
+  nombre    = c("Jose", "Maria", "Carol", "Moncho",
+                "Liz", "Maria", "Jorge", "Miguel")
+)
+# Error: Tibble columns must have compatible sizes.
+```
+
+```{r sol15-1c}
+tibble(
+  secuencia = 1:8,
+  curso     = "BIOL4026"      # un solo valor: se repite ocho veces
+)
+```
+
+**Respuesta esperada.** Ocho filas y tres columnas. `secuencia` sale `<int>`
+porque `1:8` produce enteros; si alguien escribió `c(1, 2, 3, ...)` sale `<dbl>`,
+y las dos están bien.
+
+Por qué siete valores fallan y uno funciona: `tibble()` **recicla** solo los
+vectores de largo **1**, que es un caso sin ambigüedad (el mismo valor para todas
+las filas). Con siete valores para ocho filas habría que inventarse cuál falta o
+repetir alguno arbitrariamente, así que prefiere quejarse. `data.frame()`, en
+cambio, recicla cualquier largo que divida al total, y esa "ayuda" es una de las
+razones por las que existe el tibble.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: una tabla escrita a mano
+
+```{r sol15-2a}
+parcelas <- tribble(
+  ~parcela,  ~n_plantas, ~humedad,
+  "P1",              34, "alta",
+  "P2",              12, "baja",
+  "P3",              27, "alta",
+  "P4",               8, "baja"
+)
+
+parcelas
+```
+
+```{r sol15-2b}
+parcelas2 <- tibble(
+  parcela   = c("P1", "P2", "P3", "P4"),
+  n_plantas = c(34, 12, 27, 8),
+  humedad   = c("alta", "baja", "alta", "baja")
+)
+
+identical(parcelas, parcelas2)
+```
+
+**Respuesta esperada.** Cuatro filas, tres columnas, `<chr>` y `<dbl>` en la
+línea de tipos.
+
+Cuándo cada uno: `tribble()` cuando los datos se escriben a mano y son pocos,
+porque en la pantalla se ven **como una tabla** y un dato fuera de sitio salta a
+la vista. `tibble()` cuando las columnas ya existen como vectores o vienen de un
+cálculo, porque entonces escribirlas fila por fila sería absurdo.
+
+Buenos ejemplos que suelen aparecer: una tabla de códigos de parcela y su
+tratamiento, la equivalencia entre nombre común y nombre científico de las
+especies del proyecto, o las fechas de los muestreos.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: ida y vuelta
+
+```{r sol15-3}
+millas_df <- as.data.frame(millas)
+millas_tb <- as_tibble(millas_df)
+
+is.data.frame(millas)      # TRUE
+is.data.frame(millas_df)   # TRUE
+is.data.frame(millas_tb)   # TRUE
+
+is_tibble(millas)          # TRUE
+is_tibble(millas_df)       # FALSE
+is_tibble(millas_tb)       # TRUE
+
+dim(millas); dim(millas_df); dim(millas_tb)   # 234 11 las tres
+```
+
+**Respuesta esperada.** `is.data.frame()` da `TRUE` en los tres;
+`is_tibble()` solo en `millas` y en `millas_tb`.
+
+La relación entre las clases: el tibble **hereda** del data frame. Su atributo de
+clase es `c("tbl_df", "tbl", "data.frame")`, es decir, es un data frame con dos
+capas de comportamiento encima. Por eso todo lo que funciona con data frames
+funciona con tibbles, y por eso la conversión no copia ni cambia los datos: solo
+pone o quita esas capas.
+
+Si a alguien le cambian las dimensiones por el camino, hay que revisar: no
+debería pasar nada, las tres tablas son 234 por 11.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: imprimir lo justo
+
+```{r sol15-4}
+paises
+
+paises |> print(n = 3)
+
+paises |> print(n = 15, width = Inf)
+
+head(as.data.frame(paises), n = 20)
+```
+
+**Respuesta esperada.** La impresión normal enseña 10 filas y termina con una
+línea del tipo "# i 1,694 more rows".
+
+Lo que da el tibble y no da el data frame:
+
+- la **dimensión** de la tabla en la primera línea, sin tener que pedir `dim()`;
+- el **tipo de cada columna** debajo del nombre (`<chr>`, `<fct>`, `<int>`,
+  `<dbl>`);
+- una nota de cuántas filas y cuántas columnas no se imprimieron.
+
+Por qué ahorra tiempo: la mitad de los problemas de un análisis son una columna
+que uno creía numérica y que llegó como texto, casi siempre porque el archivo
+original traía una celda con "n/a", "<0.01" o una coma decimal. Con el tibble eso
+se ve en el primer vistazo, antes de calcular nada. Con el data frame hay que
+acordarse de correr `str()` o `glimpse()`, y casi nadie se acuerda.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: la errata que no avisa
+
+```{r sol15-5}
+pais_df <- as.data.frame(paises)
+pais_tb <- as_tibble(paises)
+
+head(pais_df$pib)   # devuelve pib_per_capita, sin decir nada
+head(pais_tb$pib)   # NULL, con una advertencia
+```
+
+**Respuesta esperada.** El data frame hace **coincidencia parcial**: como
+`pib_per_capita` es la única columna que empieza por `pib`, devuelve esa columna
+en silencio. El tibble devuelve `NULL` y avisa:
+`Unknown or uninitialised column: 'pib'`.
+
+El argumento que se busca en la explicación: en un análisis largo, la versión que
+"funciona" es la peligrosa. Si la coincidencia parcial acierta, uno nunca se
+entera de que escribió mal el nombre; y el día que se añade otra columna que
+empieza igual (`pib_total`, digamos), la línea deja de ser ambigua o pasa a
+devolver otra cosa, y el análisis cambia de resultado sin que nadie haya tocado
+esa línea. El `NULL` del tibble rompe enseguida, que es justo lo que uno quiere:
+un error temprano y ruidoso vale más que un resultado equivocado y silencioso.
+
+**Punto para discutir en clase.** Se puede preguntar quién ha tenido alguna vez
+un resultado raro que no supo explicar. Este es uno de los mecanismos por los que
+pasa, y es completamente invisible.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: `$`, `[[` y `[`
+
+```{r sol15-6}
+class(pais_tb$esperanza_de_vida)              # "numeric"  -> vector
+class(pais_tb[["esperanza_de_vida"]])         # "numeric"  -> vector
+class(pais_tb["esperanza_de_vida"])           # tbl_df ... -> tabla
+class(pais_tb[, "esperanza_de_vida"])         # tbl_df ... -> tabla
+
+class(pais_df$esperanza_de_vida)              # "numeric"  -> vector
+class(pais_df[["esperanza_de_vida"]])         # "numeric"  -> vector
+class(pais_df["esperanza_de_vida"])           # "data.frame"
+class(pais_df[, "esperanza_de_vida"])         # "numeric"  -> ¡vector!
+```
+
+**Respuesta esperada.** `$` y `[[` devuelven el **vector**; el corchete sencillo
+devuelve una **tabla**. La cuarta es la que se comporta distinto: en un data
+frame, `[, "columna"]` **simplifica** a vector; en un tibble devuelve un tibble
+de una columna.
+
+Cuál usar dentro de una función: `[[`, porque acepta el nombre **como texto**.
+`$` necesita el nombre escrito literalmente en el código, así que no sirve cuando
+la columna llega en una variable. `df[[nombre_columna]]` sí funciona.
+
+Por qué rompe código viejo: un script escrito para data frames puede tener algo
+como `mean(df[, "peso"])`. Si alguien cambia la lectura de datos a `read_csv()`,
+que devuelve un tibble, esa misma línea pasa a recibir una tabla en vez de un
+vector y `mean()` se cae o devuelve `NA` con una advertencia. La regla de
+supervivencia es sencilla: para sacar un vector, `[[`, siempre.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): los nombres de fila se pierden
+
+```{r sol15-7}
+rownames(mtcars)      # "Mazda RX4", "Mazda RX4 Wag", ...
+head(mtcars)
+
+mt_mal <- as_tibble(mtcars)
+mt_mal                 # 11 columnas, y los modelos desaparecieron
+
+mt_bien <- mtcars |> 
+  tibble::rownames_to_column(var = "modelo") |> 
+  as_tibble()
+
+mt_bien                # 12 columnas, con "modelo" al frente
+ncol(mt_mal); ncol(mt_bien)   # 11 y 12
+```
+
+**Respuesta esperada.** `as_tibble()` descarta los nombres de fila y con ellos la
+identidad de cada carro: quedan 32 filas de números sin saber a qué modelo
+corresponden. Con `rownames_to_column()` el modelo pasa a ser una columna más y
+no se pierde nada.
+
+Por qué el tibble no guarda nombres de fila: porque un nombre de fila **es un
+dato**, y los datos van en columnas. Guardarlo aparte lo convierte en un
+ciudadano de segunda: no se puede filtrar por él con `filter()`, no se puede
+agrupar por él, no sobrevive a un `arrange()` en algunos casos, y desaparece en
+cuanto la tabla pasa por casi cualquier función.
+
+La relación con datos ordenados es directa: cada variable en su propia columna. El
+modelo del carro es una variable como cualquier otra, así que su sitio es una
+columna llamada `modelo`, no un atributo escondido de la tabla.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Los ejercicios 5 y 6 son el corazón del capítulo: son los dos comportamientos que
+de verdad cambian el resultado de un análisis. El 1, el 2 y el 3 son mecánicos y
+se corrigen rápido.
+
+Resultados comparables: 8 filas y 3 columnas (Ej. 1), 4 por 3 (Ej. 2), 234 por 11
+en los tres objetos (Ej. 3), 10 filas en la impresión normal (Ej. 4), `NULL` y
+advertencia solo del lado del tibble (Ej. 5), dos vectores y dos tablas (Ej. 6),
+y 11 frente a 12 columnas (Ej. 7).

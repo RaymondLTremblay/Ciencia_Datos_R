@@ -1,0 +1,219 @@
+---
+title: "Ejercicios del Capítulo 32"
+subtitle: "Leaflet: mapas interactivos, latitud y longitud, marcadores, color y capas"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 32 del libro del curso.
+
+Los mapas de `leaflet` **solo se ven en HTML**. Entrega siempre el `.html`, no solo el `.Rmd`: sin él no se puede corregir nada.
+
+Los ejercicios usan `Datos/crimen_pr.csv`, que ya está en el repositorio del curso y trae coordenadas de Puerto Rico. No usan los terremotos del USGS ni los datos de iNaturalist del capítulo.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El mapa**, visible en el `.html`.
+3. **Una explicación en palabras** en el espacio marcado.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | El mapa más sencillo | 5 |
+| 2 | Los puntos que acabaron en el océano | 5 |
+| 3 | Los puntos que no existen | 5 |
+| 4 | Color por categoría | 5 |
+| 5 | Las ventanas emergentes | 5 |
+| 6 | Ocho mil puntos | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Capas que se encienden | **5 adicionales** |
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(leaflet)
+```
+
+```{r datos, eval=FALSE}
+crimen <- read_csv("Datos/crimen_pr.csv")
+```
+
+---
+
+# Ejercicio 1. El mapa más sencillo (5 puntos)
+
+1. Haz un mapa vacío centrado en Puerto Rico con `leaflet()`, `addTiles()` y `setView()`.
+2. Añade un marcador en tu pueblo con `addMarkers()`.
+
+*Verifica:* la isla se ve completa y el marcador cae donde debe.
+
+```{r ej1, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+3. Anota las coordenadas que usaste.
+4. ¿Cuál de los dos números es la latitud y cuál la longitud? ¿Cómo lo sabes **sin** buscarlo?
+5. ¿Qué hace el argumento `zoom` de `setView()`? Prueba dos valores distintos.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. Los puntos que acabaron en el océano (5 puntos)
+
+Las columnas de coordenadas de `crimen` se llaman `POINT_X` y `POINT_Y`.
+
+1. Haz el mapa **de la manera intuitiva**: `lng = ~POINT_X` y `lat = ~POINT_Y`. Usa solo las primeras 200 filas para que no tarde.
+2. Mira dónde caen los puntos.
+3. Arréglalo y vuelve a hacer el mapa.
+
+*Verifica:* con la versión intuitiva los puntos **no** caen en Puerto Rico; con la corregida sí.
+
+```{r ej2, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+4. ¿En qué parte del mundo aparecieron los puntos en la primera versión?
+5. Mira el rango de las dos columnas con `range(..., na.rm = TRUE)`. Explica cómo esos dos rangos te dicen cuál columna es cuál **sin** abrir el mapa.
+6. ¿Por qué crees que quien preparó el archivo las llamó `X` e `Y`? ¿Qué nombres habrías usado tú?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. Los puntos que no existen (5 puntos)
+
+1. Cuenta cuántas filas tienen coordenada **faltante**.
+2. Cuenta cuántas tienen un **cero exacto** en las coordenadas.
+3. Quítalas todas y comprueba cuántas quedan.
+
+*Verifica:* hay **733** filas con coordenada faltante y **2** con un cero exacto. Después de quitarlas quedan **8135**.
+
+```{r ej3, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+4. Dibuja en un mapa **solo** las filas con coordenada cero. ¿Dónde caen?
+5. Busca en internet qué es "Null Island" y explícalo en una oración.
+6. ¿Por qué un cero es más peligroso que un `NA`? Piensa en qué hace cada uno cuando calculas un promedio de latitudes.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Color por categoría (5 puntos)
+
+1. Colorea los puntos según el tipo de delito, con `colorFactor()`.
+2. Añade la leyenda con `addLegend()`.
+
+*Verifica:* la leyenda muestra **9** categorías.
+
+```{r ej4a, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+3. Con nueve colores el mapa se vuelve difícil de leer. Reduce las categorías a **cinco** con `fct_lump_n()` del capítulo de factores y haz el mapa otra vez.
+
+```{r ej4b, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+4. Compara los dos mapas. ¿Cuál usarías?
+5. ¿Qué perdiste al agrupar? Recuerda lo que dijimos en el capítulo de factores sobre agrupar categorías.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. Las ventanas emergentes (5 puntos)
+
+1. Añádele a cada punto un `popup` que diga el tipo de delito, la fecha, la hora y el área policiaca.
+2. Haz otra versión usando `label` en vez de `popup`.
+
+*Verifica:* al hacer clic (o al pasar el ratón, según cuál uses) sale la información de **esa** observación, no la de todas.
+
+```{r ej5, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+3. ¿Cuál es la diferencia entre `popup` y `label`?
+4. ¿Cuál usarías para un mapa que va a mirar mucha gente sin instrucciones? Justifícalo.
+5. Prueba a poner un salto de línea dentro del popup con `<br>`. ¿Por qué funciona una etiqueta de HTML ahí dentro?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. Ocho mil puntos (5 puntos)
+
+1. Dibuja los **8135** puntos de golpe. Mira cuánto tarda en abrirse el `.html`.
+2. Repítelo con `clusterOptions = markerClusterOptions()`.
+3. Compara el tamaño de los dos archivos `.html` con `file.size()`.
+
+*Verifica:* con agrupamiento el mapa abre mucho más rápido y muestra círculos con números en vez de puntos sueltos.
+
+```{r ej6, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+4. ¿Qué **pierdes** al agrupar?
+5. ¿En qué nivel de acercamiento vuelven a verse los puntos individuales?
+6. Si tuvieras 500 000 puntos en vez de 8 000, ¿seguiría sirviendo el agrupamiento? Busca qué otras opciones hay.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). Capas que se encienden (5 puntos adicionales)
+
+1. Escoge **dos** tipos de delito.
+2. Ponlos en dos capas distintas, con el argumento `group =`.
+3. Añade `addLayersControl()` para poder encender y apagar cada una.
+
+*Verifica:* aparece arriba a la derecha un control con las dos capas, y al desmarcar una sus puntos desaparecen.
+
+```{r ej7, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+4. ¿Qué pregunta puedes contestar encendiendo y apagando las capas que **no** podrías contestar con un mapa fijo?
+5. Este es el argumento de fondo del capítulo entero. Escríbelo con tus palabras, en tres o cuatro oraciones.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

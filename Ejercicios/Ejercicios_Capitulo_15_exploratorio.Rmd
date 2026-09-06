@@ -1,0 +1,257 @@
+---
+title: "Ejercicios del Capítulo 15"
+subtitle: "Análisis exploratorio: variación, valores inusuales, valores faltantes y covariación"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 15 del libro del curso.
+
+En un capítulo de exploración la **explicación en palabras** es lo más importante: una gráfica sin lectura no contesta nada. Un ejercicio con la gráfica correcta y sin interpretación no recibe el crédito completo.
+
+Los ejercicios usan `millas` y `paises` del paquete `datos`, no `diamantes`, que es el conjunto con el que se enseña en el capítulo.
+
+Estas gráficas son de **exploración**: no hace falta que estén bonitas, ni con títulos, ni con colores escogidos. Hacen falta rápidas y legibles.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**: que la tabla o la gráfica se vean.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Variación de una variable categórica | 5 |
+| 2 | El `binwidth` cambia la historia | 5 |
+| 3 | Valores inusuales sin borrarlos | 5 |
+| 4 | Sustituir por `NA`, no borrar la fila | 5 |
+| 5 | Covariación: categórica y continua | 5 |
+| 6 | Dos variables categóricas | 5 |
+| 7 | Dos variables continuas | 5 |
+| **Total** | | **35** |
+| 8 (bono) | El patrón escondido en los subgrupos | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que se ve (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+Antes de empezar, mira qué tienes:
+
+```{r explorar, eval=FALSE}
+names(millas)
+names(paises)
+```
+
+Varios ejercicios usan un solo año de `paises`, para no mezclar décadas:
+
+```{r base, eval=FALSE}
+p2007 <- paises |> filter(anio == 2007)
+```
+
+---
+
+# Ejercicio 1. Variación de una variable categórica (5 puntos)
+
+Con `millas`:
+
+1. Cuenta los vehículos por `clase` con `count()`.
+2. Haz la gráfica equivalente con `geom_bar()`.
+3. Ordena la tabla de mayor a menor.
+
+*Verifica:* la tabla debe tener **7** filas, la suma de los conteos debe dar **234**, y `suv` debe ser la clase más común.
+
+4. Explica en palabras por qué la tabla y la gráfica **no** son redundantes: di una cosa que se vea mejor en la tabla y una que se vea mejor en la gráfica.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. El `binwidth` cambia la historia (5 puntos)
+
+Con `p2007` y la variable `esperanza_de_vida`:
+
+1. Haz tres histogramas, con `binwidth` de **10**, de **2** y de **0.5**.
+
+*Verifica:* los tres tienen que sumar **142** países.
+
+2. ¿Cuál de los tres enseña con claridad que la distribución tiene **dos grupos** de países?
+3. Explica en palabras qué **esconde** el de intervalos anchos y qué **inventa** el de intervalos muy finos.
+4. ¿Cuál escogerías para una figura de un informe, y por qué?
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. Valores inusuales sin borrarlos (5 puntos)
+
+Con `p2007` y la variable `pib_per_capita`:
+
+1. Haz un histograma. Vas a ver que casi todo se apelotona a la izquierda.
+2. Usa `coord_cartesian(ylim = ...)` para acercarte al eje vertical hasta que se vean las barras de la cola derecha.
+3. Saca en una tabla los países de esa cola, con `filter()`, `select()` y `arrange()`.
+
+*Verifica:* tu tabla de países extremos debe tener **menos de diez** filas y todas deben ser del año 2007.
+
+4. ¿Son errores o son datos verdaderos? Justifica mirando **cuáles** países son.
+5. Compara la media y la mediana de `pib_per_capita` con y sin esos países. Explica por qué la media se mueve mucho y la mediana casi nada.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Sustituir por `NA`, no borrar la fila (5 puntos)
+
+Con `millas`:
+
+1. Usa `if_else()` y `between()` para crear `millas2`, donde el valor de `autopista` se sustituya por `NA_real_` cuando esté **fuera** del intervalo de 12 a 40 millas por galón.
+2. Cuenta cuántos valores marcaste con `sum(is.na(millas2$autopista))`.
+
+*Verifica:* `millas2` tiene que seguir teniendo **234** filas. Si tiene menos, usaste `filter()` en vez de `if_else()`.
+
+3. Calcula el promedio de `autopista` en `millas2` con `na.rm = TRUE` y sin él.
+4. Explica en palabras por qué sustituir por `NA` es mejor que botar las filas con `filter()`. ¿Qué información habrías perdido de esos vehículos?
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. Covariación: categórica y continua (5 puntos)
+
+Con `millas`:
+
+1. Haz un diagrama de caja de `autopista` según `clase`.
+2. Repítelo con las clases **ordenadas por la mediana**, usando `reorder(clase, autopista, FUN = median)`.
+
+*Verifica:* `pickup` debe quedar en el extremo de las medianas más bajas.
+
+3. Además de la mediana, ¿cuál clase tiene la caja **más ancha**? ¿Qué significa una caja ancha?
+4. Una clase con la mediana alta pero mucha dispersión, ¿es mejor o peor noticia que una con la mediana un poco más baja pero consistente? Contesta pensando en alguien que va a comprar un carro.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. Dos variables categóricas (5 puntos)
+
+Con `millas`, usando `clase` y `cilindros` (trátala como si fuera categórica):
+
+1. Cuenta las combinaciones con `count(clase, cilindros)`.
+2. Dibújalas con `geom_count()`.
+3. Dibújalas otra vez con `geom_tile()`, coloreando por el conteo.
+
+*Verifica:* `cilindros` tiene **4** valores distintos, y **no** todas las combinaciones de clase y cilindros existen.
+
+4. Nombra **dos combinaciones que no aparecen** en los datos y explica por qué tiene sentido que no existan.
+5. De las dos gráficas, ¿cuál deja ver mejor las combinaciones **vacías**?
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7. Dos variables continuas (5 puntos)
+
+Con `millas`, `cilindrada` en el eje horizontal y `autopista` en el vertical:
+
+1. Diagrama de dispersión con `geom_point()` y transparencia (`alpha`).
+2. `geom_bin2d()`.
+3. Diagramas de caja agrupando con `geom_boxplot(aes(group = cut_width(cilindrada, 1)))`.
+
+*Verifica:* las tres tienen que enseñar la misma tendencia general.
+
+4. ¿Cuál de las tres enseña mejor la **dispersión** de `autopista` para un mismo tamaño de motor?
+5. ¿Cuál usarías en una presentación de cinco minutos, y por qué?
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 8 (BONO). El patrón escondido en los subgrupos (5 puntos adicionales)
+
+Sigue con `cilindrada` y `autopista`:
+
+1. Colorea los puntos por `clase`.
+2. Sepáralos con `facet_wrap(~ clase)`.
+
+*Verifica:* debe verse que la relación no es igual en todas las clases.
+
+3. ¿Hay alguna clase que se salga de la tendencia general? ¿Cuál y en qué sentido?
+4. Esta es la misma situación del corte `Ideal` en `diamantes` del capítulo: una tercera variable escondía el patrón. Explica cuál es aquí esa tercera variable.
+
+```{r ej8}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

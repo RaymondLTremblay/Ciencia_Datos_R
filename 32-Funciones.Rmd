@@ -18,9 +18,13 @@ Sys.Date()
 
   - ¿Cuándo escribir una función?
   - La anatomía de una función: nombre, argumentos y cuerpo
+  - Cómo se le pone nombre a una función
   - Ejecución condicional: `if` y `else`
   - Argumentos y valores por defecto
+  - Comprobar los argumentos con `stopifnot()`
+  - Los puntos suspensivos `...`
   - Valores de retorno
+  - Lo que pasa dentro se queda dentro: el ámbito
   - Un vistazo a los vectores
 
 ::: {.nota}
@@ -67,7 +71,7 @@ df
 :::
 
 ::: {.funcion}
-**`function(argumentos) { cuerpo }`** — crear tu propia función.
+**`function(argumentos) { cuerpo }`**: crear tu propia función.
 
 - **Estructura:** `nombre <- function(x) { ... }`; se llama luego con `nombre(valor)`.
 - **Argumentos:** pueden tener valores por defecto (`function(x, recorte = 0.1)`).
@@ -91,6 +95,28 @@ reescalar01(c(0, 5, 10))
 ```
 
 Ahora el código repetido se reduce a esto, mucho más fácil de leer y de corregir:
+
+### Cómo se le pone nombre a una función
+
+El nombre de una función es parte del código, no una etiqueta: se va a leer
+muchas más veces de las que se escribe. Tres reglas resuelven casi todo:
+
+1. **Un verbo, o algo que describa lo que devuelve.** Las funciones **hacen**
+   cosas: `reescalar01()`, `contar_especies()`, `calcular_tasa()`. Los sustantivos
+   se reservan para los objetos.
+2. **En minúsculas y con guion bajo** (`snake_case`), como el resto del tidyverse:
+   `media_recortada`, no `MediaRecortada` ni `media.recortada`. El punto tiene otro
+   significado en R y conviene no usarlo.
+3. **Nunca uses un nombre que R ya usa.** Si defines tu propia `mean()`, `sum()`,
+   `c()`, `data()` o `t()`, R usará la tuya a partir de ese momento y el resto del
+   análisis se romperá de maneras difíciles de rastrear.
+
+::: {.consejo}
+Para saber si un nombre está ocupado, escríbelo en la consola y presiona *Tab*, o
+prueba `exists("mi_nombre")`. Si devuelve `TRUE`, busca otro. Es el mismo problema
+del `object of type 'closure'` del capítulo de errores comunes, visto desde el
+otro lado.
+:::
 
 ```{r c32-4}
 df <- data.frame(
@@ -151,6 +177,65 @@ mean(valores)                          # comparación: la media normal
 
 ***
 
+## Comprobar los argumentos
+
+Una función escrita por ti la va a usar alguien que no la escribió, y ese alguien
+casi siempre eres tú dentro de seis meses. Conviene que falle **rápido y claro**
+cuando le pasan algo que no esperaba, en vez de devolver un resultado raro.
+
+::: {.funcion}
+**`stopifnot()`**: comprobar que los argumentos son lo que deben ser.
+
+- **`stopifnot(is.numeric(x))`:** si la condición no se cumple, detiene la función con un mensaje que nombra la condición que falló.
+- **Varias a la vez:** `stopifnot(is.numeric(x), length(x) > 0)`.
+- **Con mensaje propio:** `stopifnot("x tiene que ser numérico" = is.numeric(x))`.
+:::
+
+```{r c32-stopifnot, error=TRUE}
+reescalar_seguro <- function(x) {
+  stopifnot("x tiene que ser numérico" = is.numeric(x),
+            "x no puede estar vacío"   = length(x) > 0)
+  rango <- range(x, na.rm = TRUE)
+  (x - rango[1]) / (rango[2] - rango[1])
+}
+
+reescalar_seguro(c(0, 5, 10))
+reescalar_seguro(c("a", "b"))
+```
+
+::: {.consejo}
+No hace falta comprobarlo todo. Comprueba lo que, si viene mal, produciría un
+resultado **equivocado en silencio**. Si viniera mal y diera un error claro por su
+cuenta, el `stopifnot()` sobra.
+:::
+
+***
+
+## Los puntos suspensivos `...`
+
+`...` significa "cualquier otro argumento que me pasen, se lo entrego tal cual a
+la función de adentro". Es lo que permite que tu función acepte los argumentos de
+otra sin tener que copiarlos todos.
+
+```{r c32-dots}
+promedio_limpio <- function(x, ...) {
+  mean(x, na.rm = TRUE, ...)
+}
+
+valores <- c(1, 2, 3, 4, 5, 100, NA)
+promedio_limpio(valores)
+promedio_limpio(valores, trim = 0.2)   # trim viaja hasta mean()
+```
+
+::: {.advertencia}
+`...` tiene un precio: si escribes mal el nombre de un argumento, **no hay
+error**. `promedio_limpio(valores, trimm = 0.2)` se traga el `trimm` sin decir
+nada y devuelve el promedio sin recortar. Es cómodo y silencioso, en el mal
+sentido.
+:::
+
+***
+
 ## Valores de retorno
 
 Una función en R devuelve el valor de la **última línea** de su cuerpo. También
@@ -168,6 +253,35 @@ coef_variacion <- function(x) {
 coef_variacion(c(2, 4, 4, 4, 5, 5, 7, 9))
 coef_variacion(c(-5, 0, 5))   # la media es 0 -> NA
 ```
+
+***
+
+## Lo que pasa dentro se queda dentro
+
+Las variables que creas dentro de una función viven **solo dentro de ella**.
+Cuando la función termina, desaparecen, y nada de lo que pasó ahí dentro afecta a
+tu sesión.
+
+```{r c32-ambito}
+rango <- "yo vivo fuera"
+
+reescalar01(c(0, 5, 10))   # por dentro crea su propio 'rango'
+
+rango                      # el de afuera no se tocó
+```
+
+Eso es una ventaja, no una limitación: significa que puedes usar una función
+escrita por otra persona sin miedo a que te pise tus objetos. Y significa también
+que una función **solo se comunica por dos puertas**: los argumentos que entran y
+el valor que devuelve.
+
+::: {.advertencia}
+Al revés no es simétrico: una función **sí** puede **leer** los objetos de fuera
+si no los encuentra dentro. Eso hace que una función pueda parecer que funciona
+en tu sesión y fallar en la de otra persona, porque dependía en secreto de un
+objeto que tú tenías creado. La regla: **todo lo que la función necesite tiene
+que entrar por un argumento.**
+:::
 
 ***
 
@@ -211,20 +325,179 @@ is.na(x)               # ¿cuáles son NA?
 
 ***
 
-1.  **Ejercicios**:
+## ¿Cuándo **no** escribir una función?
 
-Hacer los ejercicios en la sección 19.2 del libro en español.
+La regla de tres es buena, pero tiene excepciones. No conviene envolver en una
+función:
+
+- **una sola línea que ya se lee bien**. `function(x) mean(x)` no aporta nada;
+- **algo que ya existe**. Antes de escribirla, busca: casi siempre alguien la
+  escribió antes y mejor;
+- **un cálculo que solo vas a hacer una vez**, aunque sea largo. Una función que
+  se usa una sola vez añade un nivel de indirección sin ahorrar nada;
+- **un paso de una cadena de `dplyr`**. Para eso están `mutate()` y
+  `summarise()`, que ya trabajan sobre columnas enteras.
 
 ***
 
-2.  **Ejercicios**:
+## Ejercicios del libro R4DS
 
-Escribe una función `fahrenheit_a_celsius()` que reciba una temperatura en grados
-Fahrenheit y devuelva grados Celsius. La fórmula es $C = (F - 32) \times 5/9$.
-Pruébala con `32` (debe dar 0) y con `212` (debe dar 100).
+Hacer los ejercicios de las secciones 19.2 y 19.4 del libro en español.
 
 ***
 
-3.  **Ejercicios**:
+## Ejercicios del capítulo
 
-Hacer los ejercicios en la sección 19.4 del libro en español.
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: la **función**, una **prueba** con valores cuya respuesta ya conoces, y una
+**explicación en palabras**. La prueba no es opcional: una función sin probar no
+sirve de nada, y en este capítulo vale puntos. Los ejercicios usan `millas` y
+`paises` del paquete `datos`, no el `df` de tres columnas del capítulo. La hoja
+completa para entregar está en `Ejercicios/Ejercicios_Capitulo_26_funciones.Rmd`.
+:::
+
+### Ejercicio 1. Reescalar de verdad
+
+::: {.ejercicio}
+Usa `reescalar01()` del capítulo sobre las columnas `ciudad` y `autopista` de
+`millas`. Después pruébala con una columna **constante**, por ejemplo
+`rep(5, 10)`.
+
+**Verificación:** en las dos columnas de `millas`, el mínimo del resultado tiene
+que ser 0 y el máximo 1. Con la columna constante sale `NaN` en todas las
+posiciones.
+
+**En palabras:** ¿de dónde sale ese `NaN`? Escribe la operación que lo produce.
+¿Debería la función avisar en ese caso, o está bien que devuelva `NaN`? Justifica
+tu respuesta.
+:::
+
+```{r c32-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Una función que devuelve una tabla
+
+::: {.ejercicio}
+Escribe `resumen_numerico(x)`, que reciba un vector numérico y devuelva un tibble
+de una fila con cinco columnas: `n`, `media`, `sd`, `mediana` e `IQR`, todas
+calculadas ignorando los `NA`.
+
+Úsala con `millas$autopista` y después, dentro de un `group_by()` por `clase`,
+con `reframe()` o con `summarise()`.
+
+**Verificación:** para `millas` completa, `n` debe dar 234. Por clase, la suma de
+los `n` también.
+
+**En palabras:** ¿por qué conviene que devuelva un **tibble** y no un vector con
+nombres? Piensa en qué puedes hacer después con cada uno.
+:::
+
+```{r c32-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Valores por defecto
+
+::: {.ejercicio}
+Escribe `es_atipico(x, k = 1.5)`, que devuelva `TRUE` para los valores que quedan
+a más de `k` rangos intercuartiles fuera de la caja, que es la misma regla del
+diagrama de caja.
+
+Aplícala a `millas$autopista` con `k = 1.5` y con `k = 3`.
+
+**Verificación:** con `k = 3` tiene que marcar **menos** valores que con
+`k = 1.5`, o los mismos, nunca más.
+
+**En palabras:** ¿por qué el valor por defecto es 1.5 y no otro número? Y una
+pregunta más importante: ¿un valor marcado como atípico es un error del dato?
+Mira cuáles vehículos son.
+:::
+
+```{r c32-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Que falle rápido y claro
+
+::: {.ejercicio}
+Añádele a `resumen_numerico()` un `stopifnot()` que compruebe dos cosas: que `x`
+es numérico y que tiene al menos un valor no faltante. Ponle a cada comprobación
+un mensaje en español.
+
+Pruébala con `millas$clase` (que es texto) y con `c(NA, NA)`, las dos en un bloque
+con `error=TRUE`.
+
+**Verificación:** las dos llamadas malas se detienen con **tu** mensaje, no con un
+mensaje genérico de R.
+
+**En palabras:** sin el `stopifnot()`, ¿qué habría devuelto la función con
+`millas$clase`? Pruébalo. ¿Un error o un resultado sin sentido? Explica por qué
+eso justifica las tres líneas de más.
+:::
+
+```{r c32-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Lo que pasa dentro
+
+::: {.ejercicio}
+Escribe una función que cree dentro una variable llamada `resultado`. Antes de
+llamarla, crea en tu sesión otra variable con **el mismo nombre** y un valor
+distinto. Llama a la función y vuelve a mirar la de fuera.
+
+Después escribe una segunda función que use una variable que **no** recibe como
+argumento y que solo existe fuera. Compruébala, bórrala con `rm()` y vuelve a
+llamarla.
+
+**Verificación:** la primera función no toca la variable de fuera. La segunda
+funciona hasta que borras la variable, y entonces da `object ... not found`.
+
+**En palabras:** la segunda función parecía correcta y no lo era. Explica por qué
+es un problema si le pasas tu script a otra persona.
+:::
+
+```{r c32-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Los puntos suspensivos
+
+::: {.ejercicio}
+Escribe `promedio_por_grupo(datos, columna, ...)` que calcule el promedio de una
+columna por `clase` en `millas`, pasando los `...` a `mean()`.
+
+Llámala una vez normal y otra con `trim = 0.1`. Después llámala con `trimm = 0.1`,
+con dos emes.
+
+**Verificación:** las dos primeras dan resultados distintos entre sí; la tercera
+da **exactamente lo mismo que la primera**, y sin ningún aviso.
+
+**En palabras:** eso último es el precio de `...`. Explica qué pasó con el
+`trimm`. ¿Qué tipo de error del capítulo de errores comunes se parece más a este?
+:::
+
+```{r c32-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). Una función que devuelve una gráfica
+
+::: {.ejercicio}
+Escribe `grafica_consumo(datos, clase_elegida)` que filtre `millas` por la clase
+que le pasen y devuelva un `ggplot` de `cilindrada` contra `autopista`, con el
+título puesto automáticamente con el nombre de la clase.
+
+**Verificación:** la función tiene que **devolver** el objeto gráfico, no
+dibujarlo por dentro. Compruébalo guardándolo en una variable: la gráfica no debe
+aparecer hasta que escribas el nombre de la variable.
+
+**En palabras:** ¿qué ganas devolviendo el objeto en vez de dibujarlo dentro?
+Piensa en poder añadirle una capa después con `+`.
+:::
+
+```{r c32-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

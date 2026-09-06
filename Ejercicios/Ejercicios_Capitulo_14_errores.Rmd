@@ -1,0 +1,241 @@
+---
+title: "Ejercicios del Capítulo 14"
+subtitle: "Errores comunes: leer el mensaje, distinguir error de advertencia y arreglarlo"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 14 del libro del curso.
+
+En este capítulo la explicación en palabras vale más que en los otros: lo que se evalúa es que sepas **leer** el mensaje, no solo que el código acabe corriendo. Un ejercicio que llega arreglado pero sin decir qué significaba el error no recibe el crédito completo.
+
+Los ejercicios usan `millas` y `diamantes` del paquete `datos`, no `mtcars` ni `iris`, que son los conjuntos con los que se enseña en el capítulo.
+
+:::: {.nota}
+**Cómo mostrar un error sin que el documento se caiga.** Varios ejercicios te
+piden correr código que falla a propósito. Para que el *Knit* no se detenga,
+añade `error=TRUE` a las opciones del bloque, es decir, escribe
+`{r mi-bloque, error=TRUE}` en la primera línea del bloque en vez de `{r mi-bloque}`.
+Los bloques de esta hoja que lo necesitan ya vienen con la opción puesta.
+::::
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**: el mensaje de error cuando se pide, y la versión corregida corriendo.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Leer el mensaje: cinco líneas rotas | 5 |
+| 2 | Instalar no es activar | 5 |
+| 3 | El `NA` no es un error | 5 |
+| 4 | `=`, `==` y `<-` | 5 |
+| 5 | El ejemplo mínimo reproducible | 5 |
+| **Total** | | **25** |
+| 6 (bono) | `tryCatch()` y la copia local | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (1 punto), mensaje o resultado mostrado (1 punto), explicación en palabras (3 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+---
+
+# Ejercicio 1. Leer el mensaje (5 puntos)
+
+Estas cinco líneas están rotas, cada una por una razón distinta:
+
+```
+Filter(millas, clase == "compact")
+millas$autopsta
+filter(millas, anio = 2008)
+"8" + millas$cilindros[1]
+mean(millas$clase)
+```
+
+Para cada una:
+
+1. Córrela en un bloque con `error=TRUE`.
+2. **Copia lo que salió** (el mensaje de error, la advertencia, o el resultado), tal cual.
+3. Explica en **una oración** qué significa ese mensaje.
+4. Escribe debajo la versión corregida.
+
+*Verifica:* las cinco versiones corregidas tienen que correr limpias: sin error y sin advertencia.
+
+5. Solo **tres** de las cinco producen un error que detiene la línea. Identifica las otras dos, di qué devuelve cada una, y explica por qué son más peligrosas que las tres que fallan de frente.
+
+```{r ej1a, error=TRUE, warning=TRUE}
+# Las cinco líneas rotas, una por una
+
+```
+
+```{r ej1b, warning=TRUE}
+# Las cinco versiones corregidas
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras: un párrafo corto por cada línea, más la pregunta 5)*
+
+---
+
+# Ejercicio 2. Instalar no es activar (5 puntos)
+
+1. Sin activar ningún paquete nuevo, corre `rollmean(1:10, 3)` en un bloque con `error=TRUE` y copia el mensaje.
+2. Arréglalo de **dos maneras distintas**: una activando el paquete con `library(zoo)`, y otra sin activarlo, escribiendo `zoo::rollmean(...)`.
+
+*Verifica:* las dos versiones corregidas devuelven el mismo vector de **8** valores.
+
+3. ¿Qué mensaje **distinto** habrías visto si el paquete `zoo` no estuviera instalado en tu computadora? Escribe el mensaje que esperarías y explica en qué se diferencia del primero.
+4. ¿Por qué no conviene dejar `install.packages("zoo")` dentro del script que entregas?
+
+```{r ej2a, error=TRUE}
+# Escribe tu código aquí
+
+```
+
+```{r ej2b}
+# Las dos versiones corregidas
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. El `NA` no es un error (5 puntos)
+
+Haz una copia de `millas` y métele valores faltantes a propósito:
+
+```{r ej3-datos}
+millas_na <- millas
+millas_na$autopista[c(3, 17, 100)] <- NA
+```
+
+Calcula el promedio de `autopista` en `millas_na` de tres maneras:
+
+1. Sin `na.rm`.
+2. Con `na.rm = TRUE`.
+3. Quitando antes las filas con faltantes, con `filter(!is.na(autopista))`.
+
+*Verifica:* la primera devuelve `NA`; la segunda y la tercera devuelven **el mismo** número, calculado sobre **231** filas.
+
+4. Explica en palabras por qué la primera no es un error de R sino un aviso, y en qué situación usar `na.rm = TRUE` sin pensarlo sería un **error de análisis**.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. `=`, `==` y `<-` (5 puntos)
+
+Con `diamantes`, corre estas tres líneas (la primera en un bloque con `error=TRUE`):
+
+1. `filter(diamantes, corte = "Ideal")`
+2. `filter(diamantes, corte == "Ideal")`
+3. `diamantes_ideal = filter(diamantes, corte == "Ideal")`
+
+*Verifica:* la segunda y la tercera producen la misma tabla; la primera no produce ninguna.
+
+4. El `=` de la línea 1 y el `=` de la línea 3 son el mismo signo, pero solo uno de los dos está mal. Explica qué hace `=` en cada sitio.
+5. ¿Por qué en el curso preferimos `<-` para asignar, aunque `=` funcione?
+
+```{r ej4a, error=TRUE}
+# Escribe tu código aquí
+
+```
+
+```{r ej4b}
+# Las versiones que sí corren
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. El ejemplo mínimo reproducible (5 puntos)
+
+Este bloque se cae, pero el mensaje no dice en cuál de los cuatro pasos está el problema:
+
+```
+resumen <- diamantes |>
+  filter(quilate > 0.5) |>
+  group_by(corte) |>
+  summarise(precio_medio = mean(Precio))
+```
+
+1. Córrelo con `error=TRUE` y copia el mensaje.
+2. Encuentra el paso que falla **reduciendo el problema**: corre el primer paso solo, luego los dos primeros, luego los tres, hasta que reaparezca el error. Muestra cada intento.
+3. Arréglalo.
+
+*Verifica:* la tabla corregida tiene **5** filas, una por cada nivel de `corte`.
+
+4. Explica en palabras en qué paso estaba el problema y cómo lo supiste.
+5. ¿Por qué reducir el código a un ejemplo mínimo es más rápido que releer las cuatro líneas enteras?
+
+```{r ej5a, error=TRUE}
+# Escribe tu código aquí
+
+```
+
+```{r ej5b}
+# La versión corregida
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6 (BONO). `tryCatch()` y la copia local (5 puntos adicionales)
+
+1. Guarda una tabla pequeña de `millas` en `Datos/millas_copia.csv` con `write_csv()`. (Crea la carpeta `Datos` si no existe.)
+2. Escribe un `tryCatch()` que **intente** leer un archivo desde una dirección de internet que no existe y que, al fallar, lea tu copia local.
+
+*Verifica:* el bloque corre sin error y devuelve la tabla de tu copia local.
+
+3. Explica en palabras qué diferencia hay entre este `tryCatch()` y simplemente poner `error=TRUE` en las opciones del bloque. ¿Cuál de los dos produce un análisis reproducible y cuál solo esconde el problema?
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

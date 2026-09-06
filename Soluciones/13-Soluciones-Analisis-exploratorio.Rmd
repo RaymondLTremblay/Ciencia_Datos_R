@@ -1,0 +1,309 @@
+---
+title: "Soluciones: Capítulo Análisis exploratorio (variación, valores inusuales, faltantes, covariación)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+
+Corresponde a: 13-Analisis-exploratorio.Rmd (Capítulo 15 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_15_exploratorio.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras.
+
+En este capítulo el peso está en la lectura de la gráfica. Una entrega con las
+ocho gráficas correctas y sin interpretación no vale más que la mitad.
+
+```{r sol13-0}
+p2007 <- paises |> filter(anio == 2007)
+nrow(p2007)   # 142 países
+nrow(millas)  # 234 vehículos
+```
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: variación de una variable categórica
+
+```{r sol13-1}
+millas |> 
+  count(clase) |> 
+  arrange(desc(n))
+
+ggplot(millas, aes(x = clase)) +
+  geom_bar()
+```
+
+**Respuesta esperada.** Siete clases, 234 vehículos en total, `suv` la más común
+con bastante diferencia y `2seater` la más rara.
+
+Sobre por qué no son redundantes: la **tabla** da los números exactos, que hacen
+falta para reportar y para verificar que la suma cuadra; la **gráfica** da las
+proporciones de un vistazo, y hace evidente lo desbalanceado que está el
+conjunto. Una buena respuesta menciona que ese desbalance importa para todo lo
+que venga después: un promedio por clase calculado sobre 5 vehículos no es
+comparable con uno calculado sobre 62.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: el `binwidth` cambia la historia
+
+```{r sol13-2}
+ggplot(p2007, aes(x = esperanza_de_vida)) + geom_histogram(binwidth = 10)
+ggplot(p2007, aes(x = esperanza_de_vida)) + geom_histogram(binwidth = 2)
+ggplot(p2007, aes(x = esperanza_de_vida)) + geom_histogram(binwidth = 0.5)
+```
+
+**Respuesta esperada.** El de `binwidth = 2` es el que enseña con claridad que la
+distribución tiene **dos grupos**: un grupo grande alrededor de los setenta y
+tantos años y otro más pequeño y más disperso en los cincuenta y sesenta, que
+son en su mayoría países africanos.
+
+- `binwidth = 10` **esconde** esa estructura: con seis o siete barras todo se ve
+  como una sola distribución sesgada.
+- `binwidth = 0.5` **inventa**: con 142 países y ese ancho, la mayoría de las
+  barras tienen uno o dos países, y los subibajas que aparecen son ruido de
+  muestreo, no un patrón.
+
+Para una figura de informe casi todos escogen el de 2, y es la respuesta
+correcta. Vale la pena aceptar también 2.5 o 3 con una justificación razonable:
+lo que se evalúa es el criterio, no el número.
+
+**Punto para discutir en clase.** Se puede pedir que separen por continente y
+comprueben que la bimodalidad no es un accidente. Es la entrada natural al
+ejercicio 8.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: valores inusuales sin borrarlos
+
+```{r sol13-3a}
+ggplot(p2007, aes(x = pib_per_capita)) +
+  geom_histogram(binwidth = 2000)
+
+ggplot(p2007, aes(x = pib_per_capita)) +
+  geom_histogram(binwidth = 2000) +
+  coord_cartesian(ylim = c(0, 5))
+```
+
+```{r sol13-3b}
+extremos <- p2007 |> 
+  filter(pib_per_capita > 40000) |> 
+  select(pais, continente, anio, pib_per_capita, esperanza_de_vida) |> 
+  arrange(desc(pib_per_capita))
+
+extremos
+```
+
+```{r sol13-3c}
+p2007 |> 
+  summarise(
+    media   = mean(pib_per_capita),
+    mediana = median(pib_per_capita)
+  )
+
+p2007 |> 
+  filter(pib_per_capita <= 40000) |> 
+  summarise(
+    media   = mean(pib_per_capita),
+    mediana = median(pib_per_capita)
+  )
+```
+
+**Respuesta esperada.** La cola derecha tiene un puñado de países (menos de diez
+con el corte en 40000), entre ellos Noruega, Kuwait, Singapur, Estados Unidos e
+Irlanda. **No son errores.** Son países pequeños y muy ricos, o exportadores de
+petróleo, y el conjunto los recoge correctamente. La respuesta que hay que
+buscar en la entrega es justamente esa: el estudiante tiene que mirar **cuáles**
+países son antes de opinar, no decidir por la forma del histograma.
+
+Al quitarlos, la **media** baja de forma apreciable y la **mediana** casi no se
+mueve. Es la misma lección del capítulo de índices paramétricos y no
+paramétricos: la media usa la magnitud de cada valor, así que un valor enorme la
+arrastra; la mediana solo usa el orden, y quitar cinco países de la cola apenas
+corre la posición del centro.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: sustituir por `NA`, no borrar la fila
+
+```{r sol13-4}
+millas2 <- millas |> 
+  mutate(autopista = if_else(between(autopista, 12, 40), autopista, NA_real_))
+
+nrow(millas2)                    # 234, igual que millas
+sum(is.na(millas2$autopista))    # los valores marcados
+
+mean(millas2$autopista)                 # NA
+mean(millas2$autopista, na.rm = TRUE)   # el promedio de los que quedan
+```
+
+**Respuesta esperada.** `millas2` conserva las **234** filas. Si a alguien le
+quedan menos, usó `filter()` y hay que devolverle el ejercicio: es exactamente el
+error que se quería evitar.
+
+Por qué sustituir es mejor que botar: cada fila de `millas` trae once variables.
+Si botas la fila por un valor sospechoso de `autopista`, pierdes también el
+fabricante, el modelo, la cilindrada, los cilindros y el consumo en ciudad de ese
+vehículo, que estaban bien. Con `NA` el resto de la fila sigue disponible para
+cualquier otro análisis, y además queda **registrado** que ahí había un dato que
+descartaste, en vez de desaparecer sin dejar rastro.
+
+Errores frecuentes que conviene señalar:
+
+- Escribir `NA` en vez de `NA_real_` dentro de `if_else()`. Según la versión de
+  dplyr, o da error de tipo o pasa en silencio; conviene enseñar la forma
+  estricta.
+- Invertir la condición y marcar como `NA` justo los valores buenos. Se detecta
+  enseguida porque `sum(is.na(...))` sale enorme.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: covariación entre una categórica y una continua
+
+```{r sol13-5}
+ggplot(millas, aes(x = clase, y = autopista)) +
+  geom_boxplot()
+
+ggplot(millas, aes(x = reorder(clase, autopista, FUN = median), y = autopista)) +
+  geom_boxplot() +
+  labs(x = "clase, ordenada por la mediana de autopista")
+```
+
+**Respuesta esperada.** Con `reorder()` la gráfica se lee de un vistazo: `pickup`
+y `suv` abajo, `compact` y `subcompact` arriba. `pickup` queda en el extremo de
+las medianas más bajas.
+
+Sobre la caja más ancha: `subcompact` es la clase con mayor dispersión, y tiene
+sentido, porque ahí conviven carros pequeños y económicos con deportivos
+pequeños que gastan mucho. Una caja ancha significa que **la clase no es
+homogénea**: saber que un carro es subcompacto dice bastante menos sobre su
+consumo que saber que es un pickup.
+
+La pregunta del comprador no tiene una sola respuesta correcta, y por eso vale la
+pena leerla con calma. La respuesta buena reconoce el conflicto: una mediana alta
+con mucha dispersión significa que **hay** carros muy eficientes en esa clase,
+pero que la clase por sí sola no garantiza nada y hay que mirar el modelo
+específico. Una mediana algo menor y consistente es más predecible.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: dos variables categóricas
+
+```{r sol13-6}
+millas |> count(clase, cilindros)
+
+ggplot(millas, aes(x = clase, y = factor(cilindros))) +
+  geom_count()
+
+millas |> 
+  count(clase, cilindros) |> 
+  ggplot(aes(x = clase, y = factor(cilindros))) +
+  geom_tile(aes(fill = n))
+```
+
+**Respuesta esperada.** `cilindros` tiene cuatro valores: 4, 5, 6 y 8. Con siete
+clases habría 28 combinaciones posibles, y en los datos aparecen bastantes menos.
+
+Combinaciones vacías que sirven de ejemplo: no hay minivan de 8 cilindros, no hay
+pickup de 4 cilindros, no hay 2seater de 4 ni de 6 (los deportivos del conjunto
+son todos de 8), y los motores de 5 cilindros solo salen en un par de clases
+porque eran raros en general. Cualquier par razonable, bien justificado, vale.
+
+Sobre cuál gráfica enseña mejor los huecos: `geom_tile()` los deja en blanco de
+forma evidente, porque la fila de `count()` sencillamente no existe y la celda no
+se dibuja. En `geom_count()` la ausencia de un punto también se ve, pero se
+confunde con facilidad con un punto muy pequeño.
+
+**Punto para discutir en clase.** Aquí conviene mencionar que `cilindros` es
+numérica en la tabla y que la envolvimos en `factor()` solo para graficarla. Es
+la diferencia entre lo que la computadora **guarda** y lo que la variable
+**significa**, y es una confusión que reaparece en el capítulo de factores.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7: dos variables continuas
+
+```{r sol13-7}
+ggplot(millas, aes(x = cilindrada, y = autopista)) +
+  geom_point(alpha = 1 / 4)
+
+ggplot(millas, aes(x = cilindrada, y = autopista)) +
+  geom_bin2d()
+
+ggplot(millas, aes(x = cilindrada, y = autopista)) +
+  geom_boxplot(aes(group = cut_width(cilindrada, 1)))
+```
+
+**Respuesta esperada.** Las tres enseñan lo mismo: a mayor cilindrada, menor
+rendimiento en autopista, con una relación que **no es recta** (baja rápido al
+principio y se aplana después de los 5 litros).
+
+La que mejor enseña la dispersión es la de **diagramas de caja**: para cada
+tramo de cilindrada se ve el centro y el ancho al mismo tiempo. `geom_bin2d()`
+enseña dónde se concentran los datos pero cuesta leerle la dispersión, y los
+puntos con `alpha` son los que menos ayudan con 234 observaciones, que no son
+tantas.
+
+Para una presentación de cinco minutos, la de puntos con transparencia, y a
+veces con una línea de tendencia encima: es la que el público entiende sin que
+haya que explicar qué es una caja. Aquí lo que se evalúa es que el estudiante
+distinga entre **gráfica para explorar** y **gráfica para comunicar**, que es una
+de las ideas centrales del capítulo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 8 (bono): el patrón escondido en los subgrupos
+
+```{r sol13-8}
+ggplot(millas, aes(x = cilindrada, y = autopista, color = clase)) +
+  geom_point()
+
+ggplot(millas, aes(x = cilindrada, y = autopista)) +
+  geom_point() +
+  facet_wrap(~ clase)
+```
+
+**Respuesta esperada.** La clase que se sale es `2seater`: son deportivos con
+motores grandes (alrededor de 6 litros) pero con un rendimiento en autopista
+mucho mejor del que les tocaría por su cilindrada, porque son carros muy
+livianos. En la gráfica general esos cinco puntos quedan claramente por encima de
+la nube.
+
+La tercera variable escondida es el **peso o el tamaño del vehículo**, que no
+está en la tabla como columna pero está representado indirectamente por `clase`.
+La cilindrada y el peso van juntos casi siempre, y por eso la relación
+cilindrada-consumo parecía limpia; los `2seater` rompen esa asociación y por eso
+se salen.
+
+El paralelo con el capítulo: en `diamantes`, el corte `Ideal` parecía más barato
+porque el quilate estaba escondido detrás. Aquí, los motores grandes parecen
+gastar siempre mucho porque el peso está escondido detrás. En los dos casos la
+solución es la misma: separar por la variable escondida, o modelarla.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Reparto sugerido: script (2), resultado visible (1), explicación (2). Los
+ejercicios 3, 5, 7 y 8 son los que de verdad separan a quien entendió de quien
+copió, porque ninguno se contesta con la gráfica sola.
+
+Resultados comparables: 7 clases y 234 vehículos (Ej. 1), 142 países (Ej. 2),
+menos de diez países sobre 40000 de PIB per cápita (Ej. 3), 234 filas conservadas
+(Ej. 4), `pickup` en el extremo bajo (Ej. 5), y 4 valores de `cilindros` (Ej. 6).

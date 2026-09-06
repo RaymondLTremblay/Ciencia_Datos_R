@@ -28,6 +28,64 @@ El sistema `TeX` fue creado por Donald Knuth en 1978 porque no le convencía la 
 
 ***
 
+## Temas
+
+ - Dónde se escribe una ecuación: en la línea o aparte
+ - Los seis comandos que resuelven el 90 % de las fórmulas
+ - Letras griegas y símbolos
+ - `\mathrm{}`: cuándo la cursiva estorba
+ - Ecuaciones numeradas y referencias cruzadas
+ - Dónde buscar un símbolo que no te sabes
+
+***
+
+## Lo mínimo que hay que saber
+
+Antes del catálogo de ejemplos, conviene tener claras seis cosas. Con estas seis
+se escriben casi todas las fórmulas de un artículo de biología.
+
+::: {.funcion}
+**Los comandos de LaTeX que más vas a usar.**
+
+- **Subíndice `_` y superíndice `^`:** `$x_i$` da $x_i$ y `$x^2$` da $x^2$.
+- **Llaves `{}` para agrupar:** todo lo que ocupe **más de un carácter** va entre llaves. `$x_10$` da $x_10$, que está mal; `$x_{10}$` da $x_{10}$, que es lo que querías.
+- **Fracción `\frac{arriba}{abajo}`:** `$\frac{a}{b}$` da $\frac{a}{b}$.
+- **Raíz `\sqrt{}`:** `$\sqrt{n}$` da $\sqrt{n}$; con índice, `$\sqrt[3]{n}$`.
+- **Sumatoria `\sum`, con límites en `_` y `^`:** `$\sum_{i=1}^{n} x_i$` da $\sum_{i=1}^{n} x_i$.
+- **Acentos sobre una letra:** `$\bar{x}$` da $\bar{x}$ (promedio), `$\hat{y}$` da $\hat{y}$ (valor estimado), `$\tilde{x}$` da $\tilde{x}$.
+:::
+
+::: {.advertencia}
+El error número uno, con diferencia, son **las llaves que faltan**. `$e^-2x$` no
+es lo que parece: solo el signo menos sube al exponente. Hay que escribir
+`$e^{-2x}$`. Cada vez que un subíndice o un exponente tenga más de un carácter,
+llaves.
+:::
+
+### Griegas y otros símbolos
+
+Las letras griegas se escriben con su nombre en inglés precedido de barra
+invertida. La minúscula va en minúscula y la mayúscula en mayúscula:
+
+| Se escribe | Sale | Se escribe | Sale |
+|:--|:--|:--|:--|
+| `$\alpha$` | $\alpha$ | `$\mu$` | $\mu$ |
+| `$\beta$` | $\beta$ | `$\sigma$` | $\sigma$ |
+| `$\lambda$` | $\lambda$ | `$\Sigma$` | $\Sigma$ |
+| `$\theta$` | $\theta$ | `$\Delta$` | $\Delta$ |
+| `$\chi^2$` | $\chi^2$ | `$\infty$` | $\infty$ |
+| `$\leq$` | $\leq$ | `$\neq$` | $\neq$ |
+| `$\approx$` | $\approx$ | `$\pm$` | $\pm$ |
+
+::: {.consejo}
+Ojo con `$\lambda$`: en modelos matriciales de población, la tasa de crecimiento
+$\lambda$ es la letra griega, no la letra ele. Y `$\Sigma$` (la mayúscula, que
+significa "matriz de covarianza") no es lo mismo que `$\sum$` (el operador de
+sumatoria), aunque se parezcan mucho en la pantalla.
+:::
+
+***
+
 ### Matemática y Física
 
 El promedio $\bar{x}=\frac{\sum x_{i}}{n}$ se escribe como `$\bar{x}=\frac{\sum x_{i}}{n}$`.  Nota que para poner una ecuación en una línea se usa solamente una `$` antes y después, si queremos que sea en una línea aparte se usa dos `$$` antes y después.
@@ -99,7 +157,15 @@ $$
 
 ## Símbolos de LATEX
 
+Nadie se aprende los símbolos de memoria, ni hace falta. Lo que sí hay que saber
+es **dónde buscarlos**, y hay dos maneras. La primera es una lista como esta:
+
 Pueden encontrar los símbolos de Latex matemáticos en la siguiente pagina web: https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols
+
+La segunda, y casi siempre la más rápida, es **dibujar el símbolo** en
+<https://detexify.kirelabs.org/classify.html>: uno lo traza con el ratón y la
+página contesta cómo se escribe. Es la herramienta que hay que enseñarles a los
+estudiantes el primer día.
 
 
 
@@ -148,6 +214,16 @@ $\mathrm{CuCl}$ $\bullet$ $\mathrm{7H_{2}O}$
 ### Típografica de reaciones
 
 Es posible que desees poner tu reacción en un entorno de ecuaciones, lo que significa que LaTeX colocará la reacción donde encaje y numerará las ecuaciones por ti. 
+
+::: {.nota}
+La numeración automática y la referencia cruzada (el comando `\@ref` seguido de
+la etiqueta de la ecuación entre paréntesis) son
+funciones de **bookdown**, no de R Markdown a secas. Funcionan en este libro
+porque está hecho con bookdown; en un `.Rmd` normal con salida
+`output: html_document` la ecuación sale sin número y la referencia aparece como
+texto sin resolver. Para que funcionen en un documento suelto hay que poner
+`output: bookdown::html_document2`.
+:::
 
 
 \begin{equation}
@@ -224,3 +300,141 @@ Sitios en el web para preparar las ecuaciones Latex
 3. <https://www.hostmath.com>
 
 4. <https://www.overleaf.com/learn/latex/Mathematical_expressions>
+
+***
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Este capítulo no enseña funciones de R
+sino cómo se escribe una fórmula, así que la entrega es distinta: para cada
+ejercicio hay que poner **el código LaTeX** (dentro de acentos graves, para que se
+vea) y **la fórmula ya compuesta** debajo. Los ejercicios piden fórmulas descritas
+**en palabras**, no copiadas: la parte difícil, y la que se evalúa, es traducir la
+descripción al código. Ninguna aparece escrita en el capítulo. La hoja completa
+para entregar está en `Ejercicios/Ejercicios_Capitulo_23_ecuaciones.Rmd`.
+:::
+
+### Ejercicio 1. En la línea y aparte
+
+::: {.ejercicio}
+Escribe la fórmula del promedio (equis barra igual a la suma de las equis sub i,
+dividida entre ene) de las dos maneras: **dentro de una oración** y **en una línea
+aparte**.
+
+**Verificación:** las dos tienen que verse iguales salvo por el tamaño y la
+posición. Si la versión aparte no queda centrada en su propia línea, te faltó un
+signo de dólar en cada extremo.
+
+**En palabras:** ¿cuándo conviene cada una? Piensa en una fórmula corta dentro de
+un párrafo y en una fórmula larga en la sección de métodos de un artículo.
+:::
+
+### Ejercicio 2. Las llaves que faltan
+
+::: {.ejercicio}
+Escribe la varianza muestral: **ese al cuadrado** igual a la suma, desde i igual a
+1 hasta ene, de **(equis sub i menos equis barra) al cuadrado**, dividida entre
+**ene menos uno**.
+
+Escribe después, a propósito, la versión **sin llaves** en el exponente y en el
+denominador, y ponlas una debajo de la otra.
+
+**Verificación:** en la versión correcta, el cuadrado tiene que estar fuera del
+paréntesis y el denominador completo tiene que ser $n-1$. En la versión mala se
+ve exactamente qué se rompe.
+
+**En palabras:** explica qué le pasó a la versión sin llaves, símbolo por
+símbolo.
+:::
+
+### Ejercicio 3. Sumatorias con límites
+
+::: {.ejercicio}
+Escribe el índice de diversidad de Shannon: **hache prima** igual a **menos** la
+suma, desde i igual a 1 hasta **ese** (el número de especies), de **pe sub i por
+el logaritmo natural de pe sub i**.
+
+Escribe debajo, también, la fórmula de la equidad de Pielou: hache prima dividida
+entre el logaritmo natural de ese.
+
+**Verificación:** el límite inferior y el superior de la sumatoria tienen que
+salir debajo y encima del signo, no a los lados. El logaritmo natural tiene que
+salir en letra recta (`\ln`), no en cursiva.
+
+**En palabras:** ¿por qué `\ln` sale recto y `ln` escrito a mano sale en cursiva?
+¿Qué te dice eso sobre cómo interpreta LaTeX las letras sueltas?
+:::
+
+### Ejercicio 4. Fracciones y raíces
+
+::: {.ejercicio}
+Escribe el error estándar de la media: **ese sub equis barra** igual a **ese**
+dividido entre la **raíz cuadrada de ene**.
+
+Escribe después el estadístico t de una muestra: **te** igual a **(equis barra
+menos mu)** dividido entre **ese sobre raíz de ene**, con la fracción de abajo
+dentro de la fracción de arriba.
+
+**Verificación:** en la segunda, la raíz tiene que cubrir solo la ene, y la
+fracción pequeña tiene que quedar dentro del denominador de la grande.
+
+**En palabras:** una fracción dentro de otra se ve pequeña y apretada. ¿Cómo la
+escribirías si tuviera que ir dentro de un párrafo, en la línea? Escribe esa
+segunda versión también.
+:::
+
+### Ejercicio 5. Una ecuación numerada
+
+::: {.ejercicio}
+Escribe la ecuación de crecimiento logístico dentro de un entorno
+`\begin{equation}` con su etiqueta: **de ene sobre de te** igual a **erre por ene
+por (uno menos ene sobre ka)**. Después haz una referencia cruzada a ella en una
+oración del texto.
+
+**Verificación:** en este libro, hecho con bookdown, la ecuación sale numerada y
+la referencia se convierte en ese número. En tu hoja de entrega, que es un
+`html_document` normal, **no** va a funcionar: la referencia va a salir como texto
+sin resolver.
+
+**En palabras:** eso último no es un error tuyo. Explica por qué pasa y qué
+tendrías que cambiar en el encabezado YAML de tu documento para que funcionara.
+:::
+
+### Ejercicio 6. Cuando la cursiva estorba
+
+::: {.ejercicio}
+Escribe el equilibrio de Hardy-Weinberg (**pe al cuadrado más dos pe cu más cu al
+cuadrado igual a uno**) y la reacción global de la fotosíntesis (seis moléculas de
+dióxido de carbono más seis de agua, flecha, una de glucosa más seis de oxígeno),
+las dos con `\mathrm{}`.
+
+Escribe la fotosíntesis también **sin** `\mathrm{}` y ponlas una al lado de la
+otra.
+
+**Verificación:** en la versión con `\mathrm{}` las fórmulas químicas salen en
+letra recta; en la otra salen en cursiva, que es incorrecto para una fórmula
+química.
+
+**En palabras:** en Hardy-Weinberg, ¿deben ir `p` y `q` en cursiva o rectas?
+Justifica tu respuesta con la regla general: en notación científica, las
+**variables** van en cursiva y los **nombres de cosas** van rectos.
+:::
+
+### Ejercicio 7 (BONO). Una matriz de población
+
+::: {.ejercicio}
+Escribe la ecuación de proyección de un modelo matricial de población:
+**ene de te más uno** igual a la matriz **A** por **ene de te**, con la matriz
+escrita como una matriz de tres por tres cuyas entradas son $a_{ij}$.
+
+Usa el entorno `\begin{bmatrix} ... \end{bmatrix}`, con `&` entre las columnas y
+`\\` al final de cada fila.
+
+**Verificación:** la matriz tiene que salir con corchetes rectos a los lados,
+tres filas y tres columnas alineadas.
+
+**En palabras:** ¿qué cambia si usas `pmatrix` en vez de `bmatrix`? ¿Y `vmatrix`?
+Pruébalos y describe la diferencia. En un artículo sobre matrices de proyección,
+¿cuál usarías para la matriz y cuál para su determinante?
+:::

@@ -1,0 +1,308 @@
+---
+title: "Soluciones: Capítulo Transformación (rangos: min_rank, dense_rank, row_number, percent_rank, cume_dist, rollmean)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+
+Corresponde a: 10-Transformacion-rank.Rmd (Capítulo 11 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_11_rangos.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+library(zoo)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras.
+
+La muestra que usan casi todos los ejercicios:
+
+```{r sol10-0}
+set.seed(2026)
+dm <- slice_sample(diamantes, n = 500)
+```
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: min_rank() y desc()
+
+```{r sol10-1}
+dm_rangos <- dm |>
+  mutate(rango_precio      = min_rank(precio),
+         rango_precio_desc = min_rank(desc(precio)))
+
+dm_rangos |>
+  select(precio, rango_precio, rango_precio_desc) |>
+  arrange(rango_precio_desc) |>
+  head(n = 10)
+
+# ¿Cuánto suman los dos rangos?
+dm_rangos |>
+  mutate(suma = rango_precio + rango_precio_desc) |>
+  count(suma) |>
+  arrange(desc(n))
+```
+
+**Respuesta esperada:** el diamante más caro tiene `rango_precio_desc` igual a 1
+y el rango ascendente más alto. Si no hubiera empates, los dos rangos sumarían
+siempre `n + 1` (501 en una muestra de 500). Como sí hay precios repetidos, la
+suma no es constante: ahí está el punto pedagógico, `min_rank()` le da a todos
+los empatados el **mismo** rango (el menor) y luego deja un hueco.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: empates, min_rank() vs dense_rank() vs row_number()
+
+```{r sol10-2}
+empates <- dm |>
+  select(quilate, precio) |>
+  mutate(r_min   = min_rank(quilate),
+         r_dense = dense_rank(quilate),
+         r_fila  = row_number(quilate)) |>
+  arrange(quilate)
+
+empates |> head(n = 20)
+
+# Los valores máximos de cada rango
+empates |>
+  summarise(max_min = max(r_min), max_dense = max(r_dense), max_fila = max(r_fila))
+
+# Un valor repetido, visto de cerca
+empates |>
+  add_count(quilate, name = "veces") |>
+  filter(veces > 3) |>
+  head(n = 12)
+```
+
+**Respuesta esperada:** con empates, `min_rank()` asigna el rango menor a todos
+los empatados y luego **salta** (1, 1, 1, 4, ...); `dense_rank()` asigna el mismo
+rango pero **no salta** (1, 1, 1, 2, ...); `row_number()` rompe el empate por el
+orden de las filas y da un número distinto a cada una (1, 2, 3, 4, ...). Por eso
+`max(r_dense)` es el número de valores **distintos** de `quilate`, mientras que
+`max(r_min)` y `max(r_fila)` llegan hasta 500.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: los rangos y los valores faltantes
+
+```{r sol10-3}
+dm_na <- dm |>
+  mutate(precio_na = if_else(precio > 10000, NA_integer_, precio))
+
+sum(is.na(dm_na$precio_na))
+
+dm_na |>
+  select(precio, precio_na) |>
+  mutate(rango = min_rank(precio_na),
+         fila  = row_number(precio_na)) |>
+  arrange(desc(precio)) |>
+  head(n = 10)
+```
+
+**Respuesta esperada:** las filas con `NA` reciben `NA` de rango, no el último
+lugar ni el primero. No se les inventa una posición, porque no se sabe dónde van.
+Consecuencia práctica: si pides los "10 más grandes" con `filter(rango <= 10)`,
+las filas con `NA` desaparecen sin avisar, y si el faltante es justamente el valor
+más alto, tu respuesta está mal. Discutir en clase: `slice_max()` tiene el
+argumento `na_rm`, y siempre conviene contar los `NA` antes de rankear.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: percent_rank() y cume_dist()
+
+```{r sol10-4}
+dm_pct <- dm |>
+  select(quilate) |>
+  mutate(pr = percent_rank(quilate),
+         cd = cume_dist(quilate))
+
+# Los extremos
+dm_pct |> slice_min(quilate, n = 3)
+dm_pct |> slice_max(quilate, n = 3)
+
+# Alrededor de 1 quilate
+dm_pct |>
+  filter(near(quilate, 1, tol = 0.01)) |>
+  distinct(quilate, pr, cd)
+```
+
+**Respuesta esperada:** `percent_rank()` va de 0 a 1: el valor más pequeño vale
+exactamente 0, porque es `(min_rank - 1) / (n - 1)`. `cume_dist()` es la
+proporción de valores **menores o iguales**, así que el mínimo nunca vale 0 (vale
+al menos 1/n) y el máximo vale 1. En palabras: `percent_rank()` contesta "qué
+proporción de los diamantes es más pequeña que este" y `cume_dist()` contesta
+"qué proporción es menor o igual que este". Un diamante de 1 quilate suele caer
+cerca del percentil 70 de esta muestra, es decir, es más grande que
+aproximadamente el 70 % de los diamantes.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: first(), last() y nth()
+
+```{r sol10-5}
+cr <- paises |>
+  filter(pais == "Costa Rica") |>
+  arrange(anio)
+
+cr |>
+  summarise(primera = first(esperanza_de_vida),
+            ultima  = last(esperanza_de_vida),
+            cambio  = last(esperanza_de_vida) - first(esperanza_de_vida),
+            quinto  = nth(esperanza_de_vida, 5))
+
+# ¿A qué año corresponde el quinto valor?
+cr |> slice(5)
+
+# Lo mismo, pero desordenado a propósito
+paises |>
+  filter(pais == "Costa Rica") |>
+  arrange(desc(anio)) |>
+  summarise(primera = first(esperanza_de_vida),
+            ultima  = last(esperanza_de_vida))
+```
+
+**Respuesta esperada:** la serie tiene 12 observaciones, de 1952 a 2007 cada
+cinco años, así que el quinto valor es el de 1972. Al ordenar al revés,
+`first()` y `last()` se intercambian y el "cambio" sale con el signo contrario.
+El punto: estas funciones leen la **posición** de la fila, no la fecha. Si el
+orden no está garantizado, hay que usar `arrange()` antes, igual que con `lag()`
+en el capítulo anterior.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: group_by() con summarise()
+
+```{r sol10-6}
+resumen_corte <- diamantes |>
+  group_by(corte) |>
+  summarise(n              = n(),
+            precio_promedio  = mean(precio, na.rm = TRUE),
+            quilate_promedio = mean(quilate, na.rm = TRUE)) |>
+  arrange(desc(precio_promedio))
+
+resumen_corte
+
+sum(resumen_corte$n) == nrow(diamantes)
+```
+
+**Respuesta esperada:** el corte `"Ideal"`, que es el mejor corte, tiene el
+precio promedio **más bajo**, y los cortes `"Premium"` y `"Regular"` los más
+altos. La columna del quilate promedio explica la aparente contradicción: los
+diamantes de corte Ideal son, en promedio, considerablemente más pequeños. El
+peso pesa mucho más en el precio que la calidad del corte, y como el tamaño está
+confundido con el corte, comparar precios promedio sin controlar por quilate da
+una conclusión al revés. Buen momento para nombrar la palabra **variable de
+confusión** y adelantar el capítulo de análisis exploratorio.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7: rangos dentro de grupos
+
+```{r sol10-7}
+top_por_corte <- diamantes |>
+  group_by(corte) |>
+  mutate(rango = min_rank(desc(precio))) |>
+  filter(rango <= 3) |>
+  arrange(corte, rango) |>
+  ungroup()
+
+top_por_corte |> select(corte, precio, quilate, rango)
+nrow(top_por_corte)
+
+# Sin agrupar: los 3 más caros de toda la tabla
+diamantes |>
+  mutate(rango = min_rank(desc(precio))) |>
+  filter(rango <= 3) |>
+  select(corte, precio, quilate, rango)
+```
+
+**Respuesta esperada:** con `group_by()` salen 15 filas (3 por cada uno de los 5
+cortes), o alguna más si hay precios empatados dentro de un grupo. Sin agrupar
+salen solo 3 filas y todas pertenecen a uno o dos cortes. La lección: `mutate()`
+respeta la agrupación, así que agrupar antes cambia la pregunta de "los más caros
+del conjunto" a "los más caros de cada corte". Recordar `ungroup()` al final para
+no arrastrar la agrupación al próximo paso.
+
+------------------------------------------------------------------------
+
+## Ejercicio 8: rollmean(), el promedio móvil
+
+```{r sol10-8}
+cr_movil <- cr |>
+  select(anio, esperanza_de_vida) |>
+  mutate(pm_centrado = rollmean(esperanza_de_vida, k = 3, fill = NA),
+         pm_derecha  = rollmean(esperanza_de_vida, k = 3, fill = NA, align = "right"),
+         pm_izquierda = rollmean(esperanza_de_vida, k = 3, fill = NA, align = "left"))
+
+cr_movil
+
+ggplot(cr_movil, aes(x = anio)) +
+  geom_line(aes(y = esperanza_de_vida), linewidth = 0.8) +
+  geom_point(aes(y = esperanza_de_vida)) +
+  geom_line(aes(y = pm_centrado), linetype = "dashed") +
+  labs(x = "Año", y = "Esperanza de vida (años)",
+       title = "Serie original (sólida) y promedio móvil centrado (punteada)")
+```
+
+**Respuesta esperada:** con una ventana de 3 y `fill = NA`, el promedio centrado
+deja un `NA` al principio y otro al final; alineado a la derecha deja los dos
+`NA` al principio (necesita dos valores anteriores); alineado a la izquierda los
+deja al final. En los tres casos se pierden dos observaciones, lo que cambia es
+dónde. El promedio móvil suaviza: quita los saltos de una observación a la otra y
+deja ver la tendencia. Para discutir: la alineación a la derecha es la única
+honesta cuando se quiere predecir, porque no usa información del futuro.
+
+------------------------------------------------------------------------
+
+## Ejercicio 9 (bono): percentiles por grupo
+
+```{r sol10-9}
+# El 5 % más caro DENTRO de cada color
+caros_por_color <- diamantes |>
+  group_by(color) |>
+  mutate(pct = cume_dist(precio)) |>
+  filter(pct > 0.95) |>
+  ungroup()
+
+caros_por_color |> count(color)
+diamantes |> count(color)   # para comparar los tamaños de grupo
+
+# El 5 % más caro de TODA la tabla
+caros_global <- diamantes |>
+  mutate(pct = cume_dist(precio)) |>
+  filter(pct > 0.95)
+
+caros_global |> count(color)
+```
+
+**Respuesta esperada:** al agrupar, cada color aporta aproximadamente el 5 % de
+su propio tamaño, así que los conteos son proporcionales al tamaño de cada grupo,
+no iguales entre sí. Sin agrupar, los colores asociados a diamantes más grandes y
+caros dominan la lista y algunos colores casi desaparecen. La pregunta "¿cuáles
+son caros para su color?" solo la contesta la versión agrupada. Este es el mismo
+razonamiento del Ejercicio 7, ahora con una medida en escala 0 a 1.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Errores frecuentes que conviene señalar al devolver los trabajos:
+
+- Usar `rank()` de R base en vez de `min_rank()`: `rank()` promedia los empates
+  y devuelve valores como 3.5, que no son rangos enteros.
+- Olvidar `arrange()` antes de `first()`, `last()` o `rollmean()`.
+- Olvidar `ungroup()` y arrastrar la agrupación a los pasos siguientes.
+- Entregar la tabla sin la explicación en palabras: son 2 de los 5 puntos.

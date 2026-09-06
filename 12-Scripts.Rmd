@@ -18,21 +18,204 @@ Español: <https://es.r4ds.hadley.nz/06-workflow-scripts.html>
 
 ------------------------------------------------------------------------
 
+## Temas
 
-**Temas super importante**:
+-   La consola y el script: para qué sirve cada uno
+-   Ejecutando códigos desde el script
+-   El proyecto de RStudio y el directorio de trabajo
+-   Diagnóstico de RStudio
+-   `source()`: correr un script completo
+-   Empezar de cero: reiniciar R
+-   Cómo se escribe un script que se entiende meses después
 
-## Scripts:
+------------------------------------------------------------------------
 
--   Ejecutando códigos
--   Diagnóstico de Rstudio
+## Paquetes
+
+```{r c12-paquetes}
+library(tidyverse)
+library(datos)
+```
+
+------------------------------------------------------------------------
+
+## La consola y el script: dos lugares distintos
+
+Todo lo que hacemos en R se puede escribir en dos sitios. La **consola** es el
+lugar donde R contesta de inmediato: uno escribe, presiona *Enter*, y la
+respuesta aparece abajo. Es cómoda para probar una idea suelta, para ver cuántas
+filas tiene una tabla o para recordar cómo se llamaba un argumento. Lo que se
+escribe allí, sin embargo, se pierde: al cerrar RStudio no queda ningún registro
+ordenado de lo que se hizo ni en qué orden se hizo.
+
+El **script** es un archivo de texto con extensión `.R` que guarda las órdenes en
+el orden en que hay que ejecutarlas. Ese archivo es el verdadero producto del
+trabajo. Un análisis no es el número que salió en la pantalla; es el script que
+permite volver a producir ese número mañana, en otra computadora, o cuando un
+revisor pregunte cómo se calculó un promedio. La regla práctica es corta: **lo
+que se prueba va en la consola, lo que funciona va en el script.**
+
+Por eso el script se guarda temprano y se guarda seguido. Un script sin guardar
+es exactamente igual de frágil que la consola.
 
 ::: {.consejo}
 No copies y pegues en la consola: coloca el cursor en la línea (o selecciona varias) y ejecútala con Cmd/Ctrl+Enter directamente desde el script.
 :::
 
-1.  **Ejercicios**:
+Copiar y pegar parece más rápido, pero rompe justamente lo que hace útil al
+script: la línea que ejecutaste y la línea que quedó guardada dejan de ser la
+misma. Al ejecutar desde el script siempre corre lo que está escrito, y lo que
+está escrito es lo que otra persona (o tú, en dos meses) va a leer.
 
-Hacer los ejercicios en la sección 6.3 del libro en español
+------------------------------------------------------------------------
+
+## Ejecutando códigos desde el script
+
+Vale la pena aprender de memoria estos atajos: son los que más se usan en todo
+el curso.
+
+| Atajo | Qué hace |
+|:-----------------------------|:-----------------------------------------|
+| Cmd/Ctrl + Enter | Ejecuta la línea donde está el cursor, o la selección, y pasa a la siguiente |
+| Cmd/Ctrl + Shift + Enter | Ejecuta el script completo |
+| Cmd/Ctrl + S | Guarda el script |
+| Cmd/Ctrl + Shift + S | Ejecuta el archivo con `source()` |
+| Alt/Option + - | Escribe el operador de asignación `<-` |
+| Cmd/Ctrl + Shift + M | Escribe el pipe `%>%` |
+| Tab | Completa nombres de funciones, de objetos y de columnas |
+
+::: {.consejo}
+La tecla *Tab* no es solo para escribir menos: es la forma más rápida de evitar
+erratas. Si el nombre no aparece al presionar *Tab*, casi siempre significa que
+el objeto todavía no existe o que el paquete no está activado.
+:::
+
+------------------------------------------------------------------------
+
+## El directorio de trabajo y los proyectos de RStudio
+
+R siempre está "parado" en una carpeta, que se llama el **directorio de
+trabajo**. Cuando escribes `read_csv("datos.csv")` sin más, R busca ese archivo
+ahí y en ningún otro sitio. La mayoría de los errores de "no encuentro el
+archivo" no son errores de código: son errores de ubicación.
+
+::: {.funcion}
+**`getwd()`, `setwd()` y `list.files()`** (base R): saber y cambiar dónde está parado R.
+
+- **`getwd()`:** devuelve la carpeta en la que R está trabajando ahora mismo.
+- **`list.files()`:** enseña los archivos que R ve desde esa carpeta.
+- **`setwd("ruta")`:** cambia la carpeta de trabajo. Úsala lo menos posible, porque una ruta como `"/Users/tu_nombre/Escritorio"` solo existe en tu computadora.
+:::
+
+La solución no es escribir `setwd()` al principio de cada script, sino trabajar
+dentro de un **Proyecto de RStudio** (*File \> New Project*). Un proyecto crea un
+archivo `.Rproj` en una carpeta y, cada vez que lo abres, R queda parado ahí
+automáticamente. A partir de ese momento las rutas se escriben **relativas** al
+proyecto, por ejemplo `"Datos/mi_archivo.csv"`, y el script funciona igual en tu
+computadora, en la de un compañero y en la de un revisor.
+
+::: {.advertencia}
+Un script que empieza con `setwd("/Users/raymond/Documentos/clase")` está roto
+para todo el mundo menos para quien lo escribió. Es la razón más común por la
+que un análisis "no corre" al enviárselo a otra persona.
+:::
+
+------------------------------------------------------------------------
+
+## Diagnóstico de RStudio
+
+Mientras escribes, RStudio revisa el código y coloca un símbolo pequeño en el
+margen izquierdo del script:
+
+-   una **x roja** avisa de un error de sintaxis: falta un paréntesis, falta una
+    coma, sobra un signo;
+-   un **triángulo amarillo** avisa de algo sospechoso pero legal, por ejemplo
+    una variable que creaste y nunca usaste;
+-   una **i azul** ofrece una sugerencia de estilo.
+
+Si pasas el cursor por encima del símbolo, RStudio explica qué encontró. Vale la
+pena atender el margen **antes** de ejecutar: es mucho más barato arreglar un
+paréntesis que perseguir un error en la consola.
+
+Otra ayuda del mismo tipo: si en la consola aparece un `+` en lugar del `>`, R
+no está trabado, está esperando que termines algo (falta cerrar un paréntesis o
+una comilla). Presiona *Esc* y vuelve a empezar la línea.
+
+------------------------------------------------------------------------
+
+## `source()`: correr un script completo
+
+::: {.funcion}
+**`source()`** (base R): ejecuta un archivo `.R` completo, de arriba hacia abajo, como si hubieras corrido todas sus líneas una por una.
+
+- **Uso típico:** `source("funciones_del_curso.R")` al principio de un análisis, para cargar funciones que escribiste en otro archivo.
+- **`echo = TRUE`:** además de ejecutar, muestra en la consola cada línea que va corriendo.
+- **Para qué sirve:** separar el código que *hace* algo del código que lo *usa*, y no repetir la misma función en cinco scripts distintos.
+:::
+
+------------------------------------------------------------------------
+
+## Empezar de cero: reiniciar R
+
+La prueba de fuego de un script es esta: **reiniciar R y correrlo entero de
+arriba hacia abajo.** En RStudio se hace con *Session \> Restart R*. Si después
+de reiniciar el script se cae, es que dependía de algún objeto que estaba en la
+memoria pero que nadie creó dentro del archivo, y por lo tanto el análisis no es
+reproducible.
+
+::: {.consejo}
+Entra a *Tools \> Global Options \> General* y deja "Restore .RData into workspace
+at startup" **sin marcar**, y "Save workspace to .RData on exit" en **Never**.
+Así R arranca siempre limpio y los problemas aparecen enseguida, no el día antes
+de entregar.
+:::
+
+------------------------------------------------------------------------
+
+## Cómo se escribe un script que se entiende
+
+Un script se lee muchas más veces de las que se escribe, casi siempre por la
+misma persona que lo escribió y que ya no se acuerda de nada. Cuatro costumbres
+resuelven casi todo:
+
+1.  **Todos los `library()` al principio.** Quien abra el archivo sabe en la
+    primera pantalla qué paquetes necesita instalar.
+2.  **Nombres que se entienden solos.** `promedio_autopista` dice lo que
+    contiene; `x2` no dice nada. Sin espacios, sin acentos y sin eñes en los
+    nombres de objetos, para que no fallen en otras computadoras.
+3.  **Comentarios que explican el porqué, no el qué.** `# se eliminan los vuelos
+    cancelados porque no tienen atraso medido` sirve; `# filtrar` no aporta nada
+    que el código no diga ya.
+4.  **Secciones con títulos.** Si terminas un comentario con cuatro guiones o
+    más, RStudio lo convierte en una sección navegable:
+
+```{r c12-secciones, eval=FALSE}
+# Paquetes y datos ------------------------------------------------
+
+# Limpieza ---------------------------------------------------------
+
+# Análisis ---------------------------------------------------------
+```
+
+El menú desplegable al pie del editor (o Cmd/Ctrl + Shift + O) muestra entonces
+el esquema completo del script y permite saltar de una sección a otra.
+
+::: {.historia}
+La idea de guardar las órdenes en un archivo aparte, en lugar de escribirlas una
+por una, viene del lenguaje **S**, desarrollado en los Laboratorios Bell a partir
+de 1976 por **John M. Chambers** y sus colegas; de ahí hereda R la función
+`source()`. El entorno **RStudio**, que puso el script y la consola en la misma
+pantalla, fue publicado en 2011 por la compañía fundada por **J. J. Allaire**,
+que desde 2022 se llama **Posit**.
+:::
+
+------------------------------------------------------------------------
+
+## Un ejemplo completo
+
+El bloque siguiente es un script en miniatura: activa los paquetes, mira los
+nombres de las columnas, quita los vuelos cancelados y calcula un promedio. Cada
+paso deja un objeto con nombre, así que se puede revisar por partes.
 
 ```{r c12-2}
 library(dplyr)
@@ -53,6 +236,136 @@ no_cancelado %>%
 x <- 10 
 ```
 
+------------------------------------------------------------------------
 
+## Ejercicios del libro R4DS
 
+Hacer los ejercicios en la sección 6.3 del libro en español.
 
+------------------------------------------------------------------------
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los ejercicios usan `millas` del paquete `datos`, no `vuelos`.
+Este capítulo trata de la forma de trabajar, así que hay menos ejercicios que en
+otros, pero cada uno hay que hacerlo de verdad en RStudio, no solo leerlo. La
+hoja completa para entregar está en `Ejercicios/Ejercicios_Capitulo_13_scripts.Rmd`.
+:::
+
+### Ejercicio 1. ¿Dónde está parada tu sesión?
+
+::: {.ejercicio}
+Corre `getwd()` y `list.files()` en tu documento.
+
+**Verificación:** entre los nombres que devuelve `list.files()` debe aparecer el
+de tu propio archivo `.Rmd`.
+
+**En palabras:** si el archivo `datos.csv` estuviera en tu Escritorio y
+escribieras `read_csv("datos.csv")`, ¿lo encontraría R? Explica por qué sí o por
+qué no, usando lo que te devolvió `getwd()`.
+:::
+
+```{r c12-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. De la consola al script
+
+::: {.ejercicio}
+Datos: `millas`. Construye una tabla con el consumo promedio en `autopista` para
+cada `clase`, ordenada de mayor a menor. Prueba en la consola hasta que salga, y
+pega **solo** las líneas que funcionaron.
+
+**Verificación:** tu tabla debe tener **7 filas**, una por clase, y `pickup` debe
+quedar en el **último** lugar.
+
+**En palabras:** ¿por qué el resultado de `pickup` tiene sentido?
+:::
+
+```{r c12-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Tu propio archivo de funciones
+
+::: {.ejercicio}
+Crea, en la misma carpeta de tu documento, un archivo llamado
+`funciones_millas.R` que contenga **una sola función** llamada
+`resumen_clase()`, que reciba una tabla y devuelva el promedio de `autopista`
+por `clase`. Luego, en el bloque de abajo, cárgala con `source()` y úsala con
+`millas`.
+
+**Verificación:** después del `source()`, `exists("resumen_clase")` debe devolver
+`TRUE`, y el resultado debe ser el mismo del Ejercicio 2.
+
+**En palabras:** ¿qué ganas al tener la función en su propio archivo en lugar de
+copiarla en cada análisis?
+:::
+
+```{r c12-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Un script que se entiende
+
+::: {.ejercicio}
+Este código funciona, pero está escrito de manera que nadie lo entiende:
+
+`x=millas`
+
+`y=x[x$anio==2008,]`
+
+`z=mean(y$ciudad)`
+
+`z`
+
+Reescríbelo con nombres claros, con el operador `<-`, en estilo tidyverse
+(`filter()` y `summarise()`), y añade dos comentarios que expliquen **por qué**
+se hace cada paso.
+
+**Verificación:** tu versión debe dar exactamente el mismo número que la versión
+fea.
+
+**En palabras:** de todos los cambios que hiciste, ¿cuál ayuda más a alguien que
+lea el script dentro de seis meses?
+:::
+
+```{r c12-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. La prueba de la sesión limpia
+
+::: {.ejercicio}
+Reinicia R (*Session \> Restart R*) y ejecuta tu documento completo con *Knit*,
+desde la primera línea.
+
+**Verificación:** el documento tiene que compilar sin errores desde una sesión
+recién reiniciada.
+
+**En palabras:** si se cayó, ¿en qué línea fue y qué faltaba? Si compiló a la
+primera, explica qué costumbre tuya lo hizo posible.
+:::
+
+```{r c12-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6 (BONO). Secciones y navegación
+
+::: {.ejercicio}
+Organiza tu documento en al menos tres secciones usando comentarios terminados en
+cuatro guiones o más (`# Paquetes ----`), y ábrelo con el esquema
+(Cmd/Ctrl + Shift + O).
+
+**Verificación:** el esquema debe mostrar tus tres secciones.
+
+**En palabras:** ¿en qué se parece esto a los encabezados `##` de R Markdown?
+:::
+
+```{r c12-ej6, eval=FALSE}
+# Escribe tu código aquí
+```

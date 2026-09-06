@@ -7,9 +7,61 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 Sys.Date()
 ```
 
+## Temas
+
+ - Qué hace distinto a un mapa interactivo
+ - Las tres piezas: `leaflet()`, `addTiles()` y una capa de marcadores
+ - Latitud y longitud: cuál va primero y qué pasa si te equivocas
+ - Marcadores: círculos, iconos y agrupamiento
+ - Color por categoría y por valor, y la leyenda
+ - Ventanas emergentes y etiquetas
+ - Capas que se encienden y se apagan
+
+***
+
+## Por qué un mapa interactivo
+
+Una gráfica de puntos con la longitud en un eje y la latitud en el otro ya es un
+mapa, y para muchas cosas basta. Lo que añade `leaflet` es lo que **no cabe en una
+imagen fija**:
+
+- el lector puede **acercarse** a una zona concreta sin que tú decidas por él cuál;
+- cada punto puede llevar su propia **ventana emergente** con los datos de esa
+  observación;
+- el fondo es un **mapa de verdad**, con calles y nombres, así que los puntos se
+  sitúan solos sin que haya que dibujar la costa;
+- se pueden **encender y apagar capas**, y comparar dos conjuntos en el mismo mapa.
+
+::: {.advertencia}
+Un mapa de `leaflet` es HTML: solo funciona en la salida **HTML**. Si compilas el
+documento a PDF o a Word, el mapa no aparece. Por eso varios bloques de este
+capítulo llevan `eval=knitr::is_html_output()`. Para un artículo impreso hace falta
+un mapa estático, con `ggplot2` y `sf`, o una captura de pantalla.
+:::
+
+***
+
 ```{r c26-2}
 library(tidyverse)
 ```
+
+::: {.funcion}
+**Las tres piezas de un mapa**: siempre las mismas, en este orden.
+
+- **`leaflet(datos)`:** crea el mapa vacío y le dice de dónde salen los datos.
+- **`addTiles()`:** pone el fondo. Por defecto usa OpenStreetMap; con `addProviderTiles()` se puede escoger otro (satélite, relieve, blanco y negro).
+- **Una capa de marcadores:** `addMarkers()` (el alfiler clásico), `addCircleMarkers()` (círculos, que se pueden colorear y dimensionar), `addAwesomeMarkers()` (iconos).
+- **Se encadenan con `%>%`**, igual que las capas de `ggplot` se suman con `+`.
+:::
+
+::: {.consejo}
+**El orden de latitud y longitud es la fuente número uno de mapas mal hechos.** La
+latitud va del sur al norte (Puerto Rico está alrededor de 18) y la longitud de
+oeste a este (Puerto Rico está alrededor de menos 66). En `leaflet` los argumentos
+se llaman `lat` y `lng`, así que escríbelos siempre **con su nombre** y nunca por
+posición. Si tus puntos aparecen en el océano Índico o en la Antártida, casi
+seguro los cambiaste de sitio.
+:::
 
 ## Bajar los datos de la web del USGS
 
@@ -108,7 +160,7 @@ head(EQ_100)
 :::
 
 ::: {.funcion}
-**`leaflet()`** — construye un mapa interactivo por capas, de forma parecida a `ggplot()`, pero uniendo las capas con el *pipe* (`%>%`).
+**`leaflet()`**: construye un mapa interactivo por capas, de forma parecida a `ggplot()`, pero uniendo las capas con el *pipe* (`%>%`).
 
 - **`leaflet(data)`:** inicia el mapa con un conjunto de datos.
 - **`addTiles()`:** añade el mapa base (por defecto, de OpenStreetMap).
@@ -160,7 +212,7 @@ leaflet(EQ_100) %>%
  3. Crear un mapa con los datos de los terremotos 
  
 
-```{r c26-13, echo, eval=knitr::is_html_output()}
+```{r c26-13, echo=TRUE, eval=knitr::is_html_output()}
 names(EQ_100)
 unique(EQ_100$type)
 pal = colorFactor(palette = "magma", domain = NULL)
@@ -468,7 +520,7 @@ library(leaflet)
 
 mutate(EQ_100, group = cut(mag, breaks = c(0, 5, 6, Inf), labels = c("blue", "green", "orange"))) -> mydf
 
-### I edit this png file and created my own marker.
+### Edité este archivo png para crear mi propio marcador.
 #https://raw.githubusercontent.com/lvoogdt/Leaflet.awesome-markers/master/dist/images/markers-soft.png
 quakeIcons <- iconList(blue = makeIcon("/Users/jazzurro/Documents/Stack Overflow/blue.png", iconWidth = 24, iconHeight =32),
                        green = makeIcon("/Users/jazzurro/Documents/Stack Overflow/green.png", iconWidth = 24, iconHeight =32),
@@ -503,3 +555,143 @@ L.circleMarker([place.lon, place.lat], {
   fillColor: getColor(place.constructdate),
   fillOpacity: 0.5
 })
+
+***
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **mapa** (que se vea en el `.html`) y una **explicación en
+palabras**. Como los mapas solo salen en HTML, entrega siempre el `.html`, no solo
+el `.Rmd`. Los ejercicios usan `Datos/crimen_pr.csv`, que está en el repositorio
+del curso y trae coordenadas de Puerto Rico, no los terremotos del USGS ni los
+datos de iNaturalist del capítulo. La hoja completa para entregar está en
+`Ejercicios/Ejercicios_Capitulo_32_leaflet.Rmd`.
+:::
+
+### Ejercicio 1. El mapa más sencillo
+
+::: {.ejercicio}
+Haz un mapa vacío centrado en Puerto Rico, con `leaflet()`, `addTiles()` y
+`setView()`. Añade un marcador en tu pueblo.
+
+**Verificación:** al abrir el `.html`, la isla tiene que verse completa y el
+marcador tiene que caer donde debe.
+
+**En palabras:** anota las coordenadas que usaste. ¿Cuál de los dos números es la
+latitud y cuál la longitud? ¿Cómo lo sabes sin buscarlo?
+:::
+
+```{r c26-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Los puntos que acabaron en el océano
+
+::: {.ejercicio}
+Lee `Datos/crimen_pr.csv`. Fíjate en que las columnas se llaman `POINT_X` y
+`POINT_Y`, y haz el mapa **de la manera intuitiva**: `lng = ~POINT_X` y
+`lat = ~POINT_Y`.
+
+**Verificación:** los puntos **no** caen en Puerto Rico. Mira dónde caen.
+
+Después arréglalo y vuelve a hacer el mapa.
+
+**En palabras:** ¿en qué parte del mundo aparecieron los puntos? Mira el rango de
+las dos columnas con `range(..., na.rm = TRUE)` y explica cómo esos dos rangos te
+dicen cuál columna es cuál, sin necesidad de abrir el mapa.
+:::
+
+```{r c26-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Los puntos que no existen
+
+::: {.ejercicio}
+El archivo tiene coordenadas faltantes, y además unas pocas guardadas como cero.
+Cuenta las dos cosas y quítalas antes de mapear.
+
+**Verificación:** hay **733** filas con coordenada faltante y **2** con un cero
+exacto. Después de quitarlas quedan **8135** filas.
+
+**En palabras:** dibuja en un mapa **solo** las filas con coordenada cero. ¿Dónde
+caen? Busca en internet qué es "Null Island". ¿Por qué un cero es más peligroso que
+un `NA`?
+:::
+
+```{r c26-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Color por categoría
+
+::: {.ejercicio}
+Colorea los puntos según el tipo de delito, con `colorFactor()`, y añade la leyenda
+con `addLegend()`.
+
+**Verificación:** la leyenda tiene que mostrar **9** categorías.
+
+**En palabras:** con nueve colores el mapa se vuelve difícil de leer. Reduce las
+categorías a cinco con `fct_lump_n()` del capítulo de factores y compara los dos
+mapas. ¿Cuál usarías y qué perdiste al agrupar?
+:::
+
+```{r c26-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Las ventanas emergentes
+
+::: {.ejercicio}
+Añádele a cada punto un `popup` que diga el tipo de delito, la fecha, la hora y el
+área policiaca. Prueba también `label` en vez de `popup`.
+
+**Verificación:** al hacer clic (o al pasar el ratón, según cuál uses) tiene que
+salir la información de **esa** observación, no la de todas.
+
+**En palabras:** ¿cuál es la diferencia entre `popup` y `label`? ¿Cuál usarías para
+un mapa que va a mirar mucha gente sin instrucciones?
+:::
+
+```{r c26-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Ocho mil puntos
+
+::: {.ejercicio}
+Dibuja los 8135 puntos de golpe y mira cuánto tarda en abrirse el `.html` y cuánto
+pesa el archivo. Después repítelo con
+`clusterOptions = markerClusterOptions()`.
+
+**Verificación:** con agrupamiento, el mapa abre mucho más rápido y muestra
+círculos con números en vez de puntos sueltos.
+
+**En palabras:** compara el tamaño de los dos `.html` con `file.size()`. ¿Qué
+pierdes al agrupar? ¿En qué nivel de acercamiento vuelven a verse los puntos
+individuales?
+:::
+
+```{r c26-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). Capas que se encienden
+
+::: {.ejercicio}
+Escoge dos tipos de delito y ponlos en **dos capas** distintas, con `group =`, y
+añade `addLayersControl()` para poder encender y apagar cada una.
+
+**Verificación:** en el mapa tiene que aparecer arriba a la derecha un control con
+las dos capas, y al desmarcar una, sus puntos tienen que desaparecer.
+
+**En palabras:** ¿qué pregunta puedes contestar con las dos capas encendidas y
+apagadas que no podrías contestar con un mapa fijo? Este es el argumento de fondo
+del capítulo: escríbelo con tus palabras.
+:::
+
+```{r c26-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

@@ -22,21 +22,73 @@ Español:
 
 ## Temas:
 
+  - Por qué las fechas son más difíciles de lo que parecen
+  - Los tres tipos: `<date>`, `<time>` y `<dttm>`
+  - Convertir texto a fecha con `ymd()` y compañía
+  - Extraer partes: `year()`, `month()`, `wday()`, `hour()`
+  - Redondear: `floor_date()`, `ceiling_date()`, `round_date()`
+  - Duraciones, períodos e intervalos: los tres no son lo mismo
+  - Zonas horarias
+
   - library(lubridate)
   - library(datos)
   - library(tidyverse)
-  
-  
+
+***
+
+## Por qué las fechas son difíciles
+
+Contar tiempo parece trivial y no lo es, porque el calendario que usamos está
+lleno de excepciones que el código tiene que respetar:
+
+- **los meses no duran lo mismo**, así que "un mes después del 31 de enero" no
+  tiene una respuesta obvia;
+- **hay años bisiestos**, así que un año no siempre son 365 días;
+- **hay cambios de horario de verano**, así que un día no siempre son 24 horas;
+- **hay zonas horarias**, así que dos personas pueden estar en fechas distintas en
+  el mismo instante;
+- y hasta hay **segundos intercalares**, que se añaden de vez en cuando para
+  cuadrar el reloj con la rotación de la Tierra.
+
+De ahí sale la idea central del capítulo, que conviene tener clara desde el
+principio: hay **dos maneras distintas de medir tiempo**, y hacen falta las dos.
+Una cuenta segundos exactos, sin excepciones, y la otra cuenta en unidades humanas
+respetando el calendario. Casi todos los errores con fechas vienen de usar la que
+no era.
+
+::: {.consejo}
+Puerto Rico no cambia de horario de verano y usa siempre la zona
+`"America/Puerto_Rico"` (AST, cuatro horas menos que UTC). Eso nos ahorra un
+problema que sufren los que trabajan con datos de Estados Unidos continental, pero
+aparece en cuanto se comparan datos de aquí con datos de allá.
+:::
+
+***
+
 ## Creando fechas/horas
 
 ::: {.historia}
 En R y en los sistemas tipo Unix el tiempo se cuenta como el número de segundos (o días) transcurridos desde la medianoche del 1 de enero de 1970, conocida como la época Unix. Por eso `as.numeric()` de una fecha devuelve los días desde ese punto.
 :::
 
+R distingue tres cosas, y conviene usar la más sencilla que sirva:
+
   - date, <date>
   - time, <time>
   - date-time, <dttm>
-  
+
+::: {.nota}
+- **`<date>`**: solo el día, sin hora. Por dentro es un número: los **días**
+  transcurridos desde el 1 de enero de 1970.
+- **`<time>`**: solo la hora del día, sin fecha. Por dentro, los **segundos**
+  desde la medianoche.
+- **`<dttm>`**: fecha y hora juntas. Por dentro, los **segundos** desde la época
+  Unix, y además arrastra una zona horaria.
+
+Usa `<dttm>` solo cuando de verdad necesites la hora: las fechas-hora arrastran
+zona horaria y complican todo lo demás.
+:::
+ 
 
 
 https://github.com/edgararuiz/guias-rapidas/blob/master/fechas.pdf
@@ -51,11 +103,25 @@ tidyverse_packages() # lista completa de los paquetes activado con **tidyverse**
 ## El paquete `lubridate`
 
 ::: {.funcion}
-**`ymd()`, `mdy()`, `dmy()` (lubridate)** — convertir texto a fechas.
+**`ymd()`, `mdy()`, `dmy()` (lubridate)**: convertir texto a fechas.
 
 - **Qué hacen:** interpretan una cadena según el **orden** de sus partes: `ymd("2024-03-01")`, `mdy("3/1/2024")`, `dmy("1/3/2024")`.
 - **Con hora:** añade `_hms`, `_hm` o `_h` (p. ej. `dmy_hms()`).
 - **Extraer partes:** `year()`, `month()`, `day()`, `wday()` (día de la semana).
+:::
+
+El truco de `lubridate` es que el **nombre de la función dice el orden de las
+partes**, no el formato exacto. `dmy()` significa "día, mes, año", y con eso le
+basta: acepta `"1/3/2024"`, `"01-03-2024"`, `"1 marzo 2024"` y `"1.3.24"`. No hay
+que escribir formatos como `%d/%m/%Y`, que es lo que hacía falta en base R y lo
+que casi nadie recuerda.
+
+::: {.advertencia}
+`"01/03/2024"` es el 1 de marzo o el 3 de enero según de dónde venga el archivo, y
+**ninguna función puede adivinarlo**. `dmy()` y `mdy()` las dos van a darte una
+fecha válida, y una de las dos estará mal. Antes de convertir, averigua de dónde
+salieron los datos. Si hay valores con día mayor que 12 en la columna, salen `NA`
+con una de las dos funciones, y esa es tu pista.
 :::
 
 La función `today()` regresa la fecha de hoy, similar a `Sys.date()`
@@ -400,9 +466,20 @@ df
 ```
  
  
- *** HERE ***
- 
-## %/%: integer division  
+***
+
+## `%/%` y `%%`: división entera y residuo
+
+Estos dos operadores no son de fechas, pero aparecen constantemente al trabajar
+con ellas, porque muchos archivos guardan la hora como un **número**: las 5:30 de
+la tarde vienen como `1730`.
+
+- **`%/%` es la división entera**: se queda con la parte de arriba y tira el
+  resto. `1730 %/% 100` da `17`, la hora.
+- **`%%` es el residuo**: se queda con lo que sobra. `1730 %% 100` da `30`, los
+  minutos.
+
+Con los dos juntos se parte un `1730` en hora y minutos sin tocar texto.
 
 
 ```{r c23-27}
@@ -414,8 +491,16 @@ vuelos |> dplyr::select(tiempo_vuelo) |>
 ```
 
 
-## The %% operator returns the modulus (remainder) of a division operation. 
- - For instance, 5 %% 2 would return 1, as the remainder of 5 divided by 2 is 1. 
+### El operador `%%` devuelve el residuo de una división
+
+ - Por ejemplo, `5 %% 2` devuelve `1`, porque el residuo de dividir 5 entre 2 es 1.
+ - Y `5 %/% 2` devuelve `2`, la parte entera de la división.
+
+::: {.consejo}
+`%%` sirve también para preguntar "¿es múltiplo de?": `x %% 2 == 0` es la manera
+de saber si un número es par, y `anio %% 4 == 0` es el primer paso de la regla de
+los años bisiestos.
+:::
  
  
  
@@ -525,9 +610,27 @@ Hacer los ejercicios en la sección 16.2.4 del libro en español
  - yday()
  - wday()
  
+::: {.funcion}
+**Extraer y redondear** (lubridate): sacar una parte de una fecha, o llevarla a un borde.
+
+- **`year()`, `month()`, `mday()`, `yday()`, `wday()`:** el año, el mes, el día del mes, el día del año (1 a 366) y el día de la semana.
+- **`month(x, label = TRUE)` y `wday(x, label = TRUE)`:** devuelven el nombre en vez del número, como factor ordenado. Es lo que hace falta para graficar.
+- **`hour()`, `minute()`, `second()`:** las partes de la hora.
+
  - ceiling_date()
  - floor_date()
  - round_date()
+
+- **`floor_date(x, "month")`:** lleva la fecha **hacia atrás** al principio del mes. Es la manera de agrupar por mes sin perder el año.
+- **`ceiling_date()`:** hacia adelante; **`round_date()`:** al borde más cercano.
+:::
+
+::: {.consejo}
+Para contar por mes, `floor_date(fecha, "month")` es mejor que `month(fecha)`.
+`month()` devuelve un número del 1 al 12 y **mezcla los años**: el enero de 2016 y
+el de 2017 caen en el mismo grupo. `floor_date()` conserva el año, así que la
+serie sale en orden y sin mezclas.
+:::
 
  
  
@@ -547,6 +650,28 @@ Confirma nuestra hipótesis de que las salidas programadas en los minutos 20-30 
 ***  
 
 ## Lapso de tiempo
+
+Aquí está la idea más importante del capítulo. `lubridate` ofrece **tres** maneras
+de hablar de un lapso de tiempo, y no son intercambiables:
+
+::: {.funcion}
+**Duraciones, períodos e intervalos**: tres maneras de medir un lapso.
+
+- **Duración (`dseconds()`, `ddays()`, `dyears()`):** un número exacto de **segundos**. Un `dyears(1)` son siempre 31 536 000 segundos, haya bisiesto o no. Es tiempo de físico.
+- **Período (`days()`, `months()`, `years()`):** unidades **humanas**, que se estiran según el calendario. `years(1)` sumado al 1 de marzo da el 1 de marzo siguiente, tenga ese año 365 o 366 días.
+- **Intervalo (`inicio %--% fin`):** un lapso **con puntos de inicio y fin concretos**. Solo con un intervalo se puede saber cuántos días tuvo de verdad, porque se sabe entre qué fechas está.
+:::
+
+La regla práctica: **períodos para hablar con humanos, duraciones para hacer
+física, intervalos cuando importa exactamente cuándo empezó.**
+
+::: {.advertencia}
+El ejemplo que lo deja claro: si sumas `dyears(1)` (una duración) a una fecha justo
+antes de un 29 de febrero, caes en un día distinto del que esperabas, porque un
+año bisiesto tiene un día más y la duración no lo sabe. Con `years(1)` (un
+período) caes donde cualquier persona diría. Los dos son correctos; contestan
+preguntas distintas.
+:::
 
 ## duraciones
  
@@ -693,8 +818,22 @@ days(50) + hours(25) + minutes(2)
 ## Intervalos
 
   - %--%  start end
-  
+
+Un intervalo es lo único que sabe **entre qué dos fechas** está, y por eso es lo
+único que puede convertirse a cualquier unidad sin ambigüedad. La receta es
+siempre la misma: se construye el intervalo con `%--%` y se divide entre la unidad
+que se quiera.
+
 ## Resumen
+
+Para escoger entre los tres, la pregunta es qué quieres que pase con las
+excepciones del calendario:
+
+| Quieres | Usa | Ejemplo |
+|:--|:--|:--|
+| Un número exacto de segundos, sin excepciones | duración | tiempo de reacción, decaimiento |
+| Lo que diría una persona con un calendario | período | "la cita es dentro de un mes" |
+| Cuánto tiempo hay entre dos fechas concretas | intervalo | edad, duración de un experimento |
 
 
 2.  **Ejercicios**:
@@ -703,11 +842,31 @@ Hacer los ejercicios en la sección 16.4.5 del libro en español
 
 ***   
 
-## Time zones
+## Zonas horarias
 
  - Sys.timezone()
  - head(OlsonNames())
  - tz= ""
+
+Una fecha-hora sin zona horaria está incompleta: las 3 de la tarde en San Juan y
+las 3 de la tarde en Madrid son dos instantes distintos. R guarda la zona como un
+atributo de la fecha-hora, y por defecto usa la de tu computadora.
+
+::: {.funcion}
+**Zonas horarias** (base R y lubridate).
+
+- **`Sys.timezone()`:** en cuál zona está tu computadora ahora mismo.
+- **`OlsonNames()`:** la lista completa de nombres válidos, unos 600. Los nombres van en la forma `"Continente/Ciudad"`, como `"America/Puerto_Rico"`, y **no** con siglas como `"AST"`, que son ambiguas.
+- **`with_tz(x, "zona")`:** el **mismo instante**, mostrado en otra zona. Cambia lo que se lee, no el momento.
+- **`force_tz(x, "zona")`:** la **misma hora del reloj**, declarada en otra zona. Cambia el momento.
+:::
+
+::: {.advertencia}
+`with_tz()` y `force_tz()` se confunden y hacen cosas opuestas. `with_tz()` es
+"esta reunión, ¿a qué hora es en Madrid?". `force_tz()` es "esta hora que anoté
+sin decir dónde, en realidad era hora de Madrid". Si te equivocas de función, los
+datos se mueven varias horas y nada avisa.
+:::
  
 
 3.  **Ejercicios**:
@@ -730,3 +889,152 @@ Seleccionar 3 archivos de los vuelos que salen o llegan a PR, (el código del ae
 *** 
 
 
+
+***
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los ejercicios usan `Datos/crimen_pr.csv`, que está en el
+repositorio del curso y trae fecha y hora de verdad, no `vuelos` ni la fecha de
+nacimiento de Darwin, que son los del capítulo. La hoja completa para entregar
+está en `Ejercicios/Ejercicios_Capitulo_25_fechas.Rmd`.
+:::
+
+### Ejercicio 1. La misma fecha, escrita de cinco maneras
+
+::: {.ejercicio}
+Convierte a fecha estos cinco textos, que son **todos el mismo día**, cada uno con
+la función de `lubridate` que le corresponda: `"2016-08-01"`, `"01/08/2016"`,
+`"August 1, 2016"`, `"20160801"` y `"01.08.2016"`.
+
+**Verificación:** los cinco tienen que dar exactamente la misma fecha. Compruébalo
+con `n_distinct()`, que debe dar 1.
+
+**En palabras:** prueba ahora `mdy("01/08/2016")` y mira qué sale. ¿Dio error?
+Explica por qué este es el error más peligroso de todo el capítulo y qué
+comprobación harías en una columna de 5000 fechas para detectarlo.
+:::
+
+```{r c23-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Extraer las partes
+
+::: {.ejercicio}
+Lee `Datos/crimen_pr.csv`. Saca el día de la semana y la hora de cada incidente, y
+cuenta cuántos hay de cada uno. Usa `label = TRUE` para que los días salgan con su
+nombre.
+
+**Verificación:** tienen que salir **7** días de la semana y **24** horas del día,
+todas con algún caso.
+
+**En palabras:** ¿cuál día y cuál hora concentran más incidentes? Haz una gráfica
+de barras de cada uno. ¿Qué habría pasado si hubieras usado `wday()` **sin**
+`label = TRUE` para graficar?
+:::
+
+```{r c23-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. `%/%` y `%%`
+
+::: {.ejercicio}
+Muchos archivos guardan la hora como un número de la forma `HHMM`. Toma este
+vector: `horas <- c(1730, 905, 2359, 15, 1200)`.
+
+Sepáralo en hora y minutos con `%/%` y `%%`, y calcula los **minutos transcurridos
+desde la medianoche** de cada uno. Después convierte los mismos valores a hora de
+verdad con `hm()` de `lubridate` y comprueba que coinciden.
+
+**Verificación:** los minutos desde la medianoche tienen que ser
+`1050, 545, 1439, 15, 720`. La suma de los cinco es `3769`.
+
+**En palabras:** el valor `15` significa las 00:15, no las 15:00. Explica por qué
+`%/%` y `%%` lo resuelven bien sin ningún caso especial. ¿Qué habría pasado si
+hubieras intentado partir el número con `str_sub()`, cortando por posición?
+:::
+
+```{r c23-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Duración contra período
+
+::: {.ejercicio}
+Toma el 1 de marzo de 2024 (un año bisiesto) y réstale un año de las dos maneras:
+con `years(1)` y con `dyears(1)`. Haz lo mismo sumando un mes al 31 de enero, con
+`months(1)`.
+
+**Verificación:** las dos restas dan **días distintos**, y la suma al 31 de enero
+da `NA`.
+
+**En palabras:** ninguno de los tres resultados es un error del programa.
+Explica qué contesta cada uno, y por qué el `NA` es la respuesta más honesta que
+puede dar R a "¿qué día es un mes después del 31 de enero?".
+:::
+
+```{r c23-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Intervalos
+
+::: {.ejercicio}
+Con `crimen_pr.csv`, construye el intervalo que va de la primera a la última fecha
+del archivo con `%--%`, y exprésalo en días, en semanas y en meses.
+
+**Verificación:** el intervalo tiene que ser de unos dos meses, y en días tiene que
+dar un número entre 60 y 65.
+
+**En palabras:** divide también entre `dmonths(1)` en vez de `months(1)` y compara.
+¿Por qué no dan lo mismo? ¿Cuál de los dos números pondrías en la sección de
+métodos de un informe?
+:::
+
+```{r c23-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Redondear para agrupar
+
+::: {.ejercicio}
+Con el mismo archivo, cuenta los incidentes por **semana** usando
+`floor_date(Fecha, "week")`, y haz una gráfica de líneas de la serie.
+
+**Verificación:** deben salir unas nueve o diez semanas, y la primera y la última
+tienen que tener bastantes menos casos que las del medio.
+
+**En palabras:** ¿por qué los extremos son más bajos? Ya viste este mismo problema
+en el capítulo de importar datos. ¿Qué harías con esas dos semanas antes de
+enseñarle la gráfica a alguien?
+:::
+
+```{r c23-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). Zonas horarias
+
+::: {.ejercicio}
+Averigua en cuál zona horaria está tu computadora con `Sys.timezone()`. Después
+toma el instante `"2016-08-01 15:30:00"` en `"America/Puerto_Rico"` y míralo en
+`"Europe/Madrid"` y en `"America/Los_Angeles"` con `with_tz()`. Prueba también
+`force_tz()` con el mismo instante.
+
+**Verificación:** con `with_tz()` el instante es el mismo y solo cambia la hora que
+se lee; con `force_tz()` cambia el instante.
+
+**En palabras:** explica la diferencia con tus palabras. Puerto Rico no cambia de
+horario de verano y el este de Estados Unidos sí: ¿qué le pasa a la diferencia de
+horas entre San Juan y Nueva York a lo largo del año, y qué problema causaría eso
+al comparar datos de vuelos de los dos sitios?
+:::
+
+```{r c23-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

@@ -1,0 +1,269 @@
+---
+title: "Soluciones: Capítulo Nubes de palabras"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Corresponde a: 25-WordClouds.Rmd (Capítulo 30 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_30_wordclouds.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(tm)
+library(wordcloud)
+```
+
+Estas son soluciones **de referencia**. Los conteos exactos pueden variar unas
+decenas según cómo `tm` separe la puntuación, pero el orden de magnitud y el orden
+de las palabras sí tienen que coincidir.
+
+El archivo `Datos/el_quijote.txt` tiene unas 2 200 líneas y alrededor de 200 000
+palabras.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: la nube inútil
+
+```{r sol25-1}
+d_crudo <- frecuencias("Datos/el_quijote.txt")
+head(d_crudo, 10)
+# que ~11100, de ~9100, y ~8700, a ~8000, la ~5100, en ~4000, el ~3900, no ~3200...
+
+wordcloud(d_crudo$word, d_crudo$freq, max.words = 50,
+          colors = brewer.pal(8, "Dark2"))
+```
+
+**Respuesta esperada.** `que`, `de`, `y`, `a`, `la` en las primeras posiciones, con
+`que` por encima de 10 000.
+
+Qué dice la nube sobre el contenido del Quijote: **absolutamente nada**. Es la
+respuesta que se busca, y hay que exigir que la digan sin rodeos. La nube describe
+la gramática del español, no el libro.
+
+Sobre si serviría para otro libro: **sí**, y ese es justamente el problema. La
+misma nube saldría, con diferencias mínimas, de cualquier texto en español de
+longitud parecida: una novela, un manual de instrucciones o un artículo de
+ecología. Una gráfica que da el mismo resultado para cualquier dato no es una
+gráfica, es un adorno.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: las palabras vacías
+
+```{r sol25-2}
+d_limpio <- frecuencias("Datos/el_quijote.txt", vacias = stopwords("spanish"))
+head(d_limpio, 10)
+# dijo ~880, quijote ~850, sancho ~690, bien, pues, vuestra, merced, caballero...
+
+length(stopwords("spanish"))   # unas 300 palabras
+```
+
+**Respuesta esperada.** `quijote` y `sancho` en las diez primeras, con `quijote`
+por encima de 700. Prácticamente **las diez cambian**: no sobrevive ninguna de la
+lista anterior.
+
+Por qué es el paso más importante: porque las palabras vacías son, con diferencia,
+las más frecuentes de cualquier texto, y una nube ordena por frecuencia. Sin
+quitarlas, ocupan todas las posiciones de arriba y no dejan sitio para nada más.
+No es que estorben un poco: es que **son toda la gráfica**.
+
+Sobre la última pregunta: la lista tiene unas 300 palabras, y sí hay algunas
+discutibles. `poco`, `mucho`, `nada`, `nunca` y `sin` son palabras vacías
+gramaticalmente pero pueden ser muy informativas en ciertos análisis (en textos de
+opinión, por ejemplo, la negación es el dato). Cualquier respuesta que note que
+"vacía" depende de **para qué** está bien.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: tus propias palabras vacías
+
+```{r sol25-3}
+mis_vacias <- c("dijo", "respondio", "respondió", "vuestra", "merced",
+                "bien", "pues", "sino", "aunque", "señor")
+
+d_mio <- frecuencias("Datos/el_quijote.txt",
+                     vacias = c(stopwords("spanish"), mis_vacias))
+head(d_mio, 15)
+```
+
+**Respuesta esperada.** Al quitar los verbos de diálogo y las fórmulas de
+tratamiento suben palabras con más contenido: `quijote`, `sancho`, `caballero`,
+`mundo`, `tierra`, nombres propios.
+
+La justificación palabra por palabra es lo que se evalúa. Las buenas suelen ir así:
+`dijo` y `respondió` son marcas de diálogo, no temas; `vuestra merced` es una
+fórmula de cortesía de la época que aparece en cada intervención; `bien` y `pues`
+son muletillas.
+
+La pregunta interesante es la última, y la respuesta es **sí**: `dijo` puede ser
+muy informativo. Si lo que se estudia es **cuánto diálogo** tiene la novela frente
+a la narración, o cómo cambia el ritmo de las conversaciones entre la primera y la
+segunda parte, entonces los verbos de habla son el dato central y quitarlos
+destruiría el análisis.
+
+La lección general, que conviene decir en voz alta: **no existe una lista universal
+de palabras vacías.** Depende de la pregunta, y por eso la lista propia hay que
+justificarla en el texto del informe.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: los parámetros
+
+```{r sol25-4}
+op <- list(words = d_mio$word, freq = d_mio$freq, colors = brewer.pal(8, "Dark2"))
+
+wordcloud(d_mio$word, d_mio$freq, max.words = 20,  colors = op$colors)
+wordcloud(d_mio$word, d_mio$freq, max.words = 200, colors = op$colors)
+wordcloud(d_mio$word, d_mio$freq, min.freq = 100,  colors = op$colors)
+wordcloud(d_mio$word, d_mio$freq, max.words = 50, rot.per = 0, colors = op$colors)
+```
+
+**Respuesta esperada.** Con 200 palabras la nube se vuelve una mancha: las de abajo
+salen en cuerpo minúsculo y solo se distinguen tres o cuatro.
+
+Portada frente a resultados: para la **portada**, la de 200, porque llena y decora.
+Para **resultados**, la de 20, porque se lee. Se puede aceptar también `min.freq`
+si lo justifican, con el matiz de que ese corte depende del largo del texto y por
+tanto no es comparable entre documentos, mientras que `max.words` sí.
+
+`rot.per` es la **proporción de palabras que se dibujan giradas 90 grados**. Con
+0.35, una de cada tres sale de lado. Ponerlo en cero deja todas horizontales, y se
+lee mucho mejor: leer una palabra girada obliga a inclinar la cabeza o a rotar la
+imagen mentalmente, y no aporta nada. El giro existe solo para que la nube quede
+más compacta y "artística".
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: la nube contra las barras
+
+```{r sol25-5}
+top20 <- d_mio |> slice_max(freq, n = 20)
+
+wordcloud(top20$word, top20$freq, colors = brewer.pal(8, "Dark2"))
+
+top20 |> 
+  mutate(word = fct_reorder(word, freq)) |> 
+  ggplot(aes(freq, word)) +
+  geom_col() +
+  labs(x = "frecuencia", y = NULL)
+```
+
+**Respuesta esperada.** Este es el mejor ejercicio del capítulo y hay que
+corregirlo con calma, porque el resultado es casi siempre el mismo: **aciertan la
+primera o la segunda y fallan el resto del orden**.
+
+Las razones, que es lo que tienen que descubrir:
+
+- una palabra **larga** ocupa más superficie que una corta con la misma frecuencia,
+  y parece más importante;
+- la posición es **aleatoria**, y lo que cae en el centro parece más importante;
+- el tamaño de letra crece con la frecuencia, pero el **área** crece con el
+  cuadrado, así que las diferencias se exageran.
+
+Con las barras, la pregunta de cuántas veces más frecuente es la primera que la
+quinta se contesta en dos segundos, y con la nube no se puede contestar en
+absoluto: no hay eje, no hay escala, no hay referencia.
+
+La conclusión que se busca: la nube sirve para dar una **impresión**, las barras
+para sostener un **resultado**. Es exactamente lo mismo que se dijo en el capítulo
+de análisis exploratorio sobre `geom_count()` frente a `geom_tile()`: el ojo
+compara bien longitudes y mal áreas y colores.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: dos idiomas
+
+```{r sol25-6}
+d_alicia <- frecuencias("Datos/Alice_Adventures_in_Wonderland.txt",
+                        vacias = stopwords("english"))
+head(d_alicia, 10)   # alice, said, little, ...
+
+# cruzados, a propósito
+frecuencias("Datos/el_quijote.txt", vacias = stopwords("english")) |> head(5)
+frecuencias("Datos/Alice_Adventures_in_Wonderland.txt",
+            vacias = stopwords("spanish")) |> head(5)
+```
+
+**Respuesta esperada.** Con las listas cruzadas, los resultados son casi idénticos
+a los del Ejercicio 1: vuelven `que`, `de`, `y` en el Quijote y `the`, `and`, `to`
+en Alicia.
+
+Por qué: las palabras vacías de un idioma **no existen** en el otro. La función
+`removeWords` busca coincidencias exactas y no encuentra ninguna, así que en la
+práctica no hace nada. No da error, no avisa, simplemente no quita nada. Es otro
+caso más de operación silenciosa que parece haber funcionado.
+
+Sobre un texto mixto: pasaría lo mismo a medias. Las palabras vacías del idioma
+principal se irían y las del otro se quedarían, y la nube acabaría llena de `the`,
+`of` y `and` procedentes de las citas. La solución es sencilla y conviene que la
+digan: pasarle a `removeWords` **las dos listas juntas**,
+`c(stopwords("spanish"), stopwords("english"))`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): los acentos que se parten
+
+```{r sol25-7}
+texto <- readLines("Datos/el_quijote.txt", warn = FALSE)
+
+# una palabra con acento tal como viene del archivo
+ejemplo <- stringr::str_extract(paste(texto, collapse = " "), "hab\\w*a")
+nchar(ejemplo)        # más caracteres de los que parece
+nchar("había")        # 5
+
+texto_ok <- stringi::stri_trans_nfc(texto)
+```
+
+**Respuesta esperada.** La palabra leída del archivo tiene **un carácter más** de
+los que aparenta, porque la tilde va guardada aparte, como un carácter combinante
+que se dibuja encima de la vocal anterior.
+
+Eso explica el `habi` de la lista de frecuencias: al limpiar el texto, la tilde
+suelta se trata como puntuación y se elimina, y la palabra queda partida en `habi`
+y `a`.
+
+`stri_trans_nfc()` **recompone** esos pares en un solo carácter, que es la forma
+normal (NFC). Después de aplicarlo, las palabras acentuadas dejan de partirse.
+
+Parecidos y diferencias con la codificación del capítulo de importar datos:
+
+- **Se parecen** en que los dos son problemas de cómo se representan los acentos
+  por debajo, en que no dan ningún error, y en que se manifiestan como palabras
+  raras en la salida.
+- **Se diferencian** en que aquel era un problema de **codificación** (leer bytes
+  con la tabla equivocada, y ahí sí salen símbolos claramente rotos como `Ni�o`) y
+  este es de **normalización** (la codificación es correcta, UTF-8, pero la misma
+  letra se puede escribir de dos maneras válidas y distintas).
+
+Dónde arreglarlo: en el **paso 1 o 2**, al leer el texto o justo antes de construir
+el corpus. Nunca después de limpiar, porque para entonces la tilde ya se perdió y
+la palabra ya está partida. Es el mismo principio del `col_types` del capítulo de
+importar datos: **arreglar en la entrada, no parchear en la salida.**
+
+**Punto para discutir en clase.** Este problema es especialmente común en archivos
+hechos en macOS, que guarda el texto en forma descompuesta. Si alguien de la clase
+trabaja con nombres de especies acentuados o con datos de campo tecleados en Mac,
+se lo va a encontrar tarde o temprano.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+El Ejercicio 5 es el más importante del capítulo, y es el único que produce un
+cambio de opinión: casi todos entran creyendo que una nube de palabras es una
+gráfica y salen sabiendo que es una ilustración.
+
+El 3 es el que mide criterio, porque no hay respuesta correcta y todo depende de la
+justificación. El 6 enseña otro caso de operación que no hace nada y no avisa, que
+es el patrón que recorre el curso entero.
+
+Resultados comparables: `que` sobre 10 000 (Ej. 1), `quijote` sobre 700 y `sancho`
+entre las diez primeras (Ej. 2), al menos cinco palabras propias justificadas
+(Ej. 3), las nubes cruzadas iguales a las sin limpiar (Ej. 6).

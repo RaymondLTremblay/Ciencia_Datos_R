@@ -1,0 +1,322 @@
+---
+title: "Soluciones: Capítulo Índices paramétricos y no paramétricos (mean, sd, median, IQR, mad, quantile, first, last, signif)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+
+Corresponde a: 11-Transformacion-funcion-estadistica.Rmd (Capítulo 12 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_12_indices.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras. Los
+valores numéricos que aparecen abajo son aproximados: lo que importa es el
+patrón, no el decimal.
+
+```{r sol11-0}
+p2007 <- paises |> filter(anio == 2007)
+nrow(p2007)   # 142 países
+```
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: mean() y median()
+
+```{r sol11-1}
+resumen1 <- p2007 |>
+  group_by(continente) |>
+  summarise(n        = n(),
+            promedio = mean(esperanza_de_vida),
+            mediana  = median(esperanza_de_vida),
+            diferencia = mean(esperanza_de_vida) - median(esperanza_de_vida)) |>
+  arrange(diferencia)
+
+resumen1
+sum(resumen1$n) == nrow(p2007)
+```
+
+**Respuesta esperada:** en Europa y en las Américas el promedio y la mediana casi
+coinciden, señal de una distribución bastante simétrica. En Asia el promedio sale
+**por debajo** de la mediana: hay una cola de países con esperanza de vida baja
+que hala el promedio hacia abajo mientras la mediana se queda con el país del
+medio. La regla que se quiere que digan en palabras: la cola larga hala el
+promedio hacia ella, y la mediana no se mueve. Ojo con Oceanía, que tiene solo
+dos países; con `n = 2` cualquier índice de este capítulo es poco informativo, y
+vale la pena señalarlo en clase.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: sd() e IQR()
+
+```{r sol11-2}
+resumen2 <- p2007 |>
+  group_by(continente) |>
+  summarise(n   = n(),
+            de  = sd(esperanza_de_vida),
+            ric = IQR(esperanza_de_vida))
+
+resumen2 |> arrange(desc(de))
+resumen2 |> arrange(desc(ric))
+```
+
+**Respuesta esperada:** África es con mucho el continente más variable en las dos
+medidas, y Europa el más homogéneo de los que tienen un número razonable de
+países. El orden de los continentes es parecido con los dos índices, pero no
+tiene que ser idéntico, porque miden cosas distintas: la desviación estándar es
+la distancia típica de cada país al promedio y usa **todas** las observaciones
+(incluidas las extremas), mientras que el rango intercuartil es el ancho de la
+mitad central y **ignora** el 25 % de arriba y el 25 % de abajo. Cuando los dos
+órdenes no coinciden, la causa son observaciones extremas.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: mad(), la dispersión robusta
+
+```{r sol11-3}
+p2007 |>
+  summarise(promedio = mean(pib_per_capita),
+            mediana  = median(pib_per_capita),
+            de       = sd(pib_per_capita),
+            mad      = mad(pib_per_capita))
+
+ggplot(p2007, aes(pib_per_capita)) +
+  geom_histogram(bins = 30) +
+  geom_vline(aes(xintercept = mean(pib_per_capita)), linetype = "dashed") +
+  geom_vline(aes(xintercept = median(pib_per_capita)), linetype = "dotted") +
+  labs(x = "Producto interno bruto por persona (2007)", y = "Número de países",
+       title = "Promedio (guiones) y mediana (puntos)")
+
+# Quitar los cinco países más ricos
+sin_ricos <- p2007 |>
+  arrange(desc(pib_per_capita)) |>
+  slice(-(1:5))
+
+sin_ricos |>
+  summarise(promedio = mean(pib_per_capita),
+            mediana  = median(pib_per_capita),
+            de       = sd(pib_per_capita),
+            mad      = mad(pib_per_capita))
+```
+
+**Respuesta esperada:** la distribución tiene una cola larga a la derecha, el
+promedio queda muy por encima de la mediana y la desviación estándar es mucho más
+grande que `mad()`. Al quitar los cinco países más ricos, el promedio y la
+desviación estándar bajan de manera notable, mientras que la mediana y `mad()`
+apenas se mueven. Esa es la definición práctica de **robusto**: un índice robusto
+no cambia mucho cuando cambias unas pocas observaciones extremas. Detalle que se
+puede mencionar: `mad()` viene multiplicada por 1.4826 para que, en datos
+normales, sea comparable con la desviación estándar.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: quantile()
+
+```{r sol11-4}
+p2007 |>
+  summarise(q10 = quantile(pib_per_capita, 0.10),
+            q25 = quantile(pib_per_capita, 0.25),
+            q50 = quantile(pib_per_capita, 0.50),
+            q75 = quantile(pib_per_capita, 0.75),
+            q90 = quantile(pib_per_capita, 0.90),
+            ric = IQR(pib_per_capita))
+
+# Verificación: el rango intercuartil es q75 menos q25
+with(p2007, IQR(pib_per_capita) ==
+     quantile(pib_per_capita, 0.75) - quantile(pib_per_capita, 0.25))
+
+# Varias probabilidades de una vez (útil, se puede enseñar como extra)
+p2007 |>
+  reframe(prob = c(0.10, 0.25, 0.50, 0.75, 0.90),
+          valor = quantile(pib_per_capita, prob))
+```
+
+**Respuesta esperada:** la mediana y el tercer cuartil confirman lo del ejercicio
+anterior: la mitad de los países del mundo está muy por debajo del promedio.
+La interpretación pedida es literal: el 90 % de los países tiene un producto
+interno bruto por persona **menor** que el valor del percentil 90, y solo un 10 %
+lo supera. Nota técnica para el profesor: dentro de `summarise()` hay que pedir
+una probabilidad a la vez, porque `quantile()` con un vector de probabilidades
+devuelve varios valores; en dplyr moderno eso se resuelve con `reframe()`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: min(), max() y el rango
+
+```{r sol11-5}
+p2007 |>
+  group_by(continente) |>
+  summarise(minimo = min(esperanza_de_vida),
+            maximo = max(esperanza_de_vida),
+            rango  = max(esperanza_de_vida) - min(esperanza_de_vida)) |>
+  arrange(desc(rango))
+
+# ¿Cuál país en cada extremo?
+p2007 |> group_by(continente) |> slice_max(esperanza_de_vida, n = 1)
+p2007 |> group_by(continente) |> slice_min(esperanza_de_vida, n = 1)
+```
+
+**Respuesta esperada:** África tiene el rango más ancho, con países que rondan
+los 40 años y otros por encima de los 70. El punto que se busca en palabras: el
+rango se calcula con exactamente dos observaciones de todo el continente, así que
+un solo país atípico lo cambia por completo y además crece automáticamente con el
+tamaño de la muestra. Para comparar variabilidad entre grupos son preferibles el
+rango intercuartil o `mad()`, que resumen el grueso de los datos.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: first() y last() con el orden correcto
+
+```{r sol11-6}
+cambios <- paises |>
+  arrange(pais, anio) |>
+  group_by(pais, continente) |>
+  summarise(anio_inicial = first(anio),
+            anio_final   = last(anio),
+            ev_inicial   = first(esperanza_de_vida),
+            ev_final     = last(esperanza_de_vida),
+            cambio       = last(esperanza_de_vida) - first(esperanza_de_vida),
+            .groups = "drop")
+
+cambios |> slice_max(cambio, n = 5)
+cambios |> slice_min(cambio, n = 5)   # los que bajaron
+
+# Sin ordenar: el resultado depende del orden en que venga la tabla
+paises |>
+  arrange(pais, desc(anio)) |>
+  group_by(pais) |>
+  summarise(ev_inicial = first(esperanza_de_vida),
+            ev_final   = last(esperanza_de_vida),
+            cambio     = last(esperanza_de_vida) - first(esperanza_de_vida)) |>
+  slice_max(cambio, n = 5)
+```
+
+**Respuesta esperada:** casi todos los países subieron entre 1952 y 2007, con
+aumentos muy grandes en Asia. Los pocos que bajaron son países del sur de África
+afectados por la epidemia de VIH en los años noventa, y ese es un buen momento
+para recordar que un número siempre viene con una historia. Al invertir el orden,
+el cambio sale con el signo contrario: `first()` y `last()` leen la **posición**
+de la fila, no el año. Y no son `min()` ni `max()`: `first()` es "el que aparece
+primero", no "el más pequeño"; en una serie que sube coinciden por casualidad, en
+una que sube y baja no.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7: valores faltantes y na.rm
+
+```{r sol11-7}
+con_na <- p2007 |>
+  mutate(pib_na = if_else(pib_per_capita > 40000, NA_real_, pib_per_capita))
+
+sum(is.na(con_na$pib_na))
+
+con_na |>
+  summarise(sin_narm = mean(pib_na),
+            con_narm = mean(pib_na, na.rm = TRUE),
+            original = mean(pib_per_capita))
+```
+
+**Respuesta esperada:** sin `na.rm = TRUE` el promedio sale `NA`, porque un solo
+valor faltante contamina toda la operación. Con `na.rm = TRUE` sale un número,
+pero es **más bajo** que el promedio original, porque los datos que se eliminaron
+eran justamente los más altos. El supuesto detrás de `na.rm = TRUE` es que los
+valores faltantes son un pedazo cualquiera de los datos, es decir, que faltan al
+azar. Aquí eso es falso a propósito, y por eso el promedio resultante engaña.
+Moraleja para la clase: `na.rm = TRUE` no arregla los datos, solamente esconde el
+problema; primero hay que preguntarse **por qué** falta lo que falta.
+
+------------------------------------------------------------------------
+
+## Ejercicio 8: signif() y round()
+
+```{r sol11-8}
+valores <- p2007 |>
+  summarise(pib = mean(pib_per_capita),
+            ev  = mean(esperanza_de_vida))
+
+valores
+
+valores |>
+  mutate(pib_round  = round(pib, 2),
+         pib_signif = signif(pib, 3),
+         ev_round   = round(ev, 2),
+         ev_signif  = signif(ev, 3))
+```
+
+**Respuesta esperada:** `round(x, 2)` fija el número de **decimales** después del
+punto, sin importar el tamaño del número; `signif(x, 3)` fija el número de
+**cifras significativas**, contando desde el primer dígito distinto de cero. Por
+eso en el producto interno bruto por persona, que está en los miles, `signif(x, 3)`
+redondea a la centena más cercana, mientras que en la esperanza de vida, que está
+en las decenas, deja un decimal. La parte que interesa en palabras: los datos de
+esperanza de vida vienen de estimaciones con error de varias décimas, así que
+escribir 72.83814 anuncia una precisión que no existe. Regla útil: el resultado no
+puede tener más precisión que la medida que lo produjo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 9 (bono): paramétrico frente a no paramétrico
+
+```{r sol11-9}
+diamantes |>
+  summarise(promedio = mean(precio),
+            mediana  = median(precio),
+            de       = sd(precio),
+            ric      = IQR(precio),
+            mad      = mad(precio))
+
+ggplot(diamantes, aes(precio)) +
+  geom_histogram(bins = 50) +
+  labs(x = "Precio (dólares)", y = "Número de diamantes")
+
+# En escala logarítmica
+diamantes |>
+  mutate(log_precio = log10(precio)) |>
+  summarise(promedio = mean(log_precio),
+            mediana  = median(log_precio),
+            de       = sd(log_precio),
+            ric      = IQR(log_precio),
+            mad      = mad(log_precio))
+
+ggplot(diamantes, aes(log10(precio))) +
+  geom_histogram(bins = 50) +
+  labs(x = "log10 del precio", y = "Número de diamantes")
+```
+
+**Respuesta esperada:** en la escala original el histograma tiene una cola larga
+a la derecha, el promedio queda bastante por encima de la mediana y la desviación
+estándar es enorme comparada con `mad()`. Los dos números que describen mejor el
+diamante típico son la mediana y el rango intercuartil (o `mad()`). En escala
+logarítmica la distribución se vuelve mucho más simétrica y el promedio y la
+mediana se acercan; ahí sí los índices paramétricos son razonables. El detalle
+que casi siempre se olvida: el promedio de los logaritmos no es el logaritmo del
+promedio, así que al devolver el resultado a dólares con `10^x` lo que se obtiene
+es la media **geométrica**, no la aritmética.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Errores frecuentes que conviene señalar al devolver los trabajos:
+
+- Reportar solo el promedio y la desviación estándar en una variable con cola
+  larga, sin comentar la asimetría.
+- Pedirle a `summarise()` un `quantile()` con varias probabilidades a la vez.
+- Usar `na.rm = TRUE` sin decir qué se está suponiendo sobre los datos que faltan.
+- Sacar conclusiones sobre Oceanía, que en este conjunto tiene dos países.
+- Entregar la tabla sin la explicación en palabras: son 2 de los 5 puntos.

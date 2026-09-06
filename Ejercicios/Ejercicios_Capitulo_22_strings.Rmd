@@ -1,0 +1,239 @@
+---
+title: "Ejercicios del Capítulo 22"
+subtitle: "Cadenas de caracteres: str_length, anclas, clases, repetición y las cinco herramientas"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 22 del libro del curso.
+
+Los ejercicios usan `millas` y `paises` del paquete `datos`, más un vector de códigos sucios que vas a escribir tú. No usan `palabras`, `oraciones`, el Quijote ni Alicia, que son los del capítulo.
+
+Un aviso técnico que te va a ahorrar tiempo: algunas columnas de texto llegan como **factor**, y las funciones `str_*` esperan texto. Si una te da un error raro, comprueba con `class()` y envuélvela en `as.character()`.
+
+Otro consejo: antes de correr un patrón sobre 234 filas, pruébalo sobre tres o cuatro valores con `str_view()`. Es mucho más rápido que adivinar.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Lo básico: largo, unir, mayúsculas | 5 |
+| 2 | Anclas | 5 |
+| 3 | Sacar el número de un código sucio | 5 |
+| 4 | Normalizar | 5 |
+| 5 | Contar palabras | 5 |
+| 6 | Las cinco herramientas, una sola pregunta | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Referencias previas | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(stringr)
+library(datos)
+```
+
+---
+
+# Ejercicio 1. Lo básico (5 puntos)
+
+Con `millas`:
+
+1. Crea una columna `etiqueta` que junte `fabricante` y `modelo` con un espacio, con `str_c()`, y pásala a mayúsculas.
+2. Crea otra columna con el largo de la etiqueta en caracteres.
+3. Ordena para ver la etiqueta más larga y la más corta.
+
+*Verifica:* las dos columnas nuevas tienen 234 valores y ningún `NA`. La etiqueta más larga pasa de **25** caracteres.
+
+4. ¿Cuál es el modelo con el nombre más largo? ¿Y el más corto?
+5. ¿Por qué `str_length()` no es lo mismo que contar las letras a mano en un texto con acentos o con ñ? Pruébalo con `str_length("Añasco")` y `str_length("Anasco")`.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. Anclas (5 puntos)
+
+Trabaja con los nombres de país de `paises`, sin repetir:
+
+```{r ej2-pista, eval=FALSE}
+nombres <- unique(as.character(paises$pais))
+length(nombres)   # 142
+```
+
+1. Encuentra los que **empiezan** por vocal.
+2. Encuentra los que **terminan** en `a`.
+3. Encuentra los que cumplen **las dos** cosas.
+
+*Verifica:* la tercera lista es más corta que las otras dos, y todos sus elementos aparecen también en ellas. Compruébalo con `all(... %in% ...)`.
+
+4. Haz ahora la misma búsqueda **sin** anclas, solo con el patrón `"a"`, y compara cuántos salen.
+5. Explica con un ejemplo concreto qué encontró de más la versión sin anclas.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. Sacar el número de un código sucio (5 puntos)
+
+Escribe a mano este vector, que imita cómo llegan los códigos de parcela de una libreta de campo:
+
+```{r ej3-datos}
+codigos <- c("P-01", "p 2", "PARCELA_3", "  P04  ", "parcela 5", "P6")
+```
+
+1. Extrae el número de cada uno con `str_extract()` y un patrón de dígitos.
+2. Conviértelo a numérico.
+
+*Verifica:* obtienes los números **1, 2, 3, 4, 5, 6**, en ese orden, sin ningún `NA`.
+
+3. ¿Por qué `"P-01"` y `"P6"` se resuelven con el **mismo** patrón, aunque uno tenga guion y ceros y el otro no?
+4. ¿Qué pasaría si un código fuera `"P-01-bis"`? Pruébalo y explica el resultado. ¿Y si fuera `"P-2018-01"`?
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Normalizar (5 puntos)
+
+Sigue con `codigos`. Conviértelos todos a la forma `P01`, `P02`, ..., `P06`:
+
+1. Quita los espacios de los extremos (`str_trim()`).
+2. Pásalos a mayúscula.
+3. Extrae la parte numérica y rellénala a **dos** dígitos (`str_pad()` o `sprintf()`).
+4. Vuelve a pegar la `P` delante.
+
+*Verifica:* los seis resultados son exactamente `"P01" "P02" "P03" "P04" "P05" "P06"`, y `n_distinct()` da 6.
+
+5. Antes de normalizar, `n_distinct(codigos)` también daba 6, pero eso era una coincidencia. Explica qué habría pasado si la libreta tuviera `"P-01"` y `"p 1"`, que son la misma parcela.
+6. ¿Qué habría pasado si después hubieras intentado un `left_join()` con una tabla de coordenadas que usa `"P01"`?
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. Contar palabras (5 puntos)
+
+Toma esta frase:
+
+```{r ej5-datos}
+frase <- "El muestreo se hizo en 2016, 2017 y 2018."
+```
+
+1. Pártela con `str_split(frase, " ")`.
+2. Pártela con `str_split(frase, boundary("word"))`.
+3. Cuenta los elementos de cada una.
+
+*Verifica:* las dos maneras dan un número **distinto** de elementos.
+
+4. Compara las dos listas elemento por elemento. ¿Qué hace distinto `boundary("word")`?
+5. ¿Cuál de las dos usarías para contar las palabras de un texto, y por qué? Relaciónalo con los ejemplos del Quijote y de Alicia del capítulo.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. Las cinco herramientas, una sola pregunta (5 puntos)
+
+Con `millas`, columna `modelo`. La pregunta es siempre la misma: **¿cuáles modelos tienen un número en el nombre?** Contéstala de cinco maneras, todas con el mismo patrón:
+
+1. `str_detect()`
+2. `str_subset()`
+3. `str_which()`
+4. `str_extract()`
+5. `str_replace()`, sustituyendo el número por `"#"`
+
+*Verifica:* `sum(str_detect(...))`, `length(str_subset(...))` y `length(str_which(...))` dan **el mismo número**.
+
+6. Haz una tabla de dos columnas: qué devuelve cada función, y en qué situación la usarías.
+7. `str_extract()` devuelve `NA` en muchas filas. ¿Es un error? Explica.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). Referencias previas (5 puntos adicionales)
+
+Con los nombres de país de `paises`:
+
+1. Encuentra los que tienen una **letra doble**, dos iguales seguidas.
+2. Encuentra los que tienen un **par de letras repetido**.
+
+*Verifica:* las dos listas son **distintas** y ninguna contiene a la otra. Compruébalo con `setdiff()` en los dos sentidos: tiene que salir al menos un nombre en cada dirección.
+
+3. Explica la diferencia entre los dos patrones, con un ejemplo de cada lista.
+4. Describe un caso de tus propios datos donde te serviría buscar algo repetido: piensa en un nombre de especie tecleado dos veces en la misma celda, o en un código copiado por error.
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

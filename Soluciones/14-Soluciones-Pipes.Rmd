@@ -1,0 +1,295 @@
+---
+title: "Soluciones: Capítulo Pipes (%>%, pipe nativo, marcador de posición, %$%, %<>%, %T>%, %in%)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+
+Corresponde a: 14-Pipes.Rmd (Capítulo 16 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_16_pipes.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(magrittr)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras.
+
+```{r sol14-0}
+p2007 <- paises |> filter(anio == 2007)
+```
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: de código anidado a código con pipes
+
+```{r sol14-1}
+paises |> 
+  filter(anio == 2007) |> 
+  group_by(continente) |> 
+  summarise(esperanza_media = mean(esperanza_de_vida)) |> 
+  arrange(desc(esperanza_media))
+```
+
+**Respuesta esperada.** Cinco filas, una por continente. Oceanía queda arriba
+(son solo dos países, ambos ricos), después Europa, luego América y Asia, y
+África al final, bastante separada de las demás.
+
+Sobre el orden de lectura: la versión anidada hay que leerla **de adentro hacia
+afuera**, empezando por `filter()`, que está en el centro, y terminando por
+`arrange()`, que está en la primera palabra de la línea. Es decir, al revés del
+orden en que ocurren las cosas. La versión con pipes se lee de arriba abajo, en
+el mismo orden en que R las ejecuta.
+
+Sobre los paréntesis: la versión anidada termina con tres o cuatro paréntesis
+seguidos, que es justo donde se equivoca todo el mundo. La versión con pipes
+cierra cada llamada en su propia línea. Es un buen argumento práctico, más allá
+de la elegancia.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: el marcador de posición
+
+```{r sol14-2a}
+modelo <- paises %>% 
+  filter(anio == 2007) %>% 
+  lm(esperanza_de_vida ~ pib_per_capita, data = .)
+
+coef(modelo)
+```
+
+```{r sol14-2b}
+paises %>% 
+  filter(anio == 2007) %>% 
+  lm(esperanza_de_vida ~ pib_per_capita)
+# Error in as.data.frame.default(data) : 
+#   cannot coerce class '"formula"' to a data.frame
+```
+
+**Respuesta esperada.** El coeficiente de `pib_per_capita` sale **positivo** y
+muy pequeño en valor absoluto, del orden de siete diezmilésimas de año de
+esperanza de vida por dólar. Conviene aprovechar para recordar que un coeficiente
+pequeño no significa un efecto pequeño: mil dólares más de PIB per cápita son
+casi un año más de esperanza de vida.
+
+Sin el punto, la tabla entra como **primer** argumento de `lm()`, que es
+`formula`. La fórmula que el estudiante escribió pasa entonces al segundo
+argumento, que es `data`. R intenta convertir una fórmula en un data frame y se
+cae. La redacción exacta del mensaje varía; lo que hay que ver en la entrega es
+que el estudiante identifique que los dos argumentos quedaron intercambiados.
+
+**Punto para discutir en clase.** Vale la pena mencionar que este modelo lineal
+es una mala descripción de la relación (la nube es claramente curva) y que en el
+capítulo de modelos se arregla con el logaritmo del PIB. Aquí solo interesa el
+mecanismo del punto.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: `%>%` y el pipe nativo
+
+```{r sol14-3a}
+# con magrittr
+millas %>% 
+  filter(anio == 2008) %>% 
+  group_by(clase) %>% 
+  summarise(autopista_promedio = mean(autopista)) %>% 
+  arrange(desc(autopista_promedio))
+
+# con el pipe nativo
+millas |> 
+  filter(anio == 2008) |> 
+  group_by(clase) |> 
+  summarise(autopista_promedio = mean(autopista)) |> 
+  arrange(desc(autopista_promedio))
+```
+
+```{r sol14-3b}
+millas %>% nrow      # funciona: devuelve 234
+millas |> nrow       # Error: The pipe operator requires a function call as RHS
+```
+
+**Respuesta esperada.** Las dos cadenas dan la misma tabla. La que falla es la
+del **pipe nativo**: `|>` exige una llamada a función con paréntesis, mientras
+que `%>%` acepta el nombre pelado y le añade los paréntesis por dentro.
+
+Sobre cuál usar por defecto: la respuesta que se busca es `|>`, porque es parte
+de R y no depende de ningún paquete. Se cambia de opinión cuando hace falta el
+marcador `.` en una posición cualquiera (Ejercicio 2) o cuando se usa alguno de
+los pipes especiales de magrittr, `%$%`, `%<>%` o `%T>%`, que no tienen
+equivalente nativo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: `%$%`
+
+```{r sol14-4a}
+# 1. a la antigua
+cor(millas$cilindrada, millas$autopista)
+
+# 2. con el pipe de exposición
+millas %$% cor(cilindrada, autopista)
+
+# 3. dentro de una cadena tidyverse
+millas |> 
+  summarise(correlacion = cor(cilindrada, autopista))
+```
+
+```{r sol14-4b}
+millas %>% cor(cilindrada, autopista)
+# Error in cor(., cilindrada, autopista) : object 'cilindrada' not found
+```
+
+**Respuesta esperada.** Las tres primeras dan el mismo número: una correlación
+**negativa** y fuerte, con valor absoluto por encima de 0.7. A más cilindrada,
+menos millas por galón en autopista.
+
+Por qué falla la cuarta: `%>%` mete la tabla completa como primer argumento, así
+que la llamada queda `cor(millas, cilindrada, autopista)`. R busca entonces
+objetos llamados `cilindrada` y `autopista` en el ambiente global, no dentro de
+la tabla, y no los encuentra. `%$%` es justamente lo que hace que esos nombres se
+busquen dentro de la tabla.
+
+Sobre cuál usar: la respuesta buena es la tercera, con `summarise()`, porque
+devuelve una tabla que se puede seguir usando y encaja con el resto del
+tidyverse. `%$%` se justifica cuando la función de base R no tiene equivalente
+tidyverse (`t.test()`, `ts.plot()`).
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: por qué `%<>%` es peligroso
+
+```{r sol14-5}
+millas_copia <- millas
+head(millas_copia$autopista)          # 29 29 31 30 26 26 ...
+
+millas_copia$autopista %<>% sqrt
+head(millas_copia$autopista)          # la raíz cuadrada de los anteriores
+
+millas_copia$autopista %<>% sqrt      # ¡otra vez!
+head(millas_copia$autopista)          # la raíz de la raíz
+
+head(millas$autopista)                # millas sigue intacto
+```
+
+La versión sin ese problema:
+
+```{r sol14-5b}
+millas_copia <- millas |> 
+  mutate(autopista_raiz = sqrt(autopista))
+```
+
+**Respuesta esperada.** `millas` no cambia, porque se trabajó sobre una copia.
+`millas_copia$autopista` cambia **las dos veces**, sin ninguna advertencia.
+
+Por qué rompe la reproducibilidad: el resultado depende de **cuántas veces** se
+corrió la línea, no solo de lo que dice el script. Alguien que compile el
+documento una vez y alguien que lo compile dos obtienen números distintos, y el
+propio autor no tiene manera de saber en qué estado quedó el objeto sin volver a
+leer los datos desde el principio.
+
+La solución de fondo es la del capítulo de scripts: los datos originales no se
+tocan, y cada transformación crea una **columna nueva** o una tabla nueva. Así
+correr el script diez veces da diez veces el mismo resultado.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: `%T>%`
+
+```{r sol14-6a}
+millas %>% 
+  select(cilindrada, autopista) %>% 
+  plot %>% 
+  colMeans
+# Error in colMeans(.) : 'x' must be an array of at least two dimensions
+```
+
+```{r sol14-6b}
+millas %>% 
+  select(cilindrada, autopista) %T>% 
+  plot %>% 
+  colMeans
+```
+
+Sin `%T>%`, con un objeto intermedio:
+
+```{r sol14-6c}
+dos_columnas <- millas |> select(cilindrada, autopista)
+
+plot(dos_columnas)
+colMeans(dos_columnas)
+```
+
+**Respuesta esperada.** Con `%T>%` salen la gráfica **y** un vector con dos
+promedios (uno de cilindrada, uno de autopista).
+
+Qué recibió `colMeans()` con `%>%`: recibió lo que devuelve `plot()`, que es
+`NULL`. `plot()` dibuja como efecto secundario y no devuelve nada útil, así que
+la cadena se queda sin datos a partir de ahí. `%T>%` deja pasar el objeto que
+entró, no el resultado de la función.
+
+Sobre cuál versión prefieren: las dos respuestas son defendibles y conviene
+aceptarlas si están justificadas. La del objeto intermedio es más fácil de leer y
+de depurar, y no obliga a nadie a conocer `%T>%`; la de `%T>%` evita crear un
+objeto que solo se usa dos veces. En un script para otros, casi siempre gana la
+primera.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): `%in%` no es un pipe
+
+```{r sol14-7a}
+# con | repetido
+p2007 |> 
+  filter(continente == "Europa" | continente == "Asia" | continente == "África")
+
+# con %in%
+p2007 |> 
+  filter(continente %in% c("Europa", "Asia", "África"))
+```
+
+```{r sol14-7b}
+NA %in% c(1, 2)   # FALSE
+NA == 1           # NA
+```
+
+**Respuesta esperada.** Las dos maneras de filtrar dan la misma tabla. Conviene
+que el estudiante lo compruebe con `nrow()` o con `identical()` y no de vista.
+
+Qué hace `%in%` realmente: contesta, para cada elemento de la izquierda, si
+aparece en el conjunto de la derecha, y devuelve `TRUE` o `FALSE`. No pasa nada
+de un lado al otro; se escribe con porcentajes porque en R **cualquier** operador
+definido por el usuario se escribe así, y los pipes son solo un caso más.
+
+Por qué importa la diferencia con `NA`: `filter()` se queda con las filas donde
+la condición es `TRUE` y descarta las `FALSE` **y las `NA`**. Con `==`, una fila
+con dato faltante produce `NA` y desaparece en silencio. Con `%in%` produce
+`FALSE` y también desaparece, pero de forma predecible y sin propagar faltantes
+al resto de la expresión. En condiciones compuestas con `&` y `|`, esa diferencia
+sí cambia el resultado.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+El objetivo de este capítulo no es que memoricen seis operadores. Es que
+entiendan **uno** (`%>%` / `|>`) a fondo, que sepan que el punto existe, y que
+reconozcan los otros cuando los vean en código ajeno. Los ejercicios 1, 2 y 3 son
+los que hay que exigir completos; el 4, el 5 y el 6 se corrigen con más
+tolerancia siempre que la explicación esté.
+
+El Ejercicio 5 es el más importante de los tres últimos, porque la lección
+(no modificar los datos originales) vale para todo el curso, no solo para
+`%<>%`.

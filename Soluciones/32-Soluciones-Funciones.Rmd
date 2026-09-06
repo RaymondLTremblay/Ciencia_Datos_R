@@ -1,0 +1,323 @@
+---
+title: "Soluciones: Capítulo Funciones (argumentos, stopifnot, puntos suspensivos, ámbito)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Corresponde a: 32-Funciones.Rmd (Capítulo 26 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_26_funciones.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera de
+escribir la misma función; lo que se evalúa es que haga lo que se pide, que esté
+**probada** con valores de respuesta conocida, y que el estudiante sepa explicar
+las decisiones.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: reescalar de verdad
+
+```{r sol32-1}
+reescalar01 <- function(x) {
+  rango <- range(x, na.rm = TRUE)
+  (x - rango[1]) / (rango[2] - rango[1])
+}
+
+range(reescalar01(millas$ciudad))      # 0 1
+range(reescalar01(millas$autopista))   # 0 1
+
+reescalar01(rep(5, 10))                # NaN NaN ... NaN
+```
+
+**Respuesta esperada.** Mínimo 0 y máximo 1 en las dos columnas de `millas`.
+
+De dónde sale el `NaN`: con una columna constante, `range()` devuelve `c(5, 5)`,
+así que el denominador es `5 - 5 = 0` y el numerador también es `0`. La operación
+que lo produce es `0 / 0`, que en R es `NaN` (no es lo mismo que `1 / 0`, que es
+`Inf`). Vale la pena hacer esa distinción en clase.
+
+Sobre si debería avisar: **las dos respuestas son defendibles** y lo que se evalúa
+es el argumento. A favor de dejarlo así: `NaN` ya es una señal, y la función se
+mantiene simple. A favor de avisar: una columna constante suele significar que algo
+va mal en los datos (un sensor atascado, una columna que se llenó por error), y un
+mensaje ahorraría media hora de búsqueda. Una implementación razonable:
+
+```{r sol32-1b}
+reescalar01 <- function(x) {
+  rango <- range(x, na.rm = TRUE)
+  if (rango[1] == rango[2]) {
+    warning("todos los valores son iguales: no se puede reescalar")
+    return(rep(NA_real_, length(x)))
+  }
+  (x - rango[1]) / (rango[2] - rango[1])
+}
+```
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: una función que devuelve una tabla
+
+```{r sol32-2}
+resumen_numerico <- function(x) {
+  tibble(
+    n       = sum(!is.na(x)),
+    media   = mean(x, na.rm = TRUE),
+    sd      = sd(x, na.rm = TRUE),
+    mediana = median(x, na.rm = TRUE),
+    IQR     = IQR(x, na.rm = TRUE)
+  )
+}
+
+# prueba con respuesta conocida
+resumen_numerico(c(1, 2, 3, 4, 5))
+# n = 5, media = 3, mediana = 3
+
+resumen_numerico(millas$autopista)   # n = 234
+```
+
+```{r sol32-2b}
+millas |> 
+  group_by(clase) |> 
+  reframe(resumen_numerico(autopista))
+```
+
+**Respuesta esperada.** `n` igual a 234 para la tabla completa, y la suma de los
+`n` por clase también 234.
+
+La prueba con `c(1, 2, 3, 4, 5)` es la parte que hay que exigir: media 3, mediana
+3, n 5. Sin ella no hay manera de saber si la función está bien.
+
+Por qué un tibble y no un vector con nombres: porque un tibble **encaja con todo
+lo demás del curso**. Se puede pasar a `ggplot()`, unir con otra tabla con un
+`join`, guardar con `write_csv()`, y apilar por grupos con `reframe()`. Un vector
+con nombres se imprime bonito y ahí se acaba: para hacer cualquiera de esas cosas
+habría que convertirlo primero.
+
+Nota técnica que puede aparecer: con versiones de dplyr anteriores a la 1.1 hay
+que usar `summarise()` en vez de `reframe()`, y da un aviso sobre devolver varias
+filas. Cualquiera de las dos vale.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: valores por defecto
+
+```{r sol32-3}
+es_atipico <- function(x, k = 1.5) {
+  q <- quantile(x, c(0.25, 0.75), na.rm = TRUE)
+  rango_ic <- q[2] - q[1]
+  x < q[1] - k * rango_ic | x > q[2] + k * rango_ic
+}
+
+# prueba con respuesta conocida
+es_atipico(c(1, 2, 3, 4, 100))   # solo el último debe ser TRUE
+
+sum(es_atipico(millas$autopista))          # con k = 1.5
+sum(es_atipico(millas$autopista, k = 3))   # menos, o los mismos
+
+millas |> filter(es_atipico(autopista))
+```
+
+**Respuesta esperada.** Con `k = 3` se marcan menos valores, porque los límites
+están más lejos de la caja. Nunca más: es matemáticamente imposible.
+
+Por qué 1.5: es la convención de **Tukey**, la misma que usa `geom_boxplot()` por
+defecto, y sale del capítulo de análisis exploratorio. No hay nada mágico en ese
+número; se escogió porque en una distribución normal deja fuera alrededor del 0.7 %
+de las observaciones, que es un buen punto de partida para "mirar esto de cerca".
+
+Sobre si un atípico es un error: **no**. En `millas` los que salen marcados por
+arriba son los Volkswagen diésel, que de verdad rinden mucho más que el resto. No
+son un error de captura, son el hallazgo. Es la misma lección del capítulo de
+análisis exploratorio, y por eso el ejercicio pide mirar **cuáles** son antes de
+opinar.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: que falle rápido y claro
+
+```{r sol32-4a}
+resumen_numerico(millas$clase)
+# No da error: devuelve n = 234, media = NA, sd = NA, mediana = NA, IQR = NA
+# con un montón de advertencias
+```
+
+```{r sol32-4b}
+resumen_numerico <- function(x) {
+  stopifnot(
+    "x tiene que ser un vector numérico"        = is.numeric(x),
+    "x no tiene ningún valor que no sea faltante" = sum(!is.na(x)) > 0
+  )
+  tibble(
+    n       = sum(!is.na(x)),
+    media   = mean(x, na.rm = TRUE),
+    sd      = sd(x, na.rm = TRUE),
+    mediana = median(x, na.rm = TRUE),
+    IQR     = IQR(x, na.rm = TRUE)
+  )
+}
+
+resumen_numerico(millas$clase)   # se detiene con el primer mensaje
+resumen_numerico(c(NA, NA))      # se detiene con el segundo
+```
+
+**Respuesta esperada.** Y aquí está el punto del ejercicio: sin protección, la
+función **no da error**. Devuelve una fila con `n = 234` y todo lo demás `NA`, más
+unas advertencias que se pierden entre el resto de la salida. Es un resultado sin
+sentido con aspecto de resultado.
+
+Por eso valen las tres líneas de más: convierten un resultado silencioso y
+equivocado en una parada inmediata con un mensaje que dice exactamente qué pasó.
+Es el mismo principio que el tibble frente al data frame, o `parse_factor()`
+frente a `factor()`: **fallar temprano y ruidosamente** vale más que seguir
+adelante.
+
+Errores frecuentes al corregir: poner el `stopifnot()` **después** del cálculo (no
+sirve de nada), o comprobar `!is.na(x)` sin el `sum(...) > 0`, que devuelve un
+vector y no un solo `TRUE`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: lo que pasa dentro
+
+```{r sol32-5a}
+resultado <- "yo vivo fuera"
+
+prueba_ambito <- function(x) {
+  resultado <- "yo vivo dentro"
+  nchar(resultado)
+}
+
+prueba_ambito(1)
+resultado          # sigue siendo "yo vivo fuera"
+```
+
+```{r sol32-5b}
+factor_secreto <- 10
+
+funcion_tramposa <- function(x) {
+  x * factor_secreto      # factor_secreto no es un argumento
+}
+
+funcion_tramposa(5)       # 50, parece que funciona
+
+rm(factor_secreto)
+funcion_tramposa(5)       # Error: object 'factor_secreto' not found
+```
+
+**Respuesta esperada.** La variable de fuera no cambia: lo que pasa dentro de una
+función se queda dentro. La segunda función, en cambio, funciona **por
+casualidad**, porque el objeto que necesita existe en la sesión.
+
+Por qué es un problema al pasarle el script a otra persona: en tu computadora
+`factor_secreto` existe porque lo creaste hace media hora en la consola, y ya no
+te acuerdas. En la computadora de la otra persona no existe, así que la función se
+cae, y el mensaje habla de un objeto que **no aparece por ninguna parte en el
+script**. Es de los errores más frustrantes que hay.
+
+La conexión con la prueba de la sesión limpia es exacta y hay que buscarla en la
+respuesta: reiniciar R y correr el script entero es lo único que detecta esta clase
+de dependencia invisible. Con la sesión sucia, la función pasa la prueba.
+
+La regla: **todo lo que la función necesite entra por un argumento.** Si necesita
+`factor_secreto`, entonces es `function(x, factor_secreto = 10)`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: los puntos suspensivos
+
+```{r sol32-6}
+promedio_por_grupo <- function(datos, ...) {
+  datos |> 
+    group_by(clase) |> 
+    summarise(promedio = mean(autopista, ...))
+}
+
+a <- promedio_por_grupo(millas)
+b <- promedio_por_grupo(millas, trim = 0.1)
+con_errata <- promedio_por_grupo(millas, trimm = 0.1)   # ¡dos emes!
+
+identical(a, b)   # FALSE: trim sí hizo efecto
+identical(a, con_errata)   # TRUE: trimm se ignoró en silencio
+```
+
+**Respuesta esperada.** `a` y `b` son distintos; `a` y `con_errata` son idénticos.
+
+(Nota para la clase: fíjate en que la variable no se llama `c`. Llamarle `c` a un
+objeto es justo lo que el capítulo dice que no se haga, porque `c()` es una
+función de R.)
+
+Qué pasó con el `trimm`: `...` recoge **cualquier** argumento con nombre y se lo
+entrega a `mean()`. `mean()` es una función genérica cuyo método por defecto
+también tiene `...`, así que el `trimm` que no reconoce se lo traga sin quejarse.
+El resultado es el promedio sin recortar, idéntico al primero.
+
+Cuál error se parece: el del **resultado equivocado en silencio**, el mismo grupo
+que el `na.remove = TRUE` del capítulo de errores comunes, la coincidencia parcial
+del data frame, y el `locale` al importar números. Es el patrón que recorre todo el
+curso, y aquí aparece como el precio de una comodidad.
+
+La defensa práctica que conviene mencionar: cuando escribas una función con `...`,
+comprueba el resultado con y sin el argumento. Si no cambia nada, sospecha del
+nombre.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): una función que devuelve una gráfica
+
+```{r sol32-7}
+grafica_consumo <- function(datos, clase_elegida) {
+  datos |> 
+    filter(clase == clase_elegida) |> 
+    ggplot(aes(cilindrada, autopista)) +
+    geom_point() +
+    labs(title = paste("Consumo en autopista:", clase_elegida))
+}
+
+g <- grafica_consumo(millas, "compact")   # no dibuja nada todavía
+g                                          # ahora sí
+
+g + geom_smooth(method = "lm", se = FALSE)
+```
+
+**Respuesta esperada.** Al guardar el resultado en `g` no aparece nada: el objeto
+está creado pero no dibujado. Se dibuja al escribir su nombre, porque entonces R
+lo imprime.
+
+Qué se gana: la gráfica queda como un **objeto** que se puede seguir modificando.
+Se le añaden capas con `+`, se le cambian los ejes, se guarda con `ggsave()`, se
+mete en una lista para hacer siete gráficas de golpe con `map()`, que es el
+capítulo siguiente.
+
+Qué pasaría con `print()` dentro: la gráfica se dibujaría al llamar la función, y
+la función devolvería el objeto de forma invisible o `NULL`, según cómo esté
+escrita. Perderías la posibilidad de añadirle nada después, y en un bucle
+imprimiría siete gráficas te convenga o no. La regla general de R:
+**las funciones devuelven, no imprimen.**
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+En este capítulo hay un punto reservado a **la prueba**, y conviene ser estricto
+con él: una función entregada sin una prueba de respuesta conocida no está
+terminada. Es el hábito que se quiere instalar.
+
+Los ejercicios 4, 5 y 6 son los tres que enseñan lo mismo desde ángulos distintos:
+una función puede devolver un resultado equivocado sin dar ningún error. El 5 es
+además el que conecta con la reproducibilidad y con el capítulo de scripts.
+
+Resultados comparables: mínimo 0 y máximo 1 y `NaN` con la columna constante
+(Ej. 1), n igual a 234 (Ej. 2), menos atípicos con `k = 3` (Ej. 3), parada con
+mensaje propio (Ej. 4), la variable de fuera intacta y el error tras `rm()`
+(Ej. 5), y `identical(a, con_errata)` igual a `TRUE` (Ej. 6).

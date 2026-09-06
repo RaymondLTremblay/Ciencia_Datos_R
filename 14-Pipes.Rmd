@@ -3,6 +3,7 @@
 
 Fecha de la última revisión
 ```{r c14-1, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 Sys.Date()
 ```
@@ -34,25 +35,123 @@ Español:
 El operador pipe `%>%` fue creado por **Stefan Milton Bache** en el paquete **magrittr** (2014); el nombre juega con el cuadro de Magritte *«Ceci n'est pas une pipe»*. Fue tan popular que en 2021 R incorporó su propio pipe nativo `|>`. La idea: leer el código de izquierda a derecha, como una receta de pasos.
 :::
 
-Los pipes que vamos a evaluar son los siguientes:
+ - Qué problema resuelve el pipe
+ - Cómo funciona `%>%`: el resultado de la izquierda entra por la derecha
+ - El marcador de posición `.`
+ - El pipe nativo `|>` y en qué se diferencia de `%>%`
+ - Los pipes especiales de magrittr: `%$%`, `%<>%`, `%T>%`
+ - `%in%`, que no es un pipe
+ - Cuándo **no** conviene usar un pipe
 
- - %>%     "Pipe"
- - %!>%  "Eager Pipe"
- - %$%    "Exposition pipe"
- - %<>%   "Assignment pipe"
+***
 
- - %T>%   "Tee Pipe"
- - %in%   "In Pipe"
+## ¿Qué problema resuelve el pipe?
+
+Supón que quieres hacer cuatro cosas seguidas con una tabla: filtrarla, agruparla,
+resumirla y ordenar el resultado. Sin pipe hay dos maneras de escribirlo, y las
+dos son incómodas.
+
+La primera es **anidar** las funciones, una dentro de otra:
+`arrange(summarise(group_by(filter(tabla, ...), ...), ...), ...)`. Se lee de
+adentro hacia afuera, al revés del orden en que ocurren las cosas, y basta un
+paréntesis mal puesto para perder media hora.
+
+La segunda es guardar **pasos intermedios**: `tabla1 <- filter(...)`,
+`tabla2 <- group_by(tabla1, ...)`, y así. Se lee mejor, pero acaba llenando la
+memoria de objetos que no interesan a nadie, con nombres como `tabla2` que en
+dos semanas no significan nada.
+
+El pipe resuelve las dos cosas a la vez: **pone los pasos en el orden en que
+ocurren y no deja basura en el camino.** El código empieza a leerse como una
+receta: toma la tabla, luego filtra, luego agrupa, luego resume.
+
+Los operadores que vamos a evaluar son los siguientes. Los cinco primeros sí son
+pipes; el último no lo es, aunque se escriba igual:
+
+ - `%>%`  "Pipe": pasa el resultado de la izquierda como primer argumento de la derecha. Es el que se usa el 95 % de las veces.
+ - `|>`   "Pipe nativo": lo mismo, pero viene con R y no necesita ningún paquete.
+ - `%!>%` "Eager pipe", pipe impaciente: igual que `%>%`, pero calcula cada paso en el momento en vez de esperar. Solo importa cuando los pasos tienen efectos secundarios.
+ - `%$%`  "Exposition pipe", pipe de exposición: expone las columnas de la tabla para poder nombrarlas sueltas, como en `cor(x, y)`.
+ - `%<>%` "Assignment pipe", pipe de asignación: pasa el objeto **y guarda el resultado encima del original**. Peligroso, ver más abajo.
+ - `%T>%` "Tee pipe", pipe en T: hace un paso de lado (dibujar, imprimir, guardar) y sigue pasando el objeto que entró, no el resultado.
+
+Y el que **no** es un pipe:
+
+ - `%in%` **no es un pipe.** Es el operador de **pertenencia**: contesta "¿este valor está en esta lista?" y devuelve `TRUE` o `FALSE`. Está aquí porque se escribe con signos de porcentaje a los lados, igual que los pipes, y por eso se confunde. Tiene su propia sección más abajo.
+
+::: {.advertencia}
+En R, **cualquier** operador escrito entre signos de porcentaje (`%algo%`) es un
+operador definido por alguien, no necesariamente un pipe. Ya conoces otros dos que
+no tienen nada que ver con encadenar: `%%` (el residuo de una división) y `%/%`
+(la división entera), del capítulo de fechas y horas. Los signos de porcentaje
+son solo la manera que tiene R de escribir operadores propios.
+:::
 
 ::: {.funcion}
-**Los pipes de magrittr** — encadenar operaciones.
+**Los pipes de magrittr**: encadenar operaciones.
 
 - **`%>%` / `|>`:** pasa el resultado de la izquierda como primer argumento de la derecha.
 - **`%$%`:** expone las columnas para usarlas por nombre (p. ej. `cor(x, y)`).
 - **`%<>%`:** aplica y **reasigna** al objeto original.
 - **`%T>%`:** ejecuta un paso "lateral" (como `plot`) y sigue pasando el objeto original.
 :::
- 
+
+### Cómo funciona, exactamente
+
+La regla es de una línea: **`x %>% f(y)` es lo mismo que `f(x, y)`.** Lo que está
+a la izquierda del pipe entra como **primer argumento** de la función que está a
+la derecha.
+
+Eso funciona porque casi todas las funciones del tidyverse fueron diseñadas
+pensándolo: `filter()`, `mutate()`, `group_by()`, `summarise()` y `arrange()`
+reciben la tabla como primer argumento. Por eso encadenan tan bien.
+
+¿Y cuando la función **no** recibe el dato en primer lugar? Para eso está el
+marcador de posición, el punto `.`, que dice "ponlo aquí y no al principio":
+
+```{r c14-punto, eval=FALSE}
+# sin marcador: la tabla entra como primer argumento
+paises %>% filter(anio == 2007)
+
+# con marcador: lm() quiere la fórmula primero y los datos después
+paises %>% lm(esperanza_de_vida ~ pib_per_capita, data = .)
+```
+
+::: {.consejo}
+Lee el `%>%` en voz alta como **"y luego"**. `datos %>% filter(...) %>%
+summarise(...)` se lee "toma los datos, y luego filtra, y luego resume". Si la
+frase no tiene sentido en voz alta, el código tampoco lo va a tener.
+:::
+
+### `%>%` y `|>`: cuál usar
+
+Desde la versión 4.1, R trae su **propio** pipe, `|>`, que no necesita ningún
+paquete. Para el 95 % de lo que hacemos en el curso los dos son intercambiables.
+Las diferencias que sí importan:
+
+- **Necesita un paquete:** `%>%` sí (`magrittr`, que viene con `tidyverse`); el nativo no, es parte de R.
+- **Marcador de posición:** `%>%` usa el punto `.` en cualquier posición; el nativo usa el guion bajo `_` y solo en un argumento **con nombre**.
+- **Función sin paréntesis:** `x %>% sqrt` se permite; con el nativo hay que escribir siempre `sqrt()`.
+- **Pipes especiales** (`%$%`, `%<>%`, `%T>%`): existen solo del lado de `magrittr`.
+
+En la práctica: usa `|>` cuando puedas, porque es parte de R y siempre va a estar
+ahí; usa `%>%` cuando necesites el punto o alguno de los pipes especiales de este
+capítulo. En este libro vas a ver los dos, a veces en el mismo bloque, y no es un
+error.
+
+***
+
+
+### Un primer ejemplo: con pipe y sin pipe
+
+Los ejemplos que siguen usan los conjuntos en inglés que vienen con R y con
+`ggplot2` (`diamonds`, `mtcars`, `iris`), no las versiones en español del paquete
+`datos`. Es a propósito: casi toda la documentación de `magrittr` que vas a
+encontrar en internet está escrita con estos mismos datos, y conviene que los
+reconozcas.
+
+Primero, la manera de siempre, sin pipe: se crea una columna nueva escribiendo el
+nombre de la tabla tres veces en la misma línea.
 
 Función básica para calcular el precio básico de diamantes por quilates 
 
@@ -66,10 +165,19 @@ head(diamonds, n=3)
 
 
 
+Ahora lo mismo con pipe y `mutate()`. El nombre de la tabla aparece **una sola
+vez**, y la línea dice lo que hace:
+
 ```{r c14-4}
 diamonds2 <- diamonds %>% 
   dplyr::mutate(price_per_carat = price / carat)
 ```
+
+::: {.nota}
+`dplyr::mutate()` con los dos puntos dobles significa "la función `mutate()` del
+paquete `dplyr`". No hace falta si ya activaste `tidyverse`, pero se usa cuando
+dos paquetes tienen funciones con el mismo nombre y se quiere dejar claro cuál es.
+:::
 
 ***
 
@@ -101,8 +209,11 @@ diamonds %>%
 
 
 
-## %>% pipes
+## El ejemplo clásico de magrittr
 
+Los tres bloques que siguen hacen exactamente lo mismo con `mtcars` y están aquí
+para comparar. Vale la pena leerlos despacio, porque es el ejemplo con el que
+`magrittr` se presentó al mundo.
 
 Un ejemplo básico del pipe
 
@@ -115,6 +226,14 @@ car_data <-
   print
 ```
 
+
+Fíjate en dos cosas. Primero, `data = .`: `aggregate()` no recibe los datos en
+primer lugar, así que hace falta el marcador de posición. Segundo,
+`FUN = . %>% mean %>% round(2)`: una cadena de pipes que empieza con un punto no
+es un cálculo, es una **función anónima**, una receta guardada para aplicarla
+después a lo que llegue.
+
+Ahora la misma cuenta escrita a la antigua, con las funciones anidadas:
 
 Un ejemplo sin usar el pipe para calcular la misma información
 
@@ -130,6 +249,13 @@ car_data
 
 
 
+
+Las dos dan el mismo resultado. La diferencia está en cómo se leen: la primera se
+lee de arriba abajo en el orden en que ocurren las cosas; la segunda hay que
+leerla de adentro hacia afuera, empezando por `subset()`, que está enterrado en
+el centro.
+
+Y una tercera versión, con las funciones de `dplyr` en vez de las de base R:
 
 ```{r c14-9}
 car_data <- 
@@ -154,15 +280,53 @@ car_data <-
 
 
 ## Alternativas a los pipes
- - Pasos intermedios
- - Sobre escribir el original
+
+El pipe no es obligatorio y no siempre es la mejor opción. Las dos alternativas
+son:
+
+ - **Pasos intermedios.** Guardar cada paso en un objeto con nombre
+   (`vuelos_limpios`, `resumen_por_mes`). Ocupa más líneas, pero deja el
+   resultado de cada paso disponible para revisarlo, y eso es exactamente lo que
+   hace falta cuando algo sale mal en el medio de una cadena larga.
+ - **Sobre escribir el original.** Reasignar sobre el mismo nombre
+   (`tabla <- filter(tabla, ...)`, y otra vez, y otra vez). Ahorra nombres, pero
+   es peligroso: si corres una línea dos veces por accidente, ya no sabes en qué
+   estado quedó la tabla, y hay que volver a leer los datos desde el principio.
+
+::: {.consejo}
+Cuándo **no** usar el pipe: cuando la cadena pasa de unos diez pasos (parte en
+dos con un objeto intermedio bien nombrado); cuando hay varias entradas o varias
+salidas, porque el pipe supone un solo objeto que viaja; y cuando estás
+depurando, porque un objeto intermedio con nombre se puede mirar y un paso en el
+medio de una cadena no.
+:::
  
 
 
 ***
 
-## %$%
- 
+## `%$%`: el pipe de exposición
+
+Algunas funciones no reciben una tabla: reciben **vectores sueltos**. `cor()` es
+el ejemplo típico: quiere `cor(x, y)`, dos columnas, no un data frame. Con el
+pipe normal eso no funciona, porque `cor()` recibiría la tabla entera.
+
+El pipe de exposición `%$%` resuelve justo eso: **expone** las columnas de la
+tabla para que se puedan nombrar directamente, sin escribir `tabla$columna` cada
+vez.
+
+::: {.funcion}
+**`%$%`** (magrittr): expone las columnas de la tabla como si fueran objetos sueltos.
+
+- **`tabla %$% cor(a, b)`** equivale a `cor(tabla$a, tabla$b)`.
+- **Para qué sirve:** usar funciones de base R que esperan vectores (`cor()`, `t.test()`, `table()`, `ts.plot()`) dentro de una cadena de pipes.
+- **Ojo:** solo funciona con `%>%`; el pipe nativo `|>` no tiene equivalente.
+:::
+
+En el bloque siguiente, las líneas comentadas son las que **no** funcionan, y
+están ahí a propósito para que veas el contraste: con el pipe nativo `cor()`
+recibiría la tabla completa y fallaría.
+
 ```{r c14-10}
 library(magrittr)
 
@@ -182,7 +346,17 @@ iris %>%
 ```
  
  
+La segunda parte del bloque enseña la alternativa tidyverse: si en vez de `cor()`
+usas `summarize()`, ya no hace falta exponer nada, porque `summarize()` sí sabe
+buscar las columnas dentro de la tabla. Casi siempre hay una salida tidyverse que
+evita `%$%`.
+
 ### Otro ejemplo de Pipe: %$%
+
+`ts.plot()` es una función de base R que dibuja una serie de tiempo y espera un
+vector, no una tabla: otro caso donde `%$%` es lo que hace falta. Después del
+ejemplo viene la versión tidyverse de la misma gráfica, con `ggplot()`, donde
+todo se resuelve dentro de la tabla.
  
 ```{r c14-11}
 data.frame(z = rnorm(100)) %$% 
@@ -205,16 +379,27 @@ z1|>
 
 *** 
 
-## %<>%
-  
-  Pipe an object forward into a function or call expression and update the lhs object with the resulting value.
-  
-  lhs %<>% rhs
-  
-  
- - lhs : An object which serves both as the initial value and as target.
+## `%<>%`: el pipe de asignación
 
- - rhs : a function call using the magrittr semantics.
+Este pipe hace dos cosas de un golpe: pasa el objeto a la función **y guarda el
+resultado encima del objeto original**. Es decir, `x %<>% sqrt` es lo mismo que
+escribir `x <- x %>% sqrt`.
+
+  `lhs %<>% rhs`
+
+ - `lhs`: el objeto, que sirve a la vez de **valor inicial** y de **destino**.
+
+ - `rhs`: la llamada a la función, con la sintaxis de magrittr.
+
+::: {.advertencia}
+`%<>%` **modifica el objeto original y no hay manera de deshacerlo**. En el
+Ejemplo 1 de abajo, la columna `Sepal.Length` de `iris` queda cambiada de verdad
+en tu sesión: si vuelves a correr el bloque, le sacarás la raíz cuadrada otra vez,
+y luego otra, sin ningún aviso. Por eso casi nunca se usa en un análisis de
+verdad: rompe la regla de que correr el mismo script dos veces dé el mismo
+resultado. Si necesitas el valor transformado, guárdalo en una **columna nueva**
+con `mutate()`.
+:::
  
 
  
@@ -241,9 +426,26 @@ head(x, 20)
  
 ***
 
-## %in% 
+## `%in%`: esto **no** es un pipe
 
- - Filter for values specific values within a variable
+`%in%` aparece en la lista del principio porque se escribe con signos de
+porcentaje a los lados, igual que los pipes, pero no tiene nada que ver con
+ellos. No pasa nada de la izquierda a la derecha: es un operador de
+**pertenencia**, que contesta la pregunta "¿este valor está en esta lista?" y
+devuelve `TRUE` o `FALSE`.
+
+ - Sirve para filtrar por **varios valores específicos** de una variable a la vez.
+
+::: {.funcion}
+**`%in%`** (base R): pertenencia a un conjunto.
+
+- **`x %in% c("a", "b")`** devuelve `TRUE` para cada elemento de `x` que sea `"a"` o `"b"`.
+- **Para qué sirve:** sustituye a una cadena larga de `|`. En vez de `filter(d, sp == "a" | sp == "b" | sp == "c")`, se escribe `filter(d, sp %in% c("a", "b", "c"))`.
+- **Ojo con los `NA`:** `NA %in% c(1, 2)` devuelve `FALSE`, no `NA`, que es lo contrario de lo que hacen casi todas las comparaciones en R.
+:::
+
+En el ejemplo se filtran dos especies de *Iris*, *Iris setosa* e
+*Iris virginica*, dejando fuera la tercera.
  
  
 ```{r c14-13}
@@ -262,11 +464,26 @@ iris |>
  
 ***
 
-## %T>%
+## `%T>%`: el pipe en T
 
-The tee pipe, %T>%, is useful when a series of operations have a function that does not return any value. 
+El pipe en T, `%T>%`, sirve cuando en medio de una cadena hay una función que
+**no devuelve nada**, como `plot()`, `print()` o `write_csv()`. Con un pipe
+normal la cadena se rompe ahí, porque el paso siguiente recibiría el `NULL` que
+esa función devuelve.
 
-https://stackoverflow.com/questions/61196304/magrittr-tee-pipe-t-equivalent
+`%T>%` hace el paso "de lado", como el palo corto de una T: ejecuta la función y
+sigue pasando **el objeto que entró**, no el resultado.
+
+::: {.funcion}
+**`%T>%`** (magrittr): paso lateral dentro de una cadena.
+
+- **`x %T>% plot() %>% colSums()`:** dibuja `x` y después le calcula las sumas de columna, todo en una cadena.
+- **Cuándo se usa:** para dibujar, imprimir o guardar en medio de un análisis, sin cortarlo en dos.
+- **Sin él** habría que guardar el objeto en una variable, dibujarlo, y volver a usarlo.
+:::
+
+Referencia:
+<https://stackoverflow.com/questions/61196304/magrittr-tee-pipe-t-equivalent>
 
 
  
@@ -284,3 +501,161 @@ colSums
  
  
  
+
+
+***
+
+## `%!>%`: el pipe impaciente
+
+Aparece en la lista del principio y casi nunca hace falta, pero conviene saber
+que existe. `%>%` es **perezoso**: no calcula un paso hasta que alguien necesita
+su resultado. `%!>%`, añadido en magrittr 2.0, es **impaciente**: obliga a
+calcular cada paso en el momento en que se escribe.
+
+::: {.nota}
+La diferencia solo se nota cuando los pasos tienen **efectos secundarios**, es
+decir, cuando además de calcular hacen algo más: imprimir un mensaje, escribir un
+archivo, avanzar un número al azar. Ahí el orden en que ocurren las cosas importa,
+y `%!>%` lo garantiza. En un análisis normal, `%>%` y `%!>%` dan el mismo
+resultado.
+:::
+
+***
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los ejercicios usan `millas` y `paises` del paquete `datos`, en
+español, y no `mtcars`, `iris` ni `diamonds`, que son los del capítulo. La hoja
+completa para entregar está en `Ejercicios/Ejercicios_Capitulo_16_pipes.Rmd`.
+:::
+
+### Ejercicio 1. De adentro hacia afuera, a de arriba hacia abajo
+
+::: {.ejercicio}
+Este código anidado funciona pero es ilegible:
+
+`arrange(summarise(group_by(filter(paises, anio == 2007), continente), esperanza_media = mean(esperanza_de_vida)), desc(esperanza_media))`
+
+Reescríbelo con pipes, un paso por línea.
+
+**Verificación:** tu tabla debe tener 5 filas, una por continente, y el mismo
+orden que produce la versión anidada.
+
+**En palabras:** ¿en qué orden hay que leer la versión anidada para entenderla?
+¿Y la tuya?
+:::
+
+```{r c14-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. El marcador de posición
+
+::: {.ejercicio}
+Datos: `paises` del año 2007. Ajusta un modelo lineal de `esperanza_de_vida` en
+función de `pib_per_capita` **dentro de una cadena de pipes**, usando `lm()`.
+`lm()` quiere la fórmula primero, así que vas a necesitar `data = .`.
+
+**Verificación:** el coeficiente del `pib_per_capita` debe salir **positivo**.
+
+**En palabras:** ¿qué habría pasado si escribieras `paises2007 %>% lm(...)` sin
+el punto? Explica qué habría recibido `lm()` como primer argumento.
+:::
+
+```{r c14-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. `%>%` y `|>` lado a lado
+
+::: {.ejercicio}
+Datos: `millas`. Escribe **la misma** cadena dos veces, una con `%>%` y otra con
+`|>`: filtra los vehículos de 2008, agrupa por `clase`, calcula el promedio de
+`autopista` y ordena de mayor a menor. Después intenta escribir `millas %>% nrow`
+y `millas |> nrow` (sin paréntesis) y mira qué pasa.
+
+**Verificación:** las dos cadenas deben dar exactamente la misma tabla; una de
+las dos versiones de `nrow` sin paréntesis da error.
+
+**En palabras:** ¿cuál de las dos falló y por qué? ¿Cuál de los dos pipes usarías
+por defecto, y en qué caso cambiarías de opinión?
+:::
+
+```{r c14-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. `%$%` con una función que quiere vectores
+
+::: {.ejercicio}
+Datos: `millas`. Calcula la correlación entre `cilindrada` y `autopista` de tres
+maneras: con `cor(millas$cilindrada, millas$autopista)`, con `%$%`, y con
+`summarise()` dentro de una cadena normal. Prueba también qué pasa si usas `%>%`
+en vez de `%$%`.
+
+**Verificación:** las tres maneras que funcionan dan el mismo número, negativo y
+con valor absoluto mayor que 0.7.
+
+**En palabras:** ¿qué mensaje da la versión con `%>%` y por qué? ¿Cuál de las
+tres versiones que sí funcionan usarías en un análisis tuyo?
+:::
+
+```{r c14-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Por qué `%<>%` es peligroso
+
+::: {.ejercicio}
+Haz una copia: `millas_copia <- millas`. Aplícale
+`millas_copia$autopista %<>% sqrt` y mira el resultado. Después **corre la misma
+línea otra vez** y vuelve a mirar.
+
+**Verificación:** `millas` sin tocar sigue igual, pero los valores de
+`millas_copia` cambiaron **las dos veces**.
+
+**En palabras:** explica por qué esto rompe la reproducibilidad de un script.
+Escribe debajo la versión con `mutate()` que hace lo mismo sin ese problema.
+:::
+
+```{r c14-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. `%T>%`, el paso de lado
+
+::: {.ejercicio}
+Datos: `millas`. En **una sola cadena**: toma `millas`, quédate con `cilindrada`
+y `autopista`, dibuja el par con `plot()` en el medio de la cadena usando
+`%T>%`, y termina calculando el promedio de las dos columnas con `colMeans()`.
+Prueba primero con `%>%` en vez de `%T>%` para ver el error.
+
+**Verificación:** con `%T>%` sale la gráfica **y** un vector de dos promedios.
+
+**En palabras:** ¿qué recibió `colMeans()` cuando usaste `%>%`? ¿Por qué?
+:::
+
+```{r c14-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). `%in%` no es un pipe
+
+::: {.ejercicio}
+Datos: `paises` del año 2007. Filtra los países de tres continentes de dos
+maneras: con `|` repetido tres veces, y con `%in%`. Después contesta con código:
+¿qué devuelve `NA %in% c(1, 2)` y qué devuelve `NA == 1`?
+
+**Verificación:** las dos maneras de filtrar dan la misma tabla.
+
+**En palabras:** `%in%` se escribe como un pipe pero no lo es. Explica en una
+oración qué hace realmente, y por qué la diferencia entre `NA %in% ...` y
+`NA == ...` puede cambiar el resultado de un filtro.
+:::
+
+```{r c14-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

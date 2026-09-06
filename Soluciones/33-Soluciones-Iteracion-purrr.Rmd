@@ -1,0 +1,301 @@
+---
+title: "Soluciones: Capítulo Iteración con purrr (map, across, safely, walk)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Corresponde a: 33-Iteracion-purrr.Rmd (Capítulo 27 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_27_iteracion.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera de
+escribir la misma iteración; lo que se evalúa es que funcione y que el estudiante
+sepa por qué escogió esa variante.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: del `for` al `map()`
+
+```{r sol33-1}
+numericas <- millas |> select(where(is.numeric))
+ncol(numericas)   # 5
+
+# con for
+promedios <- vector("double", ncol(numericas))
+names(promedios) <- names(numericas)
+for (i in seq_along(numericas)) {
+  promedios[[i]] <- mean(numericas[[i]], na.rm = TRUE)
+}
+promedios
+
+# con map_dbl
+promedios2 <- map_dbl(numericas, mean, na.rm = TRUE)
+promedios2
+
+all.equal(promedios, promedios2)   # TRUE
+```
+
+**Respuesta esperada.** Cinco columnas numéricas (`cilindrada`, `anio`,
+`cilindros`, `ciudad`, `autopista`) y los mismos cinco promedios por los dos
+caminos.
+
+La parte del `for` que desapareció es **el andamiaje**: crear el vector de salida
+del tamaño y el tipo correctos, ponerle nombres, y manejar el índice `i`. Cinco
+o seis líneas se quedan en una.
+
+Por qué esa parte causa los errores: porque es donde se equivoca uno sin darse
+cuenta. Los tres clásicos, que vale la pena nombrar en clase:
+
+- crear el vector con `ncol()` cuando había que usar `nrow()`, o al revés;
+- crear el vector del tipo equivocado (`vector("character", ...)` para números);
+- hacerlo crecer dentro del bucle con `resultado <- c(resultado, x)`, que obliga a
+  R a copiar el vector entero en cada vuelta y hace el código lentísimo con muchos
+  elementos.
+
+`map_dbl()` se ocupa de las tres cosas y además garantiza que la salida es
+numérica.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: el tipo importa
+
+```{r sol33-2a}
+map_dbl(millas, n_distinct)
+class(map_dbl(millas, n_distinct))   # "numeric"
+
+map(millas, n_distinct)
+class(map(millas, n_distinct))       # "list"
+```
+
+```{r sol33-2b}
+map_chr(millas, n_distinct)
+# Error in `map_chr()`: Can't coerce from an integer vector to a character vector
+```
+
+**Respuesta esperada.** `map_dbl()` funciona y devuelve un **vector numérico** con
+nombres. `map()` funciona y devuelve una **lista** de once elementos. `map_chr()`
+falla.
+
+Por qué falla `map_chr()`: `n_distinct()` devuelve un entero, y `map_chr()` exige
+que cada vuelta devuelva texto. `purrr` no convierte por su cuenta, se queja. Ese
+es exactamente el comportamiento que se quiere.
+
+Cuál usar: `map_dbl()` o `map_int()`, porque el resultado es un número y así queda
+un vector con el que se puede seguir trabajando. `map()` funciona pero devuelve
+una lista, y una lista de once números sueltos no sirve para graficar ni para
+ordenar sin desempaquetarla antes.
+
+La conexión con el curso que se busca en la explicación: es el mismo principio del
+tibble que avisa cuando la columna no existe, de `parse_factor()` que avisa cuando
+un valor no está en los niveles, y de `stopifnot()`. Fallar temprano y con un
+mensaje claro es mejor que seguir adelante con algo raro.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: fórmulas anónimas
+
+```{r sol33-3}
+map_int(millas, ~ n_distinct(.x))
+map_lgl(millas, is.numeric)
+sum(map_lgl(millas, is.numeric))   # 5
+
+n_distinct(millas$clase)   # 7
+```
+
+```{r sol33-3b}
+# las tres maneras
+map_int(millas, ~ n_distinct(.x))
+map_int(millas, \(x) n_distinct(x))
+map_int(millas, function(x) n_distinct(x))
+```
+
+**Respuesta esperada.** Cinco `TRUE` en `map_lgl()`, y 7 valores distintos en
+`clase`. Las tres formas de la fórmula anónima dan exactamente lo mismo.
+
+Sobre cuál preferir: **las tres respuestas valen** si están justificadas.
+
+- `~ .x` es la más corta y la que más se ve en código de `purrr`, pero es sintaxis
+  propia del paquete y no funciona fuera de él.
+- `\(x)` es sintaxis de R desde la versión 4.1, funciona en todas partes, y es la
+  que recomienda hoy la documentación del tidyverse.
+- `function(x)` es la de siempre, la más larga y la más explícita, y la que
+  entiende cualquiera que haya visto R alguna vez.
+
+Para alguien que vuelva a leer su código dentro de un año, `\(x)` o `function(x)`
+suelen ser mejor apuesta que `~ .x`, porque no hay que acordarse de qué es `.x`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: un modelo por grupo
+
+```{r sol33-4}
+modelos <- millas |> 
+  split(millas$clase) |> 
+  purrr::map(\(d) lm(autopista ~ cilindrada, data = d))
+
+length(modelos)   # 7
+
+r2 <- modelos |> 
+  purrr::map(summary) |> 
+  map_dbl("r.squared")
+
+n_por_clase <- millas |> count(clase)
+
+tibble(clase = names(r2), r2 = r2) |> 
+  left_join(n_por_clase, by = "clase") |> 
+  arrange(desc(r2))
+```
+
+**Respuesta esperada.** Siete modelos y siete $R^2$ entre 0 y 1.
+
+Lo que importa aquí no es cuál clase gana, sino la segunda pregunta. Las clases
+con pocos vehículos (`2seater` con 5, `minivan` con 11) pueden dar un $R^2$ muy
+alto o muy bajo por puro azar: con cinco puntos, una recta se ajusta bien casi
+siempre. El $R^2$ de `suv`, con 62 vehículos, es mucho más informativo aunque sea
+más bajo.
+
+La respuesta que se busca: **no**, no hay que fiarse igual, y la manera de verlo es
+poner el tamaño de muestra al lado del estadístico, que es lo que pide el paso 4
+del ejercicio. Es la misma lección del desbalance de clases del capítulo de
+análisis exploratorio.
+
+**Punto para discutir en clase.** Este ejercicio es la puerta al tema de "muchos
+modelos". Si hay tiempo, vale la pena enseñar `broom::glance()`, que devuelve el
+$R^2$, el valor p y el tamaño de muestra en una tabla, sin tener que sacarlos uno
+por uno.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: `across()`
+
+```{r sol33-5}
+millas |> 
+  summarise(across(where(is.numeric), \(x) mean(x, na.rm = TRUE)))
+# 1 fila, 5 columnas
+
+millas |> 
+  group_by(clase) |> 
+  summarise(across(where(is.numeric), \(x) mean(x, na.rm = TRUE)))
+# 7 filas
+```
+
+**Respuesta esperada.** Una tabla de 1 por 5, y otra de 7 filas.
+
+Qué da `across()` que no da `map_dbl()`: **una tabla**. El resultado de
+`map_dbl()` es un vector con nombres, que se imprime bien y poco más; el de
+`across()` es un tibble que se puede graficar, unir, guardar o seguir
+transformando. Es el mismo argumento del Ejercicio 2 del capítulo de funciones.
+
+Cuál sirve para la versión por clase: **`across()`**, sin discusión, porque
+`group_by()` ya está ahí. Con `map()` habría que hacer `split()` primero, aplicar
+la función a cada trozo, y después volver a pegar los resultados con
+`list_rbind()` o `bind_rows()`, añadiendo una columna con el nombre del grupo. Se
+puede, pero son cuatro pasos donde `across()` necesita uno.
+
+La regla que se quiere instalar: **dentro de una tabla, `across()`; fuera de una
+tabla, `map()`.**
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: cuando una vuelta falla
+
+```{r sol33-6a}
+promedio_exigente <- function(x) {
+  if (nrow(x) < 10) stop("muy pocos datos")
+  mean(x$autopista)
+}
+
+millas |> split(millas$clase) |> map(promedio_exigente)
+# Error in .f(.x[[i]], ...) : muy pocos datos
+```
+
+```{r sol33-6b}
+resultados <- millas |> 
+  split(millas$clase) |> 
+  map(safely(promedio_exigente))
+
+resultados |> map("error")  |> compact() |> names()   # "2seater"
+resultados |> map("result") |> compact() |> unlist()  # las otras seis
+```
+
+**Respuesta esperada.** Con `map()` a secas todo se detiene en la primera clase
+que falla y no se obtiene nada, ni siquiera de las seis que sí funcionaban. Con
+`safely()` salen los seis promedios y el nombre de la que falló.
+
+La culpable es **`2seater`**, que tiene solo 5 vehículos. `minivan`, con 11, pasa
+por poco. Vale la pena que lo comprueben con `count(clase)`.
+
+Por qué `safely()` es imprescindible con cien archivos: porque el fallo de uno no
+puede costarte los noventa y nueve buenos. Sin `safely()`, después de veinte
+minutos de procesamiento un archivo corrupto te deja sin nada y sin saber cuál
+fue. Con `safely()` terminas el trabajo, tienes los resultados buenos, y además
+una lista exacta de qué hay que revisar a mano.
+
+Es la versión de iteración de la misma idea que el `tryCatch()` del capítulo de
+errores comunes: **prever el fallo en vez de esperar que no ocurra**.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): `walk()` y `map2()`
+
+```{r sol33-7}
+dir.create("Datos/por_clase", showWarnings = FALSE, recursive = TRUE)
+
+tablas  <- split(millas, millas$clase)
+nombres <- paste0("Datos/por_clase/millas_", names(tablas), ".csv")
+
+walk2(tablas, nombres, write_csv)
+
+list.files("Datos/por_clase")   # 7 archivos
+```
+
+Con `map2()`, que hace lo mismo pero además devuelve una lista:
+
+```{r sol33-7b}
+salida <- map2(tablas, nombres, write_csv)
+```
+
+**Respuesta esperada.** Siete archivos en la carpeta.
+
+Con `map()` o `map2()` el efecto es idéntico (los archivos se escriben igual),
+pero además te devuelve una **lista con los siete data frames completos**, que se
+imprime entera en el documento si no la guardas en una variable. Con siete tablas
+de treinta filas es una molestia; con setecientas, es inmanejable.
+
+Por qué existe `walk()`: por dos razones, y conviene decir las dos. La primera es
+práctica: no imprime nada. La segunda es de **comunicación**: al leer `walk()` en
+un script, quien lo lee sabe de inmediato que esa línea está ahí por su efecto
+(guardar, imprimir, enviar) y no por el valor que devuelve. Es la misma idea de
+ponerle a las funciones nombres que sean verbos: el código dice lo que hace.
+
+Nota técnica: la versión con dos listas se llama `walk2()`, y también existe
+`iwalk()` para recorrer una lista junto con sus nombres, que aquí habría ahorrado
+crear el vector `nombres`.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Los ejercicios 2 y 6 son los importantes. El 2 porque instala la costumbre de usar
+la variante específica de `map_*()`, que es la que avisa. El 6 porque `safely()`
+es la diferencia entre un script que aguanta datos reales y uno que solo funciona
+con datos limpios.
+
+El 5 es el más útil en la práctica: casi todo lo que van a querer hacer con
+columnas se resuelve con `across()` y no con `map()`, y conviene que salgan del
+capítulo sabiendo cuál usar en cada caso.
+
+Resultados comparables: 5 columnas numéricas (Ej. 1), error solo en `map_chr()`
+(Ej. 2), 5 `TRUE` y 7 clases (Ej. 3), 7 modelos (Ej. 4), tablas de 1 por 5 y de 7
+filas (Ej. 5), `2seater` como la culpable (Ej. 6), y 7 archivos (Ej. 7).

@@ -1,0 +1,275 @@
+---
+title: "Soluciones: Capítulo Leaflet, mapas interactivos"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Corresponde a: 26-Leaflet-mapa-interactivo.Rmd (Capítulo 32 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_32_leaflet.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse); library(leaflet)
+```
+
+Estas son soluciones **de referencia**. Los números de `Datos/crimen_pr.csv` sí son
+exactos y verificables: 8870 filas, 733 con coordenada faltante, 2 con cero, 8135
+utilizables.
+
+Este capítulo se corrige **abriendo el `.html`**. Un `.Rmd` con el código correcto
+pero sin mapa visible no se puede evaluar.
+
+```{r sol26-0}
+crimen <- read_csv("Datos/crimen_pr.csv")
+```
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: el mapa más sencillo
+
+```{r sol26-1}
+leaflet() |> 
+  addTiles() |> 
+  setView(lng = -66.4, lat = 18.2, zoom = 9) |> 
+  addMarkers(lng = -65.83, lat = 18.15, popup = "Humacao")
+```
+
+**Respuesta esperada.** La isla completa y el marcador donde toca.
+
+Cómo saber cuál número es cuál sin buscarlo, que es la pregunta importante:
+
+- la **latitud** va de menos 90 a 90, así que un número mayor que 90 en valor
+  absoluto **tiene** que ser longitud;
+- Puerto Rico está en el **hemisferio norte**, así que su latitud es **positiva**
+  (unos 18);
+- y al **oeste** de Greenwich, así que su longitud es **negativa** (unos menos 66).
+
+Con esas tres reglas se resuelve cualquier caso sin abrir un mapa, y es lo que hay
+que buscar en la explicación.
+
+`zoom` es el nivel de acercamiento: valores pequeños (3 o 4) enseñan un
+continente, y valores grandes (15 o más) enseñan una calle. Para la isla completa,
+9 es lo razonable.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: los puntos que acabaron en el océano
+
+```{r sol26-2}
+range(crimen$POINT_X, na.rm = TRUE)   # 0 a 18.5
+range(crimen$POINT_Y, na.rm = TRUE)   # -67.3 a 0
+
+# la manera intuitiva, que está mal
+leaflet(head(crimen, 200)) |> addTiles() |> 
+  addCircleMarkers(lng = ~POINT_X, lat = ~POINT_Y)
+
+# la correcta
+leaflet(head(crimen, 200)) |> addTiles() |> 
+  addCircleMarkers(lng = ~POINT_Y, lat = ~POINT_X)
+```
+
+**Respuesta esperada.** Con la versión intuitiva los puntos caen en el **océano
+Antártico**, muy al sur de África: latitud alrededor de menos 66 y longitud
+alrededor de 18. Es un sitio donde no hay absolutamente nada, y por eso el error se
+ve enseguida.
+
+Cómo lo dicen los rangos, sin abrir el mapa: `POINT_X` va de 0 a 18.5 y `POINT_Y`
+de menos 67.3 a 0. Puerto Rico está a **18 grados norte** y **66 grados oeste**.
+Por lo tanto `POINT_X` es la **latitud** y `POINT_Y` es la **longitud**, al revés
+de lo que sugieren los nombres.
+
+Por qué se llaman `X` e `Y`: porque vienen de un sistema de información geográfica,
+donde por convención `X` es el eje **horizontal** y `Y` el **vertical**, y ahí sí
+`X` sería la longitud. Alguien exportó las columnas con los nombres cambiados, o
+usó una proyección donde el orden era otro. Nombres mejores serían `latitud` y
+`longitud`, que no admiten confusión.
+
+**Punto para discutir en clase.** Este es el error de mapas más común que existe, y
+la razón por la que en `leaflet` conviene escribir siempre `lng =` y `lat =` con su
+nombre. Si se pasaran por posición, este fallo sería invisible.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: los puntos que no existen
+
+```{r sol26-3}
+sum(is.na(crimen$POINT_X))                              # 733
+sum(crimen$POINT_X == 0, na.rm = TRUE)                  # 2
+
+crimen_ok <- crimen |> 
+  filter(!is.na(POINT_X), POINT_X != 0, POINT_Y != 0)
+
+nrow(crimen_ok)   # 8135
+
+# los dos puntos en cero
+crimen |> 
+  filter(POINT_X == 0) |> 
+  leaflet() |> addTiles() |> addMarkers(lng = ~POINT_Y, lat = ~POINT_X)
+```
+
+**Respuesta esperada.** 733 faltantes, 2 ceros, 8135 utilizables. Los dos ceros
+caen en el **golfo de Guinea**, frente a la costa de África occidental, en el punto
+donde se cruzan el ecuador y el meridiano de Greenwich.
+
+"Null Island" es el nombre de broma que se le dio a ese punto (0, 0), donde en
+realidad solo hay una boya. Se llama así porque es donde acaban todos los datos
+geográficos a los que les faltaba la coordenada y alguien la rellenó con un cero.
+Hay mapas del mundo donde ese punto aparece como una de las zonas más "pobladas"
+del planeta.
+
+Por qué un cero es más peligroso que un `NA`, que es la pregunta de verdad: porque
+un `NA` **es** un dato faltante y todas las funciones lo tratan como tal. Un cero
+es un número perfectamente válido: entra en los promedios, no lo quita `na.rm`, no
+lo detecta `is.na()`, y arrastra el centro de tus datos hacia África. Es el mismo
+problema del `n/a` escrito a mano del capítulo de importar datos y de la
+coincidencia parcial del capítulo de tibbles: **un valor equivocado es peor que un
+valor ausente.**
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: color por categoría
+
+```{r sol26-4}
+pal <- colorFactor("Set1", domain = crimen_ok$Delitos_code)
+
+leaflet(crimen_ok) |> addTiles() |> 
+  addCircleMarkers(lng = ~POINT_Y, lat = ~POINT_X,
+                   color = ~pal(Delitos_code), radius = 3, stroke = FALSE,
+                   fillOpacity = 0.6) |> 
+  addLegend(pal = pal, values = ~Delitos_code, title = "Delito")
+```
+
+```{r sol26-4b}
+crimen_5 <- crimen_ok |> 
+  mutate(delito5 = fct_lump_n(factor(Delitos_code), n = 4, other_level = "Otros"))
+
+pal5 <- colorFactor("Set1", domain = crimen_5$delito5)
+```
+
+**Respuesta esperada.** Nueve categorías en la leyenda del primer mapa.
+
+Con nueve colores el mapa es ilegible, y por una razón concreta que conviene
+nombrar: **el ojo no distingue nueve colores** puestos en puntos pequeños y
+mezclados. Cinco es más o menos el límite práctico, y con tres se lee de un
+vistazo.
+
+Qué se pierde al agrupar: exactamente lo mismo que se dijo en el capítulo de
+factores. Los delitos poco frecuentes (asesinato, violación, incendio malicioso)
+desaparecen dentro de "Otros", y son justamente los que a un lector le podrían
+interesar más. La solución honesta, si esos importan, no es agrupar sino **hacer
+un mapa por categoría** o usar las capas del Ejercicio 7.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: las ventanas emergentes
+
+```{r sol26-5}
+leaflet(crimen_ok) |> addTiles() |> 
+  addCircleMarkers(
+    lng = ~POINT_Y, lat = ~POINT_X, radius = 3,
+    popup = ~paste0("<b>", Delitos_code, "</b><br>",
+                    Fecha, " a las ", Hora, "<br>",
+                    "Área: ", `Area Policiaca`),
+    label = ~Delitos_code
+  )
+```
+
+**Respuesta esperada.** La información de cada punto, no la de todos.
+
+La diferencia: **`popup` se abre al hacer clic** y se queda abierto hasta que lo
+cierras, así que admite varias líneas y texto largo. **`label` sale al pasar el
+ratón por encima** y desaparece solo, así que tiene que ser corto.
+
+Para un mapa que va a mirar mucha gente sin instrucciones: **`label`**, o los dos.
+Nadie sabe que hay que hacer clic si nada se lo dice; en cambio el ratón pasa por
+encima solo, y ahí se descubre que los puntos tienen información. La combinación
+que mejor funciona es `label` con una etiqueta corta y `popup` con el detalle.
+
+Sobre el `<br>`: funciona porque un mapa de `leaflet` **es una página web**, y el
+contenido de un popup se inserta como HTML. Por eso también funcionan `<b>` para
+negrita o `<a href>` para un enlace. Es la misma razón por la que el capítulo de
+opciones de knitr podía usar un `div` de CSS: por debajo, todo esto es HTML.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: ocho mil puntos
+
+```{r sol26-6}
+leaflet(crimen_ok) |> addTiles() |> 
+  addCircleMarkers(lng = ~POINT_Y, lat = ~POINT_X, radius = 3,
+                   clusterOptions = markerClusterOptions())
+```
+
+**Respuesta esperada.** Sin agrupar, el `.html` pesa varios megabytes y tarda en
+abrir, porque **cada punto es un objeto de la página web**. Con agrupamiento se
+dibujan unas decenas de círculos con números, y todo va fluido.
+
+Qué se pierde: la **posición exacta** de cada incidente mientras el mapa está
+alejado. Un círculo que dice "1 240" no dice dónde están esos 1 240 dentro de la
+zona que cubre.
+
+Cuándo vuelven los puntos: al acercarse lo suficiente, los grupos se van partiendo
+hasta que quedan puntos individuales, normalmente alrededor del nivel de zoom en
+que se ven las calles.
+
+Con 500 000 puntos el agrupamiento ya no basta, porque el navegador tiene que
+recibir de todos modos los 500 000. Las salidas habituales, y cualquiera vale como
+respuesta: dibujarlos como un **mapa de calor** (`addHeatmap` del paquete
+`leaflet.extras`), **agregar por zona** antes de mapear (contar por municipio y
+pintar polígonos), o **muestrear**. La regla general: cuando hay demasiados puntos,
+el problema no es el mapa, es que un punto por observación ya no es la
+representación correcta.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): capas que se encienden
+
+```{r sol26-7}
+robos  <- crimen_ok |> filter(Delitos_code == "Robo")
+autos  <- crimen_ok |> filter(Delitos_code == "Vehiculo Hurtado")
+
+leaflet() |> addTiles() |> 
+  addCircleMarkers(data = robos, lng = ~POINT_Y, lat = ~POINT_X,
+                   radius = 3, color = "red",  group = "Robo") |> 
+  addCircleMarkers(data = autos, lng = ~POINT_Y, lat = ~POINT_X,
+                   radius = 3, color = "blue", group = "Vehículo hurtado") |> 
+  addLayersControl(overlayGroups = c("Robo", "Vehículo hurtado"),
+                   options = layersControlOptions(collapsed = FALSE))
+```
+
+**Respuesta esperada.** El control arriba a la derecha, y los puntos que aparecen y
+desaparecen.
+
+Qué pregunta se contesta así y no con un mapa fijo: **si los dos tipos de delito
+ocurren en los mismos sitios o en sitios distintos.** Con los dos encendidos se ve
+la mezcla; apagando uno se ve el patrón del otro limpio; alternando rápido entre
+los dos, el ojo detecta las zonas donde uno está y el otro no, que es algo que en
+un mapa con dos colores superpuestos se pierde por completo.
+
+El argumento de fondo del capítulo, que es lo que se pide escribir: un mapa fijo
+obliga al autor a **decidir por el lector** qué se ve, a qué escala y con qué
+recorte. Un mapa interactivo le pasa esas decisiones al lector, que puede
+acercarse, apagar capas y consultar cada punto. A cambio, solo funciona en pantalla
+y no cabe en un artículo impreso.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Los ejercicios 2 y 3 son los importantes, y los dos enseñan lo mismo desde ángulos
+distintos: **los datos geográficos vienen mal con muchísima frecuencia**, y el mapa
+es el mejor detector de errores que existe, porque un punto en la Antártida se ve y
+un promedio equivocado no.
+
+El 6 y el 7 son los que enseñan cuándo un mapa interactivo aporta algo y cuándo no,
+que es la decisión que van a tener que tomar cuando pongan un mapa en su tesis.
+
+Comprobaciones objetivas: los puntos caen en Puerto Rico (Ej. 2), 733 faltantes, 2
+ceros y 8135 utilizables (Ej. 3), 9 categorías en la leyenda (Ej. 4), popup con la
+información de un solo punto (Ej. 5), y el control de capas visible (Ej. 7).

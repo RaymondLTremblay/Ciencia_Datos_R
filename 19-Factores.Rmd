@@ -20,8 +20,45 @@ English:
  
 Español:
  <https://es.r4ds.hadley.nz/15-factors.html>
- 
- 
+
+***
+
+## Temas
+
+ - Qué es un factor y en qué se diferencia de una variable de texto
+ - Crear factores: `factor()`, `parse_factor()`, `fct_inorder()`
+ - Ver y cambiar los niveles: `levels()`, `fct_relevel()`
+ - Reordenar para graficar: `fct_reorder()`, `fct_infreq()`, `fct_rev()`
+ - Agrupar categorías: `fct_recode()`, `fct_collapse()`, `fct_lump_n()`
+ - Las constantes que ya trae R: `letters`, `month.name`, `pi`
+
+***
+
+## ¿Qué es un factor?
+
+Un **factor** es una variable categórica con una lista de valores permitidos,
+que se llaman **niveles**, y con un **orden** entre ellos. Por dentro R guarda
+números enteros (1, 2, 3) y una tabla que dice qué texto corresponde a cada
+número.
+
+La pregunta razonable es por qué molestarse, si el texto ya funciona. Hay dos
+razones, y las dos aparecen en este capítulo:
+
+1. **El orden.** El texto se ordena alfabéticamente, siempre. Con los meses del
+   año eso significa que abril va antes que enero, lo cual es absurdo y sin
+   embargo es lo que hace cualquier gráfica si la variable es texto.
+2. **Los valores permitidos.** Con un factor, R sabe cuáles categorías existen
+   aunque en los datos no aparezca ninguna. Si en tu muestra no hubo ningún
+   individuo de la categoría "juvenil", con texto esa categoría desaparece de la
+   tabla y de la gráfica; con factor sigue ahí, con un cero, que es la
+   información correcta.
+
+::: {.consejo}
+Regla práctica: deja el texto como texto mientras estés limpiando datos, y
+conviértelo en factor **cuando llegues a graficar o a modelar**. Convertir
+demasiado pronto es la causa de la mitad de los enredos con factores.
+:::
+
 ```{r c19-2, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(datos)
@@ -33,6 +70,13 @@ library(forcats)
  
  
 ***
+
+## El problema, en cuatro meses
+
+El ejemplo que sigue tiene cuatro meses y cuatro valores. Fíjate desde ahora en
+que `month` es texto (`chr`) y `x` es un número entero (`int`): esa diferencia
+va a decidir cómo sale la gráfica.
+
 ```{r c19-3, background='#2dc0cc'}
 
 month <-c("December" ,"January", "March", "April")
@@ -51,7 +95,9 @@ valores <- c(7, 3, 2, 10)
 ```
 
 
-Unir las dos listas
+Unir las dos listas. Ojo con `cbind()`: junta las columnas, pero como una de
+ellas es texto, **convierte todo a texto**, incluidos los números. Es un caso
+clásico y una razón más para preferir `tibble()` o `data.frame()`.
 
 ```{r c19-5}
 df=as.data.frame(cbind(month, valores, x))
@@ -68,9 +114,12 @@ ggplot(df, aes(month, valores))+
   geom_point()
 ```
 
-Order months in correct order
+Los meses salieron en orden alfabético: April, December, January, March. No es un
+error de `ggplot()`, es lo único que puede hacer con una variable de texto:
+ordenarla como se ordenan las palabras. Para que salgan en el orden del calendario
+hay que decirle a R cuál es ese orden, y eso es exactamente lo que hace un factor.
 
-use **month.name**
+Ordenar los meses correctamente, usando **month.name**.
 
 Hay variables ya descrita en R, para facilitar el uso de constantes 
 
@@ -99,6 +148,13 @@ pi
 
 
 
+El bloque siguiente es la receta completa, y vale la pena leerlo en tres pasos.
+Primero la gráfica mal, en orden alfabético. Después una línea de verificación
+que casi nadie escribe y que evita muchos problemas: `all(df$Months %in%
+month.name)` comprueba que **todos** los meses estén bien escritos antes de
+convertirlos. Y por último `factor(..., levels = month.name)`, que impone el
+orden correcto, y la gráfica buena.
+
 ```{r c19-8}
 
 df <- data.frame(Months=c("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November","December"),
@@ -126,9 +182,23 @@ ggplot(data=df, aes(x=Months, y=Attacks)) +
 
 
 
-### Usando las funciones factor y levels, estamos asignando los factores a un nivel específico en el orden de la lista
+### `factor()` y `parse_factor()`
 
-### parse_factor() is similar a factor(), but generates a warning if levels have been specified and some elements of x are not found in those levels.
+Con `factor(x, levels = ...)` asignamos los niveles en el orden de la lista que
+demos. Y aquí aparece la diferencia importante entre las dos funciones que crean
+factores.
+
+::: {.funcion}
+**`factor()`** (base R) y **`parse_factor()`** (readr): crear un factor.
+
+- **Las dos** convierten un vector de texto en factor, con los niveles y el orden que les digas en `levels`.
+- **La diferencia:** si un valor de los datos **no** está en la lista de niveles, `factor()` lo convierte en `NA` **en silencio**, y `parse_factor()` produce una **advertencia** que lo nombra.
+- **Cuál usar:** `parse_factor()` mientras estés revisando datos, porque te enseña las erratas. `factor()` cuando ya sabes que los datos están limpios.
+:::
+
+En el bloque de abajo, `x1` trae un mes inventado, `"Dii"`, que no está en la
+lista de niveles. Compara lo que hace cada función con él: las dos producen un
+`NA`, pero solo una te avisa.
 
 ```{r c19-9}
 x1= c("Dic", "Ene", "Mar", "Dii") # Nota que esta lista tengo un mes que se llama "Dii"
@@ -143,6 +213,13 @@ y1
 
 ```
 
+
+::: {.advertencia}
+Ese `NA` silencioso de `factor()` es de los errores más caros del curso. Si en una
+columna de 5000 filas hay cincuenta escritas con una errata, `factor()` las
+convierte en cincuenta faltantes y el análisis sigue como si nada. Compruébalo
+siempre después de convertir: `sum(is.na(mi_factor))`.
+:::
 
 Si quiere que los valores aparezcan en el orden que aparecen en la base de datos use **unique(variable)**
 
@@ -164,22 +241,45 @@ ggplot(df_est, aes(fct1, Nota_Final))+
   geom_point()
 ```
 
+`fct_inorder()` del paquete `forcats` hace lo mismo que ese `unique()` pero
+directamente sobre el factor, y se lee mejor dentro de una cadena de pipes:
+
 ```{r c19-11}
 f2 <- x1 %>% factor() %>% fct_inorder()
 f2
 
 ```
 
+`levels()` es la función que hay que correr siempre que un factor se porte raro:
+enseña la lista de niveles y, sobre todo, **el orden** en que están.
+
 ```{r c19-12}
 levels(f2)
 ```
 
 
-## Temas:
+## El paquete forcats
+
  - library(forcats)
 
+`forcats` es el paquete del tidyverse dedicado a los factores (el nombre es un
+anagrama de *factors*). Todas sus funciones empiezan por `fct_`, reciben el
+factor como primer argumento y devuelven otro factor, así que encajan
+directamente dentro de `mutate()` y de `aes()`.
+
+::: {.historia}
+Los factores vienen del lenguaje **S** y en su momento fueron una buena idea por
+una razón que hoy suena rara: guardar enteros en vez de texto ahorraba memoria,
+que en los años ochenta era escasa. Durante décadas R convirtió automáticamente
+todo el texto en factores al leer un archivo, lo que causó incontables dolores de
+cabeza. En 2020, con **R 4.0.0**, ese comportamiento por fin cambió:
+`stringsAsFactors = FALSE` pasó a ser el valor por defecto. `forcats`, de
+**Hadley Wickham** (2016), había resuelto antes la otra mitad del problema: cómo
+manipular los niveles sin pelear.
+:::
+
 ::: {.funcion}
-**`factor()` y las funciones `fct_*` (forcats)** — manejar variables categóricas.
+**`factor()` y las funciones `fct_*` (forcats)**: manejar variables categóricas.
 
 - **`factor(x, levels = ...)`:** define una variable categórica y el **orden** de sus niveles.
 - **`fct_reorder(f, y)`:** reordena los niveles según otra variable (ideal para gráficos).
@@ -193,12 +293,14 @@ levels(f2)
  - fact_inorder()
  - levels()
  
-### Datos : Encuesta Social General
- 
- - count()
- 
-1.  **Ejercicios**:
+### Datos: Encuesta Social General
 
+`encuesta` es una muestra de la General Social Survey de Estados Unidos, y es el
+conjunto que usa R4DS para este tema. Tiene varias columnas categóricas con
+muchos niveles (`religion`, `estado_civil`, `ingreso`, `partido`), que es
+exactamente el terreno donde los factores hacen falta.
+
+ - count()
 
 
 ```{r c19-13}
@@ -214,7 +316,6 @@ df=encuesta %>%
    count(estado_civil)
 df
 ```
-knitr
 
 
 ```{r c19-15, fig.width=10}
@@ -234,7 +335,7 @@ ggplot(df,
 ```
 
 
-## A smaller figure to the right, with floating text
+### Una figura pequeña a la derecha, con el texto alrededor
 
 ```{r c19-16, echo=FALSE, out.width= "50%", out.extra=if (knitr::is_html_output()) 'style="float:right; padding:10px"'}
 
@@ -252,9 +353,18 @@ df %>%
 
 
  
-LOTS of text here to wrap around the figure.  dfghjlkjhgdgxchvbvcxcvbnnbvvbvbbvcvxcv. fgffhgcvbcvbhbvvbvcvbnv bcbnbbnmmbnmnb vbcbnbvvnbbb vbb v b b cgjhkggbcv
+El bloque de arriba enseña dos cosas a la vez. La primera es la de siempre:
+`fct_reorder(estado_civil, n)` ordena las barras por su tamaño, y la gráfica pasa
+de ser una lista alfabética a contar algo. La segunda es de presentación: con las
+opciones `out.width` y `out.extra` del bloque, la figura sale a la mitad de ancho
+y flotando a la derecha, de manera que el texto la rodea en vez de quedarse
+debajo. Es un recurso útil cuando la gráfica es un apoyo del argumento y no el
+argumento entero.
 
-
+Fíjate en el detalle de que `fct_reorder()` va dentro de `mutate()`, antes del
+`ggplot()`. También se puede escribir directamente dentro de `aes()`, y en los
+bloques siguientes se hace así; las dos maneras funcionan y conviene reconocer
+las dos.
 
 <br>
 
@@ -275,8 +385,6 @@ df2 %>%
 ```
 
 
-Hacer los ejercicios en la sección 15.3.1 del libro en español
-
 ***  
 
 ## Modificar el orden de los factores
@@ -292,6 +400,71 @@ Usa `fct_reorder()` para ordenar los niveles de un factor según otra variable (
    - fct_recode()
    - fct_collapse()
    - fct_lump()
+
+Conviene separarlas en dos grupos, porque hacen cosas distintas:
+
+::: {.funcion}
+**Reordenar los niveles** (no cambian los datos, solo el orden en que se enseñan).
+
+- **`fct_reorder(f, y)`:** ordena los niveles de `f` según la mediana de `y`. Es la que más se usa: convierte una gráfica de barras alfabética en una gráfica que se lee sola.
+- **`fct_reorder2(f, x, y)`:** para gráficas de líneas, ordena la leyenda según el valor de `y` en el `x` más grande, es decir, según el orden en que las líneas terminan.
+- **`fct_infreq(f)`:** ordena por frecuencia, de la categoría más común a la menos común.
+- **`fct_rev(f)`:** invierte el orden actual.
+- **`fct_relevel(f, "algo")`:** mueve a mano uno o varios niveles al principio.
+:::
+
+::: {.funcion}
+**Agrupar o renombrar niveles** (estos **sí** cambian los datos).
+
+- **`fct_recode(f, nuevo = "viejo")`:** cambia el nombre de un nivel. Si varios niveles reciben el mismo nombre nuevo, quedan fundidos en uno.
+- **`fct_collapse(f, grupo = c("a", "b", "c"))`:** junta varios niveles en uno, y es más cómodo que `fct_recode()` cuando son muchos.
+- **`fct_lump_n(f, n = 5)`:** conserva los `n` niveles más frecuentes y mete todo lo demás en una categoría "otros". Útil cuando una variable tiene cuarenta categorías y treinta y cinco tienen dos observaciones cada una.
+:::
+
+::: {.advertencia}
+`fct_recode()`, `fct_collapse()` y `fct_lump_n()` **cambian los datos**, no solo
+su presentación. Agrupar categorías es una decisión de análisis, no de estética:
+di siempre en el texto del informe cuáles categorías juntaste y por qué.
+:::
+
+Un ejemplo de las tres últimas, con la religión de la encuesta:
+
+```{r c19-agrupar}
+encuesta |> 
+  mutate(religion_corta = fct_lump_n(religion, n = 5, other_level = "Otras")) |> 
+  count(religion_corta, sort = TRUE)
+```
+
+Y `fct_recode()`, que cambia el nombre de un nivel. Aquí le cambiamos el nombre al
+nivel `"Otras"` que acabamos de crear nosotros mismos:
+
+```{r c19-recode}
+encuesta |> 
+  mutate(
+    religion_corta = fct_lump_n(religion, n = 5, other_level = "Otras"),
+    religion_corta = fct_recode(religion_corta, "Otras religiones" = "Otras")
+  ) |> 
+  count(religion_corta, sort = TRUE)
+```
+
+::: {.advertencia}
+En `fct_recode()`, el nombre **nuevo** va a la izquierda del igual y el **viejo** a
+la derecha, que es al revés de lo que casi todo el mundo escribe la primera vez.
+Y si el nivel viejo no existe, no da error: da una advertencia (`Unknown levels
+in f`) y devuelve el factor sin tocar. Con `warning=FALSE` en las opciones del
+bloque, esa advertencia no se ve y uno se queda creyendo que renombró algo.
+Comprueba siempre con `levels()` después de renombrar.
+:::
+
+Y `fct_infreq()` con `fct_rev()`, que juntas son la receta habitual para una
+gráfica de barras horizontales bien ordenada:
+
+```{r c19-infreq}
+encuesta |> 
+  mutate(estado_civil = fct_rev(fct_infreq(estado_civil))) |> 
+  ggplot(aes(y = estado_civil)) +
+  geom_bar()
+```
 
 
 ```{r c19-18}
@@ -318,8 +491,17 @@ ggplot(resumen_religion, aes(edad, religion)) +
 min(encuesta$horas_tv, na.rm = TRUE)
 ```
 
+Esta primera gráfica está en orden alfabético inverso, que es el que traía el
+factor, y por eso los puntos parecen repartidos al azar. Compárala con la
+siguiente.
 
-### Nota el efecto de añadir un "-" antes de **edad** 
+
+### Nota el efecto de añadir un "-" antes de **edad**
+
+`fct_reorder(religion, edad)` ordena de menor a mayor; con el signo menos delante,
+`fct_reorder(religion, -edad)`, el orden se invierte. Es el truco más corto para
+darle la vuelta a una gráfica, y funciona solo con variables numéricas. Para
+cualquier otro caso está `fct_rev()`.
 
 ```{r c19-19}
 ggplot(resumen_religion, aes(edad, fct_reorder(religion, -edad))) +
@@ -335,9 +517,17 @@ resumen_religion %>%
 
 
 
-Reorder factor levels by sorting along another variable
-Description
-fct_reorder() is useful for 1d displays where the factor is mapped to position; fct_reorder2() for 2d displays where the factor is mapped to a non-position aesthetic. last2() and first2() are helpers for fct_reorder2(); last2() finds the last value of y when sorted by x; first2() finds the first value.
+### `fct_reorder()` y `fct_reorder2()`
+
+`fct_reorder()` sirve cuando el factor va en una **posición**, es decir, en uno de
+los dos ejes: es el caso de todas las gráficas de barras y de puntos de este
+capítulo.
+
+`fct_reorder2()` sirve cuando el factor va en un aspecto **que no es posición**,
+típicamente el color de una gráfica de líneas. Ordena la leyenda según el valor
+de `y` en el `x` más grande, o sea, según el orden en que las líneas terminan a
+la derecha. El resultado es que la leyenda y las líneas coinciden de arriba
+abajo, y el lector deja de tener que ir y venir entre las dos.
 
 
 ```{r c19-21}
@@ -357,9 +547,14 @@ ggplot(resumen_ingreso, aes(horas_tv, fct_reorder(ingreso, horas_tv))) +
 ```
 
 
-Reorder factor levels by hand
-Description
-This is a generalisation of stats::relevel() that allows you to move any number of levels to any location.
+### Reordenar a mano: `fct_relevel()`
+
+A veces el orden que uno quiere no sale de ningún cálculo. Un caso muy común:
+mover al final las categorías que no son categorías de verdad, como "No aplica",
+"No sé" o "Sin respuesta", para que no estorben en el medio de la gráfica.
+
+`fct_relevel()` es una generalización de `stats::relevel()` que permite mover
+cualquier número de niveles a cualquier posición.
 
 ```{r c19-22}
 ggplot(resumen_ingreso, aes(edad, fct_relevel(ingreso, "No aplica"))) +
@@ -367,9 +562,150 @@ ggplot(resumen_ingreso, aes(edad, fct_relevel(ingreso, "No aplica"))) +
 ```
 
 
-2.  **Ejercicios**:
+***
 
-Hacer los ejercicios en la sección 15.5.1 del libro en español
+## Ejercicios del libro R4DS
+
+Hacer los ejercicios de las secciones 15.3.1 y 15.5.1 del libro en español.
 
 *** 
 
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que la tabla o la gráfica se vean) y una
+**explicación en palabras**. Los ejercicios usan `millas` del paquete `datos`, no
+`encuesta`, que es el conjunto con el que se enseña aquí. La hoja completa para
+entregar está en `Ejercicios/Ejercicios_Capitulo_21_factores.Rmd`.
+:::
+
+### Ejercicio 1. Texto contra factor
+
+::: {.ejercicio}
+Datos: `millas`. Comprueba con `class()` que `clase` es texto. Haz una gráfica de
+barras. Después conviértela en factor con un orden que tenga sentido para ti (por
+ejemplo del vehículo más pequeño al más grande) y repite la gráfica.
+
+**Verificación:** `levels()` debe devolver 7 niveles en el orden que tú
+escogiste, y la gráfica debe seguir ese orden.
+
+**En palabras:** ¿en qué orden salían las barras antes? ¿Por qué ese orden no lo
+escogió nadie?
+:::
+
+```{r c19-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. `fct_reorder()` para que la gráfica hable
+
+::: {.ejercicio}
+Datos: `millas`. Haz un diagrama de puntos del consumo mediano en `autopista`
+para cada `clase`, primero sin ordenar y después con
+`fct_reorder(clase, autopista)`.
+
+**Verificación:** en la versión ordenada, `pickup` debe quedar en un extremo y
+`compact` o `subcompact` en el otro.
+
+**En palabras:** las dos gráficas tienen exactamente los mismos datos. ¿Qué se ve
+en la segunda que no se veía en la primera? ¿Por qué el orden alfabético es casi
+siempre el peor de los órdenes posibles?
+:::
+
+```{r c19-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Ordenar por frecuencia
+
+::: {.ejercicio}
+Datos: `millas`, variable `fabricante`. Haz una gráfica de barras **horizontales**
+usando `fct_infreq()` y `fct_rev()`.
+
+**Verificación:** la barra más larga tiene que quedar arriba del todo.
+
+**En palabras:** prueba a quitar `fct_rev()` y mira qué pasa. Explica por qué en
+barras horizontales hace falta y en barras verticales no.
+:::
+
+```{r c19-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Cuando hay demasiadas categorías
+
+::: {.ejercicio}
+Datos: `millas`. Averigua cuántos fabricantes distintos hay. Después usa
+`fct_lump_n()` para quedarte con los 5 más frecuentes y meter el resto en una
+categoría llamada `"Otros"`.
+
+**Verificación:** el factor nuevo debe tener exactamente **6** niveles, y la suma
+de los conteos debe seguir dando 234.
+
+**En palabras:** ¿cuántos vehículos acabaron en `"Otros"`? Esta función **cambia
+los datos**, no solo la gráfica. ¿En qué situación sería deshonesto usarla sin
+decirlo?
+:::
+
+```{r c19-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Agrupar a mano
+
+::: {.ejercicio}
+Datos: `millas`. Con `fct_collapse()`, agrupa las siete clases en dos categorías
+que tengan sentido para ti (por ejemplo vehículos grandes y vehículos pequeños).
+Después compara el consumo en autopista entre los dos grupos.
+
+**Verificación:** el factor nuevo tiene 2 niveles y la suma de los conteos sigue
+dando 234.
+
+**En palabras:** justifica tu agrupación. ¿Qué información se perdió al pasar de
+siete categorías a dos? ¿Habrías llegado a la misma conclusión con las siete?
+:::
+
+```{r c19-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. El nivel que sigue ahí aunque no haya datos
+
+::: {.ejercicio}
+Convierte `clase` en factor. Filtra fuera todos los `2seater`. Después mira
+`levels()`, `count(clase)` y `count(clase, .drop = FALSE)`.
+
+**Verificación:** `levels()` sigue devolviendo **7** niveles, `count()` devuelve
+**6** filas, y `count(clase, .drop = FALSE)` devuelve **7**, la última con un
+cero. Con `fct_drop()`, `levels()` baja a 6.
+
+**En palabras:** las tres respuestas son distintas y las tres son correctas.
+Explica cuándo querrías ver el cero y cuándo no. Piensa en una especie que
+buscaste en el campo y no encontraste.
+:::
+
+```{r c19-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). La errata que se convierte en `NA`
+
+::: {.ejercicio}
+Haz una copia de `millas` y cámbiale a mano la clase de tres vehículos a
+`"compacto"` (en español, que no es un nivel válido). Conviértela en factor de
+dos maneras: con `factor(..., levels = ...)` usando las siete clases correctas, y
+con `parse_factor()`.
+
+**Verificación:** las dos producen exactamente 3 `NA`, pero solo una de ellas
+te avisa.
+
+**En palabras:** copia la advertencia de `parse_factor()`. Si esto pasara en una
+columna de 5000 filas de datos de campo, ¿cuál de las dos funciones querrías
+haber usado, y qué línea correrías después para estar seguro?
+:::
+
+```{r c19-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

@@ -21,7 +21,11 @@ Sys.Date()
   - La familia `map()` de `purrr`
   - Fórmulas anónimas con `~` y `.x`
   - Iterar sobre dos listas con `map2()`
+  - `across()`: iterar sobre columnas dentro de `dplyr`
+  - `walk()`: iterar para hacer algo, no para calcular
+  - `safely()`: cuando alguna vuelta puede fallar
   - Un modelo por grupo
+  - Cuándo un `for` sigue siendo mejor
 
 `purrr` es parte de `tidyverse`, así que se activa con `library(tidyverse)`.
 
@@ -86,7 +90,7 @@ La idea de **`map`** (aplicar una función a cada elemento) viene de la programa
 :::
 
 ::: {.funcion}
-**La familia `map()` (purrr)** — aplicar una función a cada elemento.
+**La familia `map()` (purrr)**: aplicar una función a cada elemento.
 
 - **`map(x, f)`:** aplica `f` a cada elemento y devuelve una **lista**.
 - **Variantes por tipo:** `map_dbl()`, `map_int()`, `map_chr()`, `map_lgl()` devuelven un vector del tipo indicado.
@@ -101,6 +105,18 @@ elemento**, y devuelven un resultado. Hay una versión por tipo de salida:
   - `map_int()` devuelve un vector de **enteros**
   - `map_chr()` devuelve un vector de **texto**
   - `map_lgl()` devuelve un vector **lógico**
+
+Esa lista de variantes no es un capricho. La diferencia importante es que
+`map_dbl()` **comprueba el tipo**: si alguna vuelta devuelve algo que no es un
+número, se detiene con un error. `map()` no comprueba nada y te devuelve una lista
+con cosas de tipos distintos, que descubres tres pasos después.
+
+::: {.consejo}
+Usa siempre la variante **más específica** que puedas: `map_dbl()` si esperas
+números, `map_chr()` si esperas texto. El error inmediato vale mucho más que una
+lista rara. Deja `map()` a secas para cuando cada vuelta devuelve algo complejo,
+como un modelo o un data frame.
+:::
 
 ```{r c33-5}
 map_dbl(df, median)   # la mediana de cada columna, en una sola línea
@@ -152,6 +168,118 @@ map2(medias, desv, ~ rnorm(5, mean = .x, sd = .y))
 
 ***
 
+## `across()`: iterar sobre columnas dentro de `dplyr`
+
+Para el caso concreto de "hacerle lo mismo a varias columnas de una tabla",
+`dplyr` tiene su propia herramienta y suele ser la mejor opción, porque el
+resultado sale como tabla y encaja con `group_by()`.
+
+::: {.funcion}
+**`across()`** (dplyr): aplicar una función a varias columnas dentro de `mutate()` o `summarise()`.
+
+- **`summarise(across(where(is.numeric), mean))`:** el promedio de todas las columnas numéricas.
+- **`across(c(a, b), ~ .x / 100)`:** columnas escogidas a mano, con una fórmula anónima.
+- **Varias funciones a la vez:** `across(where(is.numeric), list(media = mean, sd = sd))`.
+- **Con `group_by()`:** funciona por grupo, que es lo que casi nunca es cómodo hacer con `map()`.
+:::
+
+```{r c33-across}
+millas |> 
+  summarise(across(where(is.numeric), \(x) mean(x, na.rm = TRUE)))
+
+millas |> 
+  group_by(clase) |> 
+  summarise(across(c(ciudad, autopista), \(x) mean(x, na.rm = TRUE)))
+```
+
+::: {.nota}
+`\(x) mean(x)` es la manera moderna de escribir una función anónima en R, desde
+la versión 4.1. Es lo mismo que `function(x) mean(x)`, solo que más corto. En
+`purrr` también se puede usar `~ mean(.x)`; las tres formas conviven y vas a
+encontrarte las tres en código ajeno.
+:::
+
+La regla para escoger: **`across()` cuando trabajas dentro de una tabla**, y
+**`map()` cuando trabajas con una lista de cosas** que no son columnas, como una
+lista de modelos, de archivos o de gráficas.
+
+***
+
+## `walk()`: iterar para hacer algo
+
+A veces no quieres un resultado: quieres que pase algo. Guardar diez archivos,
+imprimir diez gráficas, escribir diez mensajes. Para eso está `walk()`, que hace
+exactamente lo mismo que `map()` pero **descarta el resultado** y devuelve la
+entrada sin cambios.
+
+```{r c33-walk, eval=FALSE}
+nombres <- c("compact", "suv", "pickup")
+
+walk(nombres, \(cl) {
+  millas |> 
+    filter(clase == cl) |> 
+    write_csv(paste0("Datos/millas_", cl, ".csv"))
+})
+```
+
+::: {.consejo}
+Si usaras `map()` para eso, funcionaría igual pero además te imprimiría en la
+consola una lista con los tres data frames enteros, que no le interesan a nadie.
+`walk()` existe para decir "esto es por el efecto, no por el valor".
+:::
+
+***
+
+## `safely()`: cuando alguna vuelta puede fallar
+
+Un `map()` sobre cuarenta grupos se detiene entero si **uno solo** falla, y no te
+dice cuál. `safely()` envuelve una función para que en vez de fallar devuelva una
+lista con dos partes: `result` y `error`. Una de las dos siempre es `NULL`.
+
+::: {.funcion}
+**`safely()`, `possibly()` y `quietly()`** (purrr): iterar sin que un fallo lo pare todo.
+
+- **`safely(f)`:** devuelve `list(result = ..., error = ...)` en cada vuelta. La que falló trae el error y `result = NULL`.
+- **`possibly(f, otherwise = NA)`:** más simple, devuelve el valor que le digas cuando falla.
+- **`quietly(f)`:** captura también los mensajes y las advertencias, en vez de dejarlos salir por la consola.
+:::
+
+```{r c33-safely}
+promedio_exigente <- function(x) {
+  if (nrow(x) < 10) stop("muy pocos datos")
+  mean(x$autopista)
+}
+
+resultados <- millas |> 
+  split(millas$clase) |> 
+  purrr::map(safely(promedio_exigente))
+
+# ¿cuáles fallaron?
+resultados |> purrr::map("error") |> compact() |> names()
+
+# los que sí salieron
+resultados |> purrr::map("result") |> compact() |> unlist()
+```
+
+::: {.advertencia}
+Fíjate en que aquí se escribe `purrr::map()` y no `map()` a secas. En el capítulo
+de datos relacionados se activó el paquete `maps` (el de los mapas del mundo), y
+ese paquete **también** tiene una función llamada `map()`. Como se activó después,
+la suya tapa a la de `purrr` en todo lo que viene a continuación del libro, y una
+llamada a `map()` sin apellido acaba en un error rarísimo sobre bases de datos
+geográficas.
+
+Es exactamente el enmascaramiento del que avisa `library()` con su mensaje "The
+following object is masked from...", el mismo del capítulo de opciones de knitr.
+La solución es la de siempre: poner el apellido del paquete con `::`.
+:::
+
+`compact()` quita los `NULL` de una lista, así que las dos líneas de arriba
+separan lo que funcionó de lo que no. Es el patrón estándar para procesar muchos
+archivos o muchos grupos sabiendo de antemano que alguno va a dar problemas.
+
+***
+
 ## Un modelo por grupo
 
 Un uso poderoso es ajustar **un modelo por grupo**. Aquí ajustamos una regresión
@@ -173,24 +301,180 @@ modelos %>%
   head()
 ```
 
-Este patrón —dividir, aplicar un modelo a cada parte, y resumir— es la base del
+Este patrón (dividir, aplicar un modelo a cada parte, y resumir) es la base del
 tema de *muchos modelos* con `purrr` y `broom`.
 
-***
-
-1.  **Ejercicios**:
-
-Hacer los ejercicios en la sección 21.5 del libro en español.
-
-***
-
-2.  **Ejercicios**:
-
-Usa `map_dbl()` para calcular el número de valores únicos (`n_distinct()`) en cada
-columna del data frame `diamantes`.
+::: {.advertencia}
+`map_dbl("r.squared")` funciona porque, cuando en vez de una función le pasas un
+**texto**, `map()` lo entiende como "sácame ese elemento de cada uno". Es un atajo
+muy usado y algo críptico la primera vez que se ve. Lo mismo con un número:
+`map_dbl(lista, 1)` saca el primer elemento de cada uno.
+:::
 
 ***
 
-3.  **Ejercicios**:
+## Cuándo un `for` sigue siendo mejor
 
-Hacer los ejercicios en la sección 21.9 del libro en español.
+`map()` no sustituye al `for` en todos los casos. El bucle sigue siendo la
+herramienta correcta cuando:
+
+- **cada vuelta depende de la anterior**, como en una simulación de crecimiento
+  poblacional donde el año siguiente se calcula a partir del actual. `map()` supone
+  que las vueltas son independientes;
+- **no hay nada que devolver y el código es largo**, aunque para eso normalmente
+  `walk()` queda más claro;
+- **estás depurando**: dentro de un `for` puedes parar en la vuelta 17 y mirar el
+  estado de todo. Dentro de un `map()` eso es bastante más incómodo.
+
+Y al revés: en cuanto haya que **guardar un resultado por vuelta**, `map()` gana,
+porque se ocupa solo de crear el vector de salida del tamaño y el tipo correctos,
+que es justo la parte del `for` donde se cometen los errores.
+
+***
+
+## Ejercicios del libro R4DS
+
+Hacer los ejercicios de las secciones 21.5 y 21.9 del libro en español.
+
+***
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los ejercicios usan `millas` y `paises` del paquete `datos`, no el
+`df` de números al azar, `vuelos` ni `diamantes`, que son los del capítulo. La hoja
+completa para entregar está en `Ejercicios/Ejercicios_Capitulo_27_iteracion.Rmd`.
+:::
+
+### Ejercicio 1. Del `for` al `map()`
+
+::: {.ejercicio}
+Escribe un bucle `for` que calcule el promedio de cada columna **numérica** de
+`millas`, creando el vector de salida con su tamaño final antes del bucle. Después
+escribe la misma cosa con `map_dbl()`, en una línea.
+
+**Verificación:** `millas` tiene **5** columnas numéricas, y los dos caminos tienen
+que dar exactamente los mismos cinco números.
+
+**En palabras:** cuenta cuántas líneas ocupa cada versión. ¿Cuál de las partes del
+`for` desapareció al usar `map_dbl()`, y por qué esa parte era justamente la que
+más errores causa?
+:::
+
+```{r c33-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. El tipo importa
+
+::: {.ejercicio}
+Cuenta los valores distintos de **todas** las columnas de `millas` con
+`n_distinct()`, de tres maneras: con `map_dbl()`, con `map_chr()` y con `map()` a
+secas. Pon el que falle en un bloque con `error=TRUE`.
+
+**Verificación:** una de las tres da error y las otras dos funcionan, pero
+devuelven cosas de **clase distinta**. Compruébalo con `class()`.
+
+**En palabras:** ¿por qué falla la que falla? ¿Cuál de las tres usarías y por qué?
+Relaciónalo con la idea de que un error inmediato vale más que un resultado raro.
+:::
+
+```{r c33-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Fórmulas anónimas
+
+::: {.ejercicio}
+Con `millas`, usa `map_int()` y una fórmula anónima con `~` y `.x` para contar,
+en cada columna, cuántos valores distintos hay. Después usa `map_lgl()` para saber
+cuáles columnas son numéricas.
+
+**Verificación:** `map_lgl(millas, is.numeric)` tiene que dar **5** `TRUE`, y
+`clase` tiene que salir con **7** valores distintos.
+
+**En palabras:** escribe la misma fórmula anónima de las tres maneras que existen:
+con `~ .x`, con `\(x)` y con `function(x)`. ¿Cuál prefieres y por qué?
+:::
+
+```{r c33-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Un modelo por grupo
+
+::: {.ejercicio}
+Divide `millas` por `clase` con `split()` y ajusta, para cada clase, una regresión
+de `autopista` contra `cilindrada`. Saca después el $R^2$ de cada una.
+
+**Verificación:** tienen que salir **7** modelos y 7 valores de $R^2$, todos entre
+0 y 1.
+
+**En palabras:** ¿en cuál clase explica mejor la cilindrada el consumo, y en cuál
+peor? Mira cuántos vehículos tiene cada clase antes de sacar conclusiones: ¿te
+fías igual del $R^2$ de una clase con 5 vehículos que del de una con 62?
+:::
+
+```{r c33-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. `across()`, la alternativa dentro de la tabla
+
+::: {.ejercicio}
+Consigue el resultado del Ejercicio 1 otra vez, pero ahora con `across()` dentro
+de `summarise()`. Después hazlo **por clase**, con `group_by()`.
+
+**Verificación:** la primera versión da una tabla de 1 fila y 5 columnas; la
+segunda, una de 7 filas.
+
+**En palabras:** compara la salida de `map_dbl()` con la de `across()`. ¿Qué te da
+una que no te da la otra? ¿Cuál de las dos podrías haber usado para hacer la
+versión por clase, y cuál no sin complicarte mucho?
+:::
+
+```{r c33-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Cuando una vuelta falla
+
+::: {.ejercicio}
+Escribe una función que calcule el promedio de `autopista` de un grupo pero que
+**dé error** si el grupo tiene menos de 10 filas. Aplícala a los grupos de `clase`
+de dos maneras: con `map()` a secas, en un bloque con `error=TRUE`, y con
+`safely()`.
+
+**Verificación:** con `map()` a secas se detiene todo y no obtienes ningún
+resultado. Con `safely()` obtienes los resultados de las clases que sí tenían
+suficientes filas, y una lista con los nombres de las que fallaron.
+
+**En palabras:** ¿cuál clase fue la culpable? ¿Por qué `safely()` es
+imprescindible cuando procesas cien archivos y no sabes si alguno está corrupto?
+:::
+
+```{r c33-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). `walk()` y `map2()`
+
+::: {.ejercicio}
+Con `walk()`, guarda un archivo `.csv` por cada `clase` de `millas` dentro de una
+carpeta `Datos/por_clase/`, con el nombre de la clase en el nombre del archivo.
+
+Después usa `map2()` para hacer lo mismo pasando dos listas en paralelo: la de
+tablas y la de nombres de archivo.
+
+**Verificación:** tienen que quedar **7** archivos en la carpeta. Compruébalo con
+`list.files()`.
+
+**En palabras:** ¿qué habría pasado si hubieras usado `map()` en vez de `walk()`?
+Pruébalo. ¿Por qué existe `walk()` si `map()` hace lo mismo?
+:::
+
+```{r c33-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

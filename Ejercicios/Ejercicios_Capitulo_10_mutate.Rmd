@@ -1,0 +1,238 @@
+---
+title: "Ejercicios del Capítulo 10"
+subtitle: "Transformación: mutate(), transmute(), lag(), lead() y funciones acumuladas"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 10 del libro del curso.
+
+Este documento es tu entrega. Escribe tu propio código: el código de los ejemplos del capítulo te sirve de modelo, pero copiar y pegar no enseña. Los ejercicios usan conjuntos de datos **distintos** a los de los ejemplos del capítulo (`millas` y `clima` del paquete `datos`).
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra y produzca la tabla o la gráfica.
+3. **Una explicación en palabras** de lo que encontraste, en el espacio marcado. Una tabla sola no contesta la pregunta.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*. Si el documento no compila, no se puede corregir.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | `mutate()`: crear variables nuevas | 5 |
+| 2 | Unidades y conversiones | 5 |
+| 3 | `transmute()` frente a `mutate()` | 5 |
+| 4 | `lag()` con datos de clima | 5 |
+| 5 | `lead()`: mirar hacia adelante | 5 |
+| 6 | `cumsum()` y los `NA` | 5 |
+| 7 | Promedio y varianza acumulados | 5 |
+| 8 | `if_else()` para clasificar | 5 |
+| **Total** | | **40** |
+| 9 (bono) | `group_by()` con `lag()` | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre y se muestra (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+# Para el Ejercicio 7 también vas a necesitar:
+# library(TidyDensity)
+```
+
+---
+
+# Ejercicio 1. Crear variables nuevas con `mutate()` (5 puntos)
+
+Usa el conjunto de datos **`millas`** del paquete `datos` (NO `vuelos`). Empieza con `names(millas)` y `head(millas)` para ver qué variables tienes.
+
+1. Crea dos variables nuevas: `promedio_millas`, el promedio del rendimiento en `ciudad` y en `autopista`, y `diferencia`, cuánto más rinde el vehículo en `autopista` que en `ciudad`.
+2. ¿Cuál `clase` de vehículo tiene la mayor `diferencia` promedio? Contesta en palabras, no solamente con la tabla.
+
+*Verifica:* tu tabla debe conservar todas las columnas originales de `millas` más las dos nuevas.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. Cuidado con las unidades (5 puntos)
+
+En `millas` el rendimiento está en millas por galón. Crea la variable `km_por_litro` multiplicando `autopista` por 0.425144.
+
+1. ¿Cuál `fabricante` tiene el promedio más alto de `km_por_litro`?
+2. ¿Cambia la respuesta si haces lo mismo con `ciudad` en vez de `autopista`? ¿Por qué crees que pasa eso?
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. `transmute()` no es lo mismo que `mutate()` (5 puntos)
+
+Con `millas`, crea la variable `razon = autopista / ciudad` de dos maneras: primero con `transmute()` y después con `mutate()`.
+
+1. ¿Cuántas columnas tiene cada resultado?
+2. Explica en una oración cuándo te conviene usar cada una.
+3. ¿Qué significa mecánicamente que `razon` sea mayor que 1?
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. `lag()` con datos de clima (5 puntos)
+
+Usa el conjunto de datos **`clima`** del paquete `datos`: son mediciones por hora de tres aeropuertos de Nueva York. Mira primero `names(clima)`.
+
+1. Filtra las filas de `origen == "EWR"` del mes de enero (`mes == 1`) y **ordena por `fecha_hora`** (¿por qué es indispensable ordenar antes?).
+2. Crea `cambio_temp`: cuánto cambió la `temperatura` respecto a la hora anterior.
+3. ¿Por qué la primera fila tiene `NA`?
+4. ¿En qué hora ocurrió el mayor aumento de temperatura de una hora a la otra?
+
+*Verifica:* `cambio_temp` debe tener exactamente un `NA`, y debe estar en la primera fila.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. `lead()`, mirar hacia adelante (5 puntos)
+
+Con el mismo subconjunto de `clima` (EWR, enero, ordenado por `fecha_hora`):
+
+1. Crea `humedad_en_3h`, el valor de `humedad` tres horas más adelante.
+2. Crea `cambio_humedad`, la diferencia entre ese valor futuro y el actual.
+3. ¿Cuántos `NA` aparecen y en cuál extremo de la tabla están? Explica por qué, comparando con lo que pasó en el ejercicio anterior con `lag()`.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. `cumsum()` con la lluvia (5 puntos)
+
+Sigue con `clima`, origen EWR, mes de enero, ordenado por `fecha_hora`.
+
+1. Calcula la lluvia acumulada del mes con `cumsum(precipitacion)`.
+2. ¿Qué le pasa a la suma acumulada si hay un `NA` en `precipitacion`? Arréglalo con `replace_na()` y explica qué supuesto estás haciendo al sustituir por 0.
+3. Grafica la lluvia acumulada contra `fecha_hora` y describe en palabras la forma de la curva: ¿llovió parejo todo el mes o en pocos eventos?
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7. ¿Cuántas observaciones son suficientes? (5 puntos)
+
+Este es el uso del ejemplo del capítulo, pero con datos reales. Toma las primeras 300 filas de `temperatura` de EWR en enero (ordenadas por `fecha_hora`). Vas a necesitar `cmean()` y `cvar()` del paquete `TidyDensity`.
+
+1. Añade una columna `orden` con el número de fila (`row_number()`).
+2. Calcula el promedio acumulado y la varianza acumulada de `temperatura`.
+3. Grafica cada uno contra `orden`.
+4. Según tus gráficas, ¿a partir de cuántas observaciones se estabiliza el promedio? ¿Y la varianza? ¿Cuál de las dos necesita más datos?
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 8. `if_else()` para clasificar (5 puntos)
+
+Regresa a `millas`.
+
+1. Crea `eficiencia` con dos categorías: "eficiente" si `autopista` es 30 o más, y "no eficiente" en los demás casos.
+2. Ahora hazlo con tres categorías usando `if_else()` anidado: "bajo" (menos de 20), "medio" (20 a 29) y "alto" (30 o más).
+3. Cuenta cuántos vehículos hay en cada categoría por `clase`. ¿Alguna clase es toda de una sola categoría?
+
+```{r ej8}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 9 (BONO). Combinar `group_by()` con `lag()` (5 puntos adicionales)
+
+Este ejercicio es opcional y vale 5 puntos de bono sobre los 40 puntos regulares.
+
+Con `clima` completo (los tres aeropuertos, todo el año):
+
+1. Calcula la temperatura promedio **por origen y por día**.
+2. Para cada origen por separado, calcula el cambio respecto al día anterior. Ojo: tienes que agrupar por `origen` **antes** de usar `lag()`, o el último día de un aeropuerto se va a restar con el primer día del siguiente.
+3. ¿Cuántos días de cada aeropuerto fueron más calientes que el día anterior?
+4. Enseña con una gráfica o con una tabla por qué el paso 2 estaría mal si no agrupas primero.
+
+```{r ej9}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+**Antes de entregar:** haz *Knit* al documento completo y confirma que corre de principio a fin sin errores.

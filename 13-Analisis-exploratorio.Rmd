@@ -23,6 +23,7 @@ Español:
 ## Temas
 
  - Variación
+ - Valores típicos y valores inusuales
  - Valores faltantes
  - Covariación
  - Patrones y modelos
@@ -30,119 +31,555 @@ Español:
  
 ***
 
+## Paquetes
+
+```{r c13-paquetes}
+library(tidyverse)
+library(datos)
+```
+
+***
 
 ## Términos importantes
-  
-  - variable
-  - valor
-  - observación
-  - datos tabulados
-  
-  
+
+Antes de empezar conviene tener claros cuatro términos, porque todo el capítulo
+los usa:
+
+- una **variable** es una cantidad, cualidad o propiedad que se puede medir
+  (el quilate de un diamante, su color);
+- un **valor** es el estado de esa variable cuando se mide (0.23 quilates,
+  el color E);
+- una **observación** es el conjunto de valores medidos en la misma unidad y en
+  las mismas condiciones (un diamante, con todas sus medidas);
+- en **datos tabulados** cada valor ocupa su propia celda, cada variable su
+  propia columna y cada observación su propia fila.
+
 ***
-  
-### Variación
+
+## ¿Qué es el análisis exploratorio?
+
+El análisis exploratorio de datos, o EDA por sus siglas en inglés, no es una
+receta con pasos fijos: es un **ciclo de preguntas**. Uno se hace una pregunta
+sobre los datos, la contesta con un resumen o con una gráfica rápida, y lo que
+encuentra sugiere la próxima pregunta. Al principio las preguntas son malas,
+porque todavía no se conocen los datos; después de veinte preguntas malas
+aparecen las dos o tres buenas, que son las que valen.
+
+Casi todas las preguntas del EDA se reducen a dos:
+
+1. ¿Qué tipo de **variación** hay dentro de cada una de mis variables?
+2. ¿Qué tipo de **covariación** hay entre mis variables?
+
+Las gráficas de esta etapa son rápidas y feas a propósito. No son para publicar,
+son para mirar. La gráfica bonita, con títulos y colores escogidos, viene
+después, cuando ya se sabe qué se quiere enseñar.
 
 ::: {.historia}
 El **análisis exploratorio de datos** (EDA) fue impulsado por **John W. Tukey**, quien publicó el libro *Exploratory Data Analysis* en 1977. Su idea: antes de probar hipótesis, hay que **mirar** los datos con gráficos sencillos para descubrir patrones, valores típicos y atípicos.
 :::
 
 ::: {.funcion}
-**`count()` y los `geom_*` de exploración** — resumir y visualizar.
+**`count()` y los `geom_*` de exploración**: resumir y visualizar.
 
 - **`count(variable)`:** cuenta cuántas observaciones hay por categoría.
 - **Una variable:** `geom_histogram()` / `geom_bar()` para ver su distribución.
 - **Dos variables:** `geom_point()`, `geom_boxplot()`, `geom_count()`, `geom_tile()`, `geom_hex()` según los tipos.
 :::
 
- - visualización de las distribuciones
- - count()
- - cut_width()
- - valores típicos
- - valores inusuales o atípicos
+***
+  
+## Variación
 
- 
+La **variación** es la tendencia de una variable a cambiar de medición en
+medición. Todo varía: si mides el mismo diamante dos veces con la misma balanza
+obtendrás números ligeramente distintos, y si mides diamantes distintos las
+diferencias serán mucho mayores. La forma de esa variación, es decir, cómo se
+reparten los valores, es lo primero que hay que mirar.
+
+### Una variable categórica
+
+Con una variable categórica la pregunta es sencilla: ¿cuántas observaciones hay
+en cada categoría? Se contesta de dos maneras, con una tabla y con una gráfica,
+y conviene hacer las dos porque dicen cosas distintas.
+
+```{r c13-2}
+diamantes |> count(corte)
+
+ggplot(diamantes, aes(x = corte)) +
+  geom_bar()
+```
+
+Ya aparece algo que no era obvio: el corte `Ideal`, que es el mejor, es también
+el **más común**. Esa es exactamente la clase de observación que abre una
+pregunta nueva.
+
+### Una variable continua
+
+Con una variable continua hay que agrupar los valores en intervalos antes de
+contarlos, y el ancho del intervalo (`binwidth`) cambia por completo lo que se
+ve. No hay un ancho correcto: hay que probar varios.
+
+```{r c13-3}
+ggplot(diamantes, aes(x = quilate)) +
+  geom_histogram(binwidth = 0.5)
+```
+
+Con intervalos de medio quilate se ve una distribución sesgada hacia la derecha
+y poco más. Vale la pena mirar de cerca los diamantes pequeños, que son la
+inmensa mayoría, con un intervalo mucho más fino:
+
+```{r c13-4}
+pequenos <- diamantes |> filter(quilate < 3)
+
+ggplot(pequenos, aes(x = quilate)) +
+  geom_histogram(binwidth = 0.01)
+```
+
+Ahora la gráfica cuenta otra historia: hay **picos** en los valores redondos
+(0.3, 0.5, 0.7, 1.0 quilates) y muy pocos diamantes justo por debajo de cada uno.
+Eso no es biología ni geología, es mercado: conviene cortar la piedra para que
+llegue al número redondo. Con `binwidth = 0.5` ese patrón era invisible.
+
+::: {.consejo}
+Nunca te quedes con el primer histograma. Cambia el `binwidth` al menos tres
+veces. Un intervalo muy ancho esconde los patrones; uno muy fino los ahoga en
+ruido.
+:::
+
+::: {.funcion}
+**`count()` y `cut_width()`**: contar por categoría y por intervalo.
+
+- **`count(x)`:** tabla de frecuencias de una variable categórica; `count(x, y)` la hace para las combinaciones de dos.
+- **`cut_width(x, ancho)`:** (ggplot2) corta una variable continua en intervalos del mismo ancho y devuelve una variable categórica.
+- **Juntas:** `count(cut_width(quilate, 0.5))` es la versión en tabla de lo que el histograma enseña en gráfica.
+:::
+
+```{r c13-5}
+diamantes |> count(cut_width(quilate, 0.5))
+```
+
+### Valores típicos
+
+Frente a un histograma, las preguntas útiles son siempre las mismas:
+
+- ¿cuáles valores son los más comunes, y por qué?
+- ¿cuáles son raros, y eso encaja con lo que esperabas?
+- ¿hay patrones raros, como picos regulares o huecos?
+- si hay **grupos separados**, ¿en qué se distinguen las observaciones de cada
+  grupo?
+
+Un hueco en un histograma casi siempre significa una de dos cosas: o hay
+subpoblaciones distintas mezcladas en la misma tabla, o el instrumento de
+medición no puede producir esos valores.
+
+### Valores inusuales
+
+Los valores extremos a veces son errores de tecleo y a veces son el hallazgo del
+estudio. En un histograma con muchas observaciones son difíciles de ver, porque
+las barras que los contienen tienen altura casi cero:
+
+```{r c13-6}
+ggplot(diamantes, aes(x = tabla)) +
+  geom_histogram(binwidth = 1)
+```
+
+La solución no es cambiar los datos sino **acercar la vista** al eje vertical:
+
+```{r c13-7}
+ggplot(diamantes, aes(x = tabla)) +
+  geom_histogram(binwidth = 1) +
+  coord_cartesian(ylim = c(0, 50))
+```
+
+Ahora sí se ven las barras diminutas de los extremos. El paso siguiente es
+siempre mirar esas observaciones una por una:
+
+```{r c13-8}
+inusuales <- diamantes |> 
+  filter(tabla < 50 | tabla > 70) |> 
+  select(precio, quilate, corte, tabla) |> 
+  arrange(tabla)
+
+inusuales
+```
+
+::: {.funcion}
+**`coord_cartesian()`**: acercar la vista sin tocar los datos.
+
+- **`ylim = c(0, 50)`:** recorta lo que se **muestra** en el eje vertical.
+- **Diferencia con `ylim()` o `scale_y_continuous(limits = ...)`:** esas dos **eliminan** las observaciones que quedan fuera antes de calcular la gráfica, y por eso pueden cambiar el resultado; `coord_cartesian()` solo mueve la ventana.
+:::
+
+::: {.advertencia}
+No borres un valor inusual porque estorba. Primero averigua **por qué** es
+inusual. Si es un error de captura documentado, se sustituye por `NA`; si no
+sabes qué es, se reportan los dos análisis, con y sin él, y se dice en el texto
+lo que cambia.
+:::
+
 ***
 
-1.  **Ejercicios**:
+## Valores faltantes
 
+Cuando decides que un valor no es de fiar, tienes dos caminos. El primero es
+descartar la fila entera con `filter()`, y casi nunca es buena idea: por un
+valor sospechoso pierdes todas las demás medidas de esa observación. El segundo,
+mejor, es sustituir **solo ese valor** por `NA` y quedarte con el resto de la
+fila.
 
-Hacer los ejercicios en la sección 7.3.4 del libro en español
+::: {.funcion}
+**`between()` e `if_else()`**: marcar valores fuera de rango.
 
-***
- 
- 
-### Valores faltantes
+- **`between(x, min, max)`:** devuelve `TRUE` si el valor está dentro del intervalo, límites incluidos. Es más corto y más legible que `x >= min & x <= max`.
+- **`if_else(condicion, valor_si, valor_no)`:** escoge entre dos valores. A diferencia de `ifelse()` de base R, respeta el tipo de dato, y por eso hay que escribir `NA_real_` (no `NA`) cuando la columna es numérica.
+:::
 
- - between()
- - ifelse()
- 
+```{r c13-9}
+diamantes2 <- diamantes |> 
+  mutate(tabla = if_else(between(tabla, 50, 70), tabla, NA_real_))
 
-***
-
-2.  **Ejercicios**:
-
-
-Hacer los ejercicios en la sección 7.4.1 del libro en español
+sum(is.na(diamantes2$tabla))
+```
 
 ::: {.nota}
 En R los valores faltantes se representan con `NA`. Funciones como `mean()` o `sum()` los propagan y devuelven `NA`, por eso conviene usar el argumento `na.rm = TRUE`.
 :::
 
-***
+```{r c13-10}
+mean(diamantes2$tabla)
+mean(diamantes2$tabla, na.rm = TRUE)
+```
 
-### Covariación
+Hay una pregunta que casi nadie se hace y que suele ser la más interesante:
+**¿en qué se diferencian las observaciones que tienen el dato de las que no lo
+tienen?** En `vuelos`, por ejemplo, un `NA` en el atraso de salida no es ruido:
+significa que el vuelo se canceló.
 
+```{r c13-11}
+vuelos |> 
+  mutate(cancelado = is.na(atraso_salida)) |> 
+  count(cancelado)
+```
 
- - geom_boxplot
- - IQR()
- 
-***
- 
-2.  **Ejercicios**:
-
-
-Hacer los ejercicios en la sección 7.5.1.1 del libro en español
-
- 
-
-
-***
-
-### Dos variables categóricas
-
- - geom_count()
- - geom_tile()
- 
-
-*** 
- 
-2.  **Ejercicios**:
-
-
-Hacer los ejercicios en la sección 7.5.2.1 del libro en español
+::: {.historia}
+La idea de que **el patrón de los datos que faltan es en sí mismo un dato** se
+formalizó con **Donald B. Rubin** en 1976, en el artículo *Inference and missing
+data*. De ahí vienen los términos que todavía se usan: faltantes completamente al
+azar, faltantes al azar y faltantes no al azar. La diferencia importa: solo en el
+primer caso quitar los `NA` deja el análisis intacto.
+:::
 
 ***
 
-### Dos variables continuas
+## Covariación: una variable categórica y una continua
 
+La **covariación** es la tendencia de dos o más variables a cambiar juntas. Con
+una variable categórica y una continua, la primera idea es superponer las
+distribuciones:
 
- - geom_point()
- - geom_hex()
- - geom_boxplot()
- 
-*** 
- 
-3.  **Ejercicios**:
+```{r c13-12}
+ggplot(diamantes, aes(x = precio)) +
+  geom_freqpoly(aes(color = corte), binwidth = 500)
+```
 
+Esta gráfica no sirve de mucho, y vale la pena entender por qué: las categorías
+tienen tamaños muy distintos, así que las curvas altas son simplemente las
+categorías con más diamantes. Para comparar **formas** hay que poner las curvas
+en la misma escala, con la densidad en lugar del conteo:
 
-Hacer los ejercicios en la sección 7.5.3.1 del libro en español
+```{r c13-13}
+ggplot(diamantes, aes(x = precio, y = after_stat(density))) +
+  geom_freqpoly(aes(color = corte), binwidth = 500)
+```
+
+Aun así, cinco curvas encimadas se leen mal. El diagrama de caja dice lo mismo
+de forma mucho más compacta:
+
+```{r c13-14}
+ggplot(diamantes, aes(x = corte, y = precio)) +
+  geom_boxplot()
+```
+
+Y aquí sale el resultado que sorprende a todo el mundo: **los diamantes de mejor
+corte son, en promedio, los más baratos.** No es un error de los datos. Es una
+pregunta nueva, y la respuesta está en el quilate, que es la variable que de
+verdad manda en el precio.
+
+Cuando la variable categórica no tiene un orden natural, conviene ordenarla por
+la mediana antes de graficar, porque así la gráfica se lee de un vistazo:
+
+```{r c13-15}
+ggplot(diamantes, aes(x = reorder(color, precio, FUN = median), y = precio)) +
+  geom_boxplot() +
+  labs(x = "color, ordenado por la mediana del precio")
+```
+
+::: {.funcion}
+**`geom_boxplot()` y `reorder()`**: comparar distribuciones entre grupos.
+
+- **La caja** va del primer al tercer cuartil, y la línea de adentro es la **mediana**.
+- **Los bigotes** llegan hasta la observación más lejana que esté a menos de 1.5 rangos intercuartiles de la caja; los puntos sueltos que quedan fuera son los valores extremos.
+- **`reorder(categoria, valor, FUN = median)`:** reordena los niveles de la variable categórica según un resumen del valor, casi siempre la mediana.
+:::
 
 ***
- 
-### Patrones y modelos
 
- - construir un modelo estadístico
+## Dos variables categóricas
 
+Con dos categóricas hay que contar las combinaciones. `geom_count()` dibuja un
+punto cuyo tamaño es el conteo:
 
+```{r c13-16}
+ggplot(diamantes, aes(x = corte, y = color)) +
+  geom_count()
+```
 
+La alternativa es contar primero y colorear después. Esta versión suele leerse
+mejor cuando hay muchas combinaciones:
+
+```{r c13-17}
+diamantes |> 
+  count(color, corte) |> 
+  ggplot(aes(x = color, y = corte)) +
+  geom_tile(aes(fill = n))
+```
+
+::: {.consejo}
+El ojo humano compara **tamaños** mejor que **colores**. Si la gráfica es para
+decidir algo, `geom_count()` o una tabla de `count()` suelen ser más honestas que
+un mapa de calor bonito.
+:::
+
+***
+
+## Dos variables continuas
+
+El diagrama de dispersión es la herramienta obvia, y con muchas observaciones es
+también la que más engaña, porque los puntos se apilan unos encima de otros:
+
+```{r c13-18}
+ggplot(diamantes, aes(x = quilate, y = precio)) +
+  geom_point()
+```
+
+Hay tres maneras de arreglarlo. La primera es hacer los puntos transparentes,
+para que la densidad se vea como una mancha más oscura:
+
+```{r c13-19}
+ggplot(diamantes, aes(x = quilate, y = precio)) +
+  geom_point(alpha = 1 / 100)
+```
+
+La segunda es dividir el plano en celdas y contar cuántos puntos cae en cada
+una, igual que un histograma pero en dos dimensiones:
+
+```{r c13-20}
+ggplot(pequenos, aes(x = quilate, y = precio)) +
+  geom_bin2d()
+```
+
+::: {.nota}
+`geom_hex()` hace lo mismo con celdas hexagonales y muchos lo prefieren, pero
+necesita el paquete `hexbin` instalado. `geom_bin2d()` viene con `ggplot2` y no
+requiere nada más.
+:::
+
+La tercera es convertir una de las dos continuas en categórica con
+`cut_width()`, y usar diagramas de caja:
+
+```{r c13-21}
+ggplot(pequenos, aes(x = quilate, y = precio)) +
+  geom_boxplot(aes(group = cut_width(quilate, 0.1)))
+```
+
+Esta última tiene una ventaja sobre las otras dos: además de la tendencia,
+enseña cómo cambia la **dispersión** del precio a medida que crece el quilate.
+
+***
+
+## Patrones y modelos
+
+Un patrón es una pista de que dos variables están relacionadas. Cuando encuentres
+uno, hazte estas preguntas antes de creértelo:
+
+- ¿podría ser coincidencia, dado el número de observaciones?
+- ¿qué tan fuerte es la relación?
+- ¿qué otras variables podrían estar detrás?
+- ¿cambia el patrón si miras subgrupos por separado?
+
+La covariación es útil porque **reduce la incertidumbre**: si sabes el quilate,
+sabes bastante sobre el precio. Un **modelo** es la herramienta que separa el
+patrón del resto. Si ajustas el precio en función del quilate y luego miras lo
+que sobra (los residuales), estás mirando el precio ya limpio del efecto del
+tamaño, y ahí es donde por fin se ve que el corte `Ideal` sí vale más.
+
+Ese es el tema del capítulo de modelos con `modelr`, más adelante en el libro.
+Por ahora basta con quedarse con la idea: **el EDA hace las preguntas, el modelo
+contesta la que quedó en pie.**
+
+***
+
+## Ejercicios del libro R4DS
+
+Hacer los ejercicios de las siguientes secciones del libro en español:
+
+- sección 7.3.4 (variación),
+- sección 7.4.1 (valores faltantes),
+- sección 7.5.1.1 (covariación: categórica y continua),
+- sección 7.5.2.1 (dos variables categóricas),
+- sección 7.5.3.1 (dos variables continuas).
+
+***
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que la gráfica o la tabla se vean) y una
+**explicación en palabras**. En un capítulo de exploración la explicación es lo
+más importante: una gráfica sin lectura no contesta nada. Los ejercicios usan
+`millas` y `paises` del paquete `datos`, no `diamantes`, que es con lo que se
+enseña aquí. La hoja completa para entregar está en
+`Ejercicios/Ejercicios_Capitulo_15_exploratorio.Rmd`.
+:::
+
+### Ejercicio 1. Variación de una variable categórica
+
+::: {.ejercicio}
+Datos: `millas`. Cuenta los vehículos por `clase` con `count()` y haz la gráfica
+equivalente con `geom_bar()`.
+
+**Verificación:** la tabla debe tener 7 filas, la suma de los conteos debe dar
+234, y `suv` debe ser la clase más común.
+
+**En palabras:** ¿por qué la tabla y la gráfica no son redundantes? Di algo que
+se vea mejor en una y algo que se vea mejor en la otra.
+:::
+
+```{r c13-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. El `binwidth` cambia la historia
+
+::: {.ejercicio}
+Datos: `paises`, solo el año 2007. Haz tres histogramas de `esperanza_de_vida`
+con `binwidth` de 10, de 2 y de 0.5.
+
+**Verificación:** los tres histogramas tienen que sumar 142 países.
+
+**En palabras:** ¿cuál de los tres enseña que la distribución tiene **dos
+grupos**? ¿Qué esconde el de intervalos anchos y qué inventa el de intervalos
+muy finos?
+:::
+
+```{r c13-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Valores inusuales sin borrarlos
+
+::: {.ejercicio}
+Datos: `paises` de 2007, variable `pib_per_capita`. Haz un histograma, acércate
+al eje vertical con `coord_cartesian()` hasta ver las barras de la cola derecha,
+y después saca en una tabla los países que están en esa cola.
+
+**Verificación:** tu tabla de países extremos debe tener menos de diez filas y
+todas deben ser del año 2007.
+
+**En palabras:** ¿son errores o son datos verdaderos? Justifica mirando cuáles
+países son. ¿Qué le pasaría a la media si los borraras, y por qué la mediana casi
+no se movería?
+:::
+
+```{r c13-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Sustituir por `NA`, no borrar la fila
+
+::: {.ejercicio}
+Datos: `millas`. Con `if_else()` y `between()`, crea `millas2` donde el valor de
+`autopista` se sustituya por `NA_real_` cuando esté fuera del intervalo de 12 a
+40 millas por galón.
+
+**Verificación:** `millas2` debe seguir teniendo 234 filas, y `sum(is.na(...))`
+debe decirte cuántos valores marcaste.
+
+**En palabras:** compara el promedio de `autopista` con `na.rm = TRUE` y sin él.
+¿Por qué es mejor esto que haber usado `filter()` para botar las filas?
+:::
+
+```{r c13-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Covariación: categórica y continua
+
+::: {.ejercicio}
+Datos: `millas`. Haz un diagrama de caja de `autopista` según `clase`, con las
+clases **ordenadas por la mediana** usando `reorder()`.
+
+**Verificación:** `pickup` debe quedar en el extremo de las medianas más bajas.
+
+**En palabras:** además de la mediana, ¿qué clase tiene la caja más **ancha**, y
+qué significa eso? Una mediana alta con mucha dispersión, ¿es mejor o peor
+noticia que una mediana un poco más baja pero consistente?
+:::
+
+```{r c13-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Dos variables categóricas
+
+::: {.ejercicio}
+Datos: `millas`, variables `clase` y `cilindros` (trátala como categórica).
+Cuenta las combinaciones con `count()` y dibújalas de las dos maneras del
+capítulo: con `geom_count()` y con `geom_tile()`.
+
+**Verificación:** `cilindros` tiene 4 valores distintos, y no todas las
+combinaciones de clase y cilindros existen.
+
+**En palabras:** nombra dos combinaciones que **no aparecen** en los datos y
+explica por qué tiene sentido que no existan.
+:::
+
+```{r c13-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7. Dos variables continuas
+
+::: {.ejercicio}
+Datos: `millas`, `cilindrada` contra `autopista`. Haz las tres versiones del
+capítulo: puntos con `alpha`, `geom_bin2d()`, y diagramas de caja agrupando con
+`cut_width(cilindrada, 1)`.
+
+**Verificación:** las tres tienen que enseñar la misma tendencia general.
+
+**En palabras:** ¿cuál de las tres enseña mejor la **dispersión** de `autopista`
+para un mismo tamaño de motor? ¿Y cuál usarías para una presentación de cinco
+minutos?
+:::
+
+```{r c13-ej7, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 8 (BONO). El patrón que se esconde en los subgrupos
+
+::: {.ejercicio}
+Sigue con `cilindrada` y `autopista` en `millas`, pero ahora colorea los puntos
+por `clase` o sepáralos con `facet_wrap(~ clase)`.
+
+**Verificación:** debe verse que la relación no es igual en todas las clases.
+
+**En palabras:** ¿hay alguna clase que se salga de la tendencia general? Esta es
+la misma situación del corte `Ideal` en `diamantes`: una tercera variable estaba
+escondiendo el patrón. Explica cuál es aquí esa tercera variable.
+:::
+
+```{r c13-ej8, eval=FALSE}
+# Escribe tu código aquí
+```

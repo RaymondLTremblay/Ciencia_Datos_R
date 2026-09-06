@@ -1,0 +1,259 @@
+---
+title: "Soluciones: Capítulo Errores comunes (leer el mensaje, error frente a advertencia)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+
+Corresponde a: 35-Errores-comunes.Rmd (Capítulo 14 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_14_errores.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. En este capítulo casi todo el crédito
+está en la explicación en palabras: un estudiante que entrega el código
+arreglado pero no sabe decir qué significaba el mensaje no aprendió lo que el
+capítulo quería enseñar.
+
+Los mensajes que aparecen abajo son los de una sesión reciente. La redacción
+exacta cambia un poco entre versiones de R y de los paquetes; lo que tiene que
+coincidir es el tipo de error, no la coma.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: leer el mensaje
+
+| Línea | Qué pasa | Por qué | Arreglo |
+|:--|:--|:--|:--|
+| `Filter(millas, clase == "compact")` | **Error:** `object 'clase' not found` | `Filter` con mayúscula es otra función, de base R, que no sabe nada de la tabla: evalúa `clase` en el ambiente global, donde no existe | `filter()` en minúscula, la de dplyr |
+| `millas$autopsta` | **Nada:** devuelve `NULL` | errata en el nombre de la columna; el `$` de un data frame no avisa cuando la columna no existe | `millas$autopista` |
+| `filter(millas, anio = 2008)` | **Error:** `We detected a named input` / `Did you mean anio == 2008?` | `=` da valor a un argumento, no compara | `anio == 2008` |
+| `"8" + millas$cilindros[1]` | **Error:** `non-numeric argument to binary operator` | `"8"` entre comillas es texto, no número | `8 + ...` o `as.numeric("8") + ...` |
+| `mean(millas$clase)` | **Advertencia:** `argument is not numeric or logical: returning NA` | `clase` es una variable categórica; no tiene promedio | `count(millas, clase)` u otro resumen de conteo |
+
+```{r sol35-1}
+# Las cinco corregidas
+filter(millas, clase == "compact")
+millas$autopista
+filter(millas, anio == 2008)
+8 + millas$cilindros[1]
+count(millas, clase)
+```
+
+**Respuesta esperada.** Las tres que dan **error** son la primera, la tercera y
+la cuarta: la línea no se ejecuta y no hay resultado.
+
+Las otras dos son las que hay que saber señalar:
+
+- `millas$autopsta` devuelve **`NULL`** y no dice absolutamente nada. Si esa
+  línea estuviera dentro de un cálculo más largo, el análisis seguiría con una
+  columna vacía.
+- `mean(millas$clase)` devuelve **`NA`** con una advertencia. Hay resultado, y en
+  una tabla de resultados un `NA` se puede pasar por alto con facilidad.
+
+Por qué son más peligrosas: un error para el trabajo y obliga a mirarlo; un
+`NULL` o un `NA` silencioso viajan hasta el informe final. Es el argumento
+central del capítulo, y vale la pena que salga de ellos y no del profesor.
+
+**Punto para discutir en clase.** Preguntar quién corrió las cinco de un solo
+golpe dentro del mismo bloque. Al hacerlo así, el primer error detiene el bloque
+y nunca llegan a ver las dos últimas líneas. Es una buena ocasión para insistir
+en ejecutar línea por línea con Cmd/Ctrl + Enter.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: instalar no es activar
+
+```{r sol35-2a}
+rollmean(1:10, 3)
+# Error in rollmean(1:10, 3) : could not find function "rollmean"
+```
+
+```{r sol35-2b}
+# Manera 1: activar el paquete
+library(zoo)
+rollmean(1:10, 3)
+
+# Manera 2: sin activarlo, nombrando el paquete
+zoo::rollmean(1:10, 3)
+```
+
+**Respuesta esperada.** Las dos devuelven `2 3 4 5 6 7 8 9`, ocho valores: con
+una ventana de 3 sobre 10 números se pierden 2.
+
+El mensaje distinto que se pedía imaginar es
+`Error in library(zoo) : there is no package called 'zoo'`. La diferencia:
+`could not find function` es un problema de **activación** (el paquete está en
+la computadora pero dormido); `there is no package called` es un problema de
+**instalación** (el paquete no está en la computadora). Se arreglan con cosas
+distintas: `library()` en el primer caso, `install.packages()` en el segundo.
+
+Sobre dejar `install.packages()` en el script: obliga a quien lo corra a bajar el
+paquete otra vez cada vez, necesita internet, y puede reinstalar por encima una
+versión que la persona tenía a propósito. La instalación se hace una vez, a mano,
+o en el capítulo de instalación de paquetes del libro.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: el `NA` no es un error
+
+```{r sol35-3}
+millas_na <- millas
+millas_na$autopista[c(3, 17, 100)] <- NA
+
+mean(millas_na$autopista)                    # NA
+mean(millas_na$autopista, na.rm = TRUE)      # el promedio de las 231 restantes
+
+millas_na |> 
+  filter(!is.na(autopista)) |> 
+  summarise(n = n(), autopista_promedio = mean(autopista))
+```
+
+**Respuesta esperada.** La primera devuelve `NA`. La segunda y la tercera
+devuelven exactamente el mismo número, y la tercera además enseña que quedan
+**231** filas (234 menos 3).
+
+Por qué no es un error: R no se equivocó ni se cayó. Está contestando con
+honestidad que no puede saber el promedio de un conjunto en el que hay valores
+que desconoce. `NA` es una respuesta, no un fallo.
+
+Cuándo `na.rm = TRUE` sí es un error de análisis: cuando los datos **no faltan al
+azar**. Si los `NA` de una variable ambiental se concentran en los días de
+tormenta, o los `NA` de una medida de crecimiento son justamente las plantas que
+murieron, quitarlos cambia la población que se está describiendo. `na.rm = TRUE`
+contesta la pregunta "¿cuál es el promedio de los que sí medí?", que no siempre
+es la pregunta que uno quería hacer.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: `=`, `==` y `<-`
+
+```{r sol35-4a}
+filter(diamantes, corte = "Ideal")
+# Error in `filter()`: We detected a named input.
+# i This usually means that you've used `=` instead of `==`.
+```
+
+```{r sol35-4b}
+filter(diamantes, corte == "Ideal")
+
+diamantes_ideal = filter(diamantes, corte == "Ideal")
+nrow(diamantes_ideal)
+```
+
+**Respuesta esperada.** Las líneas 2 y 3 producen la misma tabla; la 3 además la
+guarda en un objeto. La línea 1 no produce nada.
+
+Qué hace `=` en cada sitio:
+
+- **Dentro de la llamada a una función** (línea 1), `=` sirve para dar valor a un
+  **argumento con nombre**: `mean(x, na.rm = TRUE)`. `filter()` no tiene un
+  argumento llamado `corte`, así que se queja.
+- **Fuera de una llamada** (línea 3), `=` es un operador de **asignación** y
+  funciona igual que `<-`.
+
+Por qué se prefiere `<-`: porque distingue a simple vista las dos cosas. Cuando
+en un script todos los `<-` son asignaciones y todos los `=` son argumentos, un
+`=` en un sitio raro salta a la vista. Además `<-` tiene atajo de teclado
+(Alt/Option + guion) y es la convención de casi todo el código de R que van a
+leer.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: el ejemplo mínimo reproducible
+
+```{r sol35-5a}
+resumen <- diamantes |>
+  filter(quilate > 0.5) |>
+  group_by(corte) |>
+  summarise(precio_medio = mean(Precio))
+# Error in `summarise()`: object 'Precio' not found
+```
+
+La reducción, paso a paso:
+
+```{r sol35-5b}
+diamantes |> filter(quilate > 0.5)                    # corre
+diamantes |> filter(quilate > 0.5) |> group_by(corte) # corre
+# el error aparece al añadir el summarise()
+```
+
+```{r sol35-5c}
+resumen <- diamantes |>
+  filter(quilate > 0.5) |>
+  group_by(corte) |>
+  summarise(precio_medio = mean(precio))
+
+resumen
+nrow(resumen)   # 5
+```
+
+**Respuesta esperada.** El problema estaba en el cuarto paso: la columna se llama
+`precio`, en minúscula. La tabla corregida tiene 5 filas, una por nivel de
+`corte`.
+
+Cómo se supo: al correr los tres primeros pasos sin error queda claro que el
+problema no está en el filtro ni en la agrupación. Y el mensaje ya lo decía, si
+se lee entero: `object 'Precio' not found` nombra la columna.
+
+Por qué es más rápido reducir que releer: la lectura busca el error en cuatro
+líneas a la vez y depende de que uno **note** la mayúscula, que es justo lo que
+el ojo no hace bien. Cortar el problema por la mitad no depende de notar nada:
+en dos o tres intentos señala la línea culpable aunque uno no tenga ni idea de
+qué está mal.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6 (bono): `tryCatch()` y la copia local
+
+```{r sol35-6}
+dir.create("Datos", showWarnings = FALSE)
+
+millas |> 
+  select(fabricante, modelo, anio, clase, ciudad, autopista) |> 
+  write_csv("Datos/millas_copia.csv")
+
+datos_millas <- tryCatch(
+  read_csv("https://ejemplo.com/no_existe.csv"),     # intenta en vivo
+  error = function(e) read_csv("Datos/millas_copia.csv")  # si falla, la copia
+)
+
+head(datos_millas)
+```
+
+**Respuesta esperada.** El bloque corre sin error y devuelve la copia local.
+
+La diferencia con `error=TRUE`: `error=TRUE` es una opción de **knitr**, no de R.
+Lo único que hace es imprimir el mensaje en el documento y seguir compilando; el
+objeto nunca se crea y todo lo que venga después se cae en cadena. `tryCatch()`
+es código de R de verdad: define **qué hacer** cuando algo falla, así que el
+análisis continúa con datos reales.
+
+Dicho de otro modo: `error=TRUE` sirve para **enseñar** un error (es lo que hace
+este capítulo); `tryCatch()` sirve para **manejarlo** en un análisis que tiene que
+funcionar. Solo el segundo produce un resultado reproducible.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Reparto sugerido en este capítulo: 1 punto por el script, 1 por mostrar el
+mensaje o el resultado, y **3 por la explicación**. Es al revés que en los
+capítulos de transformación, y conviene decírselo a los estudiantes antes de que
+entreguen.
+
+Los resultados comparables son: ocho valores en el Ejercicio 2, 231 filas y dos
+promedios idénticos en el Ejercicio 3, y 5 filas en el Ejercicio 5.

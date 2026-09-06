@@ -1,0 +1,261 @@
+---
+title: "Ejercicios del Capítulo 24"
+subtitle: "Opciones de knitr: eval, echo, include, figuras, cache y results='asis'"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 24 del libro del curso.
+
+Este capítulo se corrige distinto a los demás: lo que se evalúa no es un resultado, sino **el documento**. Las opciones que pusiste en cada bloque y lo que eso hizo aparecer o desaparecer en el `.html`. Por eso el `.html` cuenta tanto como el `.Rmd`, y hay que entregarlos los dos: se corrigen lado a lado.
+
+Los ejercicios usan `millas` del paquete `datos`, no `cars` ni las letras del abecedario, que son los del capítulo.
+
+Consejo antes de empezar: haz *Knit* después de **cada** ejercicio, no al final. En este capítulo un error de opciones puede impedir que el documento compile, y si has hecho siete ejercicios sin compilar no vas a saber cuál fue.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir:
+
+1. **Los bloques** con las opciones que se piden.
+2. **El resultado en el `.html`**: que se vea (o que no se vea) lo que tiene que verse.
+3. **Una explicación en palabras** en el espacio marcado.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Las cuatro maneras de esconder algo | 5 |
+| 2 | Avisos y mensajes | 5 |
+| 3 | La trampa del `eval=FALSE` | 5 |
+| 4 | El tamaño de una figura | 5 |
+| 5 | Global contra local | 5 |
+| 6 | `cache` | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Escribir el documento desde el código | **5 adicionales** |
+
+Cada ejercicio se evalúa así: bloques correctos (2 puntos), efecto visible en el `.html` (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+---
+
+# Ejercicio 1. Las cuatro maneras de esconder algo (5 puntos)
+
+Escribe **cuatro** bloques que hagan exactamente lo mismo, calcular el promedio de `autopista` en `millas`, cada uno con una opción distinta:
+
+1. `echo=FALSE`
+2. `eval=FALSE`
+3. `include=FALSE`
+4. `results='hide'`
+
+*Verifica:* en el `.html` final, **uno** de los cuatro enseña solo el número, **dos** enseñan solo el código, y **uno** no enseña absolutamente nada.
+
+```{r ej1a, echo=FALSE}
+# Escribe tu código aquí
+
+```
+
+```{r ej1b, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+```{r ej1c, include=FALSE}
+# Escribe tu código aquí
+
+```
+
+```{r ej1d, results='hide'}
+# Escribe tu código aquí
+
+```
+
+5. Completa esta tabla en tu respuesta:
+
+| Opción | ¿Se ejecutó? | ¿Se vio el código? | ¿Se vio el resultado? |
+|:--|:--|:--|:--|
+| `echo=FALSE` | | | |
+| `eval=FALSE` | | | |
+| `include=FALSE` | | | |
+| `results='hide'` | | | |
+
+6. ¿Cuáles de las cuatro **crean el objeto** en la memoria y cuáles no?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. Avisos y mensajes (5 puntos)
+
+1. Escribe un bloque con `library(dplyr)` y `library(MASS)`, **sin ninguna opción**, y mira lo que sale.
+2. Repítelo con `message=FALSE`.
+3. Repítelo con `warning=FALSE`.
+
+*Verifica:* sin opciones aparece un aviso sobre funciones enmascaradas; con `message=FALSE` desaparece.
+
+```{r ej2a}
+# Sin opciones
+
+```
+
+```{r ej2b, message=FALSE}
+# Con message=FALSE
+
+```
+
+4. Ese aviso dice que `MASS::select()` está tapando a `dplyr::select()`. Esconderlo con `message=FALSE`, ¿resuelve el problema o solo lo oculta?
+5. ¿Qué harías tú en un análisis de verdad? Escribe la línea de código que usarías para llamar a la `select()` que quieres.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. La trampa del `eval=FALSE` (5 puntos)
+
+1. Escribe un bloque con `eval=FALSE` que cree un objeto llamado `datos_millas`.
+2. Escribe otro bloque, sin `eval=FALSE`, que lo use. Ponle `error=TRUE` para que el documento compile igual.
+
+*Verifica:* el segundo bloque da `object 'datos_millas' not found`.
+
+```{r ej3a, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+```{r ej3b, error=TRUE}
+# Escribe tu código aquí
+
+```
+
+3. En el capítulo, el mismo experimento con un objeto llamado `data` **no** dio ese error: dio un `NA` con una advertencia. Explica la diferencia.
+4. ¿Cuál de los dos comportamientos prefieres y por qué? Relaciónalo con lo que aprendiste en el capítulo de errores comunes.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. El tamaño de una figura (5 puntos)
+
+Haz la misma gráfica de `millas` (dispersión de `cilindrada` contra `autopista`) **tres** veces:
+
+1. Con `fig.width=8`.
+2. Con `fig.width=3`.
+3. Con `fig.width=8` más `out.width='40%'`.
+
+*Verifica:* las tres se ven de tamaño distinto, pero **dos** de ellas tienen las letras de los ejes del mismo tamaño relativo y una no.
+
+```{r ej4a, fig.width=8}
+# Escribe tu código aquí
+
+```
+
+```{r ej4b, fig.width=3}
+# Escribe tu código aquí
+
+```
+
+```{r ej4c, fig.width=8, out.width='40%'}
+# Escribe tu código aquí
+
+```
+
+4. ¿Cuáles dos comparten el tamaño relativo de las letras, y por qué?
+5. Explica la diferencia entre `fig.width` y `out.width` con lo que acabas de ver.
+6. ¿Cuál usarías para una figura que va en un artículo a una columna, donde el texto tiene que ser legible impreso?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. Global contra local (5 puntos)
+
+1. Cambia el bloque `setup` del principio de este documento para que diga `knitr::opts_chunk$set(echo = FALSE)`.
+2. Escribe dos bloques: uno sin opciones y otro con `echo=TRUE`.
+3. Compila y mira la diferencia. **Después vuelve a dejar el `setup` como estaba**, para que el resto de la hoja se vea bien.
+
+*Verifica:* con el `setup` cambiado, el primer bloque no enseña su código y el segundo sí.
+
+```{r ej5a}
+# Sin opciones
+
+```
+
+```{r ej5b, echo=TRUE}
+# Con echo=TRUE
+
+```
+
+4. ¿Qué nivel ganó, el global o el del bloque? Explica la regla.
+5. ¿Qué ventaja tiene poner las opciones comunes en global en vez de repetirlas en cada bloque?
+6. ¿Y qué desventaja, para alguien que abra tu documento por el medio y no vea el `setup`?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. `cache` (5 puntos)
+
+1. Escribe un bloque lento a propósito, con `Sys.sleep(10)` y algún cálculo sobre `millas`. Compila el documento y anota cuánto tardó.
+2. Añade `cache=TRUE` al bloque. Compila **dos veces más** y anota los dos tiempos.
+
+*Verifica:* la segunda compilación con `cache=TRUE` es claramente más rápida que la primera.
+
+```{r ej6, cache=TRUE}
+# Escribe tu código aquí
+
+```
+
+3. Cambia ahora **una sola letra de un comentario** dentro de ese bloque y vuelve a compilar. ¿Se recalculó?
+4. Explica qué mira `cache` para decidir si recalcular.
+5. ¿Por qué eso lo hace peligroso si el bloque **lee un archivo de datos** que tú editas por fuera? ¿Cómo lo arreglarías?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). Escribir el documento desde el código (5 puntos adicionales)
+
+Con `results='asis'` y un `for`, genera automáticamente un encabezado de nivel 3 (`###`) por cada `clase` de `millas`, seguido de una oración que diga cuántos vehículos hay de esa clase y cuál es su consumo promedio en autopista.
+
+*Verifica:* en el `.html` final aparecen **7** encabezados, y salen en la tabla de contenido como si los hubieras escrito a mano.
+
+```{r ej7, results='asis'}
+# Escribe tu código aquí
+# Pista: cat() escribe en el documento; recuerda los "\n\n" al final de cada línea
+
+```
+
+1. ¿Qué pasa si quitas `results='asis'`? Pruébalo y describe la diferencia.
+2. ¿En qué situación de tu propio trabajo te serviría generar un informe así? Piensa en un informe que tengas que rehacer cada vez que llegan datos nuevos.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

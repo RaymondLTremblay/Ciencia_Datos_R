@@ -1,0 +1,223 @@
+---
+title: "Ejercicios del Capítulo 17"
+subtitle: "Tibbles: crear tablas, imprimirlas y sacarles columnas sin sorpresas"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 17 del libro del curso.
+
+Los ejercicios usan `millas` y `paises` del paquete `datos`, `mtcars` de R, y tablas que vas a escribir a mano. No usan `vuelos`, que es el conjunto con el que se enseña en el capítulo.
+
+Un par de ejercicios te piden provocar un error o una advertencia a propósito. Para que el documento compile igual, añade `error=TRUE` o `warning=TRUE` a las opciones de ese bloque.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra y se vea la tabla o el mensaje.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Completar el tibble | 5 |
+| 2 | Una tabla escrita a mano con `tribble()` | 5 |
+| 3 | Ida y vuelta entre tibble y data frame | 5 |
+| 4 | Imprimir lo justo | 5 |
+| 5 | La errata que no avisa | 5 |
+| 6 | `$`, `[[` y `[` no dan lo mismo | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Los nombres de fila se pierden | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+---
+
+# Ejercicio 1. Completar el tibble (5 puntos)
+
+El bloque del principio del capítulo construye solo **seis** de las ocho filas que pedía el enunciado. Complétalo:
+
+- `secuencia`: los números del 1 al 8;
+- `edad`: 23, 26, 24, 26, 27, 11, 20, 21;
+- `nombre`: Jose, Maria, Carol, Moncho, Liz, Maria, Jorge, Miguel.
+
+*Verifica:* 8 filas y 3 columnas. La línea de tipos debe decir `<int>` o `<dbl>` para las dos primeras columnas y `<chr>` para la tercera.
+
+2. En un bloque con `error=TRUE`, intenta lo mismo pero dándole a `edad` solo **siete** valores. Copia el mensaje.
+3. Prueba ahora con **un** solo valor en una columna nueva, por ejemplo `curso = "BIOL4026"`.
+4. Explica en palabras por qué siete valores fallan y uno solo funciona.
+
+```{r ej1a}
+# Escribe tu código aquí
+
+```
+
+```{r ej1b, error=TRUE}
+# La versión con siete valores
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. Una tabla escrita a mano con `tribble()` (5 puntos)
+
+1. Con `tribble()`, escribe una tabla de **cuatro parcelas de campo** con tres columnas: `parcela` (texto), `n_plantas` (número) y `humedad` (texto: "alta" o "baja"). Invéntate los valores.
+2. Alinea los valores en columnas para que se lean bien.
+
+*Verifica:* 4 filas, 3 columnas, y los tipos correctos en la línea de tipos.
+
+3. Escribe la **misma** tabla con `tibble()`, por columnas.
+4. Explica en palabras en qué situación preferirías `tribble()` y en cuál `tibble()`. Da un ejemplo de tu propio trabajo o de la clase.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. Ida y vuelta (5 puntos)
+
+1. Convierte `millas` en data frame con `as.data.frame()` y guárdalo en `millas_df`.
+2. Convierte `millas_df` otra vez en tibble con `as_tibble()` y guárdalo en `millas_tb`.
+3. Aplica `is_tibble()` y `is.data.frame()` a los tres objetos: `millas`, `millas_df` y `millas_tb`.
+
+*Verifica:* `is.data.frame()` da `TRUE` en los **tres**; `is_tibble()` solo en **dos**.
+
+4. Explica en palabras por qué `is.data.frame()` dice `TRUE` incluso para el tibble. ¿Qué relación hay entre las dos clases?
+5. Comprueba con `nrow()` y `ncol()` que no se perdió nada por el camino.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Imprimir lo justo (5 puntos)
+
+Con `paises`, imprime de estas maneras:
+
+1. Tal cual.
+2. Con `print(n = 3)`.
+3. Con `print(n = 15, width = Inf)`.
+4. Como data frame: `head(as.data.frame(paises), n = 20)`.
+
+*Verifica:* la impresión normal enseña **10** filas y una nota de cuántas quedaron fuera.
+
+5. Además del número de filas, ¿qué información te da el tibble que el data frame no te da?
+6. ¿Por qué esa información ahorra tiempo al principio de un análisis? Piensa en una columna que uno cree numérica y resulta ser texto.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. La errata que no avisa (5 puntos)
+
+1. Crea `pais_df <- as.data.frame(paises)` y `pais_tb <- as_tibble(paises)`.
+2. En los dos, pide la columna con el nombre **incompleto**: `$pib` en vez de `$pib_per_capita`. Usa `warning=TRUE` en el bloque.
+3. Mira `head()` de cada resultado.
+
+*Verifica:* uno de los dos devuelve datos; el otro devuelve `NULL` con una advertencia.
+
+4. Imagina que esa línea está en el medio de un análisis de 200 líneas. ¿Cuál de los dos comportamientos prefieres y por qué?
+5. Este es el argumento más fuerte del capítulo a favor del tibble. Escríbelo con tus propias palabras, en tres o cuatro oraciones.
+
+```{r ej5, warning=TRUE}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. `$`, `[[` y `[` no dan lo mismo (5 puntos)
+
+Con `pais_tb` y `pais_df` del ejercicio anterior, saca la columna `esperanza_de_vida` de cuatro maneras y aplícale `class()` a cada resultado:
+
+1. `$esperanza_de_vida`
+2. `[["esperanza_de_vida"]]`
+3. `["esperanza_de_vida"]` (un solo corchete)
+4. `[, "esperanza_de_vida"]`
+
+*Verifica:* dos de las cuatro devuelven un **vector** y dos devuelven una **tabla**. Y la número 4 **no** se comporta igual en `pais_df` que en `pais_tb`.
+
+5. ¿Cuál de las cuatro usarías dentro de una función que recibe el nombre de la columna como **texto**? ¿Por qué no sirve `$` ahí?
+6. Explica por qué esa diferencia en la número 4 puede romper un script viejo escrito para data frames.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). Los nombres de fila se pierden (5 puntos adicionales)
+
+`mtcars` guarda los modelos de carro en los **nombres de fila**, no en una columna.
+
+1. Míralos con `rownames(mtcars)` y con `head(mtcars)`.
+2. Conviértelo con `as_tibble()` y vuelve a mirar. ¿Dónde quedaron los modelos?
+3. Hazlo bien con `tibble::rownames_to_column(mtcars, var = "modelo")` y después conviértelo en tibble.
+
+*Verifica:* el tibble hecho con `as_tibble()` tiene **11** columnas; el hecho con `rownames_to_column()` tiene **12**.
+
+4. ¿Por qué el tibble decidió no guardar nombres de fila? Piensa en qué son realmente esos nombres.
+5. Relaciónalo con lo que aprendiste sobre **datos ordenados**: ¿dónde debería vivir el modelo del carro?
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

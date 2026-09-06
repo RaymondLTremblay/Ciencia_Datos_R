@@ -34,9 +34,6 @@ rmd_files:
   - 25-WordClouds.Rmd
   - 31-tidyverse-avanzado.Rmd
   - 26-Leaflet-mapa-interactivo.Rmd
-  - 27-Ejercicios-transformacion.Rmd
-  - 28-Ejercicios-transformacion-2.Rmd
-  - 29-Ejercicios-fechas.Rmd
   - 30-COVID_Cummulative.Rmd
 
 edit: https://github.com/RaymondLTremblay/Ciencia_Datos_R/edit/main/%s

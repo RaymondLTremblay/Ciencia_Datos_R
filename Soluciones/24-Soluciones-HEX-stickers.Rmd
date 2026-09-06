@@ -1,0 +1,249 @@
+---
+title: "Soluciones: Capítulo Hex stickers"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Corresponde a: 24-HEX-stickers.Rmd (Capítulo 29 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_29_hex.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(hexSticker)
+library(showtext)
+library(datos)
+```
+
+Este capítulo **no tiene respuestas correctas**, y conviene tenerlo claro antes de
+corregir. Cada estudiante entrega un objeto de diseño distinto. Lo que se evalúa
+es que el código funcione, que la imagen esté, y sobre todo que las decisiones
+estén **justificadas**.
+
+El reparto sugerido lo dice: 1 punto por el código, 1 por la imagen y **3 por la
+justificación**.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: una calcomanía a partir de una gráfica
+
+```{r sol24-1}
+dir.create("img/ejercicios", recursive = TRUE, showWarnings = FALSE)
+
+g <- ggplot(millas, aes(cilindrada, autopista)) +
+  geom_point(colour = "white", alpha = 0.6, size = 0.8) +
+  theme_void() +
+  theme(panel.background = element_rect(fill = "transparent", colour = NA),
+        plot.background  = element_rect(fill = "transparent", colour = NA))
+
+sticker(
+  subplot  = g,
+  package  = "millas",
+  s_x = 1, s_y = 0.8, s_width = 1.3, s_height = 0.9,
+  p_size = 18, p_y = 1.5, p_color = "white",
+  h_fill = "#2E4057", h_color = "#F6AE2D",
+  filename = "img/ejercicios/millas.png"
+)
+
+file.exists("img/ejercicios/millas.png")
+```
+
+**Respuesta esperada.** El archivo existe y la calcomanía se ve.
+
+Lo que desaparece con `theme_void()`: los ejes, sus títulos, las marcas, los
+números y la rejilla de fondo. A tamaño de calcomanía todo eso se convierte en
+suciedad gris: los números son ilegibles y las líneas de la rejilla compiten con
+los puntos.
+
+Lo que queda es la **forma** de la nube, que es lo único que se puede leer a dos
+centímetros y lo único que hace falta. Es la misma idea del capítulo de análisis
+exploratorio, al revés: allí se decía que una gráfica de exploración no necesita
+ser bonita; aquí, que una gráfica decorativa no necesita ser informativa.
+
+Detalle técnico que vale mencionar si alguien lo pregunta: el fondo transparente
+del `ggplot` es lo que deja ver el color del hexágono por detrás. Sin eso queda un
+rectángulo blanco dentro del hexágono, y se ve mal.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: el sistema de coordenadas
+
+```{r sol24-2}
+posiciones <- tribble(
+  ~nombre,        ~s_x, ~s_y, ~s_w, ~p_x, ~p_y,
+  "arriba_abajo",    1, 1.15,  0.9,    1, 0.55,
+  "superpuestas",    1,    1,  1.0,    1, 1.00,
+  "esquina",       0.6,  0.6,  0.4,    1, 1.40,
+  "grande",          1, 0.95,  1.7,    1, 1.55
+)
+```
+
+**Respuesta esperada.** Cuatro imágenes visiblemente distintas y nada cortado por
+el borde.
+
+El centro del hexágono está en **(1, 1)**. La manera de deducirlo, que es lo que
+se pregunta, es empírica: poniendo `s_x = 1, s_y = 1` la gráfica queda centrada, y
+subiendo `s_y` la gráfica sube. De ahí se saca que el rango útil va de 0 a 2.
+
+Errores frecuentes que conviene señalar:
+
+- Confundir `s_width` con `s_x`. El primero es tamaño, el segundo posición.
+- Subir el texto tanto que se sale del hexágono (`p_y` por encima de 1.7 más o
+  menos, según el tamaño de la letra).
+- Poner la gráfica tan grande que sus esquinas se salen por los lados. El hexágono
+  **recorta**, así que lo que se sale no se ve, y a veces uno cree que la gráfica
+  está mal cuando solo está fuera de cuadro.
+
+**Punto para discutir en clase.** Vale la pena preguntar quién intentó calcular
+las posiciones y quién fue probando. Los que probaron terminaron antes, y esa es
+una lección transferible a todo el diseño.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: fuentes
+
+```{r sol24-3}
+font_add_google("Rubik")           # palo seco
+font_add_google("Lobster Two")     # decorativa
+showtext_opts(dpi = 300)
+showtext_auto()
+
+# ... dos llamadas a sticker() idénticas salvo p_family
+```
+
+**Respuesta esperada.** Dos calcomanías con tipografías distintas. Si salen
+iguales, falta `showtext_auto()`, y ese es el error que hay que buscar al
+corregir: no da ningún mensaje.
+
+La respuesta a la prueba de la moneda es casi siempre la misma: la **de palo
+seco** sigue legible y la decorativa se convierte en una mancha. Las letras con
+mucho adorno, mucho contraste de grosor o mucha inclinación pierden la forma en
+cuanto se reducen.
+
+Lo interesante es la última pregunta, y hay que leerla con atención: casi todos
+dicen que la decorativa es más bonita **en la pantalla** y que a tamaño de moneda
+prefieren la otra. Ese cambio de opinión es el aprendizaje del ejercicio: el
+diseño no se juzga en el monitor, se juzga en el tamaño y el medio en que se va a
+ver.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: contraste
+
+**Respuesta esperada.** Dos imágenes con el mismo contenido y contraste opuesto.
+
+Lo que le pasa a la mala de lejos: el texto **se funde** con el fondo y deja de
+leerse, aunque los dos colores sean claramente distintos de cerca. A veces incluso
+parece que la calcomanía está borrosa o desenfocada, cuando lo que pasa es que no
+hay diferencia de luminosidad.
+
+Sobre luminosidad y contraste: el ojo distingue formas sobre todo por diferencias
+de **claro y oscuro**, no de tono. Dos colores pueden ser muy distintos en tono
+(verde y azul) y casi idénticos en luminosidad, y entonces el borde entre ellos
+casi desaparece. Una respuesta que mencione que un mismo tono puede ser claro u
+oscuro, y que lo que importa es esa diferencia, está completa.
+
+Sobre imprimir en blanco y negro: la mala **desaparece del todo**, porque al
+quitar el tono solo queda la luminosidad, que era la que faltaba. Es la mejor
+prueba rápida que existe, y conviene enseñarla: pasar el diseño a escala de
+grises. Si todavía se lee, el contraste es suficiente.
+
+Conexión que vale la pena hacer en clase: esto es exactamente lo mismo que se dice
+de los mapas de calor en el capítulo de análisis exploratorio, y la razón por la
+que existen las paletas pensadas para daltonismo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: los adornos
+
+**Respuesta esperada.** La url pegada al borde inferior, sin salirse ni tocar la
+gráfica.
+
+Las dos preguntas no tienen respuesta correcta y hay que corregirlas por el
+argumento. Las buenas respuestas suelen ir por aquí:
+
+- **La url casi nunca aporta.** Nadie teclea una dirección leída de una calcomanía
+  de dos centímetros pegada en una laptop ajena. Tiene sentido si el proyecto es
+  conocido y la dirección es corta (`ggplot2.tidyverse.org`), y ninguno si es
+  larga.
+- **El spotlight** con `l_alpha` bajo añade un brillo que da profundidad; con
+  `l_alpha` alto lava el color y hace ilegible el texto que quede debajo. Se
+  defiende usarlo suave y no usarlo en absoluto.
+
+Lo que **no** vale es "lo dejo porque se ve bien" sin más. La regla que se quiere
+instalar es que en un espacio tan pequeño cada elemento tiene que ganarse el sitio.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: formatos
+
+```{r sol24-6}
+sticker(..., filename = "img/ejercicios/prueba.png", dpi = 300)
+sticker(..., filename = "img/ejercicios/prueba.svg")
+
+file.size("img/ejercicios/prueba.png")
+file.size("img/ejercicios/prueba.svg")
+```
+
+**Respuesta esperada.** El **png se pixela** al agrandarlo y el svg no.
+
+Por qué: un png guarda una **rejilla de puntos de color**. Al agrandarlo hay que
+inventar los puntos que faltan, y aparecen los cuadraditos. Un svg guarda
+**instrucciones de dibujo** ("un hexágono de este color, un texto aquí con esta
+fuente"), así que al agrandarlo se vuelve a dibujar a la nueva escala y sale
+perfecto.
+
+Cuál mandar a la imprenta: el **svg**, si la imprenta lo acepta, porque puede
+imprimirlo a cualquier tamaño. Si solo acepta png, hay que generarlo con la
+resolución suficiente para el tamaño físico final.
+
+La pregunta fina es la buena, y la respuesta es **no**: si el `subplot` es una
+foto, esa foto sigue siendo una rejilla de puntos aunque esté metida dentro de un
+svg. El hexágono, el texto y el borde escalarían perfectamente, y la foto del
+centro se pixelaría igual. Un svg no convierte en vectorial lo que le metas
+dentro. Quien conteste eso ha entendido la diferencia de verdad.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): la tuya
+
+**Cómo corregir.** No hay respuesta correcta. Se evalúan tres cosas:
+
+1. Que la calcomanía **pase la prueba de la moneda**. Es objetivo y se comprueba
+   en dos segundos.
+2. Que la justificación hable de **decisiones**, no de gustos. "Escogí azul oscuro
+   porque el texto va en blanco y necesitaba contraste" vale; "escogí azul porque
+   me gusta" no.
+3. Que hayan hecho de verdad la **prueba con el compañero** y hayan anotado lo que
+   les dijo, incluso (sobre todo) si fue que no se entendía.
+
+La pregunta 3, sobre si cambiarían algo después de la prueba, es la que más
+enseña. Un estudiante que diga "mi compañero leyó otra cosa, así que agrandé el
+texto" ha aprendido más que uno que entregue una calcomanía perfecta a la primera.
+
+**Punto para discutir en clase.** Si hay tiempo, vale la pena proyectarlas todas
+reducidas al mismo tamaño y que la clase diga qué entiende de cada una. Es la
+manera más rápida de que vean por qué el contraste y la simplicidad importan.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Este es el único capítulo del libro donde no hay nada que verificar numéricamente,
+y por eso conviene ser explícito con los criterios desde el principio, para que
+nadie entregue una imagen bonita sin una sola palabra de explicación.
+
+Los ejercicios 4 y 6 sí tienen respuestas verificables (el contraste se comprueba
+pasando la imagen a escala de grises; el pixelado se comprueba agrandando), y son
+los dos que enseñan algo que sirve fuera de este capítulo: cómo se juzga el
+contraste y en qué se diferencia un formato vectorial de uno de mapa de bits.
+
+Comprobaciones objetivas: los archivos existen (Ej. 1 y 6), nada se sale del
+hexágono (Ej. 2 y 5), las dos tipografías son distintas (Ej. 3), y la calcomanía
+se entiende al tamaño de una moneda (Ej. 7).

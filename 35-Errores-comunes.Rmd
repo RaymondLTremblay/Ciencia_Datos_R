@@ -23,9 +23,49 @@ En este capítulo provocamos **a propósito** los errores más frecuentes para q
 los reconozcas cuando aparezcan. En cada ejemplo verás el mensaje real de R y
 luego cómo resolverlo.
 
+***
+
+## Temas
+
+-   Cómo se lee un mensaje de error
+-   La diferencia entre un error, una advertencia y un mensaje
+-   `could not find function` y `there is no package called`
+-   `object ... not found`
+-   Operaciones con texto: `non-numeric argument` y `NAs introduced by coercion`
+-   `unused argument`, `=` frente a `==`
+-   `object of type 'closure' is not subsettable` y `$ operator is invalid for atomic vectors`
+-   `NA` y `na.rm`
+-   Archivos que no aparecen y direcciones de internet que no responden
+-   Un método general para resolver errores
+
+***
+
 ```{r c35-2}
 library(dplyr)
 ```
+
+
+***
+
+## Error, advertencia y mensaje: no son lo mismo
+
+Los tres se imprimen en rojo en la consola, y por eso al principio asustan por
+igual. Pero solo uno de los tres detiene el trabajo.
+
+-   Un **error** (`Error in ...`) significa que R **no pudo hacer** lo que le
+    pediste. La línea no se ejecutó y no hay resultado. Hay que arreglarlo.
+-   Una **advertencia** (`Warning message:`) significa que R **sí hizo** algo,
+    pero sospecha que no es lo que querías. Hay resultado, y por eso las
+    advertencias son más peligrosas que los errores: es fácil seguir de largo
+    con un número equivocado.
+-   Un **mensaje** (`Attaching package:`, `Joining with by = ...`) es solo
+    información. R te cuenta lo que está haciendo y no hay nada que arreglar.
+
+::: {.advertencia}
+El error te para; la advertencia te deja seguir. Si tu análisis produce una
+advertencia y tú la ignoras, el número que reportas puede estar mal y nadie te
+va a avisar. Léelas todas.
+:::
 
 ***
 
@@ -185,6 +225,102 @@ reproducible aunque no tengas internet.
 
 ***
 
+## `there is no package called ...`
+
+```{r c35-13, error=TRUE}
+library(paqueteQueNoExiste)
+```
+
+::: {.peligro}
+Este mensaje **no** es el mismo que `could not find function`. Aquí el paquete no
+está **instalado** en la computadora. Instalar y activar son dos pasos distintos:
+`install.packages("nombre")` se hace **una sola vez** por computadora y baja el
+paquete de internet; `library(nombre)` se hace **en cada sesión** y lo activa. Si
+escribes `library()` de algo que nunca instalaste, sale este error.
+:::
+
+::: {.consejo}
+`install.packages()` va **entre comillas** y `library()` normalmente **sin
+comillas**. Y nunca dejes `install.packages()` dentro de un script que vas a
+compartir: obliga a los demás a reinstalar el paquete cada vez que corren tu
+análisis.
+:::
+
+***
+
+## `object of type 'closure' is not subsettable`
+
+Este mensaje tiene fama de incomprensible, y en realidad dice algo sencillo.
+"Closure" es la palabra que usa R para decir **función**. El error aparece cuando
+tratas a una función como si fuera una tabla:
+
+```{r c35-14, error=TRUE}
+data$edad
+```
+
+::: {.peligro}
+`data` es una **función** de R, no tus datos. Cuando le pides `data$edad`, R
+contesta que a una función no se le puede sacar una columna. Pasa siempre por lo
+mismo: le pusiste a tu tabla un nombre que ya usa R (`data`, `df`, `mean`, `sum`,
+`c`, `t`) y luego olvidaste crearla, o el bloque que la creaba no corrió.
+Solución: dale a tus tablas nombres propios (`millas_2008`, `datos_covid`) y
+ejecuta los bloques en orden.
+:::
+
+***
+
+## `$ operator is invalid for atomic vectors`
+
+```{r c35-15, error=TRUE}
+x <- c(a = 1, b = 2, c = 3)
+x$a
+```
+
+::: {.nota}
+El `$` solo funciona en tablas y listas, no en **vectores**. Un vector no tiene
+columnas, tiene posiciones y a veces nombres. Para sacarle un elemento se usan
+corchetes: `x["a"]` conserva el nombre y `x[["a"]]` devuelve el valor pelado.
+:::
+
+```{r c35-16}
+x["a"]
+x[["a"]]
+```
+
+***
+
+## `NAs introduced by coercion` (una advertencia, no un error)
+
+```{r c35-17, warning=TRUE}
+as.numeric(c("3", "4", "cinco"))
+```
+
+::: {.advertencia}
+R **sí** hizo la conversión, pero lo que no pudo convertir lo dejó en `NA`. No
+hay error, hay resultado, y por eso este es un caso donde ignorar la advertencia
+sale caro: si esa columna venía de un Excel con una celda que decía "n/a" o
+"sin dato", acabas de convertirla en un `NA` sin darte cuenta. Antes de
+`as.numeric()`, mira siempre qué valores raros trae la columna.
+:::
+
+***
+
+## `longer object length is not a multiple ...` (reciclaje)
+
+```{r c35-18, warning=TRUE}
+c(1, 2, 3, 4) + c(10, 20, 30)
+```
+
+::: {.advertencia}
+Cuando dos vectores tienen largos distintos, R **repite** el corto hasta
+completar el largo, en vez de negarse. Eso se llama *reciclaje*. Si los largos
+encajan (4 y 2) lo hace en silencio; si no encajan (4 y 3) avisa con esta
+advertencia. En cualquiera de los dos casos, si tus dos columnas debían tener el
+mismo largo, el resultado está mal. Revisa con `length()` o `nrow()`.
+:::
+
+***
+
 ## Un método general para resolver errores
 
 1. **Lee el mensaje completo**, sobre todo la primera línea.
@@ -200,3 +336,161 @@ reproducible aunque no tengas internet.
 Guarda la calma: un error no significa que "no sirves para esto". Significa que R
 necesita que le aclares algo. Cada error que resuelves te hace mejor analista.
 :::
+
+------------------------------------------------------------------------
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Aquí la explicación pesa más que en otros capítulos: lo que se
+evalúa es que sepas **leer** el mensaje, no solo que el código acabe corriendo.
+Los ejercicios usan `millas` y `diamantes` del paquete `datos`, no `mtcars` ni
+`iris`, que son los del capítulo. La hoja completa para entregar está en
+`Ejercicios/Ejercicios_Capitulo_14_errores.Rmd`.
+
+Truco para que tu documento compile aunque muestres un error a propósito: añade
+`error=TRUE` a las opciones del bloque, como se hace en este capítulo.
+:::
+
+### Ejercicio 1. Leer el mensaje
+
+::: {.ejercicio}
+Estas cinco líneas están rotas, cada una por una razón distinta:
+
+`Filter(millas, clase == "compact")`
+
+`millas$autopsta`
+
+`filter(millas, anio = 2008)`
+
+`"8" + millas$cilindros[1]`
+
+`mean(millas$clase)`
+
+Para cada una: córrela con `error=TRUE`, **copia lo que salió**, explica en una
+oración qué significa, y escribe debajo la versión corregida.
+
+**Verificación:** las cinco versiones corregidas deben correr limpias, sin error
+y sin advertencia.
+
+**En palabras:** solo tres de las cinco producen un **error** que detiene la
+línea. ¿Cuáles son las otras dos, qué devuelven, y por qué son más peligrosas
+que las tres que sí fallan de frente?
+:::
+
+```{r c35-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Instalar no es activar
+
+::: {.ejercicio}
+Sin activar ningún paquete nuevo, corre `rollmean(1:10, 3)` en un bloque con
+`error=TRUE`. Después arréglalo de dos maneras distintas: una con `library()` y
+otra escribiendo `paquete::funcion()`.
+
+**Verificación:** las dos versiones corregidas deben devolver el mismo vector de
+8 valores.
+
+**En palabras:** ¿qué mensaje distinto habrías visto si el paquete `zoo` no
+estuviera instalado en tu computadora? ¿Por qué no conviene dejar
+`install.packages("zoo")` dentro del script que entregas?
+:::
+
+```{r c35-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. El `NA` no es un error
+
+::: {.ejercicio}
+Datos: `millas`. Haz una copia y métele valores faltantes a propósito:
+
+`millas_na <- millas`
+
+`millas_na$autopista[c(3, 17, 100)] <- NA`
+
+Calcula el promedio de `autopista` en `millas_na` de tres maneras: sin
+`na.rm`, con `na.rm = TRUE`, y quitando antes las filas con `NA` usando
+`filter(!is.na(autopista))`.
+
+**Verificación:** la primera devuelve `NA`; la segunda y la tercera devuelven
+**el mismo** número, calculado sobre 231 filas.
+
+**En palabras:** las tres son distintas maneras de tratar el mismo problema.
+¿Cuándo sería un **error de análisis** usar `na.rm = TRUE` sin pensarlo?
+:::
+
+```{r c35-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. `=`, `==` y `<-`
+
+::: {.ejercicio}
+Datos: `diamantes`. Escribe tres líneas, cada una en su propio bloque con
+`error=TRUE` si hace falta:
+
+1. `filter(diamantes, corte = "Ideal")`
+2. `filter(diamantes, corte == "Ideal")`
+3. `diamantes_ideal = filter(diamantes, corte == "Ideal")`
+
+**Verificación:** la segunda y la tercera producen la misma tabla; la primera no
+produce ninguna.
+
+**En palabras:** el `=` de la línea 1 y el `=` de la línea 3 son el mismo signo,
+pero solo uno de los dos está mal. Explica qué hace `=` en cada sitio y por qué
+en el curso preferimos `<-` para asignar.
+:::
+
+```{r c35-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. El ejemplo mínimo
+
+::: {.ejercicio}
+Este bloque se cae, pero el mensaje no dice en cuál de los cuatro pasos:
+
+`resumen <- diamantes |>`
+
+`  filter(quilate > 0.5) |>`
+
+`  group_by(corte) |>`
+
+`  summarise(precio_medio = mean(Precio))`
+
+Encuentra el paso que falla **reduciendo el problema**: corre el primer paso
+solo, luego los dos primeros, y así hasta que reaparezca el error.
+
+**Verificación:** cuando lo arregles, la tabla debe tener 5 filas, una por cada
+nivel de `corte`.
+
+**En palabras:** ¿en qué paso estaba el problema y cómo lo supiste? Explica por
+qué reducir el código a un ejemplo mínimo es más rápido que releer las cuatro
+líneas enteras.
+:::
+
+```{r c35-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6 (BONO). Que no se caiga por culpa del internet
+
+::: {.ejercicio}
+Guarda una tabla pequeña de `millas` en `Datos/millas_copia.csv` con
+`write_csv()`. Después escribe un `tryCatch()` que intente leer un archivo desde
+una dirección de internet que no existe y que, al fallar, lea tu copia local.
+
+**Verificación:** el bloque debe correr sin error y devolver la tabla de tu copia
+local.
+
+**En palabras:** ¿qué diferencia hay entre este `tryCatch()` y simplemente poner
+`error=TRUE` en el bloque?
+:::
+
+```{r c35-ej6, eval=FALSE}
+# Escribe tu código aquí
+```

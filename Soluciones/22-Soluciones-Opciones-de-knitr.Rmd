@@ -1,0 +1,243 @@
+---
+title: "Soluciones: Capítulo Opciones de knitr"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Corresponde a: 22-Opciones-de-knitr.Rmd (Capítulo 24 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_24_knitr.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Este capítulo se corrige mirando el
+`.html` del estudiante al lado de su `.Rmd`: si solo se mira el código no se puede
+saber si el efecto salió bien.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: las cuatro maneras de esconder algo
+
+La tabla completa, que es la respuesta del ejercicio:
+
+| Opción | ¿Se ejecutó? | ¿Se vio el código? | ¿Se vio el resultado? |
+|:--|:--|:--|:--|
+| `echo=FALSE` | **sí** | no | **sí** |
+| `eval=FALSE` | no | **sí** | no |
+| `include=FALSE` | **sí** | no | no |
+| `results='hide'` | **sí** | **sí** | no |
+
+**Respuesta esperada.** Uno enseña solo el número (`echo=FALSE`), dos enseñan solo
+el código (`eval=FALSE` y `results='hide'`), y uno no enseña nada
+(`include=FALSE`).
+
+Cuáles crean el objeto: las **tres** que se ejecutan, o sea todas menos
+`eval=FALSE`. Esa es la distinción que hay que exigir en la explicación, porque es
+la que causa problemas de verdad: `include=FALSE` es invisible **y** deja el
+objeto listo, y por eso es la opción del bloque `setup` de todos los documentos.
+
+Matiz que vale la pena mencionar: `results='hide'` esconde la salida de **texto**
+pero **no las gráficas**. Para esconder una gráfica hace falta
+`fig.show='hide'`. Se ve en la tabla del capítulo, pero casi nadie se fija.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: avisos y mensajes
+
+```{r sol22-2}
+library(dplyr)
+library(MASS)
+# Attaching package: 'MASS'
+# The following object is masked from 'package:dplyr': select
+```
+
+**Respuesta esperada.** El aviso sale como **mensaje**, no como advertencia, así
+que desaparece con `message=FALSE` y **no** con `warning=FALSE`. Que el estudiante
+note eso ya vale medio ejercicio: los dos parecen lo mismo en la pantalla y no lo
+son.
+
+Sobre si `message=FALSE` resuelve el problema: **no**, solo apaga el aviso. El
+enmascaramiento sigue ahí, y a partir de ese `library(MASS)` cualquier `select()`
+del documento es la de `MASS`, que hace algo completamente distinto. El error
+aparecerá más tarde, en otro bloque, y sin ninguna pista de dónde viene.
+
+La solución de verdad, que es la línea que se pide:
+
+```{r sol22-2b}
+dplyr::select(millas, clase, autopista)
+```
+
+O bien no cargar `MASS` entero y llamar solo lo que haga falta con
+`MASS::stepAIC()`. La regla general: cuando dos paquetes chocan, se resuelve con
+`::`, no escondiendo el aviso.
+
+**Punto para discutir en clase.** Este es el ejemplo perfecto de que
+`warning=FALSE` y `message=FALSE` en el bloque global son cómodos y tienen un
+precio: el documento queda limpio, pero uno deja de enterarse de cosas que
+importan. Vale la pena que sepan que el libro del curso los tiene puestos.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: la trampa del `eval=FALSE`
+
+```{r sol22-3a}
+datos_millas <- millas |> filter(anio == 2008)
+```
+
+```{r sol22-3b}
+nrow(datos_millas)
+# Error: object 'datos_millas' not found
+```
+
+**Respuesta esperada.** Error limpio, con el nombre del objeto en el mensaje.
+
+La diferencia con el ejemplo del capítulo: allí el objeto se llamaba `data`, y
+`data` **ya existe** en R: es una función de base. Así que R no falló, encontró la
+función y le calculó el promedio, que no tiene sentido y da `NA` con una
+advertencia. Aquí `datos_millas` no existe en ningún sitio, así que el fallo es
+inmediato y claro.
+
+Cuál comportamiento es preferible: el **error**, sin duda, y la justificación
+tiene que conectar con el capítulo de errores comunes. Un error para el trabajo y
+señala la línea; un `NA` silencioso sigue viajando por el análisis. La lección
+práctica que se deriva: **no le pongas a tus objetos nombres que R ya usa**
+(`data`, `df`, `c`, `t`, `mean`, `sum`, `matrix`).
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: el tamaño de una figura
+
+```{r sol22-4, fig.width=8}
+ggplot(millas, aes(cilindrada, autopista)) + geom_point()
+```
+
+**Respuesta esperada.** Las dos que comparten el tamaño relativo de las letras son
+la **primera** y la **tercera**, las dos de `fig.width=8`. La tercera es la misma
+imagen encogida al 40 %, así que todo dentro de ella encogió por igual: las letras
+salen más pequeñas en la pantalla pero **en la misma proporción** respecto a la
+gráfica.
+
+La segunda, con `fig.width=3`, es distinta: R volvió a dibujar la figura en un
+lienzo más pequeño, y como el tamaño del texto en `ggplot` se mide en puntos y no
+cambia, las letras ocupan proporcionalmente **mucho más**. Es la razón por la que
+una figura hecha grande y encogida después se ve con las letras diminutas.
+
+Para un artículo a una columna: `fig.width` pequeño, alrededor de 3 o 3.5
+pulgadas, que es el ancho real de la columna. Así el texto sale del tamaño
+correcto **impreso**. Encoger con `out.width` una figura de 8 pulgadas es
+exactamente lo que produce esas figuras de artículo con los ejes ilegibles.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: global contra local
+
+**Respuesta esperada.** Gana el **bloque**. La regla es que lo más específico
+manda: `opts_chunk$set()` fija el valor por defecto y cada bloque puede
+sobrescribirlo.
+
+Ventaja de lo global: se escribe una vez y vale para todo el documento. En un
+libro de treinta capítulos, poner `warning=FALSE` bloque por bloque sería
+insostenible, y además cualquiera que abriera el documento vería el mismo criterio
+aplicado en todas partes.
+
+Desventaja: es **invisible desde el medio del documento**. Alguien que abra tu
+`.Rmd` por la página 40 y vea un bloque sin opciones no puede saber si el código
+se va a ver o no, porque eso se decidió en la línea 12. Es el mismo problema del
+`setwd()` del capítulo de scripts: una decisión tomada en un sitio que afecta a
+todo lo demás.
+
+Buena práctica que conviene mencionar: si vas a **desviarte** de lo global en un
+bloque, ponle un comentario corto diciendo por qué. Tu yo de dentro de seis meses
+lo agradecerá.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: `cache`
+
+```{r sol22-6}
+Sys.sleep(10)
+resumen <- millas |> group_by(clase) |> summarise(m = mean(autopista))
+resumen
+```
+
+**Respuesta esperada.** La primera compilación tarda unos diez segundos más que
+sin el bloque; la segunda, con el caché ya escrito, es casi instantánea.
+
+Lo del comentario es la parte importante: **sí se recalcula**. `cache` compara el
+**texto completo del bloque**, comentarios incluidos, con el que guardó la vez
+anterior. Si cambia un solo carácter, considera que el bloque es otro y lo vuelve
+a ejecutar.
+
+Por qué es peligroso con un archivo de datos: porque mira el **código**, no los
+**datos**. Si el bloque hace `read_csv("Datos/censo.csv")` y tú editas ese archivo
+por fuera, el código sigue siendo idéntico, así que `cache` te devuelve
+tranquilamente el resultado viejo. Puedes pasarte una tarde editando el csv y
+viendo siempre el mismo número.
+
+Cómo se arregla, cualquiera de las tres:
+
+- borrar la carpeta `_cache` (la solución de fuerza bruta, y la que se usa);
+- `cache.extra = file.mtime("Datos/censo.csv")`, que añade la fecha del archivo a
+  lo que `cache` compara;
+- no cachear los bloques que leen datos, y cachear solo los que calculan.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): escribir el documento desde el código
+
+```{r sol22-7, results='asis'}
+resumen <- millas |> 
+  group_by(clase) |> 
+  summarise(n = n(), autopista = mean(autopista))
+
+for (i in seq_len(nrow(resumen))) {
+  cat("### ", resumen$clase[i], "\n\n")
+  cat("Hay ", resumen$n[i], " vehículos de esta clase, con un consumo promedio en autopista de ",
+      round(resumen$autopista[i], 1), " millas por galón.\n\n", sep = "")
+}
+```
+
+**Respuesta esperada.** Siete encabezados de nivel 3, con su párrafo, y los siete
+en la tabla de contenido.
+
+Sin `results='asis'`, el resultado sale envuelto como salida de consola: se ven
+los `###` literales, precedidos de `##` como cualquier otro resultado impreso, y
+no se convierten en encabezados. Es la diferencia entre "R me está enseñando un
+texto" y "R está escribiendo en el documento".
+
+Detalles que suelen fallar y conviene señalar al corregir:
+
+- Olvidar los `\n\n` finales. Con un solo salto de línea, el encabezado y el
+  párrafo se pegan y Markdown no los reconoce.
+- Usar `print()` en vez de `cat()`. `print()` añade comillas y el `[1]`.
+- Olvidar `sep = ""` en el `cat()` con varias piezas, y acabar con espacios de más
+  antes de los puntos.
+
+Situaciones propias que suelen mencionar, y todas son buenas: una ficha por
+especie con su gráfica y sus estadísticas; un informe de campo que se rehace
+cuando llegan los datos del mes; las hojas de resultados individuales de cada
+estudiante.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Hay que corregir con el `.html` abierto al lado del `.Rmd`. Un estudiante puede
+poner las opciones correctas y no darse cuenta de lo que hicieron, y eso se ve
+solo en la explicación.
+
+Los dos ejercicios que de verdad importan son el 3 y el 6, y por la misma razón de
+siempre en este curso: los dos producen **resultados equivocados sin dar ningún
+error**. Un `eval=FALSE` olvidado y un caché desactualizado son dos de las maneras
+más comunes de entregar un informe con números viejos.
+
+El 7 es el que más les va a servir a los que sigan con investigación.

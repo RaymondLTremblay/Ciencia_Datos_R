@@ -1,0 +1,211 @@
+---
+title: "Ejercicios del Capítulo 31"
+subtitle: "Tidyverse avanzado: evaluación tidy, datos anidados, broom y tidymodels"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 31 del libro del curso.
+
+Este capítulo junta lo de **funciones** y lo de **iteración**: funciones que reciben columnas, y modelos aplicados a muchos grupos a la vez. Si esos dos capítulos no están frescos, repásalos antes.
+
+Los ejercicios usan `millas` y `paises` del paquete `datos`, no `mtcars` ni los tibbles pequeños del capítulo.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra.
+3. **Una explicación en palabras** en el espacio marcado.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | El problema, antes de la solución | 5 |
+| 2 | Las llaves dobles | 5 |
+| 3 | El nombre de la columna de salida | 5 |
+| 4 | Una tabla dentro de una tabla | 5 |
+| 5 | Un modelo por grupo, todo en una tabla | 5 |
+| 6 | `tidy()`, `glance()` y `augment()` | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Un flujo de tidymodels | **5 adicionales** |
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(broom)
+library(datos)
+```
+
+---
+
+# Ejercicio 1. El problema, antes de la solución (5 puntos)
+
+1. Escribe `promedio_por(datos, grupo, valor)` **sin** llaves dobles, tal como saldría de lo aprendido en el capítulo de funciones.
+2. Llámala con `millas`, `clase` y `autopista`.
+
+*Verifica:* da `object 'clase' not found`.
+
+```{r ej1, error=TRUE}
+# Escribe tu código aquí
+
+```
+
+3. La columna `clase` **sí** existe en `millas`. Explica entonces dónde la fue a buscar R.
+4. ¿Por qué `millas |> group_by(clase)` sí funciona escrito directamente, y no dentro de la función?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. Las llaves dobles (5 puntos)
+
+1. Arregla la función con `{{ }}`.
+2. Pruébala con `millas`: por `clase`, el promedio de `autopista`.
+3. Pruébala con `paises`: por `continente`, el promedio de `esperanza_de_vida`.
+
+*Verifica:* la primera devuelve **7** filas y la segunda **5**. La misma función sirve para las dos tablas sin cambiar nada.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+4. ¿Por qué `datos` **no** necesita llaves dobles y `grupo` **sí**?
+5. Fíjate en qué tipo de cosa es cada argumento: uno es un objeto y el otro es un nombre. Explica la diferencia.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. El nombre de la columna de salida (5 puntos)
+
+1. Añádele a tu función un cuarto argumento, `nombre`, que decida cómo se llama la columna del resultado.
+2. Hazlo primero con `=` normal, en un bloque con `error=TRUE`.
+3. Hazlo después con `:=`.
+
+*Verifica:* con `nombre = "consumo_medio"`, la tabla resultante tiene una columna llamada exactamente así. Compruébalo con `names()`.
+
+```{r ej3a, error=TRUE}
+# La versión con = que falla
+
+```
+
+```{r ej3b}
+# La versión con := que funciona
+
+```
+
+4. Copia el error de la primera versión. ¿Qué intentaba hacer R con ese `=`?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Una tabla dentro de una tabla (5 puntos)
+
+1. Con `millas`, agrupa por `clase` y usa `nest()`.
+2. Mira la tabla resultante.
+3. Mira el contenido de **una sola celda** de la columna `data`, la de la clase `suv`.
+
+*Verifica:* la tabla anidada tiene **7 filas** y **2 columnas**. La celda de `data` de `suv` contiene un tibble de **62 filas**.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+4. ¿Cuántas filas tiene la tabla anidada y cuántas tenía `millas`? ¿Dónde se fueron las demás?
+5. Explica con tus palabras qué es una "columna lista".
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. Un modelo por grupo, todo en una tabla (5 puntos)
+
+Sobre la tabla anidada del ejercicio anterior:
+
+1. Añade con `mutate()` y `map()` una columna `modelo` con `lm(autopista ~ cilindrada)` de cada clase.
+2. Añade otra columna con `broom::glance()` de cada modelo.
+3. Haz `unnest()` de esa última y ordena por `r.squared`.
+
+*Verifica:* la tabla final tiene **7** filas y una columna `r.squared`.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+4. Compara esto con lo que hiciste en el capítulo de iteración con `split()` y `map()`.
+5. ¿Qué ventaja tiene tener los datos, el modelo y las métricas en la **misma fila**?
+6. Mira la columna `nobs` de `glance()`. ¿Te fías igual de todos los $R^2$?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. `tidy()`, `glance()` y `augment()` (5 puntos)
+
+1. Ajusta `lm(autopista ~ cilindrada + clase, data = millas)`.
+2. Aplícale `tidy()`, `glance()` y `augment()`.
+3. Compara cada salida con la de `summary()`.
+
+*Verifica:* `tidy()` devuelve una fila por coeficiente, `glance()` devuelve **una sola** fila, y `augment()` devuelve **234** filas.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+4. `summary()` enseña la misma información. ¿Por qué preferir `broom`?
+5. Contesta con algo que puedas **hacer** con la salida de `tidy()` y no con la de `summary()`. Por ejemplo: filtrar los coeficientes significativos, o graficarlos con barras de error.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). Un flujo de tidymodels (5 puntos adicionales)
+
+1. Monta con `tidymodels` el mismo modelo del Ejercicio 6: una `recipe()`, un `linear_reg()` con `set_engine("lm")`, y un `workflow()`.
+2. Ajústalo con `fit()`.
+3. Saca los coeficientes con `extract_fit_parsnip()` y `tidy()`.
+
+*Verifica:* los coeficientes son **idénticos** a los del `lm()` del Ejercicio 6. Compruébalo con `all.equal()`.
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+4. Si dan exactamente lo mismo y ocupa cinco veces más código, ¿en qué situación vale la pena `tidymodels`?
+5. Da un ejemplo concreto de tu propio trabajo o de tu tesis.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

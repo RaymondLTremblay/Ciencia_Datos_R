@@ -1,0 +1,225 @@
+---
+title: "Ejercicios del Capítulo 29"
+subtitle: "Hex stickers: sticker(), coordenadas, fuentes, contraste y formatos"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 29 del libro del curso.
+
+Este capítulo no produce números, produce un **objeto de diseño**, así que se entrega distinto. Cada ejercicio necesita tres cosas:
+
+1. **El código** que genera la calcomanía.
+2. **La imagen resultante**, insertada en el documento con `knitr::include_graphics()`.
+3. **Una explicación en palabras** de las decisiones que tomaste.
+
+Las decisiones son lo que se evalúa: por qué ese color, ese tamaño, esa fuente. Una calcomanía bonita sin justificación vale la mitad que una sencilla bien explicada.
+
+Guarda todas tus calcomanías en una carpeta `img/ejercicios/`, que puedes crear con `dir.create("img/ejercicios", recursive = TRUE)`.
+
+Los ejercicios usan `millas` del paquete `datos`, no la foto del gatito del capítulo.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Una calcomanía a partir de una gráfica | 5 |
+| 2 | El sistema de coordenadas | 5 |
+| 3 | Fuentes | 5 |
+| 4 | Contraste | 5 |
+| 5 | Los adornos | 5 |
+| 6 | Formatos | 5 |
+| **Total** | | **30** |
+| 7 (bono) | La tuya | **5 adicionales** |
+
+Cada ejercicio se evalúa así: código correcto (1 punto), imagen entregada (1 punto), justificación de las decisiones (3 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(hexSticker)
+library(magick)
+library(sysfonts)
+library(showtext)
+library(datos)
+```
+
+```{r carpeta, eval=FALSE}
+dir.create("img/ejercicios", recursive = TRUE, showWarnings = FALSE)
+```
+
+---
+
+# Ejercicio 1. Una calcomanía a partir de una gráfica (5 puntos)
+
+1. Haz un `ggplot` sencillo con `millas`, por ejemplo `cilindrada` contra `autopista`.
+2. Quítale todo lo que sobra con `theme_void()`.
+3. Úsalo como `subplot` de una calcomanía llamada `millas` y guárdala en `img/ejercicios/`.
+
+*Verifica:* el archivo `.png` existe. Compruébalo con `file.exists()`.
+
+```{r ej1, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+```{r ej1-imagen, eval=FALSE}
+knitr::include_graphics("img/ejercicios/millas.png")
+```
+
+4. Genera también la versión **sin** `theme_void()` y compárala.
+5. ¿Qué desapareció y por qué mejora la calcomanía a ese tamaño?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. El sistema de coordenadas (5 puntos)
+
+Partiendo de la calcomanía anterior, genera **cuatro** versiones cambiando solo las posiciones y los tamaños:
+
+1. La gráfica arriba y el texto abajo.
+2. Las dos centradas y superpuestas.
+3. La gráfica muy pequeña en una esquina.
+4. La gráfica ocupando casi todo el hexágono.
+
+*Verifica:* las cuatro salen distintas y todas quedan dentro del hexágono, sin nada cortado por el borde.
+
+```{r ej2, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+5. Anota en una tabla qué valores de `s_x`, `s_y`, `s_width`, `p_x` y `p_y` usaste en cada versión.
+6. ¿Cuál es el centro exacto del hexágono? ¿Cómo lo dedujiste de tus pruebas?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. Fuentes (5 puntos)
+
+1. Baja **dos** fuentes de Google Fonts con `font_add_google()`: una de palo seco (por ejemplo Rubik o Montserrat) y otra decorativa (por ejemplo Lobster Two o Dancing Script).
+2. Activa `showtext_auto()` y `showtext_opts(dpi = 300)`.
+3. Haz la misma calcomanía con cada una.
+
+*Verifica:* las dos versiones se ven con tipografías claramente distintas. Si salen iguales, se te olvidó `showtext_auto()`.
+
+```{r ej3, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+4. Reduce las dos imágenes al tamaño de una moneda y míralas. ¿Cuál sigue siendo legible?
+5. ¿Cambia tu opinión sobre cuál es más bonita cuando la miras a ese tamaño?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Contraste (5 puntos)
+
+Haz **dos** calcomanías con exactamente el mismo contenido:
+
+1. Una con **buen** contraste entre el texto y el fondo.
+2. Otra con dos colores de intensidad parecida, por ejemplo verde medio sobre azul medio.
+
+*Verifica:* las dos existen como archivos. Insértalas una al lado de la otra en el documento.
+
+```{r ej4, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+3. Describe qué le pasa a la mala cuando la miras de lejos.
+4. Busca qué son la **luminosidad** y el **contraste** de un color, y explica en dos oraciones por qué dos colores distintos pueden verse igual de oscuros.
+5. ¿Qué pasaría con tu calcomanía mala si alguien la imprimiera en blanco y negro?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. Los adornos (5 puntos)
+
+1. Añádele a tu calcomanía una url (real o inventada) con `url` y ajusta su posición, tamaño y color con los argumentos `u_`.
+2. Prueba `spotlight = TRUE` con al menos dos valores distintos de `l_alpha`.
+
+*Verifica:* la url queda pegada al borde de abajo, sin salirse del hexágono y sin tocar la gráfica.
+
+```{r ej5, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+3. ¿Aporta algo la url a **esta** calcomanía en concreto?
+4. ¿Y el spotlight?
+5. Defiende quitar los dos, o dejarlos. No hay respuesta correcta: hay que justificar.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. Formatos (5 puntos)
+
+1. Guarda la misma calcomanía en `.png` con `dpi = 300` y en `.svg`.
+2. Compara el tamaño de los dos archivos con `file.size()`.
+3. Ábrelos los dos y agrándalos mucho.
+
+*Verifica:* al agrandar mucho, uno de los dos se ve pixelado y el otro no.
+
+```{r ej6, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+4. ¿Cuál se pixela y por qué?
+5. ¿Cuál mandarías a una imprenta?
+6. Pregunta más fina: si el `subplot` fuera una **foto** en vez de un `ggplot`, ¿seguiría siendo el `.svg` perfectamente escalable? Justifícalo pensando en qué guarda cada formato.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). La tuya (5 puntos adicionales)
+
+Diseña la calcomanía de **tu** proyecto: tu tesis, tu laboratorio, tu curso, o un paquete de R que te gustaría escribir algún día. Aplica todo lo del capítulo.
+
+*Verifica:* tiene que pasar la **prueba de la moneda**: se entiende qué es y qué dice al tamaño de una moneda.
+
+```{r ej7, eval=FALSE}
+# Escribe tu código aquí
+
+```
+
+1. Escribe un párrafo justificando cada decisión: la imagen, el color, la fuente y el tamaño del texto.
+2. Enséñasela a un compañero durante **dos segundos** y pregúntale qué entendió. Anota lo que te dijo.
+3. ¿Cambiarías algo después de esa prueba?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

@@ -1,0 +1,255 @@
+---
+title: "Ejercicios del Capítulo 12"
+subtitle: "Transformación: índices paramétricos y no paramétricos (mean, sd, median, IQR, mad, quantile, first, last, signif)"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 12 del libro del curso.
+
+Este documento es tu entrega. Escribe tu propio código: el código de los ejemplos del capítulo te sirve de modelo, pero copiar y pegar no enseña. Los ejercicios usan conjuntos de datos **distintos** a los de los ejemplos del capítulo (`paises` y `diamantes` del paquete `datos`), no `vuelos` ni los datos de COVID de Puerto Rico.
+
+La idea de fondo del capítulo es una sola: para cada pregunta hay un índice **paramétrico** (promedio, desviación estándar), que supone una distribución bien portada, y uno **no paramétrico** (mediana, rango intercuartil, desviación absoluta mediana), que no lo supone. Casi todos los ejercicios te piden calcular los dos y decidir cuál describe mejor los datos.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra y produzca la tabla o la gráfica.
+3. **Una explicación en palabras** de lo que encontraste, en el espacio marcado. Una tabla sola no contesta la pregunta.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*. Si el documento no compila, no se puede corregir.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | `mean()` y `median()` | 5 |
+| 2 | `sd()` e `IQR()` | 5 |
+| 3 | `mad()`: dispersión robusta | 5 |
+| 4 | `quantile()`: cuartiles y percentiles | 5 |
+| 5 | `min()`, `max()` y el rango | 5 |
+| 6 | `first()` y `last()` con el orden correcto | 5 |
+| 7 | Valores faltantes y `na.rm` | 5 |
+| 8 | `signif()` y `round()`: cómo se reporta un número | 5 |
+| **Total** | | **40** |
+| 9 (bono) | Paramétrico frente a no paramétrico | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre y se muestra (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+Antes de empezar, mira qué tienes:
+
+```{r explorar, eval=FALSE}
+names(paises)
+head(paises)
+```
+
+Casi todos los ejercicios usan un solo año, para no mezclar décadas:
+
+```{r base, eval=FALSE}
+p2007 <- paises |> filter(anio == 2007)
+```
+
+---
+
+# Ejercicio 1. `mean()` y `median()` (5 puntos)
+
+Con `p2007`:
+
+1. Calcula, por `continente`, el promedio y la mediana de `esperanza_de_vida`, y el número de países (`n()`).
+2. Añade una columna con la diferencia entre el promedio y la mediana.
+3. ¿En cuál continente son casi iguales las dos medidas y en cuál se separan más?
+4. Explica en palabras qué te dice el **signo** de esa diferencia sobre la forma de la distribución: si el promedio es menor que la mediana, ¿hacia dónde hay valores extremos?
+
+*Verifica:* la suma de la columna `n()` debe dar el número de países de `p2007`.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. `sd()` e `IQR()` (5 puntos)
+
+Sigue con `p2007` y `esperanza_de_vida`.
+
+1. Calcula por continente la desviación estándar y el rango intercuartil.
+2. Ordena por desviación estándar de mayor a menor, y después por rango intercuartil. ¿Sale el mismo orden de continentes?
+3. ¿Cuál continente es el más homogéneo en esperanza de vida?
+4. Explica en palabras qué mide cada uno de los dos índices: uno es la distancia típica al promedio, el otro es el ancho de la mitad central de los datos. Di cuál es cuál.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. `mad()`, la dispersión que no se deja arrastrar (5 puntos)
+
+Ahora usa `pib_per_capita` en `p2007`, que es una variable muy asimétrica.
+
+1. Calcula para todo el conjunto: promedio, mediana, desviación estándar y `mad()`.
+2. Haz un histograma de `pib_per_capita` y marca el promedio y la mediana con dos líneas verticales.
+3. ¿Cuál de las dos medidas de dispersión es mucho más grande? ¿Por qué?
+4. Elimina del conjunto los cinco países con el `pib_per_capita` más alto y vuelve a calcular las cuatro medidas. ¿Cuáles cambiaron mucho y cuáles casi no cambiaron? Esa es la definición práctica de **robusto**: explícala con tus números.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. `quantile()`: cuartiles y percentiles (5 puntos)
+
+Con `p2007` y `pib_per_capita`:
+
+1. Calcula el primer cuartil, la mediana y el tercer cuartil. Dentro de `summarise()` pide **una** probabilidad a la vez, por ejemplo `quantile(pib_per_capita, 0.25)`.
+2. Calcula también los percentiles 10 y 90.
+3. Verifica que el rango intercuartil que calculaste en el ejercicio anterior es igual a la diferencia entre el tercer cuartil y el primero.
+4. Interpreta el percentil 90 en una oración completa, del tipo "el 90 % de los países tiene un producto interno bruto por persona menor de ...".
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. `min()`, `max()` y el rango (5 puntos)
+
+Con `p2007`:
+
+1. Por continente, saca el mínimo y el máximo de `esperanza_de_vida` y la diferencia entre los dos (el rango).
+2. Usa `slice_max()` y `slice_min()` para identificar **cuál país** tiene el valor más alto y el más bajo de cada continente.
+3. ¿Qué continente tiene el rango más ancho?
+4. El rango usa exactamente dos observaciones de todo el continente. Explica en palabras por qué eso lo hace una medida frágil, y cuál de las medidas de los ejercicios 2 y 3 preferirías para comparar la variabilidad entre continentes.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. `first()` y `last()` con el orden correcto (5 puntos)
+
+Ahora usa `paises` completo, con todos los años.
+
+1. Agrupa por `pais`, **ordena por `anio`** y calcula la esperanza de vida del primer año y la del último, y el cambio entre las dos.
+2. ¿Cuáles son los cinco países con el mayor aumento? ¿Y los que bajaron?
+3. Repite el cálculo sin ordenar por `anio` y compara. ¿Cambió algún resultado?
+4. Explica en palabras por qué `first()` y `last()` no son lo mismo que `min()` y `max()`, aunque en esta variable muchas veces coincidan.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7. Valores faltantes y `na.rm` (5 puntos)
+
+`paises` no tiene valores faltantes, así que vas a crear unos.
+
+1. A partir de `p2007`, crea `pib_na`, igual a `pib_per_capita` pero con `NA` en los países cuyo `pib_per_capita` sea mayor de 40000.
+2. Calcula el promedio de `pib_na` **sin** `na.rm = TRUE` y después **con** `na.rm = TRUE`.
+3. Compara ese segundo promedio con el promedio original de `pib_per_capita`. ¿Es más alto o más bajo? ¿Por qué?
+4. Explica el supuesto que estás haciendo al usar `na.rm = TRUE`: ¿qué tendría que ser cierto sobre los datos que faltan para que el promedio siga siendo honesto? En este caso, ¿se cumple?
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 8. `signif()` y `round()`: cómo se reporta un número (5 puntos)
+
+1. Calcula el promedio de `pib_per_capita` en `p2007` sin redondear y mira cuántos decimales imprime R.
+2. Presenta ese mismo número con `round()` a 2 decimales y con `signif()` a 3 cifras significativas.
+3. Haz lo mismo con la esperanza de vida promedio. Fíjate en que `round(x, 2)` y `signif(x, 3)` no dan lo mismo, y en que la diferencia depende del tamaño del número.
+4. Explica en palabras la diferencia entre "decimales" y "cifras significativas", y por qué reportar una esperanza de vida como 72.83814 sugiere una precisión que los datos no tienen.
+
+```{r ej8}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 9 (BONO). Paramétrico frente a no paramétrico (5 puntos adicionales)
+
+Este ejercicio es opcional y vale 5 puntos de bono sobre los 40 puntos regulares.
+
+Cambia al conjunto `diamantes`.
+
+1. Calcula para `precio`: promedio, mediana, desviación estándar, rango intercuartil y `mad()`.
+2. Haz un histograma de `precio`.
+3. Si tuvieras que describir el precio de un diamante típico con **dos** números, ¿cuáles escogerías y por qué?
+4. Repite los cálculos y el histograma con `log10(precio)`. ¿Se parecen más ahora el promedio y la mediana? Explica qué le hizo la transformación a la forma de la distribución, y qué le pasa a las unidades de tu respuesta cuando trabajas en escala logarítmica.
+
+```{r ej9}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+**Antes de entregar:** haz *Knit* al documento completo y confirma que corre de principio a fin sin errores.

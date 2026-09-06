@@ -22,10 +22,64 @@ Español:
 ***
 
 
+## Temas: Datos Relacionados
+
+- Qué es una clave: primaria, foránea y sustituta
+- Cómo se comprueba que una clave lo es de verdad
+- Uniones de transformación (*mutating joins*): `left_join()`, `inner_join()`, `right_join()`, `full_join()`
+- Uniones de filtro (*filtering joins*): `semi_join()`, `anti_join()`
+- Definir las columnas clave con `by`
+- Los tres problemas que arruinan una unión
+
+***
+
+## Por qué hace falta más de una tabla
+
+Hasta ahora cada análisis cabía en una tabla. En un proyecto real casi nunca es
+así: los datos llegan repartidos en varias, y hay que juntarlos. Y eso está bien
+hecho, no es un descuido. Si en `vuelos` guardáramos el nombre completo de la
+aerolínea en cada fila, escribiríamos "United Air Lines Inc." **336 776 veces**,
+y el día que hubiera que corregir una letra habría que corregirla en todas.
+
+La solución es guardar cada cosa una sola vez, en su propia tabla, y conectarlas
+por una columna común. A un conjunto de tablas conectadas así se le llama
+**datos relacionados**, y es como funcionan todas las bases de datos del mundo.
+
+En este capítulo trabajamos con cinco tablas del paquete `datos`, que juntas
+describen los vuelos que salieron de Nueva York en 2013:
+
+- **`vuelos`** es la tabla central: una fila por vuelo.
+- **`aerolineas`** traduce el código de dos letras al nombre completo de la
+  compañía.
+- **`aeropuertos`** da el nombre, la latitud y la longitud de cada aeropuerto.
+- **`aviones`** describe cada avión: año de fabricación, modelo, número de
+  asientos.
+- **`clima`** da las condiciones del tiempo en cada aeropuerto de origen, hora
+  por hora.
+
+Y se conectan así:
+
+- `vuelos$aerolinea` apunta a `aerolineas$aerolinea`
+- `vuelos$codigo_cola` apunta a `aviones$codigo_cola`
+- `vuelos$origen` y `vuelos$destino` apuntan a `aeropuertos$codigo_aeropuerto`
+- `vuelos` se conecta con `clima` por **cinco** columnas a la vez: `anio`, `mes`,
+  `dia`, `hora` y `origen`
+
+::: {.consejo}
+Antes de escribir una sola línea de código, dibuja en papel las tablas y las
+flechas entre ellas. Los errores de unión casi siempre vienen de no tener claro
+cuál columna apunta a cuál.
+:::
+
+***
+
 ```{r c18-2}
 library(tidyverse)
 library(datos)
 ```
+
+Mira las cinco tablas antes de unir nada. Fíjate sobre todo en qué columnas
+comparten:
 
 ```{r c18-3}
 vuelos # data set #1
@@ -61,26 +115,42 @@ aviones %>%
   filter(n > 1)
 ```
 
-## Temas: Datos Relacionados
-
-- mutating joins
-- filtering joins
-- operations
-
-### Los datos de vuelos
-
- 1.  **Ejercicios**:
-
-Hacer los ejercicios en la sección 13.2.1 del libro en español
-
 ***
-
 
 ## Claves
 
- 2.  **Ejercicios**:
+Una **clave** es la columna, o el conjunto de columnas, que identifica una
+observación sin ambigüedad. Hay tres tipos, y conviene distinguirlos:
 
-Hacer los ejercicios en la sección 13.3.1 del libro en español
+- Una **clave primaria** identifica una observación **en su propia tabla**.
+  `codigo_cola` es la clave primaria de `aviones`: cada avión aparece una sola
+  vez.
+- Una **clave foránea** identifica una observación **de otra tabla**.
+  `codigo_cola` en `vuelos` es una clave foránea: ahí se repite miles de veces,
+  una por cada vuelo que hizo ese avión.
+- Una **clave sustituta** es la que uno se inventa cuando la tabla no tiene
+  ninguna, casi siempre un número de fila (`mutate(id = row_number())`).
+
+A veces la clave es **una sola columna** y a veces hacen falta varias. `vuelos`
+no tiene clave primaria: ni el número de vuelo ni la fecha bastan, porque el
+mismo vuelo sale todos los días y varios vuelos salen a la misma hora.
+
+### Cómo se comprueba una clave
+
+Hay una sola manera, y es la que aparece una y otra vez en los bloques de abajo:
+**contar y quedarse con lo que se repite.** Si la columna es de verdad una clave,
+el resultado tiene que estar **vacío**.
+
+::: {.funcion}
+**La receta para verificar una clave**: `count()` seguido de `filter(n > 1)`.
+
+- **`tabla |> count(columna) |> filter(n > 1)`:** si devuelve cero filas, esa columna es una clave.
+- **Con varias columnas:** `count(a, b, c) |> filter(n > 1)`, que comprueba si la **combinación** es única.
+- **Ojo con los `NA`:** una columna con valores faltantes **no** sirve como clave, porque un `NA` no identifica nada. Compruébalo aparte con `filter(is.na(columna))`.
+:::
+
+Ese `filter(n > 1)` que devuelve una tabla vacía es una prueba superada, no un
+fallo. Si devuelve filas, ahí tienes tus duplicados.
 
 Identify the keys in the following datasets
 
@@ -195,10 +265,14 @@ names(Lahman::People)
 
 ## Uniones de transformaciones
 
+Una **unión de transformación** (*mutating join*) añade columnas de una tabla a
+otra, emparejando las filas por la clave. El nombre viene de que hace lo mismo
+que `mutate()`: la tabla sale con más columnas que entró.
+
  - mutating join
 
 ::: {.funcion}
-**`left_join()`, `inner_join()`, `full_join()`, `right_join()`** (dplyr) — combinar tablas.
+**`left_join()`, `inner_join()`, `full_join()`, `right_join()`** (dplyr): combinar tablas.
 
 - **Qué hacen:** unen dos tablas emparejando filas por una columna **clave** (`by =`).
 - **`left_join(x, y)`:** conserva todas las filas de `x`; **`inner_join`** solo las coincidencias; **`full_join`** todas las de ambas.
@@ -222,6 +296,11 @@ vuelos2 %>%
 ```
  
  
+Ahora vamos a entender las cuatro uniones con dos tablas mínimas, de tres filas
+cada una. Fíjate en que la clave `1` y la `2` están en las dos, pero la `3` solo
+está en `x` y la `4` solo está en `y`. Todo el capítulo se resume en qué le pasa
+a esas dos filas sueltas.
+
 ```{r c18-23}
 x <- tribble(
   ~key, ~val_x,
@@ -239,13 +318,33 @@ y <- tribble(
 x
 y
 ```
+**`inner_join()`** se queda **solo con lo que coincide**. La fila 3 de `x` y la
+fila 4 de `y` desaparecen, así que el resultado tiene dos filas:
+
 ```{r c18-24}
 x %>% 
   inner_join(y, by="key")
 ```
+
+::: {.advertencia}
+`inner_join()` **pierde filas sin avisar**. Es la causa número uno de análisis
+equivocados con datos relacionados: uno une dos tablas, sigue trabajando, y nunca
+se entera de que a mitad de camino se quedó sin la tercera parte de sus datos.
+Compara siempre `nrow()` antes y después de unir.
+:::
  
  
  
+Las otras tres son **uniones exteriores**: conservan filas que no tienen pareja y
+rellenan con `NA` lo que falta. Se diferencian solo en cuál tabla es la que manda:
+
+- **`left_join(x, y)`** conserva todas las filas de `x`. Es la que se usa el 90 %
+  de las veces, porque casi siempre uno tiene una tabla principal y quiere
+  añadirle información de una tabla de consulta.
+- **`right_join(x, y)`** conserva todas las de `y`. Es lo mismo que
+  `left_join(y, x)` con las columnas en otro orden.
+- **`full_join(x, y)`** conserva todas las de las dos.
+
 ```{r c18-25}
 #left_join
 
@@ -263,8 +362,9 @@ x %>%
   full_join(y, by="key")
 ```
 
-left_join
-
+El mismo ejemplo con nombres y edades, que se lee mejor. Fíjate en Orlando, que
+no tiene edad, y en la persona de 22 años, que no tiene nombre: son la fila 3 y
+la fila 4 de antes.
 
 ```{r c18-26}
 x <- tribble(
@@ -306,8 +406,13 @@ x %>%
 ```
 
  
- START HERE!!!!
- 
+***
+
+## Las uniones con los datos de verdad
+
+Con las tablas de vuelos, la unión típica es exactamente la del principio:
+añadirle a `vuelos2` el nombre completo de la aerolínea, que vive en otra tabla.
+
 ```{r c18-28}
 
 vuelos2 %>%
@@ -318,6 +423,13 @@ vuelos2 %>%
 names(vuelos2)
 names(clima)
 ```
+
+Cuando dos tablas comparten **varias** columnas con el mismo nombre y no se dice
+nada, `dplyr` las usa **todas** como clave. Eso se llama unión natural, y es
+cómodo pero peligroso: basta con que una de las tablas cambie de columnas para
+que la unión cambie de significado sin que nadie lo note. El segundo bloque hace
+lo mismo pero diciendo explícitamente cuáles columnas usar, que es lo
+recomendable:
 
 ```{r c18-29}
 
@@ -331,6 +443,10 @@ left_join(clima, by = c("anio", "dia", "hora", "origen"))
  
  
  
+Y cuando las columnas se llaman **distinto** en cada tabla, se dice con
+`c("nombre_en_x" = "nombre_en_y")`. Aquí el aeropuerto de origen se llama
+`origen` en `vuelos2` y `codigo_aeropuerto` en `aeropuertos`:
+
 ```{r c18-30}
 
 names(vuelos2)
@@ -347,6 +463,10 @@ vuelos2 %>%
  right_join(aeropuertos, c("origen" = "codigo_aeropuerto"))
 ```
  
+Un ejemplo de para qué sirve todo esto: quedarse solo con los aeropuertos que de
+verdad reciben vuelos, y dibujarlos en un mapa. El `semi_join()` filtra sin
+añadir columnas, que es justo lo que hace falta aquí.
+
 ```{r c18-31}
 library(maps)
 
@@ -369,13 +489,37 @@ coord_quickmap()
 
 ## Entendiendo las uniones
 
-***
+Todas las uniones funcionan igual por dentro. Imagina las dos tablas una al lado
+de la otra: para cada fila de la izquierda, R busca en la derecha las filas cuya
+clave coincida, y pega las columnas. Lo único que cambia entre las cinco
+funciones es **qué hacer con las filas que no encontraron pareja**.
 
 ### Unión interiores
 
+`inner_join()` es la unión interior: solo sobrevive lo que aparece en las dos
+tablas. Es la más limpia de entender y la más fácil de usar mal, porque el
+resultado nunca dice cuántas filas se quedaron por el camino.
+
+Úsala cuando la ausencia de pareja signifique de verdad que esa fila no debe
+seguir en el análisis, y comprueba siempre cuántas filas perdiste.
 
 ### Unión exteriores
 
+Las tres uniones exteriores (`left_join()`, `right_join()`, `full_join()`)
+conservan filas sin pareja y ponen `NA` en las columnas que no pudieron llenar.
+
+La regla práctica: **empieza siempre por `left_join()`**. Si tu tabla principal
+tiene 234 filas, después de un `left_join()` sigue teniendo 234 (salvo por el
+problema de la sección siguiente), y los `NA` que aparezcan te dicen exactamente
+qué no encontró pareja. Es la unión que no pierde datos y que además te informa.
+
+::: {.consejo}
+Los `NA` que salen de un `left_join()` no son un fallo: son el resultado más
+informativo de la operación. Cuéntalos con `filter(is.na(columna_nueva))` y mira
+qué tienen en común. Casi siempre revelan un problema en la tabla de consulta:
+una categoría que se te olvidó, un código escrito de dos maneras, un espacio de
+más.
+:::
 
 ### Claves duplicadas
 
@@ -383,22 +527,81 @@ coord_quickmap()
 Cuando la clave está duplicada en ambas tablas, la unión genera todas las combinaciones posibles (producto cartesiano) y el resultado tendrá más filas de las esperadas. Verifica con `count(clave) %>% filter(n > 1)` antes de unir.
 :::
 
+Conviene distinguir dos situaciones, porque una es normal y la otra es un error.
+
+**Duplicada en una sola tabla: normal.** Es el caso de `vuelos` y `aerolineas`:
+la aerolínea `UA` aparece miles de veces en `vuelos` y una sola vez en
+`aerolineas`. El resultado tiene tantas filas como `vuelos`, y el nombre de la
+compañía se repite. Es exactamente lo que uno quiere.
+
+**Duplicada en las dos tablas: casi siempre un error.** Si la clave se repite dos
+veces a cada lado, esa fila produce cuatro filas en el resultado. La tabla crece
+sin que nadie lo pida y los promedios que se calculen después estarán mal.
+
+```{r c18-duplicadas}
+a <- tribble(
+  ~clave, ~valor_a,
+  1, "a1",
+  1, "a2"
+)
+
+b <- tribble(
+  ~clave, ~valor_b,
+  1, "b1",
+  1, "b2"
+)
+
+left_join(a, b, by = "clave")   # 4 filas, no 2
+```
+
+::: {.consejo}
+El hábito que evita el 90 % de estos problemas: después de **cada** unión,
+comprueba `nrow()`. Si cambió y no esperabas que cambiara, para y averigua por
+qué antes de seguir.
+:::
 
 ***
 
 ## Definiendo las columnas clave
 
-3.  **Ejercicios**:
+El argumento `by` tiene cuatro formas, y vale la pena conocerlas todas:
 
-Hacer los ejercicios en la sección 13.4.6 del libro en español
+| Forma | Qué hace |
+|:--|:--|
+| `by = NULL` (o no ponerlo) | Unión **natural**: usa todas las columnas con el mismo nombre en las dos tablas |
+| `by = "clave"` | Usa solo esa columna |
+| `by = c("a", "b")` | Usa las dos columnas a la vez |
+| `by = c("x" = "y")` | La columna se llama `x` en la primera tabla y `y` en la segunda |
+
+::: {.advertencia}
+La unión natural (`by = NULL`) es cómoda para explorar y mala idea en un script
+que vas a guardar. `vuelos` y `clima` comparten `anio`, `mes`, `dia`, `hora` y
+`origen`, pero también podrían compartir mañana una columna nueva, y entonces la
+unión cambiaría de significado sin que tú tocaras nada. En un análisis serio,
+escribe siempre el `by` completo.
+:::
 
 ***
-
 
 ## Otras implementaciones
 
  - merge()
- 
+
+`merge()` es la función de base R que hace lo mismo. Funciona, pero es más lenta,
+tiene los argumentos al revés de lo que uno espera, y no distingue con claridad
+las cuatro uniones:
+
+| dplyr | merge() de base R |
+|:--|:--|
+| `inner_join(x, y)` | `merge(x, y)` |
+| `left_join(x, y)` | `merge(x, y, all.x = TRUE)` |
+| `right_join(x, y)` | `merge(x, y, all.y = TRUE)` |
+| `full_join(x, y)` | `merge(x, y, all = TRUE)` |
+
+Los nombres de `dplyr` dicen lo que hacen; los argumentos de `merge()` hay que
+recordarlos. Si te encuentras un `merge()` en código ajeno, esta tabla te dice
+cuál unión era.
+
 ***
 
 ## Uniones de filtro
@@ -409,22 +612,203 @@ Las uniones de filtro (`semi_join()` y `anti_join()`) nunca añaden columnas nue
 
  - semi_join()
  - anti_join()
- 
-4.  **Ejercicios**:
 
-Hacer los ejercicios en la sección 13.5.1 del libro en español
+::: {.funcion}
+**`semi_join()`** y **`anti_join()`** (dplyr): filtrar una tabla usando otra.
+
+- **`semi_join(x, y)`:** conserva las filas de `x` que **sí** tienen pareja en `y`.
+- **`anti_join(x, y)`:** conserva las filas de `x` que **no** la tienen.
+- **Ninguna de las dos añade columnas**, y ninguna duplica filas aunque la clave esté repetida en `y`. Por eso son más seguras que un `inner_join()` cuando lo único que quieres es filtrar.
+:::
+
+De las dos, la que más se usa en la práctica es `anti_join()`, y no para filtrar
+sino para **diagnosticar**: contesta la pregunta "¿qué hay en mi tabla que no
+encontró pareja?". Es lo primero que hay que correr cuando un `left_join()`
+devuelve más `NA` de los esperados.
+
+```{r c18-anti}
+vuelos |> 
+  anti_join(aviones, by = "codigo_cola") |> 
+  count(aerolinea, sort = TRUE)
+```
+
+Los vuelos que no encontraron su avión no están repartidos al azar entre las
+aerolíneas: se concentran en unas pocas. Eso no es un error de R, es un dato
+sobre cómo se recogió la información, y es justo el tipo de hallazgo que un
+`inner_join()` habría borrado en silencio.
 
 ***
 
 ## Problemas con las uniones
 
+Tres cosas salen mal casi siempre, y las tres se detectan antes de unir:
 
+1. **La clave no es única.** Comprueba las dos tablas con
+   `count(clave) |> filter(n > 1)`. Si la clave se repite en las dos, la unión va
+   a multiplicar filas.
+2. **La clave tiene valores faltantes.** Un `NA` no empareja con nada, ni
+   siquiera con otro `NA`. Búscalos con `filter(is.na(clave))` antes de unir.
+3. **La clave está escrita de dos maneras.** Es el problema más común y el más
+   invisible: `"SJU "` con un espacio al final no es `"SJU"`, `"Carolina"` no es
+   `"CAROLINA"`, y un código leído como número perdió sus ceros de delante.
+   `anti_join()` los saca a la luz enseguida.
 
+::: {.consejo}
+La rutina completa, en cuatro líneas, antes de cualquier unión seria:
+comprobar la clave en la tabla A, comprobarla en la tabla B, correr el
+`anti_join()` en los dos sentidos para ver qué no empareja, y solo entonces unir.
+Cuesta un minuto y ahorra tardes enteras.
+:::
 
- 
- 
+***
 
+## Ejercicios del libro R4DS
+
+Hacer los ejercicios de las siguientes secciones del libro en español:
+
+- sección 13.2.1 (los datos de vuelos),
+- sección 13.3.1 (claves),
+- sección 13.4.6 (uniones de transformación),
+- sección 13.5.1 (uniones de filtro).
 
 ***
 
 
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los ejercicios usan `millas` y `paises` del paquete `datos`, más
+una tabla de consulta que vas a escribir tú, no `vuelos` ni sus tablas
+acompañantes, que son las del capítulo. La hoja completa para entregar está en
+`Ejercicios/Ejercicios_Capitulo_20_datos-relacionados.Rmd`.
+:::
+
+### Ejercicio 1. Encontrar la clave
+
+::: {.ejercicio}
+Datos: `paises`. Averigua con `count()` y `filter(n > 1)` si `pais` por sí solo
+es una clave, y si la combinación de `pais` y `anio` lo es.
+
+**Verificación:** la primera prueba devuelve 142 filas repetidas (una por país,
+con `n` igual a 12); la segunda devuelve una tabla **vacía**.
+
+**En palabras:** una tabla vacía es la prueba superada. Explica por qué, y di
+cuál es entonces la clave primaria de `paises`.
+:::
+
+```{r c18-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Tu propia tabla de consulta
+
+::: {.ejercicio}
+Averigua cuántos fabricantes distintos hay en `millas` con `n_distinct()`.
+Después escribe con `tribble()` una tabla de consulta llamada `origen_fabricante`
+con dos columnas, `fabricante` y `pais_origen`, pero **solo para la mitad de los
+fabricantes**. Únela a `millas` con `left_join()`.
+
+**Verificación:** el resultado tiene las mismas **234** filas que `millas`, y una
+columna nueva con `NA` en las filas de los fabricantes que no pusiste.
+
+**En palabras:** los `NA` no son un error aquí. ¿Qué te están diciendo? ¿Por qué
+`left_join()` es la unión correcta para añadir una tabla de consulta?
+:::
+
+```{r c18-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. `left_join()` frente a `inner_join()`
+
+::: {.ejercicio}
+Repite la unión del ejercicio anterior con `inner_join()` y compara `nrow()` de
+los dos resultados.
+
+**Verificación:** el `inner_join()` devuelve **menos** de 234 filas; el
+`left_join()` devuelve exactamente 234.
+
+**En palabras:** el `inner_join()` no dio ningún error ni ninguna advertencia.
+Explica por qué eso lo hace más peligroso que un error, y cuál costumbre te
+protege.
+:::
+
+```{r c18-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. `anti_join()` para diagnosticar
+
+::: {.ejercicio}
+Usa `anti_join()` para averiguar **cuáles** fabricantes de `millas` no están en tu
+tabla de consulta, y cuántos vehículos representan.
+
+**Verificación:** la lista tiene que coincidir exactamente con los fabricantes
+que dejaste fuera a propósito, y el número de vehículos tiene que ser igual a la
+diferencia entre las dos uniones del Ejercicio 3.
+
+**En palabras:** `anti_join()` no añade ninguna columna. ¿Para qué sirve
+entonces? Describe una situación de tu propio trabajo donde lo usarías.
+:::
+
+```{r c18-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. La clave duplicada
+
+::: {.ejercicio}
+Añade a tu tabla de consulta una **segunda fila** para un fabricante que ya
+estaba, con otro país. Vuelve a hacer el `left_join()`.
+
+**Verificación:** el resultado tiene **más** de 234 filas, y los vehículos de ese
+fabricante aparecen duplicados.
+
+**En palabras:** ¿cuántas filas de más salieron, y por qué exactamente esa
+cantidad? Si después de esta unión calcularas el consumo promedio por `clase`,
+¿estaría mal? Explica en qué sentido.
+:::
+
+```{r c18-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Cuando las columnas se llaman distinto
+
+::: {.ejercicio}
+Cambia el nombre de la columna de tu tabla de consulta, de `fabricante` a
+`marca`. Intenta el `left_join()` sin tocar nada más, en un bloque con
+`error=TRUE`, y después arréglalo con la forma `by = c("a" = "b")`.
+
+**Verificación:** el intento sin arreglar da error; la versión arreglada da otra
+vez 234 filas.
+
+**En palabras:** copia el mensaje de error y explica qué te estaba diciendo. En
+`by = c("fabricante" = "marca")`, ¿cuál de los dos nombres pertenece a cuál
+tabla?
+:::
+
+```{r c18-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). `semi_join()` frente a `%in%`
+
+::: {.ejercicio}
+Quédate con los vehículos de `millas` cuyo fabricante **sí** está en tu tabla de
+consulta, de dos maneras: con `semi_join()` y con `filter(fabricante %in% ...)`.
+
+**Verificación:** las dos dan exactamente la misma tabla, con el mismo número de
+filas y las mismas 11 columnas.
+
+**En palabras:** si las dos dan lo mismo, ¿para qué existe `semi_join()`? Piensa
+en qué pasaría si la condición dependiera de **dos** columnas a la vez, y en qué
+pasaría si usaras `inner_join()` en lugar de `semi_join()`.
+:::
+
+```{r c18-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

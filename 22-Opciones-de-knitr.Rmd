@@ -29,8 +29,52 @@ Hay muchas opciones para determinar lo que hace un **chunk**
  - Other chunk options:
  - Package Options:
  - Global R Options:
- 
 
+***
+
+## Temas
+
+ - Qué es una opción de bloque y dónde se escribe
+ - Los tres niveles: global, por bloque, y en el YAML
+ - Las cuatro opciones que esconden cosas: `eval`, `echo`, `include`, `results`
+ - Avisos y mensajes
+ - Figuras: tamaño, título, alineación
+ - `cache`: no repetir lo que ya se calculó
+ - `results='asis'`: generar texto desde R
+
+***
+
+## Qué es una opción de bloque
+
+Una **opción de bloque** es un ajuste que se escribe en la primera línea del
+bloque, después de la etiqueta y separado por comas: en la primera línea escribes
+`{r mi-bloque, echo=FALSE, fig.width=4}` entre acentos graves, donde `mi-bloque`
+es la etiqueta y lo demás son las opciones.
+
+Todo lo que hay ahí dentro controla **qué hace R con ese bloque y qué acaba
+apareciendo en el documento final**. Y hay que tener clara una distinción que
+confunde a todo el mundo al principio: una cosa es que el código **se ejecute** y
+otra que **se vea**. Son dos decisiones independientes, y por eso hacen falta
+varias opciones y no una sola.
+
+Las opciones se pueden poner en tres niveles, y el más específico gana:
+
+1. **Global**, con `knitr::opts_chunk$set(...)` en el primer bloque del
+   documento. Es lo que hace la primera línea de todos los capítulos de este
+   libro. Vale para todos los bloques que vengan después.
+2. **Por bloque**, en la primera línea de ese bloque. Sobrescribe la global solo
+   para él.
+3. **En el YAML**, para cosas que afectan al documento entero (el formato de
+   salida, la tabla de contenido, el tema).
+
+::: {.consejo}
+La costumbre que conviene adoptar: pon en global lo que quieras casi siempre
+(típicamente `warning = FALSE, message = FALSE`) y deja las excepciones bloque por
+bloque. Así el documento se lee sin ruido y no tienes que repetir lo mismo
+cuarenta veces.
+:::
+
+***
 
 ## Para ver las opciones de **knitr** de los chunk
 
@@ -39,7 +83,7 @@ Hay muchas opciones para determinar lo que hace un **chunk**
 :::
 
 ::: {.funcion}
-**Opciones de los chunks** — controlan qué se muestra.
+**Opciones de los chunks**: controlan qué se muestra.
 
 - **`echo=FALSE`:** oculta el código (muestra solo el resultado).
 - **`eval=FALSE`:** muestra el código pero no lo ejecuta.
@@ -47,6 +91,17 @@ Hay muchas opciones para determinar lo que hace un **chunk**
 - **`warning=FALSE` / `message=FALSE`:** ocultan avisos y mensajes.
 - **`fig.width` / `fig.height` / `out.width`:** tamaño de las figuras.
 ::: 
+
+::: {.advertencia}
+`echo=FALSE` y `eval=FALSE` **no** son lo mismo y se confunden constantemente:
+
+- `echo=FALSE` **ejecuta** el código y esconde el código; el resultado sí sale.
+- `eval=FALSE` **no ejecuta** nada y enseña el código; no hay resultado.
+- `include=FALSE` ejecuta el código y no enseña **nada**, ni código ni resultado.
+
+Es decir, `include=FALSE` sí crea los objetos y `eval=FALSE` no. Esa diferencia
+es la causa del problema que vas a ver unas líneas más abajo.
+:::
 
 
 Este **chunk** es para que la información de los chunk en la parte de **knitr** se vea.   
@@ -82,6 +137,20 @@ Los ejemplos aquí serán limitados a las alternativas para los documentos **.Rm
  
  En la rueda de a la derecha de cada **chunk** hay opciones para seleccionar opciones.
  
+### Cómo se lee la tabla
+
+En la tabla siguiente, cada columna es una cosa que puede aparecer o no en el
+documento, y un guion significa que esa opción **la suprime**:
+
+- **Ejecuta:** el código corre de verdad.
+- **Muestra:** se ve el código escrito.
+- **Output:** se ve el resultado de texto.
+- **Gráficos, Mensajes, Advertencias:** lo que dice cada nombre.
+
+Fíjate en la primera fila: `eval=FALSE` suprime todo menos el código, porque no
+hay nada que ejecutar. Y en la tercera: `echo=FALSE` suprime solo el código, y
+deja pasar todo lo demás.
+
  Tablas de opciones principales
 -------------
  
@@ -152,22 +221,62 @@ head(cars)
 ***
 
 
+### Figuras
+
+Con las figuras hay dos parejas de opciones que se confunden:
+
+- **`fig.width` y `fig.height`** son el tamaño con el que **R dibuja** la figura,
+  en pulgadas. Cambian el tamaño relativo del texto y de los puntos dentro de la
+  gráfica: una figura de 3 pulgadas tiene las letras proporcionalmente más
+  grandes que una de 8.
+- **`out.width` y `out.height`** son el tamaño al que se **muestra** la imagen ya
+  hecha, normalmente en porcentaje (`out.width='50%'`). Es un simple estirar o
+  encoger, y el texto de dentro se estira con ella.
+
+La regla práctica: ajusta primero `fig.width` hasta que las letras se vean del
+tamaño correcto, y usa `out.width` solo para colocarla en la página.
+
+Las otras dos que se usan a diario son **`fig.cap`**, que pone el título al pie de
+la figura (y en bookdown la numera y permite referenciarla), y **`fig.align`**,
+que la coloca a la izquierda, a la derecha o centrada.
+
 Añade una figura 
 
 ```{r c22-8, eval=FALSE, echo=FALSE, fig.cap='El nombre de mi figura.', fig.topcaption=TRUE}
 plot(cars)
 ```
 
+Y ahora un ejemplo que sale mal a propósito, y que vale por todo el capítulo. El
+bloque siguiente lleva `eval=FALSE`, así que **el objeto `data` nunca se crea**:
+
 ```{r c22-9, eval=FALSE}
 data=c(1:100)
 ```
 
+El bloque de abajo sí se ejecuta, y pide el promedio de `data`:
 
 ```{r c22-10}
 mean(data)
 ```
 
- 
+::: {.peligro}
+Mira bien el resultado: no es 50.5, es `NA` con una advertencia. Como el objeto
+`data` no se creó, R fue a buscar ese nombre a otro sitio y encontró la
+**función** `data()` de base R, que existe siempre. Y el promedio de una función
+no se puede calcular.
+
+Es el mismo `object of type 'closure'` del capítulo de errores comunes, provocado
+aquí por una opción de bloque. La lección: `eval=FALSE` no es cosmética. Si el
+bloque que apagas creaba algo, todo lo que venga después trabaja sin ello, y no
+siempre da un error limpio.
+:::
+
+::: {.consejo}
+Este es el argumento definitivo a favor de la prueba de la sesión limpia del
+capítulo de scripts: reiniciar R y hacer *Knit* del documento completo. Un
+`eval=FALSE` olvidado se detecta ahí y en ningún otro sitio.
+:::
+
 ***
 
 
@@ -245,23 +354,43 @@ ggplot(df, aes(letters, value, fill = letters)) +
 ```
 </div>
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+El bloque `<div style="float:right; ...">` de arriba no es de R ni de knitr: es
+**CSS**, el lenguaje con el que se le da estilo a una página web. `float:right`
+saca la figura del flujo normal del texto y la pega a la derecha, y `position` y
+`top` la suben o la bajan unos píxeles para que quede a la altura del párrafo que
+le corresponde.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Esto solo funciona en la salida **HTML**. Si el mismo documento se compila a PDF o
+a Word, el `div` se ignora y la figura vuelve a su sitio. Es el precio de usar
+CSS: da control fino, pero solo en un formato.
 
-Note that the `echo = TRUE` parameter was added to the code chunk to have printing of the R code that generated the plot.
+La alternativa que sí funciona en los tres formatos es la opción
+`out.extra` del bloque, condicionada al formato de salida, que es lo que hace el
+capítulo de factores. Cuesta más de escribir y no se rompe al cambiar de salida.
+
+Para más detalles sobre R Markdown, <http://rmarkdown.rstudio.com>.
 
 ***
 ***
 
-### OTRAS funciones de knitr
+### OTRAS opciones de knitr
 
-- eval= to evaluate the code FALSE or TRUE
-- echo = TO show the code FALSE or TRUE
-- message = FALSE or TRUE
-- warning = FALSE or TRUE
-- error =FALSE or TRUE
-- results = 'asis' To show text exactly as printed/written
+- `eval=` : ejecutar o no el código (`TRUE` o `FALSE`)
+- `echo=` : mostrar o no el código (`TRUE` o `FALSE`)
+- `message=` : mostrar o no los mensajes
+- `warning=` : mostrar o no las advertencias
+- `error=` : si es `TRUE`, el documento **sigue compilando** aunque el bloque dé
+  error, y el mensaje sale impreso. Es lo que usa el capítulo de errores comunes
+  para enseñar los errores sin que el libro se caiga.
+- `results='asis'` : no envolver el resultado como salida de consola, sino
+  meterlo en el documento **tal cual**, como si lo hubieras escrito a mano.
+
+::: {.consejo}
+`results='asis'` es la puerta a algo muy útil: **generar el documento desde el
+código**. Con él, un `for` puede escribir un encabezado y un párrafo por cada
+especie de tu tabla, y el informe entero se rehace solo cuando cambian los datos.
+Es lo que hace el último bloque de esta sección, en pequeño.
+:::
 
 
 
@@ -294,19 +423,165 @@ cat("I'm raw **Markdown** content.\n",
 ***
 ***
 
-## Emoji or Symbols
+## Emojis y símbolos
 
-### Select Under the Edit ➡ Emoji & Symbols.
+### En Mac se abren desde Edit ➡ Emoji & Symbols.
+
+En Windows, con la tecla de Windows más el punto.
+
+##### Recuerda que puedes añadir emojis a tu documento
+
+A veces uno quiere 🙈 un poco y ponerle un par de ⭐️⭐️ al documento.
+🎈🎈 Y si le añades emojis interesantes a tu trabajo hay premio, sobre todo si
+eres 🎶.
+
+::: {.nota}
+Un aviso práctico: los emojis se ven bien en HTML, pero al compilar a **PDF** con
+LaTeX suelen fallar o salir como cajas vacías, porque la fuente por defecto no los
+tiene. Para un trabajo que vaya a imprimirse, mejor no usarlos.
+:::
+
+***
+
+## `cache`: no repetir lo que ya se calculó
+
+Cuando un bloque tarda (un modelo bayesiano, una simulación, leer un archivo
+enorme), compilar el documento se vuelve insoportable, porque **todo** se vuelve a
+calcular cada vez.
+
+::: {.funcion}
+**`cache=TRUE`**: guardar el resultado de un bloque para no repetirlo.
+
+- **Qué hace:** la primera vez ejecuta el bloque y guarda el resultado en disco. Las veces siguientes, si el código del bloque **no cambió**, lo lee del disco en vez de calcularlo.
+- **`dependson = "otro-bloque"`:** obliga a recalcular cuando cambia otro bloque del que este depende.
+- **`cache.lazy = FALSE`:** hace falta con objetos muy grandes.
+:::
+
+::: {.advertencia}
+El caché mira si cambió **el código del bloque**, no si cambiaron los datos. Si
+editas el archivo `.csv` que lee un bloque cacheado, el bloque no se entera y
+sigue devolviendo lo viejo. Cuando un resultado no cambie por más que edites,
+borra la carpeta `_cache` y vuelve a compilar. Es de los pocos casos del curso en
+que "apágalo y enciéndelo" es la respuesta correcta.
+:::
 
 
 
-##### Remember you can add emoji's to your document
-
-
-Sometimes you want to 🙈 around a bit and add some ⭐️⭐️ to your document. 
-🎈🎈 Well we have a gift for you if you add interesting emoji's to your document, above all if you are a 🎶. 
 
 
 
+***
 
+## Ejercicios del capítulo
 
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Aquí lo que se evalúa no es un
+resultado sino **el documento**: las opciones que pusiste en cada bloque y lo que
+eso hizo aparecer o desaparecer. Por eso el `.html` que entregues cuenta tanto
+como el `.Rmd`, y hay que mirar los dos lado a lado. Los ejercicios usan `millas`
+del paquete `datos`, no `cars` ni las letras del abecedario, que son los del
+capítulo. La hoja completa para entregar está en
+`Ejercicios/Ejercicios_Capitulo_24_knitr.Rmd`.
+:::
+
+### Ejercicio 1. Las cuatro maneras de esconder algo
+
+::: {.ejercicio}
+Escribe **cuatro** bloques que hagan exactamente lo mismo (calcular el promedio
+de `autopista` en `millas`), uno con `echo=FALSE`, otro con `eval=FALSE`, otro
+con `include=FALSE` y otro con `results='hide'`.
+
+**Verificación:** en el `.html` final, **uno** enseña solo el número, **dos**
+enseñan solo el código, y **uno** no enseña absolutamente nada.
+
+**En palabras:** haz una tabla de cuatro filas diciendo, para cada opción, si el
+código **se ejecutó** y si se **vio**. ¿Cuáles dos crean el objeto en la memoria y
+cuáles no?
+:::
+
+### Ejercicio 2. Avisos y mensajes
+
+::: {.ejercicio}
+Escribe un bloque con `library(dplyr)` y `library(MASS)` sin ninguna opción, y
+mira lo que sale. Después repítelo con `message=FALSE` y con `warning=FALSE`.
+
+**Verificación:** sin opciones aparece un aviso sobre funciones enmascaradas; con
+`message=FALSE` desaparece.
+
+**En palabras:** ese aviso dice que `MASS::select()` está tapando a
+`dplyr::select()`. Esconderlo con `message=FALSE`, ¿resuelve el problema o solo lo
+oculta? ¿Qué harías tú en un análisis de verdad?
+:::
+
+### Ejercicio 3. La trampa del `eval=FALSE`
+
+::: {.ejercicio}
+Reproduce el problema del capítulo con tus propios datos: un bloque con
+`eval=FALSE` que cree un objeto llamado `datos_millas`, y un bloque después que lo
+use.
+
+**Verificación:** el segundo bloque tiene que dar `object 'datos_millas' not
+found`. Ponle `error=TRUE` para que el documento compile de todos modos.
+
+**En palabras:** en el capítulo, el mismo experimento con un objeto llamado `data`
+**no** dio ese error, dio un `NA`. Explica la diferencia. ¿Cuál de los dos
+comportamientos prefieres y por qué?
+:::
+
+### Ejercicio 4. El tamaño de una figura
+
+::: {.ejercicio}
+Haz la misma gráfica de `millas` (dispersión de `cilindrada` contra `autopista`)
+tres veces: con `fig.width=8`, con `fig.width=3`, y con `fig.width=8` más
+`out.width='40%'`.
+
+**Verificación:** las tres se ven de tamaño distinto, pero **dos** de ellas tienen
+las letras de los ejes del mismo tamaño relativo y una no.
+
+**En palabras:** ¿cuáles dos, y por qué? Explica la diferencia entre `fig.width` y
+`out.width` con lo que acabas de ver. ¿Cuál usarías para una figura que va en un
+artículo a una columna?
+:::
+
+### Ejercicio 5. Global contra local
+
+::: {.ejercicio}
+En el primer bloque de tu documento, pon
+`knitr::opts_chunk$set(echo = FALSE)`. Después escribe dos bloques: uno normal y
+otro con `echo=TRUE`.
+
+**Verificación:** en el `.html`, el primero no enseña su código y el segundo sí.
+
+**En palabras:** explica qué nivel ganó y por qué. ¿Qué ventaja tiene poner las
+opciones comunes en global en vez de repetirlas en cada bloque? ¿Y qué desventaja,
+para alguien que abra tu documento por el medio?
+:::
+
+### Ejercicio 6. `cache`
+
+::: {.ejercicio}
+Escribe un bloque lento a propósito, con `Sys.sleep(10)` y algún cálculo sobre
+`millas`. Compila el documento y anota cuánto tardó. Añade `cache=TRUE`, compila
+dos veces más y anota los tiempos.
+
+**Verificación:** la segunda compilación con `cache=TRUE` tiene que ser
+claramente más rápida que la primera.
+
+**En palabras:** cambia ahora **una sola letra** de un comentario dentro de ese
+bloque y vuelve a compilar. ¿Se recalculó? Explica qué mira `cache` para decidir,
+y por qué eso lo hace peligroso si el bloque lee un archivo de datos.
+:::
+
+### Ejercicio 7 (BONO). Escribir el documento desde el código
+
+::: {.ejercicio}
+Con `results='asis'` y un `for`, genera automáticamente un encabezado de nivel 3
+por cada `clase` de `millas`, seguido de una oración con el número de vehículos y
+el consumo promedio de esa clase.
+
+**Verificación:** en el `.html` final tienen que aparecer **7** encabezados, y
+tienen que salir en la tabla de contenido como si los hubieras escrito a mano.
+
+**En palabras:** ¿qué pasa si quitas `results='asis'`? Pruébalo y describe la
+diferencia. ¿En qué situación de tu trabajo te serviría generar así un informe?
+:::

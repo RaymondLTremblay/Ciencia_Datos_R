@@ -1,0 +1,235 @@
+---
+title: "Ejercicios del Capítulo 30"
+subtitle: "Nubes de palabras: corpus, limpieza, palabras vacías y cuándo no usarlas"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 30 del libro del curso.
+
+Los ejercicios usan `Datos/el_quijote.txt` y `Datos/Alice_Adventures_in_Wonderland.txt`, que ya están en el repositorio del curso. No usan el discurso ni el documento sobre inteligencia artificial del capítulo.
+
+La idea de fondo es que **el paso de la limpieza es el capítulo entero**. Dibujar la nube es una línea; decidir qué palabras merecen estar en ella es el trabajo, y es donde se evalúa el criterio.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**: que la nube o la tabla se vean.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | La nube inútil | 5 |
+| 2 | Las palabras vacías | 5 |
+| 3 | Tus propias palabras vacías | 5 |
+| 4 | Los parámetros de la nube | 5 |
+| 5 | La nube contra las barras | 5 |
+| 6 | Dos idiomas | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Los acentos que se parten | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado visible (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(tm)
+library(wordcloud)
+library(wordcloud2)
+library(RColorBrewer)
+```
+
+Una función que te va a ahorrar repetir los cinco pasos siete veces:
+
+```{r ayuda, eval=FALSE}
+frecuencias <- function(archivo, vacias = NULL) {
+  texto <- readLines(archivo, warn = FALSE)
+  docs  <- Corpus(VectorSource(texto))
+  docs  <- tm_map(docs, content_transformer(tolower))
+  docs  <- tm_map(docs, removeNumbers)
+  if (!is.null(vacias)) docs <- tm_map(docs, removeWords, vacias)
+  docs  <- tm_map(docs, removePunctuation)
+  docs  <- tm_map(docs, stripWhitespace)
+  m <- as.matrix(TermDocumentMatrix(docs))
+  v <- sort(rowSums(m), decreasing = TRUE)
+  tibble(word = names(v), freq = as.numeric(v))
+}
+```
+
+---
+
+# Ejercicio 1. La nube inútil (5 puntos)
+
+1. Lee `Datos/el_quijote.txt` y haz todo el proceso **sin quitar ninguna palabra vacía**.
+2. Saca la tabla de las diez palabras más frecuentes.
+3. Dibuja la nube.
+
+*Verifica:* entre las diez primeras están `que`, `de` y `y`. `que` pasa de **10 000** apariciones.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+4. ¿Qué te dice esta nube sobre el contenido del Quijote? Contesta con honestidad.
+5. ¿Serviría esta misma nube para cualquier otro libro en español? ¿Por qué?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. Las palabras vacías (5 puntos)
+
+1. Repite el proceso quitando `stopwords("spanish")`.
+2. Saca las diez primeras y dibuja la nube.
+
+*Verifica:* ahora `quijote` y `sancho` están entre las diez primeras, y `quijote` pasa de **700** apariciones.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+3. Pon las dos listas de diez, la del Ejercicio 1 y esta, una al lado de la otra. ¿Cuántas palabras cambiaron?
+4. Explica por qué el paso de las palabras vacías es el más importante de los cinco.
+5. Mira `stopwords("spanish")` completa. ¿Cuántas palabras tiene? ¿Hay alguna que **no** te parezca vacía?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. Tus propias palabras vacías (5 puntos)
+
+1. Mira las **treinta** primeras palabras del Ejercicio 2.
+2. Identifica las que no dicen nada sobre el contenido: fórmulas de tratamiento (`vuestra`, `merced`), verbos de diálogo (`dijo`, `respondió`), muletillas.
+3. Ponlas en tu propia lista y vuelve a generar la nube.
+
+*Verifica:* la lista de las diez primeras cambia respecto al Ejercicio 2, y tu lista propia tiene al menos **cinco** palabras.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+4. Justifica **cada** palabra que quitaste, una por una.
+5. ¿Podría alguien defender que `dijo` **sí** dice algo sobre el Quijote? Explica en qué tipo de análisis quitarla sería un error.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Los parámetros de la nube (5 puntos)
+
+Con la tabla de frecuencias del Ejercicio 3, genera **cuatro** nubes cambiando solo los parámetros:
+
+1. `max.words = 20`
+2. `max.words = 200`
+3. `min.freq = 100`
+4. `rot.per = 0`
+
+*Verifica:* las cuatro salen distintas, y la de `max.words = 200` es claramente más difícil de leer.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+5. ¿Cuál escogerías para la **portada** de un informe y cuál para la sección de **resultados**?
+6. ¿Qué hace `rot.per`? ¿Por qué ponerlo en cero ayuda a leer?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. La nube contra las barras (5 puntos)
+
+Con las **veinte** palabras más frecuentes del Ejercicio 3:
+
+1. Haz la nube.
+2. Haz un diagrama de barras horizontales ordenado con `fct_reorder()`.
+
+*Verifica:* las dos gráficas usan exactamente los mismos veinte datos.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+3. Mirando **solo la nube**, escribe de memoria cuáles crees que son las cinco primeras palabras, en orden.
+4. Ahora comprueba con las barras. ¿Acertaste?
+5. ¿Cuántas veces más frecuente es la primera que la quinta? ¿Se puede contestar eso con la nube?
+6. ¿En qué situación usarías cada una?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. Dos idiomas (5 puntos)
+
+1. Repite todo el proceso con `Datos/Alice_Adventures_in_Wonderland.txt`, que está en inglés, usando `stopwords("english")`.
+2. Después hazlo **cruzado**, a propósito: al Quijote quítale las palabras vacías **inglesas**, y a Alicia las **españolas**.
+
+*Verifica:* las dos versiones cruzadas quedan prácticamente igual que sin limpiar nada.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+3. Explica por qué.
+4. ¿Qué pasaría con un texto que mezcla los dos idiomas, como un artículo científico en español con citas en inglés? ¿Cómo lo resolverías?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). Los acentos que se parten (5 puntos adicionales)
+
+En la lista de palabras del Quijote aparecen cosas raras como `habi` en vez de `había`. No es un error de `tm`: el archivo guarda los acentos en forma **descompuesta**, la letra y la tilde como dos caracteres separados.
+
+1. Compruébalo: busca una palabra con acento en el texto leído del archivo y cuenta sus caracteres con `nchar()`. Compáralo con `nchar("había")` escrito por ti.
+2. Arréglalo con `stringi::stri_trans_nfc()` sobre el texto, **antes** de construir el corpus.
+3. Vuelve a contar las palabras.
+
+*Verifica:* después de normalizar, las palabras con acento dejan de salir partidas en la lista de frecuencias.
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+4. Este problema es primo del de la codificación del capítulo de importar datos. Explica en qué se parecen y en qué se diferencian.
+5. ¿En cuál de los cinco pasos del capítulo habría que arreglarlo, y por qué no en otro?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

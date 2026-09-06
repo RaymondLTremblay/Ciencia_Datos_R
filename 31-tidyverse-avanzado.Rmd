@@ -1,17 +1,66 @@
 # Temas Avanzados en Data Science con Tidyverse
 
+Fecha de la última revisión
+```{r c31-0, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+Sys.Date()
+```
+
+## Temas
+
+ - Por qué una función normal no puede recibir un nombre de columna
+ - `{{ }}`: la solución, y `:=` para nombrar la columna de salida
+ - Modelado reproducible con `tidymodels`: receta, modelo y flujo
+ - Datos anidados: una tabla dentro de una tabla
+ - Un modelo por grupo con `nest()`, `map()` y `broom`
+
+::: {.nota}
+Este capítulo supone que ya hiciste los de **funciones** e **iteración**. Todo lo
+que hay aquí es la combinación de esos dos: funciones que reciben columnas, y
+modelos aplicados a muchos grupos a la vez.
+:::
+
 ## Introducción
+
 Este documento presenta temas avanzados en el ecosistema **tidyverse** con ejemplos prácticos en R.
 
 ### 1. Manipulación avanzada con dplyr
 
+Empecemos por el problema, porque si no se ve el problema la solución parece
+arbitraria.
+
+En el capítulo de funciones aprendimos a escribir funciones propias. Pero si
+intentas escribir una que reciba **el nombre de una columna**, no funciona:
+
+```{r c31-problema, eval=FALSE}
+promedio_por <- function(datos, grupo, valor) {
+  datos |> 
+    group_by(grupo) |>              # <- esto está mal
+    summarise(media = mean(valor))  # <- y esto también
+}
+
+promedio_por(millas, clase, autopista)
+# Error: object 'clase' not found
+```
+
+El motivo es que `dplyr` hace algo poco común: te deja escribir `clase` sin
+comillas, buscando ese nombre **dentro de la tabla** en vez de en tu sesión. A eso
+se le llama **evaluación tidy**. Es comodísimo cuando escribes código a mano y se
+vuelve un problema en cuanto quieres envolverlo en una función, porque
+`group_by(grupo)` busca una columna que se llame literalmente `grupo`, no el
+contenido del argumento.
+
 ::: {.funcion}
-**Evaluación *tidy*: `{{ }}` y `:=`** — funciones que reciben nombres de columnas.
+**Evaluación *tidy*: `{{ }}` y `:=`**: funciones que reciben nombres de columnas.
 
 - **`{{ var }}`** ("embrace"): permite pasar el nombre de una columna como argumento a una función que usa dplyr por dentro.
 - **`:=`:** se usa en `mutate`/`summarise` cuando el nombre de la nueva columna también es una variable.
 - **Para qué:** escribir tus propias funciones reutilizables sobre pipelines de dplyr.
 :::
+
+La solución son las **llaves dobles**, `{{ }}`, que en inglés se llaman *embrace*
+("abrazar"). Le dicen a `dplyr`: "no busques una columna con este nombre; mira qué
+me pasaron a mí y usa **eso**".
 
 Explicación: Uso de *tidy evaluation* para funciones personalizadas.
 
@@ -62,7 +111,9 @@ mean_sd_by_group(dfnew, especie, longitud_sepalo)
 
 1. Definición de la función
 
+```
 mean_by_group <- function(data, group_var, value_var) { ... }
+```
 
 - data: El data frame o tibble que contiene los datos.
 - group_var: La variable por la que se agruparán los datos (por ejemplo, categoría).
@@ -88,6 +139,26 @@ mean_by_group <- function(data, group_var, value_var) { ... }
 - Calcula la media de la columna indicada (value_var) dentro de cada grupo.
 - na.rm = TRUE elimina valores faltantes (NA) para evitar errores.
 
+### Nombrar la columna de salida: `:=`
+
+Hay una limitación en la función de arriba: la columna nueva siempre se llama
+`mean_value`, diga lo que diga el usuario. Para que el nombre dependa del
+argumento hace falta `:=` (dos puntos e igual) en vez del `=` normal:
+
+```{r c31-walrus, eval=FALSE}
+promedio_con_nombre <- function(datos, grupo, valor, nombre = "media") {
+  datos |> 
+    group_by({{ grupo }}) |> 
+    summarise({{ nombre }} := mean({{ valor }}, na.rm = TRUE))
+}
+```
+
+::: {.consejo}
+Regla corta para no perderse: **`{{ }}` a la derecha del igual, `:=` en lugar del
+igual.** Todo lo que sea "una columna que me pasaron" va abrazado; el `:=` solo
+hace falta cuando el **nombre** de la columna nueva también es un argumento.
+:::
+
 ::: {.peligro}
 Si olvidas `na.rm = TRUE`, funciones como `mean()` o `sd()` devuelven `NA` en cuanto la columna tiene un solo valor faltante, en vez de calcular el promedio.
 :::
@@ -104,7 +175,36 @@ mean(datos, na.rm=TRUE)
 
 
 ## 2. Modelado con tidymodels
+
 Explicación: Flujo reproducible para regresión lineal.
+
+En el capítulo de modelos se ajustaba un `lm()` de una sola línea. `tidymodels` es
+otra manera de hacerlo, más larga, y conviene entender qué se gana a cambio.
+
+::: {.funcion}
+**Las tres piezas de `tidymodels`**: separar la preparación, el método y el ajuste.
+
+- **La receta (`recipe()`):** describe **qué** se va a modelar y qué hay que hacerle a los datos antes (centrar, escalar, convertir categorías, imputar faltantes). Es una descripción, no un cálculo: no toca los datos hasta que se aplica.
+- **El modelo (`linear_reg()`, `set_engine()`):** describe **con qué** método, separado del paquete concreto que lo calcula. El mismo modelo puede correr con `lm`, con `glmnet` o con `stan` cambiando una palabra.
+- **El flujo (`workflow()`):** junta receta y modelo en un solo objeto, que es el que se ajusta con `fit()` y el que se guarda.
+:::
+
+¿Para qué tanta ceremonia si `lm()` cabía en una línea? Por tres razones, y todas
+aparecen en cuanto el análisis crece:
+
+1. **La preparación viaja con el modelo.** Si centraste una variable para ajustar,
+   hay que centrarla igual al predecir. Con `lm()` eso lo tienes que recordar tú;
+   con una receta, va incluido.
+2. **Cambiar de método cuesta una palabra.** Pasar de regresión lineal a bosque
+   aleatorio no obliga a reescribir el resto.
+3. **Evita la fuga de información.** Al validar, la receta se aplica solo a la
+   parte de entrenamiento, que es lo correcto y lo que casi nadie hace a mano.
+
+::: {.consejo}
+Para un modelo suelto de un artículo, `lm()` sigue siendo la respuesta correcta y
+más clara. `tidymodels` se justifica cuando hay preparación de datos, varios
+modelos que comparar, o validación cruzada de por medio.
+:::
 
 ```{r c31-5, echo= FALSE, eval=FALSE}
 
@@ -208,6 +308,28 @@ bind_cols(mtcars, predicciones) %>%
 - tidy() muestra coeficientes y errores estándar.
 - metrics() calcula métricas como RMSE, R², MAE.
 
+::: {.funcion}
+**`broom`**: convertir la salida de un modelo en tablas ordenadas.
+
+- **`tidy(modelo)`:** una fila por **coeficiente**, con estimado, error estándar, estadístico y valor p.
+- **`glance(modelo)`:** una sola fila con las métricas del **modelo entero**: $R^2$, AIC, sigma, número de observaciones.
+- **`augment(modelo, datos)`:** los datos originales más las predicciones y los residuales, que es lo que hacía `add_predictions()` y `add_residuals()` del capítulo de modelos.
+:::
+
+Esto es lo que cierra el círculo con los capítulos anteriores: `summary()` imprime
+un texto bonito que **no se puede usar**, y `tidy()` y `glance()` devuelven
+**tibbles**, que sí se pueden filtrar, unir, graficar y guardar. Es la misma
+lección del Ejercicio 2 del capítulo de funciones: devuelve una tabla, no un
+adorno.
+
+::: {.advertencia}
+`metrics()` calculado sobre **los mismos datos con los que se ajustó** siempre sale
+demasiado optimista: el modelo ya vio esas observaciones. Para saber de verdad qué
+tan bien predice hace falta separar los datos en entrenamiento y prueba, con
+`initial_split()`. En el ejemplo de arriba no se hace, y por eso las métricas hay
+que leerlas como descripción del ajuste, no como capacidad de predicción.
+:::
+
 
 
 
@@ -232,7 +354,41 @@ ggplot(mtcars, aes(x = wt, y = mpg)) +
 
 
 ## 4. Datos anidados y listas con purrr
+
 Explicación: Ajustar modelos por grupo y extraer coeficientes.
+
+Esta sección es la continuación directa del capítulo de iteración, con una idea
+nueva: una columna de un tibble puede contener **cosas que no son números**. Puede
+contener tablas enteras, o modelos.
+
+::: {.funcion}
+**`nest()` y `unnest()`** (tidyr): meter tablas dentro de una tabla.
+
+- **`group_by(g) |> nest()`:** deja una fila por grupo y una columna `data` donde cada celda es **el tibble completo de ese grupo**.
+- **Con `mutate()` y `map()`** se le puede añadir una columna `modelo`, donde cada celda es un objeto `lm`, y otra con sus coeficientes.
+- **`unnest(columna)`:** deshace el anidamiento y devuelve una tabla plana.
+:::
+
+La ventaja sobre el `split()` del capítulo de iteración es que **todo se queda en
+una sola tabla**: los datos, el modelo y los resultados de cada grupo viajan juntos
+en la misma fila, y no hay que ir emparejando listas por su nombre.
+
+::: {.consejo}
+El patrón completo, que vale la pena aprenderse de memoria porque resuelve una
+enorme cantidad de análisis reales:
+
+```{r c31-patron, eval=FALSE}
+datos |> 
+  group_by(grupo) |> 
+  nest() |> 
+  mutate(
+    modelo   = map(data, \(d) lm(y ~ x, data = d)),
+    resumen  = map(modelo, broom::glance),
+    coefs    = map(modelo, broom::tidy)
+  ) |> 
+  unnest(resumen)
+```
+:::
 
 ```{r c31-9}
 library(tidyr)
@@ -268,3 +424,139 @@ summary(modelo_cyl6)
 
 
 
+
+***
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación en
+palabras**. Los ejercicios usan `millas` y `paises` del paquete `datos`, no
+`mtcars` ni los tibbles pequeños del capítulo. La hoja completa para entregar está
+en `Ejercicios/Ejercicios_Capitulo_31_avanzado.Rmd`.
+:::
+
+### Ejercicio 1. El problema, antes de la solución
+
+::: {.ejercicio}
+Escribe la función `promedio_por(datos, grupo, valor)` **sin** las llaves dobles,
+tal como saldría de lo aprendido en el capítulo de funciones, y llámala con
+`millas`, `clase` y `autopista`. Ponla en un bloque con `error=TRUE`.
+
+**Verificación:** tiene que dar `object 'clase' not found`.
+
+**En palabras:** la columna `clase` **sí** existe en `millas`. Explica entonces
+dónde la fue a buscar R y por qué no la encontró.
+:::
+
+```{r c31-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Las llaves dobles
+
+::: {.ejercicio}
+Arregla la función anterior con `{{ }}`. Pruébala con `millas` (por `clase`, el
+promedio de `autopista`) y después con `paises` (por `continente`, el promedio de
+`esperanza_de_vida`).
+
+**Verificación:** la primera llamada devuelve 7 filas y la segunda 5. La **misma**
+función sirve para las dos tablas sin cambiar nada.
+
+**En palabras:** ¿por qué `datos` no necesita llaves dobles y `grupo` sí? Fíjate en
+qué tipo de cosa es cada argumento.
+:::
+
+```{r c31-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. El nombre de la columna de salida
+
+::: {.ejercicio}
+Añádele a tu función un cuarto argumento, `nombre`, que decida cómo se llama la
+columna del resultado. Usa `:=`.
+
+**Verificación:** con `nombre = "consumo_medio"`, la tabla que sale tiene que tener
+una columna llamada exactamente así. Compruébalo con `names()`.
+
+**En palabras:** prueba primero con `=` normal en vez de `:=` y copia el error.
+¿Qué intentaba hacer R con ese `=`?
+:::
+
+```{r c31-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Una tabla dentro de una tabla
+
+::: {.ejercicio}
+Con `millas`, agrupa por `clase` y usa `nest()`. Mira el resultado, y después mira
+el contenido de una sola celda de la columna `data`.
+
+**Verificación:** la tabla anidada tiene **7 filas** y **2 columnas**. La celda de
+`data` de la clase `suv` contiene un tibble de **62 filas**.
+
+**En palabras:** ¿cuántas filas tiene la tabla anidada y cuántas tenía `millas`?
+¿Dónde se fueron las demás? Explica qué es una "columna lista".
+:::
+
+```{r c31-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Un modelo por grupo, todo en una tabla
+
+::: {.ejercicio}
+Sobre la tabla anidada, añade con `mutate()` y `map()` una columna con el modelo
+`lm(autopista ~ cilindrada)` de cada clase, y otra con `broom::glance()` de cada
+modelo. Después haz `unnest()` de esa última y ordena por $R^2$.
+
+**Verificación:** la tabla final tiene 7 filas y una columna `r.squared`.
+
+**En palabras:** compara esto con lo que hiciste en el capítulo de iteración con
+`split()` y `map()`. ¿Qué ventaja tiene tener los datos, el modelo y las métricas
+en la misma fila?
+:::
+
+```{r c31-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. `tidy()`, `glance()` y `augment()`
+
+::: {.ejercicio}
+Ajusta `lm(autopista ~ cilindrada + clase, data = millas)` y aplícale las tres
+funciones de `broom`. Compara cada salida con la de `summary()`.
+
+**Verificación:** `tidy()` devuelve una fila por coeficiente, `glance()` devuelve
+**una sola** fila, y `augment()` devuelve 234 filas.
+
+**En palabras:** `summary()` enseña la misma información. ¿Por qué preferir
+`broom`? Contesta con algo que puedas **hacer** con la salida de `tidy()` y no con
+la de `summary()`.
+:::
+
+```{r c31-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). Un flujo de tidymodels
+
+::: {.ejercicio}
+Monta con `tidymodels` el mismo modelo del ejercicio anterior: una receta, un
+modelo `linear_reg()` con motor `lm`, y un `workflow()`. Ajústalo y saca los
+coeficientes con `extract_fit_parsnip()` y `tidy()`.
+
+**Verificación:** los coeficientes tienen que ser **idénticos** a los del `lm()`
+del Ejercicio 6.
+
+**En palabras:** si dan exactamente lo mismo y ocupa cinco veces más código, ¿en
+qué situación vale la pena `tidymodels`? Da un ejemplo concreto de tu propio
+trabajo.
+:::
+
+```{r c31-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

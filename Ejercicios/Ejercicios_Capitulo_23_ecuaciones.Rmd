@@ -1,0 +1,235 @@
+---
+title: "Ejercicios del Capítulo 23"
+subtitle: "Ecuaciones matemáticas en R Markdown con LaTeX"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 23 del libro del curso.
+
+Este capítulo no enseña funciones de R sino **cómo se escribe una fórmula**, así que la entrega es distinta a la de los demás capítulos. Para cada ejercicio tienes que poner dos cosas:
+
+1. **El código LaTeX**, dentro de acentos graves para que se vea tal cual lo escribiste.
+2. **La fórmula ya compuesta**, es decir, la misma línea sin los acentos graves.
+
+Ejemplo de cómo se entrega (con una fórmula que no está en ningún ejercicio):
+
+**Código:** `` $E = mc^2$ ``
+
+**Se ve así:** $E = mc^2$
+
+Los ejercicios describen las fórmulas **en palabras**, no las enseñan escritas. Traducir la descripción al código es justamente la parte que se evalúa, y ninguna de estas fórmulas aparece escrita en el capítulo: buscarlas ahí no sirve de nada.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*. Si una fórmula no compila, el documento entero puede caerse, así que compila seguido y no dejes todo para el final.
+
+::: {.nota}
+**Truco para depurar.** Cuando una fórmula no sale, compón las piezas por
+separado: primero solo la fracción, después solo la sumatoria, y al final júntalas.
+Es el mismo método del ejemplo mínimo reproducible del capítulo de errores comunes.
+:::
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | En la línea y aparte | 5 |
+| 2 | Las llaves que faltan | 5 |
+| 3 | Sumatorias con límites | 5 |
+| 4 | Fracciones y raíces | 5 |
+| 5 | Una ecuación numerada | 5 |
+| 6 | Cuando la cursiva estorba | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Una matriz de población | **5 adicionales** |
+
+Cada ejercicio se evalúa así: la fórmula compone correctamente (3 puntos) y la explicación en palabras (2 puntos).
+
+---
+
+# Ejercicio 1. En la línea y aparte (5 puntos)
+
+Escribe la fórmula del **promedio**: equis barra igual a la suma de las equis sub i, dividida entre ene.
+
+Hazlo de las dos maneras:
+
+1. Dentro de una oración, en la misma línea del texto.
+2. En una línea aparte, centrada.
+
+*Verifica:* las dos se ven iguales salvo por el tamaño y la posición. Si la versión aparte no queda centrada en su propia línea, te faltó un signo de dólar en cada extremo.
+
+**Código (en la línea):** ``  ``
+
+**Se ve así:** 
+
+**Código (aparte):** ``  ``
+
+**Se ve así:**
+
+3. ¿Cuándo conviene cada una? Piensa en una fórmula corta dentro de un párrafo y en una fórmula larga en la sección de métodos de un artículo.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. Las llaves que faltan (5 puntos)
+
+Escribe la **varianza muestral**: ese al cuadrado igual a la suma, desde i igual a 1 hasta ene, de (equis sub i menos equis barra) al cuadrado, dividida entre ene menos uno.
+
+1. Escribe la versión **correcta**.
+2. Escribe a propósito la versión **sin llaves** en el exponente y en el denominador, y ponla justo debajo.
+
+*Verifica:* en la versión correcta, el cuadrado queda fuera del paréntesis y el denominador completo es $n-1$.
+
+**Código (correcta):** ``  ``
+
+**Se ve así:**
+
+**Código (sin llaves):** ``  ``
+
+**Se ve así:**
+
+3. Explica qué le pasó a la versión sin llaves, símbolo por símbolo.
+4. ¿Por qué este error es difícil de ver cuando la fórmula es larga?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. Sumatorias con límites (5 puntos)
+
+1. Escribe el **índice de diversidad de Shannon**: hache prima igual a **menos** la suma, desde i igual a 1 hasta ese (el número de especies), de pe sub i por el logaritmo natural de pe sub i.
+2. Escribe la **equidad de Pielou**: hache prima dividida entre el logaritmo natural de ese.
+
+*Verifica:* los límites de la sumatoria salen debajo y encima del signo, no a los lados. El logaritmo natural sale en letra **recta**.
+
+**Código (Shannon):** ``  ``
+
+**Se ve así:**
+
+**Código (Pielou):** ``  ``
+
+**Se ve así:**
+
+3. Escribe también `ln` a mano, sin el comando, y compara. ¿Por qué uno sale recto y el otro en cursiva?
+4. ¿Qué te dice eso sobre cómo interpreta LaTeX las letras sueltas dentro de una fórmula?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Fracciones y raíces (5 puntos)
+
+1. Escribe el **error estándar de la media**: ese sub equis barra igual a ese dividido entre la raíz cuadrada de ene.
+2. Escribe el **estadístico t de una muestra**: te igual a (equis barra menos mu), dividido entre ese sobre raíz de ene. Es decir, una fracción dentro del denominador de otra fracción.
+
+*Verifica:* la raíz cubre solo la ene, y la fracción pequeña queda dentro del denominador de la grande.
+
+**Código (error estándar):** ``  ``
+
+**Se ve así:**
+
+**Código (t):** ``  ``
+
+**Se ve así:**
+
+3. Una fracción dentro de otra se ve pequeña y apretada. Escribe una segunda versión del estadístico t pensada para ir **dentro de un párrafo**, en la línea.
+4. Explica qué cambiaste y por qué.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. Una ecuación numerada (5 puntos)
+
+1. Escribe la ecuación de **crecimiento logístico** dentro de un entorno `\begin{equation}` con su etiqueta: de ene sobre de te igual a erre por ene por (uno menos ene sobre ka).
+2. Haz una **referencia cruzada** a ella en una oración del texto.
+
+*Verifica:* en el libro del curso, hecho con bookdown, la ecuación sale numerada y la referencia se convierte en ese número. En esta hoja, que es un `html_document` normal, **no** va a funcionar: la referencia sale como texto sin resolver.
+
+**Código:**
+
+```
+(pega aquí tu entorno equation)
+```
+
+**Se ve así:**
+
+3. Eso último no es un error tuyo. Explica por qué pasa.
+4. ¿Qué tendrías que cambiar en el encabezado YAML de este documento para que la numeración funcionara? Escribe la línea exacta.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. Cuando la cursiva estorba (5 puntos)
+
+1. Escribe el **equilibrio de Hardy-Weinberg**: pe al cuadrado más dos pe cu más cu al cuadrado igual a uno.
+2. Escribe la **reacción global de la fotosíntesis**: seis moléculas de dióxido de carbono más seis de agua, flecha, una de glucosa más seis de oxígeno. Usa `\mathrm{}` y una flecha larga.
+3. Escribe la fotosíntesis otra vez **sin** `\mathrm{}` y ponla justo debajo.
+
+*Verifica:* con `\mathrm{}` las fórmulas químicas salen en letra recta; sin él salen en cursiva, que es incorrecto para una fórmula química.
+
+**Código (Hardy-Weinberg):** ``  ``
+
+**Se ve así:**
+
+**Código (fotosíntesis, con `\mathrm{}`):** ``  ``
+
+**Se ve así:**
+
+**Código (fotosíntesis, sin `\mathrm{}`):** ``  ``
+
+**Se ve así:**
+
+4. En Hardy-Weinberg, ¿deben ir `p` y `q` en cursiva o rectas? Justifícalo con la regla general: en notación científica, las **variables** van en cursiva y los **nombres de cosas** van rectos.
+5. Según esa misma regla, ¿cómo deberían ir los subíndices de $x_i$ y los de $\mathrm{CO_2}$? ¿Es el mismo caso?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). Una matriz de población (5 puntos adicionales)
+
+Escribe la ecuación de proyección de un modelo matricial de población: ene de te más uno igual a la matriz **A** por ene de te, con la matriz escrita como una matriz de tres por tres cuyas entradas son $a_{ij}$.
+
+Usa el entorno `\begin{bmatrix} ... \end{bmatrix}`, con `&` entre las columnas y dos barras invertidas al final de cada fila.
+
+*Verifica:* la matriz sale con corchetes rectos a los lados, tres filas y tres columnas alineadas.
+
+**Código:**
+
+```
+(pega aquí tu matriz)
+```
+
+**Se ve así:**
+
+1. Prueba también `pmatrix` y `vmatrix` en vez de `bmatrix`. Describe la diferencia.
+2. En un artículo sobre matrices de proyección, ¿cuál usarías para la matriz y cuál para su determinante?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

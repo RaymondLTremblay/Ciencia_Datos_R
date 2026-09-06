@@ -16,10 +16,14 @@ Sys.Date()
 
 ## Temas: Construir modelos con `modelr`
 
+  - Qué es un modelo y para qué sirve
   - Visualizar la relación entre dos variables
   - Ajustar un modelo lineal con `lm()`
+  - Cómo se lee un coeficiente
   - Predicciones con `data_grid()` y `add_predictions()`
-  - Residuales con `add_residuals()`
+  - Residuales con `add_residuals()`: lo que el modelo no explicó
+  - Predictoras categóricas y modelos con más de una variable
+  - Predecir no es explicar
 
 ::: {.nota}
 Este capítulo usa el enfoque de `modelr` (el del libro *R for Data Science*). Para un flujo más moderno con `tidymodels`, y para dar formato matemático a los ejes con LaTeX, mira los capítulos de *tidyverse avanzado* y de *ecuaciones matemáticas*.
@@ -31,6 +35,33 @@ library(modelr)
 library(datos)
 options(na.action = na.warn)
 ```
+
+***
+
+## Qué es un modelo
+
+Un **modelo** es un resumen: una descripción sencilla que captura el patrón
+general de los datos y deja fuera el detalle. Y como todo resumen, es
+deliberadamente **falso**. La utilidad no está en que sea verdad, está en que sea
+útil.
+
+Construirlo tiene siempre dos pasos:
+
+1. **Escoger una familia de modelos.** "Una línea recta", `y = a + b*x`, es una
+   familia: contiene todas las rectas posibles.
+2. **Ajustar el modelo**, es decir, encontrar dentro de esa familia el miembro
+   concreto que mejor se acerca a los datos. Para una recta, eso significa
+   encontrar los valores de `a` y de `b`.
+
+Lo que hace `lm()` es el segundo paso. La familia la escoges tú, y esa decisión es
+tuya y no de la computadora.
+
+::: {.consejo}
+El objetivo de un modelo no es siempre predecir. Muchas veces es **quitar de en
+medio** un patrón que ya conoces, para poder ver el que hay debajo. Eso es lo que
+hace este capítulo con los diamantes, y es la respuesta a la pregunta que quedó
+abierta en el capítulo de análisis exploratorio.
+:::
 
 ***
 
@@ -68,7 +99,7 @@ ggplot(diamantes2, aes(log_quilates, log_precio)) +
 ## Ajustar un modelo lineal con `lm()`
 
 ::: {.funcion}
-**`lm()`, `data_grid()`, `add_predictions()`, `add_residuals()` (modelr)** — modelar y explorar.
+**`lm()`, `data_grid()`, `add_predictions()`, `add_residuals()` (modelr)**: modelar y explorar.
 
 - **`lm(y ~ x, data)`:** ajusta un modelo lineal.
 - **`data_grid()`:** crea una rejilla de valores de las predictoras.
@@ -82,6 +113,39 @@ explicada por `x`".
 mod_diamantes <- lm(log_precio ~ log_quilates, data = diamantes2)
 mod_diamantes
 ```
+
+### Cómo se lee un coeficiente
+
+Un modelo lineal devuelve dos números por cada predictora, y hay que saber leerlos:
+
+- El **intercepto** es el valor predicho cuando la predictora vale cero. Muchas
+  veces no significa nada por sí solo (un diamante de cero quilates), y no pasa
+  nada: está ahí para que la recta quede a la altura correcta.
+- La **pendiente** es lo que cambia la respuesta cuando la predictora sube **una
+  unidad**. Y aquí está lo importante: la unidad depende de la escala en que estén
+  las variables.
+
+En este modelo las dos variables están en logaritmo de base 2, así que "una
+unidad más de `log_quilates`" significa **el doble de quilates**. Una pendiente
+cercana a 1.7 quiere decir entonces que **al duplicar el peso, el precio se
+multiplica por algo más de 3** (por 2 elevado a 1.7). Esa es la clase de lectura
+que hay que hacer siempre, y es la razón por la que conviene saber en qué escala
+está cada variable antes de interpretar nada.
+
+::: {.funcion}
+**`summary()` de un modelo**: los números que se reportan.
+
+- **`coef(modelo)`:** solo los coeficientes, que es lo que casi siempre se quiere.
+- **`summary(modelo)$r.squared`:** la proporción de la variación de la respuesta que el modelo explica, entre 0 y 1.
+- **Los valores p:** contestan "¿podría este coeficiente ser cero?". Con muchos datos casi todo sale significativo, así que un valor p pequeño no quiere decir que el efecto sea grande ni importante.
+:::
+
+::: {.advertencia}
+Un $R^2$ alto no significa que el modelo sea correcto, y uno bajo no significa que
+sea inútil. Un modelo puede tener un $R^2$ de 0.9 y una gráfica de residuales con
+una curva evidente, lo que quiere decir que la familia escogida estaba
+equivocada. **Mira siempre los residuales antes de mirar el $R^2$.**
+:::
 
 ***
 
@@ -101,10 +165,18 @@ cuadricula <- diamantes2 %>%
 
 ggplot(diamantes2, aes(quilate, precio)) +
   geom_hex(bins = 50) +
-  geom_line(data = cuadricula, colour = "red", size = 1)
+  geom_line(data = cuadricula, colour = "red", linewidth = 1)
 ```
 
 La línea roja es la predicción del modelo.
+
+::: {.advertencia}
+La cuadrícula se construyó con `seq_range(quilate, 20)`, que solo cubre el rango
+de los datos **observados**. Eso es a propósito. Un modelo no sabe nada de lo que
+pasa fuera del rango en que se ajustó, y extrapolar es la manera más rápida de
+decir una tontería con aspecto de resultado: este modelo predecirá alegremente el
+precio de un diamante de 40 quilates, y ese número no tiene ningún valor.
+:::
 
 ***
 
@@ -126,16 +198,218 @@ ggplot(diamantes2, aes(log_quilates, lresid)) +
   geom_hex(bins = 50)
 ```
 
+### La pregunta que quedó abierta
+
+Ahora sí se puede cerrar el asunto que dejamos pendiente en el capítulo de
+análisis exploratorio. Allí salió, y sorprendió a todo el mundo, que los diamantes
+de **mejor corte parecían los más baratos**. La explicación era que el corte
+`Ideal` se aplica sobre todo a piedras pequeñas, así que el quilate estaba
+escondido detrás.
+
+Los residuales quitan de en medio exactamente eso: son el precio **ya limpio del
+efecto del peso**. Si ahora miramos el corte contra los residuales, en vez del
+corte contra el precio, la relación se endereza:
+
+```{r c34-8}
+ggplot(diamantes2, aes(corte, lresid)) +
+  geom_boxplot()
+```
+
+Un residual positivo quiere decir "más caro de lo que le tocaría por su peso". Y
+ahí el corte `Ideal` sale por encima, que es lo que la intuición decía desde el
+principio.
+
+::: {.nota}
+Esta es la respuesta a la pregunta de para qué sirve un modelo cuando no quieres
+predecir nada: **para quitar de en medio un patrón conocido y poder ver el que
+estaba debajo.** Es la herramienta que convierte una paradoja en un resultado.
+:::
+
 ***
 
-1.  **Ejercicios**:
+## Predictoras categóricas y varias variables
 
-Hacer los ejercicios en la sección 23.2 del libro en español.
+La fórmula de `lm()` admite mucho más que una variable numérica:
+
+- **`y ~ x`** una predictora numérica: una recta.
+- **`y ~ categoria`** una predictora categórica: R crea variables indicadoras por
+  detrás, y los coeficientes son **diferencias respecto al primer nivel**, que
+  queda absorbido en el intercepto. Con siete clases salen siete coeficientes: el
+  intercepto más seis diferencias.
+- **`y ~ x1 + x2`** dos predictoras a la vez: el efecto de cada una **manteniendo
+  la otra constante**, que casi nunca es lo mismo que su efecto por separado.
+- **`y ~ x1 * x2`** además de las dos, su **interacción**: permite que el efecto de
+  una dependa del valor de la otra.
+
+::: {.consejo}
+El orden de los niveles de un factor decide cuál queda como referencia en el
+intercepto, y por lo tanto contra cuál se comparan todos los demás coeficientes.
+Si quieres que la referencia sea una categoría concreta (el control, por ejemplo),
+muévela al principio con `fct_relevel()` del capítulo de factores.
+:::
 
 ***
 
-2.  **Ejercicios**:
+## Predecir no es explicar
 
-Ajusta un modelo lineal del atraso de llegada en función del atraso de salida con
-los datos `vuelos` (`lm(atraso_llegada ~ atraso_salida, data = vuelos)`). Añade los
-residuales con `add_residuals()` y grafícalos. ¿Queda algún patrón?
+Conviene terminar con una distinción que se olvida a menudo. Un modelo puede
+usarse para dos cosas muy distintas:
+
+- **Predecir:** dado un diamante nuevo, ¿cuánto costará? Aquí lo único que importa
+  es acertar, y da igual por qué.
+- **Explicar:** ¿el corte influye en el precio, y cuánto? Aquí importan los
+  coeficientes, su signo y su tamaño, y hace falta mucho más cuidado.
+
+Que una variable prediga bien **no** quiere decir que sea la causa. El número de
+cigüeñas predice bien el número de nacimientos en algunos países, y no por eso las
+cigüeñas traen bebés: hay una tercera variable detrás, igual que el quilate estaba
+detrás del corte.
+
+***
+
+## Ejercicios del libro R4DS
+
+Hacer los ejercicios de la sección 23.2 del libro en español.
+
+***
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que la gráfica o la tabla se vean) y una
+**explicación en palabras**. Aquí la explicación pesa más que en ningún otro
+capítulo: un modelo sin interpretar no es un resultado, es una lista de números.
+Los ejercicios usan `millas` y `paises` del paquete `datos`, no `diamantes` ni
+`vuelos`, que son los del capítulo. La hoja completa para entregar está en
+`Ejercicios/Ejercicios_Capitulo_28_modelos.Rmd`.
+:::
+
+### Ejercicio 1. El modelo más sencillo
+
+::: {.ejercicio}
+Datos: `millas`. Ajusta `lm(autopista ~ cilindrada)` y mira los coeficientes.
+Grafica los puntos con la recta encima.
+
+**Verificación:** el coeficiente de `cilindrada` tiene que salir **negativo**, y
+el intercepto por encima de 30.
+
+**En palabras:** traduce los dos coeficientes a una oración que entienda alguien
+que no sabe estadística. Empieza por "por cada litro más de cilindrada...". ¿Qué
+significa el intercepto aquí, y tiene sentido físico?
+:::
+
+```{r c34-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Los residuales delatan
+
+::: {.ejercicio}
+Añade los residuales del modelo anterior con `add_residuals()` y grafícalos contra
+`cilindrada`.
+
+**Verificación:** la nube de residuales **no** está repartida al azar: se ve una
+curva.
+
+**En palabras:** describe la forma que ves. ¿Qué te está diciendo sobre la familia
+de modelos que escogiste? Escribe qué harías a continuación.
+:::
+
+```{r c34-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Enderezar con logaritmos
+
+::: {.ejercicio}
+Datos: `paises`, solo el año 2007. Grafica `esperanza_de_vida` contra
+`pib_per_capita` y ajusta un modelo lineal. Después repite las dos cosas usando el
+**logaritmo** del PIB.
+
+**Verificación:** el $R^2$ del segundo modelo tiene que ser claramente mayor que
+el del primero, y la nube del segundo se ve mucho más recta.
+
+**En palabras:** con el modelo en logaritmo, ¿qué significa la pendiente? Escríbelo
+en la forma "cada vez que el PIB per cápita se **duplica**, la esperanza de vida
+sube en ...". Usa `log2()` para que la interpretación sea directa.
+:::
+
+```{r c34-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Una predictora categórica
+
+::: {.ejercicio}
+Con `millas`, ajusta `lm(autopista ~ clase)` y mira los coeficientes.
+
+**Verificación:** salen **7** coeficientes: el intercepto más **6** diferencias.
+Una de las siete clases no aparece por su nombre.
+
+**En palabras:** ¿cuál clase falta y dónde se metió? Comprueba que el intercepto
+es igual al promedio de `autopista` de esa clase. Después usa `fct_relevel()` para
+que la referencia sea `pickup` y explica qué cambió en los coeficientes y qué no.
+:::
+
+```{r c34-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Dos predictoras
+
+::: {.ejercicio}
+Ajusta ahora `lm(autopista ~ cilindrada + clase)` y compara sus residuales con los
+del Ejercicio 2.
+
+**Verificación:** el $R^2$ sube y los residuales quedan más planos que antes.
+
+**En palabras:** el coeficiente de `cilindrada` cambió respecto al Ejercicio 1.
+Explica por qué. ¿Qué contesta exactamente ese coeficiente nuevo, y en qué se
+diferencia de lo que contestaba el viejo?
+:::
+
+```{r c34-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Predecir, y hasta dónde
+
+::: {.ejercicio}
+Con el modelo del Ejercicio 1, construye una cuadrícula con `data_grid()` y
+`seq_range()` y añade las predicciones con `add_predictions()`. Grafícalas sobre
+los datos.
+
+Después construye a mano una segunda cuadrícula que llegue hasta **15 litros** de
+cilindrada y predice también ahí.
+
+**Verificación:** la primera cuadrícula cubre el rango real de `cilindrada`; la
+segunda predice consumos claramente absurdos.
+
+**En palabras:** ¿qué consumo predice el modelo para un motor de 15 litros?
+Explica por qué el modelo no se queja, y qué precaución hay que tomar siempre
+antes de usar una predicción.
+:::
+
+```{r c34-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). Cerrar el círculo
+
+::: {.ejercicio}
+En el capítulo de análisis exploratorio quedó una anomalía: los `2seater` rendían
+mucho más de lo que les tocaba por su cilindrada. Compruébalo ahora con
+residuales: usa el modelo `autopista ~ cilindrada` y haz un diagrama de caja de
+los residuales por `clase`.
+
+**Verificación:** la caja de `2seater` queda claramente por encima de cero.
+
+**En palabras:** ¿qué significa un residual positivo aquí? Este es el mismo
+razonamiento que resolvió el asunto del corte `Ideal` en `diamantes`. Explica el
+paralelo entre los dos casos, y di cuál es la variable escondida en cada uno.
+:::
+
+```{r c34-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

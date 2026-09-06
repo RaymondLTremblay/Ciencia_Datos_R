@@ -7,6 +7,45 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 Sys.Date()
 ```
 
+## Temas
+
+ - Los cinco pasos de una nube de palabras
+ - El corpus y el paquete `tm`
+ - Limpieza: minúsculas, números, puntuación, espacios
+ - Las palabras vacías (*stopwords*), y las tuyas propias
+ - La matriz de términos y el conteo de frecuencias
+ - `wordcloud()` y `wordcloud2()`
+ - Cuándo una nube de palabras **no** es la gráfica correcta
+
+***
+
+## Los cinco pasos
+
+Una nube de palabras parece un truco de una línea y en realidad es un proceso de
+cinco pasos, siempre los mismos. Vale la pena tenerlos en la cabeza, porque cuando
+una nube sale mal, casi siempre es que falló uno de los tres del medio:
+
+1. **Leer el texto** desde un archivo o desde la web.
+2. **Convertirlo en corpus**, que es la estructura con la que trabaja el paquete
+   `tm`.
+3. **Limpiarlo**: pasar todo a minúsculas, quitar números, puntuación, espacios
+   sobrantes y las palabras vacías.
+4. **Contar**: construir una matriz de términos y sacar la frecuencia de cada
+   palabra.
+5. **Dibujar** la nube.
+
+El paso 5 es una línea. El paso 3 es donde está el trabajo de verdad, y donde se
+decide si la nube dice algo o no dice nada.
+
+::: {.advertencia}
+Sin el paso 3, la nube enseña `de`, `la`, `que` y `en` en letras gigantes, que es
+información cero. Ese es el resultado por defecto de cualquier texto en cualquier
+idioma, y es la razón por la que las **palabras vacías** son el concepto central
+del capítulo.
+:::
+
+***
+
 ## Ejemplo #1
 
 
@@ -16,11 +55,11 @@ Sys.Date()
 Para generar nubes de palabras con R. Se necesita los paquetes **wordcloud**, **RColorBrewer** y **wordcloud2**
 
 ::: {.historia}
-La **minería de texto** (*text mining*) —analizar palabras con la computadora para descubrir patrones— tiene raíces en la lingüística computacional de los años 1950 y 60. Las **nubes de palabras** se popularizaron en la web alrededor de 2004 con sitios como *Flickr* y *Wordle*, mostrando el tamaño de cada palabra según su frecuencia. En R, el paquete **wordcloud** de **Ian Fellows** (2011) y el paquete **tm** (*text mining*) de **Ingo Feinerer** llevaron estas ideas al análisis de datos reproducible.
+La **minería de texto** (*text mining*), analizar palabras con la computadora para descubrir patrones, tiene raíces en la lingüística computacional de los años 1950 y 60. Las **nubes de palabras** se popularizaron en la web alrededor de 2004 con sitios como *Flickr* y *Wordle*, mostrando el tamaño de cada palabra según su frecuencia. En R, el paquete **wordcloud** de **Ian Fellows** (2011) y el paquete **tm** (*text mining*) de **Ingo Feinerer** llevaron estas ideas al análisis de datos reproducible.
 :::
 
 ::: {.funcion}
-**`wordcloud()`** y **`wordcloud2()`** — dibujan una nube donde el tamaño de cada palabra es proporcional a su frecuencia.
+**`wordcloud()`** y **`wordcloud2()`**: dibujan una nube donde el tamaño de cada palabra es proporcional a su frecuencia.
 
 - **`words`, `freq`:** el vector de palabras y su vector de frecuencias (normalmente calculados con el paquete **tm**).
 - **`min.freq`:** frecuencia mínima para que una palabra aparezca; **`max.words`:** número máximo de palabras a mostrar.
@@ -49,11 +88,12 @@ library(SnowballC) # paquete para trabajar en otro idioma aparte de inglés
 
 ## Usando los datos en el paquete wordcloud2 que se llama **demoFreq**
 
-https://raymondltremblay.github.io/Ciencia_Datos_R/appendix-a.html 
+`demoFreq` viene dentro del paquete `wordcloud2` y ya trae la tabla hecha: una
+columna con la palabra y otra con su frecuencia. Sirve para ver cómo se dibuja
+una nube sin tener que limpiar un texto primero, que es el trabajo de las
+secciones siguientes.
 
 ```{r c25-3, eval=knitr::is_html_output()}
-
- #ejercicio-de-transformaci%C3%B3n
 library(wordcloud2)
 head(demoFreq, n=10)
 wordcloud2(data = demoFreq)
@@ -146,6 +186,28 @@ docs <- tm_map(docs, toSpace, "\\|")
 
 ## el paquete **tm** es para **text mining**
 
+El bloque siguiente es el paso 3 completo, y conviene leer línea por línea qué
+quita cada `tm_map()`.
+
+::: {.funcion}
+**`tm_map()`** (tm): aplicar una transformación a todo el corpus.
+
+- **`content_transformer(tolower)`:** todo a minúsculas, para que `Casa` y `casa` cuenten como la misma palabra.
+- **`removeNumbers`:** quita los dígitos.
+- **`removeWords, stopwords("english")`:** quita las palabras vacías del idioma que le digas.
+- **`removePunctuation`:** quita los signos. Ojo: pega las palabras que estaban unidas por guion.
+- **`stripWhitespace`:** deja un solo espacio donde había varios.
+- **`stemDocument`:** reduce cada palabra a su raíz (*stemming*), de modo que `corría`, `corriendo` y `correr` cuenten juntas. Está comentado en el bloque, y a menudo conviene dejarlo así: en español produce raíces feas y difíciles de leer en una nube.
+:::
+
+::: {.consejo}
+**El orden importa.** Quita las palabras vacías **antes** de quitar la puntuación,
+no después. Si quitas primero la puntuación, `don't` se convierte en `dont`, que
+ya no coincide con la palabra vacía `don't` de la lista, y se queda dentro. Lo
+mismo pasa en español con las palabras acentuadas si el texto trae los acentos en
+un formato raro.
+:::
+
 ```{r c25-9, echo=TRUE}
 # Convert the text to lower case
 docs <- tm_map(docs, content_transformer(tolower))
@@ -184,18 +246,42 @@ head(d, n=10) # las primeras 10 palabras más comunes
 
 
 
-### Check your words and remove unwanted words individually
+### Revisar la lista y quitar palabras a mano
 
+Después de la limpieza automática **siempre** quedan cosas raras, y hay que
+mirarlas. Los tres casos típicos, con ejemplos de textos reales:
 
+- **Basura de codificación**, como `"òó"` o `òorchid`: son acentos que se leyeron
+  mal, y aparecen como palabras propias. Se arreglan en la importación, no aquí.
+- **Palabras del dominio que no aportan**: en un texto sobre orquídeas,
+  `orchid` va a ser la más frecuente y no dice nada, porque de eso trata todo el
+  documento. Lo interesante es lo que la acompaña.
+- **Restos de formato**: números de página, `figura`, `tabla`, `et`, `al`.
 
-"òó"
+La solución es la misma en los tres casos: añadirlas a tu propia lista de palabras
+vacías y volver a correr la limpieza.
 
-òorchid
+```{r c25-propias, eval=FALSE}
+mis_vacias <- c("orchid", "pollinators", "figura", "tabla")
+docs <- tm_map(docs, removeWords, mis_vacias)
+```
 
-pollinators
+### Cómo quitar del data frame las palabras con 3 apariciones o menos
 
+Una vez que tienes el data frame `d` con las columnas `word` y `freq`, esto ya es
+`dplyr` del capítulo de transformación, nada nuevo:
 
-### How would you remove from the data frame all words that have less or equal to 3 counts
+```{r c25-filtrar, eval=FALSE}
+d_filtrado <- d |> filter(freq > 3)
+nrow(d); nrow(d_filtrado)
+```
+
+::: {.consejo}
+Filtrar por frecuencia mínima y usar `min.freq` en `wordcloud()` hacen cosas
+parecidas pero no iguales: `filter()` cambia **los datos** y `min.freq` cambia solo
+**lo que se dibuja**. Si vas a reportar cuántas palabras distintas hay, la cifra
+tiene que salir de los datos, no de la gráfica.
+:::
 
 
 ***
@@ -227,6 +313,46 @@ Del paquete **wordcloud2**
 ```{r c25-12, echo=TRUE, eval=knitr::is_html_output()}
 wordcloud2(data = d)
 ```
+
+`wordcloud2()` produce una nube **interactiva** en HTML: al pasar el ratón por
+encima de una palabra aparece su frecuencia. Esa es su ventaja de verdad sobre
+`wordcloud()`, más allá de que se vea más vistosa. La desventaja es que solo
+funciona en salida HTML, y por eso el bloque lleva `eval=knitr::is_html_output()`.
+
+***
+
+## Cuándo una nube de palabras **no** es la gráfica correcta
+
+Conviene decirlo con claridad, porque las nubes de palabras son bonitas y por eso
+se usan mucho más de lo que se deberían.
+
+El problema es que el ojo humano **compara mal las áreas**. Si una palabra aparece
+el doble de veces que otra, en la nube se dibuja con letra del doble de alto, pero
+ocupa aproximadamente **cuatro veces** más superficie, y eso exagera la diferencia.
+Además, una palabra larga ocupa más sitio que una corta con la misma frecuencia, y
+la posición es aleatoria, así que la que quede en el centro parecerá más
+importante sin serlo.
+
+Traducido: **una nube de palabras no permite ordenar ni comparar cantidades.**
+Sirve para dar una impresión general, para una portada o para abrir una
+presentación. No sirve para sostener un resultado.
+
+::: {.consejo}
+Si lo que quieres es que se vea **cuáles** palabras son más frecuentes y **cuánto**
+más, la gráfica correcta es una de barras horizontales ordenada por frecuencia,
+como la del capítulo de factores:
+
+```{r c25-barras, eval=FALSE}
+d |> 
+  slice_max(freq, n = 20) |> 
+  mutate(word = fct_reorder(word, freq)) |> 
+  ggplot(aes(freq, word)) +
+  geom_col()
+```
+
+Es menos vistosa y se lee infinitamente mejor. Un buen término medio para un
+informe: la nube como figura de apertura y las barras como figura de resultados.
+:::
 
 
 
@@ -417,3 +543,150 @@ De esa forma puede bajar los WordClouds como  .pdf o otro formato.
 
 <<https://stackoverflow.com/questions/40570621/rstudio-how-to-show-plot-output-in-bottom-right-pane>>
 
+
+***
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que la nube o la tabla se vean) y una
+**explicación en palabras**. Los ejercicios usan `Datos/el_quijote.txt`, que está
+en el repositorio del curso, no el discurso ni el documento sobre inteligencia
+artificial del capítulo. La hoja completa para entregar está en
+`Ejercicios/Ejercicios_Capitulo_30_wordclouds.Rmd`.
+:::
+
+### Ejercicio 1. La nube inútil
+
+::: {.ejercicio}
+Lee `Datos/el_quijote.txt`, conviértelo en corpus y haz una nube **sin quitar
+ninguna palabra vacía**. Saca también la tabla de las diez palabras más
+frecuentes.
+
+**Verificación:** entre las diez primeras tienen que estar `que`, `de` y `y`.
+`que` tiene que pasar de 10 000 apariciones.
+
+**En palabras:** ¿qué te dice esta nube sobre el Quijote? Contesta con honestidad.
+:::
+
+```{r c25-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Las palabras vacías
+
+::: {.ejercicio}
+Repite todo el proceso quitando `stopwords("spanish")` y vuelve a sacar las diez
+primeras.
+
+**Verificación:** ahora `quijote` y `sancho` tienen que estar entre las diez
+primeras, y `quijote` tiene que pasar de 700 apariciones.
+
+**En palabras:** compara las dos listas. ¿Cuántas de las diez primeras cambiaron?
+Explica por qué el paso de las palabras vacías es el más importante de los cinco.
+:::
+
+```{r c25-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Tus propias palabras vacías
+
+::: {.ejercicio}
+Mira las treinta primeras palabras del resultado anterior. Encontrarás algunas que
+tampoco dicen nada sobre el contenido: fórmulas de tratamiento como `vuestra` y
+`merced`, o verbos de diálogo como `dijo` y `respondió`.
+
+Decide cuáles quitar, ponlas en tu propia lista, y vuelve a generar la nube.
+
+**Verificación:** la lista de las diez primeras tiene que cambiar respecto al
+Ejercicio 2, y tu lista propia tiene que tener al menos cinco palabras.
+
+**En palabras:** justifica cada palabra que quitaste. ¿Podría alguien defender que
+`dijo` **sí** dice algo sobre el Quijote? Explica en qué situación quitarla sería
+un error.
+:::
+
+```{r c25-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Los parámetros de la nube
+
+::: {.ejercicio}
+Con la tabla de frecuencias del Ejercicio 3, genera cuatro nubes cambiando solo
+los parámetros: `max.words = 20`, `max.words = 200`, `min.freq = 100`, y
+`rot.per = 0`.
+
+**Verificación:** las cuatro tienen que salir distintas, y la de `max.words = 200`
+tiene que ser claramente más difícil de leer.
+
+**En palabras:** ¿cuál escogerías para la portada de un informe y cuál para la
+sección de resultados? ¿Qué hace `rot.per` y por qué ponerlo en cero ayuda a leer?
+:::
+
+```{r c25-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. La nube contra las barras
+
+::: {.ejercicio}
+Con las **veinte** palabras más frecuentes del Ejercicio 3, haz dos gráficas: la
+nube y un diagrama de barras horizontales ordenado con `fct_reorder()`.
+
+**Verificación:** las dos usan exactamente los mismos veinte datos.
+
+**En palabras:** mirando solo la nube, ordena de memoria las cinco primeras
+palabras. Ahora comprueba con las barras si acertaste. ¿Cuántas veces más frecuente
+es la primera que la quinta? ¿Se puede contestar eso con la nube?
+:::
+
+```{r c25-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Dos idiomas
+
+::: {.ejercicio}
+Repite el proceso con `Datos/Alice_Adventures_in_Wonderland.txt`, que está en
+inglés, usando `stopwords("english")`.
+
+Después, a propósito, hazlo **al revés**: al Quijote quítale las palabras vacías
+inglesas y a Alicia las españolas.
+
+**Verificación:** las dos versiones cruzadas quedan prácticamente igual que sin
+limpiar.
+
+**En palabras:** explica por qué. ¿Qué pasaría con un texto que mezcla los dos
+idiomas, como un artículo científico en español con citas en inglés?
+:::
+
+```{r c25-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). Los acentos que se parten
+
+::: {.ejercicio}
+En la lista de palabras del Quijote aparecen cosas raras como `habi` en vez de
+`había`. No es un error del paquete `tm`: el archivo guarda los acentos en forma
+**descompuesta**, es decir, la letra y la tilde como dos caracteres separados.
+
+Compruébalo: cuenta cuántos caracteres tiene la palabra `había` tal como sale del
+archivo, con `nchar()`, y compáralo con `nchar("había")` escrito por ti.
+Después arréglalo con `stringi::stri_trans_nfc()` antes de limpiar el texto, y
+vuelve a contar las palabras.
+
+**Verificación:** después de normalizar, las palabras con acento dejan de salir
+partidas en la lista de frecuencias.
+
+**En palabras:** este problema es primo del de la codificación del capítulo de
+importar datos. Explica en qué se parecen y en qué se diferencian. ¿En cuál de los
+cinco pasos habría que arreglarlo?
+:::
+
+```{r c25-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

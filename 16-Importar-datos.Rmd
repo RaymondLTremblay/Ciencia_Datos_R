@@ -13,6 +13,43 @@ Sys.Date()
  
 ***
 
+## Temas
+
+ - De dónde salen los datos: la web, un archivo tuyo, un paquete
+ - `read_csv()` y su familia, y en qué se diferencia de `read.csv()`
+ - Los argumentos que de verdad se usan: `skip`, `na`, `col_names`, `col_types`
+ - Cuando la columna llega con el tipo equivocado: las funciones `parse_*()`
+ - Acentos y codificación
+ - Escribir un archivo: `write_csv()`
+ - Otros formatos: Excel, SPSS, bases de datos
+
+***
+
+## De dónde salen los datos
+
+Hasta ahora todos los datos venían de un paquete: escribías `library(datos)` y
+`vuelos` aparecía. Eso es cómodo para aprender y no se parece en nada a la vida
+real. En un proyecto de verdad los datos llegan de tres sitios:
+
+1. **De internet**, con una dirección que apunta a un archivo `.csv`. Es rápido y
+   siempre está al día, pero depende de que haya conexión y de que quien publica
+   no cambie el archivo debajo de ti.
+2. **De un archivo tuyo**, dentro de la carpeta del proyecto. Es lo más común y
+   lo más reproducible.
+3. **De un paquete**, como hemos hecho en clase.
+
+La regla práctica que conviene adoptar desde ahora: **baja el archivo una vez,
+guárdalo en `Datos/`, y de ahí en adelante trabaja con tu copia.** Así tu análisis
+corre igual dentro de un año, sin internet y aunque la fuente original haya
+desaparecido.
+
+::: {.advertencia}
+Importar es el paso donde se cuelan la mitad de los errores de un análisis, y son
+errores silenciosos: una columna que llega como texto, un decimal leído como
+separador de miles, un acento convertido en símbolo raro. Después de **cada**
+importación, mira la tabla antes de calcular nada.
+:::
+
 ------------------------------------------------------------------------
 
 ## Datos importados de la web.
@@ -148,7 +185,7 @@ unique(nchs_births_2001$RB)
 
 COVID_PR
 
-```{r c16-11, DatosMortandad20, echo=FALSE, eval=FALSE}
+```{r c16-11, echo=FALSE, eval=FALSE}
 library(data.table)
 url_COVID_PR=tryCatch(
   fread("https://raw.githubusercontent.com/rafalab/pr-covid/master/dashboard/data/DatosMortalidad.csv"),
@@ -183,7 +220,13 @@ dim(url_COVID)
  
 ## Datos importando de su computadora
  
+Esta es la manera que vas a usar el 90 % de las veces: el archivo está dentro de
+la carpeta del proyecto y se lee con una ruta relativa, `"Datos/archivo.csv"`.
+
 ### Temas: Funciones para importar datos con el paquete readr
+
+Cada función de la lista corresponde a un formato de archivo distinto. Lo único
+que cambia entre ellas es **qué separa una columna de la siguiente**:
 
  - read_csv() # separado por coma
  - read_csv2() # separado por punto y coma
@@ -195,11 +238,44 @@ dim(url_COVID)
  - read_table() 
 
 ::: {.funcion}
-**`read_csv()`** (readr) y **`fread()`** (data.table) — importar datos.
+**`read_csv()`** (readr) y **`fread()`** (data.table): importar datos.
 
 - **`read_csv("archivo.csv")`:** lee un CSV a un tibble; variantes: `read_csv2()` (separado por `;`), `read_tsv()` (tabs), `read_delim()` (delimitador a elección).
 - **`fread("https://…")`:** rápido y práctico para leer directamente desde una URL.
 - **`write_csv(objeto, "archivo.csv")`:** guarda tus datos para no depender de la red.
+:::
+
+### `read_csv()` frente a `read.csv()`
+
+Se parecen tanto que es fácil confundirlas, y no son lo mismo. `read.csv()` es la
+de base R, con punto; `read_csv()` es la de `readr`, con guion bajo. Prefiere
+siempre la segunda:
+
+- devuelve un **tibble**, así que ves los tipos de columna al imprimirla;
+- es bastante más rápida con archivos grandes;
+- **no** convierte el texto en factores ni cambia los nombres de las columnas
+  (`Area Policiaca` sigue llamándose así, no `Area.Policiaca`);
+- te dice en un mensaje cómo interpretó cada columna, que es justo lo que hay que
+  revisar.
+
+### Los argumentos que de verdad se usan
+
+::: {.funcion}
+**Argumentos de `read_csv()`**: lo que hay que saber para archivos del mundo real.
+
+- **`skip = 2`:** salta las primeras líneas. Sirve cuando el archivo trae un título o un logo antes de la tabla.
+- **`col_names = FALSE`:** el archivo no tiene fila de nombres. También acepta un vector con los nombres que quieras ponerle.
+- **`na = c("", "NA", "n/a", ".")`:** qué textos hay que tratar como valor faltante. Por defecto solo `""` y `"NA"`.
+- **`col_types = cols(codigo = col_character())`:** obliga a una columna a leerse con el tipo que tú digas. Es la solución cuando un código postal o un identificador que empieza con cero se lee como número y pierde el cero.
+- **`comment = "#"`:** ignora las líneas que empiecen con ese símbolo.
+:::
+
+::: {.consejo}
+`read_csv()` adivina el tipo de cada columna mirando las **primeras mil filas**.
+Si el problema aparece en la fila 5000 (una celda que dice "no medido" en una
+columna de números), la adivinanza sale mal. Cuando una columna llegue con el
+tipo equivocado, no la arregles después con `as.numeric()`: dile a `read_csv()`
+cómo leerla desde el principio con `col_types`.
 :::
 
  
@@ -220,16 +296,23 @@ head(Newborn_Karn_Penrose)
  
  
   
+Estos datos vienen de un estudio clásico de peso al nacer: cada fila es una
+combinación de edad de la madre y peso del bebé, con cuántos nacimientos hubo y
+cuántos no sobrevivieron. Fíjate en que **no** es una fila por bebé: son
+conteos agrupados, y eso cambia cómo hay que leerlos.
+
 Hacer una columna de la proporción de los niños que no sobrevivieron.
- 
 
+La versión larga, con las columnas seleccionadas y ordenadas:
 
-
+```
 Newborn_Karn_Penrose %>%
-dplyr::select(Count_Non_survivors, Count_Total_Birth) %>%
-arrange(Count_Total_Birth, Count_Non_survivors) %>%
-mutate(Perc_sobrevivieron = Count_Non_survivors/Count_Total_Birth)
+  dplyr::select(Count_Non_survivors, Count_Total_Birth) %>%
+  arrange(Count_Total_Birth, Count_Non_survivors) %>%
+  mutate(Perc_sobrevivieron = Count_Non_survivors/Count_Total_Birth)
+```
 
+Y la versión corta, que es la que corre aquí:
 
 
 
@@ -243,13 +326,19 @@ Newborn_Karn_Penrose %>%
 
 
 
+Lo mismo, ahora en gráfica. Primero la versión larga:
+
+```
 Newborn_Karn_Penrose %>%
-dplyr::select(Count_Non_survivors, Count_Total_Birth, Birth_weight) %>%
-arrange(Count_Total_Birth, Count_Non_survivors) %>%
-mutate(porc_sobrevivieron = Count_Non_survivors / Count_Total_Birth)%>%
-ggplot(aes(x= Birth_weight, y=porc_sobrevivieron))+
-geom_point()+
-geom_smooth()
+  dplyr::select(Count_Non_survivors, Count_Total_Birth, Birth_weight) %>%
+  arrange(Count_Total_Birth, Count_Non_survivors) %>%
+  mutate(porc_sobrevivieron = Count_Non_survivors / Count_Total_Birth) %>%
+  ggplot(aes(x = Birth_weight, y = porc_sobrevivieron)) +
+  geom_point() +
+  geom_smooth()
+```
+
+Y la corta, que es la que se ejecuta:
 
 
 ```{r c16-15}
@@ -287,19 +376,33 @@ Newborn_Karn_Penrose %>%
 
 
 ## Comparar con base R
- 
- ***
- 
- 1.  **Ejercicios**:
 
-Hacer los ejercicios en la sección 11.2.2 del libro en español
+| | `read.csv()` (base R) | `read_csv()` (readr) |
+|:--|:--|:--|
+| Qué devuelve | un `data.frame` | un `tibble` |
+| Nombres de columna | los "arregla": `Area Policiaca` pasa a `Area.Policiaca` | los deja tal cual |
+| Texto | en versiones viejas lo convertía en factor | siempre texto |
+| Velocidad | lenta con archivos grandes | mucho más rápida |
+| Informe | ninguno | dice cómo interpretó cada columna |
+
+En resumen: `read.csv()` funciona, pero toma decisiones por su cuenta y no te
+avisa. `read_csv()` hace menos y te cuenta lo que hizo, que es lo que uno quiere
+cuando los datos son de verdad.
 
 ***
 
 ## Segmentar un vector
 
+Cuando `read_csv()` no acierta con el tipo de una columna, o cuando los datos
+llegan de otra parte, hay que convertir el texto a mano. De eso se encargan las
+funciones `parse_*()`: cada una toma un vector de **texto** y devuelve un vector
+del tipo que dice su nombre.
+
+Son también las funciones que `read_csv()` usa por dentro, así que entenderlas
+explica por qué a veces adivina mal.
+
 ::: {.funcion}
-**`parse_*()`** (readr) — convertir texto al tipo correcto.
+**`parse_*()`** (readr): convertir texto al tipo correcto.
 
 - **Qué hacen:** `parse_integer()`, `parse_double()`, `parse_number()`, `parse_logical()`, `parse_date()`, `parse_factor()` convierten cadenas de texto a números, fechas, etc.
 - **`parse_number("$123.45")`:** extrae el número ignorando símbolos como `$` o `%`.
@@ -309,6 +412,12 @@ Hacer los ejercicios en la sección 11.2.2 del libro en español
  - str(parse_logical())
  
  
+En el bloque siguiente, fíjate en el contraste: `parse_logical()` funciona con
+`x`, que contiene textos que R reconoce como lógicos, y falla con `y`, que
+contiene nombres de personas. Y fíjate sobre todo en `mean(z)`: `z` parece
+numérico pero está entre comillas, así que es texto, y el promedio no se puede
+calcular.
+
 ```{r c16-18}
 
 x= c("TRUE", "FALSE", "NA")
@@ -337,6 +446,10 @@ str(parse_date(c("2010-01-01", "1979-10-14")))
 
 ```
 
+`parse_number()` es la más útil de todas en la práctica: se queda con el número y
+tira todo lo demás. Con ella se limpian de un golpe las columnas de precios, de
+porcentajes y de cantidades escritas con símbolos.
+
 ```{r c16-19}
 m=c("$4000", "$500" )
 parse_number(m)
@@ -358,15 +471,47 @@ parse_number("It cost $123.45")
 
 ## Números
 
+Con los números hay dos trampas, y las dos son cuestión de país.
+
+La primera es el **separador decimal**: en inglés se escribe `1.5` y en español
+`1,5`. La segunda es el **separador de miles**: en inglés `1,000,000` y en
+español `1.000.000`. Es decir, el mismo signo significa cosas contrarias según de
+dónde venga el archivo.
+
+Se resuelven con `locale()`, que le dice a `readr` en qué convención está
+escrito el archivo:
+
  - parse_double()
  - parse_number()
  - parse_number(locale=locale(grouping_mark = "."))
+
+```{r c16-locale, eval=FALSE}
+parse_double("1,5", locale = locale(decimal_mark = ","))
+parse_number("1.000.000", locale = locale(grouping_mark = "."))
+```
+
+::: {.advertencia}
+Este error es traicionero porque **no da ningún mensaje**: si un archivo en
+español se lee con la convención inglesa, `1,5` se convierte en `15` y el análisis
+sigue con números diez veces más grandes. Cuando importes datos de una agencia de
+gobierno, mira siempre un par de valores y compáralos con el archivo original.
+:::
  
 
 
 ***
 
 ## Cadena de texto
+
+Aquí aparece el problema de los acentos. Una computadora no guarda letras, guarda
+números, y la tabla que traduce números a letras se llama **codificación**. Hoy
+casi todo usa UTF-8, que tiene sitio para la ñ, los acentos y los signos de
+apertura. Los archivos viejos, sobre todo los que salieron de un Excel en
+Windows, suelen venir en Latin1.
+
+Si abres un archivo con la codificación equivocada, la ñ se convierte en símbolos
+raros. `charToRaw()` enseña los números que hay detrás de un texto, y
+`guess_encoding()` intenta adivinar en qué codificación está escrito.
 
   - parse_character()
   
@@ -396,6 +541,13 @@ parse_character(x2, locale = locale(encoding = "Shift-JIS"))
 ```  
  
  
+::: {.consejo}
+Cuando veas `Ni�o` o `Ni√±o` en una tabla recién importada, no es que los datos
+estén dañados: es la codificación. Prueba
+`read_csv(archivo, locale = locale(encoding = "Latin1"))`, y si no sabes cuál es,
+pregúntaselo a `guess_encoding()`.
+:::
+
   - guess_encoding(charToRaw())
   
   
@@ -405,28 +557,60 @@ guess_encoding(charToRaw(x3))
   
 ## Factores
 
+`parse_factor()` convierte texto en factor, pero pidiéndote la lista de niveles
+que esperas. Eso es útil precisamente porque **avisa** cuando aparece un valor que
+no estaba en tu lista: una errata, un "Carolína" con acento entre mil "Carolina"
+sin él.
+
  - parse_factor()
- 
- 
+
+```{r c16-factor, eval=FALSE}
+parse_factor(c("alta", "baja", "media"), levels = c("alta", "baja"))
+# avisa de que "media" no estaba en los niveles
+```
+
 ## Fechas, fechas-horas, horas
+
+Una fecha leída como texto no sirve de nada: no se puede ordenar bien, no se le
+puede restar otra fecha, no se puede agrupar por mes. Convertirla es de los
+primeros pasos después de importar.
 
  - parse_datetime()
  
  - library(hms)
   - parse_time()
-  
-  
-  
- 2.  **Ejercicios**:
 
-Hacer los ejercicios en la sección 11.3.5 del libro en español 
+```{r c16-fechas, eval=FALSE}
+parse_date("2016-08-01")
+parse_date("01/08/2016", format = "%d/%m/%Y")
+parse_time("15:30:00")
+```
 
+::: {.advertencia}
+`01/08/2016` es el 1 de agosto para media humanidad y el 8 de enero para la otra
+mitad. Si no dices el `format`, R usa el suyo y puede acertar por casualidad
+durante los primeros doce días del mes. Este capítulo solo abre el tema: las
+fechas tienen su propio capítulo más adelante, con el paquete `lubridate`.
+:::
 
 ## Segmentar un archivo
 
  - guess_parser
+
+`guess_parser()` contesta la pregunta "¿qué tipo diría `readr` que es esto?". Es
+la manera de entender por qué una columna llegó como texto cuando tú la querías
+numérica: casi siempre hay una celda con un valor raro escondida en el medio.
+
+```{r c16-guess, eval=FALSE}
+guess_parser(c("1", "2", "3"))
+guess_parser(c("1", "2", "no medido"))
+```
  
 ## Escribir un Archivo
+
+Guardar es tan importante como leer, y por dos razones distintas: para no
+depender de la red, y para dejarle a otra persona (o a un revisor) el resultado
+de tu limpieza sin que tenga que correr todo tu script.
 
 ::: {.consejo}
 Después de descargar datos de internet, guárdalos con `write_csv()` para trabajar sin depender de la conexión en la próxima sesión.
@@ -434,12 +618,47 @@ Después de descargar datos de internet, guárdalos con `write_csv()` para traba
 
   - write_csv()
   - write_tsv()
+
+::: {.advertencia}
+Un `.csv` **no guarda los tipos**: al volver a leerlo, `readr` tiene que adivinar
+otra vez, y una columna que tú habías convertido en factor o en fecha vuelve a
+ser texto. Si necesitas conservar los tipos exactamente, guarda con
+`write_rds()` (formato propio de R) o con `arrow::write_parquet()`. Para
+compartir con gente que no usa R, el `.csv` sigue siendo la mejor opción.
+:::
   
 ## Otros tipos de datos y paquetes
+
+R lee casi cualquier formato, siempre con la misma idea: un paquete por familia
+de archivos.
 
   - library(haven) # SPSS, Stata y SAS
   - readxl() lee archivo Excel en formato .xls, xlsx
   - BDI lee archivo RMySQL y otros
+
+::: {.funcion}
+**Paquetes para otros formatos**: cuál usar según de dónde vengan los datos.
+
+- **`readxl::read_excel("archivo.xlsx", sheet = 2)`:** hojas de Excel. El argumento `sheet` acepta el número o el nombre de la hoja.
+- **`haven`:** archivos de SPSS (`.sav`), Stata (`.dta`) y SAS. Es el camino habitual cuando los datos vienen de una encuesta o de otra disciplina.
+- **`DBI` y `RMariaDB` / `RPostgres`:** bases de datos, cuando la tabla es demasiado grande para caber en la memoria.
+- **`googlesheets4`:** hojas de Google, útiles cuando varias personas están llenando la tabla a la vez.
+:::
+
+::: {.consejo}
+Con un Excel, el problema casi nunca es leerlo: es que la hoja trae celdas
+combinadas, un título en la primera fila y notas al pie debajo de la tabla. Los
+argumentos `skip` y `range` de `read_excel()` resuelven la mayoría de esos casos.
+:::
+
+***
+
+## Ejercicios del libro R4DS
+
+Hacer los ejercicios de las siguientes secciones del libro en español:
+
+- sección 11.2.2 (leer archivos),
+- sección 11.3.5 (segmentar vectores).
   
 
   
@@ -447,3 +666,163 @@ Después de descargar datos de internet, guárdalos con `write_csv()` para traba
 
 
 
+
+***
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los ejercicios usan `Datos/crimen_pr.csv`, un archivo real del
+gobierno de Puerto Rico que está en el repositorio del curso, y archivos que vas
+a crear tú mismo. No usan `Newborn_Karn_Penrose.csv`, que es el del capítulo. La
+hoja completa para entregar está en
+`Ejercicios/Ejercicios_Capitulo_18_importar.Rmd`.
+:::
+
+### Ejercicio 1. Mirar antes de calcular
+
+::: {.ejercicio}
+Lee `Datos/crimen_pr.csv` con `read_csv()`. Antes de tocar nada, mira **qué
+llegó**: imprime el tibble, corre `glimpse()` y `spec()`, y cuenta los valores
+faltantes de cada columna.
+
+**Verificación:** la tabla debe tener **8870 filas** y **7 columnas**, y dos de
+las columnas deben traer **733 valores faltantes** cada una.
+
+**En palabras:** `readr` convirtió esos faltantes solo porque en el archivo
+estaban escritos como `NA`. ¿Qué habría pasado si el archivo los hubiera escrito
+como `"sin dato"`? ¿Con cuál argumento lo arreglarías?
+:::
+
+```{r c16-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Los nombres mienten
+
+::: {.ejercicio}
+Sigue con la misma tabla. Mira los valores de `Delito` y de `Delitos_code` con
+`count()`.
+
+**Verificación:** cada una tiene **9** valores distintos, pero `Delito` contiene
+números del 1 al 9 y `Delitos_code` contiene nombres como `Asesinato` o
+`Apropiacion Ilegal`. Los nombres de las dos columnas están intercambiados.
+
+Renómbralas con `rename()` para que digan la verdad, y de paso quítale el espacio
+al nombre de `Area Policiaca`.
+
+**En palabras:** para usar `Area Policiaca` tal como viene hay que escribirla
+entre acentos graves. ¿Por qué? ¿Qué le habría hecho `read.csv()` a ese nombre?
+:::
+
+```{r c16-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Un código no es un número
+
+::: {.ejercicio}
+La columna con los números del 1 al 9 es un **código**, no una cantidad: no tiene
+sentido calcular su promedio. Vuelve a leer el archivo obligando a que esa
+columna se lea como texto, con `col_types = cols(...)` y `col_character()`.
+
+**Verificación:** `class()` de esa columna debe pasar de `"numeric"` a
+`"character"`, y el resto de la tabla debe quedar igual (8870 por 7).
+
+**En palabras:** da otro ejemplo de una columna que parece numérica y no lo es.
+¿Qué se pierde si un código postal de Puerto Rico se lee como número?
+:::
+
+```{r c16-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Ida y vuelta por el disco
+
+::: {.ejercicio}
+Toma `millas` del paquete `datos`. Convierte `clase` en factor con
+`mutate(clase = factor(clase))`, guarda la tabla con `write_csv()` en
+`Datos/millas_prueba.csv`, y vuelve a leerla con `read_csv()`.
+
+**Verificación:** la tabla que vuelve tiene las mismas 234 filas, pero `clase` ya
+**no** es factor: es texto.
+
+**En palabras:** explica por qué se perdió el tipo. ¿Qué formato usarías si
+necesitaras conservarlo? ¿Y por qué, aun así, seguimos usando `.csv` para
+compartir datos?
+:::
+
+```{r c16-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Un archivo sucio, hecho a mano
+
+::: {.ejercicio}
+Crea con `writeLines()` un archivo de texto que empiece con dos líneas de basura
+antes de la tabla y que use `n/d` para los faltantes:
+
+`Reporte mensual`
+
+`Generado el 1 de agosto`
+
+`parcela,plantas`
+
+`P1,34`
+
+`P2,n/d`
+
+`P3,27`
+
+Léelo primero con `read_csv()` sin argumentos y mira el desastre. Después
+arréglalo con `skip` y `na`.
+
+**Verificación:** la versión arreglada tiene 3 filas, 2 columnas, `plantas` es
+numérica y hay exactamente **un** `NA`.
+
+**En palabras:** en la primera lectura, ¿cuántas columnas creó `readr` y de dónde
+sacó el nombre? Copia la advertencia que salió y explica qué te estaba diciendo.
+:::
+
+```{r c16-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Números escritos en español
+
+::: {.ejercicio}
+Convierte a número estos textos, que vienen escritos a la manera española:
+`c("1.234", "2.500.000", "3,75")`. Hazlo primero sin `locale()` y después con el
+`locale()` correcto.
+
+**Verificación:** con el `locale()` correcto, `"2.500.000"` tiene que dar dos
+millones y medio, y `"3,75"` tiene que dar tres con setenta y cinco.
+
+**En palabras:** sin `locale()`, ninguno de los tres da error, pero todos dan un
+número equivocado. Explica por qué este es el tipo de fallo más peligroso de todo
+el capítulo.
+:::
+
+```{r c16-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). Fechas y horas de verdad
+
+::: {.ejercicio}
+Vuelve a `crimen_pr.csv`. Comprueba con `class()` cómo llegaron `Fecha` y `Hora`.
+Después cuenta cuántos incidentes hay por mes.
+
+**Verificación:** hay tres meses, todos de 2016, y el tercero tiene muchísimos
+menos casos que los otros dos.
+
+**En palabras:** ¿por qué el tercer mes tiene tan pocos? Míralo con
+`range(Fecha)` y explica qué te dice eso sobre el archivo. ¿Qué error de análisis
+cometería alguien que comparara los tres meses sin darse cuenta?
+:::
+
+```{r c16-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

@@ -27,6 +27,40 @@ Español:
 Los `tibble` son la versión moderna del `data.frame` dentro del tidyverse: hacen menos «magia» automática (no cambian nombres ni tipos de columna) y ofrecen una impresión más legible en la consola.
 :::
 
+ - Por qué existe el tibble
+ - Crear tablas: `tibble()`, `tribble()`, `as_tibble()`
+ - Cómo se imprime un tibble, y cómo pedirle que imprima más
+ - Las cuatro diferencias con el `data.frame` que de verdad importan
+ - Sacar una columna: `$`, `[[`, `[` y el marcador `.`
+ - Cuándo hay que volver a un `data.frame`
+
+***
+
+## ¿Por qué existe el tibble?
+
+El `data.frame` es de 1990 y se diseñó cuando las tablas cabían en una pantalla.
+Con los años se le fueron acumulando comportamientos que en su momento eran
+cómodos y que hoy hacen perder tiempo:
+
+- imprime la tabla **entera** en la consola, así que un archivo de 50 000 filas
+  llena la pantalla y hay que subir a buscar el principio;
+- hace **coincidencia parcial** de nombres: si le pides `df$a` y la única columna
+  que empieza por "a" es `abc`, te la da sin avisar, y una errata pasa por buena;
+- durante muchos años convertía el texto en factores por su cuenta, y arreglaba
+  los nombres de columna sin decirlo;
+- guarda **nombres de fila**, que son datos escondidos fuera de las columnas.
+
+El `tibble` hace lo mismo que el `data.frame` pero **sin la magia**: imprime poco,
+no adivina nombres, no cambia tipos y no guarda nombres de fila. Se queja cuando
+hay algo raro en vez de arreglarlo en silencio, y eso es exactamente lo que uno
+quiere de una herramienta de análisis.
+
+::: {.nota}
+Un tibble **es** un data frame: `is.data.frame(mi_tibble)` devuelve `TRUE`. Todo
+lo que funciona con un data frame funciona con un tibble. Al revés no siempre,
+y de eso trata la última sección del capítulo.
+:::
+
   - as_tibble()
 
 ***  
@@ -34,7 +68,7 @@ Los `tibble` son la versión moderna del `data.frame` dentro del tidyverse: hace
 ## Crear un tibble
 
 ::: {.funcion}
-**`tibble()`, `tribble()`, `as_tibble()`** — crear tablas modernas.
+**`tibble()`, `tribble()`, `as_tibble()`**: crear tablas modernas.
 
 - **`tibble(col = valores, ...)`:** crea un tibble por columnas.
 - **`tribble(~col1, ~col2, v, v, ...)`:** lo crea **fila por fila** (cómodo para tablas pequeñas escritas a mano).
@@ -42,9 +76,20 @@ Los `tibble` son la versión moderna del `data.frame` dentro del tidyverse: hace
 :::
 
  - tibble()
- 
+
+`tibble()` construye la tabla **por columnas**: cada argumento es un vector, y
+todos tienen que tener el mismo largo (o largo 1, que se repite). A diferencia de
+`data.frame()`, no toca los nombres, no convierte el texto en factores y no
+recicla vectores de largo raro.
+
  Crear un tibble con la siguiente información.  Una columna que tiene los valores del 1 al 8 que se llama "secuencia", una segunda columna que tiene los siguientes valores 23,26, 24,26,27, 11,20,21 que se llama edad y una tercera columna con la siguiente información, Jose, Maria, Carol, Moncho, Liz, Maria, Jorge, Miguel, que se llama Nombre 
  
+::: {.consejo}
+El bloque de abajo construye solo las **seis** primeras filas de las ocho que
+pide el enunciado, y deja un `NA` en la última edad. Completarlo es el primer
+ejercicio del capítulo.
+:::
+
 ```{r c15-2}
 library(tidyverse)
 #library(datos)
@@ -61,6 +106,17 @@ tibble(
 ***
 
 ## Crear un tribble
+
+`tribble()` construye la tabla **fila por fila**, que es como uno la escribiría a
+mano en una libreta. Los nombres de las columnas van con una virgulilla delante
+(`~secuencia`), y después vienen los valores en el mismo orden. Es la forma más
+cómoda de meter en un script una tabla pequeña: los datos de un experimento, una
+tabla de equivalencias, los códigos de las parcelas.
+
+::: {.consejo}
+Alinea los valores en columnas cuando escribas un `tribble()`. No cambia nada
+para R, pero hace que un dato fuera de sitio salte a la vista.
+:::
 
  - tribble()
  
@@ -82,6 +138,15 @@ tribble(
 
 ## tibble vs. data.frame
 
+Los dos bloques siguientes construyen la misma tabla de 100 filas y la imprimen
+de las dos maneras. Compara la salida: el tibble enseña **diez filas**, el tipo
+de cada columna debajo del nombre (`<dttm>`, `<date>`, `<int>`, `<dbl>`, `<chr>`)
+y una nota de cuántas filas quedaron sin imprimir. El data frame las suelta las
+cien.
+
+Esa línea con los tipos es la razón principal para preferir el tibble mientras se
+explora: la mitad de los problemas de un análisis son una columna que uno creía
+numérica y era texto, y aquí se ve sin tener que pedir nada.
 
 ```{r c15-4}
 tb = tibble(
@@ -99,6 +164,16 @@ df_tb
 
 
 
+Cuando de verdad hacen falta más filas o más columnas, se piden:
+
+::: {.funcion}
+**`print()` en un tibble**: decidir cuánto se imprime.
+
+- **`print(n = 4)`:** cuatro filas en vez de diez. `n = Inf` las imprime todas.
+- **`width = Inf`:** todas las columnas, aunque no quepan a lo ancho.
+- **`View(tabla)`:** abre la tabla completa en una ventana de RStudio, que casi siempre es lo que uno quería.
+:::
+
 ```{r c15-5}
 tb %>%
   print(n = 4, width = Inf)
@@ -112,24 +187,41 @@ lubridate::today()
 
 
 
-- To convert a data frame to a tibble use **as_tibble()**
+- Para convertir un data frame en tibble se usa **`as_tibble()`**.
 
-- To convert a tibble to a data frame use **as.data.frame**
+- Para convertir un tibble en data frame se usa **`as.data.frame()`**.
+
+::: {.funcion}
+**`as_tibble()` y `as.data.frame()`**: pasar de un formato al otro.
+
+- **`as_tibble(df)`:** envuelve un data frame como tibble. No copia los datos ni los cambia; solo cambia cómo se imprime y cómo se comporta.
+- **`as.data.frame(tb)`:** el camino de vuelta. Hace falta cuando una función vieja no acepta tibbles.
+- **Ojo con los nombres de fila:** `as_tibble()` los **descarta**. Si los necesitas, guárdalos antes en una columna con `tibble::rownames_to_column()`.
+:::
 
 
 ***
 
 
-## Diferencias entre un tibble y un data frame.
+## Diferencias entre un tibble y un data frame
 
+Son cuatro, y conviene tenerlas presentes porque explican casi todos los tropiezos
+del principio.
 
+**1. La impresión.**
 
 - Tibbles tiene un buen método de impresión que muestra solo las primeras 10 filas y todas las columnas que caben en la pantalla.
 - Tibbles no admite nombres de filas. Se eliminan al convertir a tibble o al crear subconjuntos:
 
-Operaciones aritméticas en tibbles
+**2. Operaciones aritméticas en tibbles.**
 
-A diferencia de los data frame, los tibbles NO admiten operaciones aritméticas en todas las columnas. El resultado \ fuerza silenciosamente a un data frame. 
+A diferencia de los data frame, los tibbles NO admiten operaciones aritméticas en todas las columnas: el resultado se fuerza silenciosamente a un data frame.
+
+Es decir: multiplicar la tabla entera por 2 funciona, pero lo que sale ya no es
+un tibble. No es un problema grave, pero sí explica por qué a veces una tabla
+"deja de imprimirse bonito" en medio de un análisis. La manera correcta de hacer
+aritmética sobre una tabla es columna por columna, con `mutate()`, como en el
+segundo bloque. 
 
 
 
@@ -155,7 +247,9 @@ is_tibble(result2)
 ```
 
 
-- Los tibbles también son más estrictos con $. Tibbles nunca realiza coincidencias parciales y generará una advertencia y devolverá NULL si la columna no existe:
+**3. Nada de coincidencias parciales.**
+
+- Los tibbles también son más estrictos con `$`. Tibbles nunca realiza coincidencias parciales y generará una advertencia y devolverá `NULL` si la columna no existe:
 
 
 ```{r c15-8}
@@ -164,12 +258,48 @@ df$a
 #> [1] 1
 
 df2 <- tibble(abc = 1)
-df2$abc # nota el error
+df2$abc # el nombre completo: funciona igual en los dos
 ```
 
-- Para extraer una columna de un tibble, use [[. Esto es más seguro que $ porque nunca realiza coincidencias parciales:
+Ahora la comparación que importa. La misma errata, `$a` en vez de `$abc`, en las
+dos clases de tabla:
+
+```{r c15-8b, warning=TRUE}
+df$a     # data.frame: adivina y devuelve 1, sin avisar
+df2$a    # tibble: devuelve NULL y avisa
+```
+
+::: {.advertencia}
+Este es el mejor argumento a favor del tibble. En un data frame, escribir mal el
+nombre de una columna puede devolverte **otra columna** sin decir nada, y el
+análisis sigue con la variable equivocada. El tibble te devuelve `NULL` y una
+advertencia, así que el error aparece de inmediato.
+:::
+
+**4. Sacar una columna: `$`, `[[` y `[`.**
+
+- Para extraer una columna de un tibble se usa `[[`. Es más seguro que `$` porque acepta el nombre como texto y nunca hace coincidencias parciales:
+
+::: {.funcion}
+**`$`, `[[` y `[`**: tres maneras de sacar datos de una tabla, y no dan lo mismo.
+
+- **`tabla$columna`:** devuelve el **vector**. Cómodo, pero el nombre va escrito directamente en el código.
+- **`tabla[["columna"]]`:** devuelve el **vector**. Acepta el nombre entre comillas o el número de posición, así que sirve dentro de una función o de un bucle.
+- **`tabla["columna"]`:** con un solo corchete devuelve una **tabla de una columna**, no un vector. En un data frame, `df[, "columna"]` devuelve un vector; en un tibble devuelve un tibble, y esa diferencia rompe código viejo.
+- **Dentro de un pipe de magrittr:** `tabla %>% .$columna` o `tabla %>% .[["columna"]]`, donde el punto es la tabla que viene por el pipe.
+:::
 
 ## Selección de subconjuntos de datos
+
+El bloque siguiente saca la misma columna de `vuelos` de cuatro maneras
+distintas, dos directas y dos dentro de un pipe. Todas devuelven exactamente lo
+mismo; están juntas para que reconozcas las cuatro cuando las veas en código
+ajeno.
+
+::: {.consejo}
+En una cadena del tidyverse casi siempre es mejor `pull(columna)` que `.$columna`:
+hace lo mismo, se lee mejor y funciona igual con el pipe nativo.
+:::
 
 ```{r c15-9}
 library(datos)
@@ -192,11 +322,173 @@ vuelos %>% .[["atraso_salida"]] |>
 ```
 
 
-1.  **Ejercicios**:
+***
 
-Hacer los ejercicios en la sección 10.5 del libro en español
+## Cuándo hay que volver a un `data.frame`
+
+Casi todo el código de R moderno acepta tibbles sin problema. Los que no, son
+paquetes viejos que suponen que `tabla[, "columna"]` devuelve un vector, o que
+esperan nombres de fila. Cuando una función se queja de forma rara, la prueba
+rápida es pasarle `as.data.frame(mi_tibble)` y ver si el problema desaparece.
+
+::: {.historia}
+El `data.frame` viene del lenguaje **S**, de los Laboratorios Bell, y pasó a R
+casi sin cambios. El paquete **tibble** lo reescribió en 2016, dentro del
+tidyverse liderado por **Hadley Wickham**, con una regla explícita: *"hacer menos
+y quejarse más"*. La palabra `tibble` sale de cómo suena "tbl", la abreviatura
+que ya usaba `dplyr` para sus tablas.
+:::
+
+***
+
+## Ejercicios del libro R4DS
+
+Hacer los ejercicios en la sección 10.5 del libro en español.
 
 
 
 
   
+***
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los ejercicios usan `millas` y `paises` del paquete `datos`, y
+tablas que escribirás a mano, no `vuelos`, que es el conjunto del capítulo. La
+hoja completa para entregar está en `Ejercicios/Ejercicios_Capitulo_17_tibbles.Rmd`.
+:::
+
+### Ejercicio 1. Completar el tibble
+
+::: {.ejercicio}
+El bloque del principio del capítulo construye solo seis de las ocho filas que
+pedía el enunciado. Complétalo: `secuencia` del 1 al 8; `edad` con 23, 26, 24,
+26, 27, 11, 20, 21; y `nombre` con Jose, Maria, Carol, Moncho, Liz, Maria, Jorge
+y Miguel.
+
+**Verificación:** tu tibble debe tener 8 filas y 3 columnas, y la línea de tipos
+debe decir `<int>` o `<dbl>` para las dos primeras y `<chr>` para la tercera.
+
+**En palabras:** ¿qué pasa si le das a una columna siete valores en vez de ocho?
+Pruébalo en un bloque con `error=TRUE` y explica el mensaje. ¿Por qué **sí**
+funciona si le das uno solo?
+:::
+
+```{r c15-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Una tabla escrita a mano
+
+::: {.ejercicio}
+Con `tribble()`, escribe una tabla de cuatro parcelas de campo con tres
+columnas: `parcela` (texto), `n_plantas` (número entero) y `humedad` (texto:
+"alta" o "baja"). Invéntate los valores.
+
+**Verificación:** 4 filas, 3 columnas, y los tipos correctos en la línea de
+tipos.
+
+**En palabras:** ¿en qué situación preferirías `tribble()` a `tibble()`? Da un
+ejemplo de tu propio trabajo o de la clase.
+:::
+
+```{r c15-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Ida y vuelta
+
+::: {.ejercicio}
+Convierte `millas` en data frame con `as.data.frame()`, guárdalo, y conviértelo
+otra vez en tibble con `as_tibble()`. Comprueba las dos veces con `is_tibble()` y
+con `is.data.frame()`.
+
+**Verificación:** `is.data.frame()` da `TRUE` en los tres objetos;
+`is_tibble()` solo en dos de los tres.
+
+**En palabras:** ¿por qué `is.data.frame()` dice `TRUE` incluso para el tibble?
+¿Qué relación hay entre las dos clases?
+:::
+
+```{r c15-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Imprimir lo justo
+
+::: {.ejercicio}
+Imprime `paises` de cuatro maneras: tal cual, con `print(n = 3)`, con
+`print(n = Inf, width = Inf)` (no lo hagas dentro del documento final, es
+enorme), y como data frame con `as.data.frame(paises)`.
+
+**Verificación:** la impresión normal enseña 10 filas y dice cuántas quedaron
+fuera.
+
+**En palabras:** además del número de filas, ¿qué información te da el tibble que
+el data frame no te da? ¿Por qué esa información ahorra tiempo al principio de un
+análisis?
+:::
+
+```{r c15-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. La errata que no avisa
+
+::: {.ejercicio}
+Crea `pais_df <- as.data.frame(paises)` y `pais_tb <- as_tibble(paises)`. En los
+dos, pide la columna con el nombre **incompleto**: `$pib` en vez de
+`$pib_per_capita`.
+
+**Verificación:** una de las dos devuelve datos y la otra devuelve `NULL` con
+una advertencia.
+
+**En palabras:** imagina que esa línea está en el medio de un análisis de 200
+líneas. ¿Cuál de los dos comportamientos prefieres y por qué? Este es el
+argumento más fuerte del capítulo a favor del tibble: escríbelo con tus palabras.
+:::
+
+```{r c15-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. `$`, `[[` y `[` no dan lo mismo
+
+::: {.ejercicio}
+Con `pais_tb` y `pais_df` del ejercicio anterior, saca la columna
+`esperanza_de_vida` de cuatro maneras: con `$`, con `[["..."]]`, con
+`["..."]` (un solo corchete) y con `[, "..."]`. Usa `class()` en cada resultado.
+
+**Verificación:** dos de las cuatro devuelven un **vector** y las otras dos una
+**tabla**, y `[, "..."]` no se comporta igual en el data frame que en el tibble.
+
+**En palabras:** ¿cuál de las cuatro usarías dentro de una función que recibe el
+nombre de la columna como texto? ¿Por qué esa diferencia de `[, "..."]` puede
+romper un script viejo?
+:::
+
+```{r c15-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). Los nombres de fila se pierden
+
+::: {.ejercicio}
+`mtcars` guarda los modelos de carro en los **nombres de fila**, no en una
+columna. Míralos con `rownames(mtcars)`, conviértelo con `as_tibble()` y vuelve a
+mirar. Después hazlo bien con `tibble::rownames_to_column()`.
+
+**Verificación:** el tibble hecho con `as_tibble()` tiene 11 columnas y ya no
+sabes qué carro es cada fila; el hecho con `rownames_to_column()` tiene 12.
+
+**En palabras:** ¿por qué el tibble decidió no guardar nombres de fila? Piensa en
+qué son realmente esos nombres y en dónde deberían estar según lo que aprendiste
+sobre datos ordenados.
+:::
+
+```{r c15-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

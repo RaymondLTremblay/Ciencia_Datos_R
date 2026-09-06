@@ -1,0 +1,226 @@
+---
+title: "Ejercicios del Capítulo 28"
+subtitle: "Modelos con modelr: lm, coeficientes, residuales y predicciones"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 28 del libro del curso.
+
+En este capítulo la **explicación pesa más que en ningún otro**. Un modelo sin interpretar no es un resultado, es una lista de números. Un ejercicio con el `lm()` correcto y sin interpretación no recibe el crédito completo.
+
+Los ejercicios usan `millas` y `paises` del paquete `datos`, no `diamantes` ni `vuelos`, que son los del capítulo.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**: que la tabla o la gráfica se vean.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | El modelo más sencillo | 5 |
+| 2 | Los residuales delatan | 5 |
+| 3 | Enderezar con logaritmos | 5 |
+| 4 | Una predictora categórica | 5 |
+| 5 | Dos predictoras | 5 |
+| 6 | Predecir, y hasta dónde | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Cerrar el círculo | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (1 punto), resultado visible (1 punto), interpretación en palabras (3 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(modelr)
+library(datos)
+options(na.action = na.warn)
+```
+
+```{r base, eval=FALSE}
+p2007 <- paises |> filter(anio == 2007)
+```
+
+---
+
+# Ejercicio 1. El modelo más sencillo (5 puntos)
+
+1. Con `millas`, ajusta `lm(autopista ~ cilindrada)`.
+2. Mira los coeficientes con `coef()` y el resumen con `summary()`.
+3. Grafica los puntos con la recta encima (`geom_smooth(method = "lm")` sirve).
+
+*Verifica:* el coeficiente de `cilindrada` sale **negativo**, y el intercepto por encima de **30**.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+4. Traduce los dos coeficientes a una oración que entienda alguien que no sabe estadística. Empieza por "por cada litro más de cilindrada...".
+5. ¿Qué significa el intercepto aquí? ¿Tiene sentido físico un motor de cero litros?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. Los residuales delatan (5 puntos)
+
+1. Añade los residuales del modelo del Ejercicio 1 con `add_residuals()`.
+2. Grafícalos contra `cilindrada`. Añade una línea horizontal en cero con `geom_hline(yintercept = 0)`.
+3. Añade también un `geom_smooth()` para que la forma se vea mejor.
+
+*Verifica:* la nube de residuales **no** está repartida al azar alrededor de cero: se ve una curva.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+4. Describe la forma que ves: ¿dónde están los residuales por encima de cero y dónde por debajo?
+5. ¿Qué te está diciendo eso sobre la **familia de modelos** que escogiste?
+6. Escribe qué harías a continuación.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. Enderezar con logaritmos (5 puntos)
+
+Con `p2007`:
+
+1. Grafica `esperanza_de_vida` contra `pib_per_capita` y ajusta un modelo lineal. Anota el $R^2$.
+2. Repite las dos cosas usando `log2(pib_per_capita)`. Anota el $R^2$.
+
+*Verifica:* el $R^2$ del segundo modelo es claramente mayor, y la nube del segundo se ve mucho más recta.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+3. Con el modelo en logaritmo de base 2, ¿qué significa la pendiente? Escríbelo en la forma: "cada vez que el PIB per cápita se **duplica**, la esperanza de vida sube en ... años".
+4. ¿Por qué usar `log2()` y no `log()` natural hace la interpretación más fácil de contar?
+5. Mira los residuales del segundo modelo. ¿Queda algún país claramente fuera de la nube? ¿Cuál y en qué dirección?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Una predictora categórica (5 puntos)
+
+1. Con `millas`, ajusta `lm(autopista ~ clase)` y mira los coeficientes.
+
+*Verifica:* salen **7** coeficientes: el intercepto más **6** diferencias. Una de las siete clases no aparece por su nombre.
+
+2. ¿Cuál clase falta y dónde se metió?
+3. Comprueba con `group_by(clase) |> summarise(mean(autopista))` que el intercepto es igual al promedio de esa clase.
+4. Comprueba también que intercepto más un coeficiente cualquiera da el promedio de esa otra clase.
+5. Usa `fct_relevel()` para que la referencia sea `pickup` y vuelve a ajustar.
+
+*Verifica:* los coeficientes cambian todos, pero las **predicciones** son idénticas. Compruébalo con `add_predictions()` en los dos modelos.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+6. Explica qué cambió y qué no, y por qué eso significa que la elección de la referencia es solo una manera de presentar el mismo modelo.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. Dos predictoras (5 puntos)
+
+1. Ajusta `lm(autopista ~ cilindrada + clase)`.
+2. Compara su $R^2$ con el del Ejercicio 1.
+3. Grafica sus residuales contra `cilindrada` y compáralos con los del Ejercicio 2.
+
+*Verifica:* el $R^2$ sube y los residuales quedan más planos que antes.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+4. El coeficiente de `cilindrada` cambió respecto al Ejercicio 1. Anota los dos valores y explica por qué son distintos.
+5. ¿Qué contesta exactamente el coeficiente nuevo? Empieza por "manteniendo la clase constante...".
+6. ¿En qué se diferencia esa pregunta de la que contestaba el modelo del Ejercicio 1?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. Predecir, y hasta dónde (5 puntos)
+
+Con el modelo del Ejercicio 1:
+
+1. Construye una cuadrícula con `data_grid(cilindrada = seq_range(cilindrada, 20))` y añade las predicciones con `add_predictions()`. Grafícalas sobre los datos.
+2. Construye a mano una segunda cuadrícula que llegue hasta **15 litros** y predice también ahí.
+
+*Verifica:* la primera cuadrícula cubre el rango real de `cilindrada`; la segunda predice consumos claramente absurdos.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+3. ¿Qué consumo predice el modelo para un motor de 15 litros? Escribe el número.
+4. Explica por qué el modelo **no se queja** al pedirle eso.
+5. ¿Qué precaución hay que tomar siempre antes de usar una predicción? Escríbela como una regla que puedas seguir tú.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). Cerrar el círculo (5 puntos adicionales)
+
+En el capítulo de análisis exploratorio quedó una anomalía sin resolver: los `2seater` rendían mucho más de lo que les tocaba por su cilindrada.
+
+1. Usa el modelo `autopista ~ cilindrada` del Ejercicio 1.
+2. Haz un diagrama de caja de los **residuales** por `clase`.
+
+*Verifica:* la caja de `2seater` queda claramente por encima de cero.
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+3. ¿Qué significa un residual positivo aquí? Escríbelo en una oración.
+4. Este es el mismo razonamiento que resolvió el asunto del corte `Ideal` en `diamantes`. Explica el paralelo entre los dos casos.
+5. ¿Cuál es la variable escondida en cada uno de los dos?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

@@ -1,0 +1,224 @@
+---
+title: "Ejercicios del Capítulo 26"
+subtitle: "Funciones: argumentos, valores por defecto, stopifnot, ... y ámbito"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 26 del libro del curso.
+
+Este capítulo se entrega distinto: cada ejercicio necesita **tres** cosas, no dos.
+
+1. **La función**, escrita por ti.
+2. **Una prueba** con valores cuya respuesta ya conoces de antemano.
+3. **Una explicación en palabras**.
+
+La prueba no es opcional y vale puntos. Una función sin probar no sirve de nada, y la manera de probarla es exactamente la que enseña el capítulo: dale algo cuya respuesta ya sabes y comprueba que la acierta.
+
+Los ejercicios usan `millas` y `paises` del paquete `datos`, no el `df` de tres columnas del capítulo.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Reescalar de verdad | 5 |
+| 2 | Una función que devuelve una tabla | 5 |
+| 3 | Valores por defecto | 5 |
+| 4 | Que falle rápido y claro | 5 |
+| 5 | Lo que pasa dentro | 5 |
+| 6 | Los puntos suspensivos | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Una función que devuelve una gráfica | **5 adicionales** |
+
+Cada ejercicio se evalúa así: función correcta (2 puntos), prueba con respuesta conocida (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+---
+
+# Ejercicio 1. Reescalar de verdad (5 puntos)
+
+1. Copia `reescalar01()` del capítulo.
+2. Aplícala a `millas$ciudad` y a `millas$autopista`. Comprueba el mínimo y el máximo de cada resultado.
+3. Aplícala a una columna **constante**: `rep(5, 10)`.
+
+*Verifica:* en las dos columnas de `millas`, el mínimo del resultado es 0 y el máximo es 1. Con la columna constante salen `NaN` en todas las posiciones.
+
+4. ¿De dónde sale ese `NaN`? Escribe la operación exacta que lo produce.
+5. ¿Debería la función avisar en ese caso, o está bien que devuelva `NaN`? Justifica tu respuesta pensando en qué haría alguien que reciba una tabla llena de `NaN` sin saber por qué.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. Una función que devuelve una tabla (5 puntos)
+
+1. Escribe `resumen_numerico(x)`, que reciba un vector numérico y devuelva un **tibble de una fila** con cinco columnas: `n`, `media`, `sd`, `mediana` e `IQR`, todas ignorando los `NA`.
+2. Pruébala primero con un vector cuya respuesta ya sepas, por ejemplo `c(1, 2, 3, 4, 5)`.
+3. Úsala con `millas$autopista`.
+4. Úsala por `clase`, dentro de un `group_by()`.
+
+*Verifica:* para `millas` completa, `n` da **234**. Por clase, la suma de los `n` también da 234.
+
+5. ¿Por qué conviene que la función devuelva un **tibble** y no un vector con nombres? Piensa en qué puedes hacer después con cada uno: graficar, unir con otra tabla, guardar en un csv.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. Valores por defecto (5 puntos)
+
+1. Escribe `es_atipico(x, k = 1.5)`, que devuelva `TRUE` para los valores que quedan a más de `k` rangos intercuartiles fuera de la caja (por debajo de $Q_1 - k \cdot IQR$ o por encima de $Q_3 + k \cdot IQR$).
+2. Pruébala con un vector pequeño donde sepas cuál es el atípico.
+3. Aplícala a `millas$autopista` con `k = 1.5` y con `k = 3`, y cuenta cuántos marca cada una.
+
+*Verifica:* con `k = 3` marca **menos** valores que con `k = 1.5`, o los mismos, nunca más.
+
+4. ¿Por qué el valor por defecto es 1.5 y no otro número?
+5. Mira **cuáles** vehículos quedaron marcados. ¿Un valor atípico es un error del dato? Contesta con el resultado en la mano.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Que falle rápido y claro (5 puntos)
+
+1. Primero, **sin** protección: llama a tu `resumen_numerico()` con `millas$clase`, que es texto. Usa `error=TRUE` en el bloque y mira qué pasa.
+2. Añádele un `stopifnot()` que compruebe dos cosas, cada una con su mensaje en español: que `x` es numérico, y que tiene al menos un valor no faltante.
+3. Vuelve a probarla con `millas$clase` y con `c(NA, NA)`.
+
+*Verifica:* las dos llamadas malas se detienen con **tu** mensaje, no con uno genérico de R.
+
+```{r ej4a, error=TRUE}
+# Sin protección
+
+```
+
+```{r ej4b, error=TRUE}
+# Con stopifnot()
+
+```
+
+4. Sin el `stopifnot()`, ¿qué devolvió la función con `millas$clase`: un error o un resultado sin sentido?
+5. Explica por qué eso justifica las tres líneas de más.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. Lo que pasa dentro (5 puntos)
+
+**Primera parte.**
+
+1. Crea en tu sesión una variable llamada `resultado` con cualquier valor.
+2. Escribe una función que **también** cree dentro una variable llamada `resultado`, con otro valor.
+3. Llama a la función y vuelve a mirar la variable de fuera.
+
+*Verifica:* la de fuera no cambió.
+
+**Segunda parte.**
+
+4. Escribe una función que use una variable que **no** recibe como argumento y que solo existe fuera de ella.
+5. Compruébala: funciona.
+6. Borra esa variable con `rm()` y vuelve a llamar la función.
+
+*Verifica:* ahora da `object ... not found`.
+
+```{r ej5, error=TRUE}
+# Escribe tu código aquí
+
+```
+
+7. La segunda función parecía correcta y no lo era. Explica por qué es un problema si le pasas tu script a otra persona.
+8. Relaciónalo con la prueba de la sesión limpia del capítulo de scripts.
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. Los puntos suspensivos (5 puntos)
+
+1. Escribe `promedio_por_grupo(datos, ...)` que calcule el promedio de `autopista` por `clase` en `millas`, pasando los `...` a `mean()`.
+2. Llámala normal.
+3. Llámala con `trim = 0.1`.
+4. Llámala con `trimm = 0.1`, con **dos** emes.
+
+*Verifica:* las dos primeras dan resultados distintos entre sí; la tercera da **exactamente lo mismo que la primera**, y sin ningún aviso.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+5. Explica qué pasó con el `trimm`.
+6. ¿Qué tipo de error del capítulo de errores comunes se parece más a este: uno que para el trabajo o uno que devuelve un resultado equivocado en silencio?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). Una función que devuelve una gráfica (5 puntos adicionales)
+
+1. Escribe `grafica_consumo(datos, clase_elegida)` que filtre `millas` por la clase que le pasen y **devuelva** un `ggplot` de `cilindrada` contra `autopista`, con el título puesto automáticamente con el nombre de la clase.
+2. Guárdala en una variable y comprueba que la gráfica **no** aparece hasta que escribas el nombre de la variable.
+3. Añádele después una capa con `+`, por ejemplo `geom_smooth()`.
+
+*Verifica:* la función devuelve el objeto gráfico, no lo dibuja por dentro.
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+4. ¿Qué ganas devolviendo el objeto en vez de dibujarlo dentro de la función?
+5. ¿Qué pasaría si dentro de la función hubieras escrito `print(grafica)` en vez de devolverla?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

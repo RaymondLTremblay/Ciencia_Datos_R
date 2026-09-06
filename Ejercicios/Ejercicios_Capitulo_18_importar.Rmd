@@ -1,0 +1,235 @@
+---
+title: "Ejercicios del Capítulo 18"
+subtitle: "Importar datos: read_csv, col_types, na, skip, locale y write_csv"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 18 del libro del curso.
+
+Los ejercicios usan `Datos/crimen_pr.csv`, un archivo real del gobierno de Puerto Rico que ya está en el repositorio del curso, y archivos que vas a crear tú mismo. No usan `Newborn_Karn_Penrose.csv`, que es el conjunto con el que se enseña en el capítulo.
+
+Este capítulo tiene una idea de fondo: **importar no es un paso automático**. El archivo real siempre trae algo raro (nombres con espacios, códigos que parecen números, faltantes escritos de otra manera), y el trabajo consiste en darse cuenta antes de calcular nada.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra y se vea la tabla o el mensaje.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Mirar antes de calcular | 5 |
+| 2 | Los nombres mienten | 5 |
+| 3 | Un código no es un número | 5 |
+| 4 | Ida y vuelta por el disco | 5 |
+| 5 | Un archivo sucio, hecho a mano | 5 |
+| 6 | Números escritos en español | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Fechas y horas de verdad | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+---
+
+# Ejercicio 1. Mirar antes de calcular (5 puntos)
+
+1. Lee `Datos/crimen_pr.csv` con `read_csv()` y guárdalo en `crimen`.
+2. Antes de tocar nada, mira **qué llegó**: imprime el tibble, y corre `glimpse(crimen)` y `spec(crimen)`.
+3. Cuenta los valores faltantes de cada columna. Una manera:
+
+```{r ej1-pista, eval=FALSE}
+crimen |> summarise(across(everything(), ~ sum(is.na(.x))))
+```
+
+*Verifica:* la tabla debe tener **8870 filas** y **7 columnas**, y dos de las columnas deben traer **733** valores faltantes cada una.
+
+4. `readr` convirtió esos faltantes solo porque en el archivo estaban escritos como `NA`. ¿Qué habría pasado si el archivo los hubiera escrito como `"sin dato"`?
+5. ¿Con cuál argumento de `read_csv()` lo arreglarías? Escribe la línea completa.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. Los nombres mienten (5 puntos)
+
+Sigue con `crimen`.
+
+1. Cuenta los valores de `Delito` y de `Delitos_code` con `count()`.
+
+*Verifica:* cada una tiene **9** valores distintos. Pero `Delito` contiene números del 1 al 9 y `Delitos_code` contiene nombres como `Asesinato` o `Apropiacion Ilegal`: **los nombres de las dos columnas están intercambiados**.
+
+2. Renómbralas con `rename()` para que digan la verdad: la numérica debe llamarse `delito_codigo` y la de texto `delito`.
+3. Quítale también el espacio al nombre de `Area Policiaca`, que debe quedar como `area_policiaca`.
+4. Haz una tabla que muestre qué número corresponde a cada nombre de delito.
+
+*Verifica:* esa tabla de equivalencias tiene 9 filas.
+
+5. Para usar `Area Policiaca` tal como viene hay que escribirla entre acentos graves. ¿Por qué?
+6. ¿Qué le habría hecho `read.csv()` de base R a ese nombre?
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. Un código no es un número (5 puntos)
+
+La columna con los números del 1 al 9 es un **código**, no una cantidad: no tiene sentido calcular su promedio.
+
+1. Comprueba el problema: calcula el promedio de esa columna y mira el número que sale.
+2. Vuelve a leer el archivo obligando a que esa columna se lea como texto, con `col_types = cols(Delito = col_character())`.
+
+*Verifica:* `class()` de esa columna pasa de `"numeric"` a `"character"`, y el resto de la tabla queda igual: 8870 por 7.
+
+3. Da otro ejemplo de una columna que parece numérica y no lo es.
+4. ¿Qué se pierde si un código postal de Puerto Rico (por ejemplo 00791) se lee como número?
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Ida y vuelta por el disco (5 puntos)
+
+1. Toma `millas` y convierte `clase` en factor: `mutate(clase = factor(clase))`. Comprueba con `class()`.
+2. Guarda la tabla con `write_csv()` en `Datos/millas_prueba.csv`.
+3. Vuelve a leerla con `read_csv()` y comprueba `class()` otra vez.
+
+*Verifica:* la tabla que vuelve tiene las mismas **234** filas, pero `clase` ya **no** es factor: es texto.
+
+4. Explica por qué se perdió el tipo.
+5. ¿Qué formato usarías si necesitaras conservarlo? ¿Y por qué, aun así, seguimos usando `.csv` para compartir datos con otras personas?
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. Un archivo sucio, hecho a mano (5 puntos)
+
+1. Crea el archivo con `writeLines()`:
+
+```{r ej5-crear, eval=FALSE}
+writeLines(
+  c("Reporte mensual",
+    "Generado el 1 de agosto",
+    "parcela,plantas",
+    "P1,34",
+    "P2,n/d",
+    "P3,27"),
+  "Datos/reporte_sucio.csv"
+)
+```
+
+2. Léelo con `read_csv("Datos/reporte_sucio.csv")`, sin ningún argumento, y mira el desastre. Copia la advertencia que sale.
+3. Arréglalo con los argumentos `skip` y `na`.
+
+*Verifica:* la versión arreglada tiene **3 filas** y **2 columnas**, `plantas` es numérica, y hay exactamente **un** `NA`.
+
+4. En la primera lectura, ¿cuántas columnas creó `readr` y de dónde sacó el nombre?
+5. Explica qué te estaba diciendo la advertencia.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. Números escritos en español (5 puntos)
+
+Estos tres textos vienen escritos a la manera española: `c("1.234", "2.500.000", "3,75")`.
+
+1. Conviértelos con `parse_number()` **sin** `locale()` y anota los tres resultados.
+2. Conviértelos con el `locale()` correcto (`decimal_mark` y `grouping_mark`).
+
+*Verifica:* con el `locale()` correcto, `"2.500.000"` da dos millones y medio, y `"3,75"` da tres con setenta y cinco.
+
+3. Sin `locale()`, ninguno de los tres da error, pero todos dan un número equivocado. Explica por qué este es el tipo de fallo más peligroso de todo el capítulo.
+4. ¿Cómo lo detectarías en una tabla de 5000 filas que acabas de importar?
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). Fechas y horas de verdad (5 puntos adicionales)
+
+Vuelve a `crimen`.
+
+1. Comprueba con `class()` cómo llegaron `Fecha` y `Hora`.
+2. Mira el rango con `range(crimen$Fecha)`.
+3. Cuenta cuántos incidentes hay por mes.
+
+*Verifica:* hay **tres** meses, todos de 2016, y el tercero tiene muchísimos menos casos que los otros dos.
+
+4. ¿Por qué el tercer mes tiene tan pocos? El rango de fechas te lo dice.
+5. ¿Qué error de análisis cometería alguien que comparara los tres meses sin darse cuenta de eso?
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

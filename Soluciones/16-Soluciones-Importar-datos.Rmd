@@ -1,0 +1,305 @@
+---
+title: "Soluciones: Capítulo Importar datos (read_csv, col_types, na, skip, locale, write_csv)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Corresponde a: 16-Importar-datos.Rmd (Capítulo 18 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_18_importar.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras.
+
+Los números de este capítulo sí son exactos y se pueden verificar: el archivo
+`Datos/crimen_pr.csv` está en el repositorio y no cambia.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: mirar antes de calcular
+
+```{r sol16-1}
+crimen <- read_csv("Datos/crimen_pr.csv")
+
+crimen
+glimpse(crimen)
+spec(crimen)
+
+dim(crimen)   # 8870 7
+
+crimen |> summarise(across(everything(), ~ sum(is.na(.x))))
+```
+
+**Respuesta esperada.** 8870 filas y 7 columnas. Los faltantes están solo en
+`POINT_X` y `POINT_Y`, **733 en cada una**, y son las mismas filas: son
+incidentes a los que nunca se les asignó coordenada.
+
+Sobre el `"sin dato"`: `read_csv()` trata como faltante únicamente lo que le diga
+el argumento `na`, que por defecto es `c("", "NA")`. Si el archivo hubiera escrito
+`"sin dato"`, esas dos columnas habrían llegado como **texto**, porque una
+columna que mezcla números y palabras no puede ser numérica. La línea que lo
+arregla:
+
+```{r sol16-1b}
+read_csv("Datos/crimen_pr.csv", na = c("", "NA", "sin dato"))
+```
+
+**Punto para discutir en clase.** Vale la pena preguntar quién se dio cuenta de
+que las 733 filas son las mismas en las dos columnas. Es el primer indicio de que
+el faltante no es aleatorio, que es la idea del capítulo de análisis exploratorio.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: los nombres mienten
+
+```{r sol16-2a}
+crimen |> count(Delito)
+crimen |> count(Delitos_code)
+```
+
+```{r sol16-2b}
+crimen <- crimen |> 
+  rename(
+    delito_codigo  = Delito,
+    delito         = Delitos_code,
+    area_policiaca = `Area Policiaca`
+  )
+
+crimen |> 
+  count(delito_codigo, delito) |> 
+  arrange(delito_codigo)
+```
+
+**Respuesta esperada.** Las dos columnas tienen 9 valores distintos, pero están
+al revés: `Delito` guarda el número y `Delitos_code` guarda el nombre. La tabla
+de equivalencias tiene 9 filas y es esta:
+
+| Código | Delito |
+|--:|:--|
+| 1 | Asesinato |
+| 2 | Violacion |
+| 3 | Robo |
+| 4 | Agresion Agravada |
+| 5 | Escalamiento |
+| 6 | Apropiacion Ilegal |
+| 7 | Vehiculo Hurtado |
+| 8 | Incendio Malicioso |
+| 9 | Otros |
+
+Sobre los acentos graves: en R un nombre "normal" no puede llevar espacios, así
+que `Area Policiaca` se leería como dos cosas separadas. Los acentos graves
+(`` `Area Policiaca` ``) le dicen a R "esto de aquí dentro es **un solo nombre**,
+aunque no lo parezca".
+
+Sobre `read.csv()`: le habría cambiado el nombre a `Area.Policiaca`, sustituyendo
+el espacio por un punto, sin decir nada. Es cómodo hasta el día en que uno
+compara su script con el de un compañero que usó `read_csv()` y los nombres no
+coinciden.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: un código no es un número
+
+```{r sol16-3a}
+mean(crimen$delito_codigo)   # sale un número, y no significa nada
+```
+
+```{r sol16-3b}
+crimen_txt <- read_csv(
+  "Datos/crimen_pr.csv",
+  col_types = cols(Delito = col_character())
+)
+
+class(crimen_txt$Delito)   # "character"
+dim(crimen_txt)            # 8870 7
+```
+
+**Respuesta esperada.** El promedio sale alrededor de 5 y medio, y no quiere
+decir absolutamente nada: es el promedio de unas etiquetas. Un asesinato no es
+"la mitad" de una agresión agravada.
+
+Otros ejemplos de columnas que parecen numéricas y no lo son: códigos postales,
+números de teléfono, números de identificación de parcela o de individuo, años
+usados como categoría, códigos de especie, el número de la carretera.
+
+Sobre el código postal: `00791` leído como número se convierte en `791` y pierde
+los ceros de delante. El daño es doble, porque además ya no se puede unir con
+otra tabla donde el código sí venga completo. Este es exactamente el caso de uso
+de `col_types`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: ida y vuelta por el disco
+
+```{r sol16-4}
+millas_f <- millas |> mutate(clase = factor(clase))
+class(millas_f$clase)     # "factor"
+
+write_csv(millas_f, "Datos/millas_prueba.csv")
+
+millas_vuelta <- read_csv("Datos/millas_prueba.csv")
+class(millas_vuelta$clase)   # "character"
+nrow(millas_vuelta)          # 234
+```
+
+**Respuesta esperada.** Vuelven las 234 filas, pero `clase` regresa como texto.
+
+Por qué se perdió: un `.csv` es un archivo de **texto plano**. No tiene ningún
+sitio donde guardar que una columna era un factor, ni cuáles eran sus niveles ni
+en qué orden. Al leerlo, `readr` tiene que adivinar otra vez desde cero, y para
+una columna de palabras la respuesta razonable es "texto".
+
+Formatos que sí conservan el tipo: `write_rds()` / `read_rds()`, que es formato
+propio de R, o parquet con el paquete `arrow`.
+
+Por qué seguimos usando `.csv` de todas formas: porque lo abre cualquiera, en
+cualquier programa, dentro de veinte años. Un `.rds` solo lo lee R. La regla
+práctica es guardar en `.rds` los objetos intermedios de tu propio análisis, y en
+`.csv` lo que vas a entregar o compartir.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: un archivo sucio
+
+```{r sol16-5a}
+writeLines(
+  c("Reporte mensual",
+    "Generado el 1 de agosto",
+    "parcela,plantas",
+    "P1,34",
+    "P2,n/d",
+    "P3,27"),
+  "Datos/reporte_sucio.csv"
+)
+
+read_csv("Datos/reporte_sucio.csv")
+# 1 columna llamada "Reporte mensual", 5 filas, y avisos de parsing
+```
+
+```{r sol16-5b}
+reporte <- read_csv(
+  "Datos/reporte_sucio.csv",
+  skip = 2,
+  na   = "n/d"
+)
+
+reporte
+dim(reporte)                   # 3 2
+class(reporte$plantas)         # "numeric"
+sum(is.na(reporte$plantas))    # 1
+```
+
+**Respuesta esperada.** La versión arreglada tiene 3 filas, 2 columnas,
+`plantas` numérica y un solo `NA`.
+
+En la primera lectura, `readr` creó **una sola columna**, y le puso de nombre la
+primera línea del archivo, `Reporte mensual`, porque supone que la primera línea
+son los nombres. A partir de ahí, cada línea de la tabla real trae **dos** campos
+separados por coma, y la columna que declaró solo admite uno, así que avisa de
+las filas que no encajaron.
+
+Lo que dice la advertencia, en palabras del estudiante: "encontré más columnas de
+las que esperaba en varias filas". Es la señal típica de que la cabecera no está
+donde `readr` cree.
+
+Errores frecuentes que conviene señalar:
+
+- Poner `skip = 3`, que se salta también la fila de nombres, y entonces las
+  columnas se llaman `P1` y `34`.
+- Arreglar el `n/d` después, con `mutate(plantas = as.numeric(plantas))`. Funciona,
+  pero es peor: mete un paso extra y deja el archivo mal leído. `na = "n/d"` lo
+  resuelve en el momento de leer.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: números escritos en español
+
+```{r sol16-6a}
+x <- c("1.234", "2.500.000", "3,75")
+
+parse_number(x)
+# 1.234   2.5   3   <- los tres mal
+```
+
+```{r sol16-6b}
+parse_number(x, locale = locale(decimal_mark = ",", grouping_mark = "."))
+# 1234   2500000   3.75
+```
+
+**Respuesta esperada.** Sin `locale()`, R lee el punto como decimal y la coma
+como separador de miles, que es justo al revés: `"1.234"` pasa a ser uno con
+doscientos treinta y cuatro en vez de mil doscientos treinta y cuatro, y
+`"2.500.000"` se convierte en dos y medio en vez de dos millones y medio.
+
+Por qué es el fallo más peligroso del capítulo: **no hay error, no hay
+advertencia, y el resultado es un número perfectamente creíble**. Un promedio
+calculado sobre esa columna sale mal en un factor de mil y nada en la pantalla
+avisa. Todos los demás errores del capítulo, al menos, se quejan.
+
+Cómo detectarlo en una tabla de 5000 filas: mirar el **rango** de la columna
+recién importada (`summary()` o `range()`) y compararlo con lo que uno sabe que
+debería ser. Si los salarios mensuales van de 1.2 a 4.8, algo pasó. También sirve
+abrir el archivo original en un editor de texto y mirar tres o cuatro valores.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): fechas y horas
+
+```{r sol16-7}
+class(crimen$Fecha)
+class(crimen$Hora)
+
+range(crimen$Fecha)   # 2016-06-01 a 2016-08-01
+
+crimen |> 
+  mutate(mes = substr(as.character(Fecha), 1, 7)) |> 
+  count(mes)
+```
+
+**Respuesta esperada.** `Fecha` llega como `Date`, sin que nadie se lo pida,
+porque en el archivo está escrita en el formato estándar `2016-08-01`. `Hora`
+llega como `hms` con las versiones recientes de `readr` y como texto con las
+viejas; cualquiera de las dos respuestas vale, lo que se evalúa es que el
+estudiante **lo haya comprobado** con `class()` en vez de suponerlo.
+
+El detalle que hay que hacer notar: si el archivo hubiera escrito la fecha como
+`01/08/2016`, habría llegado como texto y nada habría avisado. El acierto aquí es
+del formato del archivo, no de R.
+
+El conteo por mes da junio con unos 4370 incidentes, julio con unos 4347, y
+agosto con solo unos 153. El rango explica por qué: el archivo termina el
+**1 de agosto**, así que de agosto hay un solo día, no un mes.
+
+El error de análisis: comparar los tres meses como si fueran comparables y
+concluir que la criminalidad se desplomó en agosto. Es un error de cobertura del
+archivo, no un hallazgo. La manera correcta de comparar es por **día**
+(incidentes diarios promedio) o recortar el periodo a los meses completos.
+
+**Punto para discutir en clase.** Este ejercicio y el 1 dicen lo mismo desde dos
+ángulos: antes de comparar grupos hay que preguntarse si los grupos tienen el
+mismo denominador. Es la misma lección del desbalance de clases en `millas`.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Los ejercicios 1, 2 y 5 son los que hay que exigir completos: son el hábito de
+mirar el archivo antes de calcular. El 6 es el más importante conceptualmente
+aunque sea el más corto, porque es el único fallo del capítulo que no avisa.
+
+Resultados comparables: 8870 por 7 y 733 faltantes (Ej. 1), 9 valores en cada
+columna (Ej. 2), `"numeric"` a `"character"` (Ej. 3), 234 filas y pérdida del
+factor (Ej. 4), 3 por 2 con un `NA` (Ej. 5), 1234 / 2500000 / 3.75 (Ej. 6), y
+tres meses con el tercero incompleto (Ej. 7).

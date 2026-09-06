@@ -1,0 +1,233 @@
+---
+title: "Ejercicios del Capítulo 25"
+subtitle: "Fechas y horas: lubridate, componentes, duraciones, períodos, intervalos y zonas horarias"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 25 del libro del curso.
+
+Los ejercicios usan `Datos/crimen_pr.csv`, que ya está en el repositorio del curso y trae fecha y hora de verdad. No usan `vuelos` ni la fecha de nacimiento de Darwin, que son los del capítulo.
+
+La idea de fondo del capítulo es que hay **dos maneras distintas de medir tiempo**: contando segundos exactos (duraciones) y contando en unidades de calendario (períodos). Varios ejercicios te piden hacer lo mismo de las dos maneras y explicar por qué no dan lo mismo.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | La misma fecha, escrita de cinco maneras | 5 |
+| 2 | Extraer las partes | 5 |
+| 3 | `%/%` y `%%` | 5 |
+| 4 | Duración contra período | 5 |
+| 5 | Intervalos | 5 |
+| 6 | Redondear para agrupar | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Zonas horarias | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(lubridate)
+library(datos)
+```
+
+```{r datos, eval=FALSE}
+crimen <- read_csv("Datos/crimen_pr.csv")
+```
+
+---
+
+# Ejercicio 1. La misma fecha, escrita de cinco maneras (5 puntos)
+
+Estos cinco textos son **todos el mismo día**:
+
+```{r ej1-datos}
+fechas_texto <- c("2016-08-01", "01/08/2016", "August 1, 2016", "20160801", "01.08.2016")
+```
+
+1. Convierte cada uno a fecha con la función de `lubridate` que le corresponda (`ymd()`, `dmy()` o `mdy()`).
+2. Júntalos en un solo vector.
+
+*Verifica:* los cinco dan exactamente la misma fecha. `n_distinct()` del vector debe dar **1**.
+
+3. Prueba ahora `mdy("01/08/2016")` y mira qué sale. ¿Dio error?
+4. Explica por qué este es el error más peligroso de todo el capítulo.
+5. ¿Qué comprobación harías en una columna de 5000 fechas para detectarlo? Pista: piensa en qué pasa con los días mayores que 12.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. Extraer las partes (5 puntos)
+
+Con `crimen`:
+
+1. Saca el **día de la semana** de cada incidente con `wday(..., label = TRUE)`.
+2. Saca la **hora** con `hour()`.
+3. Cuenta cuántos incidentes hay de cada día y de cada hora.
+4. Haz una gráfica de barras de cada uno.
+
+*Verifica:* salen **7** días de la semana y **24** horas del día, todas con algún caso.
+
+5. ¿Cuál día y cuál hora concentran más incidentes?
+6. ¿Qué habría pasado si hubieras usado `wday()` **sin** `label = TRUE` para graficar? Pruébalo y describe la diferencia.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. `%/%` y `%%` (5 puntos)
+
+Muchos archivos guardan la hora como un número de la forma `HHMM`:
+
+```{r ej3-datos}
+horas <- c(1730, 905, 2359, 15, 1200)
+```
+
+1. Sepáralo en hora y minutos con `%/%` y `%%`.
+2. Calcula los **minutos transcurridos desde la medianoche** de cada uno.
+3. Convierte los mismos valores a hora de verdad con `hm()` de `lubridate` y comprueba que coinciden.
+
+*Verifica:* los minutos desde la medianoche son `1050, 545, 1439, 15, 720`, y su suma es **3769**.
+
+4. El valor `15` significa las 00:15, no las 15:00. Explica por qué `%/%` y `%%` lo resuelven bien sin ningún caso especial.
+5. ¿Qué habría pasado si hubieras intentado partir el número con `str_sub()`, cortando por posición?
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Duración contra período (5 puntos)
+
+1. Toma el 1 de marzo de 2024 (año bisiesto) y **réstale un año** de las dos maneras: con `years(1)` y con `dyears(1)`.
+2. Suma **un mes** al 31 de enero de 2024, con `months(1)`.
+
+*Verifica:* las dos restas dan **días distintos**, y la suma al 31 de enero da `NA`.
+
+3. Ninguno de los tres resultados es un error del programa. Explica qué contesta cada uno.
+4. ¿Por qué el `NA` es la respuesta más honesta que puede dar R a "¿qué día es un mes después del 31 de enero?"
+5. Si tuvieras que programar recordatorios mensuales para una persona, ¿usarías períodos o duraciones? ¿Y para calcular la vida media de un isótopo?
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. Intervalos (5 puntos)
+
+Con `crimen`:
+
+1. Construye con `%--%` el intervalo que va de la primera a la última fecha del archivo.
+2. Exprésalo en días, en semanas y en meses.
+
+*Verifica:* el intervalo es de unos dos meses, y en días da un número entre **60 y 65**.
+
+3. Divide también entre `dmonths(1)` en vez de `months(1)` y compara los dos resultados.
+4. ¿Por qué no dan lo mismo?
+5. ¿Cuál de los dos números pondrías en la sección de métodos de un informe? Justifícalo.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. Redondear para agrupar (5 puntos)
+
+Con `crimen`:
+
+1. Cuenta los incidentes por **semana**, usando `floor_date(Fecha, "week")`.
+2. Haz una gráfica de líneas de la serie.
+
+*Verifica:* salen unas nueve o diez semanas, y la primera y la última tienen bastantes menos casos que las del medio.
+
+3. ¿Por qué los extremos son más bajos? Ya viste este mismo problema en el capítulo de importar datos.
+4. ¿Qué harías con esas dos semanas antes de enseñarle la gráfica a alguien?
+5. Repite el conteo agrupando con `month(Fecha)` en vez de `floor_date(Fecha, "month")`. Con este archivo dan lo mismo. Explica en qué caso **no** darían lo mismo.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). Zonas horarias (5 puntos adicionales)
+
+1. Averigua en cuál zona horaria está tu computadora con `Sys.timezone()`.
+2. Toma el instante `"2016-08-01 15:30:00"` en `"America/Puerto_Rico"` y míralo en `"Europe/Madrid"` y en `"America/Los_Angeles"` con `with_tz()`.
+3. Prueba también `force_tz()` con el mismo instante y compara.
+
+*Verifica:* con `with_tz()` el instante es el mismo y solo cambia la hora que se lee; con `force_tz()` cambia el instante.
+
+4. Explica la diferencia entre las dos funciones con tus palabras.
+5. Puerto Rico no cambia de horario de verano y el este de Estados Unidos sí. ¿Qué le pasa a la diferencia de horas entre San Juan y Nueva York a lo largo del año?
+6. ¿Qué problema causaría eso al comparar la hora de salida de vuelos de los dos sitios?
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

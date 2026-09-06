@@ -1,0 +1,256 @@
+---
+title: "Soluciones: Capítulo Tidyverse avanzado (evaluación tidy, nest, broom, tidymodels)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Corresponde a: 31-tidyverse-avanzado.Rmd (Capítulo 31 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_31_avanzado.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse); library(broom); library(datos)
+```
+
+Estas son soluciones **de referencia**. Este es el capítulo más técnico del libro y
+conviene corregirlo con generosidad: lo importante es que entiendan **por qué**
+hacen falta las llaves dobles, no que se sepan la sintaxis de memoria.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: el problema
+
+```{r sol31-1}
+promedio_por <- function(datos, grupo, valor) {
+  datos |> group_by(grupo) |> summarise(media = mean(valor, na.rm = TRUE))
+}
+
+promedio_por(millas, clase, autopista)
+# Error: object 'clase' not found
+```
+
+**Respuesta esperada.** R fue a buscar `clase` en el **ambiente global**, es decir,
+entre los objetos de la sesión, y no la encontró porque `clase` no es un objeto:
+es el nombre de una columna.
+
+Por qué sí funciona escrito directamente: porque `group_by()` hace **evaluación
+tidy**, es decir, evalúa lo que le escribes **dentro del contexto de la tabla**.
+Escrito a mano, la tabla está ahí mismo y `clase` se encuentra. Dentro de la
+función, lo que llega a `group_by()` es el símbolo `grupo`, no `clase`, y
+`group_by()` busca obedientemente una columna llamada `grupo`.
+
+La manera de decirlo que suele funcionar en clase: la comodidad de escribir
+`clase` sin comillas se paga aquí. Es el precio de la evaluación tidy, y `{{ }}`
+es la manera de recuperar el control.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: las llaves dobles
+
+```{r sol31-2}
+promedio_por <- function(datos, grupo, valor) {
+  datos |> 
+    group_by({{ grupo }}) |> 
+    summarise(media = mean({{ valor }}, na.rm = TRUE))
+}
+
+promedio_por(millas, clase, autopista)              # 7 filas
+promedio_por(filter(paises, anio == 2007),
+             continente, esperanza_de_vida)          # 5 filas
+```
+
+**Respuesta esperada.** 7 y 5 filas, con la misma función.
+
+Por qué `datos` no lleva llaves y `grupo` sí: porque son **cosas distintas**.
+`datos` es un **objeto** que se pasa entero, como en cualquier función normal; el
+argumento vale una tabla y R lo entiende sin ayuda. `grupo` no es un objeto: es
+**un nombre**, una referencia a algo que vive dentro de la tabla y que todavía no
+existe cuando se llama a la función. Las llaves dobles son las que dicen "esto no
+lo evalúes aquí, pásalo tal cual para que se evalúe dentro de la tabla".
+
+La regla práctica: **si el argumento es un nombre de columna, llaves dobles; si es
+un objeto normal (una tabla, un número, un texto), no.**
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: el nombre de salida
+
+```{r sol31-3a}
+promedio_por <- function(datos, grupo, valor, nombre = "media") {
+  datos |> group_by({{ grupo }}) |> summarise({{ nombre }} = mean({{ valor }}))
+}
+# Error: unexpected '=' ... / argument is missing
+```
+
+```{r sol31-3b}
+promedio_por <- function(datos, grupo, valor, nombre = "media") {
+  datos |> 
+    group_by({{ grupo }}) |> 
+    summarise({{ nombre }} := mean({{ valor }}, na.rm = TRUE))
+}
+
+r <- promedio_por(millas, clase, autopista, nombre = "consumo_medio")
+names(r)   # "clase" "consumo_medio"
+```
+
+**Respuesta esperada.** Con `=` no compila; con `:=` funciona y la columna sale con
+el nombre pedido.
+
+Qué intentaba hacer R con el `=`: en R, el lado izquierdo de un `=` dentro de una
+llamada a función tiene que ser un **nombre escrito literalmente**, no una
+expresión. `{{ nombre }}` es una expresión, así que la sintaxis ni siquiera se
+puede analizar. `:=` existe precisamente para permitir que el lado izquierdo sea
+algo que hay que calcular primero.
+
+Curiosidad que suele gustar: a `:=` se le llama en inglés el *walrus operator*
+("operador morsa"), porque `:=` parece una morsa vista de frente.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: una tabla dentro de una tabla
+
+```{r sol31-4}
+anidada <- millas |> group_by(clase) |> nest()
+
+anidada
+dim(anidada)                                    # 7 2
+
+anidada |> filter(clase == "suv") |> pull(data) |> _[[1]] |> nrow()   # 62
+```
+
+**Respuesta esperada.** 7 filas y 2 columnas. La celda de `suv` contiene un tibble
+de 62 filas.
+
+Dónde se fueron las 234 filas: **no se fueron a ninguna parte**, están todas, pero
+guardadas **dentro** de las siete celdas de la columna `data`. Si se suman las
+filas de los siete tibbles salen las 234.
+
+Qué es una columna lista: una columna cuyas celdas no contienen un valor simple
+(un número, un texto) sino **un objeto entero de R**. Puede ser un tibble, un
+modelo, una gráfica o cualquier cosa. Es lo que permite que una tabla contenga los
+datos y los resultados de cada grupo en la misma fila.
+
+Conviene señalar que un tibble puede hacer esto y un `data.frame` clásico no lo
+lleva bien. Es otro punto a favor del tibble, del capítulo 17.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: un modelo por grupo
+
+```{r sol31-5}
+resultados <- millas |> 
+  group_by(clase) |> 
+  nest() |> 
+  mutate(
+    modelo  = map(data, \(d) lm(autopista ~ cilindrada, data = d)),
+    resumen = map(modelo, glance)
+  ) |> 
+  unnest(resumen) |> 
+  arrange(desc(r.squared)) |> 
+  select(clase, r.squared, nobs)
+
+resultados   # 7 filas
+```
+
+**Respuesta esperada.** Siete filas con su $R^2$ y su número de observaciones.
+
+Comparado con `split()` y `map()` del capítulo de iteración: allí quedaban **tres
+listas separadas** (los trozos, los modelos, los resúmenes) que había que ir
+emparejando por su nombre, y el nombre del grupo no era una columna sino el nombre
+de un elemento de la lista. Aquí todo está en una tabla, `clase` es una columna
+normal, y se puede filtrar, ordenar, unir y graficar como cualquier otra tabla.
+
+Sobre `nobs`: es la misma advertencia del capítulo de iteración. `2seater` tiene 5
+observaciones, así que su $R^2$ no es comparable con el de `suv`, que tiene 62.
+Poner `nobs` al lado del $R^2$ es lo que impide sacar conclusiones tontas, y es
+justo lo que `glance()` regala sin pedirlo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: las tres funciones de broom
+
+```{r sol31-6}
+mod <- lm(autopista ~ cilindrada + clase, data = millas)
+
+tidy(mod)              # una fila por coeficiente
+glance(mod)            # una sola fila
+augment(mod) |> nrow() # 234
+
+summary(mod)
+```
+
+**Respuesta esperada.** Una fila por coeficiente, una sola fila de métricas, y 234
+filas con predicciones y residuales.
+
+Por qué preferir `broom`: porque `summary()` devuelve **texto impreso** y `broom`
+devuelve **tablas**. La pregunta pide algo que se pueda *hacer*, y las respuestas
+buenas son concretas:
+
+- filtrar los coeficientes con `filter(p.value < 0.05)`;
+- graficar los coeficientes con sus barras de error,
+  `ggplot(aes(estimate, term)) + geom_pointrange(...)`;
+- juntar los `glance()` de veinte modelos en una tabla con `bind_rows()` y
+  ordenarlos por AIC;
+- guardar la tabla de coeficientes en un csv para el suplemento del artículo.
+
+Nada de eso se puede hacer con `summary()` sin ponerse a extraer números a mano de
+un objeto complicado.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): tidymodels
+
+```{r sol31-7}
+library(tidymodels)
+
+receta <- recipe(autopista ~ cilindrada + clase, data = millas)
+modelo <- linear_reg() |> set_engine("lm")
+
+ajuste <- workflow() |> add_recipe(receta) |> add_model(modelo) |> fit(data = millas)
+
+coef_tm <- ajuste |> extract_fit_parsnip() |> tidy()
+coef_lm <- tidy(mod)
+
+all.equal(coef_tm$estimate, coef_lm$estimate)   # TRUE
+```
+
+**Respuesta esperada.** Coeficientes idénticos. Y con razón: por debajo,
+`tidymodels` está llamando al mismo `lm()`.
+
+Cuándo vale la pena, que es la pregunta de verdad. Las respuestas buenas mencionan
+al menos una de estas:
+
+- **Cuando hay preparación de datos.** Si hay que centrar, escalar, imputar
+  faltantes o convertir categorías, la receta garantiza que se haga **igual** al
+  ajustar y al predecir. Hacerlo a mano es donde se cometen los errores.
+- **Cuando hay que comparar varios métodos.** Cambiar `linear_reg()` por
+  `rand_forest()` y no tocar nada más.
+- **Cuando hay validación.** Con `initial_split()` y `vfold_cv()`, la receta se
+  aplica solo al conjunto de entrenamiento, lo que evita la fuga de información.
+
+Y hay que aceptar también la respuesta contraria si está bien argumentada: **para
+un modelo suelto de un artículo, `lm()` es mejor**, porque es más corto, más claro
+y cualquier revisor lo entiende. `tidymodels` no es "la manera moderna y por tanto
+mejor"; es una herramienta para un problema más grande.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Este capítulo es el más difícil del libro y conviene decirlo. Los ejercicios 1 y 2
+son los que hay que exigir bien hechos: si entienden **por qué** falla la primera
+versión, el resto es sintaxis. Los ejercicios 4 y 5 son la recompensa, porque el
+patrón `nest()` + `map()` + `unnest()` resuelve una cantidad enorme de análisis
+reales, incluyendo casi cualquier "un modelo por especie" o "un modelo por
+parcela".
+
+Resultados comparables: `object 'clase' not found` (Ej. 1), 7 y 5 filas (Ej. 2),
+la columna con el nombre pedido (Ej. 3), 7 por 2 y 62 filas en `suv` (Ej. 4), 7
+filas con `r.squared` (Ej. 5), 234 filas en `augment()` (Ej. 6), coeficientes
+idénticos (Ej. 7).

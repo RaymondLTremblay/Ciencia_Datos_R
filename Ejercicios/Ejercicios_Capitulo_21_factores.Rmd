@@ -1,0 +1,224 @@
+---
+title: "Ejercicios del Capítulo 21"
+subtitle: "Factores: niveles, orden, fct_reorder, fct_infreq, fct_lump_n y fct_collapse"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 21 del libro del curso.
+
+Los ejercicios usan `millas` del paquete `datos`, no `encuesta`, que es el conjunto con el que se enseña en el capítulo.
+
+Hay una distinción que atraviesa todo el capítulo y que se evalúa en varios ejercicios: algunas funciones **solo cambian el orden en que se enseñan** las categorías (`fct_reorder`, `fct_infreq`, `fct_rev`, `fct_relevel`) y otras **cambian los datos** (`fct_recode`, `fct_collapse`, `fct_lump_n`). Las primeras son cosméticas; las segundas son decisiones de análisis que hay que justificar.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**: que la tabla o la gráfica se vean.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Texto contra factor | 5 |
+| 2 | `fct_reorder()` para que la gráfica hable | 5 |
+| 3 | Ordenar por frecuencia | 5 |
+| 4 | Cuando hay demasiadas categorías | 5 |
+| 5 | Agrupar a mano | 5 |
+| 6 | El nivel que sigue ahí aunque no haya datos | 5 |
+| **Total** | | **30** |
+| 7 (bono) | La errata que se convierte en `NA` | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que se ve (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+---
+
+# Ejercicio 1. Texto contra factor (5 puntos)
+
+Con `millas`:
+
+1. Comprueba con `class()` qué tipo es `clase`.
+2. Haz una gráfica de barras de `clase` tal como viene.
+3. Conviértela en factor con un orden que **tú** escojas y que tenga sentido, por ejemplo del vehículo más pequeño al más grande. Usa `factor(clase, levels = c(...))`.
+4. Repite la gráfica.
+
+*Verifica:* `levels()` devuelve **7** niveles en el orden que escogiste, y la gráfica sigue ese orden.
+
+5. ¿En qué orden salían las barras antes de convertir?
+6. Ese orden, ¿lo escogió alguien? Explica de dónde salía.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 2. `fct_reorder()` para que la gráfica hable (5 puntos)
+
+Con `millas`:
+
+1. Calcula el consumo **mediano** en `autopista` para cada `clase`.
+2. Haz un diagrama de puntos, sin ordenar.
+3. Repítelo con `fct_reorder(clase, autopista)`.
+
+*Verifica:* en la versión ordenada, `pickup` queda en un extremo y `compact` o `subcompact` en el otro.
+
+4. Las dos gráficas tienen exactamente los mismos datos. ¿Qué se ve en la segunda que no se veía en la primera?
+5. ¿Por qué el orden alfabético es casi siempre el peor de los órdenes posibles para una gráfica?
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 3. Ordenar por frecuencia (5 puntos)
+
+Con `millas`, variable `fabricante`:
+
+1. Haz una gráfica de barras **horizontales** (`aes(y = fabricante)`) usando `fct_infreq()` y `fct_rev()`.
+2. Prueba después a quitar `fct_rev()` y mira qué pasa.
+
+*Verifica:* con las dos funciones, la barra más larga queda **arriba del todo**.
+
+3. Explica por qué en barras horizontales hace falta `fct_rev()` y en barras verticales no. Piensa en hacia dónde crece cada eje.
+4. ¿Por qué preferirías barras horizontales para esta variable en particular?
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 4. Cuando hay demasiadas categorías (5 puntos)
+
+Con `millas`:
+
+1. Averigua cuántos fabricantes distintos hay con `n_distinct()`.
+2. Usa `fct_lump_n()` para quedarte con los **5** más frecuentes y meter el resto en una categoría llamada `"Otros"` (argumento `other_level`).
+3. Cuenta el resultado.
+
+*Verifica:* el factor nuevo tiene exactamente **6** niveles, y la suma de los conteos sigue dando **234**.
+
+4. ¿Cuántos vehículos acabaron en `"Otros"`?
+5. Esta función **cambia los datos**, no solo la gráfica. ¿En qué situación sería deshonesto usarla sin decirlo en el texto del informe?
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 5. Agrupar a mano (5 puntos)
+
+Con `millas`:
+
+1. Con `fct_collapse()`, agrupa las siete clases en **dos** categorías que tengan sentido para ti (por ejemplo vehículos grandes y vehículos pequeños).
+2. Cuenta cuántos vehículos quedaron en cada grupo.
+3. Compara el consumo en autopista entre los dos grupos con un diagrama de caja.
+
+*Verifica:* el factor nuevo tiene **2** niveles y la suma de los conteos sigue dando **234**.
+
+4. Justifica tu agrupación: ¿por qué esas clases juntas y no otras?
+5. ¿Qué información se perdió al pasar de siete categorías a dos? ¿Habrías llegado a la misma conclusión trabajando con las siete?
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 6. El nivel que sigue ahí aunque no haya datos (5 puntos)
+
+1. Convierte `clase` en factor y guarda la tabla en `millas_f`.
+2. Filtra fuera todos los `2seater`.
+3. Sobre el resultado, mira estas cuatro cosas: `levels(...)`, `count(clase)`, `count(clase, .drop = FALSE)` y, por último, `fct_drop()` seguido de `levels()`.
+
+*Verifica:* `levels()` sigue devolviendo **7** niveles; `count()` devuelve **6** filas; `count(clase, .drop = FALSE)` devuelve **7**, la última con un cero; después de `fct_drop()`, `levels()` baja a **6**.
+
+4. Las tres respuestas son distintas y las tres son correctas. Explica cuándo querrías ver el cero y cuándo no.
+5. Piensa en una especie que buscaste en el campo y no encontraste: ¿un cero y un dato ausente son lo mismo? ¿Cuál de las tres respuestas corresponde a cada caso?
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Ejercicio 7 (BONO). La errata que se convierte en `NA` (5 puntos adicionales)
+
+1. Haz una copia de `millas` y cámbiale a mano la clase de **tres** vehículos a `"compacto"` (en español, que no es un nivel válido). Por ejemplo:
+
+```{r ej7-pista, eval=FALSE}
+millas_mal <- millas
+millas_mal$clase[c(1, 50, 100)] <- "compacto"
+```
+
+2. Conviértela en factor de dos maneras: con `factor(..., levels = ...)` dándole las siete clases correctas, y con `parse_factor(..., levels = ...)`.
+3. Cuenta los `NA` en cada caso.
+
+*Verifica:* las dos producen exactamente **3** `NA`, pero solo una de las dos te avisa.
+
+4. Copia la advertencia de `parse_factor()`.
+5. Si esto pasara en una columna de 5000 filas de datos de campo, ¿cuál de las dos funciones querrías haber usado? ¿Y qué línea correrías después para estar seguro de que no se te coló nada?
+
+```{r ej7, warning=TRUE}
+# Escribe tu código aquí
+
+```
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*

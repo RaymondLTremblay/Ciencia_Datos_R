@@ -1,0 +1,249 @@
+---
+title: "Soluciones: Capítulo Script (consola y script, proyectos, rutas, source, estilo)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+
+Corresponde a: 12-Scripts.Rmd (Capítulo 13 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_13_scripts.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras.
+
+Este capítulo es distinto a los anteriores: casi todo lo que se evalúa es un
+**hábito de trabajo**, no un cálculo. Por eso varios ejercicios se corrigen
+mirando la explicación en palabras y no el número que salió.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: el directorio de trabajo
+
+```{r sol12-1}
+getwd()
+list.files()
+```
+
+**Respuesta esperada.** `getwd()` devuelve la carpeta del proyecto de RStudio
+(si el estudiante abrió el `.Rproj`) o la carpeta donde guardó el `.Rmd`. En
+`list.files()` tiene que aparecer su propio archivo `.Rmd`.
+
+Sobre el `datos.csv` del Escritorio: **no**, R no lo encontraría, porque
+`read_csv("datos.csv")` es una **ruta relativa** y R la busca a partir del
+directorio de trabajo, que no es el Escritorio. Tendría que mover el archivo a la
+carpeta del proyecto (lo correcto) o dar la ruta completa (frágil).
+
+Sobre el proyecto: el `.Rproj` fija el directorio de trabajo automáticamente cada
+vez que se abre, así que las rutas relativas siguen funcionando en cualquier
+computadora. Un `setwd("/Users/nombre/...")` escrito a mano solo funciona en la
+máquina de quien lo escribió.
+
+**Punto para discutir en clase.**
+Vale la pena preguntar en voz alta quién obtuvo una ruta que incluye
+`Descargas` o `Downloads`. Es la señal de que están trabajando sobre un archivo
+suelto y no dentro de un proyecto, y es el momento de arreglarlo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: de la consola al script
+
+```{r sol12-2}
+millas |> 
+  group_by(clase) |> 
+  summarise(
+    autopista_promedio = mean(autopista),
+    n = n()
+  ) |> 
+  arrange(desc(autopista_promedio))
+```
+
+**Respuesta esperada.** Siete filas, una por clase. La suma de `n` tiene que dar
+`nrow(millas)`, o sea 234. El orden coloca a los vehículos pequeños arriba
+(`compact`, `subcompact`, `midsize`) y a `pickup` al final, con `suv` justo
+encima.
+
+```{r sol12-2b}
+nrow(millas)   # 234
+```
+
+El sentido del resultado: un `pickup` es pesado, alto y poco aerodinámico, así
+que gasta más y recorre menos millas por galón; las clases compactas son lo
+opuesto. Se puede aprovechar para recordar que `2seater` (los deportivos) queda
+en la mitad, no arriba, aunque sean carros pequeños: son livianos pero tienen
+motores grandes.
+
+Sobre dejar en el script solo lo que funcionó: el script es el registro de cómo
+se llegó al resultado. Si queda lleno de intentos fallidos, quien lo lea (o el
+mismo estudiante en dos meses) no sabe cuál de las cinco versiones es la buena.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: `source()` y un archivo de funciones
+
+Contenido esperado de `funciones_millas.R`:
+
+```{r sol12-3a}
+resumen_clase <- function(tabla) {
+  tabla |> 
+    dplyr::group_by(clase) |> 
+    dplyr::summarise(autopista_promedio = mean(autopista)) |> 
+    dplyr::arrange(dplyr::desc(autopista_promedio))
+}
+```
+
+Y en el documento:
+
+```{r sol12-3b}
+source("funciones_millas.R")
+
+exists("resumen_clase")   # TRUE
+resumen_clase(millas)
+```
+
+**Respuesta esperada.** El mismo orden de clases del Ejercicio 2. Lo que se
+evalúa aquí no es la función (es sencilla) sino que el archivo `.R` exista, que
+contenga **solo** la definición, y que `source()` corra sin error.
+
+Errores frecuentes que conviene señalar:
+
+- Poner `library(tidyverse)` o llamadas a `print()` dentro del archivo de
+  funciones. Un archivo que se carga con `source()` no debe *hacer* nada al
+  cargarse, solo definir.
+- Escribir la ruta completa dentro de `source()`. Con el proyecto abierto basta
+  `source("funciones_millas.R")`.
+- Olvidar guardar el archivo `.R` antes de correr `source()`.
+
+Sobre la ventaja: si la función vive en un solo archivo y hay que corregirla, se
+corrige **una vez** y todos los análisis que la cargan quedan corregidos. Si está
+copiada en cinco scripts, hay cinco versiones y tarde o temprano dejan de ser
+iguales.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: reescribir para que se entienda
+
+La versión original:
+
+```{r sol12-4a}
+x = millas
+y = x[x$anio == 2008, ]
+z = mean(y$ciudad)
+z
+```
+
+Una reescritura aceptable:
+
+```{r sol12-4b}
+# Solo el año 2008: los dos años del archivo no son comparables
+# porque cambiaron los modelos y la forma de medir el consumo.
+millas_2008 <- millas |> 
+  filter(anio == 2008)
+
+# El consumo en ciudad es el que interesa aquí porque es donde
+# más se separan las clases de vehículo.
+consumo_ciudad_2008 <- millas_2008 |> 
+  summarise(ciudad_promedio = mean(ciudad))
+
+consumo_ciudad_2008
+```
+
+**Respuesta esperada.** El número tiene que ser idéntico al de la versión
+original. Ojo con un detalle que vale la pena señalar en clase: la versión con
+`summarise()` devuelve un **tibble de una fila**, mientras que la versión fea
+devuelve un **número suelto**. Son el mismo valor presentado distinto; si se
+quiere el número pelado, `pull()` o `mean(millas_2008$ciudad)`.
+
+Cambios que hay que ver en la entrega:
+
+- `<-` en lugar de `=` para asignar.
+- Nombres que dicen lo que contienen (`millas_2008`, no `y`).
+- `filter()` en lugar de `[ , ]`, que es más difícil de leer y donde la coma se
+  olvida con facilidad.
+- Comentarios que explican **por qué** (por qué solo 2008, por qué `ciudad`), no
+  comentarios como `# filtrar`, que no añaden nada.
+
+Sobre cuál cambio ayuda más: casi todos contestan "los nombres", y es una buena
+respuesta. También es defendible decir que los comentarios del *porqué*, porque
+el código siempre dice *qué* hace pero nunca dice por qué se decidió así.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: la prueba de la sesión limpia
+
+**Respuesta esperada.** No hay script que corregir aquí, solo la explicación.
+
+Lo que se busca es que el estudiante reconozca la causa cuando falla: el
+documento usaba un objeto que existía en la memoria porque lo habían creado a
+mano en la consola, pero que ningún bloque del `.Rmd` crea. Al reiniciar R ese
+objeto desaparece y el `Knit` se cae con `object ... not found` (el mismo error
+del capítulo de errores comunes).
+
+Sobre la reproducibilidad: si el análisis solo funciona sin reiniciar, entonces
+depende de algo invisible que no está escrito en ninguna parte. Nadie más puede
+repetirlo, y el propio autor tampoco dentro de seis meses.
+
+**Punto para discutir en clase.**
+Este es el momento de pedirles que dejen "Restore .RData" sin marcar y
+"Save workspace" en *Never* en *Tools > Global Options*. Cuesta una molestia el
+primer día y ahorra el problema el resto del semestre.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6 (bono): secciones y navegación
+
+```{r sol12-6}
+# Paquetes -------------------------------------------------------
+
+library(tidyverse)
+library(datos)
+
+# Datos ----------------------------------------------------------
+
+millas_2008 <- millas |> filter(anio == 2008)
+
+# Análisis -------------------------------------------------------
+
+millas_2008 |> 
+  group_by(clase) |> 
+  summarise(autopista_promedio = mean(autopista))
+```
+
+**Respuesta esperada.** Cualquier comentario que termine en cuatro guiones o más
+(también sirven cuatro `=` o cuatro `#`) crea una sección navegable, y el esquema
+(Cmd/Ctrl + Shift + O) la muestra.
+
+El parecido con R Markdown: las dos cosas dan estructura y las dos se ven en el
+esquema del editor. La diferencia: los `#` de R Markdown son **texto que se
+publica** y forman la tabla de contenido del documento final; los `# ----` de un
+script son **comentarios** que R ignora al ejecutar y que nadie ve fuera de
+RStudio.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Los ejercicios 1, 5 y 6 no producen un resultado que se pueda comparar contra una
+respuesta única. Se corrigen mirando que el estudiante haya hecho de verdad lo
+que se pedía (que la ruta de `getwd()` sea plausible, que el documento compile
+desde una sesión limpia, que las secciones existan) y por la calidad de la
+explicación en palabras.
+
+Los ejercicios 2, 3 y 4 sí tienen resultado comparable: siete clases con `pickup`
+al final, `exists("resumen_clase")` en `TRUE`, y el mismo promedio de `ciudad`
+para 2008 en las dos versiones del Ejercicio 4.

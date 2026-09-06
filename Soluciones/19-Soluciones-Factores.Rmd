@@ -1,0 +1,288 @@
+---
+title: "Soluciones: Capítulo Factores (niveles, orden, fct_reorder, fct_infreq, fct_lump_n, fct_collapse)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Corresponde a: 19-Factores.Rmd (Capítulo 21 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_21_factores.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. En los ejercicios 1 y 5 el estudiante
+escoge el orden y la agrupación, así que no hay una única respuesta correcta: lo
+que se evalúa es que la justifique.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: texto contra factor
+
+```{r sol19-1}
+class(millas$clase)   # "character"
+
+ggplot(millas, aes(x = clase)) + geom_bar()
+
+orden <- c("2seater", "subcompact", "compact", "midsize",
+           "minivan", "suv", "pickup")
+
+millas_f <- millas |> mutate(clase = factor(clase, levels = orden))
+
+levels(millas_f$clase)   # 7 niveles, en ese orden
+
+ggplot(millas_f, aes(x = clase)) + geom_bar()
+```
+
+**Respuesta esperada.** `clase` es `"character"`. Sin convertir, las barras salen
+en orden alfabético: 2seater, compact, midsize, minivan, pickup, subcompact, suv.
+
+Quién escogió ese orden: **nadie**. Es el único orden que R puede darle a un
+vector de texto, y no tiene ninguna relación con el tamaño, el precio ni el
+consumo de los vehículos. Que `subcompact` quede entre `pickup` y `suv` no
+significa nada.
+
+El orden que proponga el estudiante puede ser distinto del de arriba y estar
+igual de bien, siempre que lo justifique. Lo que **no** vale es un orden
+arbitrario sin explicación.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: `fct_reorder()`
+
+```{r sol19-2}
+resumen <- millas |> 
+  group_by(clase) |> 
+  summarise(autopista_mediana = median(autopista))
+
+ggplot(resumen, aes(x = autopista_mediana, y = clase)) +
+  geom_point()
+
+ggplot(resumen, aes(x = autopista_mediana,
+                    y = fct_reorder(clase, autopista_mediana))) +
+  geom_point() +
+  labs(y = "clase")
+```
+
+**Respuesta esperada.** En la versión ordenada, `pickup` queda abajo del todo y
+`compact` o `subcompact` arriba, con los demás formando una escalera continua.
+
+Qué se ve en la segunda y no en la primera: el **patrón**. Con el orden
+alfabético los puntos suben y bajan sin sentido y el ojo no puede leer nada; con
+el orden por mediana, la gráfica enseña de un vistazo el ranking completo y
+además cuánta distancia hay entre unas clases y otras. Los datos son idénticos,
+lo único que cambió es el orden de las filas.
+
+Por qué el orden alfabético es casi siempre el peor: porque depende del **nombre**
+de la categoría, que es la única propiedad que con seguridad no tiene ninguna
+relación con lo que se está midiendo. Es un orden real (no es aleatorio), y esa
+es justamente la trampa: parece que significa algo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: ordenar por frecuencia
+
+```{r sol19-3}
+millas |> 
+  mutate(fabricante = fct_rev(fct_infreq(fabricante))) |> 
+  ggplot(aes(y = fabricante)) +
+  geom_bar()
+
+# sin fct_rev(): la barra más larga queda abajo
+millas |> 
+  mutate(fabricante = fct_infreq(fabricante)) |> 
+  ggplot(aes(y = fabricante)) +
+  geom_bar()
+```
+
+**Respuesta esperada.** Con las dos funciones, la barra más larga queda arriba.
+Sin `fct_rev()`, queda abajo.
+
+Por qué hace falta en horizontales y no en verticales: el eje vertical de
+`ggplot` crece **hacia arriba**, así que el primer nivel del factor se dibuja
+abajo. En el eje horizontal, que crece hacia la derecha, el primer nivel se
+dibuja a la izquierda, que es donde uno empieza a leer. Es decir, `fct_infreq()`
+hace lo mismo en los dos casos; lo que cambia es dónde cae el "primero".
+
+Por qué barras horizontales para esta variable: porque hay 15 fabricantes con
+nombres largos (`volkswagen`, `land rover`). En vertical las etiquetas se
+encabalgan y hay que girarlas 45 grados; en horizontal se leen de corrido, sin
+inclinar la cabeza.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: demasiadas categorías
+
+```{r sol19-4}
+n_distinct(millas$fabricante)   # 15
+
+millas_lump <- millas |> 
+  mutate(fabricante5 = fct_lump_n(fabricante, n = 5, other_level = "Otros"))
+
+millas_lump |> count(fabricante5, sort = TRUE)
+nlevels(millas_lump$fabricante5)          # 6
+sum(count(millas_lump, fabricante5)$n)    # 234
+```
+
+**Respuesta esperada.** 15 fabricantes; después de agrupar, 6 niveles (los 5 más
+frecuentes más `"Otros"`), y la suma sigue dando 234. `"Otros"` acaba siendo la
+categoría más grande de todas, cosa que sorprende a algunos y que conviene
+comentar: diez fabricantes pequeños juntos pesan más que cualquiera de los cinco
+grandes.
+
+Cuándo sería deshonesto: siempre que la categoría agrupada se presente como si
+fuera una categoría real. Dos ejemplos concretos que valen la pena en clase:
+
+- Una gráfica donde `"Otros"` es la barra más alta y el lector cree que existe un
+  fabricante llamado así.
+- Un análisis donde se agrupan las especies raras en "otras" y después se
+  concluye que "las otras especies" tienen una tendencia distinta. La tendencia
+  es de la mezcla, no de ninguna especie.
+
+La regla: agrupar está bien, y a veces es necesario; lo que hay que hacer siempre
+es **decir en el texto** cuáles categorías se agruparon y con qué criterio.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: agrupar a mano
+
+```{r sol19-5}
+millas_dos <- millas |> 
+  mutate(tamano = fct_collapse(
+    factor(clase),
+    pequenos = c("2seater", "subcompact", "compact"),
+    grandes  = c("midsize", "minivan", "suv", "pickup")
+  ))
+
+millas_dos |> count(tamano)
+nlevels(millas_dos$tamano)   # 2
+
+ggplot(millas_dos, aes(x = tamano, y = autopista)) +
+  geom_boxplot()
+```
+
+**Respuesta esperada.** Dos niveles, 234 vehículos en total, y una diferencia
+clara: los pequeños rinden bastante más en autopista.
+
+La agrupación de cada estudiante puede ser distinta. Lo que se evalúa es la
+justificación. Una agrupación razonable separa por tamaño o por peso; una
+agrupación que meta `2seater` con `suv` "porque los dos son caros" también vale
+si el estudiante la defiende y la usa de forma coherente.
+
+Qué se perdió: la variación **dentro** de cada grupo. En las siete clases se veía
+que `subcompact` era la más dispersa, que `2seater` se salía de la tendencia, y
+que `midsize` y `compact` estaban más cerca entre sí de lo que sugiere la
+división en dos. Todo eso desaparece.
+
+Sobre si la conclusión sería la misma: en este caso sí, porque la diferencia es
+grande. Conviene señalar que ese es precisamente el peligro: agrupar casi siempre
+**refuerza** la conclusión que uno ya tenía, porque elimina los casos que no
+encajan.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: el nivel que sigue ahí
+
+```{r sol19-6}
+millas_f <- millas |> mutate(clase = factor(clase))
+
+sin_2seater <- millas_f |> filter(clase != "2seater")
+
+levels(sin_2seater$clase)                       # 7 niveles
+sin_2seater |> count(clase)                     # 6 filas
+sin_2seater |> count(clase, .drop = FALSE)      # 7 filas, una con n = 0
+
+sin_2seater |> 
+  mutate(clase = fct_drop(clase)) |> 
+  pull(clase) |> 
+  levels()                                      # 6 niveles
+```
+
+**Respuesta esperada.** `levels()` sigue devolviendo 7, porque filtrar filas no
+toca la definición del factor. `count()` devuelve 6, porque por defecto descarta
+los niveles vacíos. `count(clase, .drop = FALSE)` devuelve 7, con `2seater` en
+cero. `fct_drop()` elimina de verdad el nivel vacío y deja 6.
+
+Cuándo querer ver el cero y cuándo no: se quiere ver cuando el cero es un
+**resultado**, y no se quiere ver cuando la categoría sencillamente no
+corresponde a este análisis.
+
+El ejemplo del campo es el corazón del ejercicio. Si fuiste a una parcela, la
+buscaste y no encontraste ninguna *Lepanthes rupestris*, el cero es un dato: dice
+que la especie estaba ausente ahí. Si en cambio esa parcela nunca se muestreó, no
+hay cero, hay un `NA`: no sabes qué había. Las dos cosas se ven igual en una tabla
+de conteos y significan cosas opuestas.
+
+- Cero real, especie buscada y no encontrada: `count(.drop = FALSE)`.
+- Categoría que no aplica a este subconjunto: `fct_drop()`.
+- Dato que no se tomó: no es ninguna de las dos, es un `NA` y hay que tratarlo
+  como tal.
+
+**Punto para discutir en clase.** Esta es probablemente la idea más importante
+del capítulo para gente que trabaja con datos de campo, y no tiene nada que ver
+con la programación.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): la errata que se convierte en `NA`
+
+```{r sol19-7}
+millas_mal <- millas
+millas_mal$clase[c(1, 50, 100)] <- "compacto"
+
+niveles_ok <- c("2seater", "compact", "midsize", "minivan",
+                "pickup", "subcompact", "suv")
+
+f_silencioso <- factor(millas_mal$clase, levels = niveles_ok)
+sum(is.na(f_silencioso))     # 3, sin ningún aviso
+
+f_avisado <- parse_factor(millas_mal$clase, levels = niveles_ok)
+sum(is.na(f_avisado))        # 3, con una advertencia que nombra "compacto"
+```
+
+**Respuesta esperada.** Las dos producen 3 `NA`. La diferencia está en que
+`parse_factor()` avisa con un mensaje del tipo "3 parsing failures" y una tabla
+que dice en qué filas ocurrió y cuál era el valor problemático.
+
+Cuál querer en 5000 filas de datos de campo: `parse_factor()`, sin duda. Con
+`factor()` esos tres valores se convierten en faltantes y desaparecen del
+análisis sin dejar rastro; el estudiante nunca se entera de que escribió
+"compacto" en vez de "compact", o "*Lepanthes rupestre*" en vez de
+"*Lepanthes rupestris*".
+
+La línea que hay que correr después, y que es la respuesta que se busca:
+
+```{r sol19-7b}
+sum(is.na(f_silencioso))
+# o, mejor todavía, ver cuáles fueron:
+setdiff(unique(millas_mal$clase), niveles_ok)
+```
+
+`setdiff()` contesta directamente "qué valores hay en mis datos que no están en
+mi lista de niveles", que es la pregunta correcta. Es la misma idea del
+`anti_join()` del capítulo de datos relacionados, aplicada a un vector.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Los ejercicios 1, 2 y 3 son mecánicos y se corrigen rápido. Los que de verdad
+importan son el 4, el 5 y el 6:
+
+- el 4 y el 5 porque enseñan que agrupar categorías es una **decisión de
+  análisis** que hay que justificar, no un arreglo cosmético;
+- el 6 porque la diferencia entre un cero y un dato ausente es una idea que van a
+  usar en su tesis, con o sin R.
+
+Resultados comparables: 7 niveles (Ej. 1), `pickup` en un extremo (Ej. 2), la
+barra más larga arriba (Ej. 3), 15 fabricantes y 6 niveles con 234 vehículos
+(Ej. 4), 2 niveles y 234 (Ej. 5), la secuencia 7 / 6 / 7 / 6 (Ej. 6), y 3 `NA`
+en los dos casos (Ej. 7).

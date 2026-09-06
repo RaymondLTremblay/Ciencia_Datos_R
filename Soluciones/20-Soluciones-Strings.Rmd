@@ -1,0 +1,292 @@
+---
+title: "Soluciones: Capítulo Cadenas de caracteres (stringr, expresiones regulares)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Corresponde a: 20-Strings.Rmd (Capítulo 22 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_22_strings.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(stringr)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. En expresiones regulares casi siempre hay
+varios patrones correctos para lo mismo; lo que se evalúa es que el patrón haga lo
+que se pide y que el estudiante sepa explicar por qué.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: lo básico
+
+```{r sol20-1}
+millas_e <- millas |> 
+  mutate(
+    etiqueta = str_to_upper(str_c(fabricante, modelo, sep = " ")),
+    largo    = str_length(etiqueta)
+  )
+
+millas_e |> arrange(desc(largo)) |> select(etiqueta, largo) |> head(3)
+millas_e |> arrange(largo)       |> select(etiqueta, largo) |> head(3)
+
+sum(is.na(millas_e$etiqueta))   # 0
+nrow(millas_e)                  # 234
+```
+
+```{r sol20-1b}
+str_length("Añasco")   # 6
+str_length("Anasco")   # 6
+nchar("Añasco", type = "bytes")   # 7: la ñ ocupa dos bytes en UTF-8
+```
+
+**Respuesta esperada.** Las etiquetas más largas son las de los Chevrolet
+`c1500 suburban 2wd` y compañía, por encima de 25 caracteres. Las más cortas son
+modelos de una sola palabra, como el `AUDI A4` o el `HONDA CIVIC`.
+
+Sobre los acentos: `str_length()` cuenta **caracteres**, no bytes, así que
+`"Añasco"` da 6 igual que `"Anasco"`, que es lo que uno quiere. La función de base
+R `nchar()` puede contar bytes si se le pide, y entonces la ñ cuenta doble porque
+en UTF-8 ocupa dos. Es la razón práctica para preferir `stringr` cuando se trabaja
+en español: sus funciones dan la respuesta que un humano esperaría.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: anclas
+
+```{r sol20-2}
+nombres <- unique(as.character(paises$pais))
+length(nombres)   # 142
+
+empiezan_vocal <- str_subset(nombres, "^[AEIOUaeiou]")
+terminan_a     <- str_subset(nombres, "a$")
+las_dos        <- str_subset(nombres, "^[AEIOUaeiou].*a$")
+
+length(empiezan_vocal); length(terminan_a); length(las_dos)
+
+all(las_dos %in% empiezan_vocal)   # TRUE
+all(las_dos %in% terminan_a)       # TRUE
+
+# sin anclas
+sin_ancla <- str_subset(nombres, "a")
+length(sin_ancla)
+```
+
+**Respuesta esperada.** La tercera lista es la intersección de las dos primeras y
+por tanto la más corta; las dos comprobaciones con `%in%` dan `TRUE`.
+
+Sin anclas, el patrón `"a"` encuentra **cualquier** nombre que tenga una `a` en
+cualquier sitio, que son casi todos. El ejemplo concreto que se busca en la
+explicación: `"Argentina"` sale en las tres búsquedas, pero `"Canadá"` sale en la
+de "sin anclas" y no en la de "empieza por vocal", y `"Panamá"` no termina en `a`
+sino en `á`, cosa que conviene señalar porque enseña que el acento **es otro
+carácter distinto**.
+
+**Punto para discutir en clase.** Ese detalle de `á` frente a `a` es exactamente
+el problema que aparece al trabajar con datos en español, y la razón por la que
+las clases de caracteres del capítulo llevan `[aáeéiíoóuú]` y no solo `[aeiou]`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: sacar el número de un código sucio
+
+```{r sol20-3}
+codigos <- c("P-01", "p 2", "PARCELA_3", "  P04  ", "parcela 5", "P6")
+
+numeros <- codigos |> 
+  str_extract("\\d+") |> 
+  as.numeric()
+
+numeros   # 1 2 3 4 5 6
+sum(is.na(numeros))   # 0
+```
+
+```{r sol20-3b}
+str_extract("P-01-bis", "\\d+")     # "01": solo el primero
+str_extract("P-2018-01", "\\d+")    # "2018": tampoco es lo que uno quería
+str_extract_all("P-01-bis", "\\d+") # todos, en una lista
+```
+
+**Respuesta esperada.** Los números del 1 al 6, sin `NA`.
+
+Por qué el mismo patrón sirve para `"P-01"` y para `"P6"`: porque `\d+` no dice
+nada sobre lo que hay alrededor. Dice "uno o más dígitos seguidos", y eso está
+igual de presente en los dos. Todo lo demás (la letra, el guion, los espacios, la
+mayúscula) el patrón sencillamente lo ignora. Es la ventaja de las expresiones
+regulares sobre cortar por posición con `str_sub()`, que aquí no funcionaría
+porque el número está en un sitio distinto en cada código.
+
+Con `"P-01-bis"`, `str_extract()` devuelve `"01"`, porque solo devuelve la
+**primera** coincidencia. Con `"P-2018-01"` devuelve `"2018"`, que casi seguro no
+es lo que se quería: es un buen momento para enseñar que el patrón hay que
+mirarlo contra los datos reales, no contra los datos imaginados.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: normalizar
+
+```{r sol20-4}
+numero  <- codigos |> 
+  str_trim() |> 
+  str_to_upper() |> 
+  str_extract("\\d+") |> 
+  str_pad(width = 2, pad = "0")
+
+limpios <- str_c("P", numero)
+
+limpios              # "P01" "P02" "P03" "P04" "P05" "P06"
+n_distinct(limpios)  # 6
+```
+
+Lo mismo sin pipes, por si alguien prefiere leerlo así:
+
+```{r sol20-4b}
+numero  <- str_pad(str_extract(str_trim(codigos), "\\d+"), width = 2, pad = "0")
+limpios <- str_c("P", numero)
+limpios
+```
+
+**Respuesta esperada.** Los seis códigos normalizados, y `n_distinct()` igual a 6.
+
+Lo de `n_distinct()` es la parte importante y suele pasar desapercibida: **antes**
+de limpiar también daba 6, pero por la razón equivocada. Daba 6 porque las seis
+cadenas eran literalmente distintas, no porque hubiera seis parcelas. Si la
+libreta tuviera `"P-01"` y `"p 1"`, `n_distinct()` habría dado 7 para seis
+parcelas, y nadie se habría enterado.
+
+Sobre el `left_join()`: habría fallado en silencio. `"P-01"` no es `"P01"`, así
+que esas filas no encontrarían pareja y quedarían con `NA` en las coordenadas.
+Es exactamente el tercer problema del capítulo de datos relacionados ("la clave
+está escrita de dos maneras"), y este ejercicio es la herramienta para
+arreglarlo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: contar palabras
+
+```{r sol20-5}
+frase <- "El muestreo se hizo en 2016, 2017 y 2018."
+
+por_espacio <- str_split(frase, " ")[[1]]
+por_palabra <- str_split(frase, boundary("word"))[[1]]
+
+por_espacio
+por_palabra
+
+length(por_espacio)   # 9
+length(por_palabra)   # 9 elementos "de verdad", sin puntuación pegada
+```
+
+**Respuesta esperada.** Los dos números pueden coincidir o no según la frase; lo
+que siempre cambia es el **contenido**.
+
+Partiendo por el espacio, los pedazos salen con la puntuación pegada: `"2016,"`
+con la coma y `"2018."` con el punto. Si después se cuentan palabras únicas,
+`"2018."` y `"2018"` se cuentan como dos palabras distintas.
+
+`boundary("word")` entiende dónde empieza y acaba una palabra de verdad: descarta
+la puntuación y los espacios sobrantes, y no se confunde con dos espacios
+seguidos ni con un salto de línea.
+
+Cuál usar para contar palabras: `boundary("word")`, sin duda. Es lo que hacen los
+ejemplos del Quijote y de Alicia del capítulo, y es la razón por la que ahí las
+listas de palabras más frecuentes salen limpias.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: las cinco herramientas
+
+```{r sol20-6}
+patron <- "\\d"
+
+sum(str_detect(millas$modelo, patron))
+length(str_subset(millas$modelo, patron))
+length(str_which(millas$modelo, patron))
+# los tres dan el mismo número
+
+head(str_subset(millas$modelo, patron))
+head(str_extract(millas$modelo, patron), 20)
+head(str_replace(millas$modelo, "\\d+", "#"), 20)
+```
+
+**Respuesta esperada.** Los tres primeros dan el mismo número, y esa igualdad es
+lo que hay que ver en la entrega: demuestra que el estudiante entendió que las
+tres contestan la misma pregunta.
+
+La tabla que se pide, más o menos:
+
+| Función | Qué devuelve | Cuándo usarla |
+|:--|:--|:--|
+| `str_detect()` | un `TRUE`/`FALSE` por elemento | dentro de `filter()`, o para contar con `sum()` |
+| `str_subset()` | las cadenas que coinciden | cuando quieres ver la lista |
+| `str_which()` | las **posiciones** que coinciden | cuando necesitas los índices para otra cosa |
+| `str_extract()` | el pedazo que coincidió, o `NA` | para sacar un dato del texto |
+| `str_replace()` | la cadena con el cambio hecho | para limpiar o anonimizar |
+
+Sobre los `NA` de `str_extract()`: **no** son un error. Significan que esa cadena
+no tenía ningún dígito, así que no hay nada que extraer. `str_detect()` habría
+dicho `FALSE` para esas mismas filas. Que el estudiante relacione las dos cosas es
+la mejor señal de que entendió el capítulo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): referencias previas
+
+```{r sol20-7}
+nombres <- unique(as.character(paises$pais))
+
+letra_doble <- str_subset(nombres, "(.)\\1")
+par_repetido <- str_subset(nombres, "(..)\\1")
+
+letra_doble
+par_repetido
+
+setdiff(letra_doble, par_repetido)   # tienen letra doble pero no par repetido
+setdiff(par_repetido, letra_doble)   # tienen par repetido pero no letra doble
+```
+
+**Respuesta esperada.** Las dos listas son distintas y **ninguna contiene a la
+otra**, que es lo que los dos `setdiff()` demuestran.
+
+La diferencia entre los dos patrones:
+
+- `(.)\1` captura **un** carácter y pide que el siguiente sea el mismo. Encuentra
+  letras dobles: la `rr` de Marruecos, la `ss` o `ll` de varios nombres.
+- `(..)\1` captura **dos** caracteres y pide que los dos siguientes sean los
+  mismos dos, en el mismo orden. Encuentra sílabas repetidas, como el `nana` de
+  banana.
+
+Un nombre puede tener lo primero y no lo segundo (una `rr` suelta), o lo segundo y
+no lo primero (`anan`, donde no hay dos letras iguales seguidas). Por eso ninguna
+lista contiene a la otra, y por eso el ejercicio pide los dos `setdiff()`.
+
+Casos propios que suelen mencionar, y todos valen: una celda donde alguien pegó
+dos veces el mismo nombre de especie, un código de individuo duplicado dentro del
+mismo campo, un nombre de archivo con el año escrito dos veces. La idea general es
+que una referencia previa busca **repetición**, que es una de las señales más
+fiables de un error de captura.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Los ejercicios 3 y 4 son los que de verdad les van a servir: son la limpieza de
+códigos de campo, que es el trabajo real con texto en biología. El 4 además
+conecta con el capítulo de datos relacionados, y vale la pena decirlo en clase.
+
+El 6 es el más importante conceptualmente: si entienden que las cinco funciones
+usan el mismo patrón y solo cambian en qué devuelven, el resto de `stringr` se
+aprende solo leyendo la ayuda.
+
+Resultados comparables: etiqueta de más de 25 caracteres (Ej. 1), 142 nombres y la
+intersección más corta (Ej. 2), los números 1 a 6 sin `NA` (Ej. 3), `"P01"` a
+`"P06"` (Ej. 4), dos listas con distinto contenido (Ej. 5), tres números iguales
+(Ej. 6), y dos `setdiff()` no vacíos (Ej. 7).

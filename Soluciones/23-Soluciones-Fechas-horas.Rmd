@@ -1,0 +1,297 @@
+---
+title: "Soluciones: Capítulo Fechas y horas (lubridate)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Corresponde a: 23-Fechas-horas.Rmd (Capítulo 25 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_25_fechas.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(lubridate)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Los datos de `Datos/crimen_pr.csv` no
+cambian, así que los números de los ejercicios 2, 5 y 6 sí son verificables.
+
+```{r sol23-0}
+crimen <- read_csv("Datos/crimen_pr.csv")
+range(crimen$Fecha)   # 2016-06-01 a 2016-08-01
+nrow(crimen)          # 8870
+```
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: la misma fecha, cinco maneras
+
+```{r sol23-1}
+fechas <- c(
+  ymd("2016-08-01"),
+  dmy("01/08/2016"),
+  mdy("August 1, 2016"),
+  ymd("20160801"),
+  dmy("01.08.2016")
+)
+
+fechas
+n_distinct(fechas)   # 1
+```
+
+```{r sol23-1b}
+mdy("01/08/2016")    # 2016-01-08, sin error ninguno
+```
+
+**Respuesta esperada.** Los cinco dan `2016-08-01` y `n_distinct()` da 1.
+
+`mdy("01/08/2016")` **no da error**: devuelve el 8 de enero, una fecha
+perfectamente válida y perfectamente equivocada. Ese es el punto del ejercicio.
+La ambigüedad no está en R, está en el dato: `01/08/2016` es genuinamente
+ambiguo, y ninguna función puede resolverlo sin saber de dónde salió el archivo.
+
+La comprobación que se busca, y que es la respuesta importante: **buscar valores
+mayores que 12 en la posición del día**. Si en la columna aparece `25/03/2016`,
+entonces el formato es día primero, porque no hay un mes 25. Y si al aplicar una
+de las dos funciones salen `NA`, es que esa función era la equivocada:
+
+```{r sol23-1c}
+sum(is.na(mdy(columna)))   # muchos NA = el formato no era mes primero
+sum(is.na(dmy(columna)))
+```
+
+Si **ninguna** de las dos produce `NA`, no hay manera de saberlo desde los datos y
+hay que preguntarle a quien los hizo. Es un buen momento para insistir en la
+importancia de que un archivo venga con su documentación.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: extraer las partes
+
+```{r sol23-2}
+crimen <- crimen |> 
+  mutate(
+    dia_semana = wday(Fecha, label = TRUE, abbr = FALSE),
+    hora_dia   = hour(Hora)
+  )
+
+crimen |> count(dia_semana)
+crimen |> count(hora_dia)
+
+ggplot(crimen, aes(x = dia_semana)) + geom_bar()
+ggplot(crimen, aes(x = hora_dia)) + geom_bar()
+```
+
+**Respuesta esperada.** Siete días y 24 horas, todas con casos. La distribución
+por hora es la interesante: hay un valle de madrugada, un pico a media tarde y
+otro a última hora de la noche.
+
+Sobre `label = TRUE`: sin él, `wday()` devuelve un **número** del 1 al 7, y la
+gráfica sale con un eje numérico que nadie puede leer sin una leyenda mental. Con
+`label = TRUE` devuelve un **factor ordenado** con el nombre del día, así que el
+eje sale con los nombres y **en el orden correcto de la semana**, no alfabético.
+Es la conexión directa con el capítulo de factores: `wday(label = TRUE)` es una de
+las pocas funciones que te dan el factor ya bien ordenado.
+
+Detalle que vale la pena señalar: `hour(Hora)` funciona porque `readr` leyó esa
+columna como hora. Si hubiera llegado como texto, habría hecho falta convertirla
+antes. Es el Ejercicio 7 del capítulo de importar datos, otra vez.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: `%/%` y `%%`
+
+```{r sol23-3}
+horas <- c(1730, 905, 2359, 15, 1200)
+
+h <- horas %/% 100
+m <- horas %%  100
+
+h   # 17  9 23  0 12
+m   # 30  5 59 15  0
+
+minutos <- h * 60 + m
+minutos       # 1050 545 1439 15 720
+sum(minutos)  # 3769
+```
+
+**Respuesta esperada.** Los cinco números y la suma 3769.
+
+Por qué `%/%` y `%%` resuelven bien el `15`: porque trabajan sobre el **valor
+numérico**, no sobre cómo está escrito. `15 %/% 100` es 0 y `15 %% 100` es 15,
+así que salen las 00:15 sin ningún caso especial. La aritmética no necesita saber
+cuántos dígitos tiene el número.
+
+Con `str_sub()` cortando por posición, en cambio, todo se rompe: `str_sub("15", 1, 2)`
+daría `"15"` como hora y nada como minutos. Habría que rellenar antes con ceros
+(`str_pad(horas, 4, pad = "0")`), que es exactamente el Ejercicio 4 del capítulo de
+strings. Las dos soluciones existen, pero la aritmética no necesita esa limpieza
+previa.
+
+**Punto para discutir en clase.** Vale la pena enseñar los dos caminos juntos:
+`%/%` y `%%` para números, `str_pad()` y `str_sub()` para texto. Reconocer cuál de
+los dos mundos tienes delante es la mitad del trabajo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: duración contra período
+
+```{r sol23-4}
+f <- ymd("2024-03-01")
+
+f - years(1)    # 2023-03-01
+f - dyears(1)   # 2023-03-02 (más una hora)
+
+ymd("2024-01-31") + months(1)   # NA
+ymd("2024-01-31") %m+% months(1)  # 2024-02-29
+```
+
+**Respuesta esperada.** `years(1)` da el 1 de marzo del año anterior, que es lo que
+diría cualquiera. `dyears(1)` da un día después, porque resta 365 días exactos y
+entre marzo de 2023 y marzo de 2024 hubo un 29 de febrero: 366 días.
+
+Los tres resultados contestan preguntas distintas:
+
+- `years(1)`: "¿qué día era hace un año, en el calendario?"
+- `dyears(1)`: "¿qué día era hace 31 536 000 segundos?"
+- `months(1)` sobre el 31 de enero: "¿qué día es el 31 de febrero?" La respuesta
+  honesta es que **no existe**, y por eso sale `NA`.
+
+Ese `NA` es la parte que hay que exigir en la explicación. R podría haber
+inventado una respuesta (el 28, el 29, el 3 de marzo), y cada una sería defendible
+y ninguna sería correcta para todos los casos. Devolver `NA` obliga a que el
+usuario decida. Y para cuando uno ya decidió, existe `%m+%`, que da el último día
+del mes.
+
+Sobre la última pregunta: recordatorios mensuales, **períodos**, porque la gente
+piensa en calendario ("el día 5 de cada mes"). Vida media de un isótopo,
+**duraciones**, porque el decaimiento no sabe nada de febreros. Cualquier
+respuesta que use ese criterio vale.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: intervalos
+
+```{r sol23-5}
+lapso <- min(crimen$Fecha) %--% max(crimen$Fecha)
+lapso
+
+lapso / days(1)      # 61
+lapso / weeks(1)     # unas 8.7 semanas
+lapso / months(1)    # unos 2 meses
+lapso / dmonths(1)   # un poco más de 2
+```
+
+**Respuesta esperada.** 61 días, del 1 de junio al 1 de agosto de 2016. En semanas,
+alrededor de 8.7.
+
+Por qué `months(1)` y `dmonths(1)` no dan lo mismo: `dmonths(1)` es una
+**duración**, definida como 30.44 días (el promedio de un mes del calendario
+gregoriano), un número fijo. `months(1)` es un **período**, y al dividir un
+intervalo entre un período `lubridate` cuenta los meses **de verdad** que caben
+entre esas dos fechas concretas, sabiendo que junio tiene 30 días y julio 31.
+
+Cuál poner en la sección de métodos: el de **períodos**, o mejor todavía, los
+días. "El muestreo cubrió 61 días, del 1 de junio al 1 de agosto de 2016" no
+admite discusión; "2.005 meses" es un número raro que además obliga al lector a
+preguntarse qué es un mes.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: redondear para agrupar
+
+```{r sol23-6}
+por_semana <- crimen |> 
+  mutate(semana = floor_date(Fecha, "week")) |> 
+  count(semana)
+
+por_semana
+
+ggplot(por_semana, aes(semana, n)) +
+  geom_line() +
+  geom_point()
+```
+
+**Respuesta esperada.** Nueve o diez semanas. La primera y la última son mucho más
+bajas.
+
+Por qué los extremos bajan: porque están **incompletos**. El archivo empieza el 1
+de junio, que cae a mitad de semana, y termina el 1 de agosto, que también. Esas
+dos semanas tienen menos días, no menos criminalidad. Es exactamente el problema
+del tercer mes del Ejercicio 7 del capítulo de importar datos, y conviene que el
+estudiante haga esa conexión explícitamente.
+
+Qué hacer con ellas: lo honesto es **quitarlas** de la gráfica de tendencia y
+decirlo en el pie de figura, o bien graficar **incidentes por día** en vez de por
+semana, que corrige el problema automáticamente. Lo que no vale es dejarlas y
+hablar de una "caída al final del periodo".
+
+Sobre la última pregunta: con este archivo `month(Fecha)` y
+`floor_date(Fecha, "month")` dan lo mismo porque **hay un solo año**.
+`month()` devuelve 6, 7, 8 y pierde el año; en cuanto el archivo tuviera junio de
+2016 y junio de 2017, los dos caerían en el grupo "6" y la serie quedaría
+mezclada. `floor_date()` devuelve `2016-06-01` y `2017-06-01`, que son grupos
+distintos.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): zonas horarias
+
+```{r sol23-7}
+Sys.timezone()   # "America/Puerto_Rico" en las computadoras de aquí
+
+instante <- ymd_hms("2016-08-01 15:30:00", tz = "America/Puerto_Rico")
+instante
+
+with_tz(instante, "Europe/Madrid")         # las 21:30, el mismo instante
+with_tz(instante, "America/Los_Angeles")   # las 12:30, el mismo instante
+
+force_tz(instante, "Europe/Madrid")        # las 15:30, pero otro instante
+```
+
+**Respuesta esperada.** Con `with_tz()`, la hora que se lee cambia y el instante
+es el mismo: los tres son el mismo momento del universo, visto desde tres relojes.
+Con `force_tz()`, la hora que se lee es la misma y el instante cambia: son las
+15:30 de otro sitio, que en tiempo absoluto ocurrieron seis horas antes.
+
+La manera de decirlo que suele funcionar en clase: `with_tz()` es **traducir**,
+`force_tz()` es **corregir**. Se traduce cuando el dato está bien y quieres verlo
+desde otro sitio; se corrige cuando el dato se anotó sin zona y resulta que no era
+la que R supuso.
+
+Sobre Puerto Rico y Nueva York: durante el horario estándar (de noviembre a marzo)
+las dos están a la **misma** hora, porque Nueva York está en UTC-5 y aquí estamos
+en UTC-4. Durante el horario de verano (de marzo a noviembre) Nueva York adelanta
+a UTC-4 y entonces va **una hora por delante**. Es decir, la diferencia **cambia
+dos veces al año**.
+
+El problema al comparar vuelos: si uno resta horas de salida sin zona horaria,
+durante media parte del año la resta sale bien y durante la otra media sale con
+una hora de error, sin ningún aviso. Y los dos días del cambio de horario son
+todavía peores. La única defensa es guardar siempre la zona junto con la hora, o
+trabajar en UTC y convertir solo al final.
+
+------------------------------------------------------------------------
+
+## Nota de corrección
+
+Los ejercicios 1 y 4 son los conceptuales del capítulo y los que hay que corregir
+con más cuidado. El 1 porque el error que enseña **no da ningún mensaje** y puede
+arruinar un análisis entero; el 4 porque la distinción entre duración y período es
+la única idea de este capítulo que no se puede resolver mirando la ayuda de una
+función.
+
+El 6 vuelve sobre el problema de los periodos incompletos, que ya salió en el
+capítulo de importar datos y en el de análisis exploratorio. Que lo reconozcan sin
+que se lo digan es una buena señal.
+
+Resultados comparables: `n_distinct()` igual a 1 (Ej. 1), 7 días y 24 horas
+(Ej. 2), suma 3769 (Ej. 3), un día de diferencia y un `NA` (Ej. 4), 61 días
+(Ej. 5), nueve o diez semanas con los extremos bajos (Ej. 6).
