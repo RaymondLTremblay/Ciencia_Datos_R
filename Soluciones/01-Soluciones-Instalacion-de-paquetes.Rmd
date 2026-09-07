@@ -1,0 +1,264 @@
+---
+title: "Soluciones: Capítulo 2 (Instalación de paquetes)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+
+Corresponde a: 01-Instalacion-de-paquetes.Rmd (Capítulo 2 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_02_paquetes.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras.
+
+Este capítulo se corrige distinto a los demás: casi todo lo que se evalúa es un
+**hábito de trabajo** y la capacidad de leer un mensaje de R, no un cálculo. Los
+números que salen dependen de la computadora de cada estudiante, así que la
+explicación en palabras pesa más que el resultado.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: tu inventario
+
+```{r sol01-1}
+paquetes_curso <- c(
+  "tidyverse", "datos", "ggversa", "nycflights13", "babynames", "nasaweather",
+  "fueleconomy", "Lahman", "readxl", "haven", "data.table", "hms", "zoo",
+  "gt", "flextable", "knitr", "bookdown", "gridExtra", "modelr", "broom",
+  "tidymodels", "MASS", "DescTools", "GMCM", "TidyDensity",
+  "leaflet", "maps", "RColorBrewer", "hexSticker", "showtext", "sysfonts",
+  "magick", "wordcloud", "wordcloud2", "tm", "SnowballC", "stopwords",
+  "pacman", "devtools", "rinat", "cranlogs", "packageRank"
+)
+
+ya <- rownames(installed.packages())
+instalados <- paquetes_curso %in% ya
+
+sum(!instalados)              # cuántos faltan
+paquetes_curso[!instalados]   # cuáles
+length(paquetes_curso)        # el total, para comprobar la suma
+```
+
+Una alternativa igual de válida, y más limpia:
+
+```{r sol01-1b}
+faltantes <- setdiff(paquetes_curso, rownames(installed.packages()))
+length(faltantes)
+faltantes
+```
+
+**Respuesta esperada.** El número varía de computadora en computadora; lo que
+tiene que cuadrar es que `sum(instalados) + sum(!instalados)` sea igual a
+`length(paquetes_curso)` (42).
+
+Sobre `installed.packages()` dentro de un ciclo: esa función recorre **todas** las
+carpetas de la biblioteca y arma una tabla completa cada vez que se llama. Es de
+las funciones más lentas de R base. Llamarla cuarenta veces dentro de un `for`
+significa hacer cuarenta veces el mismo trabajo pesado para obtener siempre casi
+la misma respuesta. Lo correcto es llamarla una vez, guardar el resultado en un
+objeto (`ya <- rownames(installed.packages())`) y consultar ese objeto.
+
+**Punto para discutir en clase.** El bloque de instalación del capítulo sí la
+llama dentro del ciclo, a propósito: ahí la tabla **cambia** en cada vuelta,
+porque acabamos de instalar algo. Es un buen momento para señalar que "no llames
+funciones lentas dentro de un ciclo" es una guía, no un dogma, y que hay que
+saber por qué.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: dónde vive y qué versión es
+
+```{r sol01-2}
+find.package("datos")     # la carpeta
+.libPaths()               # todas las bibliotecas donde R busca
+packageVersion("datos")   # la versión del paquete
+R.version.string          # la versión de R
+```
+
+**Respuesta esperada.** Una ruta que termina en `/datos`, un número de versión
+con dos o tres partes, y una línea del estilo `R version 4.x.x (fecha)`.
+
+Sobre cuál pedir primero: la respuesta que quiero es **la versión de R**, o mejor
+aún, `sessionInfo()`, que trae las tres cosas de un tirón. La razón es que la
+versión de R condiciona todo lo demás: si el compañero está en una versión vieja,
+hay paquetes que ni siquiera va a poder instalar, y entonces la versión del
+paquete es una consecuencia y no la causa. También acepto "la versión del
+paquete" si el estudiante argumenta que el error apunta a una función específica.
+
+**Punto para discutir en clase.** Aquí se ve muy bien quién está corriendo dos
+versiones de R en la misma máquina: `.libPaths()` les devuelve dos carpetas con
+números distintos, y ese es exactamente el motivo por el que "instalé el paquete
+y R dice que no existe".
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: sin `library()`
+
+```{r sol01-3}
+# Sesión recién reiniciada, ningún library()
+datos::millas |>
+  dplyr::select(fabricante, modelo, autopista) |>
+  head(5)
+
+search()
+```
+
+También vale sin el pipe:
+
+```{r sol01-3b}
+head(dplyr::select(datos::millas, fabricante, modelo, autopista), 5)
+```
+
+**Respuesta esperada.** Una tabla de 5 filas y 3 columnas. En `search()` no
+aparece `package:dplyr` ni `package:datos`: solo `.GlobalEnv`, los paquetes de R
+base (`stats`, `graphics`, `utils`, `methods`, `base`) y `tools:rstudio`.
+
+Sobre por qué no escribimos todo así: es cuestión de legibilidad y de cantidad de
+escritura. Un análisis normal usa treinta o cuarenta funciones del tidyverse; con
+`::` delante de cada una el código se vuelve ilegible. `library()` existe
+precisamente para no repetir la misma información en cada línea. `::` se reserva
+para desambiguar, para usar algo una sola vez, o para dejar constancia explícita.
+
+**Punto para discutir en clase.** Muchos estudiantes van a fallar aquí porque
+tenían `tidyverse` cargado desde antes y no reiniciaron. Es el momento perfecto
+para insistir en que *Restart R* es parte del trabajo, no un castigo, y en que
+`search()` es la manera de comprobar en qué estado está la sesión de verdad.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: provoca el conflicto
+
+```{r sol01-4a, message=TRUE}
+library(tidyverse)
+library(datos)
+library(MASS)
+```
+
+El mensaje que imprime `MASS` es, palabra más palabra menos:
+
+```
+Attaching package: 'MASS'
+
+The following object is masked from 'package:dplyr':
+
+    select
+```
+
+```{r sol01-4b, error=TRUE}
+select(diamantes, corte, precio)
+```
+
+```{r sol01-4c}
+dplyr::select(diamantes, corte, precio)
+```
+
+**Respuesta esperada.** La primera llamada falla (típicamente
+`unused arguments (corte, precio)`, porque la `select()` de `MASS` espera otros
+argumentos). La segunda devuelve una tabla de **53,940 filas y 2 columnas**.
+
+Sobre por qué gana `MASS`: R busca los objetos recorriendo una lista de entornos
+en orden, y esa lista es exactamente lo que devuelve `search()`. Cada `library()`
+nuevo **inserta** su paquete en la segunda posición, justo después de
+`.GlobalEnv`, empujando a los anteriores hacia abajo. Como `MASS` se activó
+después, queda por delante de `dplyr`, y cuando R busca `select` encuentra
+primero la de `MASS` y deja de buscar. No es que `dplyr` se haya desactivado:
+sigue ahí, más abajo en la lista, y por eso `dplyr::select()` la alcanza sin
+problema.
+
+**Punto para discutir en clase.** Vale la pena hacerles notar que el error
+(`unused arguments`) no menciona ni a `MASS` ni a `dplyr` ni la palabra
+"paquete". Ese es el motivo por el que este error se lleva tantas horas: el
+mensaje útil apareció media hora antes, cuando cargaron el paquete. Aprovechar
+para presentar la costumbre de no cargar `MASS` con `library()` y usar
+`MASS::mvrnorm()` cuando haga falta.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: el retrato de tu sesión
+
+```{r sol01-5}
+library(tidyverse)
+library(datos)
+sessionInfo()
+```
+
+**Respuesta esperada.** La salida tiene que incluir la sección
+`other attached packages` con `dplyr`, `ggplot2`, `datos` y el resto del
+tidyverse, cada uno con su versión.
+
+Sobre la situación distinta a pedir ayuda: la que busco es la
+**reproducibilidad en el tiempo**. Dentro de dos años, cuando el estudiante (o
+quien herede su análisis) abra el documento y algo no corra, `sessionInfo()` le
+dice con qué versiones sí corría. Es lo que permite reconstruir el ambiente. Otra
+respuesta válida: al someter un manuscrito o un informe, muchas revistas piden
+exactamente esta información. También acepto: al cambiar de computadora, para
+saber qué instalar.
+
+**Punto para discutir en clase.** Conectar con la idea de análisis reproducible
+que se trabaja durante todo el semestre: los datos, el código y el ambiente. La
+mayoría de los estudiantes piensa solo en los dos primeros.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6 (bono): tu propio verificador
+
+```{r sol01-6}
+revisar_paquetes <- function(nombres) {
+  instalado <- vapply(
+    nombres,
+    function(p) requireNamespace(p, quietly = TRUE),
+    logical(1)
+  )
+  version <- vapply(
+    nombres,
+    function(p) {
+      if (requireNamespace(p, quietly = TRUE)) {
+        as.character(utils::packageVersion(p))
+      } else {
+        NA_character_
+      }
+    },
+    character(1)
+  )
+  data.frame(
+    paquete   = nombres,
+    instalado = instalado,
+    version   = version,
+    row.names = NULL,
+    stringsAsFactors = FALSE
+  )
+}
+
+revisar_paquetes(c("dplyr", "ggplot2", "datos", "unPaqueteQueNoExiste"))
+```
+
+**Respuesta esperada.** Un `data.frame` de 4 filas. Las tres primeras con
+`instalado = TRUE` y un número de versión; la última con `FALSE` y `NA`. Sin
+error y sin advertencia.
+
+Sobre `requireNamespace()` frente a `library()`: `library()` tiene dos problemas
+aquí. Primero, **da error** si el paquete no existe, así que la función se caería
+en `unPaqueteQueNoExiste` en vez de devolver `FALSE`. Segundo, y más importante,
+`library()` tiene un **efecto secundario**: deja el paquete activado en la sesión
+del usuario. Una función que se llama "revisar" no debería cambiar el estado de la
+sesión de quien la llama. `requireNamespace()` solo comprueba y devuelve `TRUE` o
+`FALSE`, sin adjuntar nada y sin imprimir nada.
+
+**Punto para discutir en clase.** Es la primera vez en el curso que aparece la
+idea de **efecto secundario** (una función que además de devolver algo, cambia
+algo fuera de sí misma). Conviene nombrarla aquí, porque vuelve en el capítulo de
+funciones y en el de `purrr`.

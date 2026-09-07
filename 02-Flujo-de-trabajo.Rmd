@@ -27,8 +27,31 @@ Sys.Date()
   
   - Seleccionar el tab **Session** →→ **Set Working Directory** →→ **To Project Directory** 
 *** 
-  
-## Creación de un proyecto:
+
+## Por qué el orden importa más que el código
+
+Este capítulo no enseña ninguna técnica de análisis. Enseña algo menos vistoso y
+más importante: **cómo organizar el trabajo para que no se pierda**.
+
+Casi todo el mundo aprende R de la misma manera equivocada. Se abre R, se escribe
+en la consola hasta que sale el gráfico, y ahí se queda. Dos semanas después hay
+que rehacer el gráfico con los datos corregidos, y nadie se acuerda de qué se
+hizo. El análisis existió, pero no quedó registrado en ningún sitio: la consola
+es un lugar de paso.
+
+La alternativa es sencilla y hay que adoptarla desde el primer día: **todo lo que
+funcione se copia a un documento**, y ese documento vive dentro de un
+**proyecto**. La consola es el taller donde se prueba; el documento es lo que se
+guarda. Si al terminar la sesión de trabajo puedes cerrar R, volver a abrirlo
+mañana, darle a *Knit* y obtener exactamente el mismo resultado, entonces tu
+trabajo es **reproducible**. Si no puedes, tu trabajo depende de que no se apague
+la computadora, y eso no es un análisis, es un accidente esperando ocurrir.
+
+Hay una tercera razón, además de la memoria y la reproducibilidad: los errores.
+Un análisis que está escrito se puede leer, y un análisis que se puede leer se
+puede corregir. Cuando alguien te dice "creo que ahí filtraste mal", lo puede
+señalar con el dedo. Cuando el análisis vivió y murió en la consola, la única
+respuesta posible es "no sé".
 
 ::: {.consejo}
 Usa Proyectos de RStudio (menú `File → New Project`): mantienen juntos tus datos, scripts y resultados, y evitan depender de `setwd()`, que hace tu código difícil de compartir.
@@ -36,6 +59,46 @@ Usa Proyectos de RStudio (menú `File → New Project`): mantienen juntos tus da
 
 ::: {.historia}
 **RStudio**, el entorno de trabajo que usamos, fue creado por **JJ Allaire** y lanzado en 2011; la empresa se renombró **Posit** en 2022. Los *Proyectos* de RStudio nacieron para mantener cada análisis autocontenido y reproducible.
+:::
+
+***
+  
+## Creación de un proyecto:
+
+Un **proyecto de RStudio** es simplemente una carpeta con un archivo `.Rproj`
+dentro. Ese archivo no contiene tus datos ni tu código: lo único que hace es
+decirle a RStudio "cuando me abras, párate aquí". Suena trivial y resuelve el
+problema más común de todos.
+
+R siempre está "parado" en alguna carpeta, que se llama el **directorio de
+trabajo**. Cuando escribes `read_csv("Datos/mis_datos.csv")`, R no busca ese
+archivo en toda la computadora: lo busca **a partir del directorio de trabajo**.
+Si el directorio de trabajo es la carpeta del proyecto, la ruta funciona. Si es
+otra, no funciona, y el error dice que el archivo no existe aunque lo estés
+viendo en la pantalla.
+
+Puedes preguntarle a R dónde está parado, y puedes moverlo a mano:
+
+```{r c02-22, eval=FALSE}
+getwd()                       # ¿dónde estoy parado?
+setwd("/Users/nombre/carpeta") # muévete a otra carpeta (NO hagas esto)
+list.files()                  # ¿qué archivos ve R desde aquí?
+```
+
+::: {.funcion}
+**`getwd()`, `setwd()` y `list.files()`**: dónde está parado R.
+
+- **`getwd()`:** devuelve la carpeta en la que R está trabajando ahora mismo. Es lo primero que hay que correr cuando un archivo "no aparece".
+- **`list.files()`:** lista los archivos que R ve desde esa carpeta. Si tu archivo de datos no está en esa lista, R no lo va a encontrar con una ruta relativa.
+- **`setwd("ruta")`:** cambia el directorio de trabajo a mano. Funciona, pero **no lo uses**: la ruta que escribes solo existe en tu computadora, así que el script deja de funcionar en cualquier otra máquina, incluso en la tuya si mueves la carpeta.
+:::
+
+::: {.peligro}
+`setwd("/Users/rlt/Dropbox/BIOL4026/tarea3")` es la línea que más trabajos rompe
+al momento de entregarlos. En la computadora del profesor esa carpeta no existe,
+así que el documento no compila y no se puede corregir. La solución no es
+escribir mejor la ruta: es **no escribirla**. Abre el proyecto y usa rutas
+relativas como `"Datos/archivo.csv"`.
 :::
 
   - crear un proyecto para cada curso.
@@ -47,7 +110,68 @@ Usa Proyectos de RStudio (menú `File → New Project`): mantienen juntos tus da
   - knit el archivo .rmd para asegurar que no falte nada.
   - no mezclar proyectos de investigación en un mismo proyecto.
   
-  
+Una estructura de carpetas que funciona bien para un curso o una investigación
+pequeña es esta, y es la que usa este libro:
+
+```
+MiProyecto/
+├── MiProyecto.Rproj      <- abre siempre por aquí
+├── Datos/                <- los datos crudos, que nunca se modifican
+├── Graficos/             <- lo que produce el análisis
+└── analisis.Rmd          <- el documento
+```
+
+La regla que más vale la pena respetar es la de `Datos/`: **los datos crudos no
+se tocan nunca**. Si hay que corregir un valor, se corrige con código dentro del
+documento, no editando el archivo original. Así, si más adelante resulta que la
+corrección estaba mal, se ve exactamente qué se cambió y se puede deshacer. Un
+archivo de Excel que alguien "arregló a mano" en 2019 es irrecuperable.
+
+***
+
+## Objetos, nombres y la flecha `<-`
+
+Antes de seguir, dos minutos sobre la mecánica básica. En R, guardar un
+resultado con un nombre se hace con la flecha `<-`:
+
+```{r c02-23, eval=FALSE}
+promedio_autopista <- mean(millas$autopista)
+promedio_autopista
+```
+
+La flecha se lee "guarda a la derecha en el nombre de la izquierda". El atajo de
+teclado en RStudio es `Alt` y el signo de menos (`Option` y menos en Mac); vale
+la pena aprenderlo desde hoy porque la vas a escribir miles de veces.
+
+Los nombres pueden llevar letras, números, puntos y el guion bajo, pero tienen
+que **empezar por una letra**. R distingue mayúsculas de minúsculas: `Millas` y
+`millas` son dos objetos distintos, y la mitad de los `object not found` del
+curso salen de ahí. La costumbre en el tidyverse es escribir todo en minúsculas y
+separar palabras con guion bajo: `esperanza_media`, `datos_limpios`,
+`grafico_final`.
+
+::: {.consejo}
+Un nombre bueno dice **qué es** la cosa, no de qué tipo es. `x1`, `x2` y `datos2`
+no le dicen nada a nadie, ni siquiera a ti dentro de un mes. `millas_2008` o
+`promedio_por_clase` sí. Escribir nombres largos no cuesta nada: RStudio
+autocompleta con la tecla de tabulación.
+:::
+
+Para ver qué objetos tienes creados en la sesión, y para borrarlos:
+
+```{r c02-24, eval=FALSE}
+ls()              # los nombres que existen ahora mismo
+rm(objeto)        # borra uno
+rm(list = ls())   # borra todos
+```
+
+::: {.advertencia}
+No pongas `rm(list = ls())` al principio de tus documentos como si fuera una
+limpieza. No limpia de verdad: los paquetes cargados siguen cargados y las
+opciones cambiadas siguen cambiadas. La única limpieza real es **reiniciar R**
+(*Session > Restart R*), y esa es la costumbre que hay que coger.
+:::
+
 ***
   
 ```{r c02-2}
@@ -58,13 +182,34 @@ library(tidyverse) # ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forca
 library(datos)
 ```
 
+Fíjate en dos detalles de este bloque, porque se repiten en todo el libro. El
+primero es que las líneas de `install.packages()` están **comentadas** con `#`:
+están ahí para que sepas qué hace falta, pero no se ejecutan cada vez que
+compilas el documento, porque instalar es algo que se hace una sola vez. El
+segundo es que los `library()` van **al principio**, todos juntos. Así, quien
+abra tu documento sabe de entrada qué necesita tener instalado.
+
 ### Un set de sobre carros en el archivo (paquete) **datos**
+
+`millas` es un conjunto de datos que viene dentro del paquete `datos`, así que no
+hay que importarlo de ningún archivo: con `library(datos)` ya está disponible.
+Tiene 234 automóviles y 11 variables, entre ellas el consumo de combustible en
+ciudad y en carretera. Es la traducción al español de `mpg`, el conjunto que usa
+el libro *R for Data Science*.
+
+Al escribir su nombre y ejecutar, R lo imprime:
 
 ```{r c02-3}
 millas
 
 ```
 
+Lo que aparece no es la tabla completa, y eso es a propósito. `millas` es un
+**tibble**, una versión moderna del `data.frame` que al imprimirse muestra solo
+las primeras diez filas y las columnas que caben en la pantalla, y añade debajo
+de cada nombre de columna el **tipo** de la variable: `<chr>` para texto, `<int>`
+para números enteros, `<dbl>` para números con decimales. Esa línea de tipos es
+información valiosa que un `data.frame` normal no te da.
 
 ### Mi primer gráfico
 
@@ -73,20 +218,40 @@ ggplot(data = millas) +
   geom_point(mapping = aes(x = cilindrada, y = autopista))
 ```
 
+Este gráfico se construye en dos piezas unidas por un signo de `+`. La primera,
+`ggplot(data = millas)`, dice **con qué datos** vamos a trabajar y crea un lienzo
+vacío. La segunda, `geom_point(...)`, añade una **capa** de puntos. Dentro de
+`aes()` (de *aesthetics*, estéticas) se dice qué variable va en cada eje. La idea
+de construir gráficos apilando capas con `+` es el corazón de `ggplot2` y se
+trabaja a fondo en el próximo capítulo; por ahora basta con reconocer las piezas.
+
+Lo que muestra el gráfico es una relación negativa clara: los motores de más
+cilindrada consumen más, es decir, rinden menos millas por galón en carretera.
 
 ### Las funciones **head** y **tail**
 
 ::: {.funcion}
-**`head(x, n)`** y **`tail(x, n)`** — primeras y últimas filas.
+**`head(x, n)`** y **`tail(x, n)`**: primeras y últimas filas.
 
 - **Qué hacen:** `head()` muestra las primeras `n` filas de un data frame (o elementos de un vector) y `tail()` las últimas. Por defecto `n = 6`.
 - **Uso:** echar un vistazo rápido a los datos sin imprimirlos completos.
 :::
+
+Antes, una demostración de lo que pasa cuando falta la capa geométrica:
+
 ```{r c02-5}
 ggplot(data=millas)
 ```
 
+El resultado es un rectángulo gris vacío. `ggplot()` preparó el lienzo, pero
+nunca le dijimos **qué dibujar** en él. Es un error frecuente al principio, y el
+síntoma es exactamente este: un gráfico en blanco sin ningún mensaje de error. Si
+te pasa, revisa que haya un `+ geom_algo()`.
 
+`head()` y `tail()` son la manera rápida de mirar los datos sin llenar la
+pantalla. `tail()` es más útil de lo que parece: muchos archivos de Excel traen
+filas de totales, notas o celdas en blanco al final, y solo se ven mirando el
+final.
 
 ```{r c02-6}
 millas
@@ -107,6 +272,20 @@ Usa el signo de interrogación **?** antes del nombre de la función o archivo. 
 
 ```
 
+::: {.funcion}
+**`?` y `??`**: la ayuda de R.
+
+- **`?millas`:** abre la documentación de un conjunto de datos o de una función. Para los datos, explica qué significa cada columna y en qué unidades está.
+- **`?head`:** para una función, la ayuda tiene siempre las mismas secciones. Las dos que hay que leer son **Usage** (los argumentos y sus valores por defecto) y **Examples**, al final, que se pueden copiar y correr.
+- **`??regresion`:** busca el término en toda la documentación instalada, cuando no sabes cómo se llama la función.
+:::
+
+::: {.consejo}
+Leer la ayuda de R cuesta al principio porque está escrita para quien ya sabe.
+El truco es empezar por el final: baja hasta **Examples**, corre uno, mira qué
+sale, y solo entonces sube a leer los argumentos. Aprender a leer la ayuda es
+una de las destrezas que más rinde en el curso.
+:::
 
 ### Las dimensiones del archivo
 
@@ -114,7 +293,10 @@ Usa el signo de interrogación **?** antes del nombre de la función o archivo. 
 dim(millas) # dimension of data frame
 ```
 
-
+El resultado son dos números: primero las **filas**, después las **columnas**.
+Siempre en ese orden, y ese orden se repite en todo R (en la selección con
+corchetes, en las matrices, en `apply()`). Vale la pena fijarlo desde ahora:
+**filas, columnas**.
 
 ### Construcción de mi primer gráfico
 
@@ -127,6 +309,12 @@ ggplot(data = millas) +
   geom_point(mapping = aes(x = cilindrada, y = autopista,  colour=fabricante))
 ```
 
+Aquí añadimos una tercera variable al gráfico, `fabricante`, asignándola al
+color. Como está **dentro de `aes()`**, `ggplot2` entiende que el color depende
+de los datos: le asigna un color distinto a cada fabricante y construye
+automáticamente la leyenda de la derecha. Esa distinción, dentro o fuera de
+`aes()`, es la que más confusión causa al principio y se explica en detalle en el
+próximo capítulo.
 
 ### La función shape para cambiar la forma de los puntos
 
@@ -141,6 +329,15 @@ ggplot(data = millas) +
  geom_point(mapping = aes(x = cilindrada, y = autopista), shape=23, color = "369787", fill="yellow")
 ```
 
+`shape` escoge la forma del punto con un número del 0 al 25. Las formas de la 21
+a la 25 son especiales porque tienen **borde y relleno por separado**: el borde
+lo controla `color` y el interior lo controla `fill`. Por eso aquí aparecen los
+dos argumentos. En las formas del 0 al 20 el argumento `fill` no hace nada, y
+esa es otra fuente frecuente de confusión ("puse `fill` y no cambió nada").
+
+Fíjate también en que `shape`, `color` y `fill` están **fuera** de `aes()`: no
+dependen de ninguna variable, son valores fijos que se aplican a todos los
+puntos por igual.
 
 ### Salvar un gráfico en otro formato
 
@@ -158,17 +355,29 @@ ggsave("img/cilindro_milla.jpg") #. png, .tiff
 
 ```
 
+::: {.funcion}
+**`ggsave()`**: guardar un gráfico en un archivo.
 
+- **Qué hace:** escribe en disco el último gráfico dibujado. El formato sale de la extensión del nombre: `.png`, `.jpg`, `.tiff`, `.pdf`.
+- **`width`, `height`, `units`:** el tamaño de la figura, por ejemplo `width = 6, height = 4, units = "in"`. Si no los pones, usa el tamaño de la ventana de gráficos, que cambia de computadora en computadora.
+- **`dpi`:** la resolución. `300` es lo que piden casi todas las revistas científicas.
+- **La ruta es relativa** al directorio de trabajo, así que `"img/cilindro_milla.jpg"` solo funciona si existe una carpeta `img` dentro del proyecto.
+:::
+
+::: {.advertencia}
+Si `ggsave()` da el error `cannot open file`, casi siempre es que la carpeta que
+pusiste en la ruta no existe. R no la crea sola. Créala tú, o hazlo con código:
+`dir.create("img")`.
+:::
+
+Para figuras que van a un informe o a una publicación, conviene usar `.png` o
+`.tiff` y no `.jpg`. El formato `.jpg` comprime perdiendo información y deja
+manchas alrededor de las líneas finas y del texto, que es justamente lo que
+tiene un gráfico científico.
 
 ```{r c02-12}
 millas
 ```
-
-
-
-
-
-
 
 Ejercicio para someter:
 
@@ -188,20 +397,34 @@ library(ggversa)
 head(Anolis)
 ```
 
-
+Los datos de *Anolis* vienen del paquete `ggversa`, desarrollado para este curso.
+Recuerda que los nombres científicos de los organismos, como *Anolis cristatellus*
+o *Anolis gundlachi*, se escriben siempre en cursivas.
 
 ***
 
-
-
 ### Extracción de valores de un conjunto de datos
 
+Hasta aquí hemos mirado la tabla completa. Muchas veces lo que necesitas es **una
+sola columna**, y para eso está el signo de dólar. `diamantes$precio` significa
+"la columna `precio` del conjunto `diamantes`", y devuelve un **vector**, no una
+tabla. Eso importa porque las funciones que vienen a continuación (`max()`,
+`min()`, `mean()`, `unique()`) trabajan sobre vectores, no sobre tablas.
+
 ::: {.funcion}
-**`dim()`, `nrow()`, `ncol()`, `unique()`** — explorar la forma de los datos.
+**`dim()`, `nrow()`, `ncol()`, `unique()`**: explorar la forma de los datos.
 
 - **`dim(x)`:** filas y columnas; **`nrow(x)`** / **`ncol(x)`** dan cada una por separado.
 - **`unique(x$col)`:** los valores distintos de una columna (útil para variables categóricas).
 - **`max()` / `min()`:** valor máximo/mínimo de una variable numérica.
+:::
+
+::: {.consejo}
+Estas cinco funciones son lo primero que hay que correr con cualquier conjunto de
+datos nuevo, antes de analizar nada: `dim()` para saber el tamaño, `names()` para
+los nombres de las columnas, `head()` para ver la pinta que tienen, `unique()`
+sobre las categóricas para ver cuántos grupos hay, y `summary()` para los rangos.
+Cinco minutos ahí te evitan analizar mal durante dos horas.
 :::
 
 Aquí usamos el conjunto de datos de **diamantes** que se encuentra en el paquete **ggplot2**
@@ -228,6 +451,11 @@ ncol(diamantes)
 dim(diamantes)
 ```
 
+Nota que `dim()` devuelve exactamente los dos números anteriores juntos. Las tres
+funciones dan la misma información; se usan por separado cuando necesitas el
+número dentro de un cálculo, por ejemplo para calcular una proporción sobre el
+total de filas.
+
 #### El valor máximo de una variable
 
 ```{r c02-18}
@@ -240,20 +468,31 @@ max(diamantes$precio)
 min(diamantes$precio)
 ```
 
+::: {.advertencia}
+Si la columna tiene valores faltantes, `max()` y `min()` devuelven `NA`, no el
+máximo de lo que sí hay. Es el comportamiento correcto: R no adivina. Para
+ignorar los faltantes hay que pedirlo explícitamente con
+`max(x, na.rm = TRUE)`. El tema de los `NA` tiene su propio capítulo más
+adelante.
+:::
+
 #### Los valores discretos de una variable
 
 ```{r c02-20}
 unique(diamantes$corte)
 ```
 
+`unique()` devuelve los valores distintos, sin repetir. En `corte` son cinco
+categorías de calidad, y aparecen en orden porque es un **factor ordenado**: R
+sabe que "Regular" es peor que "Ideal" y guarda ese orden. Si solo quieres saber
+**cuántas** categorías hay, `length(unique(diamantes$corte))` te da el número, y
+`table(diamantes$corte)` te dice además cuántos diamantes hay en cada una.
 
  - diamantes$corte
 
  - diamantes$precio
 
 ## Ejemplos de Gráficos
-
-
 
 ```{r c02-21}
 library(readr)
@@ -262,5 +501,147 @@ Vuelos_SJU_2018_Ene <- read_csv("Datos/Vuelos_SJU_2018_Ene.csv")
 head(Vuelos_SJU_2018_Ene)
 ```
 
+Este bloque es el cierre natural del capítulo, porque junta las dos ideas. La
+ruta `"Datos/Vuelos_SJU_2018_Ene.csv"` es **relativa**: no empieza con `/` ni con
+`C:`, así que R la busca a partir del directorio de trabajo. Funciona porque el
+documento vive dentro del proyecto y la carpeta `Datos` está ahí dentro. Si
+alguien copia este repositorio completo a otra computadora, sigue funcionando sin
+cambiar una sola letra. Eso es todo lo que significa "análisis reproducible".
 
+***
 
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los ejercicios usan `paises` del paquete `datos`, no `millas` ni
+`diamantes`, que son los conjuntos con los que se enseña en el capítulo. Varios
+te piden hacer algo dentro de RStudio y no solo calcular. La hoja completa para
+entregar está en `Ejercicios/Ejercicios_Capitulo_03_flujo-de-trabajo.Rmd`.
+:::
+
+### Ejercicio 1. Dónde estás parado
+
+::: {.ejercicio}
+Corre `getwd()` y `list.files()` en tu documento y mira el resultado.
+
+**Verificación:** entre los nombres que devuelve `list.files()` tiene que
+aparecer el de tu propio archivo `.Rmd`. Si no aparece, no estás trabajando desde
+donde crees.
+
+**En palabras:** si tu archivo `resultados.csv` estuviera en la carpeta de
+Descargas y escribieras `read_csv("resultados.csv")`, ¿lo encontraría R? Explica
+por qué, usando lo que te devolvió `getwd()`.
+:::
+
+```{r c02-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Guardar con un nombre
+
+::: {.ejercicio}
+Datos: `paises`. Guarda el conjunto completo en un objeto con un nombre que
+describa lo que es (no `x` ni `datos1`), y después comprueba que existe.
+
+**Verificación:** `ls()` tiene que incluir tu nombre, y `nrow()` de tu objeto
+tiene que dar **1704**.
+
+**En palabras:** explica por qué `Paises` y `paises` serían dos objetos distintos
+para R, y qué tipo de error verías si te equivocas de mayúscula.
+:::
+
+```{r c02-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. La forma de los datos
+
+::: {.ejercicio}
+Datos: `paises`. Averigua cuántas filas y cuántas columnas tiene, y cómo se
+llaman las columnas. Usa `dim()`, `nrow()`, `ncol()` y `names()`.
+
+**Verificación:** tienen que salir **1704 filas y 6 columnas**, y `dim()` tiene
+que devolver esos dos números en ese orden.
+
+**En palabras:** `paises` tiene 142 países y 12 años. Multiplica y compara con el
+número de filas. ¿Qué te dice el resultado sobre cómo está organizada la tabla,
+es decir, qué representa **una fila**?
+:::
+
+```{r c02-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. El principio y el final
+
+::: {.ejercicio}
+Datos: `paises`. Muestra las **4 primeras** filas y las **4 últimas**.
+
+**Verificación:** los dos bloques deben devolver 4 filas cada uno, y el país de
+las primeras filas debe ser distinto al de las últimas.
+
+**En palabras:** menciona una razón concreta por la que mirar el **final** de un
+archivo de datos puede revelar un problema que no se ve mirando el principio.
+:::
+
+```{r c02-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Una sola columna
+
+::: {.ejercicio}
+Datos: `paises`. Usando el signo de dólar, saca la columna `continente` y
+averigua cuántos continentes distintos hay y cuáles son. Después haz lo mismo con
+`anio`.
+
+**Verificación:** tienen que salir **5** continentes y **12** años distintos.
+
+**En palabras:** `paises$continente` devuelve un vector y `paises` es una tabla.
+¿Por qué `unique()` necesita el vector y no le puedes pasar la tabla completa?
+:::
+
+```{r c02-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Un gráfico guardado
+
+::: {.ejercicio}
+Datos: `paises`. Haz un gráfico de puntos de `pib_per_capita` en el eje de x
+contra `esperanza_de_vida` en el eje de y, con el `continente` en el color.
+Guárdalo con `ggsave()` en una carpeta `Graficos_ejercicios` de tu proyecto, con
+6 pulgadas de ancho, 4 de alto y 300 dpi.
+
+**Verificación:** después de guardarlo, `file.exists("Graficos_ejercicios/tu_nombre_de_archivo.png")`
+tiene que devolver `TRUE`. Si la carpeta no existe, créala con `dir.create()`
+antes.
+
+**En palabras:** el gráfico tiene una forma muy característica, no es una recta.
+Descríbela en una o dos oraciones: ¿qué le pasa a la esperanza de vida a medida
+que sube el ingreso?
+:::
+
+```{r c02-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). La prueba de la sesión limpia
+
+::: {.ejercicio}
+Reinicia R (*Session > Restart R*) y compila tu documento entero con *Knit*,
+desde la primera línea. Después, en la ayuda, lee `?paises` y contesta.
+
+**Verificación:** el documento tiene que compilar sin errores desde una sesión
+recién reiniciada.
+
+**En palabras:** dos cosas. Primero, si se cayó, ¿en qué línea fue y qué faltaba?
+Segundo, según la ayuda, ¿en qué unidades está `pib_per_capita` y por qué esa
+unidad hace que se puedan comparar países de tamaños muy distintos?
+:::
+
+```{r c02-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

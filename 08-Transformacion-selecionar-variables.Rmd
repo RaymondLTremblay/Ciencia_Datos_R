@@ -18,6 +18,31 @@ Sys.Date()
 
 Es una función para seleccionar basado en una características del nombre de la columna
 
+
+Con once columnas, escribir los nombres a mano no cuesta nada. Con las 19 de
+`vuelos` ya empieza a cansar, y con las doscientas de una tabla de expresión
+génica o de un censo es sencillamente inviable. Para eso están los **ayudantes de
+selección**: en vez de nombrar las columnas una por una, se describe **qué tienen
+en común sus nombres**.
+
+Hay dos ventajas menos obvias, y son las que importan de verdad. La primera es que
+el código se explica solo: `select(starts_with("atraso"))` dice qué se quiere,
+mientras que una lista de cinco nombres obliga a mirarlos uno por uno para
+entenderla. La segunda es que **se adapta**: si mañana el archivo trae una columna
+nueva que también empieza por `atraso`, el ayudante la incluye sin que haya que
+tocar el código, y la lista escrita a mano se queda corta en silencio.
+
+::: {.funcion}
+**Los ayudantes de `select()`**: describir columnas en vez de nombrarlas.
+
+- **`starts_with("x")` / `ends_with("x")`:** por el principio o el final del nombre.
+- **`contains("x")`:** el texto aparece en cualquier parte del nombre.
+- **`matches("expresión")`:** para casos que las anteriores no cubren, con expresiones regulares.
+- **`everything()`:** todas las columnas que quedan; se usa al final para reordenar.
+- **`where(is.numeric)`:** selecciona por el **tipo** de la columna, no por su nombre. Muy útil antes de un cálculo.
+- **`last_col()`, `num_range("x", 1:3)`:** por posición y por nombres numerados.
+:::
+
 ::: {.consejo}
 Los ayudantes como `starts_with()`, `ends_with()` y `contains()` te evitan escribir cada nombre de columna a mano, sobre todo en tablas con muchas variables.
 :::
@@ -38,6 +63,10 @@ vuelos %>%
   dplyr::select(starts_with("horario"))
 ```
 
+`starts_with()` no distingue mayúsculas de minúsculas por defecto, a diferencia de
+lo que pasa en las comparaciones con `==`. Si necesitas que las distinga, hay que
+pedirlo con `starts_with("Horario", ignore.case = FALSE)`.
+
 
 ```{r c08-4}
 vuelos %>% 
@@ -55,6 +84,19 @@ vuelos %>%
   dplyr::select(contains("ue"))
 
 ```
+
+Compara los tres ayudantes con el mismo texto. `ends_with("salida")` devuelve las
+columnas que **terminan** en esa palabra; `contains("salida")` devuelve esas y
+además las que la llevan en medio o al principio. `contains()` es el más amplio y
+por eso el más arriesgado: `contains("ue")` selecciona columnas por una
+coincidencia de dos letras que no significa nada, y es un buen recordatorio de que
+conviene mirar el resultado antes de seguir.
+
+::: {.consejo}
+Cuando uses un ayudante por primera vez sobre una tabla, corre el `select()` solo,
+sin encadenar nada más, y mira los nombres que salieron. Toma dos segundos y evita
+descubrir tres pasos después que se coló una columna que no debía.
+:::
 ```{r c08-7}
 #vuelos %>%
 # dplyr::filter(contains("AA")) # no funciona con filter
@@ -64,10 +106,20 @@ vuelos %>%
 
 ```
 
+La línea comentada de arriba es importante: los ayudantes de selección **solo
+funcionan dentro de `select()`** (y de funciones emparentadas como `across()` o
+`rename_with()`), nunca dentro de `filter()`. La razón es que hablan de **nombres
+de columnas**, mientras que `filter()` trabaja con **valores dentro de las
+columnas**. Son dos cosas distintas y no se mezclan.
+
+Para buscar un texto dentro de los valores está `str_detect()`, del paquete
+`stringr`, que tiene su propio capítulo:
+`filter(str_detect(aerolinea, "^A"))`.
+
 ## rename()
 
 ::: {.funcion}
-**`rename(nuevo = viejo)`** — cambiar el nombre de columnas.
+**`rename(nuevo = viejo)`**: cambiar el nombre de columnas.
 
 - **Qué hace:** renombra columnas; el **nombre nuevo va primero**, el original después.
 - **Relacionadas:** `select(nuevo = viejo, ...)` renombra y selecciona a la vez; `everything()` reordena poniendo unas columnas al frente y el resto después.
@@ -82,6 +134,24 @@ vuelos %>%
   dplyr::select(contains("aeropuerto")) # nombre nuevo= nombre original
 ```
 
+El orden de `rename()` sorprende a todo el mundo la primera vez: **el nombre nuevo
+va a la izquierda del igual y el viejo a la derecha**, al revés de como se lee la
+frase "renombrar origen a aeropuerto_origen". La manera de recordarlo es pensar
+que se está *creando* algo nuevo a partir de algo viejo, igual que en
+`mutate(velocidad = distancia / tiempo)`: a la izquierda siempre va lo que se
+produce.
+
+Los dos `rename()` encadenados se pueden juntar en uno solo, separando por comas:
+`rename(aeropuerto_origen = origen, aeropuerto_destino = destino)`. Y si hay que
+renombrar muchas de golpe, `rename_with()` aplica una función a todos los nombres:
+`rename_with(toupper)` los pone en mayúsculas.
+
+::: {.consejo}
+`select()` también renombra: `select(aeropuerto_origen = origen)` selecciona y
+renombra en un solo paso. La diferencia es que `select()` **se queda solo con lo
+que nombras** y `rename()` conserva todas las columnas.
+:::
+
 ## Reorganizar el orden de las columnas, usando select() y everything() en la misma función
 
 ```{r c08-9}
@@ -89,6 +159,16 @@ head(vuelos)
 vuelos %>% 
     dplyr::select(distancia, aerolinea, everything())
 ```
+
+Este es el idioma para **reordenar** columnas sin escribirlas todas: se nombran
+las que se quieren al frente y se cierra con `everything()`, que recoge el resto
+en el orden en que estaban. Es muy útil cuando una tabla ancha tiene la columna
+identificadora perdida en la posición doce.
+
+`dplyr` tiene además una función dedicada a esto, `relocate()`, que hace lo mismo
+de forma más explícita y permite colocar columnas en medio:
+`relocate(distancia, aerolinea)` las lleva al frente, y
+`relocate(distancia, .after = aerolinea)` la coloca justo después de otra.
 
 Seleccionar de un conjunto de variables en orden que aparece en el data.frame
 
@@ -103,6 +183,26 @@ vuelos[,c(4:7)]
 
 
 ```
+
+Este bloque compara dos maneras de seleccionar por posición.
+`select(mes:salida_programada)` usa los **nombres** con dos puntos, que se lee
+"desde esta columna hasta esta otra". `vuelos[, c(4:7)]` usa los **números de
+columna** con la notación de corchetes de R base.
+
+Las dos funcionan, y la primera es mucho mejor por una razón práctica: si el
+archivo cambia y alguien añade una columna al principio, la selección por nombres
+sigue trayendo lo mismo y la selección por números trae otras columnas, sin error
+y sin aviso. Cualquier código que dependa de la **posición** de una columna es
+frágil.
+
+::: {.peligro}
+En la notación de corchetes, la coma no es opcional y su lado importa:
+`vuelos[, 4:7]` selecciona **columnas** (lo de después de la coma) y
+`vuelos[4:7, ]` selecciona **filas**. Olvidar la coma o ponerla del lado
+equivocado devuelve algo perfectamente válido y completamente distinto de lo que
+querías. Es otra razón para preferir `select()` y `filter()`, que dicen en su
+propio nombre qué seleccionan.
+:::
 
 
 
@@ -127,15 +227,19 @@ https://es.r4ds.hadley.nz/05-transform.html#ejercicios-2
 
 ------------------------------------------------------------------------
 
-```{r}
+```{r c08-12}
 library(readr)
 url_COVID_PR <- read_csv("Datos/url_COVID_PR.csv")
 
 url_COVID_PR
 ```
 
+Un ejemplo con datos reales de Puerto Rico. Nota la ruta relativa,
+`"Datos/url_COVID_PR.csv"`, que funciona porque el documento vive dentro del
+proyecto.
 
-```{r}
+
+```{r c08-13}
 
 library(tidyverse)
 df2=url_COVID_PR %>% 
@@ -149,4 +253,164 @@ df2=url_COVID_PR %>%
 df2
 ```
 
+`lag()` toma el valor de una fila **anterior**: `lag(x, 7)` devuelve, para cada
+fila, el valor que había siete filas antes. Restarlo del valor actual da el cambio
+respecto a la semana pasada, que es la manera habitual de mirar una serie diaria
+con ciclo semanal, porque compara lunes con lunes y domingo con domingo en vez de
+comparar contra el día anterior.
 
+Las primeras siete filas salen `NA`, y tiene que ser así: para el primer día no
+hay una semana anterior con la que comparar. Es un `NA` legítimo, no un error.
+`lag()` y su pareja `lead()` se trabajan a fondo en el capítulo de `mutate()`.
+
+::: {.advertencia}
+`lag()` va por **posición en la tabla**, no por fecha. Si las filas no están
+ordenadas cronológicamente, o si faltan días, la resta compara lo que no debe. La
+costumbre es `arrange(fecha)` antes de cualquier `lag()`, y comprobar que no
+falten fechas en medio.
+:::
+
+
+------------------------------------------------------------------------
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los ejercicios usan `millas` del paquete `datos`, no `vuelos`, que
+es el conjunto con el que se enseña en el capítulo. Las once columnas de `millas`
+son: `fabricante`, `modelo`, `cilindrada`, `anio`, `cilindros`, `transmision`,
+`traccion`, `ciudad`, `autopista`, `combustible` y `clase`. La hoja completa para
+entregar está en `Ejercicios/Ejercicios_Capitulo_09_seleccionar.Rmd`.
+:::
+
+### Ejercicio 1. Por el principio del nombre
+
+::: {.ejercicio}
+Datos: `millas`. Selecciona todas las columnas cuyo nombre **empiece** por la
+letra `c`.
+
+**Verificación:** deben salir exactamente **5** columnas.
+
+**En palabras:** escribe también la versión con los cinco nombres a mano. ¿Cuál de
+las dos prefieres y por qué? Da una razón que tenga que ver con lo que pasaría si
+mañana el archivo trajera una columna nueva llamada `consumo`.
+:::
+
+```{r c08-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Por el final y por dentro
+
+::: {.ejercicio}
+Datos: `millas`. Selecciona las columnas que **terminen** en `"a"`, y después las
+que **contengan** `"cil"`.
+
+**Verificación:** la primera selección devuelve **2** columnas y la segunda
+también **2**, pero **no son las mismas dos**.
+
+**En palabras:** explica la diferencia entre `ends_with()` y `contains()` usando
+tus dos resultados como ejemplo. ¿Cuál de los dos podría traerte una columna que
+no querías, y por qué?
+:::
+
+```{r c08-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Seleccionar por tipo
+
+::: {.ejercicio}
+Datos: `millas`. Selecciona todas las columnas **numéricas** usando
+`where(is.numeric)`, y después todas las de **texto** con `where(is.character)`.
+
+**Verificación:** deben salir **5** numéricas y **6** de texto, y 5 más 6 tienen
+que dar las 11 columnas de `millas`.
+
+**En palabras:** `anio` y `cilindros` quedaron entre las numéricas. ¿Te sirve esa
+selección si lo que querías era "las variables sobre las que tiene sentido sacar
+un promedio"? Explica.
+:::
+
+```{r c08-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Renombrar
+
+::: {.ejercicio}
+Datos: `millas`. Renombra `ciudad` a `consumo_ciudad` y `autopista` a
+`consumo_autopista`, en una sola llamada a `rename()`. Después comprueba con
+`contains("consumo")` que los dos nombres nuevos existen.
+
+**Verificación:** la tabla renombrada tiene que seguir teniendo **11** columnas, y
+el `select(contains("consumo"))` tiene que devolver **2**.
+
+**En palabras:** en `rename()`, ¿va primero el nombre nuevo o el viejo? Explica
+cómo lo recuerdas, y qué error te da R si los pones al revés.
+:::
+
+```{r c08-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Reordenar
+
+::: {.ejercicio}
+Datos: `millas`. Reordena las columnas para que `clase` y `fabricante` queden al
+frente y el resto conserve su orden original, usando `everything()`. Después haz
+lo mismo con `relocate()`.
+
+**Verificación:** las dos versiones tienen que devolver **11** columnas en el
+**mismo** orden, y las dos primeras tienen que ser `clase` y `fabricante`.
+Compruébalo comparando `names()` de las dos tablas.
+
+**En palabras:** ¿qué habría pasado si hubieras escrito
+`select(clase, fabricante)` sin `everything()`? Explica en qué se diferencian
+"seleccionar" y "reordenar".
+:::
+
+```{r c08-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Nombres frente a posiciones
+
+::: {.ejercicio}
+Datos: `millas`. Selecciona las columnas de la tercera a la sexta de dos maneras:
+con `select()` usando los nombres y los dos puntos, y con la notación de corchetes
+de R base usando los números.
+
+**Verificación:** las dos tienen que devolver las **mismas 4 columnas**.
+Compruébalo con `identical()` sobre los `names()` de ambas.
+
+**En palabras:** imagina que alguien añade al principio de `millas` una columna
+`id`. ¿Cuál de tus dos versiones seguiría trayendo las mismas variables y cuál no?
+Explica por qué eso hace que una de las dos sea peligrosa en un análisis que se
+repite cada semestre.
+:::
+
+```{r c08-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). Quitar en vez de escoger
+
+::: {.ejercicio}
+Datos: `millas`. Construye una tabla que tenga **todas** las columnas **menos**
+`modelo` y `transmision`, usando el signo de menos dentro de `select()`. Después
+construye otra que quite de golpe todas las que empiecen por `c`.
+
+**Verificación:** la primera tabla tiene que tener **9** columnas y la segunda
+**6**.
+
+**En palabras:** el signo de menos dentro de `select()` no resta nada. Explica qué
+hace realmente, y por qué `select(millas, -c(modelo, transmision))` y
+`select(millas, -modelo, -transmision)` dan lo mismo.
+:::
+
+```{r c08-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

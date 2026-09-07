@@ -15,8 +15,10 @@ clase, una por capítulo del libro.
 
 ## Convención de nombres
 
-Las hojas llevan el número del **capítulo del libro**:
-`Ejercicios_Capitulo_13_scripts.Rmd` es el Capítulo 13.
+Las hojas llevan el número del **capítulo del libro**, con dos dígitos:
+`Ejercicios_Capitulo_13_scripts.Rmd` es el Capítulo 13, y
+`Ejercicios_Capitulo_02_paquetes.Rmd` es el Capítulo 2. El `index.Rmd` es el
+Capítulo 1 y no lleva ejercicios.
 
 Las soluciones llevan el número del **archivo del capítulo**:
 `Soluciones/12-Soluciones-Scripts.Rmd` corresponde a `12-Scripts.Rmd`, que es el
@@ -27,6 +29,14 @@ página.
 
 | Capítulo | Archivo del capítulo | Hoja del estudiante | Soluciones |
 |:--|:--|:--|:--|
+| 2 | `01-Instalacion-de-paquetes.Rmd` | `Ejercicios_Capitulo_02_paquetes.Rmd` | `01-Soluciones-Instalacion-de-paquetes.Rmd` |
+| 3 | `02-Flujo-de-trabajo.Rmd` | `Ejercicios_Capitulo_03_flujo-de-trabajo.Rmd` | `02-Soluciones-Flujo-de-trabajo.Rmd` |
+| 4 | `03-Visualizacion-Datos.Rmd` | `Ejercicios_Capitulo_04_visualizacion.Rmd` | `03-Soluciones-Visualizacion-Datos.Rmd` |
+| 5 | `04-Calculadora-sofisticada.Rmd` | `Ejercicios_Capitulo_05_calculadora.Rmd` | `04-Soluciones-Calculadora-sofisticada.Rmd` |
+| 6 | `05-Transformacion-estructura.Rmd` | `Ejercicios_Capitulo_06_estructura.Rmd` | `05-Soluciones-Transformacion-estructura.Rmd` |
+| 7 | `06-Transformacion-funcion-basica.Rmd` | `Ejercicios_Capitulo_07_booleanas.Rmd` | `06-Soluciones-Transformacion-funcion-basica.Rmd` |
+| 8 | `07-Transformacion-valores-faltantes.Rmd` | `Ejercicios_Capitulo_08_faltantes.Rmd` | `07-Soluciones-Transformacion-valores-faltantes.Rmd` |
+| 9 | `08-Transformacion-selecionar-variables.Rmd` | `Ejercicios_Capitulo_09_seleccionar.Rmd` | `08-Soluciones-Transformacion-selecionar-variables.Rmd` |
 | 10 | `09-Transformacion-mutate.Rmd` | `Ejercicios_Capitulo_10_mutate.Rmd` | `09-Soluciones-Transformacion-mutate.Rmd` |
 | 11 | `10-Transformacion-rank.Rmd` | `Ejercicios_Capitulo_11_rangos.Rmd` | `10-Soluciones-Transformacion-rank.Rmd` |
 | 12 | `11-Transformacion-funcion-estadistica.Rmd` | `Ejercicios_Capitulo_12_indices.Rmd` | `11-Soluciones-Transformacion-funcion-estadistica.Rmd` |

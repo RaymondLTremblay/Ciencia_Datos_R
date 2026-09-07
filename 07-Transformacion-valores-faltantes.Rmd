@@ -20,6 +20,36 @@ library(datos)
 - NA: Not Available
 
 
+`NA` es la manera que tiene R de decir **"aquí no hay dato"**, y es una de las
+cosas que mejor hace comparado con otros programas. No es un cero, no es un
+espacio en blanco, no es la cadena `"NA"` escrita con letras: es un valor especial
+que significa exactamente "no se sabe".
+
+La distinción no es sutil. Si en una parcela no se midió la altura de una planta,
+poner un cero significa "la planta medía cero centímetros", que es una afirmación
+falsa que se va a promediar junto a las demás. Poner `NA` significa "no lo sé", y
+todo lo que R haga después con ese valor va a arrastrar esa incertidumbre.
+
+De ahí viene la regla que gobierna todo este capítulo: **casi cualquier operación
+con `NA` devuelve `NA`**. No es un fallo, es la respuesta correcta. Si no sé
+cuánto mide una planta, tampoco sé cuánto miden esa planta más tres centímetros,
+ni cuál es la altura promedio del grupo que la incluye. R se niega a inventar, y
+te obliga a decidir tú qué hacer con lo que falta.
+
+Las tres decisiones posibles son siempre las mismas, y hay que tomarlas a
+conciencia: **calcular ignorando los faltantes** (`na.rm = TRUE`), **eliminar las
+filas incompletas** (`filter(!is.na(x))` o `drop_na()`), o **sustituir los
+faltantes por un valor** (lo más peligroso, y casi nunca lo correcto). Ninguna de
+las tres es "la buena": depende de por qué faltan los datos.
+
+::: {.consejo}
+Antes de decidir qué hacer con los `NA`, pregúntate **por qué faltan**. En
+`vuelos`, los `NA` de `horario_salida` no son un descuido: son los vuelos
+**cancelados**. Ese `NA` es información, no ausencia de información. Descartarlos
+sin más equivale a decir "no analicemos las cancelaciones", que puede ser una
+decisión razonable pero tiene que ser una decisión, no un accidente.
+:::
+
 ### ¿Qué pasa con los valores faltantes y resultados de análisis sin sentido?
 
 ```{r c07-3}
@@ -47,6 +77,30 @@ NA - 3
 
 ```
 
+Este bloque parece una lista de curiosidades y en realidad enseña la única regla
+que hay que memorizar, con sus dos excepciones.
+
+La regla: si un `NA` entra en una operación, sale un `NA`. Por eso `NA * 1`,
+`NA - 3`, `NA * 0` y `NA == 1` devuelven todos `NA`. Fíjate especialmente en
+`NA * 0`: uno esperaría cero, porque cualquier número por cero es cero, pero R no
+sabe si ese `NA` era un número; podría ser infinito, y entonces el producto no
+sería cero. Prefiere no comprometerse.
+
+Las dos excepciones son las que aparecen al principio del bloque, y son excepciones
+por una razón lógica: se puede saber el resultado **sin saber el valor que falta**.
+
+- `NA^0` devuelve `1`, porque cualquier número elevado a cero es uno, sea el que
+  sea.
+- `NA | TRUE` devuelve `TRUE`, porque en un "o" basta con que un lado sea cierto.
+  En cambio `NA | FALSE` sí devuelve `NA`, porque ahí todo depende del valor que
+  no conocemos.
+- `FALSE & NA` devuelve `FALSE`, por lo mismo al revés: en un "y" basta con que un
+  lado sea falso. Y `TRUE & NA` devuelve `NA`.
+
+No hay que aprenderse la tabla: hay que aprenderse el razonamiento. Si el
+resultado se puede determinar sin conocer el valor faltante, R lo determina; si
+no, devuelve `NA`.
+
 
 ## Creamos un df para aclarar estas operaciones con NA en un data frame
 
@@ -67,6 +121,13 @@ df=tribble(~values, ~T_F, ~NA_not,
 df
 ```
 
+`tribble()` construye una tabla escribiéndola como se ve, fila por fila, con los
+nombres de las columnas precedidos de `~`. Es muy cómodo para ejemplos pequeños
+como este; para datos de verdad se usa `read_csv()`.
+
+Fíjate en la última fila, que es `NA` en las tres columnas: está puesta a
+propósito para ver qué pasa cuando falta todo.
+
 
 Ahora multiplicamos valores con la variable lógica.
 
@@ -74,6 +135,14 @@ Ahora multiplicamos valores con la variable lógica.
 df |>
   mutate(values_TF = values * T_F)
 ```
+
+Aquí pasa algo que conviene nombrar: se está multiplicando un número por un
+**valor lógico**. R convierte `TRUE` en 1 y `FALSE` en 0, así que la
+multiplicación funciona y el resultado es el número original o un cero. Es el
+mismo mecanismo que hace que `sum()` de una condición cuente los casos.
+
+Y donde hay un `NA` en cualquiera de las dos columnas, el resultado es `NA`, tal
+como manda la regla.
 
 
 Multiplicamos la variable lógica con NA/1/0
@@ -91,11 +160,18 @@ df |>
   mutate(valuesNA = values * NA_not)
 ```
 
+Los tres bloques anteriores hacen lo mismo con distintas combinaciones de columnas
+y sirven para lo mismo: comprobar que la regla no tiene excepciones dentro de un
+`mutate()`. Vale la pena mirar cuántos `NA` hay en cada columna resultante y
+compararlos con los `NA` de las columnas de partida: nunca disminuyen, y a veces
+aumentan, porque un `NA` en cualquiera de los dos operandos contamina el
+resultado.
+
 
 ## Contabilizar los NA
 
 ::: {.funcion}
-**`is.na()`** e **`if_else()`** — detectar y reemplazar valores faltantes.
+**`is.na()`** e **`if_else()`**: detectar y reemplazar valores faltantes.
 
 - **`is.na(x)`:** devuelve `TRUE` donde hay `NA`; con `!is.na(x)` te quedas con lo que NO falta.
 - **`if_else(condición, sí, no)`:** reemplaza según una condición (p. ej. `if_else(is.na(x), 0, x)`).
@@ -106,6 +182,10 @@ df |>
 -   ¿Qué otras variables tienen valores faltantes?
 -   ¿Qué representan estas filas?
 
+Estas tres preguntas son el guion de cualquier revisión seria de datos, y hay que
+contestarlas en ese orden. Cuántos faltan, dónde faltan, y **qué significan**. La
+tercera es la única difícil y la única que importa.
+
 ```{r c07-8}
 vuelos %>%
   dplyr::select(horario_salida, aerolinea) %>%
@@ -114,6 +194,23 @@ vuelos %>%
 
 
 ```
+
+Esta cadena tiene un truco que vale la pena entender. `is.na()` aplicado a una
+tabla de dos columnas devuelve una **matriz** de `TRUE` y `FALSE` del mismo
+tamaño, y `table()` cuenta cuántos de cada uno hay en total, mezclando las dos
+columnas. Sirve para saber si hay faltantes, pero no dice en cuál de las dos.
+
+Para contarlos por columna, que es lo que casi siempre se quiere, hay formas más
+directas:
+
+```{r c07-13, eval=FALSE}
+colSums(is.na(vuelos))                       # NA por columna, en R base
+vuelos |> summarise(across(everything(), ~ sum(is.na(.x))))   # lo mismo, tidyverse
+```
+
+`colSums(is.na(...))` sobre la tabla completa es probablemente la línea más útil
+de este capítulo: en una sola pasada te dice, de las 19 variables, cuáles tienen
+faltantes y cuántos.
 
 
 ## Seleccionar solamente los vuelos donde el "horario de salida" es desconocido
@@ -126,6 +223,17 @@ vuelos %>%
   summarise(n = n())
 
 ```
+
+Este es el patrón para **estudiar** los faltantes en vez de descartarlos:
+filtrarlos con `is.na()` y mirar cómo se distribuyen. Si los vuelos cancelados
+estuvieran repartidos al azar entre los días del mes, todos los días tendrían
+cuentas parecidas. Si se concentran en unos pocos días, hay una explicación
+detrás, casi siempre meteorológica.
+
+Esa es la diferencia entre datos que faltan **al azar** y datos que faltan por una
+razón. En el primer caso, ignorarlos sesga poco; en el segundo, ignorarlos puede
+cambiar la conclusión. Agrupar los faltantes por alguna variable es la manera
+barata de averiguar en cuál de los dos casos estás.
 
 
 ## Otras funciones: NA
@@ -160,10 +268,51 @@ vuelos %>%
   )
 ```
 
+Compara los dos resúmenes de este bloque, porque son la lección central del
+capítulo.
+
+El primero trabaja sobre `no_cancelados`, una tabla en la que las filas con `NA`
+**ya se eliminaron**. Por eso `mean(atraso_salida)` funciona sin `na.rm`.
+
+El segundo trabaja sobre `vuelos` completo y usa `na.rm = TRUE` en cada cálculo.
+Los promedios que salen son prácticamente los mismos que en el primero, porque
+`na.rm = TRUE` hace exactamente lo mismo: descartar los faltantes.
+
+La diferencia está en la columna `n`. En el segundo resumen, `n()` cuenta
+**todas** las filas del grupo, incluidas las canceladas, mientras que la media se
+calculó solo con las que tenían dato. Así que en esa tabla el promedio y el
+tamaño de muestra **no corresponden al mismo conjunto de filas**. Es un desajuste
+que no da ningún aviso y que aparece en muchísimos informes.
+
+::: {.advertencia}
+Si vas a reportar un promedio junto a un `n`, asegúrate de que las dos cifras
+hablen de las mismas filas. La forma segura es filtrar los `NA` una vez al
+principio (`no_cancelados`) y calcular todo sobre esa tabla, o contar
+explícitamente con `n = sum(!is.na(atraso_salida))`.
+:::
+
 
 Reemplazar los NA por "0" en el archivo de datos
 
 Cuál es el problema de reemplazar los NA por 0?
+
+El problema es que se está **inventando un dato**. Un vuelo cancelado no salió con
+cero minutos de atraso: no salió. Al ponerle un cero se le está diciendo a R que
+ese vuelo salió puntualmente, y ese cero entra en el promedio como si fuera una
+observación real.
+
+El efecto es predecible y siempre en la misma dirección: sustituir por cero
+**empuja el promedio hacia cero** y **reduce artificialmente la variabilidad**. Si
+en un grupo de veinte vuelos faltan cinco y se sustituyen por ceros, el promedio
+baja aunque no haya pasado nada en la realidad, y la desviación estándar se
+encoge, porque se añadieron cinco valores todos iguales.
+
+Hay casos en los que sustituir por cero es lo correcto, y se reconocen por una
+pregunta: **¿el `NA` significa "no se midió" o significa "se midió y no había
+nada"?** Si un formulario preguntaba "¿cuántas orquídeas florecieron?" y la
+casilla está vacía porque el observador no fue ese día, es `NA`. Si está vacía
+porque no floreció ninguna, es un cero de verdad, y el problema está en cómo se
+recogieron los datos.
 
 ::: {.peligro}
 Reemplazar `NA` por `0` cambia el significado de los datos: un valor desconocido no es lo mismo que un cero real. Esto distorsiona promedios, sumas y conteos, así que piénsalo bien antes de hacerlo. Encontrarás más errores frecuentes y cómo resolverlos en el capítulo *Errores comunes* (\@ref(errores)).
@@ -190,6 +339,19 @@ datos_NA_df
 
 ```
 
+`if_else()` es la función de sustitución condicional de `dplyr`: recibe una
+condición, el valor que se usa cuando es `TRUE` y el que se usa cuando es `FALSE`.
+Aquí se lee "si el valor falta, pon un cero; si no, deja el que había".
+
+::: {.funcion}
+**`if_else()`, `na_if()`, `replace_na()` y `coalesce()`**: trabajar con faltantes.
+
+- **`if_else(cond, si, no)`:** el caso general. A diferencia de la `ifelse()` de R base, exige que los dos resultados sean del **mismo tipo**, lo cual evita sorpresas silenciosas.
+- **`na_if(x, 0)`:** convierte en `NA` los valores iguales a 0. Es lo que hace falta cuando alguien codificó los faltantes con un número.
+- **`replace_na(x, 0)`:** el camino contrario, sustituye los `NA` por un valor.
+- **`coalesce(x, y)`:** toma el valor de `x` y, donde falte, el de `y`. Útil para completar una columna con otra.
+:::
+
 
 
 
@@ -214,6 +376,24 @@ Datos_df
 
 ```
 
+Este es el caso real que se encuentra todo el mundo al recibir datos de otra
+persona: alguien codificó los faltantes con un cero, o con un `-999`, o con la
+palabra "NA" escrita a mano. Lo primero que hay que hacer al importar esos datos
+es convertir ese código en un `NA` de verdad, y hacerlo **con código**, dentro del
+documento, para que quede constancia de que se hizo.
+
+`na_if(Datos_Excel, 0)` hace exactamente lo mismo que el `if_else()` de este
+bloque y se lee mejor. Y si el archivo viene de un `.csv`, se puede resolver desde
+la importación: `read_csv("archivo.csv", na = c("", "NA", "-999"))`.
+
+::: {.peligro}
+Antes de convertir todos los ceros en `NA`, comprueba que **ningún cero sea un
+cero de verdad**. En una columna de conteos, el cero es un dato perfectamente
+legítimo, y convertirlo en `NA` destruye información igual de grave que el error
+contrario. La comprobación es mirar la columna y preguntarse si un cero tiene
+sentido en ese contexto.
+:::
+
 
 
 
@@ -224,3 +404,154 @@ Datos_df
 ------------------------------------------------------------------------
 
 ****
+
+
+------------------------------------------------------------------------
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los ejercicios usan `diamantes` del paquete `datos` y vectores que
+construyes tú, no `vuelos`, que es el conjunto con el que se enseña en el
+capítulo. Como `diamantes` no tiene valores faltantes, el primer paso es
+fabricarlos, de manera reproducible con `set.seed()`. La hoja completa para
+entregar está en `Ejercicios/Ejercicios_Capitulo_08_faltantes.Rmd`.
+:::
+
+### Ejercicio 1. Predecir antes de correr
+
+::: {.ejercicio}
+Escribe **primero**, en un comentario, qué crees que devuelve cada una de estas
+expresiones, y **después** córrelas:
+
+`NA + 5`, `NA > 5`, `NA == NA`, `NA^0`, `NA | TRUE`, `NA & FALSE`, `NA * 0`,
+`is.na(NA)`, `sum(c(1, NA, 3))`, `sum(c(1, NA, 3), na.rm = TRUE)`.
+
+**Verificación:** exactamente **cinco** de las diez tienen que devolver algo
+distinto de `NA`.
+
+**En palabras:** escoge las dos que no acertaste (o dos cualesquiera si acertaste
+todas) y explica el razonamiento que hace que el resultado sea el que es. La
+palabra clave es "sin saber el valor que falta".
+:::
+
+```{r c07-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Fabricar y contar faltantes
+
+::: {.ejercicio}
+Datos: `diamantes`. Crea `diamantes_na`, una copia en la que **500** precios,
+escogidos al azar, sean `NA`. Usa `set.seed(4026)` para que el resultado sea
+reproducible. Después cuenta los `NA` de **cada** columna de la tabla nueva.
+
+**Verificación:** `sum(is.na(diamantes_na$precio))` tiene que dar exactamente
+**500**, y todas las demás columnas tienen que tener **0**. La tabla tiene que
+seguir teniendo **53,940** filas.
+
+**En palabras:** ¿por qué el número de filas no cambió? Explica la diferencia
+entre "tener un `NA`" y "no tener la fila".
+:::
+
+```{r c07-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Qué hace `na.rm`
+
+::: {.ejercicio}
+Datos: `diamantes_na` del ejercicio anterior. Calcula el precio promedio de tres
+maneras: sin `na.rm`, con `na.rm = TRUE`, y sobre `diamantes` original.
+
+**Verificación:** la primera tiene que devolver `NA`. La segunda y la tercera
+tienen que ser números parecidos pero **no idénticos**.
+
+**En palabras:** ¿por qué la segunda y la tercera no dan exactamente lo mismo?
+¿Sobre cuántos diamantes está calculada cada una?
+:::
+
+```{r c07-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Filtrar sin perder los faltantes
+
+::: {.ejercicio}
+Datos: `diamantes_na`. Construye dos tablas: una con `filter(precio > 15000)` y
+otra con `filter(precio > 15000 | is.na(precio))`.
+
+**Verificación:** la segunda tabla tiene que tener exactamente **500** filas más
+que la primera.
+
+**En palabras:** `filter()` descartó las 500 filas sin decir nada. Describe una
+situación de tu propia área en la que ese descarte silencioso te llevaría a una
+conclusión equivocada.
+:::
+
+```{r c07-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. El cero que no era cero
+
+::: {.ejercicio}
+Alguien te entrega esta columna, donde los faltantes se codificaron con cero:
+`medidas <- c(12, 0, 15, 18, 0, 21, 0, 17)`.
+
+Conviértela en un vector con `NA` de verdad, primero con `if_else()` y después
+con `na_if()`. Calcula el promedio antes y después de la conversión.
+
+**Verificación:** el vector convertido tiene que tener **3** `NA`. El promedio con
+los ceros tiene que ser **menor** que el promedio con `NA` y `na.rm = TRUE`.
+
+**En palabras:** di cuánto bajó el promedio por culpa de los ceros falsos, y
+explica por qué el error va siempre en esa dirección y nunca en la contraria.
+:::
+
+```{r c07-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. El camino contrario
+
+::: {.ejercicio}
+Datos: `diamantes_na`. Crea una columna nueva en la que los precios faltantes se
+sustituyan por **cero**, con `replace_na()` o con `if_else()`. Calcula el promedio
+de esa columna nueva y compáralo con el promedio real.
+
+**Verificación:** el promedio de la columna con ceros tiene que ser
+**notablemente menor** que el promedio con `na.rm = TRUE`, y la nueva columna no
+puede tener ningún `NA`.
+
+**En palabras:** un cero es un valor perfectamente válido para un precio en otros
+contextos. Da un ejemplo de variable en la que sustituir `NA` por cero **sí**
+sería correcto, y explica qué tiene que ser cierto sobre por qué faltan los datos.
+:::
+
+```{r c07-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). Faltan al azar, o no
+
+::: {.ejercicio}
+Datos: `diamantes_na`. Calcula cuántos `NA` de precio hay **por cada corte** y qué
+proporción de cada corte representan. Después haz lo mismo pero fabricando los
+`NA` de otra manera: en vez de al azar, pon `NA` en el precio de **todos** los
+diamantes de corte `"Regular"`.
+
+**Verificación:** en la primera versión las proporciones tienen que ser parecidas
+entre los cinco cortes (alrededor de un 1%). En la segunda, la de `"Regular"`
+tiene que ser **1** y las demás **0**.
+
+**En palabras:** en cuál de las dos versiones es aceptable usar `na.rm = TRUE` y
+reportar el precio promedio general, y por qué en la otra ese promedio estaría
+sesgado. Usa las palabras "faltan al azar".
+:::
+
+```{r c07-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

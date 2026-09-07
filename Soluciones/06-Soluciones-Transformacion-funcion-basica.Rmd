@@ -1,0 +1,262 @@
+---
+title: "Soluciones: Capítulo 7 (Operaciones booleanas y lógicas)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+
+Corresponde a: 06-Transformacion-funcion-basica.Rmd (Capítulo 7 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_07_booleanas.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras.
+
+Este capítulo se corrige sobre todo por la explicación. Varios ejercicios piden
+correr algo que sale raro a propósito: el crédito está en saber **por qué** sale
+raro, no en arreglarlo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: contar sin filtrar
+
+```{r sol06-1}
+sum(diamantes$precio > 15000)     # el conteo
+mean(diamantes$precio > 15000)    # la proporción
+nrow(diamantes)                   # 53940
+
+# comprobación
+mean(diamantes$precio > 15000) * nrow(diamantes)
+```
+
+**Respuesta esperada.** Un conteo de unos pocos miles y una proporción pequeña,
+que multiplicada por 53,940 devuelve el conteo.
+
+Sobre por qué funciona: `diamantes$precio > 15000` no es una tabla, es un vector
+de 53,940 valores lógicos. Cuando una función aritmética recibe un vector lógico,
+R lo **convierte a números**: `TRUE` vale 1 y `FALSE` vale 0. Entonces `sum()`
+suma unos y ceros, que es exactamente contar los `TRUE`, y `mean()` divide esa
+suma entre 53,940, que es exactamente la proporción.
+
+**Punto para discutir en clase.** Es el idioma más útil de todo R base y casi
+nadie lo descubre solo. Vale la pena enseñar de paso
+`mean(diamantes$precio > 15000) * 100` para tenerlo en porcentaje, y señalar que
+con `NA` en la columna habría que añadir `na.rm = TRUE`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: `&` frente a `|`
+
+```{r sol06-2}
+y_logico <- filter(diamantes, corte == "Ideal" & precio < 1000)
+o_logico <- filter(diamantes, corte == "Ideal" | precio < 1000)
+
+nrow(y_logico)
+nrow(o_logico)
+nrow(diamantes)   # 53940
+
+# la consulta imposible
+filter(diamantes, corte == "Ideal" & corte == "Premium") |> nrow()   # 0
+```
+
+**Respuesta esperada.** La tabla del `&` es la más pequeña, la del `|` es mayor
+que cualquiera de las dos condiciones por separado, y las dos son menores que
+53,940.
+
+Sobre la consulta del compañero: devuelve **cero filas**. `corte` es una sola
+columna y cada diamante tiene un solo corte, así que ninguna fila puede tener
+`corte == "Ideal"` y `corte == "Premium"` al mismo tiempo. La condición no es
+difícil de cumplir: es **imposible**.
+
+La versión correcta:
+
+```{r sol06-2b}
+filter(diamantes, corte %in% c("Ideal", "Premium"))
+# o, equivalente
+filter(diamantes, corte == "Ideal" | corte == "Premium")
+```
+
+**Punto para discutir en clase.** El origen del error es lingüístico, no lógico.
+En español decimos "quiero los Ideal **y** los Premium" queriendo decir la unión
+de los dos grupos, mientras que `&` pide la intersección. Vale la pena decirlo en
+voz alta: cuando la frase en español dice "y" pero se refiere a **grupos** y no a
+**condiciones sobre la misma fila**, lo que hay que escribir es `%in%`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: excluir con `!` y `%in%`
+
+```{r sol06-3}
+sin_de <- filter(diamantes, !color %in% c("D", "E"))
+con_de <- filter(diamantes,  color %in% c("D", "E"))
+
+length(unique(sin_de$color))   # 5
+sort(unique(sin_de$color))
+nrow(sin_de) + nrow(con_de)    # 53940
+
+# la versión larga
+larga <- filter(diamantes, !color == "D" & !color == "E")
+nrow(larga) == nrow(sin_de)    # TRUE
+```
+
+**Respuesta esperada.** Cinco colores (F, G, H, I, J) y las dos tablas suman
+53,940. Las dos versiones dan el mismo número de filas.
+
+Sobre cuál preferir: `!color %in% c("D", "E")` es mejor por dos razones. Escala:
+con cinco colores que excluir, la versión larga necesita cinco condiciones unidas
+por `&` y la corta solo alarga el vector. Y se lee como la frase original: "que el
+color no esté entre estos". La versión larga, además, invita a un error muy común:
+escribir `!color == "D" | !color == "E"`, que con `|` devuelve **toda** la tabla,
+porque todo color que no sea D cumple la primera mitad.
+
+**Punto para discutir en clase.** Buen sitio para las leyes de De Morgan sin
+llamarlas así: negar un "o" da un "y", y negar un "y" da un "o". Ponerlo con este
+ejemplo concreto en la pizarra ahorra muchos errores después.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: `between()`
+
+```{r sol06-4}
+v1 <- filter(diamantes, quilate >= 1 & quilate <= 2)
+v2 <- filter(diamantes, between(quilate, 1, 2))
+
+nrow(v1); nrow(v2)          # iguales
+min(v2$quilate)             # 1
+max(v2$quilate)             # 2
+```
+
+**Respuesta esperada.** El mismo número de filas en las dos versiones, mínimo
+exactamente 1 y máximo exactamente 2.
+
+Sobre los extremos: `between()` los **incluye**, es decir, es `>=` y `<=`. La
+comprobación con datos es la que pide el ejercicio: si `min()` del resultado
+devuelve exactamente 1, entonces los diamantes de exactamente un quilate se
+quedaron dentro. Si los excluyera, el mínimo sería algo como 1.01. Lo mismo por
+arriba con el 2.
+
+**Punto para discutir en clase.** Insistir en que comprobar con los datos vale más
+que fiarse de la memoria. La ayuda también lo dice, pero cuando se trabaja con
+datos reales conviene coger la costumbre de verificar los bordes: los errores por
+un caso en el límite son de los más difíciles de ver.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: la lógica de los `NA`
+
+```{r sol06-5}
+x <- c(3, 7, NA, 12)
+tabla_x <- tibble(x = x)
+
+x > 5                    # FALSE TRUE NA TRUE
+x == NA                  # NA NA NA NA
+is.na(x)                 # FALSE FALSE TRUE FALSE
+sum(x)                   # NA
+sum(x, na.rm = TRUE)     # 22
+
+filter(tabla_x, x > 5)   # 2 filas: 7 y 12
+```
+
+**Respuesta esperada.** Exactamente los valores de arriba. Los dos que hay que
+mirar son `x == NA`, que da cuatro `NA` y no un solo `TRUE`, y el `filter()`, que
+devuelve **2** filas y no 3.
+
+Sobre por qué `NA == NA` no es `TRUE`, sin mencionar a R: `NA` no es un valor, es
+la ausencia de un valor. Si en una libreta hay dos casillas en blanco, no se puede
+afirmar que las dos mediciones que faltan fueran iguales; lo único que se sabe es
+que no se sabe. Preguntar si dos incógnitas son iguales tiene por respuesta "no se
+sabe", que es justamente `NA`. La analogía que suele funcionar en clase: la edad
+de dos personas cuya edad desconocemos no es "la misma", es "no sé".
+
+Sobre el `filter()`: la condición `NA > 5` devuelve `NA`, y `filter()` conserva
+únicamente las filas donde la condición es `TRUE`. Un `NA` no es `TRUE`, así que
+esa fila se descarta. Y se descarta **en silencio**: no hay advertencia ni mensaje.
+Para conservarla habría que escribir `filter(tabla_x, x > 5 | is.na(x))`.
+
+**Punto para discutir en clase.** Es el puente directo al capítulo siguiente. La
+pregunta que vale la pena dejar en el aire: si filtras una tabla por
+`atraso_salida > 60` y después reportas "el 3% de los vuelos se atrasa mucho",
+¿sobre qué denominador está calculado ese 3%, y dónde quedaron los cancelados?
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: la precedencia
+
+```{r sol06-6}
+a <- filter(diamantes, corte == "Ideal" | corte == "Premium" & precio < 500)
+b <- filter(diamantes, (corte == "Ideal" | corte == "Premium") & precio < 500)
+
+nrow(a)
+nrow(b)
+
+max(a$precio)   # muy alto: hay Ideal caros
+max(b$precio)   # menor de 500
+```
+
+**Respuesta esperada.** `a` es mucho mayor que `b`. En `b` todos los precios son
+menores de 500; en `a`, no, y `max(a$precio)` lo demuestra.
+
+Sobre qué pregunta contesta cada una:
+
+- **(a)** `corte == "Ideal" | (corte == "Premium" & precio < 500)`, porque `&` se
+  evalúa antes que `|`. Se lee: "todos los Ideal, del precio que sean, **más** los
+  Premium baratos". Por eso incluye diamantes Ideal de 18,000 dólares.
+- **(b)** "los que sean Ideal o Premium, **y además** cuesten menos de 500". Es la
+  traducción correcta de la frase del enunciado.
+
+La respuesta a la última pregunta es (b), y la lección es que los paréntesis no
+son opcionales cuando se mezclan `&` y `|`.
+
+**Punto para discutir en clase.** Este error no produce ningún aviso y devuelve
+una tabla perfectamente razonable, solo que con 20,000 filas de más. Es el
+argumento más fuerte del curso a favor de comprobar siempre el resultado de un
+filtro con `nrow()` y con un `max()` o un `range()` sobre la variable filtrada.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): ordenar con dos claves
+
+```{r sol06-7}
+diamantes |>
+  arrange(corte, desc(precio)) |>
+  select(corte, quilate, color, precio) |>
+  head(15)
+
+range(diamantes$precio)   # 326 18823
+levels(diamantes$corte)
+```
+
+**Respuesta esperada.** Quince filas. Las primeras son de corte `Regular` (el
+primer nivel del factor) con los precios más altos dentro de ese corte.
+
+Sobre el orden: aparecen en **orden de calidad**, de `Regular` a `Ideal`, no en
+orden alfabético. `corte` es un factor **ordenado**, así que R conoce la relación
+entre los niveles y `arrange()` la respeta. En orden alfabético, `Bueno` iría
+antes que `Ideal`, `Muy bueno`, `Premium` y `Regular`, un orden que no significa
+nada.
+
+Si `corte` fuera texto corriente (`character`), `arrange()` ordenaría
+alfabéticamente. Además se perdería la comparación: con un factor ordenado se
+puede escribir `corte > "Bueno"` y tiene sentido; con texto, esa comparación
+compara cadenas letra por letra.
+
+**Punto para discutir en clase.** Es el adelanto del capítulo de factores. La
+pregunta que conviene dejar planteada: si el orden alfabético coincidiera por
+casualidad con el de calidad, ¿cómo sabrías que tu código está bien por la razón
+correcta y no por suerte? La respuesta es mirar `levels()`, y esa es la costumbre
+que hay que sembrar.

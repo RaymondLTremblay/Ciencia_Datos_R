@@ -18,12 +18,17 @@ https://raymondltremblay.github.io/Ciencia_Datos_R/.
 
 ## Build system (bookdown — NOT an rmarkdown website)
 
-- Build with `bookdown::render_book()` from the project root. Output goes to
-  **`docs/`** (see `_bookdown.yml: output_dir`).
+- Build with `source("construir_libro.R")` from the project root, **not** the
+  RStudio *Build* button: that script limpia los temporales antes y después.
+  Output goes to **`docs/`** (see `_bookdown.yml: output_dir`).
+- **HTML only.** El libro se construye únicamente como `bookdown::gitbook`. El
+  PDF y el ePub se quitaron en septiembre de 2026 (ver más abajo). No los
+  vuelvas a añadir a `_output.yml` sin que el autor lo pida.
 - **Chapter order and inclusion are controlled by `_bookdown.yml`** (the
   `rmd_files:` list). A `.Rmd` NOT listed there is not part of the book — this is
   how scratch files and Dropbox "conflicted copy" files stay out of the build.
-- Output format is in `_output.yml` (`bookdown::gitbook`, `css: style.css`).
+- Output format is in `_output.yml` (`bookdown::gitbook`, `css: style.css`), y
+  es el único formato listado.
 - There is a sibling, older repo `Ciencia-de-Datos-con-R` (an rmarkdown *website*
   with `_site.yml`). This repo (`Ciencia_Datos_R`, bookdown) is the current one.
 
@@ -123,6 +128,14 @@ Hechos, con las tres piezas (cajas en el capítulo + `Ejercicios/` + `Soluciones
 
 | Cap. | Archivo | Ejercicios |
 |:--|:--|--:|
+| 2 | `01-Instalacion-de-paquetes.Rmd` | 5 + bono |
+| 3 | `02-Flujo-de-trabajo.Rmd` | 6 + bono |
+| 4 | `03-Visualizacion-Datos.Rmd` | 7 + bono |
+| 5 | `04-Calculadora-sofisticada.Rmd` | 6 + bono |
+| 6 | `05-Transformacion-estructura.Rmd` | 6 + bono |
+| 7 | `06-Transformacion-funcion-basica.Rmd` | 6 + bono |
+| 8 | `07-Transformacion-valores-faltantes.Rmd` | 6 + bono |
+| 9 | `08-Transformacion-selecionar-variables.Rmd` | 6 + bono |
 | 10 | `09-Transformacion-mutate.Rmd` | 8 + bono |
 | 11 | `10-Transformacion-rank.Rmd` | 8 + bono |
 | 12 | `11-Transformacion-funcion-estadistica.Rmd` | 8 + bono |
@@ -147,7 +160,8 @@ Hechos, con las tres piezas (cajas en el capítulo + `Ejercicios/` + `Soluciones
 | 31 | `31-tidyverse-avanzado.Rmd` | 6 + bono |
 | 32 | `26-Leaflet-mapa-interactivo.Rmd` | 6 + bono |
 
-Pendientes: los capítulos 2 a 9, los anteriores a `mutate`.
+Todos los capítulos del libro (2 a 32) tienen ya las tres piezas. El Capítulo 1
+es `index.Rmd`, la portada y el programa del curso, y no lleva ejercicios.
 
 **Apéndices retirados (sept. 2026).** Los tres apéndices de ejercicios del formato
 viejo (`27-Ejercicios-transformacion.Rmd`, `28-Ejercicios-transformacion-2.Rmd` y
@@ -175,7 +189,9 @@ Dos capítulos se salen del molde y está bien que lo hagan:
   resultado numérico.
 
 Conjuntos de datos usados en los ejercicios, para no repetirlos: `millas` y
-`paises` son los caballos de batalla; `diamantes` en el capítulo 14;
+`paises` son los caballos de batalla; `diamantes` en los capítulos 7, 8 y 14;
+`vuelos` en el 5 (los capítulos 6 a 9 **enseñan** con `vuelos`, así que sus
+ejercicios usan `millas` o `diamantes`);
 `Datos/crimen_pr.csv` (8870 filas, 7 columnas, del gobierno de PR) en el 18, que
 tiene nombres de columna intercambiados y 733 faltantes, y por eso sirve muy bien
 para enseñar importación.
@@ -190,9 +206,11 @@ función y por qué importa, una caja `.funcion` por función nueva, una caja
 puedan correr.
 
 Convención de estilo del autor: **no se usan guiones largos** en la prosa; se
-usan comas, dos puntos, punto y coma o paréntesis. Las cajas `.funcion` nuevas
-separan el título del resto con dos puntos, no con guion largo. Los capítulos
-anteriores todavía tienen guiones largos de una revisión vieja.
+usan comas, dos puntos, punto y coma o paréntesis. Las cajas `.funcion` separan
+el título del resto con dos puntos, no con guion largo. En septiembre de 2026 se
+barrió el libro entero: **quedan cero guiones largos** en los `.Rmd` del libro,
+en `Ejercicios/` y en `Soluciones/`. Antes de cada entrega conviene comprobarlo
+con `grep -c "—" *.Rmd`.
 
 ## Limpieza del proyecto (sept. 2026)
 
@@ -238,3 +256,88 @@ Pendiente de decisión (nada de esto se tocó):
   `24-HEX-stickers.Rmd` y `26-Leaflet-mapa-interactivo.Rmd`).
 - PENDIENTE: `geom_hex()` se usa en `34-Modelos-modelr.Rmd` pero `hexbin` no está
   en `01-Instalacion-de-paquetes.Rmd`.
+
+## Cifras verificadas de los conjuntos de datos (no inventar otras)
+
+Estas cifras están comprobadas contra la salida ya renderizada en `docs/` o
+contra los archivos de `Datos/`. Las líneas de "Verificación" de los ejercicios
+solo deben usar números de esta lista; si hace falta uno que no está, se deja la
+verificación en términos estructurales ("tu tabla debe tener menos filas que…")
+en vez de inventar una cifra.
+
+- `millas`: **234 x 11**; 5 columnas numéricas (`cilindrada`, `anio`,
+  `cilindros`, `ciudad`, `autopista`) y 6 de texto; **7** clases
+  (`suv` = 62 es la más común, `2seater` = 5 la menor) y **15** fabricantes;
+  `pickup` es la clase de menor rendimiento en `autopista`.
+- `diamantes`: **53,940 x 10**; `max(precio)` = **18,823**,
+  `min(precio)` = **326**; `corte` es un factor **ordenado**
+  `Regular < Bueno < Muy bueno < Premium < Ideal`; `color` tiene 7 niveles.
+- `paises`: **1,704 x 6**; 142 países por 12 años; **5** continentes; África es
+  el continente con más países.
+- `vuelos`: **336,776 x 19**; **8,255** `NA` en `atraso_salida`.
+- `Datos/crimen_pr.csv`: 8,870 filas, 7 columnas; `Delito` y `Delitos_code`
+  están intercambiados; `POINT_X` es la latitud y `POINT_Y` la longitud.
+- `Datos/el_quijote.txt`: guarda los acentos en Unicode **descompuesto** (NFD),
+  así que `había` se parte en `habi` + `a`; hay que normalizar con
+  `stringi::stri_trans_nfc()` antes de contar palabras.
+
+## Encabezados de chunk malformados
+
+Aparecieron varias veces encabezados con una etiqueta vieja colada como segundo
+argumento sin nombre, por ejemplo `` ```{r c26-8, tipos de datos str} ``. knitr a
+veces los tolera y a veces no, y cuando falla el mensaje no señala la línea. Al
+revisar un capítulo hay que comprobar que **todo argumento después de la etiqueta
+lleve un `=`**. Los encontrados hasta ahora ya están corregidos (`c04-20`,
+`c06-11`, `c16-11`, `c24-4`, `c26-8`, `c26-13`).
+
+
+## PDF y ePub retirados (septiembre 2026), y el error de LaTeX
+
+El libro se construía en tres formatos. El paso del PDF fallaba una y otra vez
+con
+
+```
+! File ended while scanning use of \@writefile.
+! File ended while scanning use of \@newl@bel.
+```
+
+**El error nunca estuvo en los `.Rmd`.** Estaba en `Ciencia_Datos_con_R.aux`,
+que Dropbox truncaba mientras xelatex lo escribía. Se vio cortado en 8192 bytes
+y en 163,840 bytes: los dos son múltiplos exactos de 4096, la firma de un
+archivo cortado por la sincronización, no por LaTeX. En el pase siguiente
+xelatex leía ese archivo a la mitad de un comando y se detenía.
+
+Como el autor no usa el PDF ni el ePub, los dos formatos se quitaron de
+`_output.yml` en vez de seguir peleando con ellos. También se quitó la línea
+`download: ["pdf", "epub"]` de la configuración de gitbook, que ponía en cada
+página un botón de descarga hacia archivos que ya no existen, y se borraron
+`docs/Ciencia_Datos_con_R.pdf` y `docs/Ciencia_Datos_con_R.epub`.
+`preamble.tex` se movió a `_archivado/`, con las instrucciones para restaurar
+el PDF si algún día hace falta.
+
+Si el error reaparece, es que alguien volvió a añadir un formato de LaTeX.
+Diagnóstico en treinta segundos:
+
+1. `wc -c Ciencia_Datos_con_R.aux`. Si el tamaño es múltiplo exacto de 4096, está truncado.
+2. `tail -c 200 Ciencia_Datos_con_R.aux`. Si termina a mitad de un comando, confirmado.
+3. `grep -n "^!" Ciencia_Datos_con_R.log`. Un solo `!` apunta siempre al mismo sitio.
+
+Arreglo: borrar `Ciencia_Datos_con_R.{aux,log,tex,toc,lof,lot,out,Rmd,knit.md}`
+y volver a construir. El HTML no se veía afectado: `docs/` se construye primero
+y quedaba bien.
+
+`construir_libro.R` limpiaba **solo al final**, así que cuando el render se
+detenía la limpieza nunca corría y el `.aux` roto envenenaba también el intento
+siguiente. Ahora limpia **al empezar** y usa `on.exit()` para limpiar aunque el
+render falle.
+
+La causa de raíz sigue viva para lo demás: el proyecto se construye dentro de
+Dropbox. Es la misma causa de los errores de bus de git, de las carpetas
+`file<hex>` que no se dejan borrar y de las copias en conflicto. Pausar la
+sincronización durante compilaciones largas sigue siendo buena idea.
+
+**Nota sobre `libs/` en la raíz.** El render de sept. 2026 borró la carpeta
+`libs/` de la raíz (155 archivos). Es correcto: el sitio usa `docs/libs/`, y
+todas las páginas la referencian como `libs/...` relativo a `docs/`. La de la
+raíz era un resto del repositorio viejo de rmarkdown (`_site.yml`). No hay que
+restaurarla.

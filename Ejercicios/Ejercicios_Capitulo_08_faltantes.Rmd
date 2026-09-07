@@ -1,0 +1,218 @@
+---
+title: "Ejercicios del Capítulo 8"
+subtitle: "Valores faltantes: NA, is.na(), na.rm, na_if() y replace_na()"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 8 del libro del curso.
+
+Los ejercicios usan `diamantes` del paquete `datos` y vectores que construyes tú,
+no `vuelos`, que es el conjunto con el que se enseña en el capítulo. Como
+`diamantes` no tiene valores faltantes, el Ejercicio 2 empieza por fabricarlos, de
+manera reproducible con `set.seed()`. **Los ejercicios 3, 4, 6 y 7 dependen de la
+tabla que construyas en el 2**, así que hazlos en orden.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra y produzca el valor o la tabla.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*. Si el
+documento no compila, no se puede corregir.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Predecir antes de correr: la aritmética de `NA` | 5 |
+| 2 | Fabricar y contar faltantes | 5 |
+| 3 | Qué hace `na.rm` | 5 |
+| 4 | Filtrar sin perder los faltantes | 5 |
+| 5 | El cero que no era cero: `na_if()` | 5 |
+| 6 | El camino contrario: `replace_na()` | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Faltan al azar, o no | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre y se
+muestra (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+---
+
+# Ejercicio 1. Predecir antes de correr (5 puntos)
+
+Escribe **primero**, en comentarios, qué crees que devuelve cada expresión, y
+**después** córrelas.
+
+*Verifica:* exactamente **cinco** de las diez devuelven algo distinto de `NA`.
+
+```{r ej1}
+# Tu predicción va en el comentario, al lado de cada línea
+
+NA + 5
+NA > 5
+NA == NA
+NA^0
+NA | TRUE
+NA & FALSE
+NA * 0
+is.na(NA)
+sum(c(1, NA, 3))
+sum(c(1, NA, 3), na.rm = TRUE)
+```
+
+**Explicación en palabras.** Escoge dos que no acertaste (o dos cualesquiera) y
+explica el razonamiento que hace que el resultado sea el que es. La frase clave es
+"sin saber el valor que falta".
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 2. Fabricar y contar faltantes (5 puntos)
+
+Crea `diamantes_na`, una copia de `diamantes` en la que **500** precios escogidos
+al azar sean `NA`. Después cuenta los `NA` de cada columna.
+
+*Verifica:* `sum(is.na(diamantes_na$precio))` da **500**; las demás columnas dan
+**0**; la tabla sigue teniendo **53,940** filas.
+
+```{r ej2}
+set.seed(4026)
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿Por qué el número de filas no cambió? Explica la
+diferencia entre "tener un `NA`" y "no tener la fila".
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 3. Qué hace `na.rm` (5 puntos)
+
+Calcula el precio promedio de tres maneras: sobre `diamantes_na` sin `na.rm`,
+sobre `diamantes_na` con `na.rm = TRUE`, y sobre `diamantes` original.
+
+*Verifica:* la primera da `NA`; la segunda y la tercera son parecidas pero **no
+idénticas**.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿Por qué la segunda y la tercera no dan exactamente
+lo mismo? ¿Sobre cuántos diamantes está calculada cada una?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 4. Filtrar sin perder los faltantes (5 puntos)
+
+Construye dos tablas a partir de `diamantes_na`: una con `filter(precio > 15000)`
+y otra con `filter(precio > 15000 | is.na(precio))`.
+
+*Verifica:* la segunda tiene exactamente **500** filas más que la primera.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** `filter()` descartó las 500 filas sin decir nada.
+Describe una situación de tu propia área en la que ese descarte silencioso te
+llevaría a una conclusión equivocada.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 5. El cero que no era cero (5 puntos)
+
+```{r ej5-datos}
+medidas <- c(12, 0, 15, 18, 0, 21, 0, 17)
+```
+
+Conviértelo en un vector con `NA` de verdad, primero con `if_else()` y después con
+`na_if()`. Calcula el promedio antes y después.
+
+*Verifica:* el vector convertido tiene **3** `NA`; el promedio con ceros es
+**menor** que el promedio con `NA` y `na.rm = TRUE`.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿Cuánto bajó el promedio por culpa de los ceros
+falsos? ¿Por qué el error va siempre en esa dirección y nunca en la contraria?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 6. El camino contrario (5 puntos)
+
+Sobre `diamantes_na`, crea una columna en la que los precios faltantes se
+sustituyan por **cero**. Calcula su promedio y compáralo con el real.
+
+*Verifica:* el promedio con ceros es notablemente menor; la columna nueva no tiene
+ningún `NA`.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Da un ejemplo de variable en la que sustituir `NA`
+por cero **sí** sería correcto, y explica qué tiene que ser cierto sobre por qué
+faltan los datos.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 7 (BONO). Faltan al azar, o no (5 puntos adicionales)
+
+Calcula cuántos `NA` de precio hay por cada `corte` en `diamantes_na` y qué
+proporción de cada corte representan. Después fabrica una segunda versión donde el
+precio sea `NA` en **todos** los diamantes de corte `"Regular"`, y repite el
+cálculo.
+
+*Verifica:* en la primera versión las proporciones son parecidas entre los cinco
+cortes (alrededor de 1%). En la segunda, la de `"Regular"` es **1** y las demás
+**0**.
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿En cuál de las dos versiones es aceptable usar
+`na.rm = TRUE` y reportar el precio promedio general? ¿Por qué en la otra ese
+promedio estaría sesgado? Usa las palabras "faltan al azar".
+
+> *Escribe aquí tu respuesta:*

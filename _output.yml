@@ -1,3 +1,14 @@
+# El libro se construye SOLO en HTML (gitbook).
+#
+# El PDF (bookdown::pdf_book) y el ePub (bookdown::epub_book) se quitaron en
+# septiembre de 2026: no se usaban y el paso de LaTeX fallaba de forma repetida
+# porque Dropbox truncaba los archivos auxiliares mientras xelatex los escribia.
+# Ver la seccion correspondiente de CLAUDE.md.
+#
+# Si algun dia hace falta el PDF: restaurar preamble.tex desde _archivado/ y
+# volver a anadir aqui el bloque bookdown::pdf_book, y devolver la linea
+# download: ["pdf"] a la configuracion de abajo.
+
 bookdown::gitbook:
   css: style.css
   config:
@@ -7,15 +18,8 @@ bookdown::gitbook:
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con bookdown</a></li>
     edit: https://github.com/RaymondLTremblay/Ciencia_Datos_R/edit/main/%s
-    download: ["pdf", "epub"]
     sharing:
       github: yes
       facebook: no
       twitter: no
       all: ["facebook", "twitter", "linkedin"]
-bookdown::pdf_book:
-  latex_engine: xelatex
-  includes:
-    in_header: preamble.tex
-  keep_tex: no
-bookdown::epub_book: default

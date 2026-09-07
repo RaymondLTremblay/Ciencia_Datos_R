@@ -1,0 +1,225 @@
+---
+title: "Ejercicios del Capítulo 7"
+subtitle: "Operaciones booleanas y lógicas: &, |, !, %in%, between() y los NA"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 7 del libro del curso.
+
+Los ejercicios usan `diamantes` del paquete `datos`, no `vuelos`, que es el
+conjunto con el que se enseña en el capítulo.
+
+Este capítulo trata de **cómo piensa R una condición**. Varios ejercicios te piden
+correr algo que da un resultado raro a propósito: no lo arregles, explícalo.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra y produzca la tabla o el valor.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*. Si el
+documento no compila, no se puede corregir.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Contar sin filtrar: `sum()` y `mean()` de una condición | 5 |
+| 2 | `&` frente a `\|` | 5 |
+| 3 | Excluir con `!` y `%in%` | 5 |
+| 4 | `between()` y los extremos | 5 |
+| 5 | La lógica de los `NA` | 5 |
+| 6 | La precedencia de `&` sobre `\|` | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Ordenar con dos claves y factores ordenados | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre y se
+muestra (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+```{r explorar, eval=FALSE}
+glimpse(diamantes)
+nrow(diamantes)   # 53940
+```
+
+---
+
+# Ejercicio 1. Contar sin filtrar (5 puntos)
+
+**Sin usar `filter()`**, y usando solo `sum()` y `mean()` sobre una condición,
+averigua cuántos diamantes cuestan más de 15,000 dólares y qué proporción del
+total representan.
+
+*Verifica:* la proporción queda entre 0 y 1, y multiplicada por 53,940 devuelve tu
+conteo.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿Por qué `sum()` de una condición devuelve un conteo?
+¿Qué valor numérico tienen `TRUE` y `FALSE` para R?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 2. `&` frente a `|` (5 puntos)
+
+Construye dos tablas: una con corte `"Ideal"` **y** precio menor de 1,000; otra
+con corte `"Ideal"` **o** precio menor de 1,000.
+
+*Verifica:* la del `&` tiene menos filas que la del `|`; las dos tienen menos de
+53,940.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+Ahora la consulta de tu compañero:
+
+```{r ej2-mal}
+filter(diamantes, corte == "Ideal" & corte == "Premium") |> nrow()
+```
+
+**Explicación en palabras.** ¿Cuántas filas devolvió y por qué? Escribe la versión
+correcta.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 3. Excluir con `!` y `%in%` (5 puntos)
+
+`color` tiene 7 niveles. Construye una tabla que excluya `"D"` y `"E"`, usando `!`
+y `%in%`.
+
+*Verifica:* quedan exactamente **5** colores distintos, y tu tabla más la
+complementaria suman **53,940**.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Prueba también
+`filter(diamantes, !color == "D" & !color == "E")`. ¿Da lo mismo? ¿Cuál prefieres y
+por qué?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 4. `between()` (5 puntos)
+
+Quédate con los diamantes de `quilate` entre 1 y 2, extremos incluidos, primero
+con `>=` y `<=` y después con `between()`.
+
+*Verifica:* las dos versiones dan el **mismo** número de filas; en el resultado,
+`min(quilate)` es 1 y `max(quilate)` es 2.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿`between()` incluye o excluye los extremos? Explica
+cómo lo comprobaste **con los datos**, no solo con la ayuda.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 5. La lógica de los `NA` (5 puntos)
+
+```{r ej5-datos}
+x <- c(3, 7, NA, 12)
+tabla_x <- tibble(x = x)
+```
+
+Evalúa `x > 5`, `x == NA`, `is.na(x)`, `sum(x)` y `sum(x, na.rm = TRUE)`. Después
+usa `filter(tabla_x, x > 5)` y mira cuántas filas quedan.
+
+*Verifica:* `x > 5` tiene un `NA` en la tercera posición, no un `FALSE`;
+`x == NA` da **cuatro** `NA`; el `filter()` devuelve **2** filas.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Explica por qué `NA == NA` no es `TRUE`, con una frase
+que no mencione a R. ¿Qué pasó con la fila del `NA` en el `filter()`?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 6. La precedencia (5 puntos)
+
+Corre estas dos y compara el número de filas:
+
+```{r ej6a}
+filter(diamantes, corte == "Ideal" | corte == "Premium" & precio < 500) |> nrow()
+```
+
+```{r ej6b}
+filter(diamantes, (corte == "Ideal" | corte == "Premium") & precio < 500) |> nrow()
+```
+
+*Verifica:* los números son muy distintos. En la versión (b) todos los precios son
+menores de 500; en la (a), no. Compruébalo.
+
+```{r ej6}
+# Comprueba aquí los precios de cada versión
+
+```
+
+**Explicación en palabras.** ¿Qué pregunta contesta cada una? ¿Cuál habrías
+escrito para "los diamantes Ideal o Premium que cuesten menos de 500"?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 7 (BONO). Ordenar con dos claves (5 puntos adicionales)
+
+Ordena `diamantes` por `corte` y, dentro de cada corte, por `precio` de mayor a
+menor. Quédate con las 15 primeras filas y las columnas `corte`, `quilate`,
+`color` y `precio`.
+
+*Verifica:* el precio máximo del conjunto es **18,823** y el mínimo **326**.
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** `corte` es un factor ordenado
+(`Regular < Bueno < Muy bueno < Premium < Ideal`). ¿En qué orden aparecen los
+cortes en tu resultado, alfabético o de calidad? ¿Por qué? ¿Qué habría pasado si
+`corte` fuera texto corriente?
+
+> *Escribe aquí tu respuesta:*

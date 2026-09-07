@@ -41,6 +41,26 @@ Mirar el archivo y entender la información antes de hacer cualquier analisis/
 
 Evalua en este archivo los tipos de variables que se encuentra.
 
+Esa línea de abreviaturas que aparece debajo de los nombres de las columnas es lo
+primero que hay que leer de un tibble, y casi nadie la lee. Dice el **tipo** de
+cada variable, y el tipo determina qué se puede hacer con ella. Una columna que
+debería ser numérica y aparece como `<chr>` es una columna rota: no se le puede
+sacar el promedio, no se ordena bien y las gráficas salen mal. Detectarlo aquí,
+en el primer vistazo, ahorra horas.
+
+El otro dato importante es el de la primera línea: `# A tibble: 336,776 x 19`.
+Son 336,776 vuelos y 19 variables. Cada fila es **un vuelo** que salió de uno de
+los tres aeropuertos de Nueva York en 2013. Saber qué representa una fila es la
+pregunta que hay que contestar antes de calcular nada, porque de ella depende el
+significado de cualquier promedio que se calcule después.
+
+::: {.consejo}
+`glimpse(vuelos)` es una alternativa a escribir el nombre: en vez de mostrar las
+primeras filas a lo ancho, muestra **todas las columnas**, una por línea, con su
+tipo y sus primeros valores. Con tablas anchas es mucho más útil, porque no se
+pierden columnas por falta de espacio.
+:::
+
 ```{r c05-3}
 vuelos
 ```
@@ -54,12 +74,31 @@ sort(unique(vuelos$destino))
 
 ```
 
+Dos funciones encadenadas de dentro hacia afuera: `unique()` se queda con los
+valores distintos y `sort()` los ordena alfabéticamente. El resultado son los
+códigos de aeropuerto de la IATA, los mismos que aparecen en un boleto de avión:
+`SJU` es Luis Muñoz Marín, `BQN` es Aguadilla, `PSE` es Ponce.
+
+Este es el paso obligatorio antes de filtrar por una variable categórica. Filtrar
+por `destino == "San Juan"` no devuelve nada, y el error no es un error: es una
+tabla vacía, que es mucho peor, porque parece un resultado. Mirar primero los
+valores que existen evita ese callejón.
+
 ### Selecciona los vuelos donde el destino es San Juan
 
 ```{r c05-5}
 vuelos %>%
   filter(destino=="SJU")
 ```
+
+`filter()` se queda con las **filas** que cumplen la condición. La condición se
+evalúa fila por fila y produce un `TRUE` o un `FALSE`; se conservan las que dan
+`TRUE`.
+
+Los operadores de comparación son `==` (igual), `!=` (distinto), `>`, `<`, `>=` y
+`<=`. Para combinar varias condiciones están `&` (y), `|` (o) y `!` (no). Y hay
+un atajo muy usado: separar las condiciones con comas dentro del mismo `filter()`
+equivale a unirlas con `&`.
 
 ### Selecciona los vuelos donde el destino es San Juan el día de navidad
 
@@ -84,6 +123,25 @@ unique(vuelos$aerolinea)
 # |>  pipe Command shift M
 ```
 
+Compara los dos bloques. El primero pide una sola aerolínea con `==`. El segundo
+pide dos con `%in%`, y ahí está la lección: `%in%` pregunta si el valor
+**pertenece** a un conjunto. Sin él habría que escribir
+`aerolinea == "AA" | aerolinea == "UA"`, que ya con cuatro aerolíneas se vuelve
+ilegible.
+
+::: {.peligro}
+El error clásico aquí es escribir `aerolinea == c("AA", "UA")`. R no da error: hace
+una comparación reciclando el vector, es decir compara la primera fila con `"AA"`,
+la segunda con `"UA"`, la tercera con `"AA"` otra vez, y así. El resultado es una
+tabla que parece razonable y contiene aproximadamente la mitad de los vuelos que
+debería. Es un error silencioso, y por eso `%in%` no es un lujo.
+:::
+
+Fíjate también en que las tres condiciones del primer bloque están en tres
+`filter()` separados, y las del segundo, dos de ellas juntas
+(`filter(mes==12, dia==25)`). Las dos formas son equivalentes; separarlas ayuda a
+leer, juntarlas ahorra líneas.
+
 ### Selecciona los vuelos que salen de San Juan en el dia de ti cumpleaños y contabiliza cuanto hubo
 
 ```{r c05-7}
@@ -94,6 +152,11 @@ filter(destino =="SJU") %>%
 
 df_dia_cumpl
 ```
+
+Aquí el resultado de la cadena no es una tabla sino un número, porque el último
+paso es `nrow()`. Es un patrón que se usa mucho: filtrar y contar. Nota además que
+la cadena mezcla los dos pipes, `%>%` y `|>`; funciona porque para lo que hacemos
+aquí son intercambiables, pero conviene escoger uno y ser consistente.
 
 #### Organizar los datos en orden de más grande a más pequeño
 
@@ -111,6 +174,32 @@ vuelos %>%
   filter(destino =="SJU") %>% 
   arrange(desc(atraso_salida))
 ```
+
+`arrange()` **ordena las filas**. Por defecto de menor a mayor, y con `desc()`
+alrededor de la variable, de mayor a menor. Se le pueden dar varias variables:
+`arrange(mes, desc(atraso_salida))` ordena por mes y, dentro de cada mes, por
+atraso descendente.
+
+Un detalle que sorprende: los `NA` **siempre van al final**, tanto en orden
+ascendente como descendente. R los trata como "no sé dónde va esto" y los deja
+fuera del orden en lugar de inventarles una posición.
+
+::: {.funcion}
+**`arrange()` y `desc()`**: ordenar las filas.
+
+- **`arrange(col)`:** ordena de menor a mayor (o alfabéticamente).
+- **`arrange(desc(col))`:** de mayor a menor.
+- **`arrange(a, desc(b))`:** varias claves, en orden de prioridad.
+- **Ojo:** los `NA` van siempre al final, y `arrange()` **sin argumentos** no ordena nada y tampoco avisa.
+:::
+
+::: {.consejo}
+El orden en que se encadenan los verbos importa para el resultado y también para
+la velocidad. Aquí se hace `select()` antes que `filter()`, y funciona porque las
+columnas que se filtran están entre las seleccionadas. La costumbre segura es
+**filtrar primero** (reduce las filas) y **seleccionar después**: así nunca se
+pierde una columna que hacía falta para la condición.
+:::
 
 ## Temas: Reconocer y aplicar las diferentes funciones
 
@@ -135,7 +224,7 @@ vuelos %>%
     -   group_by(): agrupar por variables
 
 ::: {.funcion}
-**Los verbos de dplyr** — cada uno hace una cosa y se encadenan con el pipe.
+**Los verbos de dplyr**: cada uno hace una cosa y se encadenan con el pipe.
 
 - **`filter()`:** selecciona **filas** por condición.
 - **`select()`:** selecciona **columnas**.
@@ -143,6 +232,13 @@ vuelos %>%
 - **`group_by()` + `summarise()`:** agrupa y calcula un **resumen** por grupo (media, mediana, conteo…).
 - **`mutate()`:** crea columnas nuevas (ver capítulo de *mutate*).
 :::
+
+Estos cinco verbos son casi todo `dplyr`, y tienen tres cosas en común que
+conviene notar: el **primer argumento** siempre es la tabla (por eso funcionan con
+el pipe), los nombres de las columnas se escriben **sin comillas**, y el resultado
+es siempre **otra tabla**, nunca una modificación de la original. Eso último es
+importante: `filter(vuelos, mes == 12)` no cambia `vuelos`. Si quieres conservar
+el resultado hay que guardarlo con `<-`.
 
 ::: {.historia}
 **dplyr** fue creado por **Hadley Wickham** (2014) como una "gramática de la manipulación de datos": un pequeño conjunto de verbos con nombres de acción. Sustituyó al paquete anterior `plyr` con una sintaxis más clara y rápida.
@@ -158,6 +254,37 @@ por_dia
 
 ```
 
+Esta pareja, `group_by()` y `summarise()`, es la herramienta más potente del
+capítulo. `group_by()` no cambia los datos: los **marca**, dividiéndolos en
+grupos. Después, `summarise()` colapsa cada grupo en **una sola fila**. Aquí, de
+336,776 vuelos salen 31 filas, una por día del mes.
+
+El `na.rm = TRUE` no es opcional: sin él, el promedio de cualquier grupo que
+contenga un solo `NA` sale `NA`, y como hay 8,255 vuelos sin dato de salida, casi
+todos los días saldrían `NA`. Ponerlo es decirle a R "calcula con lo que hay".
+Ahora bien, hay que ponerlo **sabiendo lo que se descarta**: si los vuelos sin
+dato son precisamente los cancelados, el promedio que sale es el atraso de los
+vuelos que sí salieron, que no es lo mismo que el atraso de todos los vuelos
+programados.
+
+::: {.funcion}
+**`group_by()`, `summarise()`, `n()` y `ungroup()`**: resumir por grupo.
+
+- **`group_by(var)`:** no cambia los datos, los **marca** por grupo. Con dos variables agrupa por la combinación.
+- **`summarise(nombre = funcion(col))`:** colapsa cada grupo en **una fila**. Acepta varios resúmenes separados por comas.
+- **`n()`:** cuántas filas tiene el grupo. **Ponlo siempre**: un promedio sin su tamaño de muestra no se puede evaluar.
+- **`na.rm = TRUE`:** calcula ignorando los faltantes. Cámbialo solo sabiendo qué se descarta.
+- **`ungroup()` o `.groups = "drop"`:** quita la agrupación al final, para que los cálculos siguientes no la arrastren sin querer.
+:::
+
+::: {.advertencia}
+Este resumen agrupa por `dia` **sin agrupar por mes**, así que el día 1 junta el
+1 de enero, el 1 de febrero y los otros diez primeros de mes. Puede ser lo que se
+quiere (¿hay algo especial en el primer día del mes?) o puede ser un descuido. El
+resultado no lo dice: hay que saberlo. Más abajo, en la sección de agrupar por
+múltiples variables, se hace la versión correcta.
+:::
+
 ```{r c05-10}
 ## The median of the data set by day of the month
 
@@ -169,6 +296,14 @@ por_dia_2 <- vuelos %>%
 por_dia_2
 
 ```
+
+`summarise()` acepta tantos resúmenes como quieras, separados por comas, y cada
+uno se convierte en una columna. Comparar la media con la mediana es de las cosas
+más informativas que se pueden hacer de un vistazo: cuando la media es mucho mayor
+que la mediana, la distribución tiene una cola larga hacia la derecha. Es
+exactamente lo que pasa con los atrasos, porque la mayoría de los vuelos salen
+más o menos a tiempo y unos pocos salen con horas de retraso, y esos pocos
+arrastran el promedio.
 
 ------------------------------------------------------------------------
 
@@ -202,6 +337,24 @@ por_dia_3=vuelos |>
 por_dia_3
 
 ```
+
+R tiene `mean()` y `median()`, pero **no tiene una función para la moda**. La que
+existe, `mode()`, hace algo completamente distinto: devuelve el tipo interno de un
+objeto. Por eso aquí se escribe una a mano.
+
+Vale la pena leer `getmode()` por dentro, porque son cuatro funciones anidadas:
+`unique(v)` saca los valores distintos; `match(v, uniqv)` dice, para cada dato, en
+qué posición de esa lista está; `tabulate()` cuenta cuántas veces aparece cada
+posición; y `which.max()` devuelve la posición con la cuenta más alta, que se usa
+para sacar el valor. Se lee de dentro hacia afuera.
+
+::: {.advertencia}
+`getmode()` devuelve **un solo valor** aunque haya empate: `which.max()` se queda
+con el primero que encuentra y no avisa de que había otros con la misma
+frecuencia. Además, la moda casi no sirve para variables continuas, donde
+prácticamente ningún valor se repite. Aquí funciona porque los atrasos están
+redondeados a minutos enteros.
+:::
 
 
 
@@ -239,4 +392,161 @@ vuelos %>%
   group_by(dia, aerolinea) %>% 
   summarise(atraso = mean(atraso_llegada, na.rm = TRUE))
 
+```
+
+
+Por último, `group_by(dia, aerolinea)` agrupa por la **combinación** de las dos
+variables, así que cada fila del resultado es un día y una aerolínea a la vez. Es
+lo que hay que hacer siempre que la pregunta tenga dos dimensiones.
+
+Al correr ese bloque, R imprime un mensaje que empieza por
+`summarise() has grouped output by 'dia'`. No es un error. Cuando se agrupa por
+dos variables y se resume, `summarise()` **quita el último nivel de agrupación**
+pero deja el primero puesto, así que la tabla resultante sigue agrupada por `dia`.
+Eso importa si después se hace otro cálculo, porque se hará por día sin que nadie
+lo haya pedido. La costumbre es cerrar la cadena con `ungroup()`, o escribir
+`summarise(..., .groups = "drop")`, para dejar la tabla limpia.
+
+Nota también la línea comentada `# filter(mes == 12)`. Sin ella, el "día 25" son
+los veinticinco de los doce meses, no la Navidad. Quitar y poner ese comentario es
+una buena manera de ver en clase cuánto cambia el resultado.
+
+------------------------------------------------------------------------
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los ejercicios usan `millas` del paquete `datos`, no `vuelos`, que
+es el conjunto con el que se enseña en el capítulo. La hoja completa para entregar
+está en `Ejercicios/Ejercicios_Capitulo_06_estructura.Rmd`.
+:::
+
+### Ejercicio 1. Leer la estructura
+
+::: {.ejercicio}
+Datos: `millas`. Usa `glimpse()` para ver la estructura y contesta cuántas
+columnas hay y cuántas de ellas son numéricas.
+
+**Verificación:** `millas` tiene **234 filas y 11 columnas**, y **5** de esas
+columnas son numéricas (`<int>` o `<dbl>`).
+
+**En palabras:** la columna `anio` aparece como número. ¿Tiene sentido calcular
+`mean(millas$anio)`? Explica qué significaría ese número y por qué el tipo de dato
+no basta para decidir qué operaciones son razonables.
+:::
+
+```{r c05-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Los valores que existen
+
+::: {.ejercicio}
+Datos: `millas`. Antes de filtrar nada, averigua qué valores distintos tiene
+`clase` y cuántos son, ordenados alfabéticamente. Haz lo mismo con `fabricante`.
+
+**Verificación:** deben salir **7** clases y **15** fabricantes.
+
+**En palabras:** si filtraras por `clase == "SUV"`, en mayúsculas, ¿cuántas filas
+te devolvería R y qué mensaje daría? Explica por qué ese resultado es más
+peligroso que un error.
+:::
+
+```{r c05-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Filtrar con una condición
+
+::: {.ejercicio}
+Datos: `millas`. Quédate con los automóviles de clase `"suv"`.
+
+**Verificación:** deben quedar **62** filas.
+
+**En palabras:** `filter()` devolvió una tabla nueva. ¿Cambió `millas`? Comprueba
+`nrow(millas)` después de filtrar y explica qué significa eso para tu manera de
+trabajar.
+:::
+
+```{r c05-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Filtrar con `%in%`
+
+::: {.ejercicio}
+Datos: `millas`. Quédate con los automóviles que sean de clase `"suv"` **o**
+`"2seater"`, usando `%in%`. Después haz la misma consulta con `|` y comprueba que
+dan el mismo número de filas.
+
+**Verificación:** las dos versiones deben devolver **67** filas (62 más 5).
+
+**En palabras:** escribe también la versión incorrecta,
+`filter(millas, clase == c("suv", "2seater"))`, mira cuántas filas devuelve y
+explica qué hizo R.
+:::
+
+```{r c05-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Seleccionar y ordenar
+
+::: {.ejercicio}
+Datos: `millas`. Quédate con las columnas `fabricante`, `modelo`, `clase`,
+`ciudad` y `autopista`; filtra los automóviles del año 2008; y ordena de mayor a
+menor consumo en `autopista`.
+
+**Verificación:** la tabla resultante debe tener **5 columnas**, y el automóvil de
+la primera fila debe rendir más en carretera que el de la última.
+
+**En palabras:** hiciste `select()` y `filter()` en algún orden. ¿Habría
+funcionado si hubieras seleccionado solo `fabricante` y `modelo` antes de filtrar
+por año? Explica por qué.
+:::
+
+```{r c05-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Agrupar y resumir
+
+::: {.ejercicio}
+Datos: `millas`. Calcula, para cada `clase`, el promedio y la mediana del consumo
+en `autopista` y cuántos automóviles hay en esa clase (usa `n()`). Ordena de mayor
+a menor promedio.
+
+**Verificación:** la tabla debe tener **7 filas** y **4 columnas**. La suma de la
+columna de conteos tiene que dar **234**. La clase `pickup` debe quedar en el
+**último** lugar y `2seater` debe tener solo **5** automóviles.
+
+**En palabras:** ¿por qué el promedio de `2seater` es poco confiable aunque el
+número que sale sea perfectamente razonable? Y explica en una oración por qué el
+resultado de `pickup` tiene sentido.
+:::
+
+```{r c05-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). Dos variables de agrupación
+
+::: {.ejercicio}
+Datos: `millas`. Calcula el promedio de `autopista` por la combinación de `clase`
+y `traccion`. Lee el mensaje que imprime R y después cierra la cadena de manera
+que la tabla resultante **no** quede agrupada.
+
+**Verificación:** la tabla debe tener menos filas que el producto de 7 clases por
+3 tracciones, porque no todas las combinaciones existen. Comprueba con
+`dplyr::group_vars()` que al final no queda ninguna agrupación.
+
+**En palabras:** copia el mensaje que imprimió `summarise()`, explica qué está
+avisando, y da un ejemplo concreto de un cálculo posterior que saldría mal si no
+lo hubieras atendido.
+:::
+
+```{r c05-ej7, eval=FALSE}
+# Escribe tu código aquí
 ```

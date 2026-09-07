@@ -1,0 +1,236 @@
+---
+title: "Soluciones: Capítulo 5 (Calculadora sofisticada)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+
+Corresponde a: 04-Calculadora-sofisticada.Rmd (Capítulo 5 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_05_calculadora.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: el residuo y el cociente
+
+```{r sol04-1}
+horas <- c(517, 533, 542, 554, 558, 1730, 2359)
+
+hora   <- horas %/% 100
+minuto <- horas %%  100
+
+hora     # 5 5 5 5 5 17 23
+minuto   # 17 33 42 54 58 30 59
+length(hora); length(minuto)   # 7 y 7
+```
+
+**Respuesta esperada.** Los valores de arriba, siete en cada vector.
+
+Sobre los operadores: `%/%` es la **división entera**, se queda con la parte
+entera del cociente y bota los decimales, así que `1730 %/% 100` da 17.
+`%%` es el **residuo**, lo que sobra de esa división, así que `1730 %% 100` da 30.
+
+Sobre `2359`: dividir entre 100 da 23.59, que **no** son 23 horas y 59 minutos
+sino 23 horas y 0.59 de hora, es decir unos 35 minutos. El problema es que la hora
+no está en base 10: hay 60 minutos en una hora, no 100. Por eso hay que separar y
+después convertir con `hora * 60 + minuto`, que da 1439 minutos desde medianoche.
+
+**Punto para discutir en clase.** Este es literalmente el ejemplo que aparece en el
+capítulo de `mutate`, con `horario_salida` de `vuelos`. Vale mencionarlo para que
+vean que no es un ejercicio inventado.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: logaritmos
+
+```{r sol04-2}
+log(1000)             # 6.907755, base e
+log10(1000)           # 3
+log2(1000)            # 9.965784
+log(1000, base = 10)  # 3, otra manera
+
+exp(log(1000))        # 1000
+```
+
+**Respuesta esperada.** `log10(1000)` da exactamente 3; `log(1000)` da 6.9078.
+
+Sobre el compañero: no hay nada malo en R. `log()` en R, igual que en matemáticas
+y en estadística, es el logaritmo **natural**, en base *e* (2.718...). El "log de
+mil es tres" vale para el logaritmo en **base 10**, que en R se pide con
+`log10()`. La confusión viene de las calculadoras de bolsillo, donde la tecla
+"log" es base 10 y la de base *e* se llama "ln".
+
+**Punto para discutir en clase.** Preguntar quién puso `log(1000, 10)` sin escribir
+`base =`. Funciona, porque es el segundo argumento, pero es menos legible.
+Aprovechar para insistir en nombrar los argumentos.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: vectores y tipos
+
+```{r sol04-3}
+v1 <- 1:10
+v2 <- seq(2, 20, by = 2)
+v3 <- c(1, 2, "tres", 4)
+
+class(v1); length(v1)   # "integer",   10
+class(v2); length(v2)   # "numeric",   10
+class(v3); length(v3)   # "character", 4
+
+v3   # "1" "2" "tres" "4"  <- fíjate en las comillas
+```
+
+**Respuesta esperada.** Diez elementos en los dos primeros. El tercero es
+`"character"`. Acepto `seq(2, 20, 2)` y también `seq(2, 20, length.out = 10)`.
+
+Sobre por qué el tercero es texto: un vector en R guarda **un solo tipo**. Al
+mezclar tipos, R hace una **coerción**: convierte todo al tipo más general que
+pueda representarlos a todos. El orden es lógico → entero → numérico → texto. Como
+el texto puede representar un número (`"1"`) pero un número no puede representar
+`"tres"`, todo se vuelve texto. R hace esto **sin avisar**.
+
+Sobre el caso de Excel: si en una columna de mediciones alguien escribió
+"no medido" en una celda, la columna entera se importa como texto. Entonces
+`mean()` da error, `summary()` cuenta longitudes de cadena en vez de estadísticas,
+y las gráficas ordenan los valores alfabéticamente (`"10"` antes que `"9"`). Lo
+correcto es que esa celda sea `NA`, no una nota.
+
+**Punto para discutir en clase.** Es una de las causas más frecuentes de que un
+análisis "no corra" con datos reales, y una razón concreta para no escribir notas
+dentro de las columnas de datos.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: `length()` y las tablas
+
+```{r sol04-4}
+length(vuelos)   # 19
+nrow(vuelos)     # 336776
+ncol(vuelos)     # 19
+```
+
+**Respuesta esperada.** `length()` coincide con `ncol()`: **19**.
+
+Sobre por qué: un `data.frame` (y un `tibble`) es por dentro una **lista** de
+vectores, uno por columna, todos del mismo largo. `length()` sobre una lista
+devuelve cuántos elementos tiene la lista, y los elementos de esa lista son las
+columnas. Por eso da 19 y no 336,776.
+
+**Punto para discutir en clase.** Es un error que no da error: devuelve un número
+perfectamente razonable, solo que el equivocado. Buen momento para la regla
+práctica: con tablas, `nrow()`/`ncol()`/`dim()`; con vectores, `length()`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: filtrar y contar
+
+```{r sol04-5}
+sum(is.na(vuelos$atraso_salida))          # 8255 valores faltantes
+nrow(vuelos)                              # 336776
+
+muy_tarde <- vuelos |> filter(atraso_salida > 120)
+nrow(muy_tarde)
+
+# dos denominadores distintos
+nrow(muy_tarde) / nrow(vuelos)                              # sobre todos
+nrow(muy_tarde) / sum(!is.na(vuelos$atraso_salida))         # sobre los que salieron
+```
+
+**Respuesta esperada.** El conteo filtrado es del orden de unos pocos miles frente
+a 336,776, y las dos proporciones son pequeñas y muy parecidas entre sí.
+
+Sobre el denominador: la respuesta correcta es que la proporción hay que
+calcularla **sobre los vuelos que sí salieron**, porque un vuelo cancelado no
+"salió muy tarde": no salió. Meter los cancelados en el denominador diluye la
+proporción con casos que no pueden cumplir ni incumplir la condición. Acepto
+también la respuesta contraria si el estudiante la argumenta bien y aclara que
+entonces está midiendo otra cosa ("de todos los vuelos programados, qué
+porcentaje salió muy tarde"), que es una pregunta legítima pero distinta.
+
+**Punto para discutir en clase.** Aquí está la idea de que `filter()` **descarta
+los `NA` en silencio**, que es el tema del capítulo de valores faltantes. Vale
+adelantarlo: la condición `NA > 120` no es `FALSE`, es `NA`, y `filter()` solo se
+queda con lo que es `TRUE`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: una columna nueva
+
+```{r sol04-6}
+vuelos_copia <- vuelos
+vuelos_copia$velocidad <- vuelos_copia$distancia / vuelos_copia$tiempo_vuelo * 60
+
+ncol(vuelos_copia)    # 20
+
+max(vuelos_copia$velocidad, na.rm = TRUE)
+min(vuelos_copia$velocidad, na.rm = TRUE)
+```
+
+**Respuesta esperada.** 20 columnas. Sin `na.rm = TRUE` el resultado es `NA`,
+porque `tiempo_vuelo` tiene faltantes en los vuelos cancelados y `NA` se contagia
+a la división y luego al máximo.
+
+Sobre el valor máximo absurdo: la explicación que busco es un **problema de
+medición, no de física**. `tiempo_vuelo` mide el tiempo en el aire y puede estar
+mal registrado o redondeado hacia abajo; si además el vuelo es corto, una
+diferencia de pocos minutos en el denominador cambia muchísimo el cociente.
+También acepto: viento de cola muy fuerte (la velocidad respecto al suelo sí puede
+superar la velocidad respecto al aire), o un error de captura en `distancia`.
+
+**Punto para discutir en clase.** Es el primer valor atípico "real" del curso.
+Conviene decir en voz alta la regla: cuando un dato es imposible, la primera
+hipótesis es que el dato está mal, no que el mundo es raro. Y la manera de
+comprobarlo es mirar esa fila completa.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): el reciclaje silencioso
+
+```{r sol04-7, warning=TRUE}
+a <- 1:10
+b <- c(1, 2)
+d <- c(1, 2, 3)
+
+a + b    # funciona, 10 valores, sin avisar
+a + d    # advertencia: longer object length is not a multiple of shorter
+```
+
+**Respuesta esperada.** `a + b` devuelve
+`2 4 4 6 6 8 8 10 10 12`, diez valores, sin advertencia. `a + d` devuelve diez
+valores **y una advertencia**.
+
+Sobre qué hizo R: **recicló** el vector corto. Como `b` tiene dos elementos y `a`
+tiene diez, R repite `b` cinco veces (`1 2 1 2 1 2 1 2 1 2`) y luego suma elemento
+a elemento. No avisa porque 10 es múltiplo exacto de 2, y R considera que eso es
+lo que el usuario quería. Con `d`, de largo 3, no hay múltiplo exacto: recicla
+igual (`1 2 3 1 2 3 1 2 3 1`) pero **sí** avisa, porque la falta de encaje delata
+que probablemente sea un error.
+
+Sobre por qué el silencio es peor: porque el código corre, devuelve un resultado
+del largo correcto y no hay nada en la pantalla que indique que algo pasó. Si `b`
+era en realidad una columna de datos que se cargó incompleta, los números
+resultantes son basura y nada lo señala. La advertencia del segundo caso, en
+cambio, apunta directamente al problema. El caso peligroso es siempre el que no
+se queja.
+
+**Punto para discutir en clase.** Enlazar con el reciclaje al construir un
+`data.frame`, y con la costumbre de comprobar `length()` o `nrow()` después de cada
+paso. Es la misma idea que "mira cuántas filas quedaron después de filtrar".

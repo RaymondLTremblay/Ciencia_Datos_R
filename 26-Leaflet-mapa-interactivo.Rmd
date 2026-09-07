@@ -118,7 +118,8 @@ names(earthquakes)
 ```
 
 
-```{r c26-8, tipos de datos str}
+```{r c26-8}
+# tipos de datos: str()
 str(earthquakes)
 ```
 

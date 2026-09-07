@@ -38,8 +38,8 @@ knitr::include_graphics("img/ANALITICA_Hex.png")
 ::: {.banner-cover}
 **¡Bienvenidos a BIOL4026!** Una introducción práctica y visual a la ciencia de
 datos con R, RStudio, RMarkdown y el `tidyverse`. Aprenderás a importar, ordenar,
-transformar, **visualizar** y modelar datos reales —de Puerto Rico y de la
-biología— para contestar preguntas cuantitativas.
+transformar, **visualizar** y modelar datos reales (de Puerto Rico y de la
+biología) para contestar preguntas cuantitativas.
 :::
 
 ***
@@ -91,7 +91,7 @@ Ninguno formal. Se recomienda haber aprobado previamente el curso complementario
 ***
 ### Descripción del curso
 
-Este curso introduce las técnicas modernas de ciencia de datos aplicadas a la biología usando R, RStudio y RMarkdown. El énfasis está en el flujo de trabajo completo con datos: importar, organizar, limpiar, transformar, visualizar y comunicar datos de manera reproducible con el ecosistema `tidyverse`. Se trabaja con datos reales para demostrar cómo producir análisis, tablas, gráficas y documentos profesionales para la ciencia. El curso complementa —y asume familiaridad básica con— el curso de bioestadística (BIOL3740), en el cual se estudian a fondo las pruebas de hipótesis, sus supuestos y la selección del método estadístico según el diseño experimental.
+Este curso introduce las técnicas modernas de ciencia de datos aplicadas a la biología usando R, RStudio y RMarkdown. El énfasis está en el flujo de trabajo completo con datos: importar, organizar, limpiar, transformar, visualizar y comunicar datos de manera reproducible con el ecosistema `tidyverse`. Se trabaja con datos reales para demostrar cómo producir análisis, tablas, gráficas y documentos profesionales para la ciencia. El curso complementa (y asume familiaridad básica con) el curso de bioestadística (BIOL3740), en el cual se estudian a fondo las pruebas de hipótesis, sus supuestos y la selección del método estadístico según el diseño experimental.
 
 ***
 
@@ -139,7 +139,7 @@ Ninguno.
 ***
 ### Presentación final
 
-El semestre culmina con una presentación final en la que cada estudiante construye y presenta su propio sitio web reproducible en RMarkdown (con su archivo `.yml` y su hoja de estilo `.css`). El proyecto integra las destrezas del semestre —importar, organizar, transformar, visualizar y comunicar datos— y vale el 25% de la nota final.
+El semestre culmina con una presentación final en la que cada estudiante construye y presenta su propio sitio web reproducible en RMarkdown (con su archivo `.yml` y su hoja de estilo `.css`). El proyecto integra las destrezas del semestre (importar, organizar, transformar, visualizar y comunicar datos) y vale el 25% de la nota final.
 
 ***
 ### Conferencias

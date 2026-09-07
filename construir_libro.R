@@ -1,30 +1,53 @@
 # ============================================================
 # construir_libro.R  --  Construir el libro y limpiar temporales
 # ------------------------------------------------------------
-# Usa esto EN LUGAR del boton "Build" para que la raiz quede
-# limpia despues de cada compilacion:
+# Usa esto EN LUGAR del boton "Build":
 #
 #     source("construir_libro.R")
 #
-# Construye los tres formatos (HTML + PDF + ePub) y luego borra
-# las carpetas temporales vacias (file...) y los archivos
-# auxiliares de LaTeX que el render deja en la raiz.
+# El libro se construye SOLO en HTML (gitbook). La salida va a docs/.
+#
+# El PDF y el ePub se quitaron en septiembre de 2026: no se usaban, y el paso
+# de LaTeX fallaba una y otra vez porque Dropbox truncaba los auxiliares
+# mientras xelatex los escribia, con errores del tipo
+#
+#     ! File ended while scanning use of \@writefile
+#     ! File ended while scanning use of \@newl@bel
+#
+# Sin PDF ni ePub, esos errores ya no pueden ocurrir.
+#
+# La limpieza se conserva por dos razones: las carpetas temporales 'file<hex>'
+# las siguen dejando pandoc y knitr, y puede quedar algun auxiliar de LaTeX de
+# antes del cambio. Se limpia al empezar y, con on.exit(), tambien al salir
+# aunque el render falle.
 # ============================================================
 
-# 1. Construir el libro completo (HTML gitbook + PDF + ePub)
-bookdown::render_book("index.Rmd", output_format = "all")
+limpiar_temporales <- function() {
+  # carpetas temporales vacias 'file<hex>' que dejan pandoc/knitr
+  tmp_dirs <- list.files(pattern = "^file[0-9a-f]+$")
+  tmp_dirs <- tmp_dirs[dir.exists(tmp_dirs)]
+  if (length(tmp_dirs)) unlink(tmp_dirs, recursive = TRUE)
 
-# 2. Borrar las carpetas temporales vacias 'file<hex>' que dejan
-#    pandoc/knitr durante los pases de PDF y ePub
-tmp_dirs <- list.files(pattern = "^file[0-9a-f]+$")
-tmp_dirs <- tmp_dirs[dir.exists(tmp_dirs)]
-if (length(tmp_dirs)) unlink(tmp_dirs, recursive = TRUE)
+  # restos de LaTeX y el .Rmd fusionado que deja bookdown
+  aux <- list.files(
+    pattern = paste0(
+      "^Ciencia_Datos_con_R\\.",
+      "(tex|aux|toc|lof|lot|out|log|idx|ind|ilg|Rmd|knit\\.md|utf8\\.md)$"
+    )
+  )
+  if (length(aux)) unlink(aux)
 
-# 3. Borrar los auxiliares de LaTeX (evitan el error \@writefile)
-aux <- list.files(
-  pattern = "^Ciencia_Datos_con_R\\.(tex|aux|toc|lof|lot|out|log|idx|ind|ilg)$"
-)
-if (length(aux)) unlink(aux)
+  invisible(length(tmp_dirs) + length(aux))
+}
 
-message("\n== Libro construido. Carpetas temporales borradas: ",
-        length(tmp_dirs), ". Salida en docs/ ==")
+# 1. Limpiar antes de empezar
+n_antes <- limpiar_temporales()
+message("== Limpieza previa: ", n_antes, " archivo(s) o carpeta(s) ==")
+
+# 2. Limpiar tambien al salir, falle o no el render
+on.exit(limpiar_temporales(), add = TRUE)
+
+# 3. Construir el libro en HTML
+bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook")
+
+message("\n== Libro construido en HTML. Salida en docs/ ==")

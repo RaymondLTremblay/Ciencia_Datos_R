@@ -37,6 +37,49 @@ Español:
   - La importancia de los nombres
   - Usando funciones
   
+
+***
+
+## R como calculadora, y por qué eso importa
+
+Lo primero que hace R es aritmética, y conviene empezar por ahí porque quita el
+miedo: la consola de R es, entre otras cosas, una calculadora muy buena. Todo lo
+que escribas en ella se evalúa y se devuelve el resultado.
+
+Pero hay una diferencia importante con la calculadora del teléfono, y es la que
+convierte a R en una herramienta de análisis: **R no opera sobre números, opera
+sobre vectores**. Cuando escribes `2 + 2`, R no está sumando dos números; está
+sumando dos vectores de largo uno. Esa idea, que al principio parece un
+tecnicismo, es la que permite escribir `edad * 2` y multiplicar de golpe las
+edades de mil personas sin escribir un solo ciclo. Casi todo lo que hace R por
+debajo es esto.
+
+Los operadores aritméticos son los que uno espera, más dos que casi nadie conoce
+al principio y que resultan utilísimos:
+
+| Operador | Qué hace | Ejemplo | Resultado |
+|:--|:--|:--|--:|
+| `+` `-` `*` `/` | suma, resta, multiplicación, división | `7 / 2` | 3.5 |
+| `^` | potencia | `2 ^ 10` | 1024 |
+| `%%` | **residuo** de la división entera | `7 %% 2` | 1 |
+| `%/%` | **cociente** de la división entera | `7 %/% 2` | 3 |
+
+El residuo `%%` sirve para preguntas del tipo "¿es par?" (`x %% 2 == 0`) o
+"¿es múltiplo de 5?", y `%/%` sirve para partir un número en unidades, por
+ejemplo separar `1730` en la hora `17` y los minutos `30`. Los dos aparecen en
+los capítulos de transformación de datos.
+
+El orden de las operaciones es el de siempre: primero las potencias, después las
+multiplicaciones y divisiones, y por último las sumas y restas. Los paréntesis
+mandan sobre todo lo demás, y la recomendación es usarlos aunque no hagan falta:
+`(a + b) / 2` se lee sin pensar, `a + b / 2` hay que pensarlo, y además significa
+otra cosa.
+
+::: {.consejo}
+En RStudio, `Ctrl` y `Enter` (`Cmd` y `Enter` en Mac) ejecuta la línea donde está
+el cursor y salta a la siguiente. Es el atajo que más se usa en todo el curso.
+:::
+
 ### Sumar  
   
 ```{r c04-3}
@@ -65,6 +108,25 @@ log(100)
 log10(100)
 ```
 
+Cuidado con este resultado, porque sorprende a todo el mundo: `log(100)` **no**
+devuelve 2. En R, `log()` es el logaritmo **natural**, en base *e*, así que
+`log(100)` es 4.605. Para el logaritmo en base 10 hay que usar `log10()`, y para
+base 2, `log2()`. También se puede escribir `log(100, base = 10)`.
+
+No es un capricho de R: en matemáticas y en estadística "log" significa logaritmo
+natural, y son las calculadoras de bolsillo las que se apartaron de la convención
+al usar "log" para base 10. Vale la pena fijarlo ahora, porque en biología los
+dos se usan mucho y confundirlos cambia los resultados por un factor de 2.3.
+
+::: {.funcion}
+**Funciones matemáticas de uso común**.
+
+- **`sqrt(x)`:** raíz cuadrada. **`exp(x)`:** la exponencial, la operación inversa de `log()`.
+- **`log(x)`:** logaritmo **natural**; **`log10(x)`** y **`log2(x)`** para las bases 10 y 2.
+- **`abs(x)`:** valor absoluto. **`round(x, n)`:** redondea a `n` decimales.
+- **`sin()`, `cos()`, `tan()`:** trigonometría, siempre en **radianes**, no en grados. Por eso el ejemplo de arriba usa `pi/3` y no `60`.
+:::
+
 ### Asignaciones de variables
 
 ::: {.peligro}
@@ -80,6 +142,30 @@ y
 x/y
 ```
 
+Las dos flechas funcionan, pero **no son equivalentes por convención**. La norma
+en R, y la que se sigue en todo este libro, es usar `<-` para asignar y reservar
+el `=` para dar valores a los argumentos dentro de una función, como en
+`seq(1, 10, by = 2)`. Escribir las dos cosas con el mismo símbolo hace más difícil
+leer el código de un vistazo.
+
+Y hay un tercer símbolo que se parece y no tiene nada que ver: `==`, el doble
+igual, que **pregunta** si dos cosas son iguales y devuelve `TRUE` o `FALSE`.
+
+```{r c04-21}
+z <- 5      # asigna: "z vale 5"
+z == 5      # pregunta: "¿z es igual a 5?"
+z == 8
+```
+
+Confundir `=` con `==` dentro de un `filter()` es de los errores más frecuentes
+del curso, y el mensaje que da R en ese caso no es nada claro.
+
+::: {.consejo}
+El atajo de teclado para `<-` en RStudio es `Alt` y el signo de menos (`Option` y
+menos en Mac). Aprenderlo el primer día ahorra muchísimo tiempo, porque esa
+flecha se escribe cientos de veces.
+:::
+
 
 ### Variables 
 
@@ -87,12 +173,28 @@ x/y
 - la función "seq" para secuencia
 
 ::: {.funcion}
-**`seq()`, `c()`, `length()`** — crear y medir vectores.
+**`seq()`, `c()`, `length()`**: crear y medir vectores.
 
 - **`c(1, 2, 3)`:** combina valores en un vector; **`11:20`** genera una secuencia consecutiva.
 - **`seq(101, 110)`:** secuencia con más control (inicio, fin, paso).
 - **`length(x)`:** cuántos elementos tiene un vector.
 :::
+
+Un **vector** es una secuencia de valores **del mismo tipo**. Esa última parte
+importa: si mezclas un número con un texto, R no da error, sino que convierte
+todo al tipo más general, que es el texto. `c(1, 2, "tres")` devuelve
+`"1" "2" "tres"`, y de pronto no puedes sumar. Es una fuente de errores
+silenciosos cuando se importa una columna de Excel que traía una nota escrita en
+medio de los números.
+
+Hay tres maneras de construir una secuencia y conviene distinguirlas:
+
+- `c(3, 7, 2)` combina los valores que le des, en el orden que se los des.
+- `11:20` genera los consecutivos de 11 a 20, de uno en uno. Es rápido de
+  escribir y no admite paso.
+- `seq(101, 110)` hace lo mismo, pero admite argumentos:
+  `seq(0, 100, by = 5)` va de cinco en cinco, y
+  `seq(0, 1, length.out = 11)` reparte once valores entre 0 y 1.
 
 ```{r c04-8}
 edad_nd=seq(101, 110)
@@ -123,6 +225,24 @@ edad$tres=edad$edad_uprh^3
 edad
 ```
 
+Aquí pasan dos cosas que vale la pena nombrar. La primera es que
+`data.frame(edad_nd, edad_uprh)` pega dos vectores como columnas, y toma los
+nombres de las columnas de los nombres de los objetos. La segunda es que
+`edad$diff <- edad$edad_nd - edad$edad_uprh` hace la resta **elemento a
+elemento**, de la primera fila con la primera, la segunda con la segunda, y así.
+No hace falta ningún ciclo. A esto se le llama **operación vectorizada**, y es la
+manera natural de trabajar en R.
+
+Lo mismo pasa con `edad$edad_uprh^3`: eleva al cubo los diez valores de un tirón.
+
+::: {.nota}
+Esta es la forma de R base, con `$` y `data.frame()`. En los próximos capítulos
+haremos exactamente lo mismo con `mutate()` de `dplyr`, que se lee mucho mejor:
+`mutate(edad, diff = edad_nd - edad_uprh)`. Las dos formas producen el mismo
+resultado, y conviene reconocer las dos porque hay muchísimo código antiguo
+escrito con `$`.
+:::
+
 
 ### Errores cuando a variables no tienen la misma cantidad de entradas
 
@@ -146,6 +266,22 @@ edad_1=data.frame(edad_nd_1, edad_uprh_1)
 edad_1
 ```
 
+Este es un ejemplo preparado para enseñar algo incómodo. Los dos vectores tienen
+**once** elementos: `seq(101, 111)` son once números, y `c(11:20, NA)` son diez
+números más un `NA`. Como coinciden en largo, `data.frame()` los une sin
+protestar.
+
+Si no coincidieran, pasarían dos cosas distintas según los números. Si el largo
+del mayor es **múltiplo exacto** del menor, R **recicla** el corto: lo repite
+hasta completar, sin decir nada. Si no es múltiplo, da un error. El reciclaje
+silencioso es una de las trampas clásicas de R: el código corre, no hay
+advertencia, y los datos quedan mal.
+
+`NA` significa "no disponible", un valor que falta. No es un cero ni un espacio
+en blanco: es la manera que tiene R de decir "aquí no sé qué hay". Los `NA` se
+contagian a casi cualquier operación (`5 + NA` es `NA`), y tienen su propio
+capítulo más adelante.
+
 
 ### Cuantos valores hay en una variable
 
@@ -155,6 +291,18 @@ length(edad_uprh)
 length(edad$tres)
 length(edad)
 ```
+
+Fíjate bien en las tres respuestas, porque la tercera sorprende. `length()` sobre
+un vector devuelve **cuántos elementos tiene**: diez en los dos primeros casos.
+Pero `edad` no es un vector, es un `data.frame`, y un `data.frame` en R es en
+realidad una **lista de columnas**. Así que `length(edad)` no devuelve el número
+de filas: devuelve el número de **columnas**.
+
+Para las tablas hay que usar las funciones específicas: `nrow()` para las filas,
+`ncol()` para las columnas y `dim()` para las dos. Usar `length()` con una tabla
+esperando el número de filas es un error que puede pasar desapercibido durante
+mucho rato, porque devuelve un número perfectamente razonable, solo que el
+equivocado.
 
 
 ### Seleccionar solamente parte de los datos de un archivo
@@ -174,8 +322,23 @@ El pipe `%>%` lo creó Stefan Milton Bache en el paquete `magrittr` (2014); su n
 
 La función de Pipe.    %>% o |>
 
+El **pipe** se lee como la palabra "después". `millas |> select(cilindros)` se
+lee "toma `millas`, **después** selecciona `cilindros`". Lo que hace es pasar lo
+que tiene a la izquierda como **primer argumento** de la función que está a la
+derecha, así que `x |> f(y)` es exactamente lo mismo que `f(x, y)`.
+
+Parece un detalle de escritura y cambia por completo cómo se lee un análisis. Sin
+pipe, las operaciones encadenadas se escriben de dentro hacia afuera y hay que
+leerlas al revés. Con pipe se escriben en el orden en que ocurren, de arriba
+abajo, como los pasos de una receta. El pipe tiene su propio capítulo más
+adelante; aquí solo hace falta reconocerlo.
+
+Hay dos versiones, `%>%` (del paquete `magrittr`, que viene con el tidyverse) y
+`|>` (de R base, desde 2021). Para lo que hacemos en este curso son
+intercambiables. El atajo de teclado en RStudio es `Ctrl`, `Shift` y `M`.
+
 ::: {.funcion}
-**`select()`** y **`filter()`** (paquete **dplyr**) — elegir columnas y filas.
+**`select()`** y **`filter()`** (paquete **dplyr**): elegir columnas y filas.
 
 - **`select(columna)`:** se queda con las **columnas** indicadas.
 - **`filter(condición)`:** se queda con las **filas** que cumplen una condición (p. ej. `cilindros == 8`).
@@ -194,6 +357,17 @@ millas |> dplyr::select(cilindros) |>
 
 ```
 
+Nota el orden: primero `select()` y después `filter()`. Funciona, pero solo
+porque la columna que se filtra es la única que se conservó. Si hubiéramos
+seleccionado únicamente `modelo` y después intentado filtrar por `cilindros`, R
+daría error, porque esa columna ya no existe en la tabla. La costumbre segura es
+**filtrar primero y seleccionar después**.
+
+Nota también el `dplyr::` delante de las dos funciones. No hace falta si el
+tidyverse está cargado, pero se pone aquí a propósito, porque `filter()` es uno de
+los nombres más disputados de R: el paquete `stats`, que viene activado siempre,
+tiene su propia `filter()` para series de tiempo.
+
 
 
 
@@ -204,6 +378,11 @@ millas |> dplyr::select(cilindros) |>
 diamantes |> dplyr::select(quilate) |> 
   filter(quilate > 3)
 ```
+
+Vale la pena mirar cuántas filas devuelve esto: de casi 54,000 diamantes, muy
+pocos pasan de tres quilates. Filtrar es la manera de hacerse esa pregunta, y el
+número de filas que queda suele ser la primera respuesta interesante de un
+análisis.
 
 
 #### Seleccionar los diamantes con igual o mayor de 4000 precio
@@ -222,12 +401,170 @@ head(dia_4000)
 #### Contabiliza cuantos diamantes tienen un valor de $4000 o más
 
 
-```{r c04-20, contar las cantidad lineas}
+```{r c04-20}
+# contar la cantidad de líneas
 
 nrow(dia_4000) 
 
 ```
 
+`nrow()` sobre el resultado de un filtro es el patrón más común de todo el curso:
+**contar cuántos casos cumplen una condición**. Es la respuesta a "¿cuántos
+diamantes cuestan 4,000 o más?", "¿cuántos vuelos salieron tarde?", "¿cuántas
+plantas florecieron?". Si además quieres la proporción, divide entre el total:
+`nrow(dia_4000) / nrow(diamantes)`.
+
+::: {.consejo}
+Antes de calcular nada sobre una tabla filtrada, mira siempre cuántas filas
+quedaron. Si quedan cero, cualquier promedio que calcules va a ser `NaN` y el
+error va a aparecer tres pasos más adelante, donde ya no se entiende. Si quedan
+todas, probablemente la condición no filtró nada y hay que revisarla.
+:::
 
 
+***
 
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los primeros ejercicios trabajan con vectores que construyes tú;
+los últimos usan `vuelos` del paquete `datos`, no `millas` ni `diamantes`, que son
+los conjuntos con los que se enseña en el capítulo. La hoja completa para entregar
+está en `Ejercicios/Ejercicios_Capitulo_05_calculadora.Rmd`.
+:::
+
+### Ejercicio 1. El residuo y el cociente
+
+::: {.ejercicio}
+El vector `horas <- c(517, 533, 542, 554, 558, 1730, 2359)` guarda horas escritas
+como números, al estilo de los horarios de vuelo: `1730` son las 5:30 de la tarde.
+Sepáralas en dos vectores, uno con la **hora** y otro con los **minutos**, usando
+`%/%` y `%%`.
+
+**Verificación:** los dos vectores deben tener **7** elementos. Para `1730` tienes
+que obtener hora `17` y minuto `30`; para `517`, hora `5` y minuto `17`.
+
+**En palabras:** explica en una oración qué hace cada uno de los dos operadores,
+y por qué `2359` no se puede convertir a minutos desde medianoche con una simple
+división entre 100.
+:::
+
+```{r c04-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Logaritmos
+
+::: {.ejercicio}
+Calcula el logaritmo de `1000` en base natural, en base 10 y en base 2, de tres
+maneras distintas. Después comprueba que `exp()` deshace el logaritmo natural.
+
+**Verificación:** en base 10 tiene que dar exactamente **3**. El logaritmo natural
+tiene que dar un número cercano a 6.9, y `exp()` de ese número tiene que devolver
+`1000` (o algo indistinguible de 1000).
+
+**En palabras:** un compañero calculó `log(1000)`, obtuvo 6.9 y dijo que R estaba
+malo porque "el log de mil es tres". Explícale qué pasó.
+:::
+
+```{r c04-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Vectores y tipos
+
+::: {.ejercicio}
+Crea tres vectores: uno con los números del 1 al 10, uno con los números pares del
+2 al 20 (usando `seq()`, no escribiéndolos a mano), y uno que mezcle números y
+texto, por ejemplo `c(1, 2, "tres", 4)`. Comprueba el tipo de cada uno con
+`class()` y el largo con `length()`.
+
+**Verificación:** los dos primeros deben tener **10** elementos cada uno. El
+tercero debe tener `class()` igual a `"character"`, no `"numeric"`.
+
+**En palabras:** ¿por qué el tercer vector es de texto si tres de sus cuatro
+valores son números? Explica qué problema causaría eso si esa fuera una columna
+importada de Excel donde alguien escribió "no medido" en una celda.
+:::
+
+```{r c04-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. `length()` y las tablas
+
+::: {.ejercicio}
+Datos: `vuelos`. Corre `length(vuelos)`, `nrow(vuelos)` y `ncol(vuelos)` y compara
+los tres resultados.
+
+**Verificación:** `nrow()` tiene que dar **336,776** y `ncol()` tiene que dar
+**19**. `length()` tiene que coincidir con uno de los dos.
+
+**En palabras:** ¿con cuál de los dos coincide `length()`, y por qué? Usa en tu
+respuesta la palabra "lista".
+:::
+
+```{r c04-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Filtrar y contar
+
+::: {.ejercicio}
+Datos: `vuelos`. Cuenta cuántos vuelos salieron con **más de dos horas** de
+retraso (`atraso_salida`, que está en minutos), y calcula qué **proporción** del
+total representan.
+
+**Verificación:** el número de filas filtradas tiene que ser mucho menor que
+336,776, y la proporción tiene que quedar entre 0 y 1. Comprueba también cuántos
+`NA` hay en `atraso_salida` antes de filtrar.
+
+**En palabras:** los vuelos cancelados tienen `NA` en `atraso_salida` y
+`filter()` los descarta. ¿Tu proporción está calculada sobre el total de vuelos o
+sobre el total de vuelos que sí salieron? ¿Cuál de las dos es la correcta para
+contestar "¿qué porcentaje de vuelos sale muy tarde?"?
+:::
+
+```{r c04-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Una columna nueva
+
+::: {.ejercicio}
+Datos: `vuelos`. Usando la forma de R base (`$` y `<-`), crea sobre una copia de
+la tabla una columna nueva llamada `velocidad` que sea la `distancia` dividida
+entre el `tiempo_vuelo`, multiplicada por 60 para que quede en millas por hora.
+Después mira el máximo y el mínimo de esa columna.
+
+**Verificación:** la tabla copiada tiene que tener **20** columnas. El máximo y el
+mínimo tienen que ser números, no `NA`: si te salen `NA`, usa `na.rm = TRUE` y
+explica por qué hizo falta.
+
+**En palabras:** el valor máximo probablemente sea absurdo para un avión
+comercial. Da una explicación posible que no sea "el avión iba a esa velocidad".
+:::
+
+```{r c04-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). El reciclaje silencioso
+
+::: {.ejercicio}
+Crea `a <- 1:10` y `b <- c(1, 2)`, y suma `a + b`. Después crea `d <- c(1, 2, 3)`
+y suma `a + d`. Corre los dos y observa la diferencia.
+
+**Verificación:** la primera suma funciona y devuelve **10** valores. La segunda
+da una **advertencia**. Usa `warning = TRUE` en las opciones del bloque para que
+la advertencia se vea en el documento.
+
+**En palabras:** explica qué hizo R en el primer caso, por qué no avisó, y por qué
+ese silencio es más peligroso que la advertencia del segundo caso.
+:::
+
+```{r c04-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

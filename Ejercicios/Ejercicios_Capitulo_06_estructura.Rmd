@@ -1,0 +1,208 @@
+---
+title: "Ejercicios del Capítulo 6"
+subtitle: "Estructura de un archivo y los verbos de dplyr: filter, select, arrange, group_by, summarise"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 6 del libro del curso.
+
+Los ejercicios usan `millas` del paquete `datos`, no `vuelos`, que es el conjunto
+con el que se enseña en el capítulo. No se resuelven cambiando un nombre de
+columna en el script del capítulo: hay que entender qué hace cada verbo.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra y produzca la tabla o el valor.
+3. **Una explicación en palabras** en el espacio marcado. Una tabla sola no contesta la pregunta.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*. Si el
+documento no compila, no se puede corregir.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Leer la estructura: `glimpse()` y los tipos | 5 |
+| 2 | Los valores que existen: `unique()` y `sort()` | 5 |
+| 3 | Filtrar con una condición: `filter()` | 5 |
+| 4 | Filtrar con `%in%` y el error de `== c(...)` | 5 |
+| 5 | Seleccionar y ordenar: `select()` y `arrange(desc())` | 5 |
+| 6 | Agrupar y resumir: `group_by()`, `summarise()`, `n()` | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Dos variables de agrupación y `ungroup()` | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre y se
+muestra (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+Antes de empezar, mira qué tienes:
+
+```{r explorar, eval=FALSE}
+glimpse(millas)
+```
+
+---
+
+# Ejercicio 1. Leer la estructura (5 puntos)
+
+Usa `glimpse()` sobre `millas` y contesta cuántas columnas hay y cuántas son
+numéricas.
+
+*Verifica:* **234 filas y 11 columnas**; **5** columnas numéricas.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** La columna `anio` aparece como número. ¿Tiene sentido
+calcular `mean(millas$anio)`? ¿Qué significaría ese número? ¿Por qué el tipo de
+dato no basta para decidir qué operaciones son razonables?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 2. Los valores que existen (5 puntos)
+
+Averigua qué valores distintos tiene `clase` y cuántos son, ordenados
+alfabéticamente. Haz lo mismo con `fabricante`.
+
+*Verifica:* **7** clases y **15** fabricantes.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Si filtraras por `clase == "SUV"`, en mayúsculas,
+¿cuántas filas te devolvería R y qué mensaje daría? ¿Por qué ese resultado es más
+peligroso que un error?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 3. Filtrar con una condición (5 puntos)
+
+Quédate con los automóviles de clase `"suv"`.
+
+*Verifica:* **62** filas.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** `filter()` devolvió una tabla nueva. ¿Cambió
+`millas`? Comprueba `nrow(millas)` después de filtrar y explica qué significa eso
+para tu manera de trabajar.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 4. Filtrar con `%in%` (5 puntos)
+
+Quédate con los automóviles de clase `"suv"` **o** `"2seater"`, primero con
+`%in%` y después con `|`.
+
+*Verifica:* las dos versiones devuelven **67** filas (62 más 5).
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+Ahora la versión incorrecta, a propósito:
+
+```{r ej4-mal}
+filter(millas, clase == c("suv", "2seater")) |> nrow()
+```
+
+**Explicación en palabras.** ¿Cuántas filas devolvió la versión incorrecta y qué
+hizo R para llegar a ese número?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 5. Seleccionar y ordenar (5 puntos)
+
+Quédate con `fabricante`, `modelo`, `clase`, `ciudad` y `autopista`; filtra los
+automóviles del año **2008**; ordena de mayor a menor `autopista`.
+
+*Verifica:* **5 columnas**; el automóvil de la primera fila rinde más en carretera
+que el de la última.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿Habría funcionado si hubieras seleccionado solo
+`fabricante` y `modelo` **antes** de filtrar por año? Explica por qué.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 6. Agrupar y resumir (5 puntos)
+
+Para cada `clase`, calcula el promedio y la mediana de `autopista` y cuántos
+automóviles hay (`n()`). Ordena de mayor a menor promedio.
+
+*Verifica:* **7 filas** y **4 columnas**; los conteos suman **234**; `pickup`
+queda en el **último** lugar y `2seater` tiene **5** automóviles.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿Por qué el promedio de `2seater` es poco confiable
+aunque el número sea razonable? ¿Por qué el resultado de `pickup` tiene sentido?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 7 (BONO). Dos variables de agrupación (5 puntos adicionales)
+
+Calcula el promedio de `autopista` por la combinación de `clase` y `traccion`.
+Lee el mensaje que imprime R y después cierra la cadena de manera que la tabla
+**no** quede agrupada.
+
+*Verifica:* menos filas que 7 por 3, porque no todas las combinaciones existen.
+`dplyr::group_vars()` sobre el resultado devuelve un vector vacío.
+
+```{r ej7, message=TRUE}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Copia el mensaje que imprimió `summarise()`, explica
+qué avisa, y da un ejemplo concreto de un cálculo posterior que saldría mal si no
+lo atendieras.
+
+> *Escribe aquí tu respuesta:*

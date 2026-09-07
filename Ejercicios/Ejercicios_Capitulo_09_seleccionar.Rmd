@@ -1,0 +1,201 @@
+---
+title: "Ejercicios del Capítulo 9"
+subtitle: "Seleccionar variables: starts_with(), ends_with(), contains(), where(), rename() y everything()"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 9 del libro del curso.
+
+Los ejercicios usan `millas` del paquete `datos`, no `vuelos`, que es el conjunto
+con el que se enseña en el capítulo. Las once columnas de `millas` son:
+`fabricante`, `modelo`, `cilindrada`, `anio`, `cilindros`, `transmision`,
+`traccion`, `ciudad`, `autopista`, `combustible` y `clase`.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra y produzca la tabla.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*. Si el
+documento no compila, no se puede corregir.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Por el principio del nombre: `starts_with()` | 5 |
+| 2 | Por el final y por dentro: `ends_with()` y `contains()` | 5 |
+| 3 | Seleccionar por tipo: `where()` | 5 |
+| 4 | Renombrar: `rename()` | 5 |
+| 5 | Reordenar: `everything()` y `relocate()` | 5 |
+| 6 | Nombres frente a posiciones | 5 |
+| **Total** | | **30** |
+| 7 (bono) | Quitar en vez de escoger: el signo de menos | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre y se
+muestra (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+```{r explorar, eval=FALSE}
+names(millas)
+```
+
+---
+
+# Ejercicio 1. Por el principio del nombre (5 puntos)
+
+Selecciona todas las columnas cuyo nombre empiece por `c`.
+
+*Verifica:* **5** columnas.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Escribe también la versión con los cinco nombres a
+mano. ¿Cuál prefieres? Da una razón que tenga que ver con lo que pasaría si mañana
+el archivo trajera una columna nueva llamada `consumo`.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 2. Por el final y por dentro (5 puntos)
+
+Selecciona las columnas que **terminen** en `"a"`, y después las que **contengan**
+`"cil"`.
+
+*Verifica:* **2** columnas cada una, pero **no las mismas dos**.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Explica la diferencia entre `ends_with()` y
+`contains()` con tus dos resultados. ¿Cuál podría traerte una columna que no
+querías, y por qué?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 3. Seleccionar por tipo (5 puntos)
+
+Selecciona las columnas numéricas con `where(is.numeric)` y las de texto con
+`where(is.character)`.
+
+*Verifica:* **5** numéricas y **6** de texto; 5 más 6 son las 11 columnas.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** `anio` y `cilindros` quedaron entre las numéricas.
+¿Te sirve esa selección si lo que querías era "las variables sobre las que tiene
+sentido sacar un promedio"?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 4. Renombrar (5 puntos)
+
+Renombra `ciudad` a `consumo_ciudad` y `autopista` a `consumo_autopista`, en una
+**sola** llamada a `rename()`. Comprueba con `contains("consumo")`.
+
+*Verifica:* la tabla renombrada sigue teniendo **11** columnas; el
+`select(contains("consumo"))` devuelve **2**.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿Va primero el nombre nuevo o el viejo? ¿Cómo lo
+recuerdas? ¿Qué error da R si los pones al revés?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 5. Reordenar (5 puntos)
+
+Pon `clase` y `fabricante` al frente conservando el resto en su orden, primero con
+`everything()` y después con `relocate()`.
+
+*Verifica:* **11** columnas en el **mismo** orden en las dos versiones.
+Compruébalo comparando `names()`.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿Qué habría pasado con `select(clase, fabricante)`
+sin `everything()`? ¿En qué se diferencian "seleccionar" y "reordenar"?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 6. Nombres frente a posiciones (5 puntos)
+
+Selecciona las columnas de la tercera a la sexta de dos maneras: con `select()` y
+los dos puntos entre nombres, y con corchetes y números.
+
+*Verifica:* las mismas **4** columnas. Compruébalo con `identical()` sobre los
+`names()`.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Si alguien añadiera al principio una columna `id`,
+¿cuál de tus dos versiones seguiría trayendo las mismas variables? ¿Por qué eso
+hace peligrosa a la otra en un análisis que se repite cada semestre?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 7 (BONO). Quitar en vez de escoger (5 puntos adicionales)
+
+Construye una tabla con todas las columnas **menos** `modelo` y `transmision`,
+usando el signo de menos. Después otra que quite todas las que empiecen por `c`.
+
+*Verifica:* **9** columnas la primera, **6** la segunda.
+
+```{r ej7}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** El signo de menos no resta nada. ¿Qué hace realmente?
+¿Por qué `select(millas, -c(modelo, transmision))` y
+`select(millas, -modelo, -transmision)` dan lo mismo?
+
+> *Escribe aquí tu respuesta:*

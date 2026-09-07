@@ -1,0 +1,291 @@
+---
+title: "Soluciones: Capítulo 4 (Visualización de datos)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+
+Corresponde a: 03-Visualizacion-Datos.Rmd (Capítulo 4 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_04_visualizacion.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo gráfico; lo que se evalúa es que el estudiante escriba
+su propio script, obtenga la figura y la explique en palabras.
+
+Los ejercicios están encadenados a propósito: 1 → 3 → 4 → 6 → 8 es un solo gráfico
+que va creciendo. Si un estudiante entrega el 6 bien pero el 3 mal, conviene mirar
+si copió el código de un compañero.
+
+```{r sol03-base}
+paises_2007 <- filter(paises, anio == 2007)
+nrow(paises_2007)   # 142
+```
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: el gráfico mínimo
+
+```{r sol03-1}
+ggplot(paises_2007, aes(x = pib_per_capita, y = esperanza_de_vida)) +
+  geom_point()
+```
+
+**Respuesta esperada.** 142 puntos.
+
+Sobre la forma: **no es una recta**. Es una curva que sube muy rápido en la parte
+izquierda del eje x y luego se aplana. Donde más cambia la esperanza de vida es en
+los ingresos **bajos**: pasar de 500 a 5,000 dólares per cápita añade muchísimos
+años de vida, mientras que pasar de 30,000 a 40,000 casi no añade ninguno. La
+mayoría de los puntos están amontonados contra el eje izquierdo, y eso ya es una
+pista de que la escala del eje x no es la adecuada, que es el Ejercicio 4.
+
+**Punto para discutir en clase.** Preguntar quién graficó `esperanza_de_vida` en x
+y `pib_per_capita` en y. No está mal, pero la convención es poner en x lo que se
+considera explicativo. Buen momento para decir que la convención es una convención
+y no una ley, pero que romperla sin avisar confunde al lector.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: dentro y fuera de `aes()`
+
+```{r sol03-2a}
+# a) MAL: dentro de aes()
+ggplot(paises_2007, aes(x = pib_per_capita, y = esperanza_de_vida,
+                        color = "purple")) +
+  geom_point()
+```
+
+```{r sol03-2b}
+# b) BIEN: fuera de aes()
+ggplot(paises_2007, aes(x = pib_per_capita, y = esperanza_de_vida)) +
+  geom_point(color = "purple")
+```
+
+**Respuesta esperada.** La versión (a) produce puntos de color **rojo salmón**
+(el primer color de la paleta por defecto) y una leyenda titulada `"purple"`. La
+versión (b) produce puntos morados y ninguna leyenda.
+
+Sobre qué entendió `ggplot2`: dentro de `aes()` todo se interpreta como una
+**variable de los datos**. `ggplot2` no ve la palabra `"purple"` como un color; ve
+un vector de 142 valores, todos iguales al texto `"purple"`, es decir, una
+variable categórica con **un solo nivel**. Entonces hace lo que hace siempre con
+una variable categórica mapeada al color: le asigna colores de su escala
+(empezando por el primero) y construye la leyenda que explica el mapeo. La leyenda
+aparece porque, desde el punto de vista de `ggplot2`, hay algo que explicar.
+
+**Punto para discutir en clase.** Es el mismo error que aparece en el ejercicio
+del propio capítulo con `"blue"`. Vale la pena repetirlo hasta que quede: dentro
+de `aes()` van **variables**, fuera van **valores**.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: una tercera variable
+
+```{r sol03-3}
+ggplot(paises_2007, aes(x = pib_per_capita, y = esperanza_de_vida,
+                        color = continente, size = poblacion)) +
+  geom_point(alpha = 0.7)
+```
+
+**Respuesta esperada.** Dos leyendas: `continente` con 5 categorías y `poblacion`
+con una escala continua de tamaños. Acepto (y premio) que hayan añadido
+`alpha = 0.7`, porque con `size` los puntos grandes tapan a los pequeños.
+
+Sobre mapear `pais` al color: `pais` tiene **142** valores distintos.
+`ggplot2` intentaría asignar 142 colores diferentes y construir una leyenda de 142
+entradas, que ocuparía más espacio que el gráfico. Además, el ojo humano no puede
+distinguir más de ocho o diez colores categóricos con fiabilidad. El color sirve
+para variables con **pocas categorías**; para muchas, hay que usar facetas,
+etiquetar solo algunos casos, o resumir la variable en grupos.
+
+**Punto para discutir en clase.** Este gráfico ya es el famoso de Hans Rosling, al
+que solo le falta la escala logarítmica. Vale mencionarlo y enseñar un video de
+Gapminder: sirve para que vean adónde llega esto.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: cambiar la escala
+
+```{r sol03-4}
+ggplot(paises_2007, aes(x = pib_per_capita, y = esperanza_de_vida,
+                        color = continente, size = poblacion)) +
+  geom_point(alpha = 0.7) +
+  scale_x_log10()
+```
+
+**Respuesta esperada.** Los mismos 142 puntos. La nube, que estaba amontonada
+contra la izquierda, ahora se reparte a lo ancho y la relación se ve casi
+**lineal**.
+
+Sobre si es hacer trampa: **no**, y la razón es que no se cambió ni un solo dato.
+Los valores son los mismos; lo que cambió es **dónde se dibuja cada uno**. Una
+escala logarítmica hace que distancias iguales en la pantalla correspondan a
+**razones** iguales y no a diferencias iguales: el trecho de 1,000 a 10,000 ocupa
+lo mismo que el de 10,000 a 100,000. Eso es exactamente lo apropiado para el
+ingreso, porque duplicar el ingreso de un país pobre significa muchísimo más que
+duplicarlo en uno rico, y también es lo apropiado para la mayoría de las
+variables biológicas de tamaño y abundancia.
+
+Sí sería deshonesto usarla **sin decirlo**, o truncar el eje y para exagerar una
+diferencia. La regla es que la escala se escoge por la naturaleza de la variable y
+se declara en la figura.
+
+**Punto para discutir en clase.** Conectar con biología: masa corporal, área de
+territorio, abundancia de especies y concentraciones se grafican casi siempre en
+log. Es un buen momento para adelantar por qué muchas relaciones alométricas son
+rectas en escala log-log.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: facetas
+
+```{r sol03-5}
+ggplot(paises, aes(x = anio, y = esperanza_de_vida)) +
+  geom_line(aes(group = pais), alpha = 0.4) +
+  facet_wrap(~ continente)
+```
+
+**Respuesta esperada.** Cinco paneles. Oceanía tiene dos líneas (Australia y
+Nueva Zelanda). Sin `group = pais`, `ggplot2` dibuja una sola línea en zigzag que
+recorre todos los puntos en orden; ese es el error típico y conviene señalarlo.
+
+Sobre la caída de los años noventa: la más marcada es la de **Ruanda**, en
+**África**, por el genocidio de 1994. También se ven caídas fuertes en varios
+países del sur de África por la epidemia de VIH, y una caída menor en Camboya en
+los años setenta. Acepto cualquiera de ellas si el estudiante la ubica bien.
+
+Sobre por qué el promedio lo escondería: el promedio del continente reparte la
+caída de un país entre los cincuenta y dos que tiene África. Una caída de treinta
+años en un país se convierte en una caída de medio año en el promedio, que es
+indistinguible del ruido. Los eventos que afectan a **una parte** de las unidades
+solo se ven cuando se dibujan las unidades, no el resumen.
+
+**Punto para discutir en clase.** Este es probablemente el mejor ejemplo del curso
+para la idea de que **resumir es perder información**, y de que hay que mirar los
+datos antes de resumirlos. Vale la pena dedicarle tiempo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: recta y curva
+
+```{r sol03-6}
+ggplot(paises_2007, aes(x = pib_per_capita, y = esperanza_de_vida)) +
+  geom_point(aes(color = continente), alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  geom_smooth(se = FALSE, color = "red") +          # LOESS
+  scale_x_log10()
+```
+
+**Respuesta esperada.** Tres capas visibles. La recta negra y la curva roja se
+parecen mucho en el centro del rango.
+
+Sobre dónde se separan: en los **extremos**, sobre todo en el extremo izquierdo
+(ingresos bajos) y en el derecho. En el centro hay muchos datos y las dos coinciden;
+en las puntas hay pocos, y ahí LOESS sigue la forma local mientras que la recta
+mantiene su pendiente constante. Conviene señalar que en los extremos LOESS es
+menos confiable precisamente porque tiene menos vecinos con los que trabajar.
+
+Sobre cuál usar: **LOESS para explorar**, porque no obliga a suponer una forma y
+enseña la que tienen los datos. **`lm` para reportar**, porque produce una
+ecuación, una pendiente interpretable, un intervalo de confianza y un valor de *p*.
+La respuesta que quiero es que LOESS describe y `lm` afirma.
+
+**Punto para discutir en clase.** Preguntar qué significaría la pendiente de esa
+recta, ahora que el eje x está en log: es el cambio en años de vida por cada
+**multiplicación por diez** del ingreso, no por cada dólar. Muy pocos lo notan a
+la primera.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7: cajas y conteos
+
+```{r sol03-7a}
+ggplot(paises_2007, aes(x = continente, y = esperanza_de_vida)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+```{r sol03-7b}
+ggplot(paises_2007, aes(x = continente)) +
+  geom_bar()
+
+# comprobación
+count(paises_2007, continente)
+sum(count(paises_2007, continente)$n)   # 142
+```
+
+**Respuesta esperada.** Cinco cajas y cinco barras. La barra más alta es
+**África** (52 países); las cinco suman 142. Oceanía tiene solo 2, y por eso su
+"caja" apenas es una caja: con dos observaciones el diagrama pierde sentido, y
+esto conviene señalarlo.
+
+Sobre de dónde salen las alturas: de una **transformación estadística**. El
+`geom_bar()` lleva asociada `stat_count`, que cuenta las filas de cada categoría y
+crea una variable nueva (`count`) que no existe en la tabla. Es la cuarta pieza de
+la gramática de gráficos. Acepto también que digan "el `stat` por defecto de
+`geom_bar()` es `count`".
+
+**Punto para discutir en clase.** Poner los dos gráficos uno al lado del otro y
+preguntar cuál de los dos usarían para decir "África tiene peor esperanza de
+vida". El de cajas responde esa pregunta; el de barras responde otra distinta
+(cuántos países hay). Es un buen ejercicio para separar "qué muestra la figura" de
+"qué quiero afirmar".
+
+------------------------------------------------------------------------
+
+## Ejercicio 8 (bono): una figura presentable
+
+```{r sol03-8}
+grafico_final <- ggplot(paises_2007,
+       aes(x = pib_per_capita, y = esperanza_de_vida)) +
+  geom_point(aes(color = continente, size = poblacion), alpha = 0.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  geom_smooth(se = FALSE, color = "red", linetype = "dashed") +
+  scale_x_log10(labels = scales::comma) +
+  labs(
+    title    = "Ingreso y esperanza de vida en el mundo",
+    subtitle = "142 países, año 2007. Escala logarítmica en el eje horizontal",
+    x        = "PIB per cápita (dólares internacionales, escala log)",
+    y        = "Esperanza de vida al nacer (años)",
+    color    = "Continente",
+    size     = "Población",
+    caption  = "Datos: paquete datos (Gapminder)"
+  ) +
+  theme_minimal()
+
+grafico_final
+
+ggsave("Graficos_ejercicios/ingreso_esperanza.png",
+       plot = grafico_final, width = 7, height = 5, units = "in", dpi = 300)
+
+file.exists("Graficos_ejercicios/ingreso_esperanza.png")   # TRUE
+```
+
+**Respuesta esperada.** El archivo existe y en la figura no aparece ningún nombre
+de columna crudo. Lo que se evalúa aquí es el criterio, no la ejecución técnica.
+
+Sobre las dos cosas que se notarían si faltaran: las respuestas buenas son los
+**nombres de los ejes con unidades** (sin ellos la figura no se puede leer sola) y
+la **nota de que el eje está en escala logarítmica** (sin ella el lector interpreta
+mal la pendiente). También acepto la fuente de los datos. Como cosa hecha por
+gusto suelen mencionar el tema, el tipo de línea o la transparencia; todas válidas.
+
+**Punto para discutir en clase.** Insistir en el criterio de la figura que se
+sostiene sola: si alguien arranca esa figura del informe y la ve suelta, ¿entiende
+qué muestra? Ese es el estándar del curso para toda figura entregada, y para el
+proyecto final.

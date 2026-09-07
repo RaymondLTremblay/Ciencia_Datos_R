@@ -1,0 +1,213 @@
+---
+title: "Ejercicios del Capítulo 3"
+subtitle: "Flujo de trabajo: proyectos, rutas, objetos y explorar un conjunto de datos"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 3 del libro del curso.
+
+Este capítulo trata de una **forma de trabajar**, así que varios ejercicios te
+piden hacer algo dentro de RStudio (mirar dónde estás parado, guardar un archivo,
+reiniciar la sesión) y no solo calcular un número.
+
+Los ejercicios usan `paises` del paquete `datos`, no `millas` ni `diamantes`, que
+son los conjuntos con los que se enseña en el capítulo.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra y produzca la tabla o el valor.
+3. **Una explicación en palabras** en el espacio marcado. Una tabla sola no contesta la pregunta.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*. Si el
+documento no compila, no se puede corregir.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Dónde está parado R: `getwd()` y `list.files()` | 5 |
+| 2 | Guardar con un nombre: `<-`, `ls()` | 5 |
+| 3 | La forma de los datos: `dim()`, `nrow()`, `ncol()`, `names()` | 5 |
+| 4 | El principio y el final: `head()` y `tail()` | 5 |
+| 5 | Una sola columna: `$` y `unique()` | 5 |
+| 6 | Un gráfico guardado con `ggsave()` | 5 |
+| **Total** | | **30** |
+| 7 (bono) | La prueba de la sesión limpia y la ayuda `?` | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre y se
+muestra (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+Antes de empezar, mira qué tienes:
+
+```{r explorar, eval=FALSE}
+names(paises)
+head(paises)
+```
+
+---
+
+# Ejercicio 1. Dónde estás parado (5 puntos)
+
+1. Corre `getwd()` y anota la carpeta que devuelve.
+2. Corre `list.files()` y mira la lista de archivos que R ve desde ahí.
+
+*Verifica:* entre los nombres que devuelve `list.files()` tiene que aparecer el de
+este mismo archivo `.Rmd`.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Si tu archivo `resultados.csv` estuviera en la
+carpeta de Descargas y escribieras `read_csv("resultados.csv")`, ¿lo encontraría
+R? Explica por qué, usando lo que te devolvió `getwd()`.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 2. Guardar con un nombre (5 puntos)
+
+Guarda `paises` completo en un objeto con un nombre que describa lo que es (no
+`x`, no `datos1`), y después comprueba que existe.
+
+*Verifica:* `ls()` incluye tu nombre y `nrow()` de tu objeto da **1704**.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Explica por qué `Paises` y `paises` serían dos
+objetos distintos para R, y qué tipo de error verías si te equivocas de mayúscula.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 3. La forma de los datos (5 puntos)
+
+Averigua cuántas filas y cuántas columnas tiene `paises`, y cómo se llaman las
+columnas. Usa `dim()`, `nrow()`, `ncol()` y `names()`.
+
+*Verifica:* **1704 filas y 6 columnas**; `dim()` devuelve esos dos números en ese
+orden.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** `paises` tiene 142 países y 12 años. Multiplica y
+compara con el número de filas. ¿Qué te dice el resultado sobre qué representa
+**una fila** de esta tabla?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 4. El principio y el final (5 puntos)
+
+Muestra las **4 primeras** filas de `paises` y las **4 últimas**.
+
+*Verifica:* 4 filas en cada bloque, y el país de las primeras es distinto al de
+las últimas.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Menciona una razón concreta por la que mirar el
+**final** de un archivo de datos puede revelar un problema que no se ve mirando el
+principio.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 5. Una sola columna (5 puntos)
+
+Usando el signo de dólar, saca la columna `continente` y averigua cuántos
+continentes distintos hay y cuáles son. Después haz lo mismo con `anio`.
+
+*Verifica:* **5** continentes y **12** años distintos.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** `paises$continente` devuelve un vector y `paises` es
+una tabla. ¿Por qué `unique()` necesita el vector y no le puedes pasar la tabla
+completa?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 6. Un gráfico guardado (5 puntos)
+
+Haz un gráfico de puntos de `pib_per_capita` (eje x) contra `esperanza_de_vida`
+(eje y), con `continente` en el color. Guárdalo con `ggsave()` en una carpeta
+`Graficos_ejercicios` de tu proyecto, con 6 pulgadas de ancho, 4 de alto y 300 dpi.
+
+*Verifica:* `file.exists("Graficos_ejercicios/<tu archivo>.png")` devuelve `TRUE`.
+Si la carpeta no existe, créala antes con `dir.create()`.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** El gráfico tiene una forma muy característica, no es
+una recta. Descríbela en una o dos oraciones: ¿qué le pasa a la esperanza de vida
+a medida que sube el ingreso?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 7 (BONO). La prueba de la sesión limpia (5 puntos adicionales)
+
+1. Reinicia R (*Session > Restart R*).
+2. Compila este documento entero con *Knit*, desde la primera línea.
+3. Lee `?paises` en la ayuda.
+
+*Verifica:* el documento compila sin errores desde una sesión recién reiniciada.
+
+```{r ej7, eval=FALSE}
+# Escribe aquí lo que necesites (por ejemplo: ?paises)
+
+```
+
+**Explicación en palabras.** Dos cosas:
+
+1. Si se cayó, ¿en qué línea fue y qué faltaba? Si compiló a la primera, ¿qué
+   costumbre tuya lo hizo posible?
+2. Según la ayuda, ¿en qué unidades está `pib_per_capita` y por qué esa unidad
+   permite comparar países de tamaños muy distintos?
+
+> *Escribe aquí tu respuesta:*

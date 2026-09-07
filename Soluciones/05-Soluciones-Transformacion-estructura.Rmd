@@ -1,0 +1,253 @@
+---
+title: "Soluciones: Capítulo 6 (Estructura de un archivo y los verbos de dplyr)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+
+Corresponde a: 05-Transformacion-estructura.Rmd (Capítulo 6 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_06_estructura.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: leer la estructura
+
+```{r sol05-1}
+glimpse(millas)
+dim(millas)   # 234 11
+```
+
+**Respuesta esperada.** 234 filas, 11 columnas. Las numéricas son `cilindrada`,
+`anio`, `cilindros`, `ciudad` y `autopista`: **5**. Las otras seis son de texto.
+
+Sobre `mean(millas$anio)`: el cálculo **corre** y devuelve un número, pero ese
+número no significa nada. `anio` solo tiene dos valores, 1999 y 2008, y el
+promedio de esos dos años daría algo como 2003.5, un año en el que no se midió
+ningún automóvil. `anio` es una variable **categórica escrita con números**, igual
+que `cilindros`.
+
+La lección: el tipo de dato dice qué operaciones R **permite**, no cuáles tienen
+**sentido**. Eso lo decide lo que la variable representa, y eso está en la ayuda
+(`?millas`) y en la cabeza de quien analiza, no en el tipo.
+
+**Punto para discutir en clase.** Pedir otros ejemplos de números que no son
+cantidades: códigos de zona postal, números de identificación, años, códigos de
+parcela. El promedio de los códigos postales de Puerto Rico es un número
+perfectamente calculable y absolutamente inútil.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: los valores que existen
+
+```{r sol05-2}
+sort(unique(millas$clase))
+length(unique(millas$clase))        # 7
+
+sort(unique(millas$fabricante))
+length(unique(millas$fabricante))   # 15
+```
+
+**Respuesta esperada.** Siete clases (`2seater`, `compact`, `midsize`,
+`minivan`, `pickup`, `subcompact`, `suv`) y quince fabricantes. Acepto también
+`count(millas, clase)`, que además da las frecuencias y es la forma tidyverse.
+
+Sobre `clase == "SUV"`: devuelve **cero filas** y **ningún mensaje**. R distingue
+mayúsculas de minúsculas en las comparaciones de texto, así que `"SUV"` y `"suv"`
+son cadenas distintas.
+
+Sobre por qué es peligroso: un error detiene el análisis y se arregla. Una tabla
+vacía **es un resultado**, y todo lo que venga después la seguirá procesando sin
+protestar: el promedio dará `NaN`, el conteo dará 0, y la gráfica saldrá en
+blanco. El estudiante puede llegar a escribir en su informe "no hay ningún SUV en
+los datos", que es una conclusión falsa producida por un dedazo.
+
+**Punto para discutir en clase.** La costumbre que quiero instalar: mirar
+`unique()` **antes** de escribir el `filter()`, siempre, sin excepción. Y después
+de filtrar, mirar `nrow()`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: filtrar con una condición
+
+```{r sol05-3}
+suvs <- millas |> filter(clase == "suv")
+nrow(suvs)      # 62
+
+nrow(millas)    # 234, no cambió
+```
+
+**Respuesta esperada.** 62 filas en la tabla filtrada; `millas` sigue teniendo
+234.
+
+Sobre qué significa: `filter()`, y en general todos los verbos de `dplyr`, **no
+modifican** la tabla original. Devuelven una tabla nueva. Si no la guardas con
+`<-`, se imprime y se pierde.
+
+Eso tiene dos consecuencias prácticas. La buena: nunca destruyes tus datos por
+error, así que puedes probar cosas con tranquilidad. La que hay que tener
+presente: si haces `filter()` sin asignar y en el paso siguiente vuelves a usar
+`millas`, estás trabajando con los 234 otra vez, y el filtro se perdió sin que
+nada lo indique.
+
+**Punto para discutir en clase.** Contrastar con el mundo de Excel, donde
+"filtrar" cambia lo que ves y a veces lo que guardas. En R el original permanece
+intacto, y eso es parte de la reproducibilidad.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: filtrar con `%in%`
+
+```{r sol05-4}
+a <- millas |> filter(clase %in% c("suv", "2seater"))
+nrow(a)   # 67
+
+b <- millas |> filter(clase == "suv" | clase == "2seater")
+nrow(b)   # 67
+
+# la versión incorrecta
+mal <- millas |> filter(clase == c("suv", "2seater"))
+nrow(mal)
+```
+
+**Respuesta esperada.** Las dos versiones correctas dan **67**. La incorrecta da
+un número **menor**, alrededor de la mitad, y puede o no dar advertencia según la
+versión de R.
+
+Sobre qué hizo R: **reciclaje**. `clase == c("suv", "2seater")` compara el vector
+de 234 clases contra un vector de 2 elementos, repitiendo el corto. La fila 1 se
+compara con `"suv"`, la fila 2 con `"2seater"`, la fila 3 con `"suv"` otra vez, y
+así alternando. El resultado es que solo se conservan los SUV que están en
+posición impar y los 2seater que están en posición par: aproximadamente la mitad
+de cada grupo, escogida por su posición en la tabla, que no tiene ningún
+significado.
+
+Es un resultado plausible, con la estructura correcta y sin ningún error, y por
+eso es de los peores errores que se pueden cometer en `dplyr`.
+
+**Punto para discutir en clase.** Pedir que se fijen en que el número da distinto
+si antes se ordena la tabla con `arrange()`. Un análisis cuyo resultado depende del
+orden de las filas está mal, y esa es una buena regla general para detectar este
+tipo de fallo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: seleccionar y ordenar
+
+```{r sol05-5}
+millas |>
+  filter(anio == 2008) |>
+  select(fabricante, modelo, clase, ciudad, autopista) |>
+  arrange(desc(autopista))
+```
+
+**Respuesta esperada.** Cinco columnas y las filas ordenadas de mayor a menor
+consumo en carretera. Acepto el orden `select()` antes de `filter()`, porque `anio`
+no está entre las columnas seleccionadas... y ahí está la trampa: **no funciona**.
+Si el estudiante puso `select()` primero sin incluir `anio`, obtuvo el error
+`object 'anio' not found`. Vale la pena que se lo encuentren.
+
+Sobre la pregunta: **no**, no habría funcionado. `filter()` necesita que la
+columna `anio` exista en la tabla que recibe, y si `select()` ya la eliminó, no
+existe. Por eso la costumbre segura es filtrar primero y seleccionar después: al
+filtrar, la tabla todavía tiene todas sus columnas.
+
+**Punto para discutir en clase.** Es un buen ejemplo de que el pipe define un
+orden real de operaciones, no una lista de deseos. Cada verbo solo ve lo que le
+entregó el anterior.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: agrupar y resumir
+
+```{r sol05-6}
+resumen <- millas |>
+  group_by(clase) |>
+  summarise(
+    promedio = mean(autopista),
+    mediana  = median(autopista),
+    n        = n()
+  ) |>
+  arrange(desc(promedio))
+
+resumen
+sum(resumen$n)   # 234
+```
+
+**Respuesta esperada.** Siete filas, cuatro columnas, los conteos suman 234.
+`pickup` queda última y `2seater` tiene 5 automóviles.
+
+Sobre por qué el promedio de `2seater` es poco confiable: está calculado sobre
+**cinco** automóviles, y además los cinco son básicamente el mismo modelo
+deportivo. Un promedio de cinco observaciones tiene un error estándar grande y se
+mueve muchísimo si se añade o se quita un caso. El número que sale es
+perfectamente calculable y perfectamente poco informativo. Por eso `n()` no es un
+adorno: es la columna que dice cuánto crédito darle a las demás.
+
+Sobre `pickup`: son camionetas, los vehículos más pesados y menos aerodinámicos
+del conjunto, con motores grandes y tracción en las cuatro ruedas en muchos casos.
+Que rindan menos millas por galón en carretera es exactamente lo que la física
+predice.
+
+**Punto para discutir en clase.** La regla: **siempre incluir `n()` en un
+`summarise()`**. Un promedio sin su tamaño de muestra al lado es medio resultado,
+y en un informe es un resultado que no se puede evaluar.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): dos variables de agrupación
+
+```{r sol05-7, message=TRUE}
+por_clase_traccion <- millas |>
+  group_by(clase, traccion) |>
+  summarise(promedio = mean(autopista), n = n()) |>
+  ungroup()
+
+por_clase_traccion
+dplyr::group_vars(por_clase_traccion)   # character(0)
+
+# alternativa equivalente
+millas |>
+  group_by(clase, traccion) |>
+  summarise(promedio = mean(autopista), n = n(), .groups = "drop")
+```
+
+**Respuesta esperada.** Menos de 21 filas, porque combinaciones como
+"minivan con tracción en las cuatro ruedas" no existen en los datos.
+`group_vars()` devuelve `character(0)` después de `ungroup()`.
+
+Sobre el mensaje: es
+`summarise() has grouped output by 'clase'. You can override using the .groups argument.`
+Avisa de que la tabla que devuelve **sigue agrupada** por `clase`, porque
+`summarise()` solo elimina el último nivel de agrupación.
+
+Sobre el cálculo que saldría mal: el ejemplo más claro es intentar calcular la
+proporción del total. `mutate(prop = n / sum(n))` sobre la tabla todavía agrupada
+divide entre el total **de cada clase**, no entre 234, así que cada clase suma 1 y
+la columna entera suma 7. El resultado son números entre 0 y 1 que parecen
+proporciones y no lo son. También vale como respuesta un `arrange()` que no ordena
+como se espera, o un `filter(promedio == max(promedio))` que devuelve un máximo
+por clase en vez de uno global.
+
+**Punto para discutir en clase.** Este mensaje aparece decenas de veces en el
+curso y casi todo el mundo aprende a ignorarlo. Vale la pena dedicarle cinco
+minutos ahora, enseñando el `mutate(prop = n / sum(n))` con y sin `ungroup()` uno
+al lado del otro. Se entiende de una vez y no se olvida.

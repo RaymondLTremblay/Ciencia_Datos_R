@@ -1,0 +1,218 @@
+---
+title: "Soluciones: Capítulo 3 (Flujo de trabajo)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+
+Corresponde a: 02-Flujo-de-trabajo.Rmd (Capítulo 3 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_03_flujo-de-trabajo.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras.
+
+En este capítulo la mitad de lo que se evalúa es un **hábito de trabajo**, así
+que la explicación en palabras pesa tanto como el código.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: dónde estás parado
+
+```{r sol02-1}
+getwd()
+list.files()
+```
+
+**Respuesta esperada.** `getwd()` devuelve la carpeta del proyecto de RStudio si
+el estudiante abrió el `.Rproj`, o la carpeta donde guardó el `.Rmd` si no. En
+`list.files()` tiene que aparecer su propio archivo `.Rmd`.
+
+Sobre el `resultados.csv` en Descargas: **no**, R no lo encontraría.
+`read_csv("resultados.csv")` es una **ruta relativa** y R la resuelve a partir del
+directorio de trabajo, que no es la carpeta de Descargas. Las soluciones válidas
+son mover el archivo a la carpeta del proyecto (lo correcto) o dar la ruta
+completa (frágil, porque solo existe en esa computadora).
+
+**Punto para discutir en clase.** Pregunta en voz alta quién obtuvo una ruta que
+incluye `Descargas` o `Downloads`. Es la señal de que están trabajando sobre un
+archivo suelto y no dentro de un proyecto, y es el momento de arreglarlo, antes de
+que se convierta en la costumbre del semestre.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: guardar con un nombre
+
+```{r sol02-2}
+paises_completo <- paises
+
+ls()
+nrow(paises_completo)   # 1704
+```
+
+**Respuesta esperada.** Un nombre descriptivo (`paises_completo`,
+`datos_paises`, `gapminder_es`, cualquiera que se entienda), que aparezca en
+`ls()`, y `nrow()` igual a **1704**.
+
+Sobre mayúsculas: R distingue mayúsculas de minúsculas en **todos** los nombres,
+de objetos y de funciones. `Paises` y `paises` son dos objetos distintos, y si
+escribes uno que no existe el error es
+`Error: object 'Paises' not found`. Es distinto del error de una función mal
+escrita, que es `could not find function`.
+
+**Punto para discutir en clase.** Aprovecha para poner la convención del curso:
+minúsculas y guion bajo (`esperanza_media`), nunca espacios, nunca acentos ni `ñ`
+en los nombres de objetos, aunque R los acepte. Los acentos en nombres de objetos
+dan problemas al abrir el archivo en otro sistema operativo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: la forma de los datos
+
+```{r sol02-3}
+dim(paises)     # 1704    6
+nrow(paises)    # 1704
+ncol(paises)    # 6
+names(paises)
+```
+
+**Respuesta esperada.** `dim()` devuelve `1704 6`, en ese orden: **filas primero,
+columnas después**. `names()` devuelve las seis columnas: `pais`, `continente`,
+`anio`, `esperanza_de_vida`, `poblacion`, `pib_per_capita`.
+
+Sobre la multiplicación: 142 por 12 da 1704, exactamente el número de filas. Eso
+significa que **una fila es un país en un año**, no un país. Cada país aparece
+doce veces, una por cada año medido. Es la primera vez en el curso que aparece la
+idea de "unidad de observación", que es central en el capítulo de datos ordenados.
+
+**Punto para discutir en clase.** Que el producto dé exacto también dice algo
+más: la tabla está **balanceada**, no le falta ningún año a ningún país. En datos
+reales eso casi nunca pasa, y es buena idea comprobarlo siempre.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: el principio y el final
+
+```{r sol02-4}
+head(paises, n = 4)
+tail(paises, n = 4)
+```
+
+**Respuesta esperada.** Cuatro filas en cada caso. Las primeras son del primer
+país en orden alfabético y las últimas del último, con años distintos.
+
+Sobre por qué mirar el final: en archivos que vienen de Excel es muy común que al
+final haya **filas de totales**, notas al pie, fuentes, o filas vacías que el
+programa arrastró. Esas filas entran al análisis como si fueran datos y arruinan
+cualquier promedio. También es donde se ve si un archivo se cortó a la mitad al
+exportarlo. Otras respuestas válidas: los datos suelen venir ordenados por fecha,
+así que el final es donde están los datos más recientes, que son los que más
+suelen tener problemas de captura.
+
+**Punto para discutir en clase.** Vale enseñar aquí la costumbre de correr
+siempre las cuatro juntas al abrir datos nuevos: `dim()`, `names()`, `head()`,
+`tail()`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: una sola columna
+
+```{r sol02-5}
+unique(paises$continente)
+length(unique(paises$continente))   # 5
+
+unique(paises$anio)
+length(unique(paises$anio))         # 12
+```
+
+**Respuesta esperada.** Cinco continentes (África, América, Asia, Europa y
+Oceanía) y doce años, de 1952 a 2007 cada cinco años.
+
+Sobre por qué `unique()` necesita el vector: `unique()` compara elementos entre
+sí para quedarse con los distintos. Un vector es una sola secuencia de valores
+comparables. Una tabla tiene seis columnas de tipos distintos, y "el valor
+distinto" de una tabla no significa nada, salvo que se entienda como
+"fila distinta", que es otra operación (`distinct()` en `dplyr`, o `unique()`
+sobre el data frame completo, que sí funciona pero devuelve filas, no valores).
+
+**Punto para discutir en clase.** Buen momento para introducir `table()` al lado
+de `unique()`: `table(paises$continente)` da además cuántas filas hay por
+continente, y ahí se ve que África tiene muchos más países que Oceanía.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: un gráfico guardado
+
+```{r sol02-6}
+if (!dir.exists("Graficos_ejercicios")) dir.create("Graficos_ejercicios")
+
+ggplot(paises, aes(x = pib_per_capita, y = esperanza_de_vida, color = continente)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    x = "PIB per cápita (dólares internacionales de 2005)",
+    y = "Esperanza de vida (años)",
+    color = "Continente"
+  ) +
+  theme_minimal()
+
+ggsave("Graficos_ejercicios/pib_vs_esperanza.png",
+       width = 6, height = 4, units = "in", dpi = 300)
+
+file.exists("Graficos_ejercicios/pib_vs_esperanza.png")   # TRUE
+```
+
+**Respuesta esperada.** El archivo existe y `file.exists()` devuelve `TRUE`.
+
+Sobre la forma: la relación **no es lineal**, es una curva que sube muy rápido al
+principio y luego se aplana. Al pasar de ingresos muy bajos a ingresos medios la
+esperanza de vida sube muchísimo; a partir de cierto nivel de ingreso, subir más
+casi no añade años. Es la forma típica de una relación logarítmica, y por eso en
+capítulos posteriores este mismo gráfico se hace con
+`scale_x_log10()`, que la endereza.
+
+**Punto para discutir en clase.** Este es un gráfico famoso (es el de Hans
+Rosling) y se presta para hablar de dos cosas a la vez: que la escala del eje es
+una decisión analítica, no cosmética, y que aquí hay doce años superpuestos en el
+mismo gráfico, lo cual no está mal pero conviene saberlo. Preguntar quién se dio
+cuenta.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): la prueba de la sesión limpia
+
+```{r sol02-7}
+?paises
+```
+
+**Respuesta esperada.** El documento compila desde una sesión reiniciada. Los
+fallos típicos, en orden de frecuencia: falta un `library()` dentro del documento
+porque el paquete estaba cargado en la consola; se usa un objeto que se creó en la
+consola y no existe en el documento; la carpeta `Graficos_ejercicios` no se creó
+antes del `ggsave()`.
+
+Sobre `pib_per_capita`: está en **dólares internacionales**, ajustados por
+paridad de poder adquisitivo. Es un valor **per cápita**, es decir, dividido entre
+la población, y por eso se pueden comparar la India y Noruega: se compara el
+ingreso por persona y no el tamaño total de la economía. El PIB total de la India
+es enorme precisamente porque tiene mucha gente, y compararlo sin dividir no
+diría nada sobre el nivel de vida.
+
+**Punto para discutir en clase.** Los dos puntos del ejercicio son en realidad el
+mismo: *Knit* desde una sesión limpia es la prueba de que el documento se
+sostiene solo, y leer la ayuda es la prueba de que el estudiante sabe qué está
+graficando. Sin la segunda, el gráfico bonito del Ejercicio 6 no significa nada.

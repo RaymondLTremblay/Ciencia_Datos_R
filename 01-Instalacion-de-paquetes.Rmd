@@ -15,24 +15,68 @@ de funciones, datos y documentación que amplía lo que R puede hacer. Antes de
 comenzar conviene **instalar de una sola vez** todos los paquetes que vamos a
 necesitar, para que ningún capítulo falle por un paquete que falta.
 
+Esta página parece la menos interesante del libro y es, sin embargo, la que más
+tiempo te va a ahorrar. Casi todos los mensajes de error que reciben los
+estudiantes en las primeras tres semanas del curso no son errores de análisis:
+son paquetes que no están instalados, paquetes instalados pero no activados, o
+dos paquetes que tienen una función con el mismo nombre y se pisan uno al otro.
+Si entiendes bien las cuatro ideas de este capítulo (instalar, activar, llamar
+con `::`, y resolver conflictos), te vas a ahorrar muchas horas de frustración.
+
 ::: {.historia}
-**CRAN** (*Comprehensive R Archive Network*), la red oficial de paquetes de R, funciona desde 1997 y hoy alberga más de 20,000 paquetes. El **tidyverse** —una colección de paquetes con una filosofía común para la ciencia de datos— fue creado por **Hadley Wickham** y su equipo en RStudio (hoy Posit); el nombre se popularizó alrededor de 2016.
+**CRAN** (*Comprehensive R Archive Network*), la red oficial de paquetes de R, funciona desde 1997 y hoy alberga más de 20,000 paquetes. El **tidyverse**, una colección de paquetes con una filosofía común para la ciencia de datos, fue creado por **Hadley Wickham** y su equipo en RStudio (hoy Posit); el nombre se popularizó alrededor de 2016.
 :::
+
+***
+
+## Qué es un paquete y dónde vive
+
+Cuando abres R, lo que tienes disponible es el **R base**: unas pocas cientos de
+funciones (`mean()`, `length()`, `plot()`, `read.csv()`) que vienen con el
+programa. Todo lo demás lo aportan los paquetes. Un paquete no es más que una
+carpeta con código de R, documentación y, muchas veces, conjuntos de datos de
+ejemplo, empaquetada de forma que R la pueda leer.
+
+Esa carpeta se guarda en tu computadora, en un lugar que R llama la
+**biblioteca** (*library*). Puedes ver dónde está con `.libPaths()`. Cuando
+corres `install.packages("dplyr")`, R se conecta a CRAN, descarga el paquete y
+lo copia en esa carpeta. Ahí se queda para siempre, aunque cierres R, aunque
+apagues la computadora. Por eso instalar es algo que se hace **una vez**.
+
+Activar es otra cosa. Cuando corres `library(dplyr)`, R va a la biblioteca,
+busca la carpeta de `dplyr` y pone sus funciones a tu disposición **en la sesión
+que está corriendo en ese momento**. Al cerrar R, esa sesión desaparece. La
+próxima vez que abras R el paquete sigue instalado, pero no está activado, y
+tienes que volver a correr `library()`.
+
+La comparación que suele funcionar en clase: instalar un paquete es como comprar
+un libro y ponerlo en el estante de tu casa. Activarlo con `library()` es bajar
+ese libro del estante y abrirlo sobre la mesa. El libro no deja de ser tuyo
+cuando lo devuelves al estante, pero si no lo bajas, no puedes leerlo.
 
 Recuerda: solo hay que **instalar** un paquete una vez en la computadora (con
 `install.packages()`), pero hay que **activarlo** con `library()` en cada sesión
 en la que lo vayas a usar.
 
 ::: {.funcion}
-**`install.packages("paquete")`** y **`library(paquete)`** — instalar vs. activar.
+**`install.packages("paquete")`** y **`library(paquete)`**: instalar vs. activar.
 
-- **`install.packages("x")`:** descarga e instala el paquete desde internet (CRAN). Se hace **una sola vez** por computadora.
-- **`library(x)`:** carga el paquete en la sesión actual para poder usar sus funciones. Se hace **en cada sesión**.
+- **`install.packages("x")`:** descarga e instala el paquete desde internet (CRAN). Se hace **una sola vez** por computadora. El nombre va **entre comillas**, porque cuando escribes la línea el paquete todavía no existe en tu máquina y R no puede reconocerlo como un objeto.
+- **`library(x)`:** carga el paquete en la sesión actual para poder usar sus funciones. Se hace **en cada sesión**. Aquí el nombre va **sin comillas** (aunque con comillas también funciona), porque el paquete ya está instalado.
+- **`dependencies = TRUE`:** instala también los paquetes de los que este depende. Casi siempre lo quieres puesto.
 - **Regla de oro:** instalar = una vez; activar con `library()` = cada vez que abres R.
 :::
 
 ::: {.peligro}
 Un error muy frecuente es instalar el paquete pero olvidar activarlo en la sesión. Si al usar una función aparece `could not find function`, casi siempre falta correr `library()`. Encontrarás más errores frecuentes y cómo resolverlos en el capítulo *Errores comunes* (\@ref(errores)).
+:::
+
+::: {.nota}
+Un `.Rmd` **no hereda** los paquetes de tu consola. Cuando le das a *Knit*,
+RStudio abre una sesión de R nueva y limpia. Si activaste `tidyverse` en la
+consola pero no escribiste `library(tidyverse)` dentro del documento, el
+documento no va a compilar, aunque en la consola todo te funcione. Por eso todos
+los capítulos de este libro empiezan con su bloque de `library()`.
 :::
 
 ***
@@ -98,10 +142,28 @@ if (length(fallidos) == 0) {
 }
 ```
 
+Vale la pena leer el bloque por partes, porque es un buen ejemplo de código
+defensivo. `installed.packages()` devuelve una tabla de todo lo que ya tienes;
+`rownames()` saca de ahí solo los nombres. `setdiff()` compara la lista del curso
+con esa lista y deja **únicamente lo que falta**, así que el bloque no pierde
+tiempo reinstalando lo que ya está. El `for` recorre los que faltan e instala uno
+por uno, y `tryCatch()` atrapa el fallo de cualquiera de ellos para que un solo
+paquete problemático no detenga la instalación de los otros cuarenta. Al final,
+`fallidos` te dice a cuáles hay que volver a mano.
+
 ::: {.nota}
 `ggversa` (Gráficas Versátiles con `ggplot2`, de Tremblay &
 Hernández-Serrano) está disponible en CRAN, así que se instala igual que los
 demás con `install.packages("ggversa")`.
+:::
+
+::: {.consejo}
+Si algún paquete se niega a instalarse, casi siempre es una de tres cosas: te
+falta una herramienta de compilación del sistema (en macOS, las *Command Line
+Tools* de Xcode; en Windows, *Rtools*), el paquete no está disponible para tu
+versión de R, o hay un problema momentáneo del espejo de CRAN. Antes de pelear
+con él, fíjate si de verdad lo necesitas para el capítulo que estás haciendo:
+casi ninguno es indispensable para el curso completo.
 :::
 
 ***
@@ -125,9 +187,61 @@ paquetes_curso <- c(
 instalados <- paquetes_curso %in% rownames(installed.packages())
 data.frame(
   paquete   = paquetes_curso,
-  instalado = ifelse(instalados, "sí", "NO — falta")
+  instalado = ifelse(instalados, "sí", "NO (falta)")
 )
 ```
+
+Si quieres ver de un vistazo cuántos te faltan en vez de leer la tabla entera:
+
+```{r c01-5, eval=FALSE}
+sum(!instalados)                  # cuántos faltan
+paquetes_curso[!instalados]       # cuáles son
+```
+
+::: {.funcion}
+**`installed.packages()`, `requireNamespace()` y `.libPaths()`**: preguntarle a R qué tiene.
+
+- **`installed.packages()`:** devuelve una tabla con todos los paquetes instalados. Es lenta si tienes muchos, así que se usa una vez y se guarda el resultado.
+- **`requireNamespace("x", quietly = TRUE)`:** devuelve `TRUE` o `FALSE` según el paquete esté o no instalado, sin activarlo y sin dar error. Es la forma limpia de preguntar "¿lo tengo?" dentro de un script.
+- **`.libPaths()`:** te dice en qué carpetas de tu computadora vive tu biblioteca de paquetes. Útil cuando R "pierde" un paquete que juras haber instalado (casi siempre porque instalaste con una versión de R y estás corriendo otra).
+:::
+
+***
+
+## Versiones: por qué importan
+
+Un paquete no es una cosa fija. `dplyr` de 2016 y `dplyr` de hoy no tienen las
+mismas funciones. Cuando le pides ayuda a alguien y le dices "no me corre", la
+segunda pregunta (después de "¿lo activaste?") casi siempre es "¿qué versión
+tienes?".
+
+```{r c01-6, eval=FALSE}
+packageVersion("dplyr")
+R.version.string
+sessionInfo()
+```
+
+`sessionInfo()` es el que hay que aprender de memoria. Devuelve tu versión de R,
+tu sistema operativo y la versión de **cada** paquete que tienes activado en ese
+momento. Cuando reportes un problema (a mí, a un compañero, o en un foro), pega
+la salida de `sessionInfo()`: con eso, quien te ayude puede reproducir tu
+situación exacta. Es también lo que se incluye al final de un análisis serio,
+para que dentro de tres años alguien pueda saber con qué herramientas se hizo.
+
+::: {.funcion}
+**`packageVersion()`, `sessionInfo()` y `update.packages()`**: control de versiones.
+
+- **`packageVersion("x")`:** la versión de un paquete, como `‘1.1.4’`.
+- **`sessionInfo()`:** el retrato completo de tu sesión (R, sistema operativo, paquetes activados y sus versiones). Se pega tal cual cuando pides ayuda.
+- **`update.packages(ask = FALSE)`:** actualiza todos los paquetes instalados. Conviene hacerlo con calma, **no** en la semana de entregar un trabajo, porque una actualización puede cambiar el comportamiento de una función.
+:::
+
+::: {.advertencia}
+No actualices paquetes en medio de un análisis que ya te funciona, y menos el
+día antes de una entrega. Termina el trabajo, entrega, y después actualiza. Un
+cambio de versión puede hacer que un argumento cambie de nombre o que una función
+deje de existir, y de repente un documento que compilaba deja de compilar.
+:::
 
 ***
 
@@ -140,6 +254,252 @@ library(tidyverse)   # ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, for
 library(datos)       # datos en español
 ```
 
+`tidyverse` es un caso especial: no es realmente un paquete de funciones, es un
+**meta-paquete** que no hace más que activar otros ocho de un tirón. Por eso al
+correr `library(tidyverse)` R te imprime esa lista con los nombres y las
+versiones de todos, y una sección de `Conflicts` al final. Esa lista no es un
+error: es información. Vale la pena leerla la primera vez.
+
 Si al correr un capítulo aparece un error como
 `Error in library(xxx): there is no package called 'xxx'`, regresa a esta página
 y ejecuta el bloque de instalación de arriba.
+
+***
+
+## Llamar una función sin activar el paquete: el operador `::`
+
+Hay una segunda manera de usar una función de un paquete: escribir el nombre del
+paquete, dos dos puntos, y el nombre de la función.
+
+```{r c01-7, eval=FALSE}
+dplyr::filter(datos::millas, clase == "compact")
+```
+
+Esto funciona **aunque no hayas corrido `library(dplyr)`**, siempre que el
+paquete esté instalado. Lo que hace `::` es ir directamente a buscar la función
+en ese paquete, sin activarlo entero.
+
+Es más largo de escribir, así que no se usa para todo. Se usa en tres
+situaciones, y las tres aparecen en este libro:
+
+1. Cuando quieres dejar clarísimo de dónde sale una función, por ejemplo en un
+   script que otra persona va a leer.
+2. Cuando solo necesitas **una** función de un paquete grande y no quieres cargar
+   el paquete completo.
+3. Cuando hay un conflicto de nombres, que es el tema de la próxima sección, y
+   necesitas decirle a R exactamente cuál de las dos funciones quieres.
+
+::: {.funcion}
+**`paquete::funcion()`**: llamar una función por su dirección completa.
+
+- **Qué hace:** usa la función `funcion()` del paquete `paquete` sin activarlo con `library()`.
+- **Cuándo usarlo:** para desambiguar (`dplyr::select()` cuando `MASS` está cargado), para usar algo una sola vez, o para escribir código que se lea sin ambigüedad.
+- **Ojo:** el paquete tiene que estar **instalado**. `::` evita el `library()`, no la instalación.
+:::
+
+***
+
+## Cuando dos paquetes tienen una función con el mismo nombre
+
+Nadie coordina los nombres de las funciones en CRAN, así que es normal que dos
+paquetes distintos usen el mismo nombre para cosas diferentes. Cuando eso pasa,
+gana **el último que activaste**. A esto se le llama **enmascaramiento**
+(*masking*).
+
+El ejemplo clásico en este curso es `select()`. `dplyr` tiene `select()` para
+escoger columnas. `MASS` también tiene una función `select()`, que hace algo
+completamente distinto. Si activas `MASS` después de `tidyverse`, tu `select()`
+de siempre deja de funcionar y el error que sale (`unused arguments`) no dice ni
+una palabra sobre paquetes.
+
+```{r c01-8, eval=FALSE}
+library(tidyverse)
+library(MASS)          # ahora MASS::select() tapa a dplyr::select()
+
+select(millas, modelo, clase)      # falla
+dplyr::select(millas, modelo, clase)   # funciona
+```
+
+R te avisa de esto en el momento de activar el paquete, con un mensaje que
+empieza por `The following object is masked from ...`. El problema es que ese
+mensaje aparece al principio de la sesión y el error aparece media hora después,
+así que casi nadie los conecta.
+
+Dos maneras de verlo cuando ya estás en problemas:
+
+```{r c01-9, eval=FALSE}
+search()        # el orden en que R busca las funciones
+conflicts()     # los nombres que están duplicados
+```
+
+::: {.peligro}
+Este es probablemente el error más difícil de diagnosticar de todo el curso,
+porque el código **no cambió** y de repente falla. Los enmascaramientos más
+frecuentes en el libro son: `MASS::select()` sobre `dplyr::select()`,
+`maps::map()` sobre `purrr::map()`, y `stats::filter()` sobre `dplyr::filter()`.
+La solución siempre es la misma: escribe `dplyr::` o `purrr::` delante. Volver a
+correr `library(tidyverse)` **no** lo arregla.
+:::
+
+::: {.consejo}
+Cuando un capítulo necesita `MASS` o `maps` solo para una cosa, la costumbre
+sana es no activarlos con `library()` y llamar lo que haga falta con `::`
+(`MASS::mvrnorm()`, `maps::map()`). Así el paquete hace su trabajo y no te tapa
+nada.
+:::
+
+***
+
+## Mantener los paquetes al día
+
+Cada cierto tiempo (una vez por semestre es razonable) conviene actualizar:
+
+```{r c01-10, eval=FALSE}
+update.packages(ask = FALSE)
+```
+
+Si solo quieres actualizar uno, vuelve a instalarlo:
+`install.packages("dplyr")` siempre trae la versión más reciente de CRAN.
+
+Y hay paquetes que no están en CRAN, sino en GitHub, casi siempre porque están
+en desarrollo. Se instalan con `devtools`:
+
+```{r c01-11, eval=FALSE}
+devtools::install_github("usuario/nombre_del_paquete")
+```
+
+::: {.advertencia}
+Un paquete de GitHub no ha pasado por la revisión de CRAN. Puede estar a medio
+hacer, puede cambiar de un día para otro y puede romper tu análisis. Para el
+curso, todo lo que necesitas está en CRAN; usa GitHub solo cuando el profesor o
+la documentación de un análisis específico te lo indique.
+:::
+
+***
+
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Este capítulo es de preparación, así que varios ejercicios te
+piden hacer algo **dentro de RStudio** (reiniciar la sesión, mirar un mensaje) y
+no solo calcular. Los datos que se usan son `millas` y `diamantes` del paquete
+`datos`. La hoja completa para entregar está en
+`Ejercicios/Ejercicios_Capitulo_02_paquetes.Rmd`.
+:::
+
+### Ejercicio 1. Tu inventario
+
+::: {.ejercicio}
+Usando el bloque de verificación de este capítulo, averigua **cuántos** de los
+paquetes del curso te faltan y **cuáles** son. No los instales todavía: primero
+cuéntalos.
+
+**Verificación:** tu respuesta tiene que ser un número (posiblemente `0`) y un
+vector de nombres. La suma de instalados y faltantes tiene que dar el largo total
+de `paquetes_curso`.
+
+**En palabras:** ¿por qué `installed.packages()` es una mala idea dentro de un
+ciclo que corre cuarenta veces? Piensa en lo que tiene que hacer R cada vez que
+la llamas.
+:::
+
+```{r c01-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Dónde vive y qué versión es
+
+::: {.ejercicio}
+Averigua tres cosas sobre el paquete `datos`: en qué carpeta de tu computadora
+está instalado, qué versión tienes, y qué versión de R estás usando.
+
+**Verificación:** debes obtener una ruta de carpeta, un número de versión con
+puntos (por ejemplo `‘0.4.0’`) y una línea que empiece con `R version`.
+
+**En palabras:** si un compañero te dice que un bloque tuyo no le corre, ¿cuál de
+estos tres datos le pedirías primero y por qué?
+:::
+
+```{r c01-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Sin `library()`
+
+::: {.ejercicio}
+Reinicia R (*Session > Restart R*) y, **sin correr ningún `library()`**, produce
+una tabla con las 5 primeras filas de `millas`, quedándote solo con las columnas
+`fabricante`, `modelo` y `autopista`. Tienes que usar `::` en todo.
+
+**Verificación:** el bloque debe correr y devolver una tabla de **5 filas y 3
+columnas**. Después corre `search()`: en la lista **no** debe aparecer
+`package:dplyr`.
+
+**En palabras:** si `::` funciona sin `library()`, ¿por qué no escribimos todo el
+libro así?
+:::
+
+```{r c01-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Provoca el conflicto
+
+::: {.ejercicio}
+En una sesión limpia, activa `tidyverse` y **después** `MASS`. Lee con cuidado el
+mensaje que R imprime al activar `MASS` y cópialo en tu documento. Luego intenta
+`select(diamantes, corte, precio)` y observa qué pasa. Finalmente, arréglalo.
+
+**Verificación:** la primera versión tiene que fallar, y la versión arreglada
+tiene que devolver una tabla con las columnas `corte` y `precio` y 53,940 filas.
+Usa `error = TRUE` en las opciones del bloque que falla, para que el documento
+compile de todos modos.
+
+**En palabras:** el mensaje que imprimió `MASS` contiene la palabra `masked`.
+Explica, con tus palabras y usando lo que devolvió `search()`, por qué gana
+`MASS` y no `dplyr`.
+:::
+
+```{r c01-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. El retrato de tu sesión
+
+::: {.ejercicio}
+Activa `tidyverse` y `datos`, corre `sessionInfo()` y guarda la salida en tu
+documento.
+
+**Verificación:** en la sección `other attached packages` deben aparecer al menos
+`dplyr`, `ggplot2` y `datos`, cada uno con su número de versión.
+
+**En palabras:** menciona una situación concreta, distinta a pedir ayuda, en la
+que a ti mismo te serviría tener guardada esta información dentro del documento.
+:::
+
+```{r c01-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6 (BONO). Tu propio verificador
+
+::: {.ejercicio}
+Escribe una función llamada `revisar_paquetes()` que reciba un vector de nombres
+de paquetes y devuelva un `data.frame` con tres columnas: `paquete`, `instalado`
+(`TRUE` o `FALSE`) y `version` (la versión si está instalado, `NA` si no lo
+está). Pruébala con
+`c("dplyr", "ggplot2", "datos", "unPaqueteQueNoExiste")`.
+
+**Verificación:** el resultado debe tener **4 filas**, la última con `instalado`
+en `FALSE` y `version` en `NA`. La función no debe dar error con el paquete
+inventado.
+
+**En palabras:** ¿por qué conviene usar `requireNamespace()` y no `library()`
+dentro de esta función?
+:::
+
+```{r c01-ej6, eval=FALSE}
+# Escribe tu código aquí
+```

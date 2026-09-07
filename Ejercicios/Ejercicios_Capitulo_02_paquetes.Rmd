@@ -1,0 +1,209 @@
+---
+title: "Ejercicios del Capítulo 2"
+subtitle: "Instalación de paquetes: instalar vs. activar, versiones, :: y conflictos"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 2 del libro del curso.
+
+Este capítulo es de preparación, así que varios ejercicios te piden **hacer algo
+dentro de RStudio** (reiniciar la sesión, leer un mensaje, mirar dónde viven tus
+paquetes) y no solo calcular un número. Léelos completos antes de empezar: el
+Ejercicio 3 te pide reiniciar R, y el Ejercicio 4 te pide provocar un error a
+propósito.
+
+Los ejercicios usan `millas` y `diamantes` del paquete `datos`.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra y produzca la tabla o el valor.
+3. **Una explicación en palabras** en el espacio marcado. Una tabla sola no contesta la pregunta.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*. Si el
+documento no compila, no se puede corregir.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Tu inventario de paquetes | 5 |
+| 2 | Dónde vive un paquete y qué versión es | 5 |
+| 3 | Usar funciones con `::`, sin `library()` | 5 |
+| 4 | Provocar y resolver un conflicto de nombres | 5 |
+| 5 | El retrato de tu sesión con `sessionInfo()` | 5 |
+| **Total** | | **25** |
+| 6 (bono) | Tu propio verificador de paquetes | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre y se
+muestra (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+Este es el único documento del curso en el que **no** debes poner todos los
+`library()` arriba: el Ejercicio 3 depende de que no estén activados. Cada
+ejercicio activa lo que necesita.
+
+---
+
+# Ejercicio 1. Tu inventario (5 puntos)
+
+1. Copia el vector `paquetes_curso` del capítulo.
+2. Averigua **cuántos** te faltan y **cuáles** son.
+
+*Verifica:* tu respuesta es un número (posiblemente `0`) y un vector de nombres.
+Instalados más faltantes tiene que dar `length(paquetes_curso)`.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿Por qué `installed.packages()` es una mala idea
+dentro de un ciclo que corre cuarenta veces? Piensa en lo que tiene que hacer R
+cada vez que la llamas.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 2. Dónde vive y qué versión es (5 puntos)
+
+Averigua tres cosas sobre el paquete `datos`:
+
+1. En qué carpeta de tu computadora está instalado.
+2. Qué versión tienes.
+3. Qué versión de R estás usando.
+
+*Verifica:* debes obtener una ruta de carpeta, un número de versión con puntos y
+una línea que empiece con `R version`.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Si un compañero te dice que un bloque tuyo no le
+corre, ¿cuál de estos tres datos le pedirías primero y por qué?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 3. Sin `library()` (5 puntos)
+
+Reinicia R (*Session > Restart R*) y, **sin correr ningún `library()`**, produce
+una tabla con las 5 primeras filas de `millas`, quedándote solo con las columnas
+`fabricante`, `modelo` y `autopista`. Todo con `::`.
+
+*Verifica:* el bloque devuelve una tabla de **5 filas y 3 columnas**. Después
+corre `search()`: en la lista **no** debe aparecer `package:dplyr`.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+```{r ej3-search}
+search()
+```
+
+**Explicación en palabras.** Si `::` funciona sin `library()`, ¿por qué no
+escribimos todo el libro así?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 4. Provoca el conflicto (5 puntos)
+
+1. Activa `tidyverse` y **después** `MASS`.
+2. Copia el mensaje que R imprime al activar `MASS`.
+3. Intenta `select(diamantes, corte, precio)` y observa qué pasa.
+4. Arréglalo.
+
+*Verifica:* la primera versión falla; la arreglada devuelve una tabla con `corte`
+y `precio` y **53,940 filas**.
+
+```{r ej4-cargar, message=TRUE}
+library(tidyverse)
+library(datos)
+library(MASS)
+```
+
+Pega aquí el mensaje de `masked` que imprimió `MASS`:
+
+> *Pega aquí el mensaje:*
+
+```{r ej4-falla, error=TRUE}
+# La versión que falla
+
+```
+
+```{r ej4-arreglo}
+# La versión arreglada
+
+```
+
+**Explicación en palabras.** El mensaje de `MASS` contiene la palabra `masked`.
+Explica, con tus palabras y usando lo que devuelve `search()`, por qué gana
+`MASS` y no `dplyr`.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 5. El retrato de tu sesión (5 puntos)
+
+Activa `tidyverse` y `datos`, corre `sessionInfo()` y deja la salida en el
+documento.
+
+*Verifica:* en `other attached packages` aparecen al menos `dplyr`, `ggplot2` y
+`datos`, con su número de versión.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Menciona una situación concreta, distinta a pedir
+ayuda, en la que a ti mismo te serviría tener esta información guardada dentro
+del documento.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 6 (BONO). Tu propio verificador (5 puntos adicionales)
+
+Escribe una función `revisar_paquetes()` que reciba un vector de nombres de
+paquetes y devuelva un `data.frame` con tres columnas: `paquete`, `instalado`
+(`TRUE` o `FALSE`) y `version` (la versión si está instalado, `NA` si no).
+
+Pruébala con `c("dplyr", "ggplot2", "datos", "unPaqueteQueNoExiste")`.
+
+*Verifica:* el resultado tiene **4 filas**; la última con `instalado` en `FALSE` y
+`version` en `NA`. La función no da error con el paquete inventado.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿Por qué conviene usar `requireNamespace()` y no
+`library()` dentro de esta función?
+
+> *Escribe aquí tu respuesta:*

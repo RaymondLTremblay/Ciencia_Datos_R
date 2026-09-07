@@ -1,0 +1,207 @@
+---
+title: "Ejercicios del Capítulo 5"
+subtitle: "Calculadora sofisticada: operadores, vectores, tipos y el pipe"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 5 del libro del curso.
+
+Los primeros ejercicios trabajan con vectores que construyes tú; los últimos usan
+`vuelos` del paquete `datos`, no `millas` ni `diamantes`, que son los conjuntos
+con los que se enseña en el capítulo.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el bloque corra y produzca el valor o la tabla.
+3. **Una explicación en palabras** en el espacio marcado. Un número solo no contesta la pregunta.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*. Si el
+documento no compila, no se puede corregir.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | El residuo y el cociente: `%%` y `%/%` | 5 |
+| 2 | Logaritmos: `log()`, `log10()`, `log2()`, `exp()` | 5 |
+| 3 | Vectores y tipos: `c()`, `seq()`, `class()` | 5 |
+| 4 | `length()` frente a `nrow()` y `ncol()` | 5 |
+| 5 | Filtrar y contar: `filter()` y `nrow()` | 5 |
+| 6 | Una columna nueva con `$` | 5 |
+| **Total** | | **30** |
+| 7 (bono) | El reciclaje silencioso de vectores | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que corre y se
+muestra (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+---
+
+# Ejercicio 1. El residuo y el cociente (5 puntos)
+
+```{r ej1-datos}
+horas <- c(517, 533, 542, 554, 558, 1730, 2359)
+```
+
+Sepáralas en dos vectores, uno con la **hora** y otro con los **minutos**, usando
+`%/%` y `%%`.
+
+*Verifica:* **7** elementos en cada vector. Para `1730`, hora `17` y minuto `30`;
+para `517`, hora `5` y minuto `17`.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Explica en una oración qué hace cada uno de los dos
+operadores, y por qué `2359` no se convierte a minutos desde medianoche con una
+simple división entre 100.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 2. Logaritmos (5 puntos)
+
+Calcula el logaritmo de `1000` en base natural, en base 10 y en base 2, de tres
+maneras distintas. Después comprueba que `exp()` deshace el logaritmo natural.
+
+*Verifica:* en base 10 da exactamente **3**; el natural da cerca de 6.9, y `exp()`
+de ese número devuelve 1000.
+
+```{r ej2}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Un compañero calculó `log(1000)`, obtuvo 6.9 y dijo
+que R estaba malo porque "el log de mil es tres". Explícale qué pasó.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 3. Vectores y tipos (5 puntos)
+
+Crea tres vectores: los números del 1 al 10; los pares del 2 al 20 con `seq()`
+(no a mano); y uno que mezcle números y texto, por ejemplo `c(1, 2, "tres", 4)`.
+Comprueba `class()` y `length()` de cada uno.
+
+*Verifica:* los dos primeros tienen **10** elementos. El tercero tiene `class()`
+igual a `"character"`.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿Por qué el tercer vector es de texto si tres de sus
+cuatro valores son números? ¿Qué problema causaría eso si fuera una columna
+importada de Excel donde alguien escribió "no medido" en una celda?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 4. `length()` y las tablas (5 puntos)
+
+Corre `length(vuelos)`, `nrow(vuelos)` y `ncol(vuelos)` y compara.
+
+*Verifica:* `nrow()` da **336,776** y `ncol()` da **19**. `length()` coincide con
+uno de los dos.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿Con cuál coincide `length()` y por qué? Usa en tu
+respuesta la palabra "lista".
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 5. Filtrar y contar (5 puntos)
+
+Cuenta cuántos vuelos salieron con **más de dos horas** de retraso
+(`atraso_salida` está en minutos), y calcula qué **proporción** del total
+representan. Mira también cuántos `NA` hay en `atraso_salida` antes de filtrar.
+
+*Verifica:* el número filtrado es mucho menor que 336,776 y la proporción queda
+entre 0 y 1.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Los vuelos cancelados tienen `NA` en `atraso_salida`
+y `filter()` los descarta. ¿Tu proporción está calculada sobre el total de vuelos
+o sobre los que sí salieron? ¿Cuál de las dos contesta "¿qué porcentaje de vuelos
+sale muy tarde?"?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 6. Una columna nueva (5 puntos)
+
+Sobre una **copia** de `vuelos`, y usando la forma de R base (`$` y `<-`), crea
+una columna `velocidad` igual a `distancia / tiempo_vuelo * 60` (millas por hora).
+Mira el máximo y el mínimo.
+
+*Verifica:* la copia tiene **20** columnas. El máximo y el mínimo tienen que ser
+números, no `NA`.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** El valor máximo probablemente sea absurdo para un
+avión comercial. Da una explicación posible que no sea "el avión iba a esa
+velocidad".
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 7 (BONO). El reciclaje silencioso (5 puntos adicionales)
+
+Crea `a <- 1:10` y `b <- c(1, 2)`, y suma `a + b`. Después crea `d <- c(1, 2, 3)`
+y suma `a + d`.
+
+*Verifica:* la primera suma funciona y devuelve **10** valores; la segunda da una
+**advertencia**.
+
+```{r ej7, warning=TRUE}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿Qué hizo R en el primer caso? ¿Por qué no avisó? ¿Por
+qué ese silencio es más peligroso que la advertencia del segundo caso?
+
+> *Escribe aquí tu respuesta:*

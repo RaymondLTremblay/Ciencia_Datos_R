@@ -382,9 +382,9 @@ datos |>
   group_by(grupo) |> 
   nest() |> 
   mutate(
-    modelo   = map(data, \(d) lm(y ~ x, data = d)),
-    resumen  = map(modelo, broom::glance),
-    coefs    = map(modelo, broom::tidy)
+    modelo   = purrr::map(data, \(d) lm(y ~ x, data = d)),
+    resumen  = purrr::map(modelo, broom::glance),
+    coefs    = purrr::map(modelo, broom::tidy)
   ) |> 
   unnest(resumen)
 ```

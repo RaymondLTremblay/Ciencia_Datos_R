@@ -1,0 +1,251 @@
+---
+title: "Ejercicios del Capítulo 4"
+subtitle: "Visualización de datos: la gramática de gráficos con ggplot2"
+author: "Nombre del estudiante: ______________________"
+date: "Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,
+                      fig.width = 7, fig.height = 5)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 4 del libro del curso.
+
+Este es el capítulo más importante del primer tercio del curso, así que tiene más
+ejercicios que los demás. Todos se construyen unos sobre otros: el Ejercicio 3
+parte del 1, el 4 del 3 y el 6 del 4. Hazlos en orden.
+
+Los ejercicios usan `paises` del paquete `datos`, no `millas`, `diamantes` ni
+`Anolis`, que son los conjuntos con los que se enseña en el capítulo.
+
+Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**, es decir, que el gráfico salga.
+3. **Una explicación en palabras** en el espacio marcado. Un gráfico solo no contesta la pregunta.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*. Si el
+documento no compila, no se puede corregir.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | El gráfico mínimo: `ggplot()` + `geom_point()` | 5 |
+| 2 | Dentro y fuera de `aes()` | 5 |
+| 3 | Color y tamaño: tres variables en un gráfico | 5 |
+| 4 | Cambiar la escala con `scale_x_log10()` | 5 |
+| 5 | Facetas y grupos: `facet_wrap()` y `group` | 5 |
+| 6 | Recta y curva: `geom_smooth()` con `lm` y LOESS | 5 |
+| 7 | Cajas y conteos: `geom_boxplot()` y `geom_bar()` | 5 |
+| **Total** | | **35** |
+| 8 (bono) | Una figura presentable: `labs()`, tema y `ggsave()` | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), gráfico que sale y se
+muestra (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+Antes de empezar, mira qué tienes:
+
+```{r explorar, eval=FALSE}
+names(paises)
+head(paises)
+paises_2007 <- filter(paises, anio == 2007)
+nrow(paises_2007)   # 142
+```
+
+---
+
+# Ejercicio 1. El gráfico mínimo (5 puntos)
+
+Con `paises` filtrado al año **2007**, haz un gráfico de puntos con
+`pib_per_capita` en x y `esperanza_de_vida` en y.
+
+*Verifica:* **142 puntos**, uno por país. Compruébalo con `nrow()` antes de
+graficar.
+
+```{r ej1}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Describe la forma de la nube en una o dos oraciones.
+¿Es una recta? Si no, ¿en qué parte del eje x cambia más rápido la esperanza de
+vida?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 2. Dentro y fuera de `aes()` (5 puntos)
+
+Haz **dos** versiones del gráfico anterior:
+
+a. Con `color = "purple"` **dentro** de `aes()`.
+b. Con `color = "purple"` **fuera** de `aes()`, como argumento de `geom_point()`.
+
+*Verifica:* una versión da puntos que no son morados y añade leyenda; la otra da
+puntos morados sin leyenda.
+
+```{r ej2a}
+# Versión a: color dentro de aes()
+
+```
+
+```{r ej2b}
+# Versión b: color fuera de aes()
+
+```
+
+**Explicación en palabras.** Explica qué entendió `ggplot2` en el caso que salió
+mal, y por qué eso hace que aparezca una leyenda.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 3. Una tercera variable (5 puntos)
+
+Al gráfico del Ejercicio 1 añádele el `continente` en el color y la `poblacion`
+en el tamaño de los puntos.
+
+*Verifica:* **dos leyendas**, una de color con **5** categorías y una de tamaño
+continua.
+
+```{r ej3}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Con cinco continentes el color funciona. ¿Qué pasaría
+si mapearas `pais` al color? Explica por qué esa estética no sirve para esa
+variable.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 4. Cambiar la escala, no los datos (5 puntos)
+
+Repite el gráfico del Ejercicio 3 y añádele `scale_x_log10()`.
+
+*Verifica:* siguen siendo **142** puntos; cambian las marcas del eje x y la forma
+de la nube.
+
+```{r ej4}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Compara este gráfico con el del Ejercicio 3. ¿Cuál
+deja ver mejor la relación? ¿Por qué cambiar la escala no es "hacer trampa" con
+los datos?
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 5. Facetas (5 puntos)
+
+Con **todos** los años, grafica `anio` contra `esperanza_de_vida` usando
+`geom_line(aes(group = pais))`, y separa en paneles por `continente` con
+`facet_wrap()`.
+
+*Verifica:* **5 paneles**; el de Oceanía tiene **2** líneas.
+
+```{r ej5}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Hay al menos un país cuya línea baja bruscamente en
+los años noventa. Encuéntralo, di en qué continente está, y explica por qué este
+gráfico lo hace visible mientras que el promedio del continente lo escondería.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 6. Recta y curva (5 puntos)
+
+Con `paises` en 2007 y `scale_x_log10()`, añade **dos** capas de tendencia: una
+con `method = "lm"` y otra sin `method` (LOESS), con colores distintos y
+`se = FALSE` en las dos.
+
+*Verifica:* tres capas en el gráfico: puntos, una recta y una curva.
+
+```{r ej6}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** ¿En qué parte del rango se separan más la recta y la
+curva? ¿Cuál usarías para **reportar** un resultado y cuál para **explorar**?
+Justifica.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 7. Cajas y conteos (5 puntos)
+
+Con `paises` en 2007, haz dos gráficos:
+
+a. Un diagrama de cajas de `esperanza_de_vida` por `continente`, con
+   `coord_flip()`.
+b. Un gráfico de barras que cuente cuántos países hay por `continente`.
+
+*Verifica:* **5** categorías en los dos. En el de barras, la más alta es
+**África**, y las cinco suman **142**.
+
+```{r ej7a}
+# Diagrama de cajas
+
+```
+
+```{r ej7b}
+# Gráfico de barras
+
+```
+
+**Explicación en palabras.** El gráfico de barras no usa ninguna variable en el
+eje y y sin embargo tiene eje y. ¿De dónde salieron esas alturas? Usa el término
+correcto de la gramática de gráficos.
+
+> *Escribe aquí tu respuesta:*
+
+---
+
+# Ejercicio 8 (BONO). Una figura presentable (5 puntos adicionales)
+
+Convierte el gráfico del Ejercicio 6 en una figura de informe: título, subtítulo
+con el año, nombres completos en los ejes con unidades, título de la leyenda, y un
+tema claro. Guárdala con `ggsave()` en `.png`, 7 por 5 pulgadas, 300 dpi.
+
+*Verifica:* `file.exists()` sobre el nombre del archivo devuelve `TRUE`, y en la
+figura no queda ningún nombre de columna sin traducir.
+
+```{r ej8}
+# Escribe tu código aquí
+
+```
+
+**Explicación en palabras.** Menciona dos cosas que hiciste que un lector notaría
+si faltaran, y una que hiciste solo por gusto.
+
+> *Escribe aquí tu respuesta:*

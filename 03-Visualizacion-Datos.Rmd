@@ -50,12 +50,79 @@ library(datos)
 :::
 
 ::: {.funcion}
-**`ggplot(data) + geom_*(aes(...))`** — construye gráficos por capas.
+**`ggplot(data) + geom_*(aes(...))`**: construye gráficos por capas.
 
 - **`ggplot(data)`:** define el conjunto de datos.
-- **`aes(x, y, color, ...)`:** la *estética* — conecta variables con los ejes, el color, la forma, etc.
+- **`aes(x, y, color, ...)`:** la *estética*, conecta variables con los ejes, el color, la forma, etc.
 - **`+ geom_*()`:** la geometría (`geom_point`, `geom_smooth`, `geom_bar`, `geom_boxplot`…). Las capas se **suman** con `+`.
 :::
+
+### La gramática de gráficos
+
+La idea que hace distinto a `ggplot2` es que **no hay un catálogo de gráficos**.
+No existe una función para el gráfico de barras, otra para el de dispersión y
+otra para el de cajas, cada una con sus propios argumentos. Lo que hay es un
+conjunto pequeño de piezas que se combinan, igual que en una gramática se
+combinan sustantivos y verbos para formar oraciones que nadie escribió antes.
+
+Las piezas son siete, y todo gráfico de este libro es alguna combinación de
+ellas:
+
+1. **Los datos** (`data`): la tabla de donde sale todo.
+2. **Las estéticas** (`aes`): qué variable va a qué propiedad visual (eje x, eje
+   y, color, forma, tamaño, transparencia).
+3. **Las geometrías** (`geom_*`): qué se dibuja, puntos, líneas, barras, cajas.
+4. **Las transformaciones estadísticas** (`stat_*`): qué cálculo se hace antes de
+   dibujar, por ejemplo contar cuántos casos hay en cada categoría.
+5. **El ajuste de posición** (`position`): qué hacer cuando dos cosas caen en el
+   mismo sitio, apilarlas, ponerlas lado a lado o moverlas un poco.
+6. **El sistema de coordenadas** (`coord_*`): cartesiano por defecto, o polar,
+   o con los ejes volteados.
+7. **Las facetas** (`facet_*`): dividir el gráfico en varios paneles.
+
+Solo las tres primeras hay que escribirlas siempre. Las otras cuatro tienen
+valores por defecto razonables y se tocan cuando hacen falta.
+
+De ahí viene la costumbre de escribir los gráficos en varias líneas, una capa por
+línea, unidas por `+`. Se leen de arriba abajo como una receta: toma estos datos,
+conecta estas variables con estos ejes, dibuja puntos, añade encima una línea de
+tendencia, divide en paneles.
+
+::: {.peligro}
+Las capas de `ggplot2` se unen con **`+`**, no con el pipe `%>%` ni con `|>`. Es
+la única parte del tidyverse donde se usa `+`, y es así por un motivo histórico:
+`ggplot2` es de 2007 y el pipe llegó años después. Además, el `+` tiene que estar
+**al final de la línea**, nunca al principio de la siguiente. Si lo pones al
+principio, R piensa que la primera instrucción ya terminó y te da un error o un
+gráfico vacío.
+:::
+
+::: {.consejo}
+Cuando un gráfico no sale, casi siempre falla una de tres cosas, y en este orden:
+falta un `+` al final de una línea, la variable está escrita distinto a como se
+llama en la tabla (revisa con `names()`), o pusiste algo dentro de `aes()` que
+debía ir fuera. Antes de reescribir el gráfico completo, revisa esas tres.
+:::
+
+### Dentro o fuera de `aes()`
+
+Esta es la distinción que más confusión causa en todo el capítulo, y vale la pena
+fijarla ahora de una vez.
+
+Lo que va **dentro** de `aes()` es un **mapeo**: le dices a `ggplot2` que una
+propiedad visual depende de una **variable** de los datos.
+`aes(color = clase)` significa "el color de cada punto depende de su clase", y
+`ggplot2` se encarga de escoger los colores y de construir la leyenda.
+
+Lo que va **fuera** de `aes()`, dentro del `geom_` pero como argumento suelto, es
+un **valor fijo**: `color = "blue"` significa "píntalos todos de azul", y no hay
+leyenda porque no hay nada que explicar.
+
+El error clásico es escribir `aes(color = "blue")`. Eso no pinta nada de azul:
+`ggplot2` entiende que `"blue"` es una variable nueva con un solo valor, le asigna
+el primer color de su paleta (un rojo salmón) y añade una leyenda que dice
+`"blue"`. Es exactamente el primer ejercicio que aparece al final de este
+capítulo.
 
 
 
@@ -64,6 +131,30 @@ library(datos)
 ::: {.consejo}
 `facet_wrap(~ variable)` divide el gráfico en un panel por cada categoría de la variable; es ideal para comparar grupos sin saturar una sola figura.
 :::
+
+Las facetas resuelven un problema muy concreto: cuando hay tantos grupos que los
+colores dejan de distinguirse. Con tres o cuatro categorías, el color funciona.
+Con diez, el gráfico se convierte en una nube y la leyenda no ayuda. Separar en
+paneles cuesta espacio pero devuelve la capacidad de comparar.
+
+Hay dos funciones y conviene no confundirlas. `facet_wrap(~ variable)` toma **una
+sola** variable y va colocando los paneles en filas hasta llenar el ancho, como
+las palabras de un párrafo; se controla con `nrow` o `ncol`.
+`facet_grid(fila ~ columna)` toma **dos** variables y construye una cuadrícula:
+una variable define las filas y la otra las columnas. La tilde `~` se lee "en
+función de", y el punto `.` se usa para decir "por este lado, nada".
+
+::: {.funcion}
+**`facet_wrap()` y `facet_grid()`**: dividir un gráfico en paneles.
+
+- **`facet_wrap(~ var)`:** un panel por categoría, acomodados en filas. `nrow` y `ncol` controlan la disposición.
+- **`facet_grid(fila ~ columna)`:** cuadrícula con dos variables. Con `.` de un lado se usa una sola: `facet_grid(traccion ~ .)` da filas, `facet_grid(. ~ cilindros)` da columnas.
+- **`scales = "free_y"`:** deja que cada panel tenga su propia escala. Úsalo con cuidado: si las escalas cambian, los paneles ya no se pueden comparar de un vistazo.
+:::
+
+En el gráfico de abajo, cada panel es un sitio de muestreo distinto, y dentro de
+cada panel el color separa las clases de sexo y edad de los lagartos *Anolis*.
+Poner las dos cosas en un solo panel sería ilegible.
 
 
 ```{r c03-3}
@@ -75,12 +166,23 @@ ggplot(data = Anolis) +
 ### Regresión lineal
 
 ::: {.funcion}
-**`geom_smooth(method = ...)`** — añade una línea de tendencia.
+**`geom_smooth(method = ...)`**: añade una línea de tendencia.
 
 - **Qué hace:** ajusta y dibuja una curva que resume la relación entre `x` e `y`, con su banda de confianza.
 - **`method = "lm"`:** recta de regresión lineal. Sin especificar `method`, usa **LOESS** (una curva suave local) para muestras no muy grandes.
 - **`se = FALSE`:** oculta la banda de confianza.
 :::
+
+Los dos gráficos de abajo llevan exactamente los mismos datos. El de la izquierda
+tiene una sola capa, los puntos. El de la derecha añade encima una segunda capa
+con la recta de regresión. La sombra gris alrededor de la recta es el **intervalo
+de confianza del 95% de la media estimada**: es una franja para la recta, no para
+los datos, así que es normal que la mayoría de los puntos queden fuera de ella.
+
+El orden en que se escriben las capas es el orden en que se dibujan, de abajo
+hacia arriba. Aquí la recta se escribe primero, así que los puntos quedan
+**encima** de ella. Si se escribiera al revés, la recta taparía los puntos que
+cruza. Con muchos datos esa decisión se nota.
 
 
 ```{r c03-4}
@@ -101,6 +203,25 @@ ggplot(data = millas) +
 Vea este enlace para información sobre la regresión LOESS
 
 <<https://en.wikipedia.org/wiki/Local_regression>>
+
+Cuando no se especifica `method`, `geom_smooth()` no ajusta una recta: ajusta una
+curva **LOESS** (*locally estimated scatterplot smoothing*). La idea es sencilla:
+en vez de buscar una sola recta que explique todos los datos a la vez, LOESS
+recorre el eje x y en cada punto ajusta una recta usando **solo los datos
+cercanos**, dándole más peso a los más próximos. Al unir todos esos ajustes
+locales sale una curva que se adapta a la forma real de los datos, sin que
+tengamos que decidir de antemano si la relación es lineal, cuadrática o cualquier
+otra cosa.
+
+Eso lo hace ideal para **explorar**: la curva LOESS muestra la forma de la
+relación. Y lo hace malo para **concluir**: no tiene una ecuación que se pueda
+reportar, ni una pendiente que se pueda interpretar, ni un valor de *p*. La regla
+práctica del curso es usar LOESS mientras se está mirando los datos, y `lm`
+cuando ya se sabe qué se quiere afirmar.
+
+Compara la curva de abajo con la recta del gráfico anterior. Con los mismos
+datos, la curva revela algo que la recta escondía: la relación entre cilindrada y
+rendimiento se aplana a partir de los cinco litros.
 
 ```{r c03-5}
 ggplot(data = millas) +
@@ -125,6 +246,25 @@ ggplot(data = millas) +
   geom_smooth(method=lm, aes(x = cilindrada, y = autopista, linetype = clase, colour=clase))
 ```
 
+Estos tres gráficos muestran una progresión que vale la pena seguir. El primero
+es una sola curva para todos los datos. En el segundo, al poner `clase` dentro de
+`aes()`, `ggplot2` deja de ajustar una curva y ajusta **una por cada clase**: el
+mapeo estético no cambia solo la apariencia, cambia **cómo se agrupan los
+cálculos**. El tercero hace lo mismo con rectas en lugar de curvas.
+
+Fíjate en que `linetype` y `colour` reciben la misma variable. Eso se llama
+**redundancia visual** y es una buena costumbre: quien vea la figura en blanco y
+negro, o quien no distinga bien los colores, todavía puede separar las líneas por
+su patrón de trazos.
+
+::: {.advertencia}
+En el segundo y tercer gráfico van a salir advertencias sobre clases con muy
+pocos datos. Tienen razón: la clase `2seater` tiene apenas cinco automóviles.
+Ajustar una curva LOESS a cinco puntos es un ejercicio de fe. Cuando `ggplot2`
+avisa de algo, casi siempre está señalando un problema real del análisis y no un
+capricho del programa.
+:::
+
 ### Regresión LOESS de un grupo
 
 ```{r c03-7}
@@ -132,6 +272,16 @@ ggplot(millas,aes(x = cilindrada, y = autopista)) +
   geom_point(aes(color = clase)) +
   geom_smooth(data = filter(millas, clase == "suv"), se =TRUE)
 ```
+
+Este gráfico enseña algo que no es evidente: **cada capa puede tener sus propios
+datos**. Los puntos usan `millas` completo, porque los datos se declararon en
+`ggplot()` y todas las capas los heredan. Pero `geom_smooth()` recibe su propio
+argumento `data =`, con `millas` filtrado a una sola clase, así que la curva se
+ajusta únicamente a los SUV aunque de fondo se vean todos los automóviles.
+
+Es el patrón que se usa para destacar un grupo dentro del contexto de los demás,
+y es exactamente lo que pide el ejercicio de *PartosInfantes* más abajo, donde
+hay que dibujar todos los países pero ajustar la recta solo para África y Asia.
 
 ### Regresión LOESS: 
 
@@ -141,6 +291,17 @@ ggplot(data = millas, mapping = aes(x = cilindrada, y = autopista)) +
   geom_smooth()
 
 ```
+
+Compara este código con el de los gráficos anteriores. Aquí `aes()` está en
+`ggplot()` y no dentro de cada `geom_`. Cuando el mapeo va en `ggplot()` es
+**global**: todas las capas lo heredan y no hay que repetirlo. Cuando va dentro
+de un `geom_` es **local**: vale solo para esa capa.
+
+La costumbre es poner en `ggplot()` lo que comparten todas las capas (casi
+siempre `x` e `y`) y dejar en cada `geom_` lo que es propio de ella. El gráfico
+que sigue lo hace así: `x` e `y` son globales, y el `color = clase` es local a
+los puntos. Por eso la recta de regresión es una sola y no una por clase, a
+diferencia de lo que pasaba antes.
 
 ### Regresión Lineal $$y=b+mx$$
 
@@ -159,6 +320,26 @@ ggplot(diamantes) +
   geom_bar(aes(x = precio))
 ```
 
+Aquí aparece la cuarta pieza de la gramática, la **transformación estadística**.
+Fíjate en que solo dimos una variable, `precio`, y sin embargo el gráfico tiene
+dos ejes. El eje y salió de un cálculo que hizo `geom_bar()` por su cuenta:
+contar cuántos diamantes hay en cada intervalo de precio. Ese cálculo se llama
+`stat_count`, y es lo que distingue a `geom_bar()` de `geom_col()`, que sí espera
+que le des la altura ya calculada.
+
+Lo mismo pasa con `geom_histogram()`, `geom_boxplot()` (que calcula la mediana y
+los cuartiles) y `geom_smooth()` (que ajusta un modelo). Todos dibujan algo que
+**no está en los datos**, sino que se calculó a partir de ellos. Conviene saberlo,
+porque explica por qué a veces el eje y tiene un nombre, `count`, que no aparece
+en ninguna columna de la tabla.
+
+::: {.nota}
+Con una variable continua como `precio`, lo apropiado es
+`geom_histogram(binwidth = ...)`, que deja escoger el ancho de los intervalos.
+`geom_bar()` está pensado para variables categóricas. Vale la pena hacer el mismo
+gráfico con los dos y comparar.
+:::
+
 
 ### Puntos con intervalo mínimo y máximo
 
@@ -173,6 +354,17 @@ ggplot(diamantes) +
   )
 ```
 
+`stat_summary()` es la forma general de lo anterior: en vez de aceptar el cálculo
+que trae el `geom_`, se especifica exactamente qué resumir. Aquí, para cada color
+de diamante, se dibuja un punto en la **mediana** del precio y una línea que va
+del **mínimo** al **máximo**.
+
+Es una figura honesta y poco común, porque enseña el rango completo en vez de
+esconderlo. También enseña su propia limitación: el mínimo y el máximo son los dos
+valores más extremos de la muestra, así que la línea crece según se añaden datos y
+no dice nada sobre dónde está la mayoría. Para eso está el diagrama de cajas que
+viene a continuación.
+
 
 ### geom_boxplot
 
@@ -185,6 +377,25 @@ ggplot( millas, aes(x = clase, y = autopista)) +
   geom_boxplot() +
   coord_flip()
 ```
+
+El diagrama de cajas resume cada grupo con cinco números: la línea gruesa del
+medio es la **mediana**; los bordes de la caja son el primer y el tercer
+**cuartil**, así que dentro de la caja está la mitad central de los datos; los
+bigotes llegan hasta el valor más extremo que esté a no más de 1.5 veces el
+alto de la caja, y los puntos sueltos que quedan más allá se dibujan uno a uno.
+
+El segundo gráfico es el mismo con `coord_flip()`, que voltea los ejes. No es un
+capricho estético: cuando las categorías tienen nombres largos, en vertical se
+encabalgan y hay que ladear la cabeza para leerlos. Voltear el gráfico los deja
+horizontales y legibles. Es de los cambios que más mejoran una figura con menos
+esfuerzo.
+
+::: {.consejo}
+Un diagrama de cajas esconde cuántos datos hay en cada grupo: una caja de cinco
+observaciones se ve igual de sólida que una de doscientas. Añadir
+`geom_jitter(width = 0.2, alpha = 0.4)` encima dibuja los puntos individuales
+con un desplazamiento pequeño, y resuelve el problema de un tirón.
+:::
 
 
 ### geom_bar y circular
@@ -220,6 +431,32 @@ bar + coord_flip()
 bar + coord_polar()
 ```
 
+Estos tres gráficos tienen **exactamente el mismo código** de datos, estética y
+geometría. Lo único que cambia es el sistema de coordenadas, la sexta pieza de la
+gramática. Guardar el gráfico base en un objeto (`bar <- ggplot(...)`) y después
+sumarle capas es una costumbre muy práctica: permite probar variantes sin repetir
+nada.
+
+`coord_flip()` intercambia los ejes. `coord_polar()` enrolla el eje x alrededor de
+un círculo, y de ahí salen los gráficos de sectores y las rosas de vientos.
+
+::: {.funcion}
+**`coord_*()`, `labs()`, `scale_*()` y `theme_*()`**: las capas de acabado.
+
+- **`coord_flip()`:** voltea los ejes. **`coord_polar()`:** coordenadas circulares. **`coord_cartesian(xlim=, ylim=)`:** hace zoom **sin descartar datos**, a diferencia de `xlim()`, que sí los descarta y cambia los cálculos.
+- **`labs(title=, subtitle=, x=, y=, color=, caption=)`:** todos los textos de la figura. Es lo primero que hay que añadir a un gráfico que va a leer otra persona.
+- **`scale_x_log10()`, `scale_y_continuous()`, `scale_color_brewer()`:** cómo se traducen los datos a la escala visual.
+- **`theme_minimal()`, `theme_bw()`, `theme_classic()`:** la apariencia general. No cambian los datos, solo el fondo, la cuadrícula y las tipografías.
+:::
+
+::: {.advertencia}
+El gráfico circular se ve bien y comunica mal. El ojo humano compara longitudes
+con precisión y ángulos con mucha dificultad, así que dos sectores parecidos son
+prácticamente imposibles de ordenar a simple vista. Para comparar cantidades, la
+barra siempre gana. El gráfico circular se justifica cuando lo que importa es
+"esto es más o menos la mitad del total" y hay muy pocas categorías.
+:::
+
 
 Donut Chart
 
@@ -247,6 +484,16 @@ donut_chart
 
 
 ```
+
+El gráfico de rosca se construye con un truco: un gráfico circular normal y,
+encima, un segundo `geom_bar()` más estrecho pintado de blanco, que tapa el
+centro. `theme_void()` quita ejes, cuadrícula y fondo, que en coordenadas polares
+no significan nada.
+
+Nota también que este bloque no usa los datos del curso: crea su propia tabla con
+`data.frame()`. Es una técnica útil para probar una idea de gráfico sin depender
+de un conjunto real, y la vas a usar cuando quieras entender qué hace una función
+nueva.
 
 
 
@@ -397,6 +644,10 @@ Buscar el error en el código.
 
 1. ¿Qué no va bien en este código? ¿Por qué hay puntos que no son azules en el siguiente código?
 
+Antes de correrlo, vuelve a leer la sección *Dentro o fuera de `aes()`* de este
+capítulo. La respuesta está ahí, y el gráfico que sale lo demuestra: mira si
+aparece una leyenda y qué dice.
+
 ```{r c03-24, eval=FALSE, echo=TRUE}
 ggplot(data = millas) +
    geom_point(mapping = aes(x = cilindrada, y = autopista, color = "blue"))
@@ -405,6 +656,10 @@ ggplot(data = millas) +
 
 
 2. Por que la gráfica no se produce en el siguiente código
+
+Pista: fíjate en dónde está el signo `+`. R lee el código línea por línea y
+decide si una instrucción terminó o sigue. Piensa qué ve R cuando termina de leer
+la primera línea.
 
 ```{r c03-25, eval=FALSE}
 ggplot(data = millas)
@@ -447,4 +702,171 @@ ggplot(data = millas) +
 ```
 
 
+***
 
+## Ejercicios del capítulo
+
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el gráfico salga) y una **explicación
+en palabras**. Los ejercicios usan `paises` del paquete `datos`, no `millas`,
+`diamantes` ni `Anolis`, que son los conjuntos con los que se enseña en el
+capítulo. Este es el capítulo más importante del primer tercio del curso, así que
+hay más ejercicios que en los otros. La hoja completa para entregar está en
+`Ejercicios/Ejercicios_Capitulo_04_visualizacion.Rmd`.
+:::
+
+### Ejercicio 1. El gráfico mínimo
+
+::: {.ejercicio}
+Datos: `paises`, **solo el año 2007**. Haz un gráfico de puntos con
+`pib_per_capita` en el eje x y `esperanza_de_vida` en el eje y.
+
+**Verificación:** el gráfico debe tener exactamente **142 puntos**, uno por país.
+Compruébalo con `nrow()` sobre la tabla filtrada antes de graficar.
+
+**En palabras:** describe la forma de la nube de puntos en una o dos oraciones.
+¿Es una recta? Si no lo es, ¿en qué parte del eje x cambia más rápido la
+esperanza de vida?
+:::
+
+```{r c03-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. Dentro y fuera de `aes()`
+
+::: {.ejercicio}
+Datos: `paises` en 2007. Haz **dos** versiones del gráfico anterior:
+
+a. Una con `color = "purple"` **dentro** de `aes()`.
+b. Otra con `color = "purple"` **fuera** de `aes()`, como argumento de
+   `geom_point()`.
+
+**Verificación:** una de las dos versiones produce puntos que no son morados y
+añade una leyenda; la otra produce puntos morados y ninguna leyenda.
+
+**En palabras:** explica qué entendió `ggplot2` en el caso que salió mal, y por
+qué eso hace que aparezca una leyenda.
+:::
+
+```{r c03-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Una tercera variable
+
+::: {.ejercicio}
+Datos: `paises` en 2007. Al gráfico del Ejercicio 1 añádele **dos** estéticas
+más: el `continente` en el color y la `poblacion` en el tamaño de los puntos.
+
+**Verificación:** deben aparecer **dos leyendas**, una de color con **5**
+categorías y una de tamaño con una escala continua.
+
+**En palabras:** con cinco continentes el color funciona bien. ¿Qué pasaría si en
+vez de `continente` mapearas `pais` al color? Explica por qué esa estética no
+sirve para esa variable.
+:::
+
+```{r c03-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. Cambiar la escala, no los datos
+
+::: {.ejercicio}
+Datos: `paises` en 2007. Repite el gráfico del Ejercicio 3 y añádele
+`scale_x_log10()`.
+
+**Verificación:** los datos son los mismos y el número de puntos no cambia (142);
+lo único que cambia son las marcas del eje x y la forma de la nube.
+
+**En palabras:** compara este gráfico con el del Ejercicio 3. ¿Cuál de los dos
+deja ver mejor la relación, y por qué el cambio de escala no es una manera de
+"hacer trampa" con los datos?
+:::
+
+```{r c03-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. Facetas
+
+::: {.ejercicio}
+Datos: `paises`, **todos los años**. Haz un gráfico de `anio` contra
+`esperanza_de_vida` con `geom_line(aes(group = pais))`, y sepáralo en paneles por
+`continente` con `facet_wrap()`.
+
+**Verificación:** deben salir **5 paneles**, uno por continente. El panel de
+Oceanía debe tener solo **2** líneas.
+
+**En palabras:** hay al menos un país cuya línea baja de manera brusca en los años
+noventa. Encuéntralo en el gráfico, di en qué continente está, y explica por qué
+este gráfico lo hace visible mientras que el promedio del continente lo
+escondería.
+:::
+
+```{r c03-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. Recta y curva
+
+::: {.ejercicio}
+Datos: `paises` en 2007, con `scale_x_log10()`. Añade al gráfico **dos** capas de
+tendencia: una con `method = "lm"` y otra sin especificar `method` (LOESS), con
+colores distintos para poder distinguirlas.
+
+**Verificación:** el gráfico debe tener tres capas: los puntos, una recta y una
+curva. Usa `se = FALSE` en las dos para que no se solapen las bandas.
+
+**En palabras:** ¿en qué parte del rango se separan más la recta y la curva? ¿Cuál
+de las dos usarías para **reportar** un resultado en un informe, y cuál para
+**explorar**? Justifica.
+:::
+
+```{r c03-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7. Cajas y conteos
+
+::: {.ejercicio}
+Datos: `paises` en 2007. Haz dos gráficos:
+
+a. Un diagrama de cajas de `esperanza_de_vida` por `continente`, volteado con
+   `coord_flip()`.
+b. Un gráfico de barras que cuente cuántos países hay por `continente`.
+
+**Verificación:** los dos gráficos deben tener **5** categorías. En el de barras,
+la barra más alta tiene que ser la de **África**, y las cinco barras tienen que
+sumar **142**.
+
+**En palabras:** el segundo gráfico no usa ninguna variable en el eje y y sin
+embargo tiene eje y. ¿De dónde salieron esas alturas? Usa el término correcto de
+la gramática de gráficos.
+:::
+
+```{r c03-ej7, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 8 (BONO). Una figura presentable
+
+::: {.ejercicio}
+Toma el gráfico del Ejercicio 6 y conviértelo en una figura de informe: título,
+subtítulo con el año, nombres completos en los dos ejes con sus unidades, título
+de la leyenda, y un tema claro (`theme_minimal()` o `theme_bw()`). Guárdala con
+`ggsave()` en `.png`, 7 por 5 pulgadas, 300 dpi.
+
+**Verificación:** `file.exists()` sobre el nombre del archivo debe devolver
+`TRUE`, y en la figura no debe quedar ni un solo nombre de columna sin traducir
+(nada de `pib_per_capita` a la vista).
+
+**En palabras:** menciona dos cosas que hiciste que un lector notaría si
+faltaran, y una que hiciste solo por gusto.
+:::
+
+```{r c03-ej8, eval=FALSE}
+# Escribe tu código aquí
+```

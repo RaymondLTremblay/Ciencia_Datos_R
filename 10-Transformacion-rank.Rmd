@@ -72,7 +72,7 @@ rangos, que hoy son el sustituto no paramétrico estándar de la prueba *t*.
 Asignar valores de rangos a los valores originales o de más grande a más pequeño o viceversa.
 
 ::: {.funcion}
-**`min_rank()`, `dense_rank()`, `row_number()`** — asignar rangos.
+**`min_rank()`, `dense_rank()`, `row_number()`**: asignar rangos.
 
 - **Qué hacen:** convierten valores en su **posición** (rango) de menor a mayor; `desc()` invierte el orden.
 - **Diferencia en empates:** `min_rank()` deja huecos, `dense_rank()` no, `row_number()` da un número único a cada fila.
@@ -297,7 +297,7 @@ vuelos %>%
 ## Resúmenes por grupo: `group_by()` y `summarise()`
 
 ::: {.funcion}
-**`group_by()` y `summarise()`** — resumir por grupo.
+**`group_by()` y `summarise()`**: resumir por grupo.
 
 - **`group_by(variable)`:** no cambia los datos, solo marca cómo hay que dividirlos.
 - **`summarise()`:** colapsa cada grupo a **una** fila, con las columnas que le pidas.
@@ -399,7 +399,7 @@ promedio más alto? Mira la columna del quilate promedio y propón una explicaci
 ## Promedio móvil: `rollmean()`
 
 ::: {.funcion}
-**`rollmean()`** (paquete `zoo`) — promedio móvil.
+**`rollmean()`** (paquete `zoo`): promedio móvil.
 
 - **Qué hace:** sustituye cada valor por el promedio de una ventana de `k` observaciones vecinas, lo que suaviza la serie.
 - **`align`:** `"center"` (por defecto), `"right"` (usa solo el pasado) o `"left"`.

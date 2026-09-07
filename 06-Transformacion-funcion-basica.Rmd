@@ -52,14 +52,90 @@ Aquí se agrupa por día y mes
 -   "\<=" es menor o igual
 -   "\>=" es mayor o igual
 
+
+------------------------------------------------------------------------
+
+## Cómo piensa R una condición
+
+Todo lo de este capítulo descansa sobre una idea sola: una condición no devuelve
+filas, devuelve **`TRUE` y `FALSE`**. Cuando escribes `filter(vuelos, mes == 12)`,
+R evalúa `mes == 12` para las 336,776 filas y obtiene un vector de 336,776 valores
+lógicos. Después `filter()` se queda con las filas donde ese vector dice `TRUE`.
+
+Puedes verlo por separado, y vale la pena hacerlo la primera vez:
+
+```{r c06-25, eval=FALSE}
+head(vuelos$mes == 12)          # TRUE / FALSE, uno por vuelo
+sum(vuelos$mes == 12)           # cuántos TRUE hay: TRUE cuenta como 1
+mean(vuelos$mes == 12)          # qué proporción son TRUE
+```
+
+Ese truco de `sum()` y `mean()` sobre una condición es de los más útiles del
+curso: `sum()` de un vector lógico **cuenta** los casos que la cumplen, y
+`mean()` da directamente la **proporción**, porque `TRUE` vale 1 y `FALSE` vale 0.
+
+Los operadores lógicos combinan esos `TRUE` y `FALSE`. Su comportamiento se
+resume en una tabla pequeña que conviene tener clara:
+
+| `x` | `y` | `x & y` | `x \| y` | `!x` |
+|:--|:--|:--|:--|:--|
+| `TRUE` | `TRUE` | `TRUE` | `TRUE` | `FALSE` |
+| `TRUE` | `FALSE` | `FALSE` | `TRUE` | `FALSE` |
+| `FALSE` | `TRUE` | `FALSE` | `TRUE` | `TRUE` |
+| `FALSE` | `FALSE` | `FALSE` | `FALSE` | `TRUE` |
+
+Dos advertencias sobre la palabra "o". En español, "quiero los vuelos de enero o
+de diciembre" significa uno u otro, y `|` hace exactamente eso. Pero en español
+también decimos "los vuelos de enero y de diciembre" queriendo decir lo mismo, y
+si se traduce literalmente a `mes == 1 & mes == 12` el resultado son **cero
+filas**, porque ningún vuelo puede ser de enero y de diciembre a la vez. La
+traducción correcta de esa frase es `|`, o mejor, `%in% c(1, 12)`.
+
+::: {.peligro}
+`&` se evalúa **antes** que `|`, igual que la multiplicación antes que la suma.
+Así que `a | b & c` significa `a | (b & c)` y no `(a | b) & c`, que es una tabla
+completamente distinta. Cuando mezcles los dos operadores, **pon paréntesis
+siempre**, aunque creas que no hacen falta. Es gratis y evita un error que no da
+ningún aviso.
+:::
+
 ::: {.funcion}
-**`filter()` con operadores lógicos** — combinar condiciones.
+**`filter()` con operadores lógicos**: combinar condiciones.
 
 - **`&`** (y), **`|`** (o), **`!`** (no / excluir).
 - **`%in% c(...)`:** ¿el valor está en esta lista? (evita repetir `==`).
 - **`between(x, a, b)`:** equivale a `x >= a & x <= b`.
 - **Comparaciones:** `==`, `!=`, `<`, `>`, `<=`, `>=`.
 :::
+
+
+::: {.advertencia}
+Nunca compares dos números con decimales usando `==`. La computadora guarda los
+decimales de manera aproximada, así que `sqrt(2)^2 == 2` devuelve `FALSE`.
+Para eso está `near(x, y)`, de `dplyr`, que pregunta si dos números son iguales
+dentro de una tolerancia razonable. Con enteros, con texto y con factores, `==`
+funciona sin problema.
+:::
+
+Y hay un tercer valor que casi nadie espera. Además de `TRUE` y `FALSE`, una
+comparación puede devolver **`NA`**, y lo hace siempre que uno de los lados sea
+`NA`. La lógica es correcta: si no sé cuánto se atrasó un vuelo, tampoco sé si se
+atrasó más de una hora. Por eso `NA > 60` es `NA`, y por eso `NA == NA` también es
+`NA` (dos cosas que no conozco no tienen por qué ser iguales).
+
+Esto tiene una consecuencia práctica muy concreta: **`filter()` descarta los
+`NA`**, porque solo conserva lo que es `TRUE`. Si quieres verlos, hay que pedirlo
+con `is.na()`:
+
+```{r c06-26, eval=FALSE}
+NA > 60          # NA
+NA == NA         # NA
+is.na(NA)        # TRUE, esta es la manera correcta de preguntar
+
+sum(is.na(vuelos$atraso_salida))    # 8255 vuelos sin dato de salida
+```
+
+El tema de los valores faltantes tiene su propio capítulo a continuación.
 
 Bollean, que incluye múltiples opciones %in%
 
@@ -77,6 +153,15 @@ vuelos %>%
 
 ```
 
+Lee la cadena de arriba abajo, que es como está escrita: toma `vuelos`, quédate
+con cinco columnas, quédate con los vuelos a San Juan, quédate con los que sean
+del 25 de un mes entre junio y diciembre, agrupa por día y mes, y calcula el
+atraso promedio de llegada.
+
+Fíjate en `mes %in% c(6:12)`. El `6:12` genera el vector `6 7 8 9 10 11 12`, y
+`%in%` pregunta si el mes de cada vuelo está en esa lista. Escribirlo con `|`
+habría requerido siete condiciones.
+
 ------------------------------------------------------------------------
 
 
@@ -90,6 +175,16 @@ vuelos %>%
   summarise(atraso = mean(atraso_salida, na.rm = TRUE))
 ```
 
+Aquí hay algo poco habitual: el `group_by()` está **antes** de los `filter()`.
+Funciona, porque `filter()` respeta la agrupación y la mantiene, pero es confuso
+de leer. La convención es agrupar justo antes de resumir, que es cuando la
+agrupación hace falta.
+
+Aprovecha para notar el orden general que se repite en casi todo el curso:
+**seleccionar y filtrar primero, agrupar después, resumir al final**. Filtrar
+antes de agrupar es además más rápido, porque el cálculo pesado se hace sobre
+menos filas.
+
 ### Otra alternativa para filtrar
 
 #### "\|" or
@@ -102,6 +197,10 @@ vuelos %>%
   summarise(atraso = mean(atraso_salida, na.rm = TRUE))
 ```
 
+Este es el caso del "o". `mes == 1 | mes == 12` conserva los vuelos de enero **y
+también** los de diciembre. Con dos valores, `|` se lee bien; con cinco, conviene
+pasarse a `%in% c(1, 2, 11, 12, ...)`.
+
 #### & el "y"
 
 ```{r c06-6}
@@ -110,6 +209,12 @@ vuelos %>%
   dplyr::select(anio, mes, dia, atraso_salida, aerolinea) %>%
   filter(mes == 12 & dia == 25 & aerolinea == "AA")
 ```
+
+Y este es el caso del "y". Las tres condiciones tienen que cumplirse a la vez, y
+cada una habla de una **variable distinta**, que es cuando `&` tiene sentido. Este
+mismo filtro se puede escribir separando las condiciones con comas,
+`filter(mes == 12, dia == 25, aerolinea == "AA")`, que es la forma que prefiere la
+documentación de `dplyr`.
 
 ------------------------------------------------------------------------
 
@@ -131,6 +236,21 @@ vuelos %>%
   group_by(aerolinea) %>%
   summarise(atraso = mean(atraso_salida, na.rm = TRUE))
 ```
+
+El `!` niega, es decir, invierte los `TRUE` y los `FALSE`. Aquí se lee "que la
+aerolínea **no** esté entre AA y DL".
+
+Vale la pena mirar dónde está colocado: `!aerolinea %in% c("AA", "DL")` niega el
+resultado completo de `%in%`, que es lo que queremos. La colocación funciona
+porque `%in%` se evalúa antes que `!`. Aun así, muchos prefieren escribirlo con
+paréntesis, `!(aerolinea %in% c("AA", "DL"))`, que dice exactamente lo mismo y no
+obliga a recordar la precedencia.
+
+::: {.consejo}
+Después de un filtro con `!`, comprueba el resultado con `unique()`: si las
+aerolíneas que querías excluir ya no aparecen, el filtro hizo lo que creías. Es
+una comprobación de dos segundos que evita conclusiones equivocadas.
+:::
 
 ------------------------------------------------------------------------
 
@@ -247,6 +367,19 @@ filter(horario_salida <=600)
 `between(x, izq, der)` es un atajo equivalente a `x >= izq & x <= der` e incluye ambos extremos. Hace tus filtros más cortos y legibles.
 :::
 
+Ojo con un detalle de este ejemplo concreto: la pregunta pide los vuelos entre la
+medianoche y las 6 de la mañana, y `horario_salida` está escrito como número de
+reloj (`517` son las 5:17), no en minutos. Así que el límite es `600`, las seis en
+punto, y no `360`. Es exactamente el tipo de confusión que produce guardar una
+hora como si fuera un número corriente, y la razón por la que existe el capítulo
+de fechas y horas.
+
+::: {.advertencia}
+`between()` viene en `dplyr`, pero el paquete `data.table` tiene una función con
+el mismo nombre. Si has cargado `data.table` en la sesión, `between()` puede dejar
+de comportarse como esperas. En ese caso, `dplyr::between()`.
+:::
+
 ```{r c06-17, echo=FALSE, eval=FALSE}
 vuelos %>%
 dplyr::select(horario_salida) %>%
@@ -283,11 +416,26 @@ filter(is.na(horario_salida)) |>
 arrange()
 
 ::: {.funcion}
-**`arrange()`** — ordenar las filas.
+**`arrange()`**: ordenar las filas.
 
 - **Qué hace:** reordena el data frame según una o más columnas (ascendente por defecto).
 - **`desc(col)`:** orden descendente (de mayor a menor).
 :::
+
+
+::: {.advertencia}
+En el primer bloque de abajo, `arrange()` se llama **sin argumentos**. Eso no
+ordena nada: devuelve la tabla tal cual, sin error y sin aviso. Es un buen ejemplo
+de código que parece hacer algo y no hace nada. Compáralo con el segundo bloque,
+donde `arrange(desc(horario_salida))` sí ordena.
+:::
+
+Dos cosas más sobre `arrange()`. La primera: acepta varias variables, y las aplica
+en orden de prioridad. `arrange(aerolinea, desc(atraso_salida))` ordena
+alfabéticamente por aerolínea y, dentro de cada una, por atraso de mayor a menor.
+La segunda: los `NA` van **siempre al final**, ordenes como ordenes. Si buscas los
+valores extremos de una variable con faltantes, esa es la razón por la que la cola
+de la tabla está llena de `NA` en vez de los valores más grandes.
 
 ------------------------------------------------------------------------
 
@@ -373,6 +521,149 @@ Hacer los ejercicios en la sección 5.3.1 del libro en español
 ------------------------------------------------------------------------
 
 
+------------------------------------------------------------------------
 
+## Ejercicios del capítulo
 
+::: {.nota}
+**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
+cosas: el **script**, el **resultado** (que el bloque corra) y una **explicación
+en palabras**. Los ejercicios usan `diamantes` del paquete `datos`, no `vuelos`,
+que es el conjunto con el que se enseña en el capítulo. La hoja completa para
+entregar está en `Ejercicios/Ejercicios_Capitulo_07_booleanas.Rmd`.
+:::
 
+### Ejercicio 1. Contar sin filtrar
+
+::: {.ejercicio}
+Datos: `diamantes`. Sin usar `filter()`, y usando solo `sum()` y `mean()` sobre
+una condición, averigua **cuántos** diamantes cuestan más de 15,000 dólares y qué
+**proporción** del total representan.
+
+**Verificación:** `nrow(diamantes)` es **53,940**. Tu proporción tiene que quedar
+entre 0 y 1, y multiplicada por 53,940 tiene que devolver tu conteo.
+
+**En palabras:** explica por qué `sum()` de una condición devuelve un conteo.
+¿Qué valor numérico tienen `TRUE` y `FALSE` para R?
+:::
+
+```{r c06-ej1, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 2. `&` frente a `|`
+
+::: {.ejercicio}
+Datos: `diamantes`. Construye dos tablas: una con los diamantes de corte
+`"Ideal"` **y** precio menor de 1,000; otra con los de corte `"Ideal"` **o**
+precio menor de 1,000.
+
+**Verificación:** la tabla del `&` tiene que tener **menos** filas que la del `|`,
+y las dos tienen que tener menos de 53,940.
+
+**En palabras:** un compañero dice "quiero los diamantes Ideal y Premium" y
+escribe `filter(diamantes, corte == "Ideal" & corte == "Premium")`. ¿Cuántas filas
+le devuelve y por qué? Escribe la versión correcta.
+:::
+
+```{r c06-ej2, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 3. Excluir con `!` y `%in%`
+
+::: {.ejercicio}
+Datos: `diamantes`. La variable `color` tiene 7 niveles. Construye una tabla que
+excluya los colores `"D"` y `"E"`, usando `!` y `%in%`.
+
+**Verificación:** en tu tabla deben quedar exactamente **5** colores distintos
+(compruébalo con `unique()`), y las filas de tu tabla más las de la tabla
+complementaria tienen que sumar **53,940**.
+
+**En palabras:** escribe también `filter(diamantes, !color == "D" & !color == "E")`
+y comprueba que da el mismo resultado. ¿Cuál de las dos versiones prefieres y por
+qué?
+:::
+
+```{r c06-ej3, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 4. `between()`
+
+::: {.ejercicio}
+Datos: `diamantes`. Quédate con los diamantes cuyo `quilate` esté entre 1 y 2,
+extremos incluidos, primero con `>=` y `<=` y después con `between()`.
+
+**Verificación:** las dos versiones tienen que devolver **el mismo número de
+filas**. En la tabla resultante, `min(quilate)` tiene que ser exactamente 1 y
+`max(quilate)` exactamente 2.
+
+**En palabras:** ¿`between()` incluye o excluye los extremos? Explica cómo lo
+comprobaste con los datos, y no solo con la ayuda.
+:::
+
+```{r c06-ej4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 5. La lógica de los `NA`
+
+::: {.ejercicio}
+`diamantes` no tiene valores faltantes, así que constrúyete uno:
+`x <- c(3, 7, NA, 12)`. Evalúa `x > 5`, `x == NA`, `is.na(x)`, `sum(x)` y
+`sum(x, na.rm = TRUE)`. Después usa `filter()` sobre un tibble que contenga `x`
+con la condición `x > 5` y mira cuántas filas quedan.
+
+**Verificación:** `x > 5` tiene que devolver un `NA` en la tercera posición, no un
+`FALSE`. `x == NA` tiene que devolver **cuatro** `NA`. El `filter()` tiene que
+devolver **2** filas, no 3.
+
+**En palabras:** explica por qué `NA == NA` no es `TRUE`, usando una frase que no
+mencione a R. Y explica qué pasó con la fila del `NA` en el `filter()`.
+:::
+
+```{r c06-ej5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 6. La precedencia
+
+::: {.ejercicio}
+Datos: `diamantes`. Corre estas dos consultas y compara el número de filas:
+
+a. `filter(diamantes, corte == "Ideal" | corte == "Premium" & precio < 500)`
+b. `filter(diamantes, (corte == "Ideal" | corte == "Premium") & precio < 500)`
+
+**Verificación:** las dos tienen que dar números **muy** distintos. En la versión
+(b), todos los precios tienen que ser menores de 500; en la (a), no.
+
+**En palabras:** explica en palabras qué pregunta contesta cada una de las dos.
+¿Cuál habrías escrito tú si te pidieran "los diamantes Ideal o Premium que cuesten
+menos de 500"?
+:::
+
+```{r c06-ej6, eval=FALSE}
+# Escribe tu código aquí
+```
+
+### Ejercicio 7 (BONO). Ordenar con dos claves
+
+::: {.ejercicio}
+Datos: `diamantes`. Ordena la tabla por `corte` y, dentro de cada corte, por
+`precio` de mayor a menor. Quédate con las 15 primeras filas y con las columnas
+`corte`, `quilate`, `color` y `precio`.
+
+**Verificación:** el precio máximo de todo el conjunto es **18,823** y el mínimo
+es **326**. Si tu primera fila no tiene un precio cercano al máximo dentro de su
+corte, revisa el orden de tus argumentos.
+
+**En palabras:** `corte` es un factor **ordenado**
+(`Regular < Bueno < Muy bueno < Premium < Ideal`). ¿En qué orden aparecen los
+cortes en tu resultado, alfabético o de calidad? Explica por qué, y qué habría
+pasado si `corte` fuera texto corriente.
+:::
+
+```{r c06-ej7, eval=FALSE}
+# Escribe tu código aquí
+```

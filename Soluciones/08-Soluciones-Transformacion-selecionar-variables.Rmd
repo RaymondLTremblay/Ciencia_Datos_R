@@ -1,0 +1,248 @@
+---
+title: "Soluciones: Capítulo 9 (Seleccionar variables)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+
+Corresponde a: 08-Transformacion-selecionar-variables.Rmd (Capítulo 9 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_09_seleccionar.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras.
+
+Las once columnas de `millas`: `fabricante`, `modelo`, `cilindrada`, `anio`,
+`cilindros`, `transmision`, `traccion`, `ciudad`, `autopista`, `combustible`,
+`clase`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: por el principio del nombre
+
+```{r sol08-1}
+millas |> select(starts_with("c"))
+ncol(millas |> select(starts_with("c")))   # 5
+
+# la versión a mano
+millas |> select(cilindrada, cilindros, ciudad, combustible, clase)
+```
+
+**Respuesta esperada.** Cinco columnas: `cilindrada`, `cilindros`, `ciudad`,
+`combustible` y `clase`.
+
+Sobre cuál preferir: la respuesta que busco tiene que ver con lo que pasaría con
+una columna nueva. `starts_with("c")` la **incluiría** automáticamente; la lista a
+mano no, y no daría ningún error: seguiría devolviendo cinco columnas como si nada
+hubiera cambiado.
+
+Cuál de los dos comportamientos es el bueno **depende de la intención**. Si lo que
+quiero es "todas las variables de consumo", el ayudante es correcto. Si lo que
+quiero es "estas cinco columnas concretas, siempre", la lista explícita es más
+segura, porque el ayudante podría colarme algo que no esperaba. Acepto las dos
+respuestas si el estudiante la justifica; lo que no acepto es "la corta porque es
+más corta".
+
+**Punto para discutir en clase.** Es un buen sitio para hablar de código que se va
+a volver a correr. La pregunta útil: ¿este script lo voy a correr una vez o cada
+semestre con datos nuevos? La respuesta cambia qué se considera buen código.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: por el final y por dentro
+
+```{r sol08-2}
+millas |> select(ends_with("a"))     # cilindrada, autopista
+millas |> select(contains("cil"))    # cilindrada, cilindros
+```
+
+**Respuesta esperada.** Dos columnas cada una. `ends_with("a")` devuelve
+`cilindrada` y `autopista`; `contains("cil")` devuelve `cilindrada` y `cilindros`.
+Solo `cilindrada` aparece en las dos.
+
+Sobre la diferencia: `ends_with()` **ancla** la búsqueda al final del nombre, así
+que solo acierta si el texto está en esa posición. `contains()` busca en cualquier
+parte, así que es más amplio y encuentra más.
+
+Sobre cuál puede traer algo que no querías: `contains()`, sin duda. Cuanto más
+corto sea el texto, más probable es la coincidencia accidental: en el capítulo,
+`contains("ue")` selecciona columnas por dos letras que no significan nada. Es el
+mismo problema que buscar "sal" en un diccionario y encontrar "salida", "salud" y
+"personal".
+
+**Punto para discutir en clase.** Enseñar la costumbre de correr el `select()`
+solo antes de encadenarlo, y comparar el número de columnas con el que se
+esperaba.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: seleccionar por tipo
+
+```{r sol08-3}
+num <- millas |> select(where(is.numeric))
+txt <- millas |> select(where(is.character))
+
+ncol(num)   # 5
+ncol(txt)   # 6
+ncol(num) + ncol(txt) == ncol(millas)   # TRUE
+```
+
+**Respuesta esperada.** Numéricas: `cilindrada`, `anio`, `cilindros`, `ciudad`,
+`autopista`. De texto: `fabricante`, `modelo`, `transmision`, `traccion`,
+`combustible`, `clase`.
+
+Sobre si sirve para "las variables que se pueden promediar": **no**, o al menos no
+sin revisar. `anio` solo toma dos valores (1999 y 2008) y `cilindros` toma cuatro:
+son variables **categóricas escritas con números**. `mean(millas$anio)` corre y
+devuelve un número sin significado.
+
+La lección: `where(is.numeric)` selecciona por cómo está **guardada** la variable,
+no por lo que **significa**. Es un filtro excelente como primer paso, pero el
+segundo paso lo tiene que dar la persona. La versión honesta de lo que se quería
+sería `select(cilindrada, ciudad, autopista)`.
+
+**Punto para discutir en clase.** Este ejercicio y el 1 del Capítulo 6 apuntan a lo
+mismo desde ángulos distintos. Vale la pena decirlo explícitamente: R conoce el
+tipo, tú conoces el significado, y ninguna función te va a librar de aportar lo
+segundo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: renombrar
+
+```{r sol08-4}
+millas_ren <- millas |>
+  rename(consumo_ciudad = ciudad,
+         consumo_autopista = autopista)
+
+ncol(millas_ren)                                  # 11
+millas_ren |> select(contains("consumo")) |> ncol()   # 2
+```
+
+**Respuesta esperada.** Once columnas (renombrar no añade ni quita) y dos con
+`consumo` en el nombre.
+
+Sobre el orden: **primero el nuevo, después el viejo**: `nuevo = viejo`. La regla
+para recordarlo es la misma de `mutate()`: a la izquierda del `=` siempre va lo que
+se está creando. Si se ponen al revés (`rename(ciudad = consumo_ciudad)`), R da
+`Column 'consumo_ciudad' doesn't exist`, porque busca a la derecha una columna que
+todavía no existe.
+
+**Punto para discutir en clase.** El error es fácil de reconocer una vez que se
+sabe leerlo: el mensaje nombra la columna que **no** existe, y esa es siempre la
+que se puso del lado equivocado.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: reordenar
+
+```{r sol08-5}
+v1 <- millas |> select(clase, fabricante, everything())
+v2 <- millas |> relocate(clase, fabricante)
+
+ncol(v1); ncol(v2)                 # 11 y 11
+identical(names(v1), names(v2))    # TRUE
+names(v1)
+```
+
+**Respuesta esperada.** Once columnas en las dos, en el mismo orden, empezando por
+`clase` y `fabricante`.
+
+Sobre `select(clase, fabricante)` sin `everything()`: devolvería **2** columnas,
+no 11. Habría **seleccionado** en vez de **reordenar**, y las otras nueve se
+habrían perdido.
+
+Sobre la diferencia entre las dos operaciones: seleccionar decide **qué columnas
+sobreviven**; reordenar decide **en qué orden aparecen** las que ya están.
+`select()` sirve para las dos cosas, y el truco de `everything()` es lo que lo
+convierte en un reordenador: nombra primero las que van al frente y deja que
+`everything()` recoja el resto. `relocate()` existe precisamente para no depender
+de ese truco.
+
+**Punto para discutir en clase.** Preguntar por qué el orden de las columnas
+importa, si `dplyr` trabaja por nombre y no por posición. La respuesta es que
+importa para **quien lee la tabla**: los identificadores y las variables clave al
+frente hacen que un `head()` sea informativo en vez de decorativo.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: nombres frente a posiciones
+
+```{r sol08-6}
+a <- millas |> select(cilindrada:transmision)
+b <- millas[, 3:6]
+
+names(a)
+names(b)
+identical(names(a), names(b))   # TRUE
+```
+
+**Respuesta esperada.** Las mismas cuatro columnas: `cilindrada`, `anio`,
+`cilindros`, `transmision`.
+
+Sobre la columna `id` añadida al principio: la versión con **nombres** seguiría
+trayendo exactamente las mismas cuatro variables, porque `cilindrada:transmision`
+se resuelve buscando esos nombres, estén donde estén. La versión con **números**
+traería las columnas 3 a 6 de la tabla nueva, que ahora son `anio`, `cilindros`,
+`transmision` y `traccion`: una variable de menos y una de más.
+
+Sobre por qué es peligroso en un análisis que se repite: porque **no da error**.
+El script corre, produce una tabla con cuatro columnas y todo parece normal. El
+promedio que se calcule después será el de la variable equivocada, y nada en el
+resultado lo indica. Los errores que no se quejan son los que llegan a los
+informes.
+
+**Punto para discutir en clase.** Es la misma idea que el `setwd()` del capítulo
+de flujo de trabajo y que el reciclaje del capítulo de la calculadora: código que
+funciona hoy en esta máquina con este archivo, y falla en silencio cuando algo
+cambia. Vale la pena nombrar el patrón, porque es el mismo las tres veces.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): quitar en vez de escoger
+
+```{r sol08-7}
+sin_dos <- millas |> select(-modelo, -transmision)
+ncol(sin_dos)    # 9
+
+sin_ces <- millas |> select(-starts_with("c"))
+ncol(sin_ces)    # 6
+
+# equivalentes
+identical(names(sin_dos), names(select(millas, -c(modelo, transmision))))   # TRUE
+```
+
+**Respuesta esperada.** Nueve columnas y seis columnas.
+
+Sobre qué hace el signo de menos: no es una resta aritmética. Dentro de
+`select()`, `dplyr` usa un lenguaje propio (la "selección tidy") en el que el
+menos significa **excluir de la selección**. Se puede pensar así: `select()` parte
+de todas las columnas y el menos las va tachando. Por eso también funciona
+combinado con ayudantes, como en `-starts_with("c")`, donde tacha las cinco de
+golpe.
+
+Sobre por qué las dos formas dan lo mismo: `-c(modelo, transmision)` niega el
+conjunto formado por las dos, y `-modelo, -transmision` niega cada una por
+separado y las combina. Excluir la unión de dos conjuntos es lo mismo que excluir
+uno y después el otro. Es, otra vez, una ley de De Morgan disfrazada.
+
+**Punto para discutir en clase.** La advertencia práctica: quitar columnas por
+exclusión es cómodo, pero significa que el resultado depende de qué traiga el
+archivo. Si mañana llegan cinco columnas nuevas, la selección por exclusión las
+incluye todas sin avisar. Para un análisis que se repite, nombrar lo que se quiere
+suele ser más seguro que nombrar lo que se descarta.

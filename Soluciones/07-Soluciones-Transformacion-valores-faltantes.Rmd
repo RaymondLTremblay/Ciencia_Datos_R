@@ -1,0 +1,277 @@
+---
+title: "Soluciones: Capítulo 8 (Valores faltantes)"
+author: "Raymond L. Tremblay (uso del profesor)"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<!--
+NO INCLUIR EN _bookdown.yml.
+Esta carpeta "Soluciones/" no forma parte del libro publicado: bookdown solo
+construye los archivos listados en rmd_files. Las soluciones existen en el
+repositorio de GitHub, pero no aparecen en el sitio del curso.
+
+Corresponde a: 07-Transformacion-valores-faltantes.Rmd (Capítulo 8 del libro)
+Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_08_faltantes.Rmd
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, eval = FALSE)
+library(tidyverse)
+library(datos)
+```
+
+Estas son soluciones **de referencia**. Casi siempre hay más de una manera
+correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
+escriba su propio script, obtenga el resultado y lo explique en palabras.
+
+En este capítulo la explicación pesa más que el código: el objetivo no es que
+sepan escribir `na.rm = TRUE`, sino que sepan **cuándo no deben escribirlo**.
+
+------------------------------------------------------------------------
+
+## Ejercicio 1: predecir antes de correr
+
+```{r sol07-1}
+NA + 5                          # NA
+NA > 5                          # NA
+NA == NA                        # NA
+NA^0                            # 1      <- no es NA
+NA | TRUE                       # TRUE   <- no es NA
+NA & FALSE                      # FALSE  <- no es NA
+NA * 0                          # NA
+is.na(NA)                       # TRUE   <- no es NA
+sum(c(1, NA, 3))                # NA
+sum(c(1, NA, 3), na.rm = TRUE)  # 4      <- no es NA
+```
+
+**Respuesta esperada.** Cinco resultados distintos de `NA`: `NA^0`, `NA | TRUE`,
+`NA & FALSE`, `is.na(NA)` y la suma con `na.rm`.
+
+El razonamiento, que es lo que se evalúa: R devuelve un valor cuando el resultado
+**se puede determinar sin conocer el valor que falta**.
+
+- `NA^0` es 1 porque cualquier número elevado a cero es uno.
+- `NA | TRUE` es `TRUE` porque en un "o" basta con que un lado sea cierto.
+- `NA & FALSE` es `FALSE` porque en un "y" basta con que un lado sea falso.
+- `is.na()` no pregunta por el valor, pregunta **si falta**, y eso sí se sabe.
+- `na.rm = TRUE` es una instrucción explícita de ignorar lo que falta.
+
+Las que suelen fallar son `NA * 0` (casi todo el mundo dice 0) y `NA & FALSE`.
+Sobre `NA * 0`: el `NA` podría representar `Inf`, y `Inf * 0` no es cero, es
+indefinido. R prefiere no comprometerse.
+
+**Punto para discutir en clase.** El ejercicio pide predecir **antes** de correr a
+propósito. Vale la pena preguntar cuántos aciertos hubo antes de ejecutar: el
+número suele ser bajo, y eso convence más que cualquier advertencia sobre revisar
+los `NA`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 2: fabricar y contar faltantes
+
+```{r sol07-2}
+set.seed(4026)
+
+filas_na <- sample(seq_len(nrow(diamantes)), 500)
+
+diamantes_na <- diamantes
+diamantes_na$precio[filas_na] <- NA
+
+# comprobaciones
+sum(is.na(diamantes_na$precio))   # 500
+nrow(diamantes_na)                # 53940
+colSums(is.na(diamantes_na))      # solo precio distinto de 0
+```
+
+Una versión tidyverse equivalente:
+
+```{r sol07-2b}
+set.seed(4026)
+diamantes_na <- diamantes |>
+  mutate(precio = if_else(row_number() %in% sample(n(), 500), NA_integer_, precio))
+```
+
+**Respuesta esperada.** 500 `NA` en `precio`, cero en las demás, y las 53,940
+filas intactas.
+
+Sobre por qué no cambió el número de filas: poner un `NA` **no borra la fila**,
+solo vacía una celda. La fila sigue existiendo con sus otras nueve variables
+intactas: sabemos el quilate, el corte y el color de esos 500 diamantes, solo no
+sabemos el precio. Borrar la fila desecharía también esa información buena.
+
+Esa es exactamente la diferencia entre `NA` y eliminar: `NA` conserva todo lo que
+sí se sabe; `drop_na()` bota la fila entera por una celda vacía. Con tablas anchas,
+`drop_na()` sin argumentos puede vaciar una tabla casi por completo.
+
+**Punto para discutir en clase.** Enseñar `colSums(is.na(tabla))` como el primer
+comando que se corre al recibir datos nuevos. Y enseñar de paso por qué se usa
+`set.seed()`: sin él, cada estudiante tendría 500 filas distintas y nadie podría
+comparar resultados.
+
+------------------------------------------------------------------------
+
+## Ejercicio 3: qué hace `na.rm`
+
+```{r sol07-3}
+mean(diamantes_na$precio)                  # NA
+mean(diamantes_na$precio, na.rm = TRUE)    # un número
+mean(diamantes$precio)                     # otro número, parecido
+```
+
+**Respuesta esperada.** La primera es `NA`; la segunda y la tercera son parecidas
+pero no idénticas.
+
+Sobre por qué no coinciden: no están calculadas sobre las mismas observaciones. La
+tercera usa los **53,940** diamantes. La segunda usa **53,440**, porque `na.rm`
+descartó los 500 que vaciamos. Como esos 500 se escogieron al azar, su promedio se
+parece al del resto, y por eso los dos números salen cercanos; pero no tienen por
+qué coincidir en los decimales.
+
+Es un buen sitio para decirlo con claridad: `na.rm = TRUE` no "arregla" nada.
+Cambia el conjunto de datos sobre el que se calcula, y lo hace sin dejar rastro en
+el resultado.
+
+**Punto para discutir en clase.** Preguntar cuánto se parecerían los dos números
+si en vez de 500 al azar hubiéramos vaciado los 500 diamantes más caros. La
+respuesta obvia lleva directamente al Ejercicio 7.
+
+------------------------------------------------------------------------
+
+## Ejercicio 4: filtrar sin perder los faltantes
+
+```{r sol07-4}
+sin_na  <- diamantes_na |> filter(precio > 15000)
+con_na  <- diamantes_na |> filter(precio > 15000 | is.na(precio))
+
+nrow(con_na) - nrow(sin_na)   # 500
+```
+
+**Respuesta esperada.** Exactamente 500 filas de diferencia.
+
+Sobre el descarte silencioso: `precio > 15000` devuelve `NA` para esas 500 filas,
+y `filter()` solo conserva lo que es `TRUE`. Las filas desaparecen sin advertencia
+ni mensaje.
+
+Sobre la situación del área propia, acepto cualquier ejemplo bien planteado. Los
+que suelen salir y funcionan bien: parcelas donde no se pudo entrar el día del
+muestreo porque el terreno estaba inundado, que son precisamente las parcelas más
+húmedas, así que descartarlas sesga cualquier conclusión sobre humedad; pacientes
+que abandonaron un tratamiento, que son a menudo aquellos a quienes les fue peor;
+individuos marcados que no se volvieron a encontrar, que pueden ser justamente los
+que murieron. En los tres casos, lo que falta no falta al azar, y descartarlo
+cambia la respuesta.
+
+**Punto para discutir en clase.** La regla de la que se acuerdan: **contar antes y
+después de filtrar**. Si la diferencia no es la que esperabas, algo pasó, y casi
+siempre son `NA`.
+
+------------------------------------------------------------------------
+
+## Ejercicio 5: el cero que no era cero
+
+```{r sol07-5}
+medidas <- c(12, 0, 15, 18, 0, 21, 0, 17)
+
+m1 <- if_else(medidas == 0, NA_real_, medidas)
+m2 <- na_if(medidas, 0)
+
+identical(m1, m2)          # TRUE
+sum(is.na(m2))             # 3
+
+mean(medidas)              # 10.375, con los ceros falsos
+mean(m2, na.rm = TRUE)     # 16.6,  con los datos de verdad
+```
+
+**Respuesta esperada.** Tres `NA`. El promedio pasa de **10.375** a **16.6**: los
+ceros falsos lo bajaban en más de seis unidades, un 37% por debajo del valor real.
+
+Sobre la dirección del error: el promedio es la suma dividida entre el número de
+casos. Al poner ceros, el **numerador no crece** (sumar cero no aporta nada) pero
+el **denominador sí** (esos casos se cuentan). Numerador igual con denominador
+mayor da siempre un cociente menor. Por eso el sesgo va siempre hacia abajo, sin
+excepción, mientras los valores reales sean positivos.
+
+**Punto para discutir en clase.** Es un buen momento para hablar de cómo se
+recogen los datos. La solución de raíz no es arreglar los ceros en R: es no
+escribirlos nunca. Una casilla vacía en la libreta de campo o en la hoja de Excel
+es preferible a un cero, siempre.
+
+------------------------------------------------------------------------
+
+## Ejercicio 6: el camino contrario
+
+```{r sol07-6}
+diamantes_cero <- diamantes_na |>
+  mutate(precio_cero = replace_na(precio, 0))
+
+sum(is.na(diamantes_cero$precio_cero))     # 0
+mean(diamantes_cero$precio_cero)           # menor
+mean(diamantes_na$precio, na.rm = TRUE)    # el real
+```
+
+**Respuesta esperada.** Cero `NA` en la columna nueva, y un promedio
+sensiblemente menor que el real, por la misma razón del ejercicio anterior.
+
+Sobre cuándo sustituir por cero sí es correcto: cuando el `NA` significa
+**"se observó y no había nada"** y no "no se observó". Ejemplos que acepto:
+número de individuos capturados en una trampa que se revisó y estaba vacía;
+precipitación de un día en que la estación funcionó y no llovió; número de frutos
+en una planta que se examinó y no tenía ninguno; ventas de un producto en un día en
+que la tienda abrió y no vendió ninguno.
+
+La condición que tiene que cumplirse es que el proceso de medición **sí ocurrió**.
+Si el `NA` viene de que nadie fue a revisar la trampa, el cero es una invención. La
+prueba es preguntarse: ¿el cero es un resultado de la observación, o es un relleno
+por la falta de observación?
+
+**Punto para discutir en clase.** Es el mismo problema con los dos signos: el
+Ejercicio 5 muestra el daño de convertir faltantes en ceros de manera implícita, y
+este muestra el mismo daño hecho a propósito. La lección conjunta es que ninguna de
+las dos conversiones se hace "por defecto": se hace con un argumento.
+
+------------------------------------------------------------------------
+
+## Ejercicio 7 (bono): faltan al azar, o no
+
+```{r sol07-7}
+# Versión 1: al azar
+diamantes_na |>
+  group_by(corte) |>
+  summarise(n = n(), faltan = sum(is.na(precio)), prop = faltan / n)
+
+# Versión 2: sistemáticos
+diamantes_sesgo <- diamantes |>
+  mutate(precio = if_else(corte == "Regular", NA_integer_, precio))
+
+diamantes_sesgo |>
+  group_by(corte) |>
+  summarise(n = n(), faltan = sum(is.na(precio)), prop = faltan / n)
+
+# el efecto sobre el promedio general
+mean(diamantes$precio)                          # verdad
+mean(diamantes_na$precio,     na.rm = TRUE)     # casi igual
+mean(diamantes_sesgo$precio,  na.rm = TRUE)     # distinto
+```
+
+**Respuesta esperada.** En la primera versión, las cinco proporciones rondan el 1%
+(500 de 53,940), con pequeñas diferencias de azar. En la segunda, `Regular` tiene
+proporción **1** y las demás **0**.
+
+Sobre cuál permite usar `na.rm = TRUE`: la **primera**. Ahí los faltantes se
+escogieron al azar, así que los diamantes que quedan son una muestra
+representativa de los originales y su promedio estima bien el promedio real.
+
+En la segunda, los faltantes **no faltan al azar**: falta exactamente una
+categoría entera, la de peor corte. Al calcular con `na.rm = TRUE` se está
+calculando el precio promedio **de los diamantes que no son Regular**, y llamarle
+"precio promedio de los diamantes" es falso. El sesgo no se corrige con más datos
+ni con una función: el problema no es cuántos faltan, sino **quiénes** faltan.
+
+**Punto para discutir en clase.** Este es el ejercicio con el que quiero que se
+queden. Los términos formales (MCAR, MAR, MNAR) se pueden mencionar de pasada,
+pero lo importante es la costumbre: antes de escribir `na.rm = TRUE`, mirar cómo
+se reparten los faltantes entre los grupos. Son dos líneas de código, y a veces
+cambian la conclusión de un trabajo entero.

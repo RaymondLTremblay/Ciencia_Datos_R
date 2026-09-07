@@ -13,7 +13,7 @@
     -   cumvar() # varianza cumulativa
 
 ::: {.funcion}
-**`mutate()`** y **`transmute()`** — crear columnas nuevas.
+**`mutate()`** y **`transmute()`**: crear columnas nuevas.
 
 - **`mutate(nueva = expresión)`:** añade columnas calculadas y **conserva** las demás.
 - **`transmute()`:** igual, pero **solo** deja las columnas nuevas.
@@ -162,7 +162,7 @@ primero con `transmute()` y después con `mutate()`.
 ## lag()
 
 ::: {.funcion}
-**`lag()`** y **`lead()`** — valor anterior / siguiente.
+**`lag()`** y **`lead()`**: valor anterior / siguiente.
 
 - **`lag(x, n)`:** trae el valor de `n` filas **atrás** (por defecto 1); útil para calcular cambios (`x - lag(x)`).
 - **`lead(x, n)`:** trae el valor de `n` filas **adelante**.
@@ -307,7 +307,7 @@ Con el mismo subconjunto de `clima` (EWR, enero, ordenado por `fecha_hora`):
 ## cumsum
 
 ::: {.funcion}
-**`cumsum()`, `cmean()`, `cvar()`** — acumulados.
+**`cumsum()`, `cmean()`, `cvar()`**: acumulados.
 
 - **`cumsum(x)`:** suma acumulada a lo largo de la columna.
 - **`cmean()` / `cvar()`** (paquete **TidyDensity**): promedio y varianza acumulados.
