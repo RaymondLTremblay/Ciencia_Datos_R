@@ -996,7 +996,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="appendix"><span><b>Apéndice</b></span></li>
 <li class="chapter" data-level="" data-path="apéndice-a-covid-19-acumulativo.html"><a href="apéndice-a-covid-19-acumulativo.html"><i class="fa fa-check"></i>Apéndice A: COVID-19 acumulativo</a>
 <ul>
-<li class="chapter" data-level="12" data-path="apéndice-a-covid-19-acumulativo.html"><a href="apéndice-a-covid-19-acumulativo.html#covid-19-cumulativo"><i class="fa fa-check"></i><b>12</b> COVID 19 Cumulativo</a></li>
+<li class="chapter" data-level="" data-path="apéndice-a-covid-19-acumulativo.html"><a href="apéndice-a-covid-19-acumulativo.html#covid-19-cumulativo"><i class="fa fa-check"></i>COVID 19 Cumulativo</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con bookdown</a></li>
@@ -1087,10 +1087,12 @@ del capítulo.</p>
 </div>
 <div id="usando-los-datos-en-el-paquete-wordcloud2-que-se-llama-demofreq" class="section level2 hasAnchor" number="30.4">
 <h2><span class="header-section-number">30.4</span> Usando los datos en el paquete wordcloud2 que se llama <strong>demoFreq</strong><a href="nubes-de-palabra-en-r.html#usando-los-datos-en-el-paquete-wordcloud2-que-se-llama-demofreq" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><a href="https://raymondltremblay.github.io/Ciencia_Datos_R/appendix-a.html" class="uri">https://raymondltremblay.github.io/Ciencia_Datos_R/appendix-a.html</a></p>
-<div class="sourceCode" id="cb1518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1518-1"><a href="nubes-de-palabra-en-r.html#cb1518-1" tabindex="-1"></a> <span class="co">#ejercicio-de-transformaci%C3%B3n</span></span>
-<span id="cb1518-2"><a href="nubes-de-palabra-en-r.html#cb1518-2" tabindex="-1"></a><span class="fu">library</span>(wordcloud2)</span>
-<span id="cb1518-3"><a href="nubes-de-palabra-en-r.html#cb1518-3" tabindex="-1"></a><span class="fu">head</span>(demoFreq, <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
+<p><code>demoFreq</code> viene dentro del paquete <code>wordcloud2</code> y ya trae la tabla hecha: una
+columna con la palabra y otra con su frecuencia. Sirve para ver cómo se dibuja
+una nube sin tener que limpiar un texto primero, que es el trabajo de las
+secciones siguientes.</p>
+<div class="sourceCode" id="cb1518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1518-1"><a href="nubes-de-palabra-en-r.html#cb1518-1" tabindex="-1"></a><span class="fu">library</span>(wordcloud2)</span>
+<span id="cb1518-2"><a href="nubes-de-palabra-en-r.html#cb1518-2" tabindex="-1"></a><span class="fu">head</span>(demoFreq, <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##          word freq
 ## oil       oil   85
 ## said     said   73

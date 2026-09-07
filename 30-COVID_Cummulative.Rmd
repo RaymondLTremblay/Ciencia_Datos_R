@@ -36,9 +36,9 @@ Un promedio *cumulativo* (`cummean`) usa todos los datos desde el inicio hasta c
 :::
 
 ::: {.funcion}
-**`cummean()`** (paquete **dplyr**) y **`rollmean()`** (paquete **zoo**) — resumen una serie de valores a lo largo del tiempo.
+**`cummean()`** (paquete **dplyr**) y **`rollmean()`** (paquete **zoo**) ,  resumen una serie de valores a lo largo del tiempo.
 
-- **`cummean(x)`:** devuelve el promedio *acumulado* — cada valor es el promedio de todos los datos hasta esa fila.
+- **`cummean(x)`:** devuelve el promedio *acumulado* ,  cada valor es el promedio de todos los datos hasta esa fila.
 - **`rollmean(x, k = 7, fill = NA, align = "left")`:** el promedio *móvil* de una ventana de `k` días; `fill = NA` rellena los extremos donde no hay ventana completa y `align` fija dónde se ancla la ventana.
 - **`rollapply(x, width, FUN)`:** versión general que aplica *cualquier* función (aquí `var`) sobre una ventana móvil.
 :::

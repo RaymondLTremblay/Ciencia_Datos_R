@@ -645,4 +645,3 @@ ejercicio-4.-color-por-categoría
 ejercicio-5.-las-ventanas-emergentes
 ejercicio-6.-ocho-mil-puntos
 ejercicio-7-bono.-capas-que-se-encienden
-covid-19-cumulativo

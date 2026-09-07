@@ -996,7 +996,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="appendix"><span><b>Apéndice</b></span></li>
 <li class="chapter" data-level="" data-path="apéndice-a-covid-19-acumulativo.html"><a href="apéndice-a-covid-19-acumulativo.html"><i class="fa fa-check"></i>Apéndice A: COVID-19 acumulativo</a>
 <ul>
-<li class="chapter" data-level="12" data-path="apéndice-a-covid-19-acumulativo.html"><a href="apéndice-a-covid-19-acumulativo.html#covid-19-cumulativo"><i class="fa fa-check"></i><b>12</b> COVID 19 Cumulativo</a></li>
+<li class="chapter" data-level="" data-path="apéndice-a-covid-19-acumulativo.html"><a href="apéndice-a-covid-19-acumulativo.html#covid-19-cumulativo"><i class="fa fa-check"></i>COVID 19 Cumulativo</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con bookdown</a></li>
@@ -1023,8 +1023,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] &quot;2026-09-06&quot;</code></pre>
 <hr />
 <hr />
-<div id="covid-19-cumulativo" class="section level2 hasAnchor" number="32.12">
-<h2><span class="header-section-number">12</span> COVID 19 Cumulativo<a href="apéndice-a-covid-19-acumulativo.html#covid-19-cumulativo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="covid-19-cumulativo" class="section level2 unnumbered hasAnchor">
+<h2>COVID 19 Cumulativo<a href="apéndice-a-covid-19-acumulativo.html#covid-19-cumulativo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Usa los datos de COVID-19 en Puerto Rico (PR) del Departamento de Salud de PR.</p>
 <div class="sourceCode" id="cb1660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1660-1"><a href="apéndice-a-covid-19-acumulativo.html#cb1660-1" tabindex="-1"></a>url_COVID_PR <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;Datos/url_COVID_PR.csv&quot;</span>)</span>
 <span id="cb1660-2"><a href="apéndice-a-covid-19-acumulativo.html#cb1660-2" tabindex="-1"></a></span>
@@ -1050,9 +1050,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>Un promedio <em>cumulativo</em> (<code>cummean</code>) usa todos los datos desde el inicio hasta cada fecha, mientras que un promedio <em>corriendo</em> o móvil (<code>rollmean</code> con ventana de 7 días) solo promedia los días más cercanos.</p>
 </div>
 <div class="funcion">
-<p><strong><code>cummean()</code></strong> (paquete <strong>dplyr</strong>) y <strong><code>rollmean()</code></strong> (paquete <strong>zoo</strong>) — resumen una serie de valores a lo largo del tiempo.</p>
+<p><strong><code>cummean()</code></strong> (paquete <strong>dplyr</strong>) y <strong><code>rollmean()</code></strong> (paquete <strong>zoo</strong>) , resumen una serie de valores a lo largo del tiempo.</p>
 <ul>
-<li><strong><code>cummean(x)</code>:</strong> devuelve el promedio <em>acumulado</em> — cada valor es el promedio de todos los datos hasta esa fila.</li>
+<li><strong><code>cummean(x)</code>:</strong> devuelve el promedio <em>acumulado</em> , cada valor es el promedio de todos los datos hasta esa fila.</li>
 <li><strong><code>rollmean(x, k = 7, fill = NA, align = "left")</code>:</strong> el promedio <em>móvil</em> de una ventana de <code>k</code> días; <code>fill = NA</code> rellena los extremos donde no hay ventana completa y <code>align</code> fija dónde se ancla la ventana.</li>
 <li><strong><code>rollapply(x, width, FUN)</code>:</strong> versión general que aplica <em>cualquier</em> función (aquí <code>var</code>) sobre una ventana móvil.</li>
 </ul>
