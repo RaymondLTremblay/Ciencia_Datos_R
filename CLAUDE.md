@@ -243,6 +243,21 @@ Pendiente de decisión (nada de esto se tocó):
   enlazan. Se limpian **después** del próximo render completo, que además hace
   falta para publicar todo lo de esta sesión.
 
+## Favicon del sitio (sept. 2026)
+
+El icono es un cuadrado azul marino (`#12395C`) con una linea de tendencia dorada
+y cinco puntos blancos, es decir un grafico de dispersion en miniatura. Vive en
+la raiz como `favicon.svg` mas los derivados `favicon.ico`, `favicon-16x16.png`,
+`favicon-32x32.png` y `apple-touch-icon.png`.
+
+Se enlaza desde `favicon.html`, que `_output.yml` inserta en el `<head>` de todas
+las paginas con `includes: in_header: favicon.html`.
+
+**Ojo:** bookdown no copia estos archivos a `docs/`, porque no se referencian
+desde el texto de ningun capitulo. Por eso `construir_libro.R` los copia con
+`copiar_iconos()` al terminar el render. Si se anade otro tamano de icono, hay
+que anadirlo tambien a esa lista.
+
 ## Housekeeping notes
 
 - The repo contains Dropbox **"conflicted copy"** files (e.g.

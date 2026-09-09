@@ -40,6 +40,17 @@ limpiar_temporales <- function() {
   invisible(length(tmp_dirs) + length(aux))
 }
 
+# Los iconos del sitio (favicon) no los copia bookdown, porque se enlazan desde
+# favicon.html y no desde el texto de los capitulos. Se copian a mano a docs/
+# despues de cada render, si no el navegador los pide y recibe un 404.
+copiar_iconos <- function() {
+  iconos <- c("favicon.svg", "favicon.ico", "favicon-16x16.png",
+              "favicon-32x32.png", "apple-touch-icon.png")
+  iconos <- iconos[file.exists(iconos)]
+  if (length(iconos)) file.copy(iconos, "docs", overwrite = TRUE)
+  invisible(length(iconos))
+}
+
 # 1. Limpiar antes de empezar
 n_antes <- limpiar_temporales()
 message("== Limpieza previa: ", n_antes, " archivo(s) o carpeta(s) ==")
@@ -49,5 +60,9 @@ on.exit(limpiar_temporales(), add = TRUE)
 
 # 3. Construir el libro en HTML
 bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook")
+
+# 4. Copiar los iconos del sitio a docs/
+n_iconos <- copiar_iconos()
+message("== Iconos copiados a docs/: ", n_iconos, " ==")
 
 message("\n== Libro construido en HTML. Salida en docs/ ==")

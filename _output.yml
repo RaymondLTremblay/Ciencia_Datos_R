@@ -11,6 +11,8 @@
 
 bookdown::gitbook:
   css: style.css
+  includes:
+    in_header: favicon.html
   config:
     toc:
       before: |
