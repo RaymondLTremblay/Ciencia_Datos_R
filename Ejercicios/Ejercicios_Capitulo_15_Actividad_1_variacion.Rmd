@@ -1,0 +1,233 @@
+---
+title: "Capítulo 15, Actividad 1: Variación"
+subtitle: "Una variable a la vez: valores típicos, valores inusuales y valores faltantes"
+author: "Nombre del estudiante: ______________________"
+date: "Trabajé con: ______________________   |   Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 15 del libro del curso, *Análisis exploratorio*.
+
+Esta es la **primera de dos actividades** del capítulo. Aquí se trabaja una sola variable a la vez, que es la primera de las dos preguntas del análisis exploratorio: ¿qué tipo de **variación** hay dentro de cada una de mis variables? La segunda pregunta, la covariación entre variables, es la Actividad 2.
+
+## Tiempo y lectura previa
+
+La actividad completa está pensada para **una hora y media**, repartida más o menos así:
+
+| Parte | Tiempo aproximado |
+|:--|--:|
+| Leer las secciones del capítulo | 20 minutos |
+| Resolver los cuatro ejercicios | 55 minutos |
+| Hacer *Knit*, revisar y entregar | 15 minutos |
+
+Antes de escribir código, lee en el capítulo 15 del libro estas secciones, y solo estas:
+
+- *Términos importantes*
+- *¿Qué es el análisis exploratorio?*
+- *Variación* (una variable categórica, una variable continua)
+- *Valores típicos*
+- *Valores inusuales*
+- *Valores faltantes*
+
+Si te encuentras leyendo sobre diagramas de caja o sobre dos variables, ya te pasaste: eso es la Actividad 2.
+
+## Trabajo en pareja
+
+Puedes trabajar **en pareja, dos personas**, o solo si lo prefieres.
+
+1. Pueden discutir el código, probar cosas juntos y ayudarse a encontrar los errores.
+2. **Cada estudiante entrega su propio archivo.** No se acepta una entrega firmada por dos.
+3. En el encabezado de arriba, escribe en *Trabajé con* el nombre completo de tu pareja, o *Trabajé solo* / *Trabajé sola*.
+4. Las **explicaciones en palabras** las escribe cada quien por su cuenta, con sus propias palabras. Dos explicaciones idénticas palabra por palabra se corrigen como una sola entrega.
+
+El punto de trabajar en pareja es que expliquen las gráficas en voz alta el uno al otro. Si los dos escriben lo mismo, no hubo conversación.
+
+## Qué se entrega
+
+Cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**: que la tabla o la gráfica se vean en el `.html`.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+Estas gráficas son de **exploración**: no hace falta que estén bonitas, ni con títulos, ni con colores escogidos. Hacen falta rápidas y legibles.
+
+Una excepción, y es obligatoria en esta actividad: **todos los histogramas y todas las gráficas de barras llevan `color = "white"`**. Ese argumento dibuja el borde de cada barra en blanco y deja ver dónde termina una y empieza la siguiente; sin él las barras se funden en un bloque sólido. Recuerda que en `geom_bar()` y en `geom_histogram()`, `color` es el **borde** y `fill` es el **relleno**.
+
+```{r ejemplo-borde, eval=FALSE}
+ggplot(millas, aes(x = clase)) +
+  geom_bar(color = "white")
+```
+
+Los ejercicios usan `millas` y `paises` del paquete `datos`, no `diamantes`, que es el conjunto con el que se enseña en el capítulo.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Variación de una variable categórica | 5 |
+| 2 | El `binwidth` cambia la historia | 5 |
+| 3 | Valores inusuales sin borrarlos | 5 |
+| 4 | Sustituir por `NA`, no borrar la fila | 5 |
+| **Total** | | **20** |
+| 5 (bono) | ¿La bimodalidad es real? | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que se ve (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+Antes de empezar, mira qué tienes:
+
+```{r explorar, eval=FALSE}
+names(millas)
+names(paises)
+```
+
+Dos de los ejercicios usan un solo año de `paises`, para no mezclar décadas:
+
+```{r base}
+p2007 <- paises |> filter(anio == 2007)
+```
+
+---
+
+# Ejercicio 1. Variación de una variable categórica (5 puntos)
+
+Con `millas`:
+
+1. Cuenta los vehículos por `clase` con `count()`.
+2. Ordena la tabla de mayor a menor.
+3. Haz la gráfica equivalente con `geom_bar()`.
+
+*Verifica:* la tabla debe tener **7** filas, la suma de los conteos debe dar **234**, y `suv` debe ser la clase más común.
+
+```{r a1-ej1}
+# Escribe tu código aquí
+
+```
+
+**Explica en palabras.** ¿Por qué la tabla y la gráfica **no** son redundantes? Di una cosa que se vea mejor en la tabla y una cosa que se vea mejor en la gráfica. Añade una frase sobre por qué ese desbalance entre clases importa para cualquier cosa que calcules después por clase.
+
+> *Tu respuesta:*
+>
+>
+
+---
+
+# Ejercicio 2. El `binwidth` cambia la historia (5 puntos)
+
+Con `p2007`, la variable `esperanza_de_vida`:
+
+1. Haz un histograma con `binwidth = 10`.
+2. Haz otro con `binwidth = 2`.
+3. Haz otro con `binwidth = 0.5`.
+
+*Verifica:* los tres histogramas tienen que sumar **142** países.
+
+```{r a1-ej2}
+# Escribe tu código aquí
+
+```
+
+**Explica en palabras.** ¿Cuál de los tres enseña que la distribución tiene **dos grupos**? ¿Qué **esconde** el de intervalos anchos y qué **inventa** el de intervalos muy finos? Escoge uno de los tres para una figura de informe y justifica el número.
+
+> *Tu respuesta:*
+>
+>
+
+---
+
+# Ejercicio 3. Valores inusuales sin borrarlos (5 puntos)
+
+Con `p2007`, la variable `pib_per_capita`:
+
+1. Haz un histograma. Vas a ver una barra alta a la izquierda y aparentemente nada más.
+2. Acércate al eje vertical con `coord_cartesian()` hasta que se vean las barras diminutas de la cola derecha.
+3. Saca en una tabla los países de esa cola, con `filter()`, `select()` y `arrange()`, para poder mirarlos uno por uno.
+4. Calcula la **media** y la **mediana** del `pib_per_capita` con todos los países, y otra vez sin los de la cola.
+
+*Verifica:* tu tabla de países extremos debe tener **menos de diez filas** y todas deben ser del año 2007.
+
+```{r a1-ej3}
+# Escribe tu código aquí
+
+```
+
+**Explica en palabras.** ¿Son errores o son datos verdaderos? Justifica mirando **cuáles** países son, no la forma del histograma. Después explica por qué la media se movió y la mediana casi no.
+
+> *Tu respuesta:*
+>
+>
+
+---
+
+# Ejercicio 4. Sustituir por `NA`, no borrar la fila (5 puntos)
+
+Con `millas`:
+
+1. Usando `if_else()` y `between()`, crea `millas2` donde el valor de `autopista` se sustituya por `NA_real_` cuando esté fuera del intervalo de 12 a 40 millas por galón.
+2. Comprueba cuántas filas tiene `millas2` y cuántos valores marcaste con `sum(is.na(...))`.
+3. Calcula el promedio de `autopista` en `millas2` con `na.rm = TRUE` y sin él.
+
+*Verifica:* `millas2` debe seguir teniendo **234** filas. Si te quedan menos, usaste `filter()` y hay que volver a hacerlo.
+
+```{r a1-ej4}
+# Escribe tu código aquí
+
+```
+
+**Explica en palabras.** ¿Por qué sustituir el valor por `NA` es mejor que botar la fila entera con `filter()`? Piensa en cuántas variables tiene cada fila de `millas` y en qué pierdes si la botas. Explica también por qué `mean()` sin `na.rm = TRUE` devolvió lo que devolvió.
+
+> *Tu respuesta:*
+>
+>
+
+---
+
+# Ejercicio 5 (BONO). ¿La bimodalidad es real? (5 puntos adicionales)
+
+En el ejercicio 2 apareció una distribución con dos grupos. Comprueba si esos dos grupos corresponden a algo real:
+
+1. Vuelve al histograma de `esperanza_de_vida` en `p2007` con el `binwidth` que escogiste.
+2. Sepáralo por `continente` con `facet_wrap(~ continente)`.
+
+*Verifica:* la suma de los paneles sigue siendo 142 países.
+
+```{r a1-ej5}
+# Escribe tu código aquí
+
+```
+
+**Explica en palabras.** ¿Los dos grupos son un accidente del ancho del intervalo o corresponden a continentes distintos? ¿Cuál continente ocupa casi todo el grupo de abajo? Escribe una frase sobre lo que esto significa: un hueco en un histograma muchas veces quiere decir que hay **subpoblaciones distintas mezcladas** en la misma tabla.
+
+> *Tu respuesta:*
+>
+>
+
+---
+
+# Antes de entregar
+
+- [ ] El encabezado tiene mi nombre y el de la persona con quien trabajé.
+- [ ] Los cuatro bloques de código corren sin error.
+- [ ] Las tablas y las gráficas **se ven** en el `.html`.
+- [ ] Las explicaciones están escritas con mis propias palabras.
+- [ ] Entrego el `.Rmd` y el `.html`.

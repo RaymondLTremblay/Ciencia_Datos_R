@@ -1,0 +1,228 @@
+---
+title: "Capítulo 15, Actividad 2: Covariación"
+subtitle: "Dos variables a la vez: cajas, conteos cruzados, dispersión y patrones escondidos"
+author: "Nombre del estudiante: ______________________"
+date: "Trabajé con: ______________________   |   Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 15 del libro del curso, *Análisis exploratorio*.
+
+Esta es la **segunda de dos actividades** del capítulo. En la Actividad 1 se miró una variable a la vez. Aquí se miran dos, que es la segunda de las dos preguntas del análisis exploratorio: ¿qué tipo de **covariación** hay entre mis variables?
+
+La Actividad 1 no es requisito para esta, pero ayuda: las técnicas de aquí suponen que ya sabes leer un histograma y que ya sospechas de los valores extremos.
+
+## Tiempo y lectura previa
+
+La actividad completa está pensada para **una hora y media**, repartida más o menos así:
+
+| Parte | Tiempo aproximado |
+|:--|--:|
+| Leer las secciones del capítulo | 20 minutos |
+| Resolver los cuatro ejercicios | 55 minutos |
+| Hacer *Knit*, revisar y entregar | 15 minutos |
+
+Antes de escribir código, lee en el capítulo 15 del libro estas secciones, y solo estas:
+
+- *Covariación*, incluida la subsección *La covarianza: la versión numérica*
+- *Una variable categórica y una continua*
+- *Dos variables categóricas*
+- *Dos variables continuas*
+- *Patrones y modelos*
+
+De la subsección de la covarianza basta con que te quedes con tres cosas: qué
+significa el **signo** de $s_{xy}$, por qué sus **unidades** hacen que el número
+solo no se pueda interpretar, y por qué la correlación $r$, que es la covarianza
+dividida entre las dos desviaciones estándar, sí se puede comparar entre estudios
+distintos.
+
+Presta atención especial al resultado que sorprende a todo el mundo en el capítulo: en `diamantes`, los de **mejor** corte resultan ser en promedio los **más baratos**. No es un error de los datos. Es una tercera variable escondida detrás. El ejercicio 4 de esta actividad es exactamente esa situación, pero con otro conjunto de datos.
+
+## Trabajo en pareja
+
+Puedes trabajar **en pareja, dos personas**, o solo si lo prefieres.
+
+1. Pueden discutir el código, probar cosas juntos y ayudarse a encontrar los errores.
+2. **Cada estudiante entrega su propio archivo.** No se acepta una entrega firmada por dos.
+3. En el encabezado de arriba, escribe en *Trabajé con* el nombre completo de tu pareja, o *Trabajé solo* / *Trabajé sola*.
+4. Las **explicaciones en palabras** las escribe cada quien por su cuenta, con sus propias palabras. Dos explicaciones idénticas palabra por palabra se corrigen como una sola entrega.
+
+En esta actividad casi todas las preguntas tienen más de una respuesta defendible. Discútanlas en voz alta antes de escribirlas, y si no están de acuerdo, cada uno defiende la suya por escrito.
+
+## Qué se entrega
+
+Cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**: que la tabla o la gráfica se vean en el `.html`.
+3. **Una explicación en palabras** en el espacio marcado.
+
+Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
+
+Los ejercicios usan `millas` y `paises` del paquete `datos`, no `diamantes`, que es el conjunto con el que se enseña en el capítulo.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | Una categórica y una continua | 5 |
+| 2 | Dos variables categóricas | 5 |
+| 3 | Dos variables continuas | 5 |
+| 4 | El patrón escondido en los subgrupos | 5 |
+| **Total** | | **20** |
+| 5 (bono) | Las tres técnicas en otro conjunto | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que se ve (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(datos)
+```
+
+Antes de empezar, mira qué tienes:
+
+```{r explorar, eval=FALSE}
+names(millas)
+names(paises)
+```
+
+---
+
+# Ejercicio 1. Una categórica y una continua (5 puntos)
+
+Con `millas`, el rendimiento en `autopista` según la `clase` de vehículo:
+
+1. Haz un diagrama de caja de `autopista` según `clase`, tal como sale por defecto.
+2. Haz el mismo diagrama con las clases **ordenadas por la mediana**, usando `reorder()`.
+3. Ponle una etiqueta al eje que diga cómo está ordenado.
+
+*Verifica:* en la segunda gráfica, `pickup` debe quedar en el extremo de las medianas más bajas.
+
+```{r a2-ej1}
+# Escribe tu código aquí
+
+```
+
+**Explica en palabras.** Además de la mediana, ¿cuál clase tiene la caja más **ancha**, y qué significa eso sobre esa clase? Después contesta esta pregunta, que no tiene una sola respuesta correcta: si vas a comprar un carro y solo te dicen la clase, ¿prefieres una clase con mediana alta pero mucha dispersión, o una con mediana un poco más baja pero consistente?
+
+> *Tu respuesta:*
+>
+>
+
+---
+
+# Ejercicio 2. Dos variables categóricas (5 puntos)
+
+Con `millas`, las variables `clase` y `cilindros`. Ojo: `cilindros` está guardada como número, pero aquí la vamos a tratar como categórica, así que hay que envolverla en `factor()` para graficarla.
+
+1. Cuenta las combinaciones con `count(clase, cilindros)`.
+2. Dibújalas con `geom_count()`.
+3. Dibújalas con `geom_tile()`, coloreando por el conteo.
+
+*Verifica:* `cilindros` tiene **4** valores distintos, y **no** todas las combinaciones de clase y cilindros existen.
+
+```{r a2-ej2}
+# Escribe tu código aquí
+
+```
+
+**Explica en palabras.** Nombra **dos combinaciones que no aparecen** en los datos y explica por qué tiene sentido que no existan. Después di cuál de las dos gráficas enseña mejor esos huecos y por qué.
+
+> *Tu respuesta:*
+>
+>
+
+---
+
+# Ejercicio 3. Dos variables continuas (5 puntos)
+
+Con `millas`, `cilindrada` contra `autopista`. Haz las tres versiones del capítulo:
+
+1. Puntos con transparencia, `geom_point(alpha = ...)`.
+2. Celdas contadas, `geom_bin2d()`.
+3. Diagramas de caja agrupando con `cut_width(cilindrada, 1)`.
+4. Calcula la covarianza y la correlación entre las dos variables con `cov()` y
+   `cor()` dentro de un `summarise()`.
+
+*Verifica:* las tres gráficas tienen que enseñar la misma tendencia general, y el
+signo de la covarianza tiene que coincidir con lo que se ve en ellas.
+
+```{r a2-ej3}
+# Escribe tu código aquí
+
+```
+
+**Explica en palabras.** Primero describe la tendencia en una frase, y di si es recta o no. Después contesta las dos preguntas del capítulo: ¿cuál de las tres enseña mejor la **dispersión** de `autopista` para un mismo tamaño de motor? ¿Y cuál usarías en una presentación de cinco minutos ante gente que no toma este curso? Son dos respuestas distintas, y esa diferencia es el punto del ejercicio.
+
+Por último, mira los dos números que calculaste: ¿por qué el de `cor()` se puede interpretar tal cual y el de `cov()` no? Y si alguien te reportara solo la correlación, sin enseñar la gráfica, ¿qué información se estaría perdiendo?
+
+> *Tu respuesta:*
+>
+>
+
+---
+
+# Ejercicio 4. El patrón escondido en los subgrupos (5 puntos)
+
+Sigue con `cilindrada` y `autopista` en `millas`, pero ahora deja que se vea la tercera variable:
+
+1. Colorea los puntos por `clase`.
+2. Sepáralos con `facet_wrap(~ clase)`.
+
+*Verifica:* debe verse que la relación **no** es igual en todas las clases, y que hay una clase cuyos puntos quedan claramente por encima de la nube general.
+
+```{r a2-ej4}
+# Escribe tu código aquí
+
+```
+
+**Explica en palabras.** ¿Cuál clase se sale de la tendencia general, y por qué crees que se sale? Esta es la misma situación del corte `Ideal` en `diamantes`: una tercera variable estaba escondiendo el patrón. Di cuál es aquí esa tercera variable, y fíjate en que **no es una columna de la tabla**: está representada indirectamente por `clase`.
+
+> *Tu respuesta:*
+>
+>
+
+---
+
+# Ejercicio 5 (BONO). Las tres técnicas en otro conjunto (5 puntos adicionales)
+
+Cambia de datos. Con `paises` del año 2007, mira `pib_per_capita` contra `esperanza_de_vida`:
+
+1. Haz el diagrama de dispersión.
+2. Colorea o separa por `continente`.
+
+*Verifica:* son 142 países.
+
+```{r a2-ej5}
+# Escribe tu código aquí
+
+```
+
+**Explica en palabras.** ¿La relación es recta? ¿Dónde se aplana y qué significa eso? Con lo que dice la sección *Patrones y modelos*, contesta además esta pregunta: ¿podría haber una tercera variable detrás de esta relación? Nombra una candidata y di cómo la comprobarías si estuviera en la tabla.
+
+> *Tu respuesta:*
+>
+>
+
+---
+
+# Antes de entregar
+
+- [ ] El encabezado tiene mi nombre y el de la persona con quien trabajé.
+- [ ] Los cuatro bloques de código corren sin error.
+- [ ] Las tablas y las gráficas **se ven** en el `.html`.
+- [ ] Las explicaciones están escritas con mis propias palabras.
+- [ ] Entrego el `.Rmd` y el `.html`.

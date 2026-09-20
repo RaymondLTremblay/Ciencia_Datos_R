@@ -25,7 +25,7 @@ Español:
  - Variación
  - Valores típicos y valores inusuales
  - Valores faltantes
- - Covariación
+ - Covariación, covarianza y correlación
  - Patrones y modelos
  - Argumentos en ggplot2
  
@@ -106,8 +106,18 @@ y conviene hacer las dos porque dicen cosas distintas.
 diamantes |> count(corte)
 
 ggplot(diamantes, aes(x = corte)) +
-  geom_bar()
+  geom_bar(color = "white")
 ```
+
+::: {.consejo}
+En los histogramas y en las gráficas de barras conviene añadir `color = "white"`.
+Ese argumento dibuja el **borde** de cada barra en blanco, y así se ve dónde
+termina una y empieza la siguiente. Sin el borde, las barras vecinas se funden en
+un bloque sólido y se pierde justo la información que se fue a buscar: el ancho
+del intervalo y la altura de cada uno. Ojo con la diferencia, que confunde a
+todo el mundo la primera vez: en `geom_bar()` y en `geom_histogram()`, `color` es
+el **borde** y `fill` es el **relleno**.
+:::
 
 Ya aparece algo que no era obvio: el corte `Ideal`, que es el mejor, es también
 el **más común**. Esa es exactamente la clase de observación que abre una
@@ -121,7 +131,7 @@ ve. No hay un ancho correcto: hay que probar varios.
 
 ```{r c13-3}
 ggplot(diamantes, aes(x = quilate)) +
-  geom_histogram(binwidth = 0.5)
+  geom_histogram(binwidth = 0.5, color = "white")
 ```
 
 Con intervalos de medio quilate se ve una distribución sesgada hacia la derecha
@@ -132,8 +142,14 @@ inmensa mayoría, con un intervalo mucho más fino:
 pequenos <- diamantes |> filter(quilate < 3)
 
 ggplot(pequenos, aes(x = quilate)) +
-  geom_histogram(binwidth = 0.01)
+  geom_histogram(binwidth = 0.01, color = "white")
 ```
+
+::: {.nota}
+El objeto `pequenos` que se acaba de crear se vuelve a usar más adelante, en la
+sección de dos variables continuas. Si corres los bloques salteados y R te dice
+que no encuentra `pequenos`, vuelve a correr este.
+:::
 
 Ahora la gráfica cuenta otra historia: hay **picos** en los valores redondos
 (0.3, 0.5, 0.7, 1.0 quilates) y muy pocos diamantes justo por debajo de cada uno.
@@ -180,14 +196,14 @@ las barras que los contienen tienen altura casi cero:
 
 ```{r c13-6}
 ggplot(diamantes, aes(x = tabla)) +
-  geom_histogram(binwidth = 1)
+  geom_histogram(binwidth = 1, color = "white")
 ```
 
 La solución no es cambiar los datos sino **acercar la vista** al eje vertical:
 
 ```{r c13-7}
 ggplot(diamantes, aes(x = tabla)) +
-  geom_histogram(binwidth = 1) +
+  geom_histogram(binwidth = 1, color = "white") +
   coord_cartesian(ylim = c(0, 50))
 ```
 
@@ -252,7 +268,8 @@ mean(diamantes2$tabla, na.rm = TRUE)
 
 Hay una pregunta que casi nadie se hace y que suele ser la más interesante:
 **¿en qué se diferencian las observaciones que tienen el dato de las que no lo
-tienen?** En `vuelos`, por ejemplo, un `NA` en el atraso de salida no es ruido:
+tienen?** En `vuelos`, otro conjunto del paquete `datos`, un `NA` en el atraso de salida
+no es ruido:
 significa que el vuelo se canceló.
 
 ```{r c13-11}
@@ -271,10 +288,127 @@ primer caso quitar los `NA` deja el análisis intacto.
 
 ***
 
-## Covariación: una variable categórica y una continua
+## Covariación
 
-La **covariación** es la tendencia de dos o más variables a cambiar juntas. Con
-una variable categórica y una continua, la primera idea es superponer las
+La variación describe lo que pasa **dentro** de una variable. La **covariación**
+describe lo que pasa **entre** variables: es la tendencia de dos o más variables
+a cambiar juntas. Cuando dos variables covarían, conocer una reduce la
+incertidumbre sobre la otra, y esa reducción es justamente lo que hace útil un
+análisis. Si saber el quilate de un diamante no dijera nada sobre su precio, no
+habría nada que modelar.
+
+### La covarianza: la versión numérica
+
+Para dos variables **continuas** la covariación tiene una medida con nombre
+propio, la **covarianza**. La idea detrás de la fórmula es sencilla: para cada
+observación se mira cuánto se aleja de su promedio en $x$ y cuánto se aleja de su
+promedio en $y$, se multiplican esas dos desviaciones, y se promedian todos los
+productos.
+
+$$s_{xy}=\frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\bar{x})(y_{i}-\bar{y})$$
+
+donde $n$ es el número de observaciones, $x_{i}$ e $y_{i}$ son los valores de la
+observación $i$, y $\bar{x}$ e $\bar{y}$ son los promedios de cada variable. El
+denominador es $n-1$ y no $n$ por la misma razón que en la varianza de una
+muestra: se perdió un grado de libertad al estimar los dos promedios con los
+mismos datos.
+
+Vale la pena mirar el producto $(x_{i}-\bar{x})(y_{i}-\bar{y})$ observación por
+observación, porque ahí está toda la intuición. Si una observación está por
+encima del promedio en las dos variables, las dos desviaciones son positivas y el
+producto es positivo. Si está por debajo en las dos, las dos son negativas y el
+producto vuelve a ser positivo. Solo cuando está por encima en una y por debajo
+en la otra el producto sale negativo. La covarianza es el balance de todos esos
+productos:
+
+- si $s_{xy}>0$, cuando $x$ está por encima de su promedio $y$ también suele
+  estarlo: las dos suben juntas;
+- si $s_{xy}<0$, cuando una sube la otra baja;
+- si $s_{xy}\approx 0$, no hay relación **lineal**, que no es lo mismo que no
+  haber ninguna relación.
+
+La varianza es un caso particular de la covarianza: la de una variable consigo
+misma. Si en la fórmula pones $y=x$, el producto se convierte en un cuadrado y
+queda
+
+$$s_{xx}=\frac{1}{n-1}\sum_{i=1}^{n}(x_{i}-\bar{x})^{2}=s_{x}^{2}$$
+
+que es exactamente la varianza que ya conoces del capítulo de índices
+estadísticos.
+
+::: {.advertencia}
+La covarianza tiene un problema serio a la hora de interpretarla: sus
+**unidades** son el producto de las unidades de las dos variables. La covarianza
+entre quilate y precio se mide en "quilates por dólar", que no significa nada, y
+su magnitud cambia si decides medir el peso en gramos en vez de quilates. Por eso
+el número solo casi nunca se reporta: sirve para leer el **signo**, no para
+comparar la fuerza de dos relaciones distintas.
+:::
+
+La solución a ese problema es dividir la covarianza entre las desviaciones
+estándar de las dos variables. Eso cancela las unidades y produce el
+**coeficiente de correlación de Pearson**:
+
+$$r=\frac{s_{xy}}{s_{x}\,s_{y}}$$
+
+que no tiene unidades y siempre está entre $-1$ y $1$. Un $r$ de $1$ significa
+que todos los puntos caen exactamente sobre una recta de pendiente positiva, un
+$r$ de $-1$ lo mismo con pendiente negativa, y un $r$ de $0$ que no hay tendencia
+lineal. La correlación es la covarianza **estandarizada**, y por eso es la que se
+reporta.
+
+::: {.funcion}
+**`cov()` y `cor()`**: la covarianza y la correlación en R.
+
+- **`cov(x, y)`:** devuelve $s_{xy}$, con el denominador $n-1$, que es lo que se
+  quiere para una muestra.
+- **`cor(x, y)`:** devuelve $r$, la versión sin unidades.
+- **`use = "complete.obs"`:** ninguna de las dos tiene `na.rm`; para ignorar los
+  valores faltantes hay que usar este argumento.
+- **`method = "spearman"`:** calcula la correlación sobre los **rangos** en vez
+  de sobre los valores, y por eso detecta relaciones que suben siempre pero no en
+  línea recta. Es la versión no paramétrica.
+:::
+
+```{r c13-cov}
+diamantes |> 
+  summarise(
+    covarianza  = cov(quilate, precio),
+    correlacion = cor(quilate, precio)
+  )
+```
+
+Mira los dos números del resultado. El de la covarianza es grande y no se puede
+interpretar sin saber en qué unidades está; el de la correlación se lee de
+inmediato y confirma lo que ya se veía en el diagrama de dispersión.
+
+::: {.historia}
+La idea de medir la relación entre dos variables con un solo número viene de
+**Francis Galton**, que en la década de 1880 estudiaba la estatura de padres e
+hijos y publicó en 1888 el trabajo donde aparece la "co-relación". **Karl
+Pearson** le dio en 1896 la forma algebraica que todavía se usa, y de ahí el
+nombre de coeficiente de correlación de Pearson.
+:::
+
+::: {.nota}
+**Por qué aquí casi todo se hace con gráficas y no con la fórmula.** En este
+capítulo la palabra covariación se usa en sentido amplio, y hay dos razones.
+
+La primera es que la covarianza solo está definida para variables **numéricas**,
+mientras que casi todas las preguntas interesantes mezclan tipos: el precio
+(continua) según el corte (categórica), o el color según el corte (dos
+categóricas). En esos casos no hay ningún $s_{xy}$ que calcular y la gráfica es
+la única herramienta.
+
+La segunda es que un $r$ cercano a cero **no** quiere decir que no pase nada. Una
+relación en forma de U da una correlación casi nula y salta a la vista en un
+diagrama de dispersión. Un solo número nunca sustituye la gráfica: primero se
+mira, después se mide.
+:::
+
+### Una variable categórica y una continua
+
+Con una variable categórica y una continua, la primera idea es superponer las
 distribuciones:
 
 ```{r c13-12}
@@ -291,6 +425,10 @@ en la misma escala, con la densidad en lugar del conteo:
 ggplot(diamantes, aes(x = precio, y = after_stat(density))) +
   geom_freqpoly(aes(color = corte), binwidth = 500)
 ```
+
+`after_stat(density)` le pide a `geom_freqpoly()` que en lugar del conteo dibuje
+la **densidad**, es decir, el conteo dividido por el total de cada grupo, de modo
+que el área bajo cada curva sea 1 y las cinco curvas sean comparables.
 
 Aun así, cinco curvas encimadas se leen mal. El diagrama de caja dice lo mismo
 de forma mucho más compacta:
@@ -324,7 +462,7 @@ ggplot(diamantes, aes(x = reorder(color, precio, FUN = median), y = precio)) +
 
 ***
 
-## Dos variables categóricas
+### Dos variables categóricas
 
 Con dos categóricas hay que contar las combinaciones. `geom_count()` dibuja un
 punto cuyo tamaño es el conteo:
@@ -352,7 +490,7 @@ un mapa de calor bonito.
 
 ***
 
-## Dos variables continuas
+### Dos variables continuas
 
 El diagrama de dispersión es la herramienta obvia, y con muchas observaciones es
 también la que más engaña, porque los puntos se apilan unos encima de otros:
@@ -370,7 +508,7 @@ ggplot(diamantes, aes(x = quilate, y = precio)) +
   geom_point(alpha = 1 / 100)
 ```
 
-La segunda es dividir el plano en celdas y contar cuántos puntos cae en cada
+La segunda es dividir el plano en celdas y contar cuántos puntos caen en cada
 una, igual que un histograma pero en dos dimensiones:
 
 ```{r c13-20}
@@ -431,36 +569,54 @@ Hacer los ejercicios de las siguientes secciones del libro en español:
 
 ***
 
-## Ejercicios del capítulo
+## Actividades del capítulo
 
 ::: {.nota}
-**Sobre los ejercicios de este capítulo.** Cada ejercicio se entrega con tres
-cosas: el **script**, el **resultado** (que la gráfica o la tabla se vean) y una
-**explicación en palabras**. En un capítulo de exploración la explicación es lo
-más importante: una gráfica sin lectura no contesta nada. Los ejercicios usan
-`millas` y `paises` del paquete `datos`, no `diamantes`, que es con lo que se
-enseña aquí. La hoja completa para entregar está en
-`Ejercicios/Ejercicios_Capitulo_15_exploratorio.Rmd`.
+**Cómo se trabaja este capítulo.** Este capítulo se entrega en **dos actividades
+independientes**, cada una pensada para hora y media entre leer y entregar.
+
+- **Actividad 1, variación:** una variable a la vez. Se apoya en las secciones
+  *Variación*, *Valores típicos*, *Valores inusuales* y *Valores faltantes*.
+- **Actividad 2, covariación:** dos variables a la vez. Se apoya en las secciones
+  *Covariación*, *Dos variables categóricas*, *Dos variables continuas* y
+  *Patrones y modelos*.
+
+Las dos se pueden trabajar **en pareja, dos personas**, pero cada estudiante
+entrega su propio archivo y escribe en el encabezado con quién trabajó. Las
+explicaciones en palabras las redacta cada quien por su cuenta.
+
+Cada ejercicio se entrega con tres cosas: el **script**, el **resultado** (que la
+gráfica o la tabla se vean) y una **explicación en palabras**. En un capítulo de
+exploración la explicación es lo más importante: una gráfica sin lectura no
+contesta nada. Los ejercicios usan `millas` y `paises` del paquete `datos`, no
+`diamantes`, que es con lo que se enseña aquí.
+
+Las hojas completas para entregar están en
+`Ejercicios/Ejercicios_Capitulo_15_Actividad_1_variacion.Rmd` y
+`Ejercicios/Ejercicios_Capitulo_15_Actividad_2_covariacion.Rmd`.
 :::
 
-### Ejercicio 1. Variación de una variable categórica
+### Actividad 1: variación
+
+#### Ejercicio 1.1. Variación de una variable categórica
 
 ::: {.ejercicio}
-Datos: `millas`. Cuenta los vehículos por `clase` con `count()` y haz la gráfica
-equivalente con `geom_bar()`.
+Datos: `millas`. Cuenta los vehículos por `clase` con `count()`, ordena la tabla
+de mayor a menor y haz la gráfica equivalente con `geom_bar()`.
 
 **Verificación:** la tabla debe tener 7 filas, la suma de los conteos debe dar
 234, y `suv` debe ser la clase más común.
 
 **En palabras:** ¿por qué la tabla y la gráfica no son redundantes? Di algo que
-se vea mejor en una y algo que se vea mejor en la otra.
+se vea mejor en una y algo que se vea mejor en la otra, y por qué el desbalance
+entre clases importa para todo lo que calcules después por clase.
 :::
 
-```{r c13-ej1, eval=FALSE}
+```{r c13-a1e1, eval=FALSE}
 # Escribe tu código aquí
 ```
 
-### Ejercicio 2. El `binwidth` cambia la historia
+#### Ejercicio 1.2. El `binwidth` cambia la historia
 
 ::: {.ejercicio}
 Datos: `paises`, solo el año 2007. Haz tres histogramas de `esperanza_de_vida`
@@ -470,33 +626,34 @@ con `binwidth` de 10, de 2 y de 0.5.
 
 **En palabras:** ¿cuál de los tres enseña que la distribución tiene **dos
 grupos**? ¿Qué esconde el de intervalos anchos y qué inventa el de intervalos
-muy finos?
+muy finos? Escoge uno para una figura de informe y justifica el número.
 :::
 
-```{r c13-ej2, eval=FALSE}
+```{r c13-a1e2, eval=FALSE}
 # Escribe tu código aquí
 ```
 
-### Ejercicio 3. Valores inusuales sin borrarlos
+#### Ejercicio 1.3. Valores inusuales sin borrarlos
 
 ::: {.ejercicio}
 Datos: `paises` de 2007, variable `pib_per_capita`. Haz un histograma, acércate
 al eje vertical con `coord_cartesian()` hasta ver las barras de la cola derecha,
-y después saca en una tabla los países que están en esa cola.
+saca en una tabla los países que están en esa cola y calcula la media y la
+mediana con ellos y sin ellos.
 
 **Verificación:** tu tabla de países extremos debe tener menos de diez filas y
 todas deben ser del año 2007.
 
 **En palabras:** ¿son errores o son datos verdaderos? Justifica mirando cuáles
-países son. ¿Qué le pasaría a la media si los borraras, y por qué la mediana casi
-no se movería?
+países son, no la forma del histograma. ¿Por qué se movió la media y por qué la
+mediana casi no?
 :::
 
-```{r c13-ej3, eval=FALSE}
+```{r c13-a1e3, eval=FALSE}
 # Escribe tu código aquí
 ```
 
-### Ejercicio 4. Sustituir por `NA`, no borrar la fila
+#### Ejercicio 1.4. Sustituir por `NA`, no borrar la fila
 
 ::: {.ejercicio}
 Datos: `millas`. Con `if_else()` y `between()`, crea `millas2` donde el valor de
@@ -510,15 +667,37 @@ debe decirte cuántos valores marcaste.
 ¿Por qué es mejor esto que haber usado `filter()` para botar las filas?
 :::
 
-```{r c13-ej4, eval=FALSE}
+```{r c13-a1e4, eval=FALSE}
 # Escribe tu código aquí
 ```
 
-### Ejercicio 5. Covariación: categórica y continua
+#### Ejercicio 1.5 (BONO). ¿La bimodalidad es real?
 
 ::: {.ejercicio}
-Datos: `millas`. Haz un diagrama de caja de `autopista` según `clase`, con las
-clases **ordenadas por la mediana** usando `reorder()`.
+Vuelve al histograma de `esperanza_de_vida` en `paises` de 2007 y sepáralo por
+`continente` con `facet_wrap(~ continente)`.
+
+**Verificación:** la suma de los paneles sigue siendo 142 países.
+
+**En palabras:** ¿los dos grupos son un accidente del ancho del intervalo o
+corresponden a continentes distintos? Un hueco en un histograma muchas veces
+quiere decir que hay subpoblaciones distintas mezcladas en la misma tabla:
+explica si es el caso aquí.
+:::
+
+```{r c13-a1e5, eval=FALSE}
+# Escribe tu código aquí
+```
+
+***
+
+### Actividad 2: covariación
+
+#### Ejercicio 2.1. Una categórica y una continua
+
+::: {.ejercicio}
+Datos: `millas`. Haz un diagrama de caja de `autopista` según `clase`, y después
+el mismo diagrama con las clases **ordenadas por la mediana** usando `reorder()`.
 
 **Verificación:** `pickup` debe quedar en el extremo de las medianas más bajas.
 
@@ -527,59 +706,82 @@ qué significa eso? Una mediana alta con mucha dispersión, ¿es mejor o peor
 noticia que una mediana un poco más baja pero consistente?
 :::
 
-```{r c13-ej5, eval=FALSE}
+```{r c13-a2e1, eval=FALSE}
 # Escribe tu código aquí
 ```
 
-### Ejercicio 6. Dos variables categóricas
+#### Ejercicio 2.2. Dos variables categóricas
 
 ::: {.ejercicio}
-Datos: `millas`, variables `clase` y `cilindros` (trátala como categórica).
-Cuenta las combinaciones con `count()` y dibújalas de las dos maneras del
-capítulo: con `geom_count()` y con `geom_tile()`.
+Datos: `millas`, variables `clase` y `cilindros` (trátala como categórica con
+`factor()`). Cuenta las combinaciones con `count()` y dibújalas de las dos
+maneras del capítulo: con `geom_count()` y con `geom_tile()`.
 
 **Verificación:** `cilindros` tiene 4 valores distintos, y no todas las
 combinaciones de clase y cilindros existen.
 
 **En palabras:** nombra dos combinaciones que **no aparecen** en los datos y
-explica por qué tiene sentido que no existan.
+explica por qué tiene sentido que no existan. ¿Cuál de las dos gráficas enseña
+mejor esos huecos?
 :::
 
-```{r c13-ej6, eval=FALSE}
+```{r c13-a2e2, eval=FALSE}
 # Escribe tu código aquí
 ```
 
-### Ejercicio 7. Dos variables continuas
+#### Ejercicio 2.3. Dos variables continuas
 
 ::: {.ejercicio}
 Datos: `millas`, `cilindrada` contra `autopista`. Haz las tres versiones del
 capítulo: puntos con `alpha`, `geom_bin2d()`, y diagramas de caja agrupando con
-`cut_width(cilindrada, 1)`.
+`cut_width(cilindrada, 1)`. Después calcula `cov()` y `cor()` entre las dos
+variables.
 
-**Verificación:** las tres tienen que enseñar la misma tendencia general.
+**Verificación:** las tres gráficas tienen que enseñar la misma tendencia
+general, y el signo de la covarianza tiene que coincidir con lo que se ve.
 
-**En palabras:** ¿cuál de las tres enseña mejor la **dispersión** de `autopista`
-para un mismo tamaño de motor? ¿Y cuál usarías para una presentación de cinco
-minutos?
+**En palabras:** describe la tendencia y di si es recta. ¿Cuál de las tres enseña
+mejor la **dispersión** de `autopista` para un mismo tamaño de motor? ¿Y cuál
+usarías para una presentación de cinco minutos? Son dos respuestas distintas.
+Explica además por qué el número de `cor()` se puede interpretar y el de `cov()`
+no, y qué se pierde si solo reportas la correlación y no enseñas la gráfica.
 :::
 
-```{r c13-ej7, eval=FALSE}
+```{r c13-a2e3, eval=FALSE}
 # Escribe tu código aquí
 ```
 
-### Ejercicio 8 (BONO). El patrón que se esconde en los subgrupos
+#### Ejercicio 2.4. El patrón escondido en los subgrupos
 
 ::: {.ejercicio}
 Sigue con `cilindrada` y `autopista` en `millas`, pero ahora colorea los puntos
-por `clase` o sepáralos con `facet_wrap(~ clase)`.
+por `clase` y sepáralos con `facet_wrap(~ clase)`.
 
 **Verificación:** debe verse que la relación no es igual en todas las clases.
 
-**En palabras:** ¿hay alguna clase que se salga de la tendencia general? Esta es
-la misma situación del corte `Ideal` en `diamantes`: una tercera variable estaba
-escondiendo el patrón. Explica cuál es aquí esa tercera variable.
+**En palabras:** ¿qué clase se sale de la tendencia general y por qué? Esta es la
+misma situación del corte `Ideal` en `diamantes`: una tercera variable estaba
+escondiendo el patrón. Explica cuál es aquí esa tercera variable, y fíjate en que
+no es una columna de la tabla.
 :::
 
-```{r c13-ej8, eval=FALSE}
+```{r c13-a2e4, eval=FALSE}
+# Escribe tu código aquí
+```
+
+#### Ejercicio 2.5 (BONO). Las tres técnicas en otro conjunto
+
+::: {.ejercicio}
+Datos: `paises` de 2007. Mira `pib_per_capita` contra `esperanza_de_vida` con un
+diagrama de dispersión, y después colorea o separa por `continente`.
+
+**Verificación:** son 142 países.
+
+**En palabras:** ¿la relación es recta? ¿Dónde se aplana y qué significa eso? Con
+lo que dice la sección *Patrones y modelos*, ¿podría haber una tercera variable
+detrás? Nombra una candidata y di cómo la comprobarías.
+:::
+
+```{r c13-a2e5, eval=FALSE}
 # Escribe tu código aquí
 ```

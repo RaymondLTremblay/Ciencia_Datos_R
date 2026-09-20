@@ -42,7 +42,7 @@ página.
 | 12 | `11-Transformacion-funcion-estadistica.Rmd` | `Ejercicios_Capitulo_12_indices.Rmd` | `11-Soluciones-Transformacion-funcion-estadistica.Rmd` |
 | 13 | `12-Scripts.Rmd` | `Ejercicios_Capitulo_13_scripts.Rmd` | `12-Soluciones-Scripts.Rmd` |
 | 14 | `35-Errores-comunes.Rmd` | `Ejercicios_Capitulo_14_errores.Rmd` | `35-Soluciones-Errores-comunes.Rmd` |
-| 15 | `13-Analisis-exploratorio.Rmd` | `Ejercicios_Capitulo_15_exploratorio.Rmd` | `13-Soluciones-Analisis-exploratorio.Rmd` |
+| 15 | `13-Analisis-exploratorio.Rmd` | `Ejercicios_Capitulo_15_Actividad_1_variacion.Rmd` y `Ejercicios_Capitulo_15_Actividad_2_covariacion.Rmd` | `13-Soluciones-Analisis-exploratorio.Rmd` |
 | 16 | `14-Pipes.Rmd` | `Ejercicios_Capitulo_16_pipes.Rmd` | `14-Soluciones-Pipes.Rmd` |
 | 17 | `15-Tibbles.Rmd` | `Ejercicios_Capitulo_17_tibbles.Rmd` | `15-Soluciones-Tibbles.Rmd` |
 | 18 | `16-Importar-datos.Rmd` | `Ejercicios_Capitulo_18_importar.Rmd` | `16-Soluciones-Importar-datos.Rmd` |
@@ -60,6 +60,15 @@ página.
 | 30 | `25-WordClouds.Rmd` | `Ejercicios_Capitulo_30_wordclouds.Rmd` | `25-Soluciones-WordClouds.Rmd` |
 | 31 | `31-tidyverse-avanzado.Rmd` | `Ejercicios_Capitulo_31_avanzado.Rmd` | `31-Soluciones-tidyverse-avanzado.Rmd` |
 | 32 | `26-Leaflet-mapa-interactivo.Rmd` | `Ejercicios_Capitulo_32_leaflet.Rmd` | `26-Soluciones-Leaflet.Rmd` |
+
+## Capítulos con más de una hoja
+
+El Capítulo 15 (*Análisis exploratorio*) es hasta ahora el único que se reparte
+en **dos actividades**, porque una sola hoja pasaba de la hora y media. Cada
+actividad es independiente, vale 20 puntos más 5 de bono, y se puede trabajar en
+pareja de dos con entrega individual. Las dos comparten un solo archivo de
+soluciones, `Soluciones/13-Soluciones-Analisis-exploratorio.Rmd`. La hoja
+anterior, de 8 ejercicios en una sola entrega, está en `Ejercicios/_archivado/`.
 
 Ojo: los prefijos de archivo **no** van en el orden del libro. `35-Errores-comunes.Rmd`
 es el Capítulo 14 porque en `_bookdown.yml` está colocado justo después de

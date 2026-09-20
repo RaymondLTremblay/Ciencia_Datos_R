@@ -1,0 +1,16 @@
+---
+title: "Untitled"
+author: "RLTremblay"
+date: "2026-09-16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+mean(c(1,2,3), n=2)
+```
+

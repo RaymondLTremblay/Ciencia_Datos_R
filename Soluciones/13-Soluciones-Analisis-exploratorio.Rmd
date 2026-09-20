@@ -1,5 +1,6 @@
 ---
-title: "Soluciones: Capítulo Análisis exploratorio (variación, valores inusuales, faltantes, covariación)"
+title: "Soluciones: Capítulo 15, Análisis exploratorio"
+subtitle: "Actividad 1 (variación) y Actividad 2 (covariación)"
 author: "Raymond L. Tremblay (uso del profesor)"
 output:
   html_document:
@@ -14,7 +15,9 @@ construye los archivos listados en rmd_files. Las soluciones existen en el
 repositorio de GitHub, pero no aparecen en el sitio del curso.
 
 Corresponde a: 13-Analisis-exploratorio.Rmd (Capítulo 15 del libro)
-Hoja del estudiante: Ejercicios/Ejercicios_Capitulo_15_exploratorio.Rmd
+Hojas del estudiante:
+  Ejercicios/Ejercicios_Capitulo_15_Actividad_1_variacion.Rmd
+  Ejercicios/Ejercicios_Capitulo_15_Actividad_2_covariacion.Rmd
 -->
 
 ```{r setup, include=FALSE}
@@ -23,12 +26,29 @@ library(tidyverse)
 library(datos)
 ```
 
+Nota de forma: todos los histogramas y todas las gráficas de barras llevan
+`color = "white"` para separar las barras. Es lo que pide el capítulo y lo que se
+espera en la entrega, pero no se descuenta si el estudiante lo olvida: se le
+señala.
+
 Estas son soluciones **de referencia**. Casi siempre hay más de una manera
 correcta de llegar al mismo resultado; lo que se evalúa es que el estudiante
 escriba su propio script, obtenga el resultado y lo explique en palabras.
 
-En este capítulo el peso está en la lectura de la gráfica. Una entrega con las
-ocho gráficas correctas y sin interpretación no vale más que la mitad.
+En este capítulo el peso está en la lectura de la gráfica. Una entrega con todas
+las gráficas correctas y sin interpretación no vale más que la mitad.
+
+El capítulo se reparte en **dos actividades independientes** de hora y media cada
+una, y las dos se pueden trabajar en pareja de dos, con entrega individual:
+
+- **Actividad 1, variación:** ejercicios 1.1 a 1.4, más el bono 1.5. Vale 20
+  puntos, más 5 de bono.
+- **Actividad 2, covariación:** ejercicios 2.1 a 2.4, más el bono 2.5. Vale 20
+  puntos, más 5 de bono.
+
+Como las dos hojas se pueden hacer en pareja, conviene leer las explicaciones en
+palabras de los dos miembros una al lado de la otra. Dos textos idénticos quieren
+decir que uno de los dos no miró la gráfica.
 
 ```{r sol13-0}
 p2007 <- paises |> filter(anio == 2007)
@@ -38,15 +58,17 @@ nrow(millas)  # 234 vehículos
 
 ------------------------------------------------------------------------
 
-## Ejercicio 1: variación de una variable categórica
+# Actividad 1: variación
 
-```{r sol13-1}
+## Ejercicio 1.1: variación de una variable categórica
+
+```{r sol13-a1e1}
 millas |> 
   count(clase) |> 
   arrange(desc(n))
 
 ggplot(millas, aes(x = clase)) +
-  geom_bar()
+  geom_bar(color = "white")
 ```
 
 **Respuesta esperada.** Siete clases, 234 vehículos en total, `suv` la más común
@@ -61,12 +83,12 @@ comparable con uno calculado sobre 62.
 
 ------------------------------------------------------------------------
 
-## Ejercicio 2: el `binwidth` cambia la historia
+## Ejercicio 1.2: el `binwidth` cambia la historia
 
-```{r sol13-2}
-ggplot(p2007, aes(x = esperanza_de_vida)) + geom_histogram(binwidth = 10)
-ggplot(p2007, aes(x = esperanza_de_vida)) + geom_histogram(binwidth = 2)
-ggplot(p2007, aes(x = esperanza_de_vida)) + geom_histogram(binwidth = 0.5)
+```{r sol13-a1e2}
+ggplot(p2007, aes(x = esperanza_de_vida)) + geom_histogram(binwidth = 10, color = "white")
+ggplot(p2007, aes(x = esperanza_de_vida)) + geom_histogram(binwidth = 2, color = "white")
+ggplot(p2007, aes(x = esperanza_de_vida)) + geom_histogram(binwidth = 0.5, color = "white")
 ```
 
 **Respuesta esperada.** El de `binwidth = 2` es el que enseña con claridad que la
@@ -85,23 +107,22 @@ correcta. Vale la pena aceptar también 2.5 o 3 con una justificación razonable
 lo que se evalúa es el criterio, no el número.
 
 **Punto para discutir en clase.** Se puede pedir que separen por continente y
-comprueben que la bimodalidad no es un accidente. Es la entrada natural al
-ejercicio 8.
+comprueben que la bimodalidad no es un accidente. Eso es justamente el bono 1.5.
 
 ------------------------------------------------------------------------
 
-## Ejercicio 3: valores inusuales sin borrarlos
+## Ejercicio 1.3: valores inusuales sin borrarlos
 
-```{r sol13-3a}
+```{r sol13-a1e3a}
 ggplot(p2007, aes(x = pib_per_capita)) +
-  geom_histogram(binwidth = 2000)
+  geom_histogram(binwidth = 2000, color = "white")
 
 ggplot(p2007, aes(x = pib_per_capita)) +
-  geom_histogram(binwidth = 2000) +
+  geom_histogram(binwidth = 2000, color = "white") +
   coord_cartesian(ylim = c(0, 5))
 ```
 
-```{r sol13-3b}
+```{r sol13-a1e3b}
 extremos <- p2007 |> 
   filter(pib_per_capita > 40000) |> 
   select(pais, continente, anio, pib_per_capita, esperanza_de_vida) |> 
@@ -110,7 +131,7 @@ extremos <- p2007 |>
 extremos
 ```
 
-```{r sol13-3c}
+```{r sol13-a1e3c}
 p2007 |> 
   summarise(
     media   = mean(pib_per_capita),
@@ -140,9 +161,9 @@ corre la posición del centro.
 
 ------------------------------------------------------------------------
 
-## Ejercicio 4: sustituir por `NA`, no borrar la fila
+## Ejercicio 1.4: sustituir por `NA`, no borrar la fila
 
-```{r sol13-4}
+```{r sol13-a1e4}
 millas2 <- millas |> 
   mutate(autopista = if_else(between(autopista, 12, 40), autopista, NA_real_))
 
@@ -174,9 +195,36 @@ Errores frecuentes que conviene señalar:
 
 ------------------------------------------------------------------------
 
-## Ejercicio 5: covariación entre una categórica y una continua
+## Ejercicio 1.5 (bono): ¿la bimodalidad es real?
 
-```{r sol13-5}
+```{r sol13-a1e5}
+ggplot(p2007, aes(x = esperanza_de_vida)) +
+  geom_histogram(binwidth = 2, color = "white") +
+  facet_wrap(~ continente)
+```
+
+**Respuesta esperada.** Los dos grupos no son un accidente del ancho del
+intervalo: corresponden a continentes distintos. Casi todo el grupo de abajo,
+el de esperanza de vida entre los cuarenta y los sesenta años, es **África**.
+Europa, Oceanía y América quedan concentradas arriba, y Asia es la que más se
+reparte entre los dos, porque ahí conviven Japón y Afganistán en la misma tabla.
+
+Lo que se evalúa es que el estudiante conecte esto con la frase de la sección de
+valores típicos: un hueco o una joroba doble en un histograma casi siempre
+significa que hay **subpoblaciones distintas mezcladas** en la misma tabla. La
+variable que las separa aquí sí estaba en los datos (`continente`), pero muchas
+veces no está, y entonces el hueco es la única pista de que existe.
+
+Este ejercicio es también la entrada natural a la Actividad 2: en cuanto se
+separa por continente ya no se está mirando una variable, se están mirando dos.
+
+------------------------------------------------------------------------
+
+# Actividad 2: covariación
+
+## Ejercicio 2.1: covariación entre una categórica y una continua
+
+```{r sol13-a2e1}
 ggplot(millas, aes(x = clase, y = autopista)) +
   geom_boxplot()
 
@@ -203,9 +251,9 @@ específico. Una mediana algo menor y consistente es más predecible.
 
 ------------------------------------------------------------------------
 
-## Ejercicio 6: dos variables categóricas
+## Ejercicio 2.2: dos variables categóricas
 
-```{r sol13-6}
+```{r sol13-a2e2}
 millas |> count(clase, cilindros)
 
 ggplot(millas, aes(x = clase, y = factor(cilindros))) +
@@ -237,9 +285,9 @@ la diferencia entre lo que la computadora **guarda** y lo que la variable
 
 ------------------------------------------------------------------------
 
-## Ejercicio 7: dos variables continuas
+## Ejercicio 2.3: dos variables continuas
 
-```{r sol13-7}
+```{r sol13-a2e3}
 ggplot(millas, aes(x = cilindrada, y = autopista)) +
   geom_point(alpha = 1 / 4)
 
@@ -248,6 +296,12 @@ ggplot(millas, aes(x = cilindrada, y = autopista)) +
 
 ggplot(millas, aes(x = cilindrada, y = autopista)) +
   geom_boxplot(aes(group = cut_width(cilindrada, 1)))
+
+millas |> 
+  summarise(
+    covarianza  = cov(cilindrada, autopista),
+    correlacion = cor(cilindrada, autopista)
+  )
 ```
 
 **Respuesta esperada.** Las tres enseñan lo mismo: a mayor cilindrada, menor
@@ -266,11 +320,25 @@ haya que explicar qué es una caja. Aquí lo que se evalúa es que el estudiante
 distinga entre **gráfica para explorar** y **gráfica para comunicar**, que es una
 de las ideas centrales del capítulo.
 
+Sobre los dos números: la covarianza y la correlación salen las dos **negativas**,
+que es lo que tenían que salir viendo las gráficas, y ese acuerdo entre el número
+y el dibujo es la primera cosa que hay que comprobar. La covarianza está en
+"litros por milla por galón", una unidad que no significa nada y que cambiaría de
+magnitud si midiéramos la cilindrada en centímetros cúbicos, así que solo sirve
+para leerle el signo. La correlación no tiene unidades, está entre -1 y 1, y por
+eso se puede comparar con la de cualquier otro estudio.
+
+Lo que se pierde reportando solo la correlación es la **forma**: $r$ mide qué tan
+bien encaja una **recta**, y esta relación no es recta, sino que baja rápido y se
+aplana después de los cinco litros. Una respuesta que mencione eso, aunque sea en
+una frase, es una respuesta excelente. Aquí también vale recordar el caso de la
+relación en forma de U, con correlación casi cero y patrón evidente.
+
 ------------------------------------------------------------------------
 
-## Ejercicio 8 (bono): el patrón escondido en los subgrupos
+## Ejercicio 2.4: el patrón escondido en los subgrupos
 
-```{r sol13-8}
+```{r sol13-a2e4}
 ggplot(millas, aes(x = cilindrada, y = autopista, color = clase)) +
   geom_point()
 
@@ -298,12 +366,71 @@ solución es la misma: separar por la variable escondida, o modelarla.
 
 ------------------------------------------------------------------------
 
+## Ejercicio 2.5 (bono): las tres técnicas en otro conjunto
+
+```{r sol13-a2e5}
+ggplot(p2007, aes(x = pib_per_capita, y = esperanza_de_vida)) +
+  geom_point()
+
+ggplot(p2007, aes(x = pib_per_capita, y = esperanza_de_vida, color = continente)) +
+  geom_point()
+
+ggplot(p2007, aes(x = pib_per_capita, y = esperanza_de_vida)) +
+  geom_point() +
+  facet_wrap(~ continente)
+```
+
+**Respuesta esperada.** La relación **no es recta**: sube muy rápido en los
+países más pobres y se aplana a partir de unos diez o quince mil dólares de PIB
+per cápita, de manera que duplicar el ingreso de un país rico casi no le añade
+años de vida, mientras que en un país pobre el mismo cambio relativo añade
+muchos. Con 142 puntos el diagrama de dispersión simple ya se lee bien, así que
+aquí no hacen falta ni la transparencia ni las celdas contadas; que el estudiante
+se dé cuenta de eso, y lo diga, vale tanto como la gráfica.
+
+Al separar por continente se ve que África ocupa la esquina de abajo a la
+izquierda casi por completo, y que hay países africanos con PIB per cápita
+parecido al de países americanos pero con esperanza de vida bastante menor. Eso
+es justamente lo que la gráfica sin color escondía.
+
+Sobre la tercera variable, se acepta cualquier candidata razonable siempre que
+venga con una forma de comprobarla: acceso a agua potable, gasto en salud,
+escolaridad, desigualdad interna del ingreso, epidemias. La comprobación es
+siempre la misma receta del capítulo: si esa variable estuviera en la tabla, se
+colorea o se facetea por ella y se mira si la relación cambia dentro de cada
+grupo. Hay que rechazar las respuestas que solo nombran una variable sin decir
+qué harían con ella.
+
+**Punto para discutir en clase.** Vale la pena decir en voz alta que ninguna de
+estas gráficas demuestra que el dinero cause años de vida. El EDA hace la
+pregunta; separar el patrón de lo demás es trabajo del capítulo de modelos.
+
+------------------------------------------------------------------------
+
 ## Nota de corrección
 
-Reparto sugerido: script (2), resultado visible (1), explicación (2). Los
-ejercicios 3, 5, 7 y 8 son los que de verdad separan a quien entendió de quien
-copió, porque ninguno se contesta con la gráfica sola.
+Reparto sugerido: script (2), resultado visible (1), explicación (2). Cada
+actividad vale 20 puntos, con 5 de bono.
 
-Resultados comparables: 7 clases y 234 vehículos (Ej. 1), 142 países (Ej. 2),
-menos de diez países sobre 40000 de PIB per cápita (Ej. 3), 234 filas conservadas
-(Ej. 4), `pickup` en el extremo bajo (Ej. 5), y 4 valores de `cilindros` (Ej. 6).
+Los ejercicios 1.3, 2.1, 2.3 y 2.4 son los que de verdad separan a quien entendió
+de quien copió, porque ninguno se contesta con la gráfica sola. Si hay que
+recortar el tiempo de corrección, esos cuatro son los que hay que leer con calma.
+
+Resultados comparables para cotejar de un vistazo:
+
+| Ejercicio | Lo que tiene que salir |
+|:--|:--|
+| 1.1 | 7 clases, 234 vehículos, `suv` la más común |
+| 1.2 | 142 países en los tres histogramas |
+| 1.3 | menos de diez países sobre 40000 de PIB per cápita |
+| 1.4 | 234 filas conservadas en `millas2` |
+| 1.5 | los paneles suman 142; África ocupa el grupo de abajo |
+| 2.1 | `pickup` en el extremo de las medianas bajas |
+| 2.2 | 4 valores de `cilindros`, varias combinaciones vacías |
+| 2.3 | la misma tendencia en las tres gráficas; `cov()` y `cor()` negativas |
+| 2.4 | `2seater` por encima de la nube general |
+| 2.5 | 142 países; la curva se aplana |
+
+Sobre el trabajo en pareja: las dos hojas piden el nombre de la pareja en el
+encabezado. Conviene corregir las entregas de una pareja seguidas, no separadas,
+porque así los textos idénticos saltan a la vista.

@@ -13,11 +13,11 @@ El tema proviene de los siguientes sitios.
 
 English:
  <https://r4ds.had.co.nz/tibbles.html>
- 
+
 Español:
  <https://es.r4ds.hadley.nz/10-tibble.html>
- 
- 
+
+
 ***
 
 
@@ -33,6 +33,15 @@ Los `tibble` son la versión moderna del `data.frame` dentro del tidyverse: hace
  - Las cuatro diferencias con el `data.frame` que de verdad importan
  - Sacar una columna: `$`, `[[`, `[` y el marcador `.`
  - Cuándo hay que volver a un `data.frame`
+
+***
+
+## Paquetes
+
+```{r c15-paquetes}
+library(tidyverse)
+library(datos)
+```
 
 ***
 
@@ -61,10 +70,8 @@ lo que funciona con un data frame funciona con un tibble. Al revés no siempre,
 y de eso trata la última sección del capítulo.
 :::
 
-  - as_tibble()
+***
 
-***  
-  
 ## Crear un tibble
 
 ::: {.funcion}
@@ -75,15 +82,13 @@ y de eso trata la última sección del capítulo.
 - **`as_tibble(df)`:** convierte un `data.frame` en tibble.
 :::
 
- - tibble()
-
 `tibble()` construye la tabla **por columnas**: cada argumento es un vector, y
 todos tienen que tener el mismo largo (o largo 1, que se repite). A diferencia de
 `data.frame()`, no toca los nombres, no convierte el texto en factores y no
 recicla vectores de largo raro.
 
- Crear un tibble con la siguiente información.  Una columna que tiene los valores del 1 al 8 que se llama "secuencia", una segunda columna que tiene los siguientes valores 23,26, 24,26,27, 11,20,21 que se llama edad y una tercera columna con la siguiente información, Jose, Maria, Carol, Moncho, Liz, Maria, Jorge, Miguel, que se llama Nombre 
- 
+ Crear un tibble con la siguiente información.  Una columna que tiene los valores del 1 al 8 que se llama "secuencia", una segunda columna que tiene los siguientes valores 23,26, 24,26,27, 11,20,21 que se llama edad y una tercera columna con la siguiente información, Jose, Maria, Carol, Moncho, Liz, Maria, Jorge, Miguel, que se llama Nombre
+
 ::: {.consejo}
 El bloque de abajo construye solo las **seis** primeras filas de las ocho que
 pide el enunciado, y deja un `NA` en la última edad. Completarlo es el primer
@@ -91,18 +96,13 @@ ejercicio del capítulo.
 :::
 
 ```{r c15-2}
-library(tidyverse)
-#library(datos)
-
 tibble(
-  secuencia = c(1:6),
-  edad = c(23,26, 24,26,27, NA),
-  nombre = c("Jose", "Maria", "Carol", "Moncho", "Liz", "Maria")
+  secuencia = 1:6,
+  edad      = c(23, 26, 24, 26, 27, NA),
+  nombre    = c("Jose", "Maria", "Carol", "Moncho", "Liz", "Maria")
 )
-
 ```
- 
- 
+
 ***
 
 ## Crear un tribble
@@ -118,18 +118,14 @@ Alinea los valores en columnas cuando escribas un `tribble()`. No cambia nada
 para R, pero hace que un dato fuera de sitio salte a la vista.
 :::
 
- - tribble()
- 
- Haga un tribble con las primeras 3 líneas del tibble anterior
- 
+Haga un tribble con las primeras 3 líneas del tibble anterior
+
 ```{r c15-3}
 tribble(
   ~secuencia, ~edad, ~nombre,
-  1, 23, "Jose",
-  2, 26, "Maria",
-  3, 23, "Carol"
-  
-  
+           1,    23, "Jose",
+           2,    26, "Maria",
+           3,    23, "Carol"
 )
 ```
 
@@ -138,30 +134,63 @@ tribble(
 
 ## tibble vs. data.frame
 
-Los dos bloques siguientes construyen la misma tabla de 100 filas y la imprimen
-de las dos maneras. Compara la salida: el tibble enseña **diez filas**, el tipo
-de cada columna debajo del nombre (`<dttm>`, `<date>`, `<int>`, `<dbl>`, `<chr>`)
-y una nota de cuántas filas quedaron sin imprimir. El data frame las suelta las
-cien.
+El bloque siguiente construye una tabla de 100 filas y la imprime de las dos
+maneras. Compara la salida: el tibble enseña **diez filas**, el tipo de cada
+columna debajo del nombre (`<dttm>`, `<date>`, `<int>`, `<dbl>`, `<chr>`) y una
+nota de cuántas filas quedaron sin imprimir.
 
 Esa línea con los tipos es la razón principal para preferir el tibble mientras se
 explora: la mitad de los problemas de un análisis son una columna que uno creía
 numérica y era texto, y aquí se ve sin tener que pedir nada.
 
+El data frame no hace nada de eso. Si escribes `df_tb` a secas, te suelta las cien
+filas de golpe. Por eso aquí va envuelto en `head()`, que es la manera corta de
+decir "enséñame el principio y ya". Prueba una vez en tu consola a escribirlo sin
+`head()`, para ver lo que te estás ahorrando, y no lo dejes así en ningún
+documento que vayas a entregar.
+
 ```{r c15-4}
-tb = tibble(
+set.seed(2026)
+
+tb <- tibble(
   a = lubridate::now() + runif(1e2) * 86400,
   b = lubridate::today() + runif(1e2) * 30,
   c = 1:100,
   d = runif(1e2),
   e = sample(letters, 1e2, replace = TRUE)
 )
-tb
-df_tb=as.data.frame(tb)
-df_tb
 
+tb
+
+df_tb <- as.data.frame(tb)
+
+head(df_tb, n = 10)
 ```
 
+::: {.funcion}
+**`head()`, `tail()`, `slice_head()`, `slice_sample()` y `glimpse()`**: mirar una
+tabla sin inundar la pantalla.
+
+- **`head(tabla, n = 10)`:** las primeras `n` filas. Funciona igual con un vector.
+- **`tail(tabla, n = 10)`:** las últimas. Es la forma rápida de comprobar que un archivo se leyó completo y no se cortó a la mitad.
+- **`slice_head(tabla, n = 10)`:** la versión del tidyverse, que encaja en un pipe y respeta los grupos de `group_by()`.
+- **`slice_sample(tabla, n = 10)`:** diez filas **al azar**. Muchas veces enseña más que las diez primeras, porque las primeras suelen venir ordenadas y no son representativas.
+- **`glimpse(tabla)`:** una línea por columna, con el tipo y los primeros valores. Es lo mejor cuando hay muchas columnas y la impresión normal las corta a lo ancho.
+:::
+
+::: {.advertencia}
+En un documento que vayas a entregar, **nunca** dejes un bloque que imprima una
+tabla completa. Un data frame de 50 000 filas produce 50 000 líneas en el `.html`,
+el archivo se vuelve pesadísimo y el lector no encuentra nada. Usa `head()`,
+`glimpse()` o `print(n = ...)`. Y deja `View()` para cuando estés trabajando en
+RStudio: abre la tabla en una ventana aparte y no imprime nada en el documento.
+:::
+
+::: {.nota}
+El `set.seed(2026)` del principio del bloque fija el azar de `runif()` y de
+`sample()`, para que la tabla salga igual cada vez que se construya el libro. Sin
+esa línea, cada `knit` produciría números distintos.
+:::
 
 
 Cuando de verdad hacen falta más filas o más columnas, se piden:
@@ -175,16 +204,16 @@ Cuando de verdad hacen falta más filas o más columnas, se piden:
 :::
 
 ```{r c15-5}
-tb %>%
+tb |>
   print(n = 4, width = Inf)
-
-
-
-lubridate::now()
-lubridate::today()
-
 ```
 
+Y cuando lo que estorba no son las filas sino las **columnas**, la salida que
+conviene es la de `glimpse()`, que gira la tabla y pone una línea por columna:
+
+```{r c15-5b}
+glimpse(tb)
+```
 
 
 - Para convertir un data frame en tibble se usa **`as_tibble()`**.
@@ -221,29 +250,25 @@ Es decir: multiplicar la tabla entera por 2 funciona, pero lo que sale ya no es
 un tibble. No es un problema grave, pero sí explica por qué a veces una tabla
 "deja de imprimirse bonito" en medio de un análisis. La manera correcta de hacer
 aritmética sobre una tabla es columna por columna, con `mutate()`, como en el
-segundo bloque. 
-
-
+segundo bloque.
 
 
 ```{r c15-6}
-
 tbl <- tibble(a = 1:3, b = 4:6)
-result=tbl * 2
 
-is_tibble(result)
+resultado <- tbl * 2
 
-is.data.frame(result)
+is_tibble(resultado)
+is.data.frame(resultado)
 ```
 
 
-
 ```{r c15-7}
+resultado2 <- tbl |> mutate(c = b * 2)
 
-result2=tbl |> mutate(c=b*2)
-result2
-is_tibble(result2)
+resultado2
 
+is_tibble(resultado2)
 ```
 
 
@@ -254,11 +279,10 @@ is_tibble(result2)
 
 ```{r c15-8}
 df <- data.frame(abc = 1)
-df$a
-#> [1] 1
-
 df2 <- tibble(abc = 1)
-df2$abc # el nombre completo: funciona igual en los dos
+
+df$abc    # el nombre completo: funciona igual en los dos
+df2$abc
 ```
 
 Ahora la comparación que importa. La misma errata, `$a` en vez de `$abc`, en las
@@ -292,9 +316,12 @@ advertencia, así que el error aparece de inmediato.
 ## Selección de subconjuntos de datos
 
 El bloque siguiente saca la misma columna de `vuelos` de cuatro maneras
-distintas, dos directas y dos dentro de un pipe. Todas devuelven exactamente lo
-mismo; están juntas para que reconozcas las cuatro cuando las veas en código
-ajeno.
+distintas, dos directas y dos dentro de un pipe, más la que conviene usar. Todas
+devuelven exactamente lo mismo; están juntas para que reconozcas las cinco cuando
+las veas en código ajeno.
+
+Fíjate en que cada una termina en `head(n = 5)`. La columna `salida_programada`
+tiene más de 300 000 valores: sin ese `head()` el documento quedaría inservible.
 
 ::: {.consejo}
 En una cadena del tidyverse casi siempre es mejor `pull(columna)` que `.$columna`:
@@ -302,23 +329,16 @@ hace lo mismo, se lee mejor y funciona igual con el pipe nativo.
 :::
 
 ```{r c15-9}
-library(datos)
+# las dos formas directas
+vuelos$salida_programada |> head(n = 5)
+vuelos[["salida_programada"]] |> head(n = 5)
 
-head(vuelos$salida_programada, n=20) 
+# las dos formas dentro de un pipe de magrittr
+vuelos %>% .$salida_programada %>% head(n = 5)
+vuelos %>% .[["salida_programada"]] %>% head(n = 5)
 
-
-
-vuelos[["salida_programada"]] |> head(n=20)
-
-#Alternativas usar esta función dentro de pipe
-
-vuelos %>% .$salida_programada |> head(n=20)
-
-vuelos %>% .[["salida_programada"]] |> head(n=20)
-
-vuelos %>% .[["atraso_salida"]] |> 
-  head(n=20)
-
+# y la que conviene usar de verdad
+vuelos |> pull(salida_programada) |> head(n = 5)
 ```
 
 
@@ -347,8 +367,6 @@ Hacer los ejercicios en la sección 10.5 del libro en español.
 
 
 
-
-  
 ***
 
 ## Ejercicios del capítulo
