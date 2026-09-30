@@ -1191,57 +1191,58 @@ seguro los cambiaste de sitio.</p>
 <span id="cb1775-7"><a href="leaflet-mapas-interactivos.html#cb1775-7" tabindex="-1"></a>)</span>
 <span id="cb1775-8"><a href="leaflet-mapas-interactivos.html#cb1775-8" tabindex="-1"></a></span>
 <span id="cb1775-9"><a href="leaflet-mapas-interactivos.html#cb1775-9" tabindex="-1"></a><span class="fu">head</span>(earthquakes, <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##                    time latitude longitude  depth   mag magType   nst   gap
-##                  &lt;POSc&gt;    &lt;num&gt;     &lt;num&gt;  &lt;num&gt; &lt;num&gt;  &lt;char&gt; &lt;int&gt; &lt;int&gt;
-##  1: 2026-09-30 15:18:25 63.82200 -147.7320   5.00  1.30      ml    12   166
-##  2: 2026-09-30 15:10:00 37.22310 -116.1554   0.00  1.21      ml    20   169
-##  3: 2026-09-30 15:02:23 19.28783 -155.3933  29.33  2.70      ml    59    93
-##  4: 2026-09-30 14:57:55 36.89383 -121.6350   2.38  1.08      md    10    91
-##  5: 2026-09-30 14:41:02 61.68800 -149.9290  27.20  2.10      ml    47    63
-##  6: 2026-09-30 14:20:34 60.01000 -153.0950   5.00  0.50      ml     6   114
-##  7: 2026-09-30 14:19:23 57.62700 -155.7480  97.60  1.40      ml     9   244
-##  8: 2026-09-30 14:08:54 33.46700 -116.4600   2.42  0.78      ml    34    53
-##  9: 2026-09-30 13:59:07 34.02733 -117.2382  15.65  1.63      ml    81    23
-## 10: 2026-09-30 13:47:31 59.74800 -153.2870 126.30  1.80      ml    34   117
+<pre><code>##                    time latitude longitude depth   mag magType   nst   gap
+##                  &lt;POSc&gt;    &lt;num&gt;     &lt;num&gt; &lt;num&gt; &lt;num&gt;  &lt;char&gt; &lt;int&gt; &lt;int&gt;
+##  1: 2026-09-30 15:39:54 34.71783 -119.3718 10.56  1.18      ml    10   106
+##  2: 2026-09-30 15:30:44 65.45300 -144.7560  5.00  1.20      ml    13   154
+##  3: 2026-09-30 15:18:25 63.82200 -147.7320  5.00  1.30      ml    12   166
+##  4: 2026-09-30 15:10:00 37.22310 -116.1554  0.00  1.21      ml    20   169
+##  5: 2026-09-30 15:02:23 19.28783 -155.3933 29.33  2.70      ml    59    93
+##  6: 2026-09-30 14:57:55 36.89383 -121.6350  2.38  1.08      md    10    91
+##  7: 2026-09-30 14:41:02 61.68800 -149.9290 27.20  2.10      ml    47    63
+##  8: 2026-09-30 14:20:34 60.01000 -153.0950  5.00  0.50      ml     6   114
+##  9: 2026-09-30 14:19:23 57.62700 -155.7480 97.60  1.40      ml     9   244
+## 10: 2026-09-30 14:08:54 33.46700 -116.4600  2.42  0.78      ml    34    53
 ##        dmin    rms    net            id             updated
 ##       &lt;num&gt;  &lt;num&gt; &lt;char&gt;        &lt;char&gt;              &lt;POSc&gt;
-##  1: 0.50000 0.4000     ak aka2026tjooxs 2026-09-30 15:19:39
-##  2: 0.00800 0.1918     nn    nn00925083 2026-09-30 15:16:41
-##  3: 0.04590 0.1500     hv    hv75045952 2026-09-30 15:17:36
-##  4: 0.03575 0.2300     nc    nc75441901 2026-09-30 14:59:32
-##  5: 0.40000 0.7000     ak aka2026tjnimm 2026-09-30 14:43:10
-##  6: 0.00000 0.1000     ak aka2026tjmqti 2026-09-30 14:21:23
-##  7: 0.30000 0.3000     ak aka2026tjmpuo 2026-09-30 14:20:24
-##  8: 0.12200 0.1700     ci    ci41340999 2026-09-30 14:12:23
-##  9: 0.08625 0.1700     ci    ci41340991 2026-09-30 15:24:04
-## 10: 0.10000 0.4000     ak aka2026tjlofm 2026-09-30 13:49:23
-##                              place       type horizontalError depthError
-##                             &lt;char&gt;     &lt;char&gt;           &lt;num&gt;      &lt;num&gt;
-##  1: 59 km E of Denali Park, Alaska earthquake            4.70         NA
-##  2:     59 km SW of Rachel, Nevada  explosion              NA     0.0000
-##  3:     12 km NE of Pāhala, Hawaii earthquake            0.36     0.4300
-##  4:          1 km NE of Aromas, CA earthquake            0.65     1.7500
-##  5:     8 km NW of Houston, Alaska earthquake            2.40     2.1577
-##  6: 61 km ENE of Pedro Bay, Alaska earthquake            9.40         NA
-##  7:      77 km W of Karluk, Alaska earthquake           83.70     9.7082
-##  8:          22 km ESE of Anza, CA earthquake            0.18     0.8500
-##  9:      3 km SE of Loma Linda, CA earthquake            0.12     0.2400
-## 10:   46 km E of Pedro Bay, Alaska earthquake           10.30     3.6881
-##      magError magNst    status locationSource magSource
-##         &lt;num&gt;  &lt;int&gt;    &lt;char&gt;         &lt;char&gt;    &lt;char&gt;
-##  1: 0.0000000      4 automatic             ak        ak
-##  2: 0.3800000     10  reviewed             nn        nn
-##  3: 0.3800000     39 automatic             hv        hv
-##  4: 0.0800000      8 automatic             nc        nc
-##  5: 0.1000000     24 automatic             ak        ak
-##  6: 0.2000000      6 automatic             ak        ak
-##  7: 0.3000000      4 automatic             ak        ak
-##  8: 0.1468162     16 automatic             ci        ci
-##  9: 0.2429584     25  reviewed             ci        ci
-## 10: 0.3000000     21 automatic             ak        ak</code></pre>
+##  1: 0.02049 0.1300     ci    ci41341007 2026-09-30 15:43:27
+##  2: 0.30000 0.4000     ak aka2026tjozpk 2026-09-30 15:31:59
+##  3: 0.50000 0.4000     ak aka2026tjooxs 2026-09-30 15:19:39
+##  4: 0.00800 0.1918     nn    nn00925083 2026-09-30 15:25:00
+##  5: 0.04590 0.1500     hv    hv75045952 2026-09-30 15:17:36
+##  6: 0.03575 0.2300     nc    nc75441901 2026-09-30 14:59:32
+##  7: 0.40000 0.7000     ak aka2026tjnimm 2026-09-30 14:43:10
+##  8: 0.00000 0.1000     ak aka2026tjmqti 2026-09-30 14:21:23
+##  9: 0.30000 0.3000     ak aka2026tjmpuo 2026-09-30 14:20:24
+## 10: 0.12200 0.1700     ci    ci41340999 2026-09-30 14:12:23
+##                                  place                   type horizontalError
+##                                 &lt;char&gt;                 &lt;char&gt;           &lt;num&gt;
+##  1: 25 km SW of Pine Mountain Club, CA             earthquake            0.76
+##  2:         13 km S of Central, Alaska             earthquake            5.50
+##  3:     59 km E of Denali Park, Alaska             earthquake            4.70
+##  4:         59 km SW of Rachel, Nevada experimental explosion              NA
+##  5:         12 km NE of Pāhala, Hawaii             earthquake            0.36
+##  6:              1 km NE of Aromas, CA             earthquake            0.65
+##  7:         8 km NW of Houston, Alaska             earthquake            2.40
+##  8:     61 km ENE of Pedro Bay, Alaska             earthquake            9.40
+##  9:          77 km W of Karluk, Alaska             earthquake           83.70
+## 10:              22 km ESE of Anza, CA             earthquake            0.18
+##     depthError  magError magNst    status locationSource magSource
+##          &lt;num&gt;     &lt;num&gt;  &lt;int&gt;    &lt;char&gt;         &lt;char&gt;    &lt;char&gt;
+##  1:     1.0500 0.1795379     17 automatic             ci        ci
+##  2:         NA 0.3000000      4 automatic             ak        ak
+##  3:         NA 0.0000000      4 automatic             ak        ak
+##  4:     0.0000 0.3800000     10  reviewed             nn        nn
+##  5:     0.4300 0.3800000     39 automatic             hv        hv
+##  6:     1.7500 0.0800000      8 automatic             nc        nc
+##  7:     2.1577 0.1000000     24 automatic             ak        ak
+##  8:         NA 0.2000000      6 automatic             ak        ak
+##  9:     9.7082 0.3000000      4 automatic             ak        ak
+## 10:     0.8500 0.1468162     16 automatic             ci        ci</code></pre>
 <div class="sourceCode" id="cb1777"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1777-1"><a href="leaflet-mapas-interactivos.html#cb1777-1" tabindex="-1"></a><span class="fu">unique</span>(earthquakes<span class="sc">$</span>type)</span></code></pre></div>
-<pre><code>## [1] &quot;earthquake&quot;       &quot;explosion&quot;        &quot;quarry blast&quot;     &quot;mining explosion&quot;
-## [5] &quot;landslide&quot;        &quot;ice quake&quot;</code></pre>
+<pre><code>## [1] &quot;earthquake&quot;             &quot;experimental explosion&quot; &quot;explosion&quot;             
+## [4] &quot;quarry blast&quot;           &quot;mining explosion&quot;       &quot;landslide&quot;             
+## [7] &quot;ice quake&quot;</code></pre>
 <div class="sourceCode" id="cb1779"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1779-1"><a href="leaflet-mapas-interactivos.html#cb1779-1" tabindex="-1"></a>earthquakes <span class="sc">%&gt;%</span> </span>
 <span id="cb1779-2"><a href="leaflet-mapas-interactivos.html#cb1779-2" tabindex="-1"></a>  <span class="fu">filter</span>(type<span class="sc">==</span><span class="st">&quot;sonic boom&quot;</span>)</span></code></pre></div>
 <pre><code>## Empty data.table (0 rows and 22 cols): time,latitude,longitude,depth,mag,magType...</code></pre>
@@ -1265,30 +1266,30 @@ seguro los cambiaste de sitio.</p>
 ## [21] &quot;locationSource&quot;  &quot;magSource&quot;</code></pre>
 <div class="sourceCode" id="cb1785"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1785-1"><a href="leaflet-mapas-interactivos.html#cb1785-1" tabindex="-1"></a><span class="co"># tipos de datos: str()</span></span>
 <span id="cb1785-2"><a href="leaflet-mapas-interactivos.html#cb1785-2" tabindex="-1"></a><span class="fu">str</span>(earthquakes)</span></code></pre></div>
-<pre><code>## Classes &#39;data.table&#39; and &#39;data.frame&#39;:   10520 obs. of  22 variables:
-##  $ time           : POSIXct, format: &quot;2026-09-30 15:18:25&quot; &quot;2026-09-30 15:10:00&quot; ...
-##  $ latitude       : num  63.8 37.2 19.3 36.9 61.7 ...
-##  $ longitude      : num  -148 -116 -155 -122 -150 ...
-##  $ depth          : num  5 0 29.33 2.38 27.2 ...
-##  $ mag            : num  1.3 1.21 2.7 1.08 2.1 0.5 1.4 0.78 1.63 1.8 ...
-##  $ magType        : chr  &quot;ml&quot; &quot;ml&quot; &quot;ml&quot; &quot;md&quot; ...
-##  $ nst            : int  12 20 59 10 47 6 9 34 81 34 ...
-##  $ gap            : int  166 169 93 91 63 114 244 53 23 117 ...
-##  $ dmin           : num  0.5 0.008 0.0459 0.0357 0.4 ...
-##  $ rms            : num  0.4 0.192 0.15 0.23 0.7 ...
-##  $ net            : chr  &quot;ak&quot; &quot;nn&quot; &quot;hv&quot; &quot;nc&quot; ...
-##  $ id             : chr  &quot;aka2026tjooxs&quot; &quot;nn00925083&quot; &quot;hv75045952&quot; &quot;nc75441901&quot; ...
-##  $ updated        : POSIXct, format: &quot;2026-09-30 15:19:39&quot; &quot;2026-09-30 15:16:41&quot; ...
-##  $ place          : chr  &quot;59 km E of Denali Park, Alaska&quot; &quot;59 km SW of Rachel, Nevada&quot; &quot;12 km NE of Pāhala, Hawaii&quot; &quot;1 km NE of Aromas, CA&quot; ...
-##  $ type           : chr  &quot;earthquake&quot; &quot;explosion&quot; &quot;earthquake&quot; &quot;earthquake&quot; ...
-##  $ horizontalError: num  4.7 NA 0.36 0.65 2.4 9.4 83.7 0.18 0.12 10.3 ...
-##  $ depthError     : num  NA 0 0.43 1.75 2.16 ...
-##  $ magError       : num  0 0.38 0.38 0.08 0.1 ...
-##  $ magNst         : int  4 10 39 8 24 6 4 16 25 21 ...
-##  $ status         : chr  &quot;automatic&quot; &quot;reviewed&quot; &quot;automatic&quot; &quot;automatic&quot; ...
-##  $ locationSource : chr  &quot;ak&quot; &quot;nn&quot; &quot;hv&quot; &quot;nc&quot; ...
-##  $ magSource      : chr  &quot;ak&quot; &quot;nn&quot; &quot;hv&quot; &quot;nc&quot; ...
-##  - attr(*, &quot;.internal.selfref&quot;)=&lt;pointer: 0x106003da0&gt;</code></pre>
+<pre><code>## Classes &#39;data.table&#39; and &#39;data.frame&#39;:   10525 obs. of  22 variables:
+##  $ time           : POSIXct, format: &quot;2026-09-30 15:39:54&quot; &quot;2026-09-30 15:30:44&quot; ...
+##  $ latitude       : num  34.7 65.5 63.8 37.2 19.3 ...
+##  $ longitude      : num  -119 -145 -148 -116 -155 ...
+##  $ depth          : num  10.6 5 5 0 29.3 ...
+##  $ mag            : num  1.18 1.2 1.3 1.21 2.7 1.08 2.1 0.5 1.4 0.78 ...
+##  $ magType        : chr  &quot;ml&quot; &quot;ml&quot; &quot;ml&quot; &quot;ml&quot; ...
+##  $ nst            : int  10 13 12 20 59 10 47 6 9 34 ...
+##  $ gap            : int  106 154 166 169 93 91 63 114 244 53 ...
+##  $ dmin           : num  0.0205 0.3 0.5 0.008 0.0459 ...
+##  $ rms            : num  0.13 0.4 0.4 0.192 0.15 ...
+##  $ net            : chr  &quot;ci&quot; &quot;ak&quot; &quot;ak&quot; &quot;nn&quot; ...
+##  $ id             : chr  &quot;ci41341007&quot; &quot;aka2026tjozpk&quot; &quot;aka2026tjooxs&quot; &quot;nn00925083&quot; ...
+##  $ updated        : POSIXct, format: &quot;2026-09-30 15:43:27&quot; &quot;2026-09-30 15:31:59&quot; ...
+##  $ place          : chr  &quot;25 km SW of Pine Mountain Club, CA&quot; &quot;13 km S of Central, Alaska&quot; &quot;59 km E of Denali Park, Alaska&quot; &quot;59 km SW of Rachel, Nevada&quot; ...
+##  $ type           : chr  &quot;earthquake&quot; &quot;earthquake&quot; &quot;earthquake&quot; &quot;experimental explosion&quot; ...
+##  $ horizontalError: num  0.76 5.5 4.7 NA 0.36 0.65 2.4 9.4 83.7 0.18 ...
+##  $ depthError     : num  1.05 NA NA 0 0.43 ...
+##  $ magError       : num  0.18 0.3 0 0.38 0.38 ...
+##  $ magNst         : int  17 4 4 10 39 8 24 6 4 16 ...
+##  $ status         : chr  &quot;automatic&quot; &quot;automatic&quot; &quot;automatic&quot; &quot;reviewed&quot; ...
+##  $ locationSource : chr  &quot;ci&quot; &quot;ak&quot; &quot;ak&quot; &quot;nn&quot; ...
+##  $ magSource      : chr  &quot;ci&quot; &quot;ak&quot; &quot;ak&quot; &quot;nn&quot; ...
+##  - attr(*, &quot;.internal.selfref&quot;)=&lt;pointer: 0x1060d3e20&gt;</code></pre>
 </div>
 <div id="importación-de-paquetes-y-datos" class="section level2 hasAnchor" number="32.5">
 <h2><span class="header-section-number">32.5</span> Importación de Paquetes y Datos<a href="leaflet-mapas-interactivos.html#importaci%C3%B3n-de-paquetes-y-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1299,41 +1300,41 @@ seguro los cambiaste de sitio.</p>
 <span id="cb1787-5"><a href="leaflet-mapas-interactivos.html#cb1787-5" tabindex="-1"></a><span class="fu">library</span>(flextable)</span></code></pre></div>
 <p>Seleccionar un subgrupo de los datos, solamente los primeros 100 datos</p>
 <div class="sourceCode" id="cb1788"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1788-1"><a href="leaflet-mapas-interactivos.html#cb1788-1" tabindex="-1"></a><span class="fu">nrow</span>(earthquakes)</span></code></pre></div>
-<pre><code>## [1] 10520</code></pre>
+<pre><code>## [1] 10525</code></pre>
 <div class="sourceCode" id="cb1790"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1790-1"><a href="leaflet-mapas-interactivos.html#cb1790-1" tabindex="-1"></a>EQ_100 <span class="ot">=</span> earthquakes <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
 <span id="cb1790-2"><a href="leaflet-mapas-interactivos.html#cb1790-2" tabindex="-1"></a><span class="fu">head</span>(EQ_100)</span></code></pre></div>
 <pre><code>##                   time latitude longitude depth   mag magType   nst   gap
 ##                 &lt;POSc&gt;    &lt;num&gt;     &lt;num&gt; &lt;num&gt; &lt;num&gt;  &lt;char&gt; &lt;int&gt; &lt;int&gt;
-## 1: 2026-09-30 15:18:25 63.82200 -147.7320  5.00  1.30      ml    12   166
-## 2: 2026-09-30 15:10:00 37.22310 -116.1554  0.00  1.21      ml    20   169
-## 3: 2026-09-30 15:02:23 19.28783 -155.3933 29.33  2.70      ml    59    93
-## 4: 2026-09-30 14:57:55 36.89383 -121.6350  2.38  1.08      md    10    91
-## 5: 2026-09-30 14:41:02 61.68800 -149.9290 27.20  2.10      ml    47    63
-## 6: 2026-09-30 14:20:34 60.01000 -153.0950  5.00  0.50      ml     6   114
+## 1: 2026-09-30 15:39:54 34.71783 -119.3718 10.56  1.18      ml    10   106
+## 2: 2026-09-30 15:30:44 65.45300 -144.7560  5.00  1.20      ml    13   154
+## 3: 2026-09-30 15:18:25 63.82200 -147.7320  5.00  1.30      ml    12   166
+## 4: 2026-09-30 15:10:00 37.22310 -116.1554  0.00  1.21      ml    20   169
+## 5: 2026-09-30 15:02:23 19.28783 -155.3933 29.33  2.70      ml    59    93
+## 6: 2026-09-30 14:57:55 36.89383 -121.6350  2.38  1.08      md    10    91
 ##       dmin    rms    net            id             updated
 ##      &lt;num&gt;  &lt;num&gt; &lt;char&gt;        &lt;char&gt;              &lt;POSc&gt;
-## 1: 0.50000 0.4000     ak aka2026tjooxs 2026-09-30 15:19:39
-## 2: 0.00800 0.1918     nn    nn00925083 2026-09-30 15:16:41
-## 3: 0.04590 0.1500     hv    hv75045952 2026-09-30 15:17:36
-## 4: 0.03575 0.2300     nc    nc75441901 2026-09-30 14:59:32
-## 5: 0.40000 0.7000     ak aka2026tjnimm 2026-09-30 14:43:10
-## 6: 0.00000 0.1000     ak aka2026tjmqti 2026-09-30 14:21:23
-##                             place       type horizontalError depthError
-##                            &lt;char&gt;     &lt;char&gt;           &lt;num&gt;      &lt;num&gt;
-## 1: 59 km E of Denali Park, Alaska earthquake            4.70         NA
-## 2:     59 km SW of Rachel, Nevada  explosion              NA     0.0000
-## 3:     12 km NE of Pāhala, Hawaii earthquake            0.36     0.4300
-## 4:          1 km NE of Aromas, CA earthquake            0.65     1.7500
-## 5:     8 km NW of Houston, Alaska earthquake            2.40     2.1577
-## 6: 61 km ENE of Pedro Bay, Alaska earthquake            9.40         NA
-##    magError magNst    status locationSource magSource
-##       &lt;num&gt;  &lt;int&gt;    &lt;char&gt;         &lt;char&gt;    &lt;char&gt;
-## 1:     0.00      4 automatic             ak        ak
-## 2:     0.38     10  reviewed             nn        nn
-## 3:     0.38     39 automatic             hv        hv
-## 4:     0.08      8 automatic             nc        nc
-## 5:     0.10     24 automatic             ak        ak
-## 6:     0.20      6 automatic             ak        ak</code></pre>
+## 1: 0.02049 0.1300     ci    ci41341007 2026-09-30 15:43:27
+## 2: 0.30000 0.4000     ak aka2026tjozpk 2026-09-30 15:31:59
+## 3: 0.50000 0.4000     ak aka2026tjooxs 2026-09-30 15:19:39
+## 4: 0.00800 0.1918     nn    nn00925083 2026-09-30 15:25:00
+## 5: 0.04590 0.1500     hv    hv75045952 2026-09-30 15:17:36
+## 6: 0.03575 0.2300     nc    nc75441901 2026-09-30 14:59:32
+##                                 place                   type horizontalError
+##                                &lt;char&gt;                 &lt;char&gt;           &lt;num&gt;
+## 1: 25 km SW of Pine Mountain Club, CA             earthquake            0.76
+## 2:         13 km S of Central, Alaska             earthquake            5.50
+## 3:     59 km E of Denali Park, Alaska             earthquake            4.70
+## 4:         59 km SW of Rachel, Nevada experimental explosion              NA
+## 5:         12 km NE of Pāhala, Hawaii             earthquake            0.36
+## 6:              1 km NE of Aromas, CA             earthquake            0.65
+##    depthError  magError magNst    status locationSource magSource
+##         &lt;num&gt;     &lt;num&gt;  &lt;int&gt;    &lt;char&gt;         &lt;char&gt;    &lt;char&gt;
+## 1:       1.05 0.1795379     17 automatic             ci        ci
+## 2:         NA 0.3000000      4 automatic             ak        ak
+## 3:         NA 0.0000000      4 automatic             ak        ak
+## 4:       0.00 0.3800000     10  reviewed             nn        nn
+## 5:       0.43 0.3800000     39 automatic             hv        hv
+## 6:       1.75 0.0800000      8 automatic             nc        nc</code></pre>
 </div>
 <div id="mapa-básico-con-leaflet" class="section level2 hasAnchor" number="32.6">
 <h2><span class="header-section-number">32.6</span> Mapa básico con Leaflet<a href="leaflet-mapas-interactivos.html#mapa-b%C3%A1sico-con-leaflet" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1362,7 +1363,7 @@ seguro los cambiaste de sitio.</p>
 <span id="cb1794-5"><a href="leaflet-mapas-interactivos.html#cb1794-5" tabindex="-1"></a>             <span class="at">popup =</span> <span class="sc">~</span>mag,</span>
 <span id="cb1794-6"><a href="leaflet-mapas-interactivos.html#cb1794-6" tabindex="-1"></a>             <span class="at">color=</span> <span class="sc">~</span>(type))</span></code></pre></div>
 <div class="leaflet html-widget html-fill-item" id="htmlwidget-ff8a8b4aea7e5bcd06ac" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-ff8a8b4aea7e5bcd06ac">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addCircleMarkers","args":[[63.822,37.2231,19.287834167481,36.8938331604,61.688,60.01,57.627,33.467,34.027333333333,59.748,31.618,60.049,38.795833587646,38.794666290283,39.013332366943,38.4673,38.793998718262,39.2995,33.5395,60.981,14.9174,33.508166666667,40.5416,37.625667572021,-9.924300000000001,19.4623,62.048,32.222,36.395332336426,63.449,34.3905,38.845333099365,33.465666666667,59.205,18.9975,33.737166666667,19.40950012207,44.789166666667,31.624,34.546166666667,33.423666666667,38.807167053223,34.631,61.733,-5.435,61.516,64.42400000000001,58.268,38.839000701904,38.779167175293,33.714166666667,36.734,33.463666666667,64.233,58.261,19.334999084473,62.167,-63.5619,-20.988,38.824165344238,34.5505,19.313667297363,58.084,38.820167541504,38.835834503174,33.5745,33.258333333333,34.1045,37.271999359131,35.647833333333,33.707166666667,57.637,61.558,33.715666666667,38.3276,58.048,33.515833333333,58.293,23.8027,58.177,64.459,-63.0088,39.56916809082,33.7145,38.78099822998,17.4713,37.425834655762,58.291,31.614,37.502998352051,38.841999053955,38.835166931152,38.82500076294,47.407333333333,34.395168304443,19.162000656128,4.6488,64.622,4.5021,58.986],[-147.732,-116.1554,-155.39332580566,-121.63500213623,-149.929,-153.095,-155.748,-116.46,-117.23816666667,-153.287,-104.363,-153.062,-122.80883026123,-122.80883026123,-123.48383331299,-116.4919,-122.75883483887,-111.95783333333,-116.70666666667,-151.481,108.2955,-116.7455,-119.686,-122.46616363525,123.6462,-65.3035,-147.635,-101.976,-120.97116851807,-147.64,-118.77783333333,-122.82250213623,-116.4665,-152.605,-64.02200000000001,-116.746,-155.62399291992,-111.10466666667,-104.364,-118.8385,-117.032,-122.74366760254,-85.440333333333,-150.176,152.1328,-151.368,-146.122,-155.168,-122.78616333008,-122.72450256348,-116.82583333333,71.4151,-116.463,-148.509,-155.139,-155.10333251953,-150.042,171.414,168.4237,-122.80416870117,-118.84483333333,-155.23283386231,-156.421,-122.81366729736,-122.81632995606,-116.716,-116.3175,-117.42816666667,-122.17016601562,-117.82933333333,-116.7505,-155.105,-146.428,-116.82966666667,23.2795,-155.784,-116.74316666667,-154.976,122.9149,-155.328,-146.94,169.2156,-123.30183410644,-116.75983333333,-122.93599700928,-93.8603,-121.45466613769,-154.981,-104.106,-118.87349700928,-122.84183502197,-122.78366851807,-122.78399658203,-122.7165,-118.76216888428,-155.49450683594,94.8515,-151.087,125.7472,-153.927],10,null,null,{"interactive":true,"className":"","stroke":true,"color":["earthquake","explosion","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake"],"weight":5,"opacity":0.5,"fill":true,"fillColor":["earthquake","explosion","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake"],"fillOpacity":0.2},null,null,[1.3,1.21,2.7,1.08,2.1,0.5,1.4,0.78,1.63,1.8,2.9,0.5,0.78,0.76,2.16,1.79,1.29,1.92,1.15,1.9,4.4,1.57,1.76,1.16,5,3.58,3.1,3.1,1.25,1.6,1.62,0.73,0.78,1.9,3.6,0.97,2.58,1.15,3.3,1.21,0.8,0.75,1.97,2.5,5.1,0.7,1.7,0.6,0.78,1.15,0.62,4.2,0.87,0.8,0.7,2.29,1.4,5.2,5,1.05,1.31,1.74,1.9,1.09,1.29,0.78,0.79,0.84,1.3,0.88,0.52,2,1.6,0.62,4.6,1,0.71,0.9,5.6,0.7,1,5.4,1.66,0.73,1.67,4.2,2.07,0.7,1.9,1.32,0.41,0.41,1.33,1.92,3.8100871496449,1.74,4.5,1.5,4.5,2.4],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-63.5619,64.622],"lng":[-156.421,171.414]}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-ff8a8b4aea7e5bcd06ac">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addCircleMarkers","args":[[34.717833333333,65.453,63.822,37.2231,19.287834167481,36.8938331604,61.688,60.01,57.627,33.467,34.027333333333,59.748,31.618,60.049,38.795833587646,38.794666290283,39.013332366943,38.4673,38.793998718262,39.2995,33.5395,60.981,14.9174,33.508166666667,40.5416,37.625667572021,-9.924300000000001,19.4623,62.048,32.222,36.395332336426,63.449,34.3905,38.845333099365,33.465666666667,59.205,18.9975,33.737166666667,19.40950012207,44.789166666667,31.624,34.546166666667,33.423666666667,38.807167053223,34.631,61.733,-5.435,61.516,64.42400000000001,58.268,38.839000701904,38.779167175293,33.714166666667,36.734,33.463666666667,64.233,58.261,19.334999084473,62.167,-63.5619,-20.988,38.824165344238,34.5505,19.313667297363,58.084,38.820167541504,38.835834503174,33.5745,33.258333333333,34.1045,37.271999359131,35.647833333333,33.707166666667,57.637,61.558,33.715666666667,38.3276,58.048,33.515833333333,58.293,23.8027,58.177,64.459,-63.0088,39.56916809082,33.7145,38.78099822998,17.4713,37.425834655762,58.291,31.614,37.502998352051,38.841999053955,38.835166931152,38.82500076294,47.407333333333,34.395168304443,19.162000656128,4.6488,64.622],[-119.37183333333,-144.756,-147.732,-116.1554,-155.39332580566,-121.63500213623,-149.929,-153.095,-155.748,-116.46,-117.23816666667,-153.287,-104.363,-153.062,-122.80883026123,-122.80883026123,-123.48383331299,-116.4919,-122.75883483887,-111.95783333333,-116.70666666667,-151.481,108.2955,-116.7455,-119.686,-122.46616363525,123.6462,-65.3035,-147.635,-101.976,-120.97116851807,-147.64,-118.77783333333,-122.82250213623,-116.4665,-152.605,-64.02200000000001,-116.746,-155.62399291992,-111.10466666667,-104.364,-118.8385,-117.032,-122.74366760254,-85.440333333333,-150.176,152.1328,-151.368,-146.122,-155.168,-122.78616333008,-122.72450256348,-116.82583333333,71.4151,-116.463,-148.509,-155.139,-155.10333251953,-150.042,171.414,168.4237,-122.80416870117,-118.84483333333,-155.23283386231,-156.421,-122.81366729736,-122.81632995606,-116.716,-116.3175,-117.42816666667,-122.17016601562,-117.82933333333,-116.7505,-155.105,-146.428,-116.82966666667,23.2795,-155.784,-116.74316666667,-154.976,122.9149,-155.328,-146.94,169.2156,-123.30183410644,-116.75983333333,-122.93599700928,-93.8603,-121.45466613769,-154.981,-104.106,-118.87349700928,-122.84183502197,-122.78366851807,-122.78399658203,-122.7165,-118.76216888428,-155.49450683594,94.8515,-151.087],10,null,null,{"interactive":true,"className":"","stroke":true,"color":["earthquake","earthquake","earthquake","experimental explosion","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake"],"weight":5,"opacity":0.5,"fill":true,"fillColor":["earthquake","earthquake","earthquake","experimental explosion","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake","earthquake"],"fillOpacity":0.2},null,null,[1.18,1.2,1.3,1.21,2.7,1.08,2.1,0.5,1.4,0.78,1.63,1.8,2.9,0.5,0.78,0.76,2.16,1.79,1.29,1.92,1.15,1.9,4.4,1.57,1.76,1.16,5,3.58,3.1,3.1,1.25,1.6,1.62,0.73,0.78,1.9,3.6,0.97,2.58,1.15,3.3,1.21,0.8,0.75,1.97,2.5,5.1,0.7,1.7,0.6,0.78,1.15,0.62,4.2,0.87,0.8,0.7,2.29,1.4,5.2,5,1.05,1.31,1.74,1.9,1.09,1.29,0.78,0.79,0.84,1.3,0.88,0.52,2,1.6,0.62,4.6,1,0.71,0.9,5.6,0.7,1,5.4,1.66,0.73,1.67,4.2,2.07,0.7,1.9,1.32,0.41,0.41,1.33,1.92,3.8100871496449,1.74,4.5,1.5],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-63.5619,65.453],"lng":[-156.421,171.414]}},"evals":[],"jsHooks":[]}</script>
 <div class="sourceCode" id="cb1795"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1795-1"><a href="leaflet-mapas-interactivos.html#cb1795-1" tabindex="-1"></a><span class="co">#unique(earthquakes$type)</span></span></code></pre></div>
 <p>#color= ~(type),</p>
 </div>
@@ -1395,7 +1396,7 @@ seguro los cambiaste de sitio.</p>
 ## [17] &quot;depthError&quot;      &quot;magError&quot;        &quot;magNst&quot;          &quot;status&quot;         
 ## [21] &quot;locationSource&quot;  &quot;magSource&quot;</code></pre>
 <div class="sourceCode" id="cb1798"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1798-1"><a href="leaflet-mapas-interactivos.html#cb1798-1" tabindex="-1"></a><span class="fu">unique</span>(EQ_100<span class="sc">$</span>type)</span></code></pre></div>
-<pre><code>## [1] &quot;earthquake&quot; &quot;explosion&quot;</code></pre>
+<pre><code>## [1] &quot;earthquake&quot;             &quot;experimental explosion&quot;</code></pre>
 <div class="sourceCode" id="cb1800"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1800-1"><a href="leaflet-mapas-interactivos.html#cb1800-1" tabindex="-1"></a>pal <span class="ot">=</span> <span class="fu">colorFactor</span>(<span class="at">palette =</span> <span class="st">&quot;magma&quot;</span>, <span class="at">domain =</span> <span class="cn">NULL</span>)</span>
 <span id="cb1800-2"><a href="leaflet-mapas-interactivos.html#cb1800-2" tabindex="-1"></a></span>
 <span id="cb1800-3"><a href="leaflet-mapas-interactivos.html#cb1800-3" tabindex="-1"></a></span>
@@ -1407,7 +1408,7 @@ seguro los cambiaste de sitio.</p>
 <span id="cb1800-9"><a href="leaflet-mapas-interactivos.html#cb1800-9" tabindex="-1"></a>             <span class="at">popup =</span> <span class="sc">~</span><span class="fu">paste</span>(<span class="st">&quot;Magnitud&quot;</span>, mag)</span>
 <span id="cb1800-10"><a href="leaflet-mapas-interactivos.html#cb1800-10" tabindex="-1"></a>             )</span></code></pre></div>
 <div class="leaflet html-widget html-fill-item" id="htmlwidget-c3e9eed61374bcecf16b" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-c3e9eed61374bcecf16b">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addCircleMarkers","args":[[63.822,37.2231,19.287834167481,36.8938331604,61.688,60.01,57.627,33.467,34.027333333333,59.748,31.618,60.049,38.795833587646,38.794666290283,39.013332366943,38.4673,38.793998718262,39.2995,33.5395,60.981,14.9174,33.508166666667,40.5416,37.625667572021,-9.924300000000001,19.4623,62.048,32.222,36.395332336426,63.449,34.3905,38.845333099365,33.465666666667,59.205,18.9975,33.737166666667,19.40950012207,44.789166666667,31.624,34.546166666667,33.423666666667,38.807167053223,34.631,61.733,-5.435,61.516,64.42400000000001,58.268,38.839000701904,38.779167175293,33.714166666667,36.734,33.463666666667,64.233,58.261,19.334999084473,62.167,-63.5619,-20.988,38.824165344238,34.5505,19.313667297363,58.084,38.820167541504,38.835834503174,33.5745,33.258333333333,34.1045,37.271999359131,35.647833333333,33.707166666667,57.637,61.558,33.715666666667,38.3276,58.048,33.515833333333,58.293,23.8027,58.177,64.459,-63.0088,39.56916809082,33.7145,38.78099822998,17.4713,37.425834655762,58.291,31.614,37.502998352051,38.841999053955,38.835166931152,38.82500076294,47.407333333333,34.395168304443,19.162000656128,4.6488,64.622,4.5021,58.986],[-147.732,-116.1554,-155.39332580566,-121.63500213623,-149.929,-153.095,-155.748,-116.46,-117.23816666667,-153.287,-104.363,-153.062,-122.80883026123,-122.80883026123,-123.48383331299,-116.4919,-122.75883483887,-111.95783333333,-116.70666666667,-151.481,108.2955,-116.7455,-119.686,-122.46616363525,123.6462,-65.3035,-147.635,-101.976,-120.97116851807,-147.64,-118.77783333333,-122.82250213623,-116.4665,-152.605,-64.02200000000001,-116.746,-155.62399291992,-111.10466666667,-104.364,-118.8385,-117.032,-122.74366760254,-85.440333333333,-150.176,152.1328,-151.368,-146.122,-155.168,-122.78616333008,-122.72450256348,-116.82583333333,71.4151,-116.463,-148.509,-155.139,-155.10333251953,-150.042,171.414,168.4237,-122.80416870117,-118.84483333333,-155.23283386231,-156.421,-122.81366729736,-122.81632995606,-116.716,-116.3175,-117.42816666667,-122.17016601562,-117.82933333333,-116.7505,-155.105,-146.428,-116.82966666667,23.2795,-155.784,-116.74316666667,-154.976,122.9149,-155.328,-146.94,169.2156,-123.30183410644,-116.75983333333,-122.93599700928,-93.8603,-121.45466613769,-154.981,-104.106,-118.87349700928,-122.84183502197,-122.78366851807,-122.78399658203,-122.7165,-118.76216888428,-155.49450683594,94.8515,-151.087,125.7472,-153.927],10,null,null,{"interactive":true,"className":"","stroke":true,"color":["#872781","#752181","#FD9969","#5F187F","#F76F5C","#020109","#9E2F7F","#231151","#BC3978","#E34E65","#FE9F6D","#020109","#231151","#1E1149","#F8765C","#DE4968","#812581","#EB5760","#6A1C81","#E75263","#FECE91","#AA337D","#D8456C","#701F81","#FDE2A4","#FEB47B","#FEA672","#FEA672","#7B2382","#B0357B","#B6367A","#140E37","#231151","#E75263","#FEBA80","#4E117B","#FD9166","#6A1C81","#FEAD76","#752181","#2E1162","#19103F","#EF5C5E","#FC8A62","#FDE9AA","#0C0927","#CD4071","#060518","#231151","#6A1C81","#09071F","#FEC88C","#3B0F70","#2E1162","#0C0927","#FA7D5E","#9E2F7F","#FCEFB1","#FDE2A4","#59157E","#8C2981","#D3436E","#E75263","#651A80","#812581","#231151","#29115A","#35106A","#872781","#410F75","#030310","#F2625D","#B0357B","#09071F","#FDDC9E","#53137D","#110C2F","#481078","#FCFDBF","#0C0927","#53137D","#FCF6B8","#C23B75","#140E37","#C73D73","#FEC88C","#F4695C","#0C0927","#E75263","#922B80","#000004","#000004","#982D80","#EB5760","#FEC185","#D3436E","#FED597","#A4317E","#FED597","#FB845F"],"weight":5,"opacity":0.5,"fill":true,"fillColor":["#872781","#752181","#FD9969","#5F187F","#F76F5C","#020109","#9E2F7F","#231151","#BC3978","#E34E65","#FE9F6D","#020109","#231151","#1E1149","#F8765C","#DE4968","#812581","#EB5760","#6A1C81","#E75263","#FECE91","#AA337D","#D8456C","#701F81","#FDE2A4","#FEB47B","#FEA672","#FEA672","#7B2382","#B0357B","#B6367A","#140E37","#231151","#E75263","#FEBA80","#4E117B","#FD9166","#6A1C81","#FEAD76","#752181","#2E1162","#19103F","#EF5C5E","#FC8A62","#FDE9AA","#0C0927","#CD4071","#060518","#231151","#6A1C81","#09071F","#FEC88C","#3B0F70","#2E1162","#0C0927","#FA7D5E","#9E2F7F","#FCEFB1","#FDE2A4","#59157E","#8C2981","#D3436E","#E75263","#651A80","#812581","#231151","#29115A","#35106A","#872781","#410F75","#030310","#F2625D","#B0357B","#09071F","#FDDC9E","#53137D","#110C2F","#481078","#FCFDBF","#0C0927","#53137D","#FCF6B8","#C23B75","#140E37","#C73D73","#FEC88C","#F4695C","#0C0927","#E75263","#922B80","#000004","#000004","#982D80","#EB5760","#FEC185","#D3436E","#FED597","#A4317E","#FED597","#FB845F"],"fillOpacity":0.2},null,null,["Magnitud 1.3","Magnitud 1.21","Magnitud 2.7","Magnitud 1.08","Magnitud 2.1","Magnitud 0.5","Magnitud 1.4","Magnitud 0.78","Magnitud 1.63","Magnitud 1.8","Magnitud 2.9","Magnitud 0.5","Magnitud 0.78","Magnitud 0.76","Magnitud 2.16","Magnitud 1.79","Magnitud 1.29","Magnitud 1.92","Magnitud 1.15","Magnitud 1.9","Magnitud 4.4","Magnitud 1.57","Magnitud 1.76","Magnitud 1.16","Magnitud 5","Magnitud 3.58","Magnitud 3.1","Magnitud 3.1","Magnitud 1.25","Magnitud 1.6","Magnitud 1.62","Magnitud 0.73","Magnitud 0.78","Magnitud 1.9","Magnitud 3.6","Magnitud 0.97","Magnitud 2.58","Magnitud 1.15","Magnitud 3.3","Magnitud 1.21","Magnitud 0.8","Magnitud 0.75","Magnitud 1.97","Magnitud 2.5","Magnitud 5.1","Magnitud 0.7","Magnitud 1.7","Magnitud 0.6","Magnitud 0.78","Magnitud 1.15","Magnitud 0.62","Magnitud 4.2","Magnitud 0.87","Magnitud 0.8","Magnitud 0.7","Magnitud 2.29","Magnitud 1.4","Magnitud 5.2","Magnitud 5","Magnitud 1.05","Magnitud 1.31","Magnitud 1.74","Magnitud 1.9","Magnitud 1.09","Magnitud 1.29","Magnitud 0.78","Magnitud 0.79","Magnitud 0.84","Magnitud 1.3","Magnitud 0.88","Magnitud 0.52","Magnitud 2","Magnitud 1.6","Magnitud 0.62","Magnitud 4.6","Magnitud 1","Magnitud 0.71","Magnitud 0.9","Magnitud 5.6","Magnitud 0.7","Magnitud 1","Magnitud 5.4","Magnitud 1.66","Magnitud 0.73","Magnitud 1.67","Magnitud 4.2","Magnitud 2.07","Magnitud 0.7","Magnitud 1.9","Magnitud 1.32","Magnitud 0.41","Magnitud 0.41","Magnitud 1.33","Magnitud 1.92","Magnitud 3.8100871496449","Magnitud 1.74","Magnitud 4.5","Magnitud 1.5","Magnitud 4.5","Magnitud 2.4"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-63.5619,64.622],"lng":[-156.421,171.414]}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-c3e9eed61374bcecf16b">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addCircleMarkers","args":[[34.717833333333,65.453,63.822,37.2231,19.287834167481,36.8938331604,61.688,60.01,57.627,33.467,34.027333333333,59.748,31.618,60.049,38.795833587646,38.794666290283,39.013332366943,38.4673,38.793998718262,39.2995,33.5395,60.981,14.9174,33.508166666667,40.5416,37.625667572021,-9.924300000000001,19.4623,62.048,32.222,36.395332336426,63.449,34.3905,38.845333099365,33.465666666667,59.205,18.9975,33.737166666667,19.40950012207,44.789166666667,31.624,34.546166666667,33.423666666667,38.807167053223,34.631,61.733,-5.435,61.516,64.42400000000001,58.268,38.839000701904,38.779167175293,33.714166666667,36.734,33.463666666667,64.233,58.261,19.334999084473,62.167,-63.5619,-20.988,38.824165344238,34.5505,19.313667297363,58.084,38.820167541504,38.835834503174,33.5745,33.258333333333,34.1045,37.271999359131,35.647833333333,33.707166666667,57.637,61.558,33.715666666667,38.3276,58.048,33.515833333333,58.293,23.8027,58.177,64.459,-63.0088,39.56916809082,33.7145,38.78099822998,17.4713,37.425834655762,58.291,31.614,37.502998352051,38.841999053955,38.835166931152,38.82500076294,47.407333333333,34.395168304443,19.162000656128,4.6488,64.622],[-119.37183333333,-144.756,-147.732,-116.1554,-155.39332580566,-121.63500213623,-149.929,-153.095,-155.748,-116.46,-117.23816666667,-153.287,-104.363,-153.062,-122.80883026123,-122.80883026123,-123.48383331299,-116.4919,-122.75883483887,-111.95783333333,-116.70666666667,-151.481,108.2955,-116.7455,-119.686,-122.46616363525,123.6462,-65.3035,-147.635,-101.976,-120.97116851807,-147.64,-118.77783333333,-122.82250213623,-116.4665,-152.605,-64.02200000000001,-116.746,-155.62399291992,-111.10466666667,-104.364,-118.8385,-117.032,-122.74366760254,-85.440333333333,-150.176,152.1328,-151.368,-146.122,-155.168,-122.78616333008,-122.72450256348,-116.82583333333,71.4151,-116.463,-148.509,-155.139,-155.10333251953,-150.042,171.414,168.4237,-122.80416870117,-118.84483333333,-155.23283386231,-156.421,-122.81366729736,-122.81632995606,-116.716,-116.3175,-117.42816666667,-122.17016601562,-117.82933333333,-116.7505,-155.105,-146.428,-116.82966666667,23.2795,-155.784,-116.74316666667,-154.976,122.9149,-155.328,-146.94,169.2156,-123.30183410644,-116.75983333333,-122.93599700928,-93.8603,-121.45466613769,-154.981,-104.106,-118.87349700928,-122.84183502197,-122.78366851807,-122.78399658203,-122.7165,-118.76216888428,-155.49450683594,94.8515,-151.087],10,null,null,{"interactive":true,"className":"","stroke":true,"color":["#732081","#792282","#902A81","#7F2482","#FD9A6A","#5D177F","#F9785D","#020109","#A7327D","#221150","#C43C75","#E95462","#FEA06E","#020109","#221150","#1D1148","#FA7F5E","#E44F64","#8A2981","#F05F5E","#681C81","#EC5860","#FECF92","#B3367A","#DF4B68","#6E1E81","#FDE3A4","#FEB57B","#FEA872","#FEA872","#842681","#B93779","#BF3A77","#140E36","#221150","#EC5860","#FEBB81","#4C117A","#FD9367","#681C81","#FEAE77","#7F2482","#2D1161","#19103E","#F2645C","#FC8C63","#FDE9AA","#0C0926","#D5446D","#060518","#221150","#681C81","#08071F","#FEC98C","#3A0F6F","#2D1161","#0C0926","#FB8660","#A7327D","#FCF0B2","#FDE3A4","#57157E","#952C80","#DB476A","#EC5860","#631980","#8A2981","#221150","#281259","#341068","#902A81","#400F74","#030310","#F56B5C","#B93779","#08071F","#FDDC9E","#52137C","#110C2E","#461077","#FCFDBF","#0C0926","#52137C","#FCF6B8","#CA3E72","#140E36","#D0416F","#FEC98C","#F7715C","#0C0926","#EC5860","#9B2E7F","#000004","#000004","#A1307E","#F05F5E","#FEC286","#DB476A","#FED698","#AD347C"],"weight":5,"opacity":0.5,"fill":true,"fillColor":["#732081","#792282","#902A81","#7F2482","#FD9A6A","#5D177F","#F9785D","#020109","#A7327D","#221150","#C43C75","#E95462","#FEA06E","#020109","#221150","#1D1148","#FA7F5E","#E44F64","#8A2981","#F05F5E","#681C81","#EC5860","#FECF92","#B3367A","#DF4B68","#6E1E81","#FDE3A4","#FEB57B","#FEA872","#FEA872","#842681","#B93779","#BF3A77","#140E36","#221150","#EC5860","#FEBB81","#4C117A","#FD9367","#681C81","#FEAE77","#7F2482","#2D1161","#19103E","#F2645C","#FC8C63","#FDE9AA","#0C0926","#D5446D","#060518","#221150","#681C81","#08071F","#FEC98C","#3A0F6F","#2D1161","#0C0926","#FB8660","#A7327D","#FCF0B2","#FDE3A4","#57157E","#952C80","#DB476A","#EC5860","#631980","#8A2981","#221150","#281259","#341068","#902A81","#400F74","#030310","#F56B5C","#B93779","#08071F","#FDDC9E","#52137C","#110C2E","#461077","#FCFDBF","#0C0926","#52137C","#FCF6B8","#CA3E72","#140E36","#D0416F","#FEC98C","#F7715C","#0C0926","#EC5860","#9B2E7F","#000004","#000004","#A1307E","#F05F5E","#FEC286","#DB476A","#FED698","#AD347C"],"fillOpacity":0.2},null,null,["Magnitud 1.18","Magnitud 1.2","Magnitud 1.3","Magnitud 1.21","Magnitud 2.7","Magnitud 1.08","Magnitud 2.1","Magnitud 0.5","Magnitud 1.4","Magnitud 0.78","Magnitud 1.63","Magnitud 1.8","Magnitud 2.9","Magnitud 0.5","Magnitud 0.78","Magnitud 0.76","Magnitud 2.16","Magnitud 1.79","Magnitud 1.29","Magnitud 1.92","Magnitud 1.15","Magnitud 1.9","Magnitud 4.4","Magnitud 1.57","Magnitud 1.76","Magnitud 1.16","Magnitud 5","Magnitud 3.58","Magnitud 3.1","Magnitud 3.1","Magnitud 1.25","Magnitud 1.6","Magnitud 1.62","Magnitud 0.73","Magnitud 0.78","Magnitud 1.9","Magnitud 3.6","Magnitud 0.97","Magnitud 2.58","Magnitud 1.15","Magnitud 3.3","Magnitud 1.21","Magnitud 0.8","Magnitud 0.75","Magnitud 1.97","Magnitud 2.5","Magnitud 5.1","Magnitud 0.7","Magnitud 1.7","Magnitud 0.6","Magnitud 0.78","Magnitud 1.15","Magnitud 0.62","Magnitud 4.2","Magnitud 0.87","Magnitud 0.8","Magnitud 0.7","Magnitud 2.29","Magnitud 1.4","Magnitud 5.2","Magnitud 5","Magnitud 1.05","Magnitud 1.31","Magnitud 1.74","Magnitud 1.9","Magnitud 1.09","Magnitud 1.29","Magnitud 0.78","Magnitud 0.79","Magnitud 0.84","Magnitud 1.3","Magnitud 0.88","Magnitud 0.52","Magnitud 2","Magnitud 1.6","Magnitud 0.62","Magnitud 4.6","Magnitud 1","Magnitud 0.71","Magnitud 0.9","Magnitud 5.6","Magnitud 0.7","Magnitud 1","Magnitud 5.4","Magnitud 1.66","Magnitud 0.73","Magnitud 1.67","Magnitud 4.2","Magnitud 2.07","Magnitud 0.7","Magnitud 1.9","Magnitud 1.32","Magnitud 0.41","Magnitud 0.41","Magnitud 1.33","Magnitud 1.92","Magnitud 3.8100871496449","Magnitud 1.74","Magnitud 4.5","Magnitud 1.5"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-63.5619,65.453],"lng":[-156.421,171.414]}},"evals":[],"jsHooks":[]}</script>
 <hr />
 </div>
 <div id="trabajando-con-datos-de-inaturalist" class="section level2 hasAnchor" number="32.8">

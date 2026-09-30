@@ -1240,8 +1240,8 @@ querías <code>trim</code>).</p>
 <div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="errores.html#cb574-1" tabindex="-1"></a><span class="fu">filter</span>(mtcars, <span class="at">cyl =</span> <span class="dv">6</span>)</span></code></pre></div>
 <pre><code>## Error in `filter()`:
 ## ! We detected a named input.
-## ℹ This usually means that you&#39;ve used `=`
-##   instead of `==`.
+## ℹ This usually means that you&#39;ve used `=` instead of
+##   `==`.
 ## ℹ Did you mean `cyl == 6`?</code></pre>
 <div class="peligro">
 <p>Dentro de <code>filter()</code> (y para comparar en general) se usa <code>==</code>, no <code>=</code>. Un solo <code>=</code>

@@ -234,10 +234,8 @@ Pendiente de decisión (nada de esto se tocó):
   El capítulo de datos relacionados usa el paquete `babynames::`, no esta carpeta.
 - `Graficos/` (**57 MB**), de los cuales 43 MB son tres imágenes que no usa ningún
   capítulo: `Brass_cucu1.png`, `Brass_cucu2.png` y `Number_species_vs_Alien.tiff`.
-- `nchs_births_2001.csv` (**27 MB**) en la raíz: solo aparece en bloques con
-  `eval=FALSE` del capítulo de importar datos.
-- `Visualization.Rmd`: está en la raíz pero no en `_bookdown.yml`, así que no
-  forma parte del libro.
+- `nchs_births_2001.csv` (**27 MB**) y `Visualization.Rmd`: borrados de la raíz
+  el 2026-09-30 (ningún capítulo los usaba). El CSV sigue en la historia de git.
 - `docs/appendix-a.html`, `-b.html`, `-c.html`: quedaron huérfanas al archivar los
   apéndices, pero **no se pueden borrar todavía**: 25 páginas del sitio las
   enlazan. Se limpian **después** del próximo render completo, que además hace

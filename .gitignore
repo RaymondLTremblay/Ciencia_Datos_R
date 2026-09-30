@@ -18,6 +18,7 @@ file*/
 Ciencia_Datos_con_R.Rmd
 Ciencia_Datos_con_R_files/
 Ciencia-Datos-con-R_files/
+/libs/
 
 # --- Artefactos de LaTeX / PDF (la causa del error \@writefile) ---
 *.aux
