@@ -1,0 +1,8 @@
+Registro de plantas del invernadero
+Archivo de ejemplo para el curso BIOL4026
+# las alturas están en centímetros
+planta,codigo,altura,flores
+P1,00791,34.5,3
+P2,00725,n/d,0
+P3,00612,27,.
+P4,01004,41.2,5

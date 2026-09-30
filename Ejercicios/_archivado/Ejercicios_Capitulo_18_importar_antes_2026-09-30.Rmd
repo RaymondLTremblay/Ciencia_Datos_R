@@ -1,6 +1,6 @@
 ---
 title: "Ejercicios del Capítulo 18"
-subtitle: "Importar datos: read_csv, read_csv2, col_types, col_names, na, id y write_csv"
+subtitle: "Importar datos: read_csv, col_types, na, skip, locale y write_csv"
 author: "Nombre del estudiante: ______________________"
 date: "Fecha de entrega: ______________________"
 output:
@@ -21,7 +21,7 @@ Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 18 del libro del curso.
 
 Los ejercicios usan `Datos/crimen_pr.csv`, un archivo real del gobierno de Puerto Rico que ya está en el repositorio del curso, y archivos que vas a crear tú mismo. No usan `Newborn_Karn_Penrose.csv`, que es el conjunto con el que se enseña en el capítulo.
 
-Este capítulo tiene una idea de fondo: **importar no es un paso automático**. El archivo real siempre trae algo raro (nombres con espacios, códigos que parecen números, faltantes escritos de otra manera, comas donde esperabas puntos), y el trabajo consiste en darse cuenta antes de calcular nada.
+Este capítulo tiene una idea de fondo: **importar no es un paso automático**. El archivo real siempre trae algo raro (nombres con espacios, códigos que parecen números, faltantes escritos de otra manera), y el trabajo consiste en darse cuenta antes de calcular nada.
 
 Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
 
@@ -39,8 +39,8 @@ Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
 | 2 | Los nombres mienten | 5 |
 | 3 | Un código no es un número | 5 |
 | 4 | Ida y vuelta por el disco | 5 |
-| 5 | Punto y coma, y coma decimal | 5 |
-| 6 | Un archivo por grupo | 5 |
+| 5 | Un archivo sucio, hecho a mano | 5 |
+| 6 | Números escritos en español | 5 |
 | **Total** | | **30** |
 | 7 (bono) | Fechas y horas de verdad | **5 adicionales** |
 
@@ -154,31 +154,29 @@ La columna con los números del 1 al 9 es un **código**, no una cantidad: no ti
 
 ---
 
-# Ejercicio 5. Punto y coma, y coma decimal (5 puntos)
-
-Este archivo es como lo exportaría un Excel configurado en español: **sin fila de nombres**, con punto y coma entre las columnas, con coma decimal, y con `s/d` donde no hay dato.
+# Ejercicio 5. Un archivo sucio, hecho a mano (5 puntos)
 
 1. Crea el archivo con `writeLines()`:
 
 ```{r ej5-crear, eval=FALSE}
 writeLines(
-  c("H01;12,5;3",
-    "H02;s/d;0",
-    "H03;9,75;5",
-    "H04;13,75;2"),
-  "Datos/hojas_sucio.csv"
+  c("Reporte mensual",
+    "Generado el 1 de agosto",
+    "parcela,plantas",
+    "P1,34",
+    "P2,n/d",
+    "P3,27"),
+  "Datos/reporte_sucio.csv"
 )
 ```
 
-2. Léelo con `read_csv("Datos/hojas_sucio.csv")`, sin ningún argumento, y mira el desastre.
-3. Léelo bien. Tienes que resolver tres cosas: escoger la función de la familia de `readr` que corresponde a este formato, ponerle a las columnas los nombres `hoja`, `peso` y `manchas`, y declarar el faltante.
-4. Calcula el promedio de `peso`, sin contar el faltante.
+2. Léelo con `read_csv("Datos/reporte_sucio.csv")`, sin ningún argumento, y mira el desastre. Copia la advertencia que sale.
+3. Arréglalo con los argumentos `skip` y `na`.
 
-*Verifica:* la versión arreglada tiene **4 filas** y **3 columnas**, `peso` es numérica, hay exactamente **un** `NA`, y el promedio de `peso` es **12**.
+*Verifica:* la versión arreglada tiene **3 filas** y **2 columnas**, `plantas` es numérica, y hay exactamente **un** `NA`.
 
-5. En la primera lectura, ¿cuál signo tomó `read_csv()` como separador de columnas, y por qué eso partió los números por la mitad?
-6. ¿Qué le pasó a la hoja `H01` en esa primera lectura?
-7. Si a alguien el promedio le sale distinto de 12, ¿cuál de los tres problemas del archivo le faltó resolver?
+4. En la primera lectura, ¿cuántas columnas creó `readr` y de dónde sacó el nombre?
+5. Explica qué te estaba diciendo la advertencia.
 
 ```{r ej5}
 # Escribe tu código aquí
@@ -191,19 +189,17 @@ writeLines(
 
 ---
 
-# Ejercicio 6. Un archivo por grupo (5 puntos)
+# Ejercicio 6. Números escritos en español (5 puntos)
 
-Los datos muchas veces llegan repartidos en varios archivos. Aquí los vas a repartir tú, para después juntarlos.
+Estos tres textos vienen escritos a la manera española: `c("1.234", "2.500.000", "3,75")`.
 
-1. De `millas`, guarda tres archivos con `filter()` y `write_csv()`, uno por fabricante: `Datos/millas_audi.csv`, `Datos/millas_honda.csv` y `Datos/millas_toyota.csv`.
-2. Léelos **los tres a la vez**, con una sola llamada a `read_csv()`, y pide una columna `archivo` que diga de dónde salió cada fila.
-3. Cuenta las filas por archivo con `count()`.
-4. Compara `ncol()` de la tabla unida con `ncol(millas)`.
+1. Conviértelos con `parse_number()` **sin** `locale()` y anota los tres resultados.
+2. Conviértelos con el `locale()` correcto (`decimal_mark` y `grouping_mark`).
 
-*Verifica:* la tabla unida tiene **61 filas**: 18 de Audi, 9 de Honda y 34 de Toyota. Tiene **una columna más** que `millas`.
+*Verifica:* con el `locale()` correcto, `"2.500.000"` da dos millones y medio, y `"3,75"` da tres con setenta y cinco.
 
-5. En esta tabla hay otra columna que dice lo mismo que `archivo`. ¿Cuál es?
-6. Piensa en datos de campo guardados en un archivo por año, o uno por sitio de muestreo, donde esa información solo está en el nombre del archivo. ¿Qué se perdería al juntarlos sin la columna `archivo`?
+3. Sin `locale()`, ninguno de los tres da error, pero todos dan un número equivocado. Explica por qué este es el tipo de fallo más peligroso de todo el capítulo.
+4. ¿Cómo lo detectarías en una tabla de 5000 filas que acabas de importar?
 
 ```{r ej6}
 # Escribe tu código aquí

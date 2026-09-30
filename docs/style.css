@@ -133,6 +133,11 @@ pre code { white-space: inherit; }
   border: none;
   padding: 10px 14px;
 }
+.book .book-body .page-wrapper .page-inner section.normal table thead th code {
+  background-color: rgba(255,255,255,.18) !important;
+  color: #fff !important;
+  border: none;
+}
 .book .book-body .page-inner section.normal table td { padding: 8px 14px; border-top: 1px solid #e7eef1; }
 .book .book-body .page-inner section.normal table tbody tr:nth-child(even) { background: #f2fbfd; }
 .book .book-body .page-inner section.normal table tbody tr:hover { background: var(--teal-050); }

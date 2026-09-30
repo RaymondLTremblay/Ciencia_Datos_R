@@ -1,5 +1,5 @@
 ---
-title: "Soluciones: Capítulo Importar datos (read_csv, col_types, na, skip, locale, write_csv)"
+title: "Soluciones: Capítulo Importar datos (read_csv, read_csv2, col_types, col_names, na, id, write_csv)"
 author: "Raymond L. Tremblay (uso del profesor)"
 output:
   html_document:
@@ -171,87 +171,126 @@ práctica es guardar en `.rds` los objetos intermedios de tu propio análisis, y
 
 ------------------------------------------------------------------------
 
-## Ejercicio 5: un archivo sucio
+## Ejercicio 5: punto y coma, y coma decimal
 
 ```{r sol16-5a}
 writeLines(
-  c("Reporte mensual",
-    "Generado el 1 de agosto",
-    "parcela,plantas",
-    "P1,34",
-    "P2,n/d",
-    "P3,27"),
-  "Datos/reporte_sucio.csv"
+  c("H01;12,5;3",
+    "H02;s/d;0",
+    "H03;9,75;5",
+    "H04;13,75;2"),
+  "Datos/hojas_sucio.csv"
 )
 
-read_csv("Datos/reporte_sucio.csv")
-# 1 columna llamada "Reporte mensual", 5 filas, y avisos de parsing
+read_csv("Datos/hojas_sucio.csv")
+# el desastre: la coma decimal se toma como separador de columnas
 ```
 
 ```{r sol16-5b}
-reporte <- read_csv(
-  "Datos/reporte_sucio.csv",
-  skip = 2,
-  na   = "n/d"
+hojas <- read_csv2(
+  "Datos/hojas_sucio.csv",
+  col_names = c("hoja", "peso", "manchas"),
+  na        = "s/d"
 )
 
-reporte
-dim(reporte)                   # 3 2
-class(reporte$plantas)         # "numeric"
-sum(is.na(reporte$plantas))    # 1
+hojas
+dim(hojas)                       # 4 3
+class(hojas$peso)                # "numeric"
+sum(is.na(hojas$peso))           # 1
+mean(hojas$peso, na.rm = TRUE)   # 12
 ```
 
-**Respuesta esperada.** La versión arreglada tiene 3 filas, 2 columnas,
-`plantas` numérica y un solo `NA`.
+**Respuesta esperada.** La versión arreglada tiene 4 filas, 3 columnas, `peso`
+numérica, un solo `NA`, y promedio 12: (12.5 + 9.75 + 13.75) / 3.
 
-En la primera lectura, `readr` creó **una sola columna**, y le puso de nombre la
-primera línea del archivo, `Reporte mensual`, porque supone que la primera línea
-son los nombres. A partir de ahí, cada línea de la tabla real trae **dos** campos
-separados por coma, y la columna que declaró solo admite uno, así que avisa de
-las filas que no encajaron.
+También es correcta la versión con `read_delim()`, que obliga a decir las dos
+cosas que `read_csv2()` da por hechas:
 
-Lo que dice la advertencia, en palabras del estudiante: "encontré más columnas de
-las que esperaba en varias filas". Es la señal típica de que la cabecera no está
-donde `readr` cree.
+```{r sol16-5c}
+read_delim(
+  "Datos/hojas_sucio.csv",
+  delim     = ";",
+  locale    = locale(decimal_mark = ","),
+  col_names = c("hoja", "peso", "manchas"),
+  na        = "s/d"
+)
+```
+
+En la primera lectura, `read_csv()` tomó la **coma** como separador de columnas,
+porque eso es lo que significa "csv" para ella. En este archivo las únicas comas
+son las decimales, así que cada línea se partió justo en medio del número: a la
+izquierda quedó `H01;12` y a la derecha `5;3`. El punto y coma, que era el
+separador de verdad, quedó dentro del texto.
+
+A la hoja `H01` le pasó lo mismo que al título en el ejemplo del capítulo: como
+`read_csv()` supone que la primera línea son los nombres, la convirtió en
+nombres de columna y desapareció de los datos.
+
+Sobre el promedio: es la comprobación que delata cada olvido. Sin `col_names`
+faltan `H01` y su 12.5, y el promedio da 11.75 en vez de 12. Sin `na`, `peso`
+llega como texto y no se puede promediar. Y si la coma decimal no se interpreta,
+los pesos no son los del archivo.
 
 Errores frecuentes que conviene señalar:
 
-- Poner `skip = 3`, que se salta también la fila de nombres, y entonces las
-  columnas se llaman `P1` y `34`.
-- Arreglar el `n/d` después, con `mutate(plantas = as.numeric(plantas))`. Funciona,
-  pero es peor: mete un paso extra y deja el archivo mal leído. `na = "n/d"` lo
-  resuelve en el momento de leer.
+- Usar `read_csv2()` sin `col_names`: la tabla sale con 3 filas y con columnas
+  llamadas como los valores de la primera hoja.
+- Arreglar el `s/d` después, con `mutate(peso = as.numeric(peso))`. Con coma
+  decimal ni siquiera funciona, porque `as.numeric("12,5")` da `NA`. `na = "s/d"`
+  lo resuelve en el momento de leer.
+- Poner los nombres con `rename()` después de leer: para entonces la primera
+  hoja ya se perdió como fila de nombres.
+
+**Punto para discutir en clase.** Vale la pena abrir el archivo en Excel y en un
+editor de texto, igual que se hizo con `plantas_sucio.csv` en el capítulo, y
+preguntar cuál de las dos vistas deja ver el punto y coma.
 
 ------------------------------------------------------------------------
 
-## Ejercicio 6: números escritos en español
+## Ejercicio 6: un archivo por grupo
 
 ```{r sol16-6a}
-x <- c("1.234", "2.500.000", "3,75")
-
-parse_number(x)
-# 1.234   2.5   3   <- los tres mal
+millas |> filter(fabricante == "audi")   |> write_csv("Datos/millas_audi.csv")
+millas |> filter(fabricante == "honda")  |> write_csv("Datos/millas_honda.csv")
+millas |> filter(fabricante == "toyota") |> write_csv("Datos/millas_toyota.csv")
 ```
 
 ```{r sol16-6b}
-parse_number(x, locale = locale(decimal_mark = ",", grouping_mark = "."))
-# 1234   2500000   3.75
+archivos <- c("Datos/millas_audi.csv",
+              "Datos/millas_honda.csv",
+              "Datos/millas_toyota.csv")
+
+millas_tres <- read_csv(archivos, id = "archivo")
+
+nrow(millas_tres)               # 61
+millas_tres |> count(archivo)   # 18, 9, 34
+
+ncol(millas)        # 11
+ncol(millas_tres)   # 12
 ```
 
-**Respuesta esperada.** Sin `locale()`, R lee el punto como decimal y la coma
-como separador de miles, que es justo al revés: `"1.234"` pasa a ser uno con
-doscientos treinta y cuatro en vez de mil doscientos treinta y cuatro, y
-`"2.500.000"` se convierte en dos y medio en vez de dos millones y medio.
+**Respuesta esperada.** 61 filas: 18 de Audi, 9 de Honda y 34 de Toyota. La
+tabla unida tiene 12 columnas, una más que `millas`: la columna `archivo`, que
+`read_csv()` añadió porque se la pedimos con `id`.
 
-Por qué es el fallo más peligroso del capítulo: **no hay error, no hay
-advertencia, y el resultado es un número perfectamente creíble**. Un promedio
-calculado sobre esa columna sale mal en un factor de mil y nada en la pantalla
-avisa. Todos los demás errores del capítulo, al menos, se quejan.
+La columna que dice lo mismo es `fabricante`. En este ejercicio `archivo` es
+redundante, y eso es precisamente lo que permite comprobar que funcionó:
 
-Cómo detectarlo en una tabla de 5000 filas: mirar el **rango** de la columna
-recién importada (`summary()` o `range()`) y compararlo con lo que uno sabe que
-debería ser. Si los salarios mensuales van de 1.2 a 4.8, algo pasó. También sirve
-abrir el archivo original en un editor de texto y mirar tres o cuatro valores.
+```{r sol16-6c}
+millas_tres |> count(archivo, fabricante)   # tres filas, una por pareja
+```
+
+Sobre los datos de campo: si hay un archivo por año (o por sitio) y el año no
+está escrito en ninguna columna, al apilarlos sin `id` todas las filas quedan
+mezcladas y ya no hay manera de saber de qué año es cada una. La información
+estaba solo en el nombre del archivo, y se pierde en el momento de juntar. Es el
+caso de los tres archivos de vuelos del capítulo.
+
+Errores frecuentes que conviene señalar:
+
+- Leer los tres archivos por separado y unirlos después con `bind_rows()`.
+  Funciona, pero no es lo que se pide y pierde el origen de cada fila.
+- Olvidar las comillas en `id = "archivo"`.
 
 ------------------------------------------------------------------------
 
@@ -296,10 +335,12 @@ mismo denominador. Es la misma lección del desbalance de clases en `millas`.
 ## Nota de corrección
 
 Los ejercicios 1, 2 y 5 son los que hay que exigir completos: son el hábito de
-mirar el archivo antes de calcular. El 6 es el más importante conceptualmente
-aunque sea el más corto, porque es el único fallo del capítulo que no avisa.
+mirar el archivo antes de calcular. El 5 es además el más importante
+conceptualmente, porque la coma decimal mal leída es el único fallo del capítulo
+que puede no avisar.
 
 Resultados comparables: 8870 por 7 y 733 faltantes (Ej. 1), 9 valores en cada
 columna (Ej. 2), `"numeric"` a `"character"` (Ej. 3), 234 filas y pérdida del
-factor (Ej. 4), 3 por 2 con un `NA` (Ej. 5), 1234 / 2500000 / 3.75 (Ej. 6), y
+factor (Ej. 4), 4 por 3 con un `NA` y promedio 12 (Ej. 5), 61 filas repartidas en 18, 9 y 34
+(Ej. 6), y
 tres meses con el tercero incompleto (Ej. 7).

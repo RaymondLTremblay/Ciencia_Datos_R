@@ -53,6 +53,9 @@ cómodos y que hoy hacen perder tiempo:
 
 - imprime la tabla **entera** en la consola, así que un archivo de 50 000 filas
   llena la pantalla y hay que subir a buscar el principio;
+  
+
+  
 - hace **coincidencia parcial** de nombres: si le pides `df$a` y la única columna
   que empieza por "a" es `abc`, te la da sin avisar, y una errata pasa por buena;
 - durante muchos años convertía el texto en factores por su cuenta, y arreglaba

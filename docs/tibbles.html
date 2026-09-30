@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2026-09-20" />
+<meta name="date" content="2026-09-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,31 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/wordcloud2-0.0.1/wordcloud.css" rel="stylesheet" />
+<script src="libs/wordcloud2-0.0.1/wordcloud2-all.js"></script>
+<script src="libs/wordcloud2-0.0.1/hover.js"></script>
+<script src="libs/wordcloud2-binding-0.2.1/wordcloud2.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.3/leaflet.js"></script>
+<link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+<script src="libs/tabwid-1.1.3/tabwid.js"></script>
+<link href="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.css" rel="stylesheet" />
+<script src="libs/leaflet-awesomemarkers-2.0.3/leaflet.awesome-markers.min.js"></script>
+<link href="libs/fontawesome-4.7.0/font-awesome.min.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet" />
+<link href="libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet" />
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script>
+<script src="libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
+<script src="libs/leaflet-providers-3.0.0/leaflet-providers.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.3/leaflet-providers-plugin.js"></script>
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
@@ -512,16 +537,21 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.4" data-path="pipes.html"><a href="pipes.html#alternativas-a-los-pipes"><i class="fa fa-check"></i><b>16.4</b> Alternativas a los pipes</a></li>
 <li class="chapter" data-level="16.5" data-path="pipes.html"><a href="pipes.html#el-pipe-de-exposici%C3%B3n"><i class="fa fa-check"></i><b>16.5</b> <code>%$%</code>: el pipe de exposición</a>
 <ul>
-<li><a href="pipes.html#otro-ejemplo-de-pipe-el-pipe-de-asignaci%C3%B3n-in-esto-no-es-un-pipe-t-el-pipe-en-t-el-pipe-impaciente-ejercicios-del-cap%C3%ADtulo-ejercicio-1.-de-adentro-hacia-afuera-a-de-arriba-hacia-abajo-ejercicio-2.-el-marcador-de-posici%C3%B3n-ejercicio-3.-y-lado-a-lado-ejercicio-4.-con-una-funci%C3%B3n-que-quiere-vectores-ejercicio-5.-por-qu%C3%A9es-peligroso-ejercicio-6.t-el-paso-de-lado-ejercicio-7-bono.in-no-es-un-pipe" id="toc-otro-ejemplo-de-pipe-el-pipe-de-asignación-in-esto-no-es-un-pipe-t-el-pipe-en-t-el-pipe-impaciente-ejercicios-del-capítulo-ejercicio-1.-de-adentro-hacia-afuera-a-de-arriba-hacia-abajo-ejercicio-2.-el-marcador-de-posición-ejercicio-3.-y-lado-a-lado-ejercicio-4.-con-una-función-que-quiere-vectores-ejercicio-5.-por-quées-peligroso-ejercicio-6.t-el-paso-de-lado-ejercicio-7-bono.in-no-es-un-pipe"><span class="toc-section-number">16.5.1</span> Otro ejemplo de Pipe: %<span class="math inline">\(%
-## `%&lt;&gt;%`: el pipe de asignación
-## `%in%`: esto **no** es un pipe
-## `%T&gt;%`: el pipe en T
-## `%!&gt;%`: el pipe impaciente
-## Ejercicios del capítulo
-### Ejercicio 1. De adentro hacia afuera, a de arriba hacia abajo
-### Ejercicio 2. El marcador de posición
-### Ejercicio 3. `%&gt;%` y `|&gt;` lado a lado
-### Ejercicio 4. `%\)</span>%<code>con una función que quiere vectores ### Ejercicio 5. Por qué</code>%&lt;&gt;%<code>es peligroso ### Ejercicio 6.</code>%T&gt;%<code>, el paso de lado ### Ejercicio 7 (BONO).</code>%in%` no es un pipe</a></li>
+<li class="chapter" data-level="16.5.1" data-path="pipes.html"><a href="pipes.html#otro-ejemplo-de-pipe"><i class="fa fa-check"></i><b>16.5.1</b> Otro ejemplo de Pipe: %$%</a></li>
+</ul></li>
+<li class="chapter" data-level="16.6" data-path="pipes.html"><a href="pipes.html#el-pipe-de-asignaci%C3%B3n"><i class="fa fa-check"></i><b>16.6</b> <code>%&lt;&gt;%</code>: el pipe de asignación</a></li>
+<li class="chapter" data-level="16.7" data-path="pipes.html"><a href="pipes.html#in-esto-no-es-un-pipe"><i class="fa fa-check"></i><b>16.7</b> <code>%in%</code>: esto <strong>no</strong> es un pipe</a></li>
+<li class="chapter" data-level="16.8" data-path="pipes.html"><a href="pipes.html#t-el-pipe-en-t"><i class="fa fa-check"></i><b>16.8</b> <code>%T&gt;%</code>: el pipe en T</a></li>
+<li class="chapter" data-level="16.9" data-path="pipes.html"><a href="pipes.html#el-pipe-impaciente"><i class="fa fa-check"></i><b>16.9</b> <code>%!&gt;%</code>: el pipe impaciente</a></li>
+<li class="chapter" data-level="16.10" data-path="pipes.html"><a href="pipes.html#ejercicios-del-cap%C3%ADtulo-11"><i class="fa fa-check"></i><b>16.10</b> Ejercicios del capítulo</a>
+<ul>
+<li class="chapter" data-level="16.10.1" data-path="pipes.html"><a href="pipes.html#ejercicio-1.-de-adentro-hacia-afuera-a-de-arriba-hacia-abajo"><i class="fa fa-check"></i><b>16.10.1</b> Ejercicio 1. De adentro hacia afuera, a de arriba hacia abajo</a></li>
+<li class="chapter" data-level="16.10.2" data-path="pipes.html"><a href="pipes.html#ejercicio-2.-el-marcador-de-posici%C3%B3n"><i class="fa fa-check"></i><b>16.10.2</b> Ejercicio 2. El marcador de posición</a></li>
+<li class="chapter" data-level="16.10.3" data-path="pipes.html"><a href="pipes.html#ejercicio-3.-y-lado-a-lado"><i class="fa fa-check"></i><b>16.10.3</b> Ejercicio 3. <code>%&gt;%</code> y <code>|&gt;</code> lado a lado</a></li>
+<li class="chapter" data-level="16.10.4" data-path="pipes.html"><a href="pipes.html#ejercicio-4.-con-una-funci%C3%B3n-que-quiere-vectores"><i class="fa fa-check"></i><b>16.10.4</b> Ejercicio 4. <code>%$%</code> con una función que quiere vectores</a></li>
+<li class="chapter" data-level="16.10.5" data-path="pipes.html"><a href="pipes.html#ejercicio-5.-por-qu%C3%A9-es-peligroso"><i class="fa fa-check"></i><b>16.10.5</b> Ejercicio 5. Por qué <code>%&lt;&gt;%</code> es peligroso</a></li>
+<li class="chapter" data-level="16.10.6" data-path="pipes.html"><a href="pipes.html#ejercicio-6.-t-el-paso-de-lado"><i class="fa fa-check"></i><b>16.10.6</b> Ejercicio 6. <code>%T&gt;%</code>, el paso de lado</a></li>
+<li class="chapter" data-level="16.10.7" data-path="pipes.html"><a href="pipes.html#ejercicio-7-bono.-in-no-es-un-pipe"><i class="fa fa-check"></i><b>16.10.7</b> Ejercicio 7 (BONO). <code>%in%</code> no es un pipe</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="17" data-path="tibbles.html"><a href="tibbles.html"><i class="fa fa-check"></i><b>17</b> Tibbles</a>
@@ -536,7 +566,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="17.8" data-path="tibbles.html"><a href="tibbles.html#selecci%C3%B3n-de-subconjuntos-de-datos"><i class="fa fa-check"></i><b>17.8</b> Selección de subconjuntos de datos</a></li>
 <li class="chapter" data-level="17.9" data-path="tibbles.html"><a href="tibbles.html#cu%C3%A1ndo-hay-que-volver-a-un-data.frame"><i class="fa fa-check"></i><b>17.9</b> Cuándo hay que volver a un <code>data.frame</code></a></li>
 <li class="chapter" data-level="17.10" data-path="tibbles.html"><a href="tibbles.html#ejercicios-del-libro-r4ds-3"><i class="fa fa-check"></i><b>17.10</b> Ejercicios del libro R4DS</a></li>
-<li class="chapter" data-level="17.11" data-path="tibbles.html"><a href="tibbles.html#ejercicios-del-cap%C3%ADtulo-11"><i class="fa fa-check"></i><b>17.11</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="17.11" data-path="tibbles.html"><a href="tibbles.html#ejercicios-del-cap%C3%ADtulo-12"><i class="fa fa-check"></i><b>17.11</b> Ejercicios del capítulo</a>
 <ul>
 <li class="chapter" data-level="17.11.1" data-path="tibbles.html"><a href="tibbles.html#ejercicio-1.-completar-el-tibble"><i class="fa fa-check"></i><b>17.11.1</b> Ejercicio 1. Completar el tibble</a></li>
 <li class="chapter" data-level="17.11.2" data-path="tibbles.html"><a href="tibbles.html#ejercicio-2.-una-tabla-escrita-a-mano"><i class="fa fa-check"></i><b>17.11.2</b> Ejercicio 2. Una tabla escrita a mano</a></li>
@@ -551,37 +581,44 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="18.1" data-path="importar-datos.html"><a href="importar-datos.html#temas-7"><i class="fa fa-check"></i><b>18.1</b> Temas</a></li>
 <li class="chapter" data-level="18.2" data-path="importar-datos.html"><a href="importar-datos.html#de-d%C3%B3nde-salen-los-datos"><i class="fa fa-check"></i><b>18.2</b> De dónde salen los datos</a></li>
-<li class="chapter" data-level="18.3" data-path="importar-datos.html"><a href="importar-datos.html#datos-importados-de-la-web."><i class="fa fa-check"></i><b>18.3</b> Datos importados de la web.</a>
+<li class="chapter" data-level="18.3" data-path="importar-datos.html"><a href="importar-datos.html#d%C3%B3nde-est%C3%A1-el-archivo-rutas-relativas"><i class="fa fa-check"></i><b>18.3</b> Dónde está el archivo: rutas relativas</a></li>
+<li class="chapter" data-level="18.4" data-path="importar-datos.html"><a href="importar-datos.html#leer-un-archivo-con-read_csv"><i class="fa fa-check"></i><b>18.4</b> Leer un archivo con <code>read_csv()</code></a>
 <ul>
-<li class="chapter" data-level="18.3.1" data-path="importar-datos.html"><a href="importar-datos.html#usar-datos-que-provienen-de-una-base-de-datos-del-web."><i class="fa fa-check"></i><b>18.3.1</b> Usar datos que provienen de una base de datos del web.</a></li>
-<li class="chapter" data-level="18.3.2" data-path="importar-datos.html"><a href="importar-datos.html#covid-world"><i class="fa fa-check"></i><b>18.3.2</b> COVID world</a></li>
+<li class="chapter" data-level="18.4.1" data-path="importar-datos.html"><a href="importar-datos.html#la-familia-de-funciones-de-readr"><i class="fa fa-check"></i><b>18.4.1</b> La familia de funciones de readr</a></li>
+<li class="chapter" data-level="18.4.2" data-path="importar-datos.html"><a href="importar-datos.html#los-argumentos-que-de-verdad-se-usan"><i class="fa fa-check"></i><b>18.4.2</b> Los argumentos que de verdad se usan</a></li>
+<li class="chapter" data-level="18.4.3" data-path="importar-datos.html"><a href="importar-datos.html#un-archivo-sucio-de-verdad"><i class="fa fa-check"></i><b>18.4.3</b> Un archivo sucio de verdad</a></li>
+<li class="chapter" data-level="18.4.4" data-path="importar-datos.html"><a href="importar-datos.html#cada-argumento-por-separado"><i class="fa fa-check"></i><b>18.4.4</b> Cada argumento por separado</a></li>
+<li class="chapter" data-level="18.4.5" data-path="importar-datos.html"><a href="importar-datos.html#de-vuelta-al-archivo-sucio"><i class="fa fa-check"></i><b>18.4.5</b> De vuelta al archivo sucio</a></li>
 </ul></li>
-<li class="chapter" data-level="18.4" data-path="importar-datos.html"><a href="importar-datos.html#ejercicio"><i class="fa fa-check"></i><b>18.4</b> Ejercicio</a></li>
-<li class="chapter" data-level="18.5" data-path="importar-datos.html"><a href="importar-datos.html#datos-importando-de-su-computadora"><i class="fa fa-check"></i><b>18.5</b> Datos importando de su computadora</a>
-<ul>
-<li class="chapter" data-level="18.5.1" data-path="importar-datos.html"><a href="importar-datos.html#temas-funciones-para-importar-datos-con-el-paquete-readr"><i class="fa fa-check"></i><b>18.5.1</b> Temas: Funciones para importar datos con el paquete readr</a></li>
-<li class="chapter" data-level="18.5.2" data-path="importar-datos.html"><a href="importar-datos.html#read_csv-frente-a-read.csv"><i class="fa fa-check"></i><b>18.5.2</b> <code>read_csv()</code> frente a <code>read.csv()</code></a></li>
-<li class="chapter" data-level="18.5.3" data-path="importar-datos.html"><a href="importar-datos.html#los-argumentos-que-de-verdad-se-usan"><i class="fa fa-check"></i><b>18.5.3</b> Los argumentos que de verdad se usan</a></li>
-</ul></li>
+<li class="chapter" data-level="18.5" data-path="importar-datos.html"><a href="importar-datos.html#revisar-lo-que-lleg%C3%B3"><i class="fa fa-check"></i><b>18.5</b> Revisar lo que llegó</a></li>
 <li class="chapter" data-level="18.6" data-path="importar-datos.html"><a href="importar-datos.html#comparar-con-base-r"><i class="fa fa-check"></i><b>18.6</b> Comparar con base R</a></li>
-<li class="chapter" data-level="18.7" data-path="importar-datos.html"><a href="importar-datos.html#segmentar-un-vector"><i class="fa fa-check"></i><b>18.7</b> Segmentar un vector</a></li>
-<li class="chapter" data-level="18.8" data-path="importar-datos.html"><a href="importar-datos.html#n%C3%BAmeros"><i class="fa fa-check"></i><b>18.8</b> Números</a></li>
-<li class="chapter" data-level="18.9" data-path="importar-datos.html"><a href="importar-datos.html#cadena-de-texto"><i class="fa fa-check"></i><b>18.9</b> Cadena de texto</a></li>
-<li class="chapter" data-level="18.10" data-path="importar-datos.html"><a href="importar-datos.html#factores"><i class="fa fa-check"></i><b>18.10</b> Factores</a></li>
-<li class="chapter" data-level="18.11" data-path="importar-datos.html"><a href="importar-datos.html#fechas-fechas-horas-horas"><i class="fa fa-check"></i><b>18.11</b> Fechas, fechas-horas, horas</a></li>
-<li class="chapter" data-level="18.12" data-path="importar-datos.html"><a href="importar-datos.html#segmentar-un-archivo"><i class="fa fa-check"></i><b>18.12</b> Segmentar un archivo</a></li>
-<li class="chapter" data-level="18.13" data-path="importar-datos.html"><a href="importar-datos.html#escribir-un-archivo"><i class="fa fa-check"></i><b>18.13</b> Escribir un Archivo</a></li>
-<li class="chapter" data-level="18.14" data-path="importar-datos.html"><a href="importar-datos.html#otros-tipos-de-datos-y-paquetes"><i class="fa fa-check"></i><b>18.14</b> Otros tipos de datos y paquetes</a></li>
-<li class="chapter" data-level="18.15" data-path="importar-datos.html"><a href="importar-datos.html#ejercicios-del-libro-r4ds-4"><i class="fa fa-check"></i><b>18.15</b> Ejercicios del libro R4DS</a></li>
-<li class="chapter" data-level="18.16" data-path="importar-datos.html"><a href="importar-datos.html#ejercicios-del-cap%C3%ADtulo-12"><i class="fa fa-check"></i><b>18.16</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="18.7" data-path="importar-datos.html"><a href="importar-datos.html#segmentar-un-vector"><i class="fa fa-check"></i><b>18.7</b> Segmentar un vector</a>
 <ul>
-<li class="chapter" data-level="18.16.1" data-path="importar-datos.html"><a href="importar-datos.html#ejercicio-1.-mirar-antes-de-calcular"><i class="fa fa-check"></i><b>18.16.1</b> Ejercicio 1. Mirar antes de calcular</a></li>
-<li class="chapter" data-level="18.16.2" data-path="importar-datos.html"><a href="importar-datos.html#ejercicio-2.-los-nombres-mienten"><i class="fa fa-check"></i><b>18.16.2</b> Ejercicio 2. Los nombres mienten</a></li>
-<li class="chapter" data-level="18.16.3" data-path="importar-datos.html"><a href="importar-datos.html#ejercicio-3.-un-c%C3%B3digo-no-es-un-n%C3%BAmero"><i class="fa fa-check"></i><b>18.16.3</b> Ejercicio 3. Un código no es un número</a></li>
-<li class="chapter" data-level="18.16.4" data-path="importar-datos.html"><a href="importar-datos.html#ejercicio-4.-ida-y-vuelta-por-el-disco"><i class="fa fa-check"></i><b>18.16.4</b> Ejercicio 4. Ida y vuelta por el disco</a></li>
-<li class="chapter" data-level="18.16.5" data-path="importar-datos.html"><a href="importar-datos.html#ejercicio-5.-un-archivo-sucio-hecho-a-mano"><i class="fa fa-check"></i><b>18.16.5</b> Ejercicio 5. Un archivo sucio, hecho a mano</a></li>
-<li class="chapter" data-level="18.16.6" data-path="importar-datos.html"><a href="importar-datos.html#ejercicio-6.-n%C3%BAmeros-escritos-en-espa%C3%B1ol"><i class="fa fa-check"></i><b>18.16.6</b> Ejercicio 6. Números escritos en español</a></li>
-<li class="chapter" data-level="18.16.7" data-path="importar-datos.html"><a href="importar-datos.html#ejercicio-7-bono.-fechas-y-horas-de-verdad"><i class="fa fa-check"></i><b>18.16.7</b> Ejercicio 7 (BONO). Fechas y horas de verdad</a></li>
+<li class="chapter" data-level="18.7.1" data-path="importar-datos.html"><a href="importar-datos.html#n%C3%BAmeros"><i class="fa fa-check"></i><b>18.7.1</b> Números</a></li>
+<li class="chapter" data-level="18.7.2" data-path="importar-datos.html"><a href="importar-datos.html#cadena-de-texto"><i class="fa fa-check"></i><b>18.7.2</b> Cadena de texto</a></li>
+<li class="chapter" data-level="18.7.3" data-path="importar-datos.html"><a href="importar-datos.html#factores"><i class="fa fa-check"></i><b>18.7.3</b> Factores</a></li>
+<li class="chapter" data-level="18.7.4" data-path="importar-datos.html"><a href="importar-datos.html#fechas-fechas-horas-horas"><i class="fa fa-check"></i><b>18.7.4</b> Fechas, fechas-horas, horas</a></li>
+</ul></li>
+<li class="chapter" data-level="18.8" data-path="importar-datos.html"><a href="importar-datos.html#segmentar-un-archivo"><i class="fa fa-check"></i><b>18.8</b> Segmentar un archivo</a></li>
+<li class="chapter" data-level="18.9" data-path="importar-datos.html"><a href="importar-datos.html#leer-varios-archivos-a-la-vez"><i class="fa fa-check"></i><b>18.9</b> Leer varios archivos a la vez</a></li>
+<li class="chapter" data-level="18.10" data-path="importar-datos.html"><a href="importar-datos.html#archivos-de-excel"><i class="fa fa-check"></i><b>18.10</b> Archivos de Excel</a></li>
+<li class="chapter" data-level="18.11" data-path="importar-datos.html"><a href="importar-datos.html#datos-importados-de-la-web"><i class="fa fa-check"></i><b>18.11</b> Datos importados de la web</a>
+<ul>
+<li class="chapter" data-level="18.11.1" data-path="importar-datos.html"><a href="importar-datos.html#datos-de-covid-19-en-puerto-rico"><i class="fa fa-check"></i><b>18.11.1</b> Datos de COVID-19 en Puerto Rico</a></li>
+<li class="chapter" data-level="18.11.2" data-path="importar-datos.html"><a href="importar-datos.html#d%C3%B3nde-encontrar-datos-de-puerto-rico"><i class="fa fa-check"></i><b>18.11.2</b> Dónde encontrar datos de Puerto Rico</a></li>
+</ul></li>
+<li class="chapter" data-level="18.12" data-path="importar-datos.html"><a href="importar-datos.html#escribir-un-archivo"><i class="fa fa-check"></i><b>18.12</b> Escribir un Archivo</a></li>
+<li class="chapter" data-level="18.13" data-path="importar-datos.html"><a href="importar-datos.html#otros-tipos-de-datos-y-paquetes"><i class="fa fa-check"></i><b>18.13</b> Otros tipos de datos y paquetes</a></li>
+<li class="chapter" data-level="18.14" data-path="importar-datos.html"><a href="importar-datos.html#ejercicios-del-libro-r4ds-4"><i class="fa fa-check"></i><b>18.14</b> Ejercicios del libro R4DS</a></li>
+<li class="chapter" data-level="18.15" data-path="importar-datos.html"><a href="importar-datos.html#ejercicios-del-cap%C3%ADtulo-13"><i class="fa fa-check"></i><b>18.15</b> Ejercicios del capítulo</a>
+<ul>
+<li class="chapter" data-level="18.15.1" data-path="importar-datos.html"><a href="importar-datos.html#ejercicio-1.-mirar-antes-de-calcular"><i class="fa fa-check"></i><b>18.15.1</b> Ejercicio 1. Mirar antes de calcular</a></li>
+<li class="chapter" data-level="18.15.2" data-path="importar-datos.html"><a href="importar-datos.html#ejercicio-2.-los-nombres-mienten"><i class="fa fa-check"></i><b>18.15.2</b> Ejercicio 2. Los nombres mienten</a></li>
+<li class="chapter" data-level="18.15.3" data-path="importar-datos.html"><a href="importar-datos.html#ejercicio-3.-un-c%C3%B3digo-no-es-un-n%C3%BAmero"><i class="fa fa-check"></i><b>18.15.3</b> Ejercicio 3. Un código no es un número</a></li>
+<li class="chapter" data-level="18.15.4" data-path="importar-datos.html"><a href="importar-datos.html#ejercicio-4.-ida-y-vuelta-por-el-disco"><i class="fa fa-check"></i><b>18.15.4</b> Ejercicio 4. Ida y vuelta por el disco</a></li>
+<li class="chapter" data-level="18.15.5" data-path="importar-datos.html"><a href="importar-datos.html#ejercicio-5.-punto-y-coma-y-coma-decimal"><i class="fa fa-check"></i><b>18.15.5</b> Ejercicio 5. Punto y coma, y coma decimal</a></li>
+<li class="chapter" data-level="18.15.6" data-path="importar-datos.html"><a href="importar-datos.html#ejercicio-6.-un-archivo-por-grupo"><i class="fa fa-check"></i><b>18.15.6</b> Ejercicio 6. Un archivo por grupo</a></li>
+<li class="chapter" data-level="18.15.7" data-path="importar-datos.html"><a href="importar-datos.html#ejercicio-7-bono.-fechas-y-horas-de-verdad"><i class="fa fa-check"></i><b>18.15.7</b> Ejercicio 7 (BONO). Fechas y horas de verdad</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="19" data-path="datos-ordenados.html"><a href="datos-ordenados.html"><i class="fa fa-check"></i><b>19</b> Datos Ordenados</a>
@@ -601,7 +638,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19.6" data-path="datos-ordenados.html"><a href="datos-ordenados.html#separate-y-unite"><i class="fa fa-check"></i><b>19.6</b> <code>separate()</code> y <code>unite()</code></a></li>
 <li class="chapter" data-level="19.7" data-path="datos-ordenados.html"><a href="datos-ordenados.html#valores-faltantes-impl%C3%ADcitos-y-expl%C3%ADcitos"><i class="fa fa-check"></i><b>19.7</b> Valores faltantes implícitos y explícitos</a></li>
 <li class="chapter" data-level="19.8" data-path="datos-ordenados.html"><a href="datos-ordenados.html#ejercicios-del-libro-r4ds-5"><i class="fa fa-check"></i><b>19.8</b> Ejercicios del libro R4DS</a></li>
-<li class="chapter" data-level="19.9" data-path="datos-ordenados.html"><a href="datos-ordenados.html#ejercicios-del-cap%C3%ADtulo-13"><i class="fa fa-check"></i><b>19.9</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="19.9" data-path="datos-ordenados.html"><a href="datos-ordenados.html#ejercicios-del-cap%C3%ADtulo-14"><i class="fa fa-check"></i><b>19.9</b> Ejercicios del capítulo</a>
 <ul>
 <li class="chapter" data-level="19.9.1" data-path="datos-ordenados.html"><a href="datos-ordenados.html#ejercicio-1.-est%C3%A1-ordenada"><i class="fa fa-check"></i><b>19.9.1</b> Ejercicio 1. ¿Está ordenada?</a></li>
 <li class="chapter" data-level="19.9.2" data-path="datos-ordenados.html"><a href="datos-ordenados.html#ejercicio-2.-de-largo-a-ancho"><i class="fa fa-check"></i><b>19.9.2</b> Ejercicio 2. De largo a ancho</a></li>
@@ -633,7 +670,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="20.9" data-path="datos-relacionados.html"><a href="datos-relacionados.html#uniones-de-filtro"><i class="fa fa-check"></i><b>20.9</b> Uniones de filtro</a></li>
 <li class="chapter" data-level="20.10" data-path="datos-relacionados.html"><a href="datos-relacionados.html#problemas-con-las-uniones"><i class="fa fa-check"></i><b>20.10</b> Problemas con las uniones</a></li>
 <li class="chapter" data-level="20.11" data-path="datos-relacionados.html"><a href="datos-relacionados.html#ejercicios-del-libro-r4ds-6"><i class="fa fa-check"></i><b>20.11</b> Ejercicios del libro R4DS</a></li>
-<li class="chapter" data-level="20.12" data-path="datos-relacionados.html"><a href="datos-relacionados.html#ejercicios-del-cap%C3%ADtulo-14"><i class="fa fa-check"></i><b>20.12</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="20.12" data-path="datos-relacionados.html"><a href="datos-relacionados.html#ejercicios-del-cap%C3%ADtulo-15"><i class="fa fa-check"></i><b>20.12</b> Ejercicios del capítulo</a>
 <ul>
 <li class="chapter" data-level="20.12.1" data-path="datos-relacionados.html"><a href="datos-relacionados.html#ejercicio-1.-encontrar-la-clave"><i class="fa fa-check"></i><b>20.12.1</b> Ejercicio 1. Encontrar la clave</a></li>
 <li class="chapter" data-level="20.12.2" data-path="datos-relacionados.html"><a href="datos-relacionados.html#ejercicio-2.-tu-propia-tabla-de-consulta"><i class="fa fa-check"></i><b>20.12.2</b> Ejercicio 2. Tu propia tabla de consulta</a></li>
@@ -666,7 +703,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="21.7.3" data-path="factores-1.html"><a href="factores-1.html#reordenar-a-mano-fct_relevel"><i class="fa fa-check"></i><b>21.7.3</b> Reordenar a mano: <code>fct_relevel()</code></a></li>
 </ul></li>
 <li class="chapter" data-level="21.8" data-path="factores-1.html"><a href="factores-1.html#ejercicios-del-libro-r4ds-7"><i class="fa fa-check"></i><b>21.8</b> Ejercicios del libro R4DS</a></li>
-<li class="chapter" data-level="21.9" data-path="factores-1.html"><a href="factores-1.html#ejercicios-del-cap%C3%ADtulo-15"><i class="fa fa-check"></i><b>21.9</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="21.9" data-path="factores-1.html"><a href="factores-1.html#ejercicios-del-cap%C3%ADtulo-16"><i class="fa fa-check"></i><b>21.9</b> Ejercicios del capítulo</a>
 <ul>
 <li class="chapter" data-level="21.9.1" data-path="factores-1.html"><a href="factores-1.html#ejercicio-1.-texto-contra-factor"><i class="fa fa-check"></i><b>21.9.1</b> Ejercicio 1. Texto contra factor</a></li>
 <li class="chapter" data-level="21.9.2" data-path="factores-1.html"><a href="factores-1.html#ejercicio-2.-fct_reorder-para-que-la-gr%C3%A1fica-hable"><i class="fa fa-check"></i><b>21.9.2</b> Ejercicio 2. <code>fct_reorder()</code> para que la gráfica hable</a></li>
@@ -739,7 +776,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="22.30.5" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#remover-todos-las-puntuaciones-en-el-texto-usando-punct"><i class="fa fa-check"></i><b>22.30.5</b> Remover todos las puntuaciones en el texto, usando “[[:punct:]]”</a></li>
 <li class="chapter" data-level="22.30.6" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#haz-una-lista-de-las-20-palabras-m%C3%A1s-comunes-en-el-texto-de-alice"><i class="fa fa-check"></i><b>22.30.6</b> Haz una lista de las 20 palabras más comunes en el texto de Alice</a></li>
 </ul></li>
-<li class="chapter" data-level="22.31" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#ejercicios-del-cap%C3%ADtulo-16"><i class="fa fa-check"></i><b>22.31</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="22.31" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#ejercicios-del-cap%C3%ADtulo-17"><i class="fa fa-check"></i><b>22.31</b> Ejercicios del capítulo</a>
 <ul>
 <li class="chapter" data-level="22.31.1" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#ejercicio-1.-lo-b%C3%A1sico"><i class="fa fa-check"></i><b>22.31.1</b> Ejercicio 1. Lo básico</a></li>
 <li class="chapter" data-level="22.31.2" data-path="cadena-de-caracteres-strings.html"><a href="cadena-de-caracteres-strings.html#ejercicio-2.-anclas"><i class="fa fa-check"></i><b>22.31.2</b> Ejercicio 2. Anclas</a></li>
@@ -768,7 +805,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="23.7" data-path="math-sci.html"><a href="math-sci.html#f%C3%ADsica"><i class="fa fa-check"></i><b>23.7</b> Física</a></li>
 <li class="chapter" data-level="23.8" data-path="math-sci.html"><a href="math-sci.html#biolog%C3%ADa"><i class="fa fa-check"></i><b>23.8</b> Biología</a></li>
-<li class="chapter" data-level="23.9" data-path="math-sci.html"><a href="math-sci.html#ejercicios-del-cap%C3%ADtulo-17"><i class="fa fa-check"></i><b>23.9</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="23.9" data-path="math-sci.html"><a href="math-sci.html#ejercicios-del-cap%C3%ADtulo-18"><i class="fa fa-check"></i><b>23.9</b> Ejercicios del capítulo</a>
 <ul>
 <li class="chapter" data-level="23.9.1" data-path="math-sci.html"><a href="math-sci.html#ejercicio-1.-en-la-l%C3%ADnea-y-aparte"><i class="fa fa-check"></i><b>23.9.1</b> Ejercicio 1. En la línea y aparte</a></li>
 <li class="chapter" data-level="23.9.2" data-path="math-sci.html"><a href="math-sci.html#ejercicio-2.-las-llaves-que-faltan"><i class="fa fa-check"></i><b>23.9.2</b> Ejercicio 2. Las llaves que faltan</a></li>
@@ -786,23 +823,26 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="24.3" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#para-ver-las-opciones-de-knitr-de-los-chunk"><i class="fa fa-check"></i><b>24.3</b> Para ver las opciones de <strong>knitr</strong> de los chunk</a>
 <ul>
 <li class="chapter" data-level="24.3.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#c%C3%B3mo-se-lee-la-tabla"><i class="fa fa-check"></i><b>24.3.1</b> Cómo se lee la tabla</a></li>
-<li class="chapter" data-level="24.3.2" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#figuras"><i class="fa fa-check"></i><b>24.3.2</b> Figuras</a></li>
-<li class="chapter" data-level="24.3.3" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#otras-opciones-de-knitr"><i class="fa fa-check"></i><b>24.3.3</b> OTRAS opciones de knitr</a></li>
 </ul></li>
-<li class="chapter" data-level="24.4" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#emojis-y-s%C3%ADmbolos"><i class="fa fa-check"></i><b>24.4</b> Emojis y símbolos</a>
+<li class="chapter" data-level="24.4" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#tablas-de-opciones-principales"><i class="fa fa-check"></i><b>24.4</b> Tablas de opciones principales</a>
 <ul>
-<li class="chapter" data-level="24.4.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#en-mac-se-abren-desde-edit-emoji-symbols."><i class="fa fa-check"></i><b>24.4.1</b> En Mac se abren desde Edit ➡ Emoji &amp; Symbols.</a></li>
+<li class="chapter" data-level="24.4.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#figuras"><i class="fa fa-check"></i><b>24.4.1</b> Figuras</a></li>
+<li class="chapter" data-level="24.4.2" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#otras-opciones-de-knitr"><i class="fa fa-check"></i><b>24.4.2</b> OTRAS opciones de knitr</a></li>
 </ul></li>
-<li class="chapter" data-level="24.5" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#cache-no-repetir-lo-que-ya-se-calcul%C3%B3"><i class="fa fa-check"></i><b>24.5</b> <code>cache</code>: no repetir lo que ya se calculó</a></li>
-<li class="chapter" data-level="24.6" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicios-del-cap%C3%ADtulo-18"><i class="fa fa-check"></i><b>24.6</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="24.5" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#emojis-y-s%C3%ADmbolos"><i class="fa fa-check"></i><b>24.5</b> Emojis y símbolos</a>
 <ul>
-<li class="chapter" data-level="24.6.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicio-1.-las-cuatro-maneras-de-esconder-algo"><i class="fa fa-check"></i><b>24.6.1</b> Ejercicio 1. Las cuatro maneras de esconder algo</a></li>
-<li class="chapter" data-level="24.6.2" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicio-2.-avisos-y-mensajes"><i class="fa fa-check"></i><b>24.6.2</b> Ejercicio 2. Avisos y mensajes</a></li>
-<li class="chapter" data-level="24.6.3" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicio-3.-la-trampa-del-evalfalse"><i class="fa fa-check"></i><b>24.6.3</b> Ejercicio 3. La trampa del <code>eval=FALSE</code></a></li>
-<li class="chapter" data-level="24.6.4" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicio-4.-el-tama%C3%B1o-de-una-figura"><i class="fa fa-check"></i><b>24.6.4</b> Ejercicio 4. El tamaño de una figura</a></li>
-<li class="chapter" data-level="24.6.5" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicio-5.-global-contra-local"><i class="fa fa-check"></i><b>24.6.5</b> Ejercicio 5. Global contra local</a></li>
-<li class="chapter" data-level="24.6.6" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicio-6.-cache"><i class="fa fa-check"></i><b>24.6.6</b> Ejercicio 6. <code>cache</code></a></li>
-<li class="chapter" data-level="24.6.7" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicio-7-bono.-escribir-el-documento-desde-el-c%C3%B3digo"><i class="fa fa-check"></i><b>24.6.7</b> Ejercicio 7 (BONO). Escribir el documento desde el código</a></li>
+<li class="chapter" data-level="24.5.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#en-mac-se-abren-desde-edit-emoji-symbols."><i class="fa fa-check"></i><b>24.5.1</b> En Mac se abren desde Edit ➡ Emoji &amp; Symbols.</a></li>
+</ul></li>
+<li class="chapter" data-level="24.6" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#cache-no-repetir-lo-que-ya-se-calcul%C3%B3"><i class="fa fa-check"></i><b>24.6</b> <code>cache</code>: no repetir lo que ya se calculó</a></li>
+<li class="chapter" data-level="24.7" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicios-del-cap%C3%ADtulo-19"><i class="fa fa-check"></i><b>24.7</b> Ejercicios del capítulo</a>
+<ul>
+<li class="chapter" data-level="24.7.1" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicio-1.-las-cuatro-maneras-de-esconder-algo"><i class="fa fa-check"></i><b>24.7.1</b> Ejercicio 1. Las cuatro maneras de esconder algo</a></li>
+<li class="chapter" data-level="24.7.2" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicio-2.-avisos-y-mensajes"><i class="fa fa-check"></i><b>24.7.2</b> Ejercicio 2. Avisos y mensajes</a></li>
+<li class="chapter" data-level="24.7.3" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicio-3.-la-trampa-del-evalfalse"><i class="fa fa-check"></i><b>24.7.3</b> Ejercicio 3. La trampa del <code>eval=FALSE</code></a></li>
+<li class="chapter" data-level="24.7.4" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicio-4.-el-tama%C3%B1o-de-una-figura"><i class="fa fa-check"></i><b>24.7.4</b> Ejercicio 4. El tamaño de una figura</a></li>
+<li class="chapter" data-level="24.7.5" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicio-5.-global-contra-local"><i class="fa fa-check"></i><b>24.7.5</b> Ejercicio 5. Global contra local</a></li>
+<li class="chapter" data-level="24.7.6" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicio-6.-cache"><i class="fa fa-check"></i><b>24.7.6</b> Ejercicio 6. <code>cache</code></a></li>
+<li class="chapter" data-level="24.7.7" data-path="opciones-de-knitr.html"><a href="opciones-de-knitr.html#ejercicio-7-bono.-escribir-el-documento-desde-el-c%C3%B3digo"><i class="fa fa-check"></i><b>24.7.7</b> Ejercicio 7 (BONO). Escribir el documento desde el código</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="25" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html"><i class="fa fa-check"></i><b>25</b> Fechas, horas y minutas</a>
@@ -816,7 +856,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="25.5" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#intervalos-y-duraciones"><i class="fa fa-check"></i><b>25.5</b> Intervalos y duraciones</a></li>
 <li class="chapter" data-level="25.6" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#el-operador----simplifica-el-c%C3%A1lculo-del-intervalo"><i class="fa fa-check"></i><b>25.6</b> El operador <code>%--%</code> simplifica el cálculo del intervalo</a></li>
-<li class="chapter" data-level="25.7" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#ejercicio-1"><i class="fa fa-check"></i><b>25.7</b> Ejercicio</a></li>
+<li class="chapter" data-level="25.7" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#ejercicio"><i class="fa fa-check"></i><b>25.7</b> Ejercicio</a></li>
 <li class="chapter" data-level="25.8" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#serie-de-funciones-para-calcular-la-duraci%C3%B3n-de-un-intervalo-de-tiempo."><i class="fa fa-check"></i><b>25.8</b> Serie de funciones para calcular la duración de un intervalo de tiempo.</a></li>
 <li class="chapter" data-level="25.9" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#as.duration"><i class="fa fa-check"></i><b>25.9</b> as.duration</a>
 <ul>
@@ -845,7 +885,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="25.18" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#intervalos"><i class="fa fa-check"></i><b>25.18</b> Intervalos</a></li>
 <li class="chapter" data-level="25.19" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#resumen"><i class="fa fa-check"></i><b>25.19</b> Resumen</a></li>
 <li class="chapter" data-level="25.20" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#zonas-horarias"><i class="fa fa-check"></i><b>25.20</b> Zonas horarias</a></li>
-<li class="chapter" data-level="25.21" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#ejercicios-del-cap%C3%ADtulo-19"><i class="fa fa-check"></i><b>25.21</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="25.21" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#ejercicios-del-cap%C3%ADtulo-20"><i class="fa fa-check"></i><b>25.21</b> Ejercicios del capítulo</a>
 <ul>
 <li class="chapter" data-level="25.21.1" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#ejercicio-1.-la-misma-fecha-escrita-de-cinco-maneras"><i class="fa fa-check"></i><b>25.21.1</b> Ejercicio 1. La misma fecha, escrita de cinco maneras</a></li>
 <li class="chapter" data-level="25.21.2" data-path="fechas-horas-y-minutas.html"><a href="fechas-horas-y-minutas.html#ejercicio-2.-extraer-las-partes"><i class="fa fa-check"></i><b>25.21.2</b> Ejercicio 2. Extraer las partes</a></li>
@@ -873,7 +913,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="26.10" data-path="funciones-2.html"><a href="funciones-2.html#un-vistazo-a-los-vectores"><i class="fa fa-check"></i><b>26.10</b> Un vistazo a los vectores</a></li>
 <li class="chapter" data-level="26.11" data-path="funciones-2.html"><a href="funciones-2.html#cu%C3%A1ndo-no-escribir-una-funci%C3%B3n"><i class="fa fa-check"></i><b>26.11</b> ¿Cuándo <strong>no</strong> escribir una función?</a></li>
 <li class="chapter" data-level="26.12" data-path="funciones-2.html"><a href="funciones-2.html#ejercicios-del-libro-r4ds-8"><i class="fa fa-check"></i><b>26.12</b> Ejercicios del libro R4DS</a></li>
-<li class="chapter" data-level="26.13" data-path="funciones-2.html"><a href="funciones-2.html#ejercicios-del-cap%C3%ADtulo-20"><i class="fa fa-check"></i><b>26.13</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="26.13" data-path="funciones-2.html"><a href="funciones-2.html#ejercicios-del-cap%C3%ADtulo-21"><i class="fa fa-check"></i><b>26.13</b> Ejercicios del capítulo</a>
 <ul>
 <li class="chapter" data-level="26.13.1" data-path="funciones-2.html"><a href="funciones-2.html#ejercicio-1.-reescalar-de-verdad"><i class="fa fa-check"></i><b>26.13.1</b> Ejercicio 1. Reescalar de verdad</a></li>
 <li class="chapter" data-level="26.13.2" data-path="funciones-2.html"><a href="funciones-2.html#ejercicio-2.-una-funci%C3%B3n-que-devuelve-una-tabla"><i class="fa fa-check"></i><b>26.13.2</b> Ejercicio 2. Una función que devuelve una tabla</a></li>
@@ -898,7 +938,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="27.10" data-path="iteración-purrr.html"><a href="iteración-purrr.html#un-modelo-por-grupo"><i class="fa fa-check"></i><b>27.10</b> Un modelo por grupo</a></li>
 <li class="chapter" data-level="27.11" data-path="iteración-purrr.html"><a href="iteración-purrr.html#cu%C3%A1ndo-un-for-sigue-siendo-mejor"><i class="fa fa-check"></i><b>27.11</b> Cuándo un <code>for</code> sigue siendo mejor</a></li>
 <li class="chapter" data-level="27.12" data-path="iteración-purrr.html"><a href="iteración-purrr.html#ejercicios-del-libro-r4ds-9"><i class="fa fa-check"></i><b>27.12</b> Ejercicios del libro R4DS</a></li>
-<li class="chapter" data-level="27.13" data-path="iteración-purrr.html"><a href="iteración-purrr.html#ejercicios-del-cap%C3%ADtulo-21"><i class="fa fa-check"></i><b>27.13</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="27.13" data-path="iteración-purrr.html"><a href="iteración-purrr.html#ejercicios-del-cap%C3%ADtulo-22"><i class="fa fa-check"></i><b>27.13</b> Ejercicios del capítulo</a>
 <ul>
 <li class="chapter" data-level="27.13.1" data-path="iteración-purrr.html"><a href="iteración-purrr.html#ejercicio-1.-del-for-al-map"><i class="fa fa-check"></i><b>27.13.1</b> Ejercicio 1. Del <code>for</code> al <code>map()</code></a></li>
 <li class="chapter" data-level="27.13.2" data-path="iteración-purrr.html"><a href="iteración-purrr.html#ejercicio-2.-el-tipo-importa"><i class="fa fa-check"></i><b>27.13.2</b> Ejercicio 2. El tipo importa</a></li>
@@ -926,7 +966,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="28.7" data-path="modelos-modelr.html"><a href="modelos-modelr.html#predictoras-categ%C3%B3ricas-y-varias-variables"><i class="fa fa-check"></i><b>28.7</b> Predictoras categóricas y varias variables</a></li>
 <li class="chapter" data-level="28.8" data-path="modelos-modelr.html"><a href="modelos-modelr.html#predecir-no-es-explicar"><i class="fa fa-check"></i><b>28.8</b> Predecir no es explicar</a></li>
 <li class="chapter" data-level="28.9" data-path="modelos-modelr.html"><a href="modelos-modelr.html#ejercicios-del-libro-r4ds-10"><i class="fa fa-check"></i><b>28.9</b> Ejercicios del libro R4DS</a></li>
-<li class="chapter" data-level="28.10" data-path="modelos-modelr.html"><a href="modelos-modelr.html#ejercicios-del-cap%C3%ADtulo-22"><i class="fa fa-check"></i><b>28.10</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="28.10" data-path="modelos-modelr.html"><a href="modelos-modelr.html#ejercicios-del-cap%C3%ADtulo-23"><i class="fa fa-check"></i><b>28.10</b> Ejercicios del capítulo</a>
 <ul>
 <li class="chapter" data-level="28.10.1" data-path="modelos-modelr.html"><a href="modelos-modelr.html#ejercicio-1.-el-modelo-m%C3%A1s-sencillo"><i class="fa fa-check"></i><b>28.10.1</b> Ejercicio 1. El modelo más sencillo</a></li>
 <li class="chapter" data-level="28.10.2" data-path="modelos-modelr.html"><a href="modelos-modelr.html#ejercicio-2.-los-residuales-delatan"><i class="fa fa-check"></i><b>28.10.2</b> Ejercicio 2. Los residuales delatan</a></li>
@@ -949,7 +989,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="29.3.4" data-path="hex-stickers.html"><a href="hex-stickers.html#consejos-de-dise%C3%B1o"><i class="fa fa-check"></i><b>29.3.4</b> Consejos de diseño</a></li>
 </ul></li>
 <li class="chapter" data-level="29.4" data-path="hex-stickers.html"><a href="hex-stickers.html#ejemplo-de-crear-un-hex-con-un-gatito"><i class="fa fa-check"></i><b>29.4</b> Ejemplo de Crear un Hex con un gatito</a></li>
-<li class="chapter" data-level="29.5" data-path="hex-stickers.html"><a href="hex-stickers.html#ejercicios-del-cap%C3%ADtulo-23"><i class="fa fa-check"></i><b>29.5</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="29.5" data-path="hex-stickers.html"><a href="hex-stickers.html#ejercicios-del-cap%C3%ADtulo-24"><i class="fa fa-check"></i><b>29.5</b> Ejercicios del capítulo</a>
 <ul>
 <li class="chapter" data-level="29.5.1" data-path="hex-stickers.html"><a href="hex-stickers.html#ejercicio-1.-una-calcoman%C3%ADa-a-partir-de-una-gr%C3%A1fica"><i class="fa fa-check"></i><b>29.5.1</b> Ejercicio 1. Una calcomanía a partir de una gráfica</a></li>
 <li class="chapter" data-level="29.5.2" data-path="hex-stickers.html"><a href="hex-stickers.html#ejercicio-2.-el-sistema-de-coordenadas"><i class="fa fa-check"></i><b>29.5.2</b> Ejercicio 2. El sistema de coordenadas</a></li>
@@ -993,7 +1033,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="30.19" data-path="nubes-de-palabra-en-r.html"><a href="nubes-de-palabra-en-r.html#transformar-el-texto-para-reemplazar-algunos-caracteres-especiales"><i class="fa fa-check"></i><b>30.19</b> Transformar el texto para reemplazar algunos caracteres especiales</a></li>
 <li class="chapter" data-level="30.20" data-path="nubes-de-palabra-en-r.html"><a href="nubes-de-palabra-en-r.html#crear-una-matriz-de-las-palabras"><i class="fa fa-check"></i><b>30.20</b> Crear una matriz de las palabras</a></li>
 <li class="chapter" data-level="30.21" data-path="nubes-de-palabra-en-r.html"><a href="nubes-de-palabra-en-r.html#calcular-la-frecuencia-de-cada-palabra"><i class="fa fa-check"></i><b>30.21</b> Calcular la frecuencia de cada palabra</a></li>
-<li class="chapter" data-level="30.22" data-path="nubes-de-palabra-en-r.html"><a href="nubes-de-palabra-en-r.html#ejercicios-del-cap%C3%ADtulo-24"><i class="fa fa-check"></i><b>30.22</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="30.22" data-path="nubes-de-palabra-en-r.html"><a href="nubes-de-palabra-en-r.html#ejercicios-del-cap%C3%ADtulo-25"><i class="fa fa-check"></i><b>30.22</b> Ejercicios del capítulo</a>
 <ul>
 <li class="chapter" data-level="30.22.1" data-path="nubes-de-palabra-en-r.html"><a href="nubes-de-palabra-en-r.html#ejercicio-1.-la-nube-in%C3%BAtil"><i class="fa fa-check"></i><b>30.22.1</b> Ejercicio 1. La nube inútil</a></li>
 <li class="chapter" data-level="30.22.2" data-path="nubes-de-palabra-en-r.html"><a href="nubes-de-palabra-en-r.html#ejercicio-2.-las-palabras-vac%C3%ADas"><i class="fa fa-check"></i><b>30.22.2</b> Ejercicio 2. Las palabras vacías</a></li>
@@ -1016,7 +1056,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="31.3" data-path="temas-avanzados-en-data-science-con-tidyverse.html"><a href="temas-avanzados-en-data-science-con-tidyverse.html#modelado-con-tidymodels"><i class="fa fa-check"></i><b>31.3</b> 2. Modelado con tidymodels</a></li>
 <li class="chapter" data-level="31.4" data-path="temas-avanzados-en-data-science-con-tidyverse.html"><a href="temas-avanzados-en-data-science-con-tidyverse.html#visualizaci%C3%B3n-avanzada-con-ggplot2"><i class="fa fa-check"></i><b>31.4</b> 3. Visualización avanzada con ggplot2</a></li>
 <li class="chapter" data-level="31.5" data-path="temas-avanzados-en-data-science-con-tidyverse.html"><a href="temas-avanzados-en-data-science-con-tidyverse.html#datos-anidados-y-listas-con-purrr"><i class="fa fa-check"></i><b>31.5</b> 4. Datos anidados y listas con purrr</a></li>
-<li class="chapter" data-level="31.6" data-path="temas-avanzados-en-data-science-con-tidyverse.html"><a href="temas-avanzados-en-data-science-con-tidyverse.html#ejercicios-del-cap%C3%ADtulo-25"><i class="fa fa-check"></i><b>31.6</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="31.6" data-path="temas-avanzados-en-data-science-con-tidyverse.html"><a href="temas-avanzados-en-data-science-con-tidyverse.html#ejercicios-del-cap%C3%ADtulo-26"><i class="fa fa-check"></i><b>31.6</b> Ejercicios del capítulo</a>
 <ul>
 <li class="chapter" data-level="31.6.1" data-path="temas-avanzados-en-data-science-con-tidyverse.html"><a href="temas-avanzados-en-data-science-con-tidyverse.html#ejercicio-1.-el-problema-antes-de-la-soluci%C3%B3n"><i class="fa fa-check"></i><b>31.6.1</b> Ejercicio 1. El problema, antes de la solución</a></li>
 <li class="chapter" data-level="31.6.2" data-path="temas-avanzados-en-data-science-con-tidyverse.html"><a href="temas-avanzados-en-data-science-con-tidyverse.html#ejercicio-2.-las-llaves-dobles"><i class="fa fa-check"></i><b>31.6.2</b> Ejercicio 2. Las llaves dobles</a></li>
@@ -1045,7 +1085,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="32.9.1" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#addawesomemarkers-cambiando-el-dise%C3%B1o-de-los-marcadores"><i class="fa fa-check"></i><b>32.9.1</b> addAwesomeMarkers: Cambiando el diseño de los marcadores</a></li>
 </ul></li>
 <li class="chapter" data-level="32.10" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#trabajando-variables-categ%C3%B3ricas-con-leaflet"><i class="fa fa-check"></i><b>32.10</b> Trabajando Variables Categóricas con Leaflet:</a></li>
-<li class="chapter" data-level="32.11" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#ejercicios-del-cap%C3%ADtulo-26"><i class="fa fa-check"></i><b>32.11</b> Ejercicios del capítulo</a>
+<li class="chapter" data-level="32.11" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#ejercicios-del-cap%C3%ADtulo-27"><i class="fa fa-check"></i><b>32.11</b> Ejercicios del capítulo</a>
 <ul>
 <li class="chapter" data-level="32.11.1" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#ejercicio-1.-el-mapa-m%C3%A1s-sencillo"><i class="fa fa-check"></i><b>32.11.1</b> Ejercicio 1. El mapa más sencillo</a></li>
 <li class="chapter" data-level="32.11.2" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#ejercicio-2.-los-puntos-que-acabaron-en-el-oc%C3%A9ano"><i class="fa fa-check"></i><b>32.11.2</b> Ejercicio 2. Los puntos que acabaron en el océano</a></li>
@@ -1056,9 +1096,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="32.11.7" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#ejercicio-7-bono.-capas-que-se-encienden"><i class="fa fa-check"></i><b>32.11.7</b> Ejercicio 7 (BONO). Capas que se encienden</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path=""><a href="#appendix-ap%C3%A9ndice"><i class="fa fa-check"></i>(APPENDIX) Apéndice</a>
+<li class="appendix"><span><b>Apéndice</b></span></li>
+<li class="chapter" data-level="" data-path="apéndice-a-covid-19-acumulativo.html"><a href="apéndice-a-covid-19-acumulativo.html"><i class="fa fa-check"></i>Apéndice A: COVID-19 acumulativo</a>
 <ul>
-<li class="chapter" data-level="" data-path="leaflet-mapas-interactivos.html"><a href="leaflet-mapas-interactivos.html#covid-19-cumulativo"><i class="fa fa-check"></i>COVID 19 Cumulativo</a></li>
+<li class="chapter" data-level="" data-path="apéndice-a-covid-19-acumulativo.html"><a href="apéndice-a-covid-19-acumulativo.html#covid-19-cumulativo"><i class="fa fa-check"></i>COVID 19 Cumulativo</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con bookdown</a></li>
@@ -1083,7 +1124,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="tibbles" class="section level1 hasAnchor" number="17">
 <h1><span class="header-section-number">Capítulo17</span> Tibbles<a href="tibbles.html#tibbles" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Fecha de la última revisión</p>
-<pre><code>## [1] &quot;2026-09-20&quot;</code></pre>
+<pre><code>## [1] &quot;2026-09-30&quot;</code></pre>
 <hr />
 <p>El tema proviene de los siguientes sitios.</p>
 <p>English:
@@ -1108,8 +1149,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="paquetes-4" class="section level2 hasAnchor" number="17.2">
 <h2><span class="header-section-number">17.2</span> Paquetes<a href="tibbles.html#paquetes-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="tibbles.html#cb2-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-2"><a href="tibbles.html#cb2-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span></code></pre></div>
+<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="tibbles.html#cb693-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb693-2"><a href="tibbles.html#cb693-2" tabindex="-1"></a><span class="fu">library</span>(datos)</span></code></pre></div>
 <hr />
 </div>
 <div id="por-qué-existe-el-tibble" class="section level2 hasAnchor" number="17.3">
@@ -1118,13 +1159,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 Con los años se le fueron acumulando comportamientos que en su momento eran
 cómodos y que hoy hacen perder tiempo:</p>
 <ul>
-<li>imprime la tabla <strong>entera</strong> en la consola, así que un archivo de 50 000 filas
-llena la pantalla y hay que subir a buscar el principio;</li>
-<li>hace <strong>coincidencia parcial</strong> de nombres: si le pides <code>df$a</code> y la única columna
-que empieza por “a” es <code>abc</code>, te la da sin avisar, y una errata pasa por buena;</li>
-<li>durante muchos años convertía el texto en factores por su cuenta, y arreglaba
-los nombres de columna sin decirlo;</li>
-<li>guarda <strong>nombres de fila</strong>, que son datos escondidos fuera de las columnas.</li>
+<li><p>imprime la tabla <strong>entera</strong> en la consola, así que un archivo de 50 000 filas
+llena la pantalla y hay que subir a buscar el principio;</p></li>
+<li><p>hace <strong>coincidencia parcial</strong> de nombres: si le pides <code>df$a</code> y la única columna
+que empieza por “a” es <code>abc</code>, te la da sin avisar, y una errata pasa por buena;</p></li>
+<li><p>durante muchos años convertía el texto en factores por su cuenta, y arreglaba
+los nombres de columna sin decirlo;</p></li>
+<li><p>guarda <strong>nombres de fila</strong>, que son datos escondidos fuera de las columnas.</p></li>
 </ul>
 <p>El <code>tibble</code> hace lo mismo que el <code>data.frame</code> pero <strong>sin la magia</strong>: imprime poco,
 no adivina nombres, no cambia tipos y no guarda nombres de fila. Se queja cuando
@@ -1157,11 +1198,11 @@ recicla vectores de largo raro.</p>
 pide el enunciado, y deja un <code>NA</code> en la última edad. Completarlo es el primer
 ejercicio del capítulo.</p>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="tibbles.html#cb3-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
-<span id="cb3-2"><a href="tibbles.html#cb3-2" tabindex="-1"></a>  <span class="at">secuencia =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,</span>
-<span id="cb3-3"><a href="tibbles.html#cb3-3" tabindex="-1"></a>  <span class="at">edad      =</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">26</span>, <span class="dv">24</span>, <span class="dv">26</span>, <span class="dv">27</span>, <span class="cn">NA</span>),</span>
-<span id="cb3-4"><a href="tibbles.html#cb3-4" tabindex="-1"></a>  <span class="at">nombre    =</span> <span class="fu">c</span>(<span class="st">&quot;Jose&quot;</span>, <span class="st">&quot;Maria&quot;</span>, <span class="st">&quot;Carol&quot;</span>, <span class="st">&quot;Moncho&quot;</span>, <span class="st">&quot;Liz&quot;</span>, <span class="st">&quot;Maria&quot;</span>)</span>
-<span id="cb3-5"><a href="tibbles.html#cb3-5" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="tibbles.html#cb694-1" tabindex="-1"></a><span class="fu">tibble</span>(</span>
+<span id="cb694-2"><a href="tibbles.html#cb694-2" tabindex="-1"></a>  <span class="at">secuencia =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,</span>
+<span id="cb694-3"><a href="tibbles.html#cb694-3" tabindex="-1"></a>  <span class="at">edad      =</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">26</span>, <span class="dv">24</span>, <span class="dv">26</span>, <span class="dv">27</span>, <span class="cn">NA</span>),</span>
+<span id="cb694-4"><a href="tibbles.html#cb694-4" tabindex="-1"></a>  <span class="at">nombre    =</span> <span class="fu">c</span>(<span class="st">&quot;Jose&quot;</span>, <span class="st">&quot;Maria&quot;</span>, <span class="st">&quot;Carol&quot;</span>, <span class="st">&quot;Moncho&quot;</span>, <span class="st">&quot;Liz&quot;</span>, <span class="st">&quot;Maria&quot;</span>)</span>
+<span id="cb694-5"><a href="tibbles.html#cb694-5" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
 ##   secuencia  edad nombre
 ##       &lt;int&gt; &lt;dbl&gt; &lt;chr&gt; 
@@ -1185,12 +1226,12 @@ tabla de equivalencias, los códigos de las parcelas.</p>
 para R, pero hace que un dato fuera de sitio salte a la vista.</p>
 </div>
 <p>Haga un tribble con las primeras 3 líneas del tibble anterior</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="tibbles.html#cb5-1" tabindex="-1"></a><span class="fu">tribble</span>(</span>
-<span id="cb5-2"><a href="tibbles.html#cb5-2" tabindex="-1"></a>  <span class="sc">~</span>secuencia, <span class="sc">~</span>edad, <span class="sc">~</span>nombre,</span>
-<span id="cb5-3"><a href="tibbles.html#cb5-3" tabindex="-1"></a>           <span class="dv">1</span>,    <span class="dv">23</span>, <span class="st">&quot;Jose&quot;</span>,</span>
-<span id="cb5-4"><a href="tibbles.html#cb5-4" tabindex="-1"></a>           <span class="dv">2</span>,    <span class="dv">26</span>, <span class="st">&quot;Maria&quot;</span>,</span>
-<span id="cb5-5"><a href="tibbles.html#cb5-5" tabindex="-1"></a>           <span class="dv">3</span>,    <span class="dv">23</span>, <span class="st">&quot;Carol&quot;</span></span>
-<span id="cb5-6"><a href="tibbles.html#cb5-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb696-1"><a href="tibbles.html#cb696-1" tabindex="-1"></a><span class="fu">tribble</span>(</span>
+<span id="cb696-2"><a href="tibbles.html#cb696-2" tabindex="-1"></a>  <span class="sc">~</span>secuencia, <span class="sc">~</span>edad, <span class="sc">~</span>nombre,</span>
+<span id="cb696-3"><a href="tibbles.html#cb696-3" tabindex="-1"></a>           <span class="dv">1</span>,    <span class="dv">23</span>, <span class="st">&quot;Jose&quot;</span>,</span>
+<span id="cb696-4"><a href="tibbles.html#cb696-4" tabindex="-1"></a>           <span class="dv">2</span>,    <span class="dv">26</span>, <span class="st">&quot;Maria&quot;</span>,</span>
+<span id="cb696-5"><a href="tibbles.html#cb696-5" tabindex="-1"></a>           <span class="dv">3</span>,    <span class="dv">23</span>, <span class="st">&quot;Carol&quot;</span></span>
+<span id="cb696-6"><a href="tibbles.html#cb696-6" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##   secuencia  edad nombre
 ##       &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; 
@@ -1213,45 +1254,45 @@ filas de golpe. Por eso aquí va envuelto en <code>head()</code>, que es la mane
 decir “enséñame el principio y ya”. Prueba una vez en tu consola a escribirlo sin
 <code>head()</code>, para ver lo que te estás ahorrando, y no lo dejes así en ningún
 documento que vayas a entregar.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="tibbles.html#cb7-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
-<span id="cb7-2"><a href="tibbles.html#cb7-2" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="tibbles.html#cb7-3" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb7-4"><a href="tibbles.html#cb7-4" tabindex="-1"></a>  <span class="at">a =</span> lubridate<span class="sc">::</span><span class="fu">now</span>() <span class="sc">+</span> <span class="fu">runif</span>(<span class="fl">1e2</span>) <span class="sc">*</span> <span class="dv">86400</span>,</span>
-<span id="cb7-5"><a href="tibbles.html#cb7-5" tabindex="-1"></a>  <span class="at">b =</span> lubridate<span class="sc">::</span><span class="fu">today</span>() <span class="sc">+</span> <span class="fu">runif</span>(<span class="fl">1e2</span>) <span class="sc">*</span> <span class="dv">30</span>,</span>
-<span id="cb7-6"><a href="tibbles.html#cb7-6" tabindex="-1"></a>  <span class="at">c =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>,</span>
-<span id="cb7-7"><a href="tibbles.html#cb7-7" tabindex="-1"></a>  <span class="at">d =</span> <span class="fu">runif</span>(<span class="fl">1e2</span>),</span>
-<span id="cb7-8"><a href="tibbles.html#cb7-8" tabindex="-1"></a>  <span class="at">e =</span> <span class="fu">sample</span>(letters, <span class="fl">1e2</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb7-9"><a href="tibbles.html#cb7-9" tabindex="-1"></a>)</span>
-<span id="cb7-10"><a href="tibbles.html#cb7-10" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="tibbles.html#cb7-11" tabindex="-1"></a>tb</span></code></pre></div>
+<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="tibbles.html#cb698-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb698-2"><a href="tibbles.html#cb698-2" tabindex="-1"></a></span>
+<span id="cb698-3"><a href="tibbles.html#cb698-3" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb698-4"><a href="tibbles.html#cb698-4" tabindex="-1"></a>  <span class="at">a =</span> lubridate<span class="sc">::</span><span class="fu">now</span>() <span class="sc">+</span> <span class="fu">runif</span>(<span class="fl">1e2</span>) <span class="sc">*</span> <span class="dv">86400</span>,</span>
+<span id="cb698-5"><a href="tibbles.html#cb698-5" tabindex="-1"></a>  <span class="at">b =</span> lubridate<span class="sc">::</span><span class="fu">today</span>() <span class="sc">+</span> <span class="fu">runif</span>(<span class="fl">1e2</span>) <span class="sc">*</span> <span class="dv">30</span>,</span>
+<span id="cb698-6"><a href="tibbles.html#cb698-6" tabindex="-1"></a>  <span class="at">c =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>,</span>
+<span id="cb698-7"><a href="tibbles.html#cb698-7" tabindex="-1"></a>  <span class="at">d =</span> <span class="fu">runif</span>(<span class="fl">1e2</span>),</span>
+<span id="cb698-8"><a href="tibbles.html#cb698-8" tabindex="-1"></a>  <span class="at">e =</span> <span class="fu">sample</span>(letters, <span class="fl">1e2</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb698-9"><a href="tibbles.html#cb698-9" tabindex="-1"></a>)</span>
+<span id="cb698-10"><a href="tibbles.html#cb698-10" tabindex="-1"></a></span>
+<span id="cb698-11"><a href="tibbles.html#cb698-11" tabindex="-1"></a>tb</span></code></pre></div>
 <pre><code>## # A tibble: 100 × 5
 ##    a                   b              c     d e    
 ##    &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
-##  1 2026-09-21 08:18:40 2026-09-23     1 0.888 b    
-##  2 2026-09-21 04:53:59 2026-10-14     2 0.630 m    
-##  3 2026-09-20 18:54:23 2026-10-02     3 0.311 l    
-##  4 2026-09-20 22:24:01 2026-09-22     4 0.963 z    
-##  5 2026-09-21 04:52:19 2026-09-25     5 0.410 g    
-##  6 2026-09-20 16:08:46 2026-09-25     6 0.748 m    
-##  7 2026-09-21 02:43:57 2026-10-10     7 0.133 o    
-##  8 2026-09-21 12:12:26 2026-10-08     8 0.969 a    
-##  9 2026-09-20 21:36:11 2026-09-27     9 0.840 y    
-## 10 2026-09-21 05:28:56 2026-10-07    10 0.575 n    
+##  1 2026-10-01 04:12:46 2026-10-03     1 0.888 b    
+##  2 2026-10-01 00:48:05 2026-10-24     2 0.630 m    
+##  3 2026-09-30 14:48:29 2026-10-12     3 0.311 l    
+##  4 2026-09-30 18:18:07 2026-10-02     4 0.963 z    
+##  5 2026-10-01 00:46:25 2026-10-05     5 0.410 g    
+##  6 2026-09-30 12:02:52 2026-10-05     6 0.748 m    
+##  7 2026-09-30 22:38:03 2026-10-20     7 0.133 o    
+##  8 2026-10-01 08:06:32 2026-10-18     8 0.969 a    
+##  9 2026-09-30 17:30:17 2026-10-07     9 0.840 y    
+## 10 2026-10-01 01:23:02 2026-10-17    10 0.575 n    
 ## # ℹ 90 more rows</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="tibbles.html#cb9-1" tabindex="-1"></a>df_tb <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(tb)</span>
-<span id="cb9-2"><a href="tibbles.html#cb9-2" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="tibbles.html#cb9-3" tabindex="-1"></a><span class="fu">head</span>(df_tb, <span class="at">n =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="tibbles.html#cb700-1" tabindex="-1"></a>df_tb <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(tb)</span>
+<span id="cb700-2"><a href="tibbles.html#cb700-2" tabindex="-1"></a></span>
+<span id="cb700-3"><a href="tibbles.html#cb700-3" tabindex="-1"></a><span class="fu">head</span>(df_tb, <span class="at">n =</span> <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##                      a          b  c         d e
-## 1  2026-09-21 08:18:40 2026-09-23  1 0.8880583 b
-## 2  2026-09-21 04:53:59 2026-10-14  2 0.6304131 m
-## 3  2026-09-20 18:54:23 2026-10-02  3 0.3107084 l
-## 4  2026-09-20 22:24:01 2026-09-22  4 0.9632153 z
-## 5  2026-09-21 04:52:19 2026-09-25  5 0.4099068 g
-## 6  2026-09-20 16:08:46 2026-09-25  6 0.7481300 m
-## 7  2026-09-21 02:43:57 2026-10-10  7 0.1331446 o
-## 8  2026-09-21 12:12:26 2026-10-08  8 0.9693217 a
-## 9  2026-09-20 21:36:11 2026-09-27  9 0.8403344 y
-## 10 2026-09-21 05:28:56 2026-10-07 10 0.5746544 n</code></pre>
+## 1  2026-10-01 04:12:46 2026-10-03  1 0.8880583 b
+## 2  2026-10-01 00:48:05 2026-10-24  2 0.6304131 m
+## 3  2026-09-30 14:48:29 2026-10-12  3 0.3107084 l
+## 4  2026-09-30 18:18:07 2026-10-02  4 0.9632153 z
+## 5  2026-10-01 00:46:25 2026-10-05  5 0.4099068 g
+## 6  2026-09-30 12:02:52 2026-10-05  6 0.7481300 m
+## 7  2026-09-30 22:38:03 2026-10-20  7 0.1331446 o
+## 8  2026-10-01 08:06:32 2026-10-18  8 0.9693217 a
+## 9  2026-09-30 17:30:17 2026-10-07  9 0.8403344 y
+## 10 2026-10-01 01:23:02 2026-10-17 10 0.5746544 n</code></pre>
 <div class="funcion">
 <p><strong><code>head()</code>, <code>tail()</code>, <code>slice_head()</code>, <code>slice_sample()</code> y <code>glimpse()</code></strong>: mirar una
 tabla sin inundar la pantalla.</p>
@@ -1284,23 +1325,23 @@ esa línea, cada <code>knit</code> produciría números distintos.</p>
 <li><strong><code>View(tabla)</code>:</strong> abre la tabla completa en una ventana de RStudio, que casi siempre es lo que uno quería.</li>
 </ul>
 </div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="tibbles.html#cb11-1" tabindex="-1"></a>tb <span class="sc">|&gt;</span></span>
-<span id="cb11-2"><a href="tibbles.html#cb11-2" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="at">width =</span> <span class="cn">Inf</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb702-1"><a href="tibbles.html#cb702-1" tabindex="-1"></a>tb <span class="sc">|&gt;</span></span>
+<span id="cb702-2"><a href="tibbles.html#cb702-2" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">4</span>, <span class="at">width =</span> <span class="cn">Inf</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 100 × 5
 ##   a                   b              c     d e    
 ##   &lt;dttm&gt;              &lt;date&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1 2026-09-21 08:18:40 2026-09-23     1 0.888 b    
-## 2 2026-09-21 04:53:59 2026-10-14     2 0.630 m    
-## 3 2026-09-20 18:54:23 2026-10-02     3 0.311 l    
-## 4 2026-09-20 22:24:01 2026-09-22     4 0.963 z    
+## 1 2026-10-01 04:12:46 2026-10-03     1 0.888 b    
+## 2 2026-10-01 00:48:05 2026-10-24     2 0.630 m    
+## 3 2026-09-30 14:48:29 2026-10-12     3 0.311 l    
+## 4 2026-09-30 18:18:07 2026-10-02     4 0.963 z    
 ## # ℹ 96 more rows</code></pre>
 <p>Y cuando lo que estorba no son las filas sino las <strong>columnas</strong>, la salida que
 conviene es la de <code>glimpse()</code>, que gira la tabla y pone una línea por columna:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="tibbles.html#cb13-1" tabindex="-1"></a><span class="fu">glimpse</span>(tb)</span></code></pre></div>
+<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="tibbles.html#cb704-1" tabindex="-1"></a><span class="fu">glimpse</span>(tb)</span></code></pre></div>
 <pre><code>## Rows: 100
 ## Columns: 5
-## $ a &lt;dttm&gt; 2026-09-21 08:18:40, 2026-09-21 04:53:59, 2026-09-20 18:54:23, 2026…
-## $ b &lt;date&gt; 2026-09-23, 2026-10-14, 2026-10-02, 2026-09-22, 2026-09-25, 2026-09…
+## $ a &lt;dttm&gt; 2026-10-01 04:12:46, 2026-10-01 00:48:05, 2026-09-30 14:48:29, 2026…
+## $ b &lt;date&gt; 2026-10-03, 2026-10-24, 2026-10-12, 2026-10-02, 2026-10-05, 2026-10…
 ## $ c &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 2…
 ## $ d &lt;dbl&gt; 0.88805829, 0.63041310, 0.31070844, 0.96321527, 0.40990680, 0.748129…
 ## $ e &lt;chr&gt; &quot;b&quot;, &quot;m&quot;, &quot;l&quot;, &quot;z&quot;, &quot;g&quot;, &quot;m&quot;, &quot;o&quot;, &quot;a&quot;, &quot;y&quot;, &quot;n&quot;, &quot;z&quot;, &quot;d&quot;, &quot;c&quot;, &quot;p&quot;…</code></pre>
@@ -1334,41 +1375,41 @@ un tibble. No es un problema grave, pero sí explica por qué a veces una tabla
 “deja de imprimirse bonito” en medio de un análisis. La manera correcta de hacer
 aritmética sobre una tabla es columna por columna, con <code>mutate()</code>, como en el
 segundo bloque.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="tibbles.html#cb15-1" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">b =</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb15-2"><a href="tibbles.html#cb15-2" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="tibbles.html#cb15-3" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> tbl <span class="sc">*</span> <span class="dv">2</span></span>
-<span id="cb15-4"><a href="tibbles.html#cb15-4" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="tibbles.html#cb15-5" tabindex="-1"></a><span class="fu">is_tibble</span>(resultado)</span></code></pre></div>
+<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb706-1"><a href="tibbles.html#cb706-1" tabindex="-1"></a>tbl <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">a =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">b =</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb706-2"><a href="tibbles.html#cb706-2" tabindex="-1"></a></span>
+<span id="cb706-3"><a href="tibbles.html#cb706-3" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> tbl <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb706-4"><a href="tibbles.html#cb706-4" tabindex="-1"></a></span>
+<span id="cb706-5"><a href="tibbles.html#cb706-5" tabindex="-1"></a><span class="fu">is_tibble</span>(resultado)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="tibbles.html#cb17-1" tabindex="-1"></a><span class="fu">is.data.frame</span>(resultado)</span></code></pre></div>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb708-1"><a href="tibbles.html#cb708-1" tabindex="-1"></a><span class="fu">is.data.frame</span>(resultado)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="tibbles.html#cb19-1" tabindex="-1"></a>resultado2 <span class="ot">&lt;-</span> tbl <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">c =</span> b <span class="sc">*</span> <span class="dv">2</span>)</span>
-<span id="cb19-2"><a href="tibbles.html#cb19-2" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="tibbles.html#cb19-3" tabindex="-1"></a>resultado2</span></code></pre></div>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="tibbles.html#cb710-1" tabindex="-1"></a>resultado2 <span class="ot">&lt;-</span> tbl <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">c =</span> b <span class="sc">*</span> <span class="dv">2</span>)</span>
+<span id="cb710-2"><a href="tibbles.html#cb710-2" tabindex="-1"></a></span>
+<span id="cb710-3"><a href="tibbles.html#cb710-3" tabindex="-1"></a>resultado2</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##       a     b     c
 ##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
 ## 1     1     4     8
 ## 2     2     5    10
 ## 3     3     6    12</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="tibbles.html#cb21-1" tabindex="-1"></a><span class="fu">is_tibble</span>(resultado2)</span></code></pre></div>
+<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="tibbles.html#cb712-1" tabindex="-1"></a><span class="fu">is_tibble</span>(resultado2)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p><strong>3. Nada de coincidencias parciales.</strong></p>
 <ul>
 <li>Los tibbles también son más estrictos con <code>$</code>. Tibbles nunca realiza coincidencias parciales y generará una advertencia y devolverá <code>NULL</code> si la columna no existe:</li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="tibbles.html#cb23-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">abc =</span> <span class="dv">1</span>)</span>
-<span id="cb23-2"><a href="tibbles.html#cb23-2" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">abc =</span> <span class="dv">1</span>)</span>
-<span id="cb23-3"><a href="tibbles.html#cb23-3" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="tibbles.html#cb23-4" tabindex="-1"></a>df<span class="sc">$</span>abc    <span class="co"># el nombre completo: funciona igual en los dos</span></span></code></pre></div>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="tibbles.html#cb714-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">abc =</span> <span class="dv">1</span>)</span>
+<span id="cb714-2"><a href="tibbles.html#cb714-2" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">abc =</span> <span class="dv">1</span>)</span>
+<span id="cb714-3"><a href="tibbles.html#cb714-3" tabindex="-1"></a></span>
+<span id="cb714-4"><a href="tibbles.html#cb714-4" tabindex="-1"></a>df<span class="sc">$</span>abc    <span class="co"># el nombre completo: funciona igual en los dos</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="tibbles.html#cb25-1" tabindex="-1"></a>df2<span class="sc">$</span>abc</span></code></pre></div>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="tibbles.html#cb716-1" tabindex="-1"></a>df2<span class="sc">$</span>abc</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>Ahora la comparación que importa. La misma errata, <code>$a</code> en vez de <code>$abc</code>, en las
 dos clases de tabla:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="tibbles.html#cb27-1" tabindex="-1"></a>df<span class="sc">$</span>a     <span class="co"># data.frame: adivina y devuelve 1, sin avisar</span></span></code></pre></div>
+<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb718-1"><a href="tibbles.html#cb718-1" tabindex="-1"></a>df<span class="sc">$</span>a     <span class="co"># data.frame: adivina y devuelve 1, sin avisar</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="tibbles.html#cb29-1" tabindex="-1"></a>df2<span class="sc">$</span>a    <span class="co"># tibble: devuelve NULL y avisa</span></span></code></pre></div>
+<div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb720-1"><a href="tibbles.html#cb720-1" tabindex="-1"></a>df2<span class="sc">$</span>a    <span class="co"># tibble: devuelve NULL y avisa</span></span></code></pre></div>
 <pre><code>## Warning: Unknown or uninitialised column: `a`.</code></pre>
 <pre><code>## NULL</code></pre>
 <div class="advertencia">
@@ -1403,18 +1444,18 @@ tiene más de 300 000 valores: sin ese <code>head()</code> el documento quedarí
 <p>En una cadena del tidyverse casi siempre es mejor <code>pull(columna)</code> que <code>.$columna</code>:
 hace lo mismo, se lee mejor y funciona igual con el pipe nativo.</p>
 </div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="tibbles.html#cb32-1" tabindex="-1"></a><span class="co"># las dos formas directas</span></span>
-<span id="cb32-2"><a href="tibbles.html#cb32-2" tabindex="-1"></a>vuelos<span class="sc">$</span>salida_programada <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb723-1"><a href="tibbles.html#cb723-1" tabindex="-1"></a><span class="co"># las dos formas directas</span></span>
+<span id="cb723-2"><a href="tibbles.html#cb723-2" tabindex="-1"></a>vuelos<span class="sc">$</span>salida_programada <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 515 529 540 545 600</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="tibbles.html#cb34-1" tabindex="-1"></a>vuelos[[<span class="st">&quot;salida_programada&quot;</span>]] <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb725-1"><a href="tibbles.html#cb725-1" tabindex="-1"></a>vuelos[[<span class="st">&quot;salida_programada&quot;</span>]] <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 515 529 540 545 600</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="tibbles.html#cb36-1" tabindex="-1"></a><span class="co"># las dos formas dentro de un pipe de magrittr</span></span>
-<span id="cb36-2"><a href="tibbles.html#cb36-2" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> .<span class="sc">$</span>salida_programada <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="tibbles.html#cb727-1" tabindex="-1"></a><span class="co"># las dos formas dentro de un pipe de magrittr</span></span>
+<span id="cb727-2"><a href="tibbles.html#cb727-2" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> .<span class="sc">$</span>salida_programada <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 515 529 540 545 600</code></pre>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="tibbles.html#cb38-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> .[[<span class="st">&quot;salida_programada&quot;</span>]] <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb729-1"><a href="tibbles.html#cb729-1" tabindex="-1"></a>vuelos <span class="sc">%&gt;%</span> .[[<span class="st">&quot;salida_programada&quot;</span>]] <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 515 529 540 545 600</code></pre>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="tibbles.html#cb40-1" tabindex="-1"></a><span class="co"># y la que conviene usar de verdad</span></span>
-<span id="cb40-2"><a href="tibbles.html#cb40-2" tabindex="-1"></a>vuelos <span class="sc">|&gt;</span> <span class="fu">pull</span>(salida_programada) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb731-1"><a href="tibbles.html#cb731-1" tabindex="-1"></a><span class="co"># y la que conviene usar de verdad</span></span>
+<span id="cb731-2"><a href="tibbles.html#cb731-2" tabindex="-1"></a>vuelos <span class="sc">|&gt;</span> <span class="fu">pull</span>(salida_programada) <span class="sc">|&gt;</span> <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 515 529 540 545 600</code></pre>
 <hr />
 </div>
@@ -1438,8 +1479,8 @@ que ya usaba <code>dplyr</code> para sus tablas.</p>
 <p>Hacer los ejercicios en la sección 10.5 del libro en español.</p>
 <hr />
 </div>
-<div id="ejercicios-del-capítulo-11" class="section level2 hasAnchor" number="17.11">
-<h2><span class="header-section-number">17.11</span> Ejercicios del capítulo<a href="tibbles.html#ejercicios-del-cap%C3%ADtulo-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ejercicios-del-capítulo-12" class="section level2 hasAnchor" number="17.11">
+<h2><span class="header-section-number">17.11</span> Ejercicios del capítulo<a href="tibbles.html#ejercicios-del-cap%C3%ADtulo-12" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="nota">
 <p><strong>Sobre los ejercicios de este capítulo.</strong> Cada ejercicio se entrega con tres
 cosas: el <strong>script</strong>, el <strong>resultado</strong> (que el bloque corra) y una <strong>explicación
@@ -1460,7 +1501,7 @@ debe decir <code>&lt;int&gt;</code> o <code>&lt;dbl&gt;</code> para las dos prim
 Pruébalo en un bloque con <code>error=TRUE</code> y explica el mensaje. ¿Por qué <strong>sí</strong>
 funciona si le das uno solo?</p>
 </div>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="tibbles.html#cb42-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb733-1"><a href="tibbles.html#cb733-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 </div>
 <div id="ejercicio-2.-una-tabla-escrita-a-mano" class="section level3 hasAnchor" number="17.11.2">
 <h3><span class="header-section-number">17.11.2</span> Ejercicio 2. Una tabla escrita a mano<a href="tibbles.html#ejercicio-2.-una-tabla-escrita-a-mano" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1473,7 +1514,7 @@ tipos.</p>
 <p><strong>En palabras:</strong> ¿en qué situación preferirías <code>tribble()</code> a <code>tibble()</code>? Da un
 ejemplo de tu propio trabajo o de la clase.</p>
 </div>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="tibbles.html#cb43-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb734-1"><a href="tibbles.html#cb734-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 </div>
 <div id="ejercicio-3.-ida-y-vuelta" class="section level3 hasAnchor" number="17.11.3">
 <h3><span class="header-section-number">17.11.3</span> Ejercicio 3. Ida y vuelta<a href="tibbles.html#ejercicio-3.-ida-y-vuelta" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1486,7 +1527,7 @@ con <code>is.data.frame()</code>.</p>
 <p><strong>En palabras:</strong> ¿por qué <code>is.data.frame()</code> dice <code>TRUE</code> incluso para el tibble?
 ¿Qué relación hay entre las dos clases?</p>
 </div>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="tibbles.html#cb44-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb735-1"><a href="tibbles.html#cb735-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 </div>
 <div id="ejercicio-4.-imprimir-lo-justo" class="section level3 hasAnchor" number="17.11.4">
 <h3><span class="header-section-number">17.11.4</span> Ejercicio 4. Imprimir lo justo<a href="tibbles.html#ejercicio-4.-imprimir-lo-justo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1500,7 +1541,7 @@ fuera.</p>
 el data frame no te da? ¿Por qué esa información ahorra tiempo al principio de un
 análisis?</p>
 </div>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="tibbles.html#cb45-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="tibbles.html#cb736-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 </div>
 <div id="ejercicio-5.-la-errata-que-no-avisa" class="section level3 hasAnchor" number="17.11.5">
 <h3><span class="header-section-number">17.11.5</span> Ejercicio 5. La errata que no avisa<a href="tibbles.html#ejercicio-5.-la-errata-que-no-avisa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1514,7 +1555,7 @@ una advertencia.</p>
 líneas. ¿Cuál de los dos comportamientos prefieres y por qué? Este es el
 argumento más fuerte del capítulo a favor del tibble: escríbelo con tus palabras.</p>
 </div>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="tibbles.html#cb46-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb737-1"><a href="tibbles.html#cb737-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 </div>
 <div id="ejercicio-6.-y-no-dan-lo-mismo" class="section level3 hasAnchor" number="17.11.6">
 <h3><span class="header-section-number">17.11.6</span> Ejercicio 6. <code>$</code>, <code>[[</code> y <code>[</code> no dan lo mismo<a href="tibbles.html#ejercicio-6.-y-no-dan-lo-mismo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1528,7 +1569,7 @@ argumento más fuerte del capítulo a favor del tibble: escríbelo con tus palab
 nombre de la columna como texto? ¿Por qué esa diferencia de <code>[, "..."]</code> puede
 romper un script viejo?</p>
 </div>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="tibbles.html#cb47-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb738-1"><a href="tibbles.html#cb738-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 </div>
 <div id="ejercicio-7-bono.-los-nombres-de-fila-se-pierden" class="section level3 hasAnchor" number="17.11.7">
 <h3><span class="header-section-number">17.11.7</span> Ejercicio 7 (BONO). Los nombres de fila se pierden<a href="tibbles.html#ejercicio-7-bono.-los-nombres-de-fila-se-pierden" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1542,7 +1583,7 @@ sabes qué carro es cada fila; el hecho con <code>rownames_to_column()</code> ti
 qué son realmente esos nombres y en dónde deberían estar según lo que aprendiste
 sobre datos ordenados.</p>
 </div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="tibbles.html#cb48-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
+<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb739-1"><a href="tibbles.html#cb739-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 
 </div>
 </div>
