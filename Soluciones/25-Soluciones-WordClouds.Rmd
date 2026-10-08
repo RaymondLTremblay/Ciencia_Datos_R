@@ -34,14 +34,18 @@ palabras.
 ```{r sol25-1}
 d_crudo <- frecuencias("Datos/el_quijote.txt")
 head(d_crudo, 10)
-# que ~11100, de ~9100, y ~8700, a ~8000, la ~5100, en ~4000, el ~3900, no ~3200...
+# que ~10700, los ~2150, con ~2090, por ~1950, las ~1490, como, del, don, más, dijo...
 
 wordcloud(d_crudo$word, d_crudo$freq, max.words = 50,
           colors = brewer.pal(8, "Dark2"))
 ```
 
-**Respuesta esperada.** `que`, `de`, `y`, `a`, `la` en las primeras posiciones, con
-`que` por encima de 10 000.
+**Respuesta esperada.** `que` primera, por encima de 10 000, seguida de `los`, `con`,
+`por`, `las`. Las palabras de una o dos letras (`de`, `y`, `a`, `la`, `en`) no
+aparecen porque `TermDocumentMatrix()` usa por defecto `wordLengths = c(3, Inf)`.
+Sobre la pregunta 6: hay que pedir que encuentren ese argumento en `?termFreq`. Para
+una nube el valor por defecto ayuda, porque quita ruido; para contar palabras de
+verdad es un error silencioso, y se corrige con `control = list(wordLengths = c(1, Inf))`.
 
 Qué dice la nube sobre el contenido del Quijote: **absolutamente nada**. Es la
 respuesta que se busca, y hay que exigir que la digan sin rodeos. La nube describe
@@ -267,3 +271,48 @@ es el patrón que recorre el curso entero.
 Resultados comparables: `que` sobre 10 000 (Ej. 1), `quijote` sobre 700 y `sancho`
 entre las diez primeras (Ej. 2), al menos cinco palabras propias justificadas
 (Ej. 3), las nubes cruzadas iguales a las sin limpiar (Ej. 6).
+
+**Bono por libro propio (5 puntos).** Si el estudiante usó su propio libro en los
+ejercicios 1 a 5 (y en el 6 en lugar del texto de su idioma), las verificaciones
+numéricas del Quijote no aplican; se corrigen con las verificaciones generales de
+la hoja. 3 puntos por usar el libro en todos los ejercicios y subir el `.txt` que
+lee el código; 2 puntos por la sección *Mi libro*. No cuentan el Quijote, Alicia,
+el discurso de King ni el artículo de inteligencia artificial.
+
+------------------------------------------------------------------------
+
+## Actividad para Teams: `Ejercicios_Capitulo_30_Actividad_texto_propio.Rmd`
+
+Cuatro ejercicios de 5 puntos y un bono de 5. Los ejercicios 1, 2, 3 y 5 de la
+hoja anterior, con un texto que escoge el estudiante. El código de referencia de
+arriba sirve para la Ruta A (Quijote); en la Ruta B solo cambia el archivo.
+
+**Valores de la Ruta A, contados con `tm` y sus valores por defecto.**
+`TermDocumentMatrix()` usa `wordLengths = c(3, Inf)`, así que las palabras de una
+o dos letras (`de`, `y`, `a`, `la`, `en`, `el`, `no`) **nunca entran en la tabla**.
+Las primeras sin quitar palabras vacías son `que` (unas 10 700), `los`, `con`,
+`por`, `las`, `como`, `del`, `don`, `más`, `dijo`. Con las palabras vacías fuera,
+`quijote` queda alrededor de 845 y `sancho` alrededor de 690, ambas entre las diez
+primeras. El archivo tiene 2 186 líneas y unas 187 000 palabras. Estos conteos se
+hicieron con Python imitando la limpieza de `tm` sobre el texto normalizado a NFC;
+en R pueden variar unas decenas.
+
+**Qué buscar en cada ejercicio.**
+
+- Ej. 1: que digan sin rodeos que la nube no dice nada del contenido, y que
+  encuentren `wordLengths` en `?termFreq`.
+- Ej. 2: el chequeo `%in% stopwords(...)` con diez `FALSE`. En la Ruta B, que hayan
+  usado la lista del idioma correcto.
+- Ej. 3: cada palabra de `mis_vacias` justificada por separado. No hay respuesta
+  correcta; se corrige el criterio.
+- Ej. 4: que comparen su orden de memoria con las barras y digan que la razón
+  entre la primera y la quinta no se puede leer en la nube.
+
+**El bono (Ruta B).** 3 puntos por los cuatro ejercicios completos con un texto
+propio de al menos 2 000 palabras y el `.txt` subido a Teams; 2 puntos por la
+explicación (qué texto, de dónde, una cosa esperada y una sorpresa). Sin el `.txt`
+no hay bono. No cuentan el Quijote ni los demás textos del curso (Alicia, el
+discurso de King, el artículo de inteligencia artificial, `demoFreq`), ni un texto
+repetido dentro de la pareja. Para comprobar que el `.txt` es el que leyó el
+código, basta con abrir el `.Rmd`, ver el nombre en `archivo <- ...` y hacer *Knit*.
+

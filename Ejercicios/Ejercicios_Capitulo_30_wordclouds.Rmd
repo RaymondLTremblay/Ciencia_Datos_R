@@ -2,7 +2,7 @@
 title: "Ejercicios del Capítulo 30"
 subtitle: "Nubes de palabras: corpus, limpieza, palabras vacías y cuándo no usarlas"
 author: "Nombre del estudiante: ______________________"
-date: "Fecha de entrega: ______________________"
+date: "Texto usado: ______________________   |   Fecha de entrega: ______________________"
 output:
   html_document:
     toc: true
@@ -31,6 +31,27 @@ Para recibir el crédito completo, cada ejercicio tiene que incluir tres cosas:
 
 Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
 
+## Opción: tu propio libro (bono)
+
+Si quieres, puedes hacer el análisis con **un libro tuyo** en lugar del Quijote o de Alicia. Hacerlo vale **5 puntos adicionales**, aparte del bono del Ejercicio 7.
+
+1. **El libro lo traes tú**, en un archivo de texto plano (`.txt`). No valen el Quijote, Alicia ni los otros textos del capítulo (el discurso de Martin Luther King y el artículo sobre inteligencia artificial).
+2. **Úsalo en todos los ejercicios** donde iría el Quijote (del 1 al 5). En el Ejercicio 6, tu libro sustituye al texto de su mismo idioma: al Quijote si está en español, a Alicia si está en inglés.
+3. **Pon el `.txt` en la misma carpeta que este `.Rmd`** y léelo por su nombre, por ejemplo `frecuencias("mi_libro.txt")`. No uses `file.choose()`: al hacer *Knit* no hay nadie para escoger el archivo y el documento no se produce.
+4. **Sube el `.txt` junto con el `.Rmd` y el `.html`.** Sin el `.txt` no se puede comprobar el bono.
+5. Escribe el título y el autor del libro en *Texto usado*, en el encabezado.
+
+Si tu libro está en Word o en PDF, guárdalo antes como texto plano: en Word, *Archivo > Guardar como > Texto sin formato (.txt)* y, si te pregunta, la codificación **UTF-8**.
+
+**Las verificaciones con números** (por ejemplo, que `quijote` pase de 700) son del Quijote y no aplican a tu libro. Usa estas en su lugar:
+
+- Ejercicio 1: entre las diez primeras hay sobre todo palabras gramaticales, no palabras sobre el tema del libro, y ninguna tiene menos de tres letras.
+- Ejercicio 2: ninguna de las diez primeras está en la lista de palabras vacías; `head(d$word, 10) %in% stopwords("spanish")` (o `"english"`) da diez veces `FALSE`.
+- Ejercicio 3: tu lista propia tiene al menos cinco palabras, y ninguna aparece ya en la tabla nueva.
+- Ejercicio 6: la versión cruzada de tu libro queda prácticamente igual que sin limpiar.
+
+**Para el bono, contesta además en palabras** (al final del documento, en la sección *Mi libro*): ¿qué libro es y por qué lo escogiste? Mirando tu nube del Ejercicio 3, di una cosa que esperabas ver y que sí apareció, y una que te sorprendió.
+
 ## Valor
 
 | Ejercicio | Tema | Puntos |
@@ -43,6 +64,7 @@ Entrega el archivo `.Rmd` y el archivo `.html` que produce al hacer *Knit*.
 | 6 | Dos idiomas | 5 |
 | **Total** | | **30** |
 | 7 (bono) | Los acentos que se parten | **5 adicionales** |
+| Bono | Tu propio libro en lugar del Quijote o Alicia | **5 adicionales** |
 
 Cada ejercicio se evalúa así: script correcto (2 puntos), resultado visible (1 punto), explicación en palabras (2 puntos).
 
@@ -81,7 +103,7 @@ frecuencias <- function(archivo, vacias = NULL) {
 2. Saca la tabla de las diez palabras más frecuentes.
 3. Dibuja la nube.
 
-*Verifica:* entre las diez primeras están `que`, `de` y `y`. `que` pasa de **10 000** apariciones.
+*Verifica:* `que` es la primera palabra y pasa de **10 000** apariciones. `de`, `y` y `a` **no aparecen** en la tabla, aunque son de las más comunes del español.
 
 ```{r ej1}
 # Escribe tu código aquí
@@ -90,6 +112,7 @@ frecuencias <- function(archivo, vacias = NULL) {
 
 4. ¿Qué te dice esta nube sobre el contenido del Quijote? Contesta con honestidad.
 5. ¿Serviría esta misma nube para cualquier otro libro en español? ¿Por qué?
+6. ¿Por qué no aparecen `de`, `y` ni `a`? Pista: lee la ayuda con `?termFreq` y busca el argumento `wordLengths`. ¿Te parece bien ese valor por defecto?
 
 **Explicación:**
 
@@ -233,3 +256,16 @@ En la lista de palabras del Quijote aparecen cosas raras como `habi` en vez de `
 **Explicación:**
 
 *(escribe aquí tu respuesta en palabras)*
+
+---
+
+# Mi libro (solo si usaste tu propio libro, bono de 5 puntos)
+
+Título y autor del libro, y nombre del archivo `.txt`:
+
+¿Por qué lo escogiste? ¿Qué esperabas ver en la nube y apareció, y qué te sorprendió?
+
+**Explicación:**
+
+*(escribe aquí tu respuesta en palabras)*
+

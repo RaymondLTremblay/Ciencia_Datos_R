@@ -57,7 +57,7 @@ página.
 | 27 | `33-Iteracion-purrr.Rmd` | `Ejercicios_Capitulo_27_iteracion.Rmd` | `33-Soluciones-Iteracion-purrr.Rmd` |
 | 28 | `34-Modelos-modelr.Rmd` | `Ejercicios_Capitulo_28_modelos.Rmd` | `34-Soluciones-Modelos-modelr.Rmd` |
 | 29 | `24-HEX-stickers.Rmd` | `Ejercicios_Capitulo_29_hex.Rmd` | `24-Soluciones-HEX-stickers.Rmd` |
-| 30 | `25-WordClouds.Rmd` | `Ejercicios_Capitulo_30_wordclouds.Rmd` | `25-Soluciones-WordClouds.Rmd` |
+| 30 | `25-WordClouds.Rmd` | `Ejercicios_Capitulo_30_wordclouds.Rmd` y `Ejercicios_Capitulo_30_Actividad_texto_propio.Rmd` | `25-Soluciones-WordClouds.Rmd` |
 | 31 | `31-tidyverse-avanzado.Rmd` | `Ejercicios_Capitulo_31_avanzado.Rmd` | `31-Soluciones-tidyverse-avanzado.Rmd` |
 | 32 | `26-Leaflet-mapa-interactivo.Rmd` | `Ejercicios_Capitulo_32_leaflet.Rmd` | `26-Soluciones-Leaflet.Rmd` |
 
@@ -69,6 +69,13 @@ actividad es independiente, vale 20 puntos más 5 de bono, y se puede trabajar e
 pareja de dos con entrega individual. Las dos comparten un solo archivo de
 soluciones, `Soluciones/13-Soluciones-Analisis-exploratorio.Rmd`. La hoja
 anterior, de 8 ejercicios en una sola entrega, está en `Ejercicios/_archivado/`.
+
+El Capítulo 30 (*Nubes de palabra*) tiene, además de la hoja de 6 ejercicios, una
+**actividad para entregar en Microsoft Teams**,
+`Ejercicios_Capitulo_30_Actividad_texto_propio.Rmd`: 4 ejercicios (20 puntos) en
+hora y media, con el Quijote o con un texto propio del estudiante. Usar un texto
+propio vale 5 puntos de bono. La guía de corrección está al final de
+`Soluciones/25-Soluciones-WordClouds.Rmd`.
 
 Ojo: los prefijos de archivo **no** van en el orden del libro. `35-Errores-comunes.Rmd`
 es el Capítulo 14 porque en `_bookdown.yml` está colocado justo después de

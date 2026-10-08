@@ -1,0 +1,268 @@
+---
+title: "Capítulo 30, Actividad: tu nube de palabras"
+subtitle: "El Quijote o tu propio texto: leer, limpiar, contar y dibujar"
+author: "Nombre del estudiante: ______________________"
+date: "Trabajé con: ______________________   |   Texto usado: ______________________   |   Fecha de entrega: ______________________"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Instrucciones
+
+Curso: **BIOL4026, Ciencia de Datos con R**. Capítulo 30 del libro del curso, *Nubes de palabra en R*.
+
+En esta actividad haces los cinco pasos del capítulo (leer, convertir en corpus, limpiar, contar y dibujar) con un texto que **tú escoges**:
+
+- **Ruta A, El Quijote.** El texto de *Don Quijote de la Mancha* que está en la carpeta `Datos/` del repositorio del curso. Lo puedes leer directo desde internet, sin descargar nada.
+- **Ruta B, tu propio texto (bono).** Un texto que tú traes: algo que escribiste, un libro de dominio público, un discurso, un artículo. Usar tu propio texto en lugar del Quijote vale **5 puntos de bono**. Las condiciones están en la sección *El bono* más abajo.
+
+Las dos rutas tienen exactamente los mismos cuatro ejercicios. La única diferencia es el texto.
+
+## Tiempo y lectura previa
+
+La actividad completa está pensada para **una hora y media**, repartida más o menos así:
+
+| Parte | Tiempo aproximado |
+|:--|--:|
+| Leer las secciones del capítulo | 20 minutos |
+| Resolver los cuatro ejercicios | 55 minutos |
+| Hacer *Knit*, revisar y entregar en Teams | 15 minutos |
+
+Si escoges la Ruta B, prepara tu archivo `.txt` **antes** de empezar a contar el tiempo.
+
+Antes de escribir código, lee en el capítulo 30 del libro estas secciones:
+
+- *Los cinco pasos*
+- *Paso 1* y *Subir el texto en formato Corpus*
+- *El paquete tm es para text mining*
+- *Crear una matriz de las palabras de mi documento* y *Revisar la lista y quitar palabras a mano*
+- *Cuándo una nube de palabras no es la gráfica correcta*
+- *En español*
+
+## Trabajo en pareja
+
+Puedes trabajar **en pareja, dos personas**, o solo si lo prefieres.
+
+1. Pueden discutir el código, probar cosas juntos y ayudarse a encontrar los errores.
+2. **Cada estudiante entrega su propio archivo en Teams.** No se acepta una entrega firmada por dos.
+3. En el encabezado de arriba, escribe en *Trabajé con* el nombre completo de tu pareja, o *Trabajé solo* / *Trabajé sola*.
+4. Las **explicaciones en palabras** las escribe cada quien por su cuenta. Dos explicaciones idénticas palabra por palabra se corrigen como una sola entrega.
+5. En la Ruta B, **cada estudiante trae su propio texto**. Si la pareja usa el mismo texto, ninguno de los dos recibe el bono.
+
+## Qué se entrega en Microsoft Teams
+
+En la tarea del Capítulo 30 en Teams, sube estos archivos y presiona **Entregar**:
+
+| Archivo | Ruta A (Quijote) | Ruta B (tu texto) |
+|:--|:--:|:--:|
+| `Apellido_Nombre_Cap30.Rmd` | Sí | Sí |
+| `Apellido_Nombre_Cap30.html` (el que produce *Knit*) | Sí | Sí |
+| Tu texto en `.txt` | No | **Sí, obligatorio** |
+
+Antes de entregar, comprueba tres cosas:
+
+1. El `.html` se abre en el navegador y **se ven las nubes y la gráfica de barras**. Un `.html` sin figuras se corrige como si faltara el resultado.
+2. El `.html` salió de hacer *Knit* a **este** `.Rmd`, no de una versión anterior.
+3. Si usaste la Ruta B, el `.txt` que subes es el mismo que lee tu código. Sin el `.txt` no se puede comprobar el bono.
+
+Cada ejercicio tiene que incluir tres cosas:
+
+1. **El script**, en el bloque de código que ya está preparado.
+2. **El resultado**: que la tabla o la nube se vean en el `.html`.
+3. **Una explicación en palabras** en el espacio marcado.
+
+## Valor
+
+| Ejercicio | Tema | Puntos |
+|:--|:--|--:|
+| 1 | La nube sin limpiar | 5 |
+| 2 | Las palabras vacías del idioma | 5 |
+| 3 | Tus propias palabras vacías | 5 |
+| 4 | La nube contra las barras | 5 |
+| **Total** | | **20** |
+| Bono | Usar tu propio texto (Ruta B) | **5 adicionales** |
+
+Cada ejercicio se evalúa así: script correcto (2 puntos), resultado que se ve (1 punto), explicación en palabras (2 puntos).
+
+## Paquetes
+
+```{r paquetes}
+library(tidyverse)
+library(tm)
+library(wordcloud)
+library(RColorBrewer)
+
+set.seed(30) # para que las nubes salgan iguales cada vez que haces Knit
+```
+
+## Leer el texto
+
+Escoge **una** de las dos rutas. Deja activa la línea `archivo <- ...` de tu ruta y ponle `#` a la otra.
+
+```{r leer}
+# Ruta A: El Quijote, leído directo del repositorio del curso (necesita internet)
+archivo <- "https://raw.githubusercontent.com/RaymondLTremblay/Ciencia_Datos_R/gh-pages/Datos/el_quijote.txt"
+
+# Ruta B: tu propio texto. El .txt tiene que estar en la MISMA carpeta que este .Rmd
+# archivo <- "mi_texto.txt"
+
+texto <- readLines(archivo, encoding = "UTF-8", warn = FALSE)
+
+# Une las letras con su acento (ver la nota de abajo)
+texto <- stringi::stri_trans_nfc(texto)
+
+length(texto)                      # número de líneas
+sum(str_count(texto, "\\S+"))      # número de palabras
+```
+
+::: {.nota}
+**Sobre `stri_trans_nfc()`.** Algunos archivos guardan una letra acentuada como **dos** caracteres: la letra y la tilde por separado. Sin esta línea, `había` se parte y en tu tabla aparece `habi`. La línea no le hace daño a un texto que ya venga bien, así que déjala siempre.
+:::
+
+*Verifica (Ruta A):* el Quijote tiene unas **2 186** líneas y unas **187 000** palabras.
+
+*Verifica (Ruta B):* tu texto tiene **por lo menos 2 000 palabras**. Si tiene menos, busca un texto más largo: con pocas palabras casi todas aparecen una sola vez y la nube no dice nada.
+
+::: {.peligro}
+**Dos errores que rompen el *Knit*.**
+
+1. **No uses `file.choose()`** para leer tu texto. Funciona en la consola, pero al hacer *Knit* no hay nadie para escoger el archivo y el documento no se produce. Pon el `.txt` en la misma carpeta que el `.Rmd` y escribe solo su nombre.
+2. **No uses un `.docx`.** Guarda tu documento como texto plano: en Word, *Archivo > Guardar como > Texto sin formato (.txt)* y, si te pregunta, la codificación **UTF-8**. En Mac con TextEdit: *Formato > Convertir a texto sin formato*.
+:::
+
+---
+
+# Ejercicio 1. La nube sin limpiar (5 puntos)
+
+1. Convierte `texto` en corpus.
+2. Pasa todo a minúsculas, quita los números, la puntuación y los espacios sobrantes, pero **no quites ninguna palabra vacía**.
+3. Construye la matriz de términos y saca una tabla `d1` con dos columnas, `word` y `freq`, ordenada de mayor a menor.
+4. Muestra las diez primeras filas y dibuja la nube con `max.words = 50`.
+
+*Verifica (Ruta A):* `que` es la primera palabra, con **más de 10 000** apariciones. `de`, `y` y `a` **no aparecen** en la tabla, aunque son de las más comunes del español.
+
+*Verifica (Ruta B):* entre las diez primeras hay sobre todo palabras gramaticales (artículos, preposiciones, pronombres), no palabras sobre el tema de tu texto.
+
+```{r t30-ej1}
+# Escribe tu código aquí
+
+```
+
+**Explica en palabras.** ¿Qué te dice esta nube sobre el **contenido** de tu texto? Contesta con honestidad. ¿Saldría una nube parecida de cualquier otro texto en el mismo idioma?
+
+Después busca por qué no aparecen las palabras de una o dos letras como `de`, `y` o `a`. Pista: lee la ayuda con `?termFreq` y busca el argumento `wordLengths`. ¿Te parece bien ese valor por defecto?
+
+> *Tu respuesta:*
+>
+>
+
+---
+
+# Ejercicio 2. Las palabras vacías del idioma (5 puntos)
+
+1. Repite el proceso quitando las palabras vacías del idioma de tu texto: `stopwords("spanish")` para el Quijote o un texto en español, `stopwords("english")` para un texto en inglés. Recuerda el consejo del capítulo: quítalas **antes** de quitar la puntuación.
+2. Saca la tabla `d2` y muestra las diez primeras filas.
+3. Dibuja la nube con `max.words = 50`.
+
+*Verifica (las dos rutas):* ninguna de las diez primeras palabras está en la lista de palabras vacías. Compruébalo con `d2$word[1:10] %in% stopwords("spanish")` (o `"english"`), que tiene que dar diez veces `FALSE`.
+
+*Verifica (Ruta A):* `quijote` y `sancho` están entre las diez primeras, y `quijote` pasa de **800** apariciones.
+
+::: {.consejo}
+Vas a repetir los cinco pasos en los ejercicios 2 y 3 cambiando solo la lista de palabras que quitas. Es un buen momento para convertir tu código del Ejercicio 1 en una **función** que reciba el texto y la lista de palabras vacías, como aprendiste en el capítulo de funciones. No es obligatorio, pero te ahorra tiempo y errores.
+:::
+
+```{r t30-ej2}
+# Escribe tu código aquí
+
+```
+
+**Explica en palabras.** Pon las dos listas de diez, la del Ejercicio 1 y esta, una al lado de la otra. ¿Cuántas palabras cambiaron? ¿Por qué el paso de las palabras vacías es el que decide si la nube dice algo o no?
+
+> *Tu respuesta:*
+>
+>
+
+---
+
+# Ejercicio 3. Tus propias palabras vacías (5 puntos)
+
+1. Mira las **treinta** primeras palabras de `d2`.
+2. Escoge las que tampoco dicen nada sobre el contenido de **tu** texto: fórmulas de tratamiento, verbos de diálogo como `dijo`, muletillas, restos de formato (números de página, `capítulo`, `figura`), o la palabra que nombra el tema de todo el texto.
+3. Ponlas en un vector `mis_vacias` y vuelve a hacer la limpieza quitando **las dos listas**: la del idioma y la tuya.
+4. Saca la tabla `d3` y dibuja la nube final. Esta es la nube que presentarías: usa `max.words` entre 50 y 100, `random.order = FALSE` y `rot.per = 0`, y escoge una paleta de `brewer.pal()`.
+
+*Verifica (las dos rutas):* `mis_vacias` tiene **por lo menos cinco** palabras, y ninguna aparece ya en `d3`: `mis_vacias %in% d3$word` tiene que dar todo `FALSE`.
+
+```{r t30-ej3}
+# Escribe tu código aquí
+
+```
+
+**Explica en palabras.** Justifica **cada** palabra de `mis_vacias`, una por una. Después escoge una de ellas y explica en qué tipo de análisis quitarla **sería un error**.
+
+> *Tu respuesta:*
+>
+>
+
+---
+
+# Ejercicio 4. La nube contra las barras (5 puntos)
+
+Con las **veinte** palabras más frecuentes de `d3`:
+
+1. Guárdalas en `top20` con `slice_max()`.
+2. Dibuja la nube de esas veinte.
+3. Dibuja un diagrama de barras horizontales con `ggplot()`, ordenado con `fct_reorder()`, como el del capítulo.
+
+*Verifica (las dos rutas):* las dos gráficas usan los mismos datos, y `nrow(top20)` da **20** (o un poco más si hay empates en la posición 20).
+
+```{r t30-ej4}
+# Escribe tu código aquí
+
+```
+
+**Explica en palabras.** Antes de mirar las barras, escribe de memoria, mirando **solo la nube**, cuáles crees que son las cinco primeras palabras, en orden. Ahora compara con las barras: ¿acertaste? ¿Cuántas veces más frecuente es la primera que la quinta, y se puede contestar eso con la nube? Termina con una frase sobre cuándo usarías cada gráfica.
+
+> *Tu respuesta:*
+>
+>
+
+---
+
+# El bono: tu propio texto (5 puntos adicionales)
+
+El bono se gana usando la **Ruta B** en los cuatro ejercicios. No hay que escribir código adicional; lo que cuenta es el texto y que expliques qué encontraste en él.
+
+## Condiciones
+
+1. **El texto lo traes tú.** No vale el Quijote, ni ningún otro texto del curso: *Alicia en el país de las maravillas*, el discurso de Martin Luther King, el artículo sobre inteligencia artificial o `demoFreq`.
+2. **Por lo menos 2 000 palabras**, contadas con el bloque *Leer el texto*.
+3. **Cualquier idioma**, siempre que uses las palabras vacías de ese idioma en el Ejercicio 2. Mira la lista de idiomas con `stopwords::stopwords_getlanguages("snowball")`.
+4. **Subes el `.txt` a Teams** junto con el `.Rmd` y el `.html`.
+5. **Cada estudiante usa un texto distinto**, también dentro de la pareja.
+
+## Ideas de textos
+
+- Algo que **escribiste tú**: un ensayo de otro curso, un informe de laboratorio, tu diario de campo, un cuento.
+- Un **libro de dominio público**. El Proyecto Gutenberg (<https://www.gutenberg.org>) tiene muchos en español, y se pueden bajar en formato *Plain Text UTF-8*.
+- Un **artículo científico** de un tema de biología que te interese, copiado a un `.txt`. Quita la bibliografía antes, o llenará la nube de apellidos y años.
+- Un **discurso público** o un documento oficial.
+
+## Qué escribes para el bono (2 puntos de los 5)
+
+**Explica en palabras.** ¿Qué texto es, de dónde lo sacaste y por qué lo escogiste? Mirando tu nube final del Ejercicio 3, di **una** cosa que esperabas ver y que sí apareció, y **una** que te sorprendió. ¿Hubo algún paso de la limpieza que fuera más difícil con tu texto que con el Quijote del capítulo?
+
+> *Tu respuesta:*
+>
+>
+
+Los otros **3 puntos** del bono son por haber hecho los cuatro ejercicios completos con tu texto y haber subido el `.txt` que lee tu código.

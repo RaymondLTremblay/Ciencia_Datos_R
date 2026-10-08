@@ -1,0 +1,202 @@
+# Apéndice B: Conjuntos de datos del curso {.unnumbered}
+
+Este apéndice reúne los archivos de datos que están en la carpeta `Datos/` del repositorio del curso. Para cada archivo verás qué contiene, su tamaño, en qué capítulos se usa y cómo leerlo en R.
+
+Hay dos maneras de leer cualquiera de estos archivos:
+
+1. **Directo desde internet**, sin descargar nada. Funciona en cualquier computadora con conexión, y es la forma más sencilla si no has clonado el repositorio.
+2. **Desde tu copia del repositorio**, con la ruta `Datos/nombre_del_archivo`. Funciona sin internet, siempre que el `.Rmd` esté en la carpeta del proyecto.
+
+Para la primera manera, guarda una sola vez la dirección de la carpeta y pégale el nombre del archivo con `paste0()`:
+
+```{r apd-url, eval=FALSE}
+library(tidyverse)
+
+url_datos <- "https://raw.githubusercontent.com/RaymondLTremblay/Ciencia_Datos_R/gh-pages/Datos/"
+
+crimen <- read_csv(paste0(url_datos, "crimen_pr.csv"))
+```
+
+::: {.consejo}
+Si el nombre del archivo tiene **espacios**, en la dirección de internet cada espacio se escribe `%20`. Por ejemplo, `Exam Anxiety.csv` se lee como `paste0(url_datos, "Exam%20Anxiety.csv")`. Desde tu copia local escribes el nombre tal cual, con el espacio.
+:::
+
+***
+
+## Textos {-}
+
+### El Quijote: `el_quijote.txt` {-}
+
+- **Qué es:** el texto de *Don Quijote de la Mancha*, de Miguel de Cervantes Saavedra, **Primera Parte** (1605), desde el capítulo 1 hasta los versos del final.
+- **Tamaño:** 2 186 líneas, unas 187 000 palabras (1.1 MB).
+- **Se usa en:** Capítulo 22 (*Cadena de caracteres*) y Capítulo 30 (*Nubes de palabra*), con sus dos hojas de ejercicios: `Ejercicios_Capitulo_30_wordclouds.Rmd` y la actividad para Teams `Ejercicios_Capitulo_30_Actividad_texto_propio.Rmd`.
+- **Fuente de esta copia:** *pendiente*.
+
+Es texto plano, no una tabla, así que se lee línea por línea con `readLines()` (o `read_lines()` de `readr`):
+
+```{r apd-quijote, eval=FALSE}
+quijote <- readLines(paste0(url_datos, "el_quijote.txt"),
+                     encoding = "UTF-8", warn = FALSE)
+length(quijote)   # número de líneas
+head(quijote)
+```
+
+### Alicia en el país de las maravillas {-}
+
+Hay varias versiones del libro de Lewis Carroll, en inglés:
+
+| Archivo | Contenido | Se usa en |
+|:--|:--|:--|
+| `Alice_Adventures_in_Wonderland.txt` | 3 000 líneas, unas 71 000 palabras | Capítulo 30 (hoja de ejercicios) |
+| `alice_original.txt` | 3 384 líneas, unas 26 500 palabras; empieza con el encabezado del Proyecto Gutenberg (*EBOOK 11*) | Capítulos 22 y 30 |
+| `alice_original_full.txt` | 39 líneas, el comienzo del libro | Capítulo 22 |
+| `alice_full_cleaned.txt` | 175 líneas, unas 2 200 palabras | ningún capítulo todavía |
+| `alice_cleaned.txt` | 3 líneas, el primer párrafo | ningún capítulo todavía |
+
+```{r apd-alice, eval=FALSE}
+alicia <- readLines(paste0(url_datos, "Alice_Adventures_in_Wonderland.txt"),
+                    encoding = "UTF-8", warn = FALSE)
+```
+
+### Versos de Neruda: `fragmentos_neruda_sep.csv` {-}
+
+- **Qué es:** diez versos de Pablo Neruda, uno por fila, con las columnas `id` y `texto`. Cada palabra viene entre comillas, a propósito, para practicar cómo limpiarlas.
+- **Tamaño:** 10 filas, 2 columnas.
+- **Se usa en:** Capítulo 22 (*Cadena de caracteres*).
+- **Fuente:** *pendiente*.
+
+```{r apd-neruda, eval=FALSE}
+neruda <- read_csv(paste0(url_datos, "fragmentos_neruda_sep.csv"))
+```
+
+***
+
+## Puerto Rico {-}
+
+### Incidentes criminales: `crimen_pr.csv` {-}
+
+- **Qué es:** incidentes criminales reportados en Puerto Rico entre junio y agosto de 2016, con fecha, hora, tipo de delito, coordenadas y área policiaca.
+- **Tamaño:** 8 870 filas, 7 columnas (0.6 MB).
+- **Columnas:** `Fecha`, `Hora`, `Delito`, `Delitos_code`, `POINT_X`, `POINT_Y`, `Area Policiaca`.
+- **Se usa en:** Capítulo 18 (*Importar datos*), Capítulo 25 (*Fechas y horas*) y Capítulo 32 (*Leaflet*), y en las hojas de ejercicios de esos tres capítulos.
+- **Fuente:** gobierno de Puerto Rico.
+
+```{r apd-crimen, eval=FALSE}
+crimen <- read_csv(paste0(url_datos, "crimen_pr.csv"))
+```
+
+### COVID-19 en Puerto Rico: `url_COVID_PR.csv` {-}
+
+- **Qué es:** serie diaria de muertes, casos, hospitalizaciones, camas de intensivo y ventiladores, del 12 de marzo de 2020 al 19 de octubre de 2021.
+- **Tamaño:** 587 filas, 18 columnas.
+- **Columnas principales:** `Fecha`, `Muertes`, `IncrementoMuertes`, `CasosPCR_Salud`, `HospitCOV19`, `CamasICU`, `CamasICU_disp`, `Ventiladores`.
+- **Se usa en:** Capítulos 9 y 10 (*Transformación*), Capítulo 18 (*Importar datos*) y Apéndice A.
+- **Fuente:** Departamento de Salud de Puerto Rico. El Capítulo 18 muestra cómo bajar la versión al día desde el repositorio `rafalab/pr-covid`.
+
+```{r apd-covid, eval=FALSE}
+covid_pr <- read_csv(paste0(url_datos, "url_COVID_PR.csv"))
+```
+
+### Vuelos de San Juan: `Vuelos_SJU_2018_Ene.csv`, `Vuelos_SJU_2019_Ene.csv`, `Vuelos_SJU_2020_Ene.csv` {-}
+
+- **Qué es:** los vuelos del aeropuerto de San Juan (SJU) en enero de tres años, un archivo por año, con la fecha, la aerolínea, el origen, el destino y las horas y demoras de salida y llegada.
+- **Tamaño:** 3 831, 5 128 y 5 918 filas; 14 columnas en los tres.
+- **Columnas principales:** `FL_DATE`, `OP_UNIQUE_CARRIER`, `ORIGIN`, `DEST`, `DEP_TIME`, `DEP_DELAY`, `ARR_TIME`.
+- **Se usa en:** Capítulo 3 (*Flujo de trabajo*) y Capítulo 18 (*Importar datos*), donde se leen los tres a la vez.
+- **Fuente:** *pendiente*.
+
+```{r apd-vuelos, eval=FALSE}
+vuelos_sju <- read_csv(paste0(url_datos,
+                              c("Vuelos_SJU_2018_Ene.csv",
+                                "Vuelos_SJU_2019_Ene.csv",
+                                "Vuelos_SJU_2020_Ene.csv")),
+                       id = "archivo")
+```
+
+### Nombres de bebés: carpeta `babynames/` {-}
+
+- **Qué es:** frecuencia de los nombres dados a los bebés, por año y por sexo.
+- **Contenido:**
+  - `PR_babynames.TXT`: Puerto Rico, de 1998 a 2019; 21 925 filas sin encabezado, con el formato `estado,sexo,año,nombre,cantidad`.
+  - `TR_babynames.TXT`: el mismo formato, con el código `TR`.
+  - `names_national/`: un archivo por año de nacimiento, de `yob1880.txt` a `yob2019.txt`, con el formato `nombre,sexo,cantidad`, más el `NationalReadMe.pdf` que los explica.
+  - `namesbystate/`: 52 archivos, uno por código de dos letras.
+- **Se usa en:** ningún capítulo todavía. El Capítulo 20 (*Datos relacionados*) usa el **paquete** `babynames`, que es otra cosa.
+- **Fuente:** según `NationalReadMe.pdf`, los archivos nacionales se tabularon a partir de los registros del Seguro Social de Estados Unidos (al 1 de marzo de 2020), y solo incluyen nombres con por lo menos 5 apariciones.
+
+Como los archivos no traen encabezado, hay que dar los nombres de las columnas:
+
+```{r apd-babynames, eval=FALSE}
+nombres_pr <- read_csv(paste0(url_datos, "babynames/PR_babynames.TXT"),
+                       col_names = c("estado", "sexo", "anio", "nombre", "cantidad"))
+```
+
+***
+
+## Biología y ambiente {-}
+
+### Orquídeas *Eulophia* en iNaturalist: `eulophia_inat.csv` {-}
+
+- **Qué es:** 1 000 observaciones de orquídeas del género *Eulophia* en iNaturalist, de calidad de investigación y con coordenadas. Las especies más comunes en el archivo son *Eulophia maculata*, *Eulophia graminea* y *Eulophia picta*.
+- **Tamaño:** 1 000 filas, 37 columnas (0.5 MB).
+- **Columnas principales:** `scientific_name`, `datetime`, `place_guess`, `latitude`, `longitude`, `common_name`, `url`, `image_url`.
+- **Se usa en:** Capítulo 32 (*Leaflet*).
+- **Fuente:** iNaturalist. El capítulo baja los datos en vivo y vuelve a guardar este archivo cuando hay conexión, así que **el contenido cambia** cada vez que se compila el libro con internet.
+
+```{r apd-eulophia, eval=FALSE}
+eulophia <- read_csv(paste0(url_datos, "eulophia_inat.csv"))
+```
+
+### Terremotos: `Earthquake_all_month.csv` {-}
+
+- **Qué es:** todos los terremotos registrados en el mundo durante un mes, del 12 de agosto al 11 de septiembre de 2023, con hora, coordenadas, profundidad y magnitud.
+- **Tamaño:** 10 743 filas, 22 columnas (2 MB).
+- **Columnas principales:** `time`, `latitude`, `longitude`, `depth`, `mag`, `magType`, `place`.
+- **Se usa en:** Capítulo 32 (*Leaflet*), como copia de respaldo cuando no hay conexión.
+- **Fuente:** el servicio de datos del USGS (*all_month.csv*). El capítulo baja la versión del mes en curso cuando hay internet.
+
+```{r apd-terremotos, eval=FALSE}
+terremotos <- read_csv(paste0(url_datos, "Earthquake_all_month.csv"))
+```
+
+### Peso al nacer y supervivencia: `Newborn_Karn_Penrose.csv` {-}
+
+- **Qué es:** nacimientos agrupados por edad de la madre y peso al nacer, con el total de nacimientos y cuántos no sobrevivieron.
+- **Tamaño:** 261 filas, 4 columnas.
+- **Columnas:** `Mother_age`, `Count_Non_survivors`, `Count_Total_Birth`, `Birth_weight`.
+- **Se usa en:** Capítulo 18 (*Importar datos*).
+- **Fuente:** *pendiente*.
+
+```{r apd-newborn, eval=FALSE}
+newborn <- read_csv(paste0(url_datos, "Newborn_Karn_Penrose.csv"))
+```
+
+### Un archivo sucio a propósito: `plantas_sucio.csv` {-}
+
+- **Qué es:** un registro de plantas de invernadero, hecho a mano con varios problemas típicos de los archivos reales, para practicar cómo leerlo y arreglarlo.
+- **Tamaño:** 7 filas.
+- **Se usa en:** Capítulo 18 (*Importar datos*).
+- **Fuente:** creado para el curso.
+
+***
+
+## Archivos que ningún capítulo usa todavía {-}
+
+Estos archivos están en `Datos/` pero ningún capítulo los lee. Sirven para proyectos, para practicar por tu cuenta o para ejercicios futuros.
+
+| Archivo | Filas | Columnas | Algunas columnas |
+|:--|--:|--:|:--|
+| `Orchid_variation_extinction.csv` | 555 | 15 | `location`, `genero`, `especie`, `categoria_riesgo_binomial`, coeficientes de variación de sépalo, pétalo, labelo y columna |
+| `Lep_rupPetal_All_Data.csv` | 441 | 33 | `Plant_Number`, `Petal_Character`, `Population`, `Num_FR`, `Num_flowers` |
+| `GonocalyxDat.csv` | 88 | 6 | `ID`, `Lat`, `Long`, `Elevation`, `Host`, `Estimate_Height` |
+| `worldcities_lat_long_pop.csv` | 26 569 | 11 | `city`, `lat`, `lng`, `country`, `capital`, `population` |
+| `DownloadFestival_No_Outlier.csv` | 810 | 5 | `ticknumb`, `gender`, `day1`, `day2`, `day3` |
+| `Exam Anxiety.csv` | 103 | 5 | `Code`, `Revise`, `Exam`, `Anxiety`, `Gender` |
+| `The Biggest Liar.csv` | 68 | 3 | `Creativity`, `Position`, `Novice` |
+| `Vehicle_collision_NY_Kaggle.csv` | 477 732 | 29 | `DATE`, `TIME`, `BOROUGH`, `LATITUDE`, `LONGITUDE`, `PERSONS INJURED` |
+
+La fuente de estos archivos está *pendiente*.
+
+::: {.advertencia}
+`Vehicle_collision_NY_Kaggle.csv` pesa **88 MB**. Leerlo desde internet tarda, y en una conexión lenta puede fallar. Si lo vas a usar, trabaja con tu copia local del repositorio.
+:::

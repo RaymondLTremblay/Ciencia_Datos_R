@@ -181,6 +181,11 @@ toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
 docs <- tm_map(docs, toSpace, "-")
 docs <- tm_map(docs, toSpace, "@")
 docs <- tm_map(docs, toSpace, "\\|")
+
+```
+
+```{r}
+#inspect(docs) 
 ```
 
 
@@ -234,13 +239,22 @@ docs <- tm_map(docs, stripWhitespace)
 #stopwords() # Here are all the stopwords in the function **stopwords**
 ```
 
+
+
+
+
 ## Crear una matriz de las palabras de mi documento
 
 ```{r c25-10}
 dtm <- TermDocumentMatrix(docs) # convertir el texto en una lista de palabras
+
+#dtm
 m <- as.matrix(dtm) # convertir en una matriz
+#m
 v <- sort(rowSums(m),decreasing=TRUE) # ordenar las palabras por frecuencia
+#v
 d <- data.frame(word = names(v),freq=v) # crea un nuevo data frame de las palabras y su frecuencia
+#d
 head(d, n=10) # las primeras 10 palabras más comunes
 ```
 
@@ -272,6 +286,7 @@ Una vez que tienes el data frame `d` con las columnas `word` y `freq`, esto ya e
 `dplyr` del capítulo de transformación, nada nuevo:
 
 ```{r c25-filtrar, eval=FALSE}
+library(tidyverse)
 d_filtrado <- d |> filter(freq > 3)
 nrow(d); nrow(d_filtrado)
 ```
@@ -296,8 +311,21 @@ wordcloud(words = d$word, # las palabras
           max.words=50, # el número máximo de palabras
           random.order=TRUE, # orden aleatorio
           rot.per=0.35, # rotación de las palabras
-          colors=brewer.pal(8, "Dark2")) # colores
+          colors=brewer.pal(12, "Paired")) # colores
+          
 ```
+
+
+Accent	8
+Dark2	8
+Paired	12
+Pastel1	9
+Pastel2	8
+Set1	9
+Set2	8
+Set3	12
+
+
 
 
 ***
@@ -343,6 +371,7 @@ más, la gráfica correcta es una de barras horizontales ordenada por frecuencia
 como la del capítulo de factores:
 
 ```{r c25-barras, eval=FALSE}
+library(tidyverse)
 d |> 
   slice_max(freq, n = 20) |> 
   mutate(word = fct_reorder(word, freq)) |> 
@@ -555,6 +584,9 @@ cosas: el **script**, el **resultado** (que la nube o la tabla se vean) y una
 en el repositorio del curso, no el discurso ni el documento sobre inteligencia
 artificial del capítulo. La hoja completa para entregar está en
 `Ejercicios/Ejercicios_Capitulo_30_wordclouds.Rmd`.
+
+Si lo prefieres, puedes hacer los ejercicios con **un libro tuyo** en lugar del
+Quijote o de Alicia, y eso vale puntos de bono. Las condiciones están en la hoja.
 :::
 
 ### Ejercicio 1. La nube inútil
@@ -564,10 +596,12 @@ Lee `Datos/el_quijote.txt`, conviértelo en corpus y haz una nube **sin quitar
 ninguna palabra vacía**. Saca también la tabla de las diez palabras más
 frecuentes.
 
-**Verificación:** entre las diez primeras tienen que estar `que`, `de` y `y`.
-`que` tiene que pasar de 10 000 apariciones.
+**Verificación:** `que` tiene que ser la primera y pasar de 10 000 apariciones.
+`de`, `y` y `a` no aparecen en la tabla, aunque son de las más comunes del español.
 
 **En palabras:** ¿qué te dice esta nube sobre el Quijote? Contesta con honestidad.
+Después explica por qué no aparecen `de`, `y` ni `a` (pista: el argumento
+`wordLengths` en `?termFreq`).
 :::
 
 ```{r c25-ej1, eval=FALSE}

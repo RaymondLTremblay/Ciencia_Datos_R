@@ -35,6 +35,7 @@ rmd_files:
   - 31-tidyverse-avanzado.Rmd
   - 26-Leaflet-mapa-interactivo.Rmd
   - 30-COVID_Cummulative.Rmd
+  - 36-Apendice-Datos.Rmd
 
 edit: https://github.com/RaymondLTremblay/Ciencia_Datos_R/edit/main/%s
 view: https://github.com/RaymondLTremblay/Ciencia_Datos_R/blob/main/%s
