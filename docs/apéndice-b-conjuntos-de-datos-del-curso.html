@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo16 Pipes | Ciencia de Datos con R</title>
+  <title>Apéndice B: Conjuntos de datos del curso | Ciencia de Datos con R</title>
   <meta name="description" content="Este libro digital es una introducción al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
   <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo16 Pipes | Ciencia de Datos con R" />
+  <meta property="og:title" content="Apéndice B: Conjuntos de datos del curso | Ciencia de Datos con R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Este libro digital es una introducción al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo16 Pipes | Ciencia de Datos con R" />
+  <meta name="twitter:title" content="Apéndice B: Conjuntos de datos del curso | Ciencia de Datos con R" />
   
   <meta name="twitter:description" content="Este libro digital es una introducción al estudio de Ciencia de Datos usando R, RStudio, RMarkdown y Quarto. El libro está diseñado para estudiantes que no tienen experiencia previa con R o programación. El libro es un trabajo en progreso y se actualizará periódicamente." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="análisis-exploratorio.html"/>
-<link rel="next" href="tibbles.html"/>
+<link rel="prev" href="apéndice-a-covid-19-acumulativo.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -1145,539 +1145,278 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="pipes" class="section level1 hasAnchor" number="16">
-<h1><span class="header-section-number">Capítulo16</span> Pipes<a href="pipes.html#pipes" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Fecha de la última revisión</p>
-<pre><code>## [1] &quot;2026-10-08&quot;</code></pre>
-<hr />
-<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="pipes.html#cb650-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb650-2"><a href="pipes.html#cb650-2" tabindex="-1"></a><span class="fu">library</span>(magrittr) <span class="co"># El paquete de Pipe, se activa usando tidyverse</span></span></code></pre></div>
-<hr />
-<p>El tema proviene de los siguientes sitios.</p>
-<p>English:
-<a href="https://r4ds.had.co.nz/pipes.html" class="uri">https://r4ds.had.co.nz/pipes.html</a></p>
-<p>Español:
-<a href="https://es.r4ds.hadley.nz/" class="uri">https://es.r4ds.hadley.nz/</a></p>
-<hr />
-<div id="temas-el-paquete-magrittr-y-sus-funciones" class="section level2 hasAnchor" number="16.1">
-<h2><span class="header-section-number">16.1</span> Temas: El paquete “magrittr” y sus funciones<a href="pipes.html#temas-el-paquete-magrittr-y-sus-funciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="historia">
-<p>El operador pipe <code>%&gt;%</code> fue creado por <strong>Stefan Milton Bache</strong> en el paquete <strong>magrittr</strong> (2014); el nombre juega con el cuadro de Magritte <em>«Ceci n’est pas une pipe»</em>. Fue tan popular que en 2021 R incorporó su propio pipe nativo <code>|&gt;</code>. La idea: leer el código de izquierda a derecha, como una receta de pasos.</p>
-</div>
-<ul>
-<li>Qué problema resuelve el pipe</li>
-<li>Cómo funciona <code>%&gt;%</code>: el resultado de la izquierda entra por la derecha</li>
-<li>El marcador de posición <code>.</code></li>
-<li>El pipe nativo <code>|&gt;</code> y en qué se diferencia de <code>%&gt;%</code></li>
-<li>Los pipes especiales de magrittr: <code>%$%</code>, <code>%&lt;&gt;%</code>, <code>%T&gt;%</code></li>
-<li><code>%in%</code>, que no es un pipe</li>
-<li>Cuándo <strong>no</strong> conviene usar un pipe</li>
-</ul>
-<hr />
-</div>
-<div id="qué-problema-resuelve-el-pipe" class="section level2 hasAnchor" number="16.2">
-<h2><span class="header-section-number">16.2</span> ¿Qué problema resuelve el pipe?<a href="pipes.html#qu%C3%A9-problema-resuelve-el-pipe" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Supón que quieres hacer cuatro cosas seguidas con una tabla: filtrarla, agruparla,
-resumirla y ordenar el resultado. Sin pipe hay dos maneras de escribirlo, y las
-dos son incómodas.</p>
-<p>La primera es <strong>anidar</strong> las funciones, una dentro de otra:
-<code>arrange(summarise(group_by(filter(tabla, ...), ...), ...), ...)</code>. Se lee de
-adentro hacia afuera, al revés del orden en que ocurren las cosas, y basta un
-paréntesis mal puesto para perder media hora.</p>
-<p>La segunda es guardar <strong>pasos intermedios</strong>: <code>tabla1 &lt;- filter(...)</code>,
-<code>tabla2 &lt;- group_by(tabla1, ...)</code>, y así. Se lee mejor, pero acaba llenando la
-memoria de objetos que no interesan a nadie, con nombres como <code>tabla2</code> que en
-dos semanas no significan nada.</p>
-<p>El pipe resuelve las dos cosas a la vez: <strong>pone los pasos en el orden en que
-ocurren y no deja basura en el camino.</strong> El código empieza a leerse como una
-receta: toma la tabla, luego filtra, luego agrupa, luego resume.</p>
-<p>Los operadores que vamos a evaluar son los siguientes. Los cinco primeros sí son
-pipes; el último no lo es, aunque se escriba igual:</p>
-<ul>
-<li><code>%&gt;%</code> “Pipe”: pasa el resultado de la izquierda como primer argumento de la derecha. Es el que se usa el 95 % de las veces.</li>
-<li><code>|&gt;</code> “Pipe nativo”: lo mismo, pero viene con R y no necesita ningún paquete.</li>
-<li><code>%!&gt;%</code> “Eager pipe”, pipe impaciente: igual que <code>%&gt;%</code>, pero calcula cada paso en el momento en vez de esperar. Solo importa cuando los pasos tienen efectos secundarios.</li>
-<li><code>%$%</code> “Exposition pipe”, pipe de exposición: expone las columnas de la tabla para poder nombrarlas sueltas, como en <code>cor(x, y)</code>.</li>
-<li><code>%&lt;&gt;%</code> “Assignment pipe”, pipe de asignación: pasa el objeto <strong>y guarda el resultado encima del original</strong>. Peligroso, ver más abajo.</li>
-<li><code>%T&gt;%</code> “Tee pipe”, pipe en T: hace un paso de lado (dibujar, imprimir, guardar) y sigue pasando el objeto que entró, no el resultado.</li>
-</ul>
-<p>Y el que <strong>no</strong> es un pipe:</p>
-<ul>
-<li><code>%in%</code> <strong>no es un pipe.</strong> Es el operador de <strong>pertenencia</strong>: contesta “¿este valor está en esta lista?” y devuelve <code>TRUE</code> o <code>FALSE</code>. Está aquí porque se escribe con signos de porcentaje a los lados, igual que los pipes, y por eso se confunde. Tiene su propia sección más abajo.</li>
-</ul>
-<div class="advertencia">
-<p>En R, <strong>cualquier</strong> operador escrito entre signos de porcentaje (<code>%algo%</code>) es un
-operador definido por alguien, no necesariamente un pipe. Ya conoces otros dos que
-no tienen nada que ver con encadenar: <code>%%</code> (el residuo de una división) y <code>%/%</code>
-(la división entera), del capítulo de fechas y horas. Los signos de porcentaje
-son solo la manera que tiene R de escribir operadores propios.</p>
-</div>
-<div class="funcion">
-<p><strong>Los pipes de magrittr</strong>: encadenar operaciones.</p>
-<ul>
-<li><strong><code>%&gt;%</code> / <code>|&gt;</code>:</strong> pasa el resultado de la izquierda como primer argumento de la derecha.</li>
-<li><strong><code>%$%</code>:</strong> expone las columnas para usarlas por nombre (p. ej. <code>cor(x, y)</code>).</li>
-<li><strong><code>%&lt;&gt;%</code>:</strong> aplica y <strong>reasigna</strong> al objeto original.</li>
-<li><strong><code>%T&gt;%</code>:</strong> ejecuta un paso “lateral” (como <code>plot</code>) y sigue pasando el objeto original.</li>
-</ul>
-</div>
-<div id="cómo-funciona-exactamente" class="section level3 hasAnchor" number="16.2.1">
-<h3><span class="header-section-number">16.2.1</span> Cómo funciona, exactamente<a href="pipes.html#c%C3%B3mo-funciona-exactamente" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La regla es de una línea: <strong><code>x %&gt;% f(y)</code> es lo mismo que <code>f(x, y)</code>.</strong> Lo que está
-a la izquierda del pipe entra como <strong>primer argumento</strong> de la función que está a
-la derecha.</p>
-<p>Eso funciona porque casi todas las funciones del tidyverse fueron diseñadas
-pensándolo: <code>filter()</code>, <code>mutate()</code>, <code>group_by()</code>, <code>summarise()</code> y <code>arrange()</code>
-reciben la tabla como primer argumento. Por eso encadenan tan bien.</p>
-<p>¿Y cuando la función <strong>no</strong> recibe el dato en primer lugar? Para eso está el
-marcador de posición, el punto <code>.</code>, que dice “ponlo aquí y no al principio”:</p>
-<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="pipes.html#cb651-1" tabindex="-1"></a><span class="co"># sin marcador: la tabla entra como primer argumento</span></span>
-<span id="cb651-2"><a href="pipes.html#cb651-2" tabindex="-1"></a>paises <span class="sc">%&gt;%</span> <span class="fu">filter</span>(anio <span class="sc">==</span> <span class="dv">2007</span>)</span>
-<span id="cb651-3"><a href="pipes.html#cb651-3" tabindex="-1"></a></span>
-<span id="cb651-4"><a href="pipes.html#cb651-4" tabindex="-1"></a><span class="co"># con marcador: lm() quiere la fórmula primero y los datos después</span></span>
-<span id="cb651-5"><a href="pipes.html#cb651-5" tabindex="-1"></a>paises <span class="sc">%&gt;%</span> <span class="fu">lm</span>(esperanza_de_vida <span class="sc">~</span> pib_per_capita, <span class="at">data =</span> .)</span></code></pre></div>
+<div id="apéndice-b-conjuntos-de-datos-del-curso" class="section level1 unnumbered hasAnchor">
+<h1>Apéndice B: Conjuntos de datos del curso<a href="apéndice-b-conjuntos-de-datos-del-curso.html#ap%C3%A9ndice-b-conjuntos-de-datos-del-curso" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Este apéndice reúne los archivos de datos que están en la carpeta <code>Datos/</code> del repositorio del curso. Para cada archivo verás qué contiene, su tamaño, en qué capítulos se usa y cómo leerlo en R.</p>
+<p>Hay dos maneras de leer cualquiera de estos archivos:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Directo desde internet</strong>, sin descargar nada. Funciona en cualquier computadora con conexión, y es la forma más sencilla si no has clonado el repositorio.</li>
+<li><strong>Desde tu copia del repositorio</strong>, con la ruta <code>Datos/nombre_del_archivo</code>. Funciona sin internet, siempre que el <code>.Rmd</code> esté en la carpeta del proyecto.</li>
+</ol>
+<p>Para la primera manera, guarda una sola vez la dirección de la carpeta y pégale el nombre del archivo con <code>paste0()</code>:</p>
+<div class="sourceCode" id="cb1833"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1833-1"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1833-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1833-2"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1833-2" tabindex="-1"></a></span>
+<span id="cb1833-3"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1833-3" tabindex="-1"></a>url_datos <span class="ot">&lt;-</span> <span class="st">&quot;https://raw.githubusercontent.com/RaymondLTremblay/Ciencia_Datos_R/gh-pages/Datos/&quot;</span></span>
+<span id="cb1833-4"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1833-4" tabindex="-1"></a></span>
+<span id="cb1833-5"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1833-5" tabindex="-1"></a>crimen <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">paste0</span>(url_datos, <span class="st">&quot;crimen_pr.csv&quot;</span>))</span></code></pre></div>
 <div class="consejo">
-<p>Lee el <code>%&gt;%</code> en voz alta como <strong>“y luego”</strong>. <code>datos %&gt;% filter(...) %&gt;% summarise(...)</code> se lee “toma los datos, y luego filtra, y luego resume”. Si la
-frase no tiene sentido en voz alta, el código tampoco lo va a tener.</p>
+<p>Si el nombre del archivo tiene <strong>espacios</strong>, en la dirección de internet cada espacio se escribe <code>%20</code>. Por ejemplo, <code>Exam Anxiety.csv</code> se lee como <code>paste0(url_datos, "Exam%20Anxiety.csv")</code>. Desde tu copia local escribes el nombre tal cual, con el espacio.</p>
 </div>
-</div>
-<div id="y-cuál-usar" class="section level3 hasAnchor" number="16.2.2">
-<h3><span class="header-section-number">16.2.2</span> <code>%&gt;%</code> y <code>|&gt;</code>: cuál usar<a href="pipes.html#y-cu%C3%A1l-usar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Desde la versión 4.1, R trae su <strong>propio</strong> pipe, <code>|&gt;</code>, que no necesita ningún
-paquete. Para el 95 % de lo que hacemos en el curso los dos son intercambiables.
-Las diferencias que sí importan:</p>
+<hr />
+<div id="textos" class="section level2 unnumbered hasAnchor">
+<h2>Textos<a href="apéndice-b-conjuntos-de-datos-del-curso.html#textos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="el-quijote-el_quijote.txt" class="section level3 unnumbered hasAnchor">
+<h3>El Quijote: <code>el_quijote.txt</code><a href="apéndice-b-conjuntos-de-datos-del-curso.html#el-quijote-el_quijote.txt" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li><strong>Necesita un paquete:</strong> <code>%&gt;%</code> sí (<code>magrittr</code>, que viene con <code>tidyverse</code>); el nativo no, es parte de R.</li>
-<li><strong>Marcador de posición:</strong> <code>%&gt;%</code> usa el punto <code>.</code> en cualquier posición; el nativo usa el guion bajo <code>_</code> y solo en un argumento <strong>con nombre</strong>.</li>
-<li><strong>Función sin paréntesis:</strong> <code>x %&gt;% sqrt</code> se permite; con el nativo hay que escribir siempre <code>sqrt()</code>.</li>
-<li><strong>Pipes especiales</strong> (<code>%$%</code>, <code>%&lt;&gt;%</code>, <code>%T&gt;%</code>): existen solo del lado de <code>magrittr</code>.</li>
+<li><strong>Qué es:</strong> el texto de <em>Don Quijote de la Mancha</em>, de Miguel de Cervantes Saavedra, <strong>Primera Parte</strong> (1605), desde el capítulo 1 hasta los versos del final.</li>
+<li><strong>Tamaño:</strong> 2 186 líneas, unas 187 000 palabras (1.1 MB).</li>
+<li><strong>Se usa en:</strong> Capítulo 22 (<em>Cadena de caracteres</em>) y Capítulo 30 (<em>Nubes de palabra</em>), con sus dos hojas de ejercicios: <code>Ejercicios_Capitulo_30_wordclouds.Rmd</code> y la actividad para Teams <code>Ejercicios_Capitulo_30_Actividad_texto_propio.Rmd</code>.</li>
+<li><strong>Fuente de esta copia:</strong> <em>pendiente</em>.</li>
 </ul>
-<p>En la práctica: usa <code>|&gt;</code> cuando puedas, porque es parte de R y siempre va a estar
-ahí; usa <code>%&gt;%</code> cuando necesites el punto o alguno de los pipes especiales de este
-capítulo. En este libro vas a ver los dos, a veces en el mismo bloque, y no es un
-error.</p>
-<hr />
+<p>Es texto plano, no una tabla, así que se lee línea por línea con <code>readLines()</code> (o <code>read_lines()</code> de <code>readr</code>):</p>
+<div class="sourceCode" id="cb1834"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1834-1"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1834-1" tabindex="-1"></a>quijote <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="fu">paste0</span>(url_datos, <span class="st">&quot;el_quijote.txt&quot;</span>),</span>
+<span id="cb1834-2"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1834-2" tabindex="-1"></a>                     <span class="at">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>, <span class="at">warn =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1834-3"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1834-3" tabindex="-1"></a><span class="fu">length</span>(quijote)   <span class="co"># número de líneas</span></span>
+<span id="cb1834-4"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1834-4" tabindex="-1"></a><span class="fu">head</span>(quijote)</span></code></pre></div>
 </div>
-<div id="un-primer-ejemplo-con-pipe-y-sin-pipe" class="section level3 hasAnchor" number="16.2.3">
-<h3><span class="header-section-number">16.2.3</span> Un primer ejemplo: con pipe y sin pipe<a href="pipes.html#un-primer-ejemplo-con-pipe-y-sin-pipe" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Los ejemplos que siguen usan los conjuntos en inglés que vienen con R y con
-<code>ggplot2</code> (<code>diamonds</code>, <code>mtcars</code>, <code>iris</code>), no las versiones en español del paquete
-<code>datos</code>. Es a propósito: casi toda la documentación de <code>magrittr</code> que vas a
-encontrar en internet está escrita con estos mismos datos, y conviene que los
-reconozcas.</p>
-<p>Primero, la manera de siempre, sin pipe: se crea una columna nueva escribiendo el
-nombre de la tabla tres veces en la misma línea.</p>
-<p>Función básica para calcular el precio básico de diamantes por quilates</p>
-<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="pipes.html#cb652-1" tabindex="-1"></a><span class="fu">head</span>(diamonds, <span class="at">n=</span><span class="dv">3</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 3 × 10
-##   carat cut     color clarity depth table price     x     y     z
-##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1  0.23 Ideal   E     SI2      61.5    55   326  3.95  3.98  2.43
-## 2  0.21 Premium E     SI1      59.8    61   326  3.89  3.84  2.31
-## 3  0.23 Good    E     VS1      56.9    65   327  4.05  4.07  2.31</code></pre>
-<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="pipes.html#cb654-1" tabindex="-1"></a>diamonds<span class="sc">$</span>Precio_q <span class="ot">=</span> diamonds<span class="sc">$</span>price<span class="sc">/</span>diamonds<span class="sc">$</span>carat <span class="co"># crear una nueva variable</span></span>
-<span id="cb654-2"><a href="pipes.html#cb654-2" tabindex="-1"></a></span>
-<span id="cb654-3"><a href="pipes.html#cb654-3" tabindex="-1"></a><span class="fu">head</span>(diamonds, <span class="at">n=</span><span class="dv">3</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 3 × 11
-##   carat cut     color clarity depth table price     x     y     z Precio_q
-##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-## 1  0.23 Ideal   E     SI2      61.5    55   326  3.95  3.98  2.43    1417.
-## 2  0.21 Premium E     SI1      59.8    61   326  3.89  3.84  2.31    1552.
-## 3  0.23 Good    E     VS1      56.9    65   327  4.05  4.07  2.31    1422.</code></pre>
-<p>Ahora lo mismo con pipe y <code>mutate()</code>. El nombre de la tabla aparece <strong>una sola
-vez</strong>, y la línea dice lo que hace:</p>
-<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="pipes.html#cb656-1" tabindex="-1"></a>diamonds2 <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span> </span>
-<span id="cb656-2"><a href="pipes.html#cb656-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">price_per_carat =</span> price <span class="sc">/</span> carat)</span></code></pre></div>
-<div class="nota">
-<p><code>dplyr::mutate()</code> con los dos puntos dobles significa “la función <code>mutate()</code> del
-paquete <code>dplyr</code>”. No hace falta si ya activaste <code>tidyverse</code>, pero se usa cuando
-dos paquetes tienen funciones con el mismo nombre y se quiere dejar claro cuál es.</p>
+<div id="alicia-en-el-país-de-las-maravillas" class="section level3 unnumbered hasAnchor">
+<h3>Alicia en el país de las maravillas<a href="apéndice-b-conjuntos-de-datos-del-curso.html#alicia-en-el-pa%C3%ADs-de-las-maravillas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Hay varias versiones del libro de Lewis Carroll, en inglés:</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Archivo</th>
+<th align="left">Contenido</th>
+<th align="left">Se usa en</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>Alice_Adventures_in_Wonderland.txt</code></td>
+<td align="left">3 000 líneas, unas 71 000 palabras</td>
+<td align="left">Capítulo 30 (hoja de ejercicios)</td>
+</tr>
+<tr class="even">
+<td align="left"><code>alice_original.txt</code></td>
+<td align="left">3 384 líneas, unas 26 500 palabras; empieza con el encabezado del Proyecto Gutenberg (<em>EBOOK 11</em>)</td>
+<td align="left">Capítulos 22 y 30</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>alice_original_full.txt</code></td>
+<td align="left">39 líneas, el comienzo del libro</td>
+<td align="left">Capítulo 22</td>
+</tr>
+<tr class="even">
+<td align="left"><code>alice_full_cleaned.txt</code></td>
+<td align="left">175 líneas, unas 2 200 palabras</td>
+<td align="left">ningún capítulo todavía</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>alice_cleaned.txt</code></td>
+<td align="left">3 líneas, el primer párrafo</td>
+<td align="left">ningún capítulo todavía</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb1835"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1835-1"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1835-1" tabindex="-1"></a>alicia <span class="ot">&lt;-</span> <span class="fu">readLines</span>(<span class="fu">paste0</span>(url_datos, <span class="st">&quot;Alice_Adventures_in_Wonderland.txt&quot;</span>),</span>
+<span id="cb1835-2"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1835-2" tabindex="-1"></a>                    <span class="at">encoding =</span> <span class="st">&quot;UTF-8&quot;</span>, <span class="at">warn =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 </div>
-<hr />
-<p>Calcular el promedio de precio por la calidad de los diamantes usando pipes</p>
-<div class="nota">
-<p>Desde la versión 4.1, R trae un pipe nativo <code>|&gt;</code> que no requiere paquetes. El <code>%&gt;%</code> proviene de <code>magrittr</code> y añade funciones extra como el marcador de posición <code>.</code>.</p>
-</div>
-<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="pipes.html#cb657-1" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span> </span>
-<span id="cb657-2"><a href="pipes.html#cb657-2" tabindex="-1"></a>  <span class="fu">group_by</span>(cut) <span class="sc">%&gt;%</span> </span>
-<span id="cb657-3"><a href="pipes.html#cb657-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Precio_color=</span> <span class="fu">mean</span>(price))</span></code></pre></div>
-<pre><code>## # A tibble: 5 × 2
-##   cut       Precio_color
-##   &lt;ord&gt;            &lt;dbl&gt;
-## 1 Fair             4359.
-## 2 Good             3929.
-## 3 Very Good        3982.
-## 4 Premium          4584.
-## 5 Ideal            3458.</code></pre>
-<hr />
-<p>Calcular el promedio de precio por color de los diamantes usando pipes</p>
-</div>
-</div>
-<div id="el-ejemplo-clásico-de-magrittr" class="section level2 hasAnchor" number="16.3">
-<h2><span class="header-section-number">16.3</span> El ejemplo clásico de magrittr<a href="pipes.html#el-ejemplo-cl%C3%A1sico-de-magrittr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Los tres bloques que siguen hacen exactamente lo mismo con <code>mtcars</code> y están aquí
-para comparar. Vale la pena leerlos despacio, porque es el ejemplo con el que
-<code>magrittr</code> se presentó al mundo.</p>
-<p>Un ejemplo básico del pipe</p>
-<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="pipes.html#cb659-1" tabindex="-1"></a>car_data <span class="ot">&lt;-</span> </span>
-<span id="cb659-2"><a href="pipes.html#cb659-2" tabindex="-1"></a>  mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb659-3"><a href="pipes.html#cb659-3" tabindex="-1"></a>  <span class="fu">subset</span>(hp <span class="sc">&gt;</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb659-4"><a href="pipes.html#cb659-4" tabindex="-1"></a>  <span class="fu">aggregate</span>(. <span class="sc">~</span> cyl, <span class="at">data =</span> ., <span class="at">FUN =</span> . <span class="sc">%&gt;%</span> mean <span class="sc">%&gt;%</span> <span class="fu">round</span>(<span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb659-5"><a href="pipes.html#cb659-5" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="at">kpl =</span> mpg <span class="sc">%&gt;%</span> <span class="fu">multiply_by</span>(<span class="fl">0.4251</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb659-6"><a href="pipes.html#cb659-6" tabindex="-1"></a>  print</span></code></pre></div>
-<pre><code>##   cyl   mpg   disp     hp drat   wt  qsec   vs   am gear carb       kpl
-## 1   4 25.90 108.05 111.00 3.94 2.15 17.75 1.00 1.00 4.50 2.00 11.010090
-## 2   6 19.74 183.31 122.29 3.59 3.12 17.98 0.57 0.43 3.86 3.43  8.391474
-## 3   8 15.10 353.10 209.21 3.23 4.00 16.77 0.00 0.14 3.29 3.50  6.419010</code></pre>
-<p>Fíjate en dos cosas. Primero, <code>data = .</code>: <code>aggregate()</code> no recibe los datos en
-primer lugar, así que hace falta el marcador de posición. Segundo,
-<code>FUN = . %&gt;% mean %&gt;% round(2)</code>: una cadena de pipes que empieza con un punto no
-es un cálculo, es una <strong>función anónima</strong>, una receta guardada para aplicarla
-después a lo que llegue.</p>
-<p>Ahora la misma cuenta escrita a la antigua, con las funciones anidadas:</p>
-<p>Un ejemplo sin usar el pipe para calcular la misma información</p>
-<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="pipes.html#cb661-1" tabindex="-1"></a>car_data <span class="ot">&lt;-</span> </span>
-<span id="cb661-2"><a href="pipes.html#cb661-2" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="fu">aggregate</span>(. <span class="sc">~</span> cyl, </span>
-<span id="cb661-3"><a href="pipes.html#cb661-3" tabindex="-1"></a>                      <span class="at">data =</span> <span class="fu">subset</span>(mtcars, hp <span class="sc">&gt;</span> <span class="dv">100</span>), </span>
-<span id="cb661-4"><a href="pipes.html#cb661-4" tabindex="-1"></a>                      <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">round</span>(<span class="fu">mean</span>(x), <span class="dv">2</span>)), </span>
-<span id="cb661-5"><a href="pipes.html#cb661-5" tabindex="-1"></a>                      <span class="at">kpl =</span> mpg<span class="sc">*</span><span class="fl">0.4251</span>)</span>
-<span id="cb661-6"><a href="pipes.html#cb661-6" tabindex="-1"></a></span>
-<span id="cb661-7"><a href="pipes.html#cb661-7" tabindex="-1"></a>car_data</span></code></pre></div>
-<pre><code>##   cyl   mpg   disp     hp drat   wt  qsec   vs   am gear carb       kpl
-## 1   4 25.90 108.05 111.00 3.94 2.15 17.75 1.00 1.00 4.50 2.00 11.010090
-## 2   6 19.74 183.31 122.29 3.59 3.12 17.98 0.57 0.43 3.86 3.43  8.391474
-## 3   8 15.10 353.10 209.21 3.23 4.00 16.77 0.00 0.14 3.29 3.50  6.419010</code></pre>
-<p>Las dos dan el mismo resultado. La diferencia está en cómo se leen: la primera se
-lee de arriba abajo en el orden en que ocurren las cosas; la segunda hay que
-leerla de adentro hacia afuera, empezando por <code>subset()</code>, que está enterrado en
-el centro.</p>
-<p>Y una tercera versión, con las funciones de <code>dplyr</code> en vez de las de base R:</p>
-<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="pipes.html#cb663-1" tabindex="-1"></a>car_data <span class="ot">&lt;-</span> </span>
-<span id="cb663-2"><a href="pipes.html#cb663-2" tabindex="-1"></a>  mtcars <span class="sc">%&gt;%</span></span>
-<span id="cb663-3"><a href="pipes.html#cb663-3" tabindex="-1"></a>  <span class="fu">subset</span>(hp <span class="sc">&gt;</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb663-4"><a href="pipes.html#cb663-4" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">%&gt;%</span> </span>
-<span id="cb663-5"><a href="pipes.html#cb663-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="fu">list</span>(mean))) <span class="sc">%&gt;%</span> </span>
-<span id="cb663-6"><a href="pipes.html#cb663-6" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="at">kpl =</span> mpg_1 <span class="sc">%&gt;%</span> <span class="fu">multiply_by</span>(<span class="fl">0.4251</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb663-7"><a href="pipes.html#cb663-7" tabindex="-1"></a>  print</span></code></pre></div>
-<pre><code>##   cyl    mpg_1   disp_1     hp_1   drat_1     wt_1   qsec_1      vs_1      am_1
-## 1   4 25.90000 108.0500 111.0000 3.940000 2.146500 17.75000 1.0000000 1.0000000
-## 2   6 19.74286 183.3143 122.2857 3.585714 3.117143 17.97714 0.5714286 0.4285714
-## 3   8 15.10000 353.1000 209.2143 3.229286 3.999214 16.77214 0.0000000 0.1428571
-##     gear_1   carb_1       kpl
-## 1 4.500000 2.000000 11.010090
-## 2 3.857143 3.428571  8.392689
-## 3 3.285714 3.500000  6.419010</code></pre>
-<hr />
-</div>
-<div id="alternativas-a-los-pipes" class="section level2 hasAnchor" number="16.4">
-<h2><span class="header-section-number">16.4</span> Alternativas a los pipes<a href="pipes.html#alternativas-a-los-pipes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El pipe no es obligatorio y no siempre es la mejor opción. Las dos alternativas
-son:</p>
+<div id="versos-de-neruda-fragmentos_neruda_sep.csv" class="section level3 unnumbered hasAnchor">
+<h3>Versos de Neruda: <code>fragmentos_neruda_sep.csv</code><a href="apéndice-b-conjuntos-de-datos-del-curso.html#versos-de-neruda-fragmentos_neruda_sep.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li><strong>Pasos intermedios.</strong> Guardar cada paso en un objeto con nombre
-(<code>vuelos_limpios</code>, <code>resumen_por_mes</code>). Ocupa más líneas, pero deja el
-resultado de cada paso disponible para revisarlo, y eso es exactamente lo que
-hace falta cuando algo sale mal en el medio de una cadena larga.</li>
-<li><strong>Sobre escribir el original.</strong> Reasignar sobre el mismo nombre
-(<code>tabla &lt;- filter(tabla, ...)</code>, y otra vez, y otra vez). Ahorra nombres, pero
-es peligroso: si corres una línea dos veces por accidente, ya no sabes en qué
-estado quedó la tabla, y hay que volver a leer los datos desde el principio.</li>
+<li><strong>Qué es:</strong> diez versos de Pablo Neruda, uno por fila, con las columnas <code>id</code> y <code>texto</code>. Cada palabra viene entre comillas, a propósito, para practicar cómo limpiarlas.</li>
+<li><strong>Tamaño:</strong> 10 filas, 2 columnas.</li>
+<li><strong>Se usa en:</strong> Capítulo 22 (<em>Cadena de caracteres</em>).</li>
+<li><strong>Fuente:</strong> <em>pendiente</em>.</li>
 </ul>
-<div class="consejo">
-<p>Cuándo <strong>no</strong> usar el pipe: cuando la cadena pasa de unos diez pasos (parte en
-dos con un objeto intermedio bien nombrado); cuando hay varias entradas o varias
-salidas, porque el pipe supone un solo objeto que viaja; y cuando estás
-depurando, porque un objeto intermedio con nombre se puede mirar y un paso en el
-medio de una cadena no.</p>
-</div>
-<hr />
-</div>
-<div id="el-pipe-de-exposición" class="section level2 hasAnchor" number="16.5">
-<h2><span class="header-section-number">16.5</span> <code>%$%</code>: el pipe de exposición<a href="pipes.html#el-pipe-de-exposici%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Algunas funciones no reciben una tabla: reciben <strong>vectores sueltos</strong>. <code>cor()</code> es
-el ejemplo típico: quiere <code>cor(x, y)</code>, dos columnas, no un data frame. Con el
-pipe normal eso no funciona, porque <code>cor()</code> recibiría la tabla entera.</p>
-<p>El pipe de exposición <code>%$%</code> resuelve justo eso: <strong>expone</strong> las columnas de la
-tabla para que se puedan nombrar directamente, sin escribir <code>tabla$columna</code> cada
-vez.</p>
-<div class="funcion">
-<p><strong><code>%$%</code></strong> (magrittr): expone las columnas de la tabla como si fueran objetos sueltos.</p>
-<ul>
-<li><strong><code>tabla %$% cor(a, b)</code></strong> equivale a <code>cor(tabla$a, tabla$b)</code>.</li>
-<li><strong>Para qué sirve:</strong> usar funciones de base R que esperan vectores (<code>cor()</code>, <code>t.test()</code>, <code>table()</code>, <code>ts.plot()</code>) dentro de una cadena de pipes.</li>
-<li><strong>Ojo:</strong> solo funciona con <code>%&gt;%</code>; el pipe nativo <code>|&gt;</code> no tiene equivalente.</li>
-</ul>
-</div>
-<p>En el bloque siguiente, las líneas comentadas son las que <strong>no</strong> funcionan, y
-están ahí a propósito para que veas el contraste: con el pipe nativo <code>cor()</code>
-recibiría la tabla completa y fallaría.</p>
-<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="pipes.html#cb665-1" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb665-2"><a href="pipes.html#cb665-2" tabindex="-1"></a></span>
-<span id="cb665-3"><a href="pipes.html#cb665-3" tabindex="-1"></a><span class="co">#iris %&gt;%</span></span>
-<span id="cb665-4"><a href="pipes.html#cb665-4" tabindex="-1"></a><span class="co">#  subset(Sepal.Length &gt; mean(Sepal.Length)) |&gt; </span></span>
-<span id="cb665-5"><a href="pipes.html#cb665-5" tabindex="-1"></a><span class="co">#  cor(Sepal.Length, Sepal.Width)</span></span>
-<span id="cb665-6"><a href="pipes.html#cb665-6" tabindex="-1"></a></span>
-<span id="cb665-7"><a href="pipes.html#cb665-7" tabindex="-1"></a></span>
-<span id="cb665-8"><a href="pipes.html#cb665-8" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
-<span id="cb665-9"><a href="pipes.html#cb665-9" tabindex="-1"></a>  <span class="fu">subset</span>(Sepal.Length <span class="sc">&gt;</span> <span class="fu">mean</span>(Sepal.Length)) <span class="sc">%$%</span></span>
-<span id="cb665-10"><a href="pipes.html#cb665-10" tabindex="-1"></a> <span class="fu">cor</span>(Sepal.Length, Sepal.Width)</span></code></pre></div>
-<pre><code>## [1] 0.3361992</code></pre>
-<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="pipes.html#cb667-1" tabindex="-1"></a>iris <span class="sc">%&gt;%</span></span>
-<span id="cb667-2"><a href="pipes.html#cb667-2" tabindex="-1"></a>  <span class="fu">subset</span>(Sepal.Length <span class="sc">&gt;</span> <span class="fu">mean</span>(Sepal.Length)) <span class="sc">|&gt;</span> </span>
-<span id="cb667-3"><a href="pipes.html#cb667-3" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">corr=</span> <span class="fu">cor</span>(Sepal.Length, Sepal.Width))</span></code></pre></div>
-<pre><code>##        corr
-## 1 0.3361992</code></pre>
-<p>La segunda parte del bloque enseña la alternativa tidyverse: si en vez de <code>cor()</code>
-usas <code>summarize()</code>, ya no hace falta exponer nada, porque <code>summarize()</code> sí sabe
-buscar las columnas dentro de la tabla. Casi siempre hay una salida tidyverse que
-evita <code>%$%</code>.</p>
-<div id="otro-ejemplo-de-pipe" class="section level3 hasAnchor" number="16.5.1">
-<h3><span class="header-section-number">16.5.1</span> Otro ejemplo de Pipe: %$%<a href="pipes.html#otro-ejemplo-de-pipe" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><code>ts.plot()</code> es una función de base R que dibuja una serie de tiempo y espera un
-vector, no una tabla: otro caso donde <code>%$%</code> es lo que hace falta. Después del
-ejemplo viene la versión tidyverse de la misma gráfica, con <code>ggplot()</code>, donde
-todo se resuelve dentro de la tabla.</p>
-<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb669-1"><a href="pipes.html#cb669-1" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">z =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)) <span class="sc">%$%</span> </span>
-<span id="cb669-2"><a href="pipes.html#cb669-2" tabindex="-1"></a>  <span class="fu">ts.plot</span>(z)</span></code></pre></div>
-<p><img src="Ciencia_Datos_con_R_files/figure-html/c14-11-1.png" alt="" width="672" /></p>
-<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="pipes.html#cb670-1" tabindex="-1"></a><span class="co">#data.frame(z = rnorm(100)) |&gt;  </span></span>
-<span id="cb670-2"><a href="pipes.html#cb670-2" tabindex="-1"></a><span class="co">#  ts.plot(z)</span></span>
-<span id="cb670-3"><a href="pipes.html#cb670-3" tabindex="-1"></a></span>
-<span id="cb670-4"><a href="pipes.html#cb670-4" tabindex="-1"></a><span class="co">#Para hacerlo la misma grafico con Tidyverse</span></span>
-<span id="cb670-5"><a href="pipes.html#cb670-5" tabindex="-1"></a>z1<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">z =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)) </span>
-<span id="cb670-6"><a href="pipes.html#cb670-6" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb670-7"><a href="pipes.html#cb670-7" tabindex="-1"></a>z1<span class="ot">=</span><span class="fu">data.table</span>(z1)</span>
-<span id="cb670-8"><a href="pipes.html#cb670-8" tabindex="-1"></a>z1<span class="sc">$</span>order<span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
-<span id="cb670-9"><a href="pipes.html#cb670-9" tabindex="-1"></a>z1<span class="sc">|&gt;</span> </span>
-<span id="cb670-10"><a href="pipes.html#cb670-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(order, z))<span class="sc">+</span></span>
-<span id="cb670-11"><a href="pipes.html#cb670-11" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
-<p><img src="Ciencia_Datos_con_R_files/figure-html/c14-11-2.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb1836"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1836-1"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1836-1" tabindex="-1"></a>neruda <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">paste0</span>(url_datos, <span class="st">&quot;fragmentos_neruda_sep.csv&quot;</span>))</span></code></pre></div>
 <hr />
 </div>
 </div>
-<div id="el-pipe-de-asignación" class="section level2 hasAnchor" number="16.6">
-<h2><span class="header-section-number">16.6</span> <code>%&lt;&gt;%</code>: el pipe de asignación<a href="pipes.html#el-pipe-de-asignaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Este pipe hace dos cosas de un golpe: pasa el objeto a la función <strong>y guarda el
-resultado encima del objeto original</strong>. Es decir, <code>x %&lt;&gt;% sqrt</code> es lo mismo que
-escribir <code>x &lt;- x %&gt;% sqrt</code>.</p>
-<p><code>lhs %&lt;&gt;% rhs</code></p>
+<div id="puerto-rico" class="section level2 unnumbered hasAnchor">
+<h2>Puerto Rico<a href="apéndice-b-conjuntos-de-datos-del-curso.html#puerto-rico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="incidentes-criminales-crimen_pr.csv" class="section level3 unnumbered hasAnchor">
+<h3>Incidentes criminales: <code>crimen_pr.csv</code><a href="apéndice-b-conjuntos-de-datos-del-curso.html#incidentes-criminales-crimen_pr.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li><p><code>lhs</code>: el objeto, que sirve a la vez de <strong>valor inicial</strong> y de <strong>destino</strong>.</p></li>
-<li><p><code>rhs</code>: la llamada a la función, con la sintaxis de magrittr.</p></li>
+<li><strong>Qué es:</strong> incidentes criminales reportados en Puerto Rico entre junio y agosto de 2016, con fecha, hora, tipo de delito, coordenadas y área policiaca.</li>
+<li><strong>Tamaño:</strong> 8 870 filas, 7 columnas (0.6 MB).</li>
+<li><strong>Columnas:</strong> <code>Fecha</code>, <code>Hora</code>, <code>Delito</code>, <code>Delitos_code</code>, <code>POINT_X</code>, <code>POINT_Y</code>, <code>Area Policiaca</code>.</li>
+<li><strong>Se usa en:</strong> Capítulo 18 (<em>Importar datos</em>), Capítulo 25 (<em>Fechas y horas</em>) y Capítulo 32 (<em>Leaflet</em>), y en las hojas de ejercicios de esos tres capítulos.</li>
+<li><strong>Fuente:</strong> gobierno de Puerto Rico.</li>
 </ul>
+<div class="sourceCode" id="cb1837"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1837-1"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1837-1" tabindex="-1"></a>crimen <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">paste0</span>(url_datos, <span class="st">&quot;crimen_pr.csv&quot;</span>))</span></code></pre></div>
+</div>
+<div id="covid-19-en-puerto-rico-url_covid_pr.csv" class="section level3 unnumbered hasAnchor">
+<h3>COVID-19 en Puerto Rico: <code>url_COVID_PR.csv</code><a href="apéndice-b-conjuntos-de-datos-del-curso.html#covid-19-en-puerto-rico-url_covid_pr.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Qué es:</strong> serie diaria de muertes, casos, hospitalizaciones, camas de intensivo y ventiladores, del 12 de marzo de 2020 al 19 de octubre de 2021.</li>
+<li><strong>Tamaño:</strong> 587 filas, 18 columnas.</li>
+<li><strong>Columnas principales:</strong> <code>Fecha</code>, <code>Muertes</code>, <code>IncrementoMuertes</code>, <code>CasosPCR_Salud</code>, <code>HospitCOV19</code>, <code>CamasICU</code>, <code>CamasICU_disp</code>, <code>Ventiladores</code>.</li>
+<li><strong>Se usa en:</strong> Capítulos 9 y 10 (<em>Transformación</em>), Capítulo 18 (<em>Importar datos</em>) y Apéndice A.</li>
+<li><strong>Fuente:</strong> Departamento de Salud de Puerto Rico. El Capítulo 18 muestra cómo bajar la versión al día desde el repositorio <code>rafalab/pr-covid</code>.</li>
+</ul>
+<div class="sourceCode" id="cb1838"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1838-1"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1838-1" tabindex="-1"></a>covid_pr <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">paste0</span>(url_datos, <span class="st">&quot;url_COVID_PR.csv&quot;</span>))</span></code></pre></div>
+</div>
+<div id="vuelos-de-san-juan-vuelos_sju_2018_ene.csv-vuelos_sju_2019_ene.csv-vuelos_sju_2020_ene.csv" class="section level3 unnumbered hasAnchor">
+<h3>Vuelos de San Juan: <code>Vuelos_SJU_2018_Ene.csv</code>, <code>Vuelos_SJU_2019_Ene.csv</code>, <code>Vuelos_SJU_2020_Ene.csv</code><a href="apéndice-b-conjuntos-de-datos-del-curso.html#vuelos-de-san-juan-vuelos_sju_2018_ene.csv-vuelos_sju_2019_ene.csv-vuelos_sju_2020_ene.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Qué es:</strong> los vuelos del aeropuerto de San Juan (SJU) en enero de tres años, un archivo por año, con la fecha, la aerolínea, el origen, el destino y las horas y demoras de salida y llegada.</li>
+<li><strong>Tamaño:</strong> 3 831, 5 128 y 5 918 filas; 14 columnas en los tres.</li>
+<li><strong>Columnas principales:</strong> <code>FL_DATE</code>, <code>OP_UNIQUE_CARRIER</code>, <code>ORIGIN</code>, <code>DEST</code>, <code>DEP_TIME</code>, <code>DEP_DELAY</code>, <code>ARR_TIME</code>.</li>
+<li><strong>Se usa en:</strong> Capítulo 3 (<em>Flujo de trabajo</em>) y Capítulo 18 (<em>Importar datos</em>), donde se leen los tres a la vez.</li>
+<li><strong>Fuente:</strong> <em>pendiente</em>.</li>
+</ul>
+<div class="sourceCode" id="cb1839"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1839-1"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1839-1" tabindex="-1"></a>vuelos_sju <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">paste0</span>(url_datos,</span>
+<span id="cb1839-2"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1839-2" tabindex="-1"></a>                              <span class="fu">c</span>(<span class="st">&quot;Vuelos_SJU_2018_Ene.csv&quot;</span>,</span>
+<span id="cb1839-3"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1839-3" tabindex="-1"></a>                                <span class="st">&quot;Vuelos_SJU_2019_Ene.csv&quot;</span>,</span>
+<span id="cb1839-4"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1839-4" tabindex="-1"></a>                                <span class="st">&quot;Vuelos_SJU_2020_Ene.csv&quot;</span>)),</span>
+<span id="cb1839-5"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1839-5" tabindex="-1"></a>                       <span class="at">id =</span> <span class="st">&quot;archivo&quot;</span>)</span></code></pre></div>
+</div>
+<div id="nombres-de-bebés-carpeta-babynames" class="section level3 unnumbered hasAnchor">
+<h3>Nombres de bebés: carpeta <code>babynames/</code><a href="apéndice-b-conjuntos-de-datos-del-curso.html#nombres-de-beb%C3%A9s-carpeta-babynames" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Qué es:</strong> frecuencia de los nombres dados a los bebés, por año y por sexo.</li>
+<li><strong>Contenido:</strong>
+<ul>
+<li><code>PR_babynames.TXT</code>: Puerto Rico, de 1998 a 2019; 21 925 filas sin encabezado, con el formato <code>estado,sexo,año,nombre,cantidad</code>.</li>
+<li><code>TR_babynames.TXT</code>: el mismo formato, con el código <code>TR</code>.</li>
+<li><code>names_national/</code>: un archivo por año de nacimiento, de <code>yob1880.txt</code> a <code>yob2019.txt</code>, con el formato <code>nombre,sexo,cantidad</code>, más el <code>NationalReadMe.pdf</code> que los explica.</li>
+<li><code>namesbystate/</code>: 52 archivos, uno por código de dos letras.</li>
+</ul></li>
+<li><strong>Se usa en:</strong> ningún capítulo todavía. El Capítulo 20 (<em>Datos relacionados</em>) usa el <strong>paquete</strong> <code>babynames</code>, que es otra cosa.</li>
+<li><strong>Fuente:</strong> según <code>NationalReadMe.pdf</code>, los archivos nacionales se tabularon a partir de los registros del Seguro Social de Estados Unidos (al 1 de marzo de 2020), y solo incluyen nombres con por lo menos 5 apariciones.</li>
+</ul>
+<p>Como los archivos no traen encabezado, hay que dar los nombres de las columnas:</p>
+<div class="sourceCode" id="cb1840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1840-1"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1840-1" tabindex="-1"></a>nombres_pr <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">paste0</span>(url_datos, <span class="st">&quot;babynames/PR_babynames.TXT&quot;</span>),</span>
+<span id="cb1840-2"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1840-2" tabindex="-1"></a>                       <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">&quot;estado&quot;</span>, <span class="st">&quot;sexo&quot;</span>, <span class="st">&quot;anio&quot;</span>, <span class="st">&quot;nombre&quot;</span>, <span class="st">&quot;cantidad&quot;</span>))</span></code></pre></div>
+<hr />
+</div>
+</div>
+<div id="biología-y-ambiente" class="section level2 unnumbered hasAnchor">
+<h2>Biología y ambiente<a href="apéndice-b-conjuntos-de-datos-del-curso.html#biolog%C3%ADa-y-ambiente" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="orquídeas-eulophia-en-inaturalist-eulophia_inat.csv" class="section level3 unnumbered hasAnchor">
+<h3>Orquídeas <em>Eulophia</em> en iNaturalist: <code>eulophia_inat.csv</code><a href="apéndice-b-conjuntos-de-datos-del-curso.html#orqu%C3%ADdeas-eulophia-en-inaturalist-eulophia_inat.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Qué es:</strong> 1 000 observaciones de orquídeas del género <em>Eulophia</em> en iNaturalist, de calidad de investigación y con coordenadas. Las especies más comunes en el archivo son <em>Eulophia maculata</em>, <em>Eulophia graminea</em> y <em>Eulophia picta</em>.</li>
+<li><strong>Tamaño:</strong> 1 000 filas, 37 columnas (0.5 MB).</li>
+<li><strong>Columnas principales:</strong> <code>scientific_name</code>, <code>datetime</code>, <code>place_guess</code>, <code>latitude</code>, <code>longitude</code>, <code>common_name</code>, <code>url</code>, <code>image_url</code>.</li>
+<li><strong>Se usa en:</strong> Capítulo 32 (<em>Leaflet</em>).</li>
+<li><strong>Fuente:</strong> iNaturalist. El capítulo baja los datos en vivo y vuelve a guardar este archivo cuando hay conexión, así que <strong>el contenido cambia</strong> cada vez que se compila el libro con internet.</li>
+</ul>
+<div class="sourceCode" id="cb1841"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1841-1"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1841-1" tabindex="-1"></a>eulophia <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">paste0</span>(url_datos, <span class="st">&quot;eulophia_inat.csv&quot;</span>))</span></code></pre></div>
+</div>
+<div id="terremotos-earthquake_all_month.csv" class="section level3 unnumbered hasAnchor">
+<h3>Terremotos: <code>Earthquake_all_month.csv</code><a href="apéndice-b-conjuntos-de-datos-del-curso.html#terremotos-earthquake_all_month.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Qué es:</strong> todos los terremotos registrados en el mundo durante un mes, del 12 de agosto al 11 de septiembre de 2023, con hora, coordenadas, profundidad y magnitud.</li>
+<li><strong>Tamaño:</strong> 10 743 filas, 22 columnas (2 MB).</li>
+<li><strong>Columnas principales:</strong> <code>time</code>, <code>latitude</code>, <code>longitude</code>, <code>depth</code>, <code>mag</code>, <code>magType</code>, <code>place</code>.</li>
+<li><strong>Se usa en:</strong> Capítulo 32 (<em>Leaflet</em>), como copia de respaldo cuando no hay conexión.</li>
+<li><strong>Fuente:</strong> el servicio de datos del USGS (<em>all_month.csv</em>). El capítulo baja la versión del mes en curso cuando hay internet.</li>
+</ul>
+<div class="sourceCode" id="cb1842"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1842-1"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1842-1" tabindex="-1"></a>terremotos <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">paste0</span>(url_datos, <span class="st">&quot;Earthquake_all_month.csv&quot;</span>))</span></code></pre></div>
+</div>
+<div id="peso-al-nacer-y-supervivencia-newborn_karn_penrose.csv" class="section level3 unnumbered hasAnchor">
+<h3>Peso al nacer y supervivencia: <code>Newborn_Karn_Penrose.csv</code><a href="apéndice-b-conjuntos-de-datos-del-curso.html#peso-al-nacer-y-supervivencia-newborn_karn_penrose.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Qué es:</strong> nacimientos agrupados por edad de la madre y peso al nacer, con el total de nacimientos y cuántos no sobrevivieron.</li>
+<li><strong>Tamaño:</strong> 261 filas, 4 columnas.</li>
+<li><strong>Columnas:</strong> <code>Mother_age</code>, <code>Count_Non_survivors</code>, <code>Count_Total_Birth</code>, <code>Birth_weight</code>.</li>
+<li><strong>Se usa en:</strong> Capítulo 18 (<em>Importar datos</em>).</li>
+<li><strong>Fuente:</strong> <em>pendiente</em>.</li>
+</ul>
+<div class="sourceCode" id="cb1843"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1843-1"><a href="apéndice-b-conjuntos-de-datos-del-curso.html#cb1843-1" tabindex="-1"></a>newborn <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">paste0</span>(url_datos, <span class="st">&quot;Newborn_Karn_Penrose.csv&quot;</span>))</span></code></pre></div>
+</div>
+<div id="un-archivo-sucio-a-propósito-plantas_sucio.csv" class="section level3 unnumbered hasAnchor">
+<h3>Un archivo sucio a propósito: <code>plantas_sucio.csv</code><a href="apéndice-b-conjuntos-de-datos-del-curso.html#un-archivo-sucio-a-prop%C3%B3sito-plantas_sucio.csv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>Qué es:</strong> un registro de plantas de invernadero, hecho a mano con varios problemas típicos de los archivos reales, para practicar cómo leerlo y arreglarlo.</li>
+<li><strong>Tamaño:</strong> 7 filas.</li>
+<li><strong>Se usa en:</strong> Capítulo 18 (<em>Importar datos</em>).</li>
+<li><strong>Fuente:</strong> creado para el curso.</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="archivos-que-ningún-capítulo-usa-todavía" class="section level2 unnumbered hasAnchor">
+<h2>Archivos que ningún capítulo usa todavía<a href="apéndice-b-conjuntos-de-datos-del-curso.html#archivos-que-ning%C3%BAn-cap%C3%ADtulo-usa-todav%C3%ADa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Estos archivos están en <code>Datos/</code> pero ningún capítulo los lee. Sirven para proyectos, para practicar por tu cuenta o para ejercicios futuros.</p>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Archivo</th>
+<th align="right">Filas</th>
+<th align="right">Columnas</th>
+<th align="left">Algunas columnas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>Orchid_variation_extinction.csv</code></td>
+<td align="right">555</td>
+<td align="right">15</td>
+<td align="left"><code>location</code>, <code>genero</code>, <code>especie</code>, <code>categoria_riesgo_binomial</code>, coeficientes de variación de sépalo, pétalo, labelo y columna</td>
+</tr>
+<tr class="even">
+<td align="left"><code>Lep_rupPetal_All_Data.csv</code></td>
+<td align="right">441</td>
+<td align="right">33</td>
+<td align="left"><code>Plant_Number</code>, <code>Petal_Character</code>, <code>Population</code>, <code>Num_FR</code>, <code>Num_flowers</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>GonocalyxDat.csv</code></td>
+<td align="right">88</td>
+<td align="right">6</td>
+<td align="left"><code>ID</code>, <code>Lat</code>, <code>Long</code>, <code>Elevation</code>, <code>Host</code>, <code>Estimate_Height</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>worldcities_lat_long_pop.csv</code></td>
+<td align="right">26 569</td>
+<td align="right">11</td>
+<td align="left"><code>city</code>, <code>lat</code>, <code>lng</code>, <code>country</code>, <code>capital</code>, <code>population</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>DownloadFestival_No_Outlier.csv</code></td>
+<td align="right">810</td>
+<td align="right">5</td>
+<td align="left"><code>ticknumb</code>, <code>gender</code>, <code>day1</code>, <code>day2</code>, <code>day3</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>Exam Anxiety.csv</code></td>
+<td align="right">103</td>
+<td align="right">5</td>
+<td align="left"><code>Code</code>, <code>Revise</code>, <code>Exam</code>, <code>Anxiety</code>, <code>Gender</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>The Biggest Liar.csv</code></td>
+<td align="right">68</td>
+<td align="right">3</td>
+<td align="left"><code>Creativity</code>, <code>Position</code>, <code>Novice</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>Vehicle_collision_NY_Kaggle.csv</code></td>
+<td align="right">477 732</td>
+<td align="right">29</td>
+<td align="left"><code>DATE</code>, <code>TIME</code>, <code>BOROUGH</code>, <code>LATITUDE</code>, <code>LONGITUDE</code>, <code>PERSONS INJURED</code></td>
+</tr>
+</tbody>
+</table>
+<p>La fuente de estos archivos está <em>pendiente</em>.</p>
 <div class="advertencia">
-<p><code>%&lt;&gt;%</code> <strong>modifica el objeto original y no hay manera de deshacerlo</strong>. En el
-Ejemplo 1 de abajo, la columna <code>Sepal.Length</code> de <code>iris</code> queda cambiada de verdad
-en tu sesión: si vuelves a correr el bloque, le sacarás la raíz cuadrada otra vez,
-y luego otra, sin ningún aviso. Por eso casi nunca se usa en un análisis de
-verdad: rompe la regla de que correr el mismo script dos veces dé el mismo
-resultado. Si necesitas el valor transformado, guárdalo en una <strong>columna nueva</strong>
-con <code>mutate()</code>.</p>
+<p><code>Vehicle_collision_NY_Kaggle.csv</code> pesa <strong>88 MB</strong>. Leerlo desde internet tarda, y en una conexión lenta puede fallar. Si lo vas a usar, trabaja con tu copia local del repositorio.</p>
 </div>
-<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="pipes.html#cb671-1" tabindex="-1"></a><span class="co"># Example 1</span></span>
-<span id="cb671-2"><a href="pipes.html#cb671-2" tabindex="-1"></a><span class="fu">head</span>(iris)</span></code></pre></div>
-<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-## 1          5.1         3.5          1.4         0.2  setosa
-## 2          4.9         3.0          1.4         0.2  setosa
-## 3          4.7         3.2          1.3         0.2  setosa
-## 4          4.6         3.1          1.5         0.2  setosa
-## 5          5.0         3.6          1.4         0.2  setosa
-## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
-<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb673-1"><a href="pipes.html#cb673-1" tabindex="-1"></a><span class="fu">head</span>(iris<span class="sc">$</span>Sepal.Length <span class="sc">%&lt;&gt;%</span> sqrt)</span></code></pre></div>
-<pre><code>## [1] 2.258318 2.213594 2.167948 2.144761 2.236068 2.323790</code></pre>
-<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="pipes.html#cb675-1" tabindex="-1"></a><span class="co"># Example 2</span></span>
-<span id="cb675-2"><a href="pipes.html#cb675-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb675-3"><a href="pipes.html#cb675-3" tabindex="-1"></a><span class="fu">head</span>(x, <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1]  1.361612477 -0.189292059  0.462969745 -0.007385678  2.689108440
-##  [6]  1.459546809 -1.653300235 -0.203078277  0.618497216  0.597135379</code></pre>
-<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="pipes.html#cb677-1" tabindex="-1"></a>x <span class="sc">%&lt;&gt;%</span> </span>
-<span id="cb677-2"><a href="pipes.html#cb677-2" tabindex="-1"></a>  abs <span class="sc">%&gt;%</span> </span>
-<span id="cb677-3"><a href="pipes.html#cb677-3" tabindex="-1"></a>  sort</span>
-<span id="cb677-4"><a href="pipes.html#cb677-4" tabindex="-1"></a></span>
-<span id="cb677-5"><a href="pipes.html#cb677-5" tabindex="-1"></a><span class="fu">head</span>(x, <span class="dv">20</span>)</span></code></pre></div>
-<pre><code>##  [1] 0.007385678 0.029096523 0.030999873 0.035387591 0.040816992 0.054441440
-##  [7] 0.069795203 0.081581732 0.087776321 0.110958305 0.119075263 0.120358116
-## [13] 0.120542457 0.131861167 0.133266112 0.145019780 0.145731942 0.150293091
-## [19] 0.155538095 0.164714712</code></pre>
-<hr />
-</div>
-<div id="in-esto-no-es-un-pipe" class="section level2 hasAnchor" number="16.7">
-<h2><span class="header-section-number">16.7</span> <code>%in%</code>: esto <strong>no</strong> es un pipe<a href="pipes.html#in-esto-no-es-un-pipe" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><code>%in%</code> aparece en la lista del principio porque se escribe con signos de
-porcentaje a los lados, igual que los pipes, pero no tiene nada que ver con
-ellos. No pasa nada de la izquierda a la derecha: es un operador de
-<strong>pertenencia</strong>, que contesta la pregunta “¿este valor está en esta lista?” y
-devuelve <code>TRUE</code> o <code>FALSE</code>.</p>
-<ul>
-<li>Sirve para filtrar por <strong>varios valores específicos</strong> de una variable a la vez.</li>
-</ul>
-<div class="funcion">
-<p><strong><code>%in%</code></strong> (base R): pertenencia a un conjunto.</p>
-<ul>
-<li><strong><code>x %in% c("a", "b")</code></strong> devuelve <code>TRUE</code> para cada elemento de <code>x</code> que sea <code>"a"</code> o <code>"b"</code>.</li>
-<li><strong>Para qué sirve:</strong> sustituye a una cadena larga de <code>|</code>. En vez de <code>filter(d, sp == "a" | sp == "b" | sp == "c")</code>, se escribe <code>filter(d, sp %in% c("a", "b", "c"))</code>.</li>
-<li><strong>Ojo con los <code>NA</code>:</strong> <code>NA %in% c(1, 2)</code> devuelve <code>FALSE</code>, no <code>NA</code>, que es lo contrario de lo que hacen casi todas las comparaciones en R.</li>
-</ul>
-</div>
-<p>En el ejemplo se filtran dos especies de <em>Iris</em>, <em>Iris setosa</em> e
-<em>Iris virginica</em>, dejando fuera la tercera.</p>
-<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="pipes.html#cb679-1" tabindex="-1"></a><span class="co"># Example 1</span></span>
-<span id="cb679-2"><a href="pipes.html#cb679-2" tabindex="-1"></a><span class="fu">names</span>(iris)</span></code></pre></div>
-<pre><code>## [1] &quot;Sepal.Length&quot; &quot;Sepal.Width&quot;  &quot;Petal.Length&quot; &quot;Petal.Width&quot;  &quot;Species&quot;</code></pre>
-<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="pipes.html#cb681-1" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
-<span id="cb681-2"><a href="pipes.html#cb681-2" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;setosa&quot;</span>, <span class="st">&quot;virginica&quot;</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb681-3"><a href="pipes.html#cb681-3" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
-<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-## 1     2.258318         3.5          1.4         0.2  setosa
-## 2     2.213594         3.0          1.4         0.2  setosa
-## 3     2.167948         3.2          1.3         0.2  setosa
-## 4     2.144761         3.1          1.5         0.2  setosa
-## 5     2.236068         3.6          1.4         0.2  setosa
-## 6     2.323790         3.9          1.7         0.4  setosa</code></pre>
-<hr />
-</div>
-<div id="t-el-pipe-en-t" class="section level2 hasAnchor" number="16.8">
-<h2><span class="header-section-number">16.8</span> <code>%T&gt;%</code>: el pipe en T<a href="pipes.html#t-el-pipe-en-t" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El pipe en T, <code>%T&gt;%</code>, sirve cuando en medio de una cadena hay una función que
-<strong>no devuelve nada</strong>, como <code>plot()</code>, <code>print()</code> o <code>write_csv()</code>. Con un pipe
-normal la cadena se rompe ahí, porque el paso siguiente recibiría el <code>NULL</code> que
-esa función devuelve.</p>
-<p><code>%T&gt;%</code> hace el paso “de lado”, como el palo corto de una T: ejecuta la función y
-sigue pasando <strong>el objeto que entró</strong>, no el resultado.</p>
-<div class="funcion">
-<p><strong><code>%T&gt;%</code></strong> (magrittr): paso lateral dentro de una cadena.</p>
-<ul>
-<li><strong><code>x %T&gt;% plot() %&gt;% colSums()</code>:</strong> dibuja <code>x</code> y después le calcula las sumas de columna, todo en una cadena.</li>
-<li><strong>Cuándo se usa:</strong> para dibujar, imprimir o guardar en medio de un análisis, sin cortarlo en dos.</li>
-<li><strong>Sin él</strong> habría que guardar el objeto en una variable, dibujarlo, y volver a usarlo.</li>
-</ul>
-</div>
-<p>Referencia:
-<a href="https://stackoverflow.com/questions/61196304/magrittr-tee-pipe-t-equivalent" class="uri">https://stackoverflow.com/questions/61196304/magrittr-tee-pipe-t-equivalent</a></p>
-<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="pipes.html#cb683-1" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">200</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb683-2"><a href="pipes.html#cb683-2" tabindex="-1"></a><span class="fu">matrix</span>(<span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">%T&gt;%</span></span>
-<span id="cb683-3"><a href="pipes.html#cb683-3" tabindex="-1"></a>plot <span class="sc">%&gt;%</span>  <span class="co"># plot usually does not return anything. </span></span>
-<span id="cb683-4"><a href="pipes.html#cb683-4" tabindex="-1"></a>colSums</span></code></pre></div>
-<p><img src="Ciencia_Datos_con_R_files/figure-html/c14-14-1.png" alt="" width="672" /></p>
-<pre><code>## [1] 1.395464 5.606604</code></pre>
-<hr />
-</div>
-<div id="el-pipe-impaciente" class="section level2 hasAnchor" number="16.9">
-<h2><span class="header-section-number">16.9</span> <code>%!&gt;%</code>: el pipe impaciente<a href="pipes.html#el-pipe-impaciente" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Aparece en la lista del principio y casi nunca hace falta, pero conviene saber
-que existe. <code>%&gt;%</code> es <strong>perezoso</strong>: no calcula un paso hasta que alguien necesita
-su resultado. <code>%!&gt;%</code>, añadido en magrittr 2.0, es <strong>impaciente</strong>: obliga a
-calcular cada paso en el momento en que se escribe.</p>
-<div class="nota">
-<p>La diferencia solo se nota cuando los pasos tienen <strong>efectos secundarios</strong>, es
-decir, cuando además de calcular hacen algo más: imprimir un mensaje, escribir un
-archivo, avanzar un número al azar. Ahí el orden en que ocurren las cosas importa,
-y <code>%!&gt;%</code> lo garantiza. En un análisis normal, <code>%&gt;%</code> y <code>%!&gt;%</code> dan el mismo
-resultado.</p>
-</div>
-<hr />
-</div>
-<div id="ejercicios-del-capítulo-11" class="section level2 hasAnchor" number="16.10">
-<h2><span class="header-section-number">16.10</span> Ejercicios del capítulo<a href="pipes.html#ejercicios-del-cap%C3%ADtulo-11" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="nota">
-<p><strong>Sobre los ejercicios de este capítulo.</strong> Cada ejercicio se entrega con tres
-cosas: el <strong>script</strong>, el <strong>resultado</strong> (que el bloque corra) y una <strong>explicación
-en palabras</strong>. Los ejercicios usan <code>millas</code> y <code>paises</code> del paquete <code>datos</code>, en
-español, y no <code>mtcars</code>, <code>iris</code> ni <code>diamonds</code>, que son los del capítulo. La hoja
-completa para entregar está en <code>Ejercicios/Ejercicios_Capitulo_16_pipes.Rmd</code>.</p>
-</div>
-<div id="ejercicio-1.-de-adentro-hacia-afuera-a-de-arriba-hacia-abajo" class="section level3 hasAnchor" number="16.10.1">
-<h3><span class="header-section-number">16.10.1</span> Ejercicio 1. De adentro hacia afuera, a de arriba hacia abajo<a href="pipes.html#ejercicio-1.-de-adentro-hacia-afuera-a-de-arriba-hacia-abajo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="ejercicio">
-<p>Este código anidado funciona pero es ilegible:</p>
-<p><code>arrange(summarise(group_by(filter(paises, anio == 2007), continente), esperanza_media = mean(esperanza_de_vida)), desc(esperanza_media))</code></p>
-<p>Reescríbelo con pipes, un paso por línea.</p>
-<p><strong>Verificación:</strong> tu tabla debe tener 5 filas, una por continente, y el mismo
-orden que produce la versión anidada.</p>
-<p><strong>En palabras:</strong> ¿en qué orden hay que leer la versión anidada para entenderla?
-¿Y la tuya?</p>
-</div>
-<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb685-1"><a href="pipes.html#cb685-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
-</div>
-<div id="ejercicio-2.-el-marcador-de-posición" class="section level3 hasAnchor" number="16.10.2">
-<h3><span class="header-section-number">16.10.2</span> Ejercicio 2. El marcador de posición<a href="pipes.html#ejercicio-2.-el-marcador-de-posici%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="ejercicio">
-<p>Datos: <code>paises</code> del año 2007. Ajusta un modelo lineal de <code>esperanza_de_vida</code> en
-función de <code>pib_per_capita</code> <strong>dentro de una cadena de pipes</strong>, usando <code>lm()</code>.
-<code>lm()</code> quiere la fórmula primero, así que vas a necesitar <code>data = .</code>.</p>
-<p><strong>Verificación:</strong> el coeficiente del <code>pib_per_capita</code> debe salir <strong>positivo</strong>.</p>
-<p><strong>En palabras:</strong> ¿qué habría pasado si escribieras <code>paises2007 %&gt;% lm(...)</code> sin
-el punto? Explica qué habría recibido <code>lm()</code> como primer argumento.</p>
-</div>
-<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="pipes.html#cb686-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
-</div>
-<div id="ejercicio-3.-y-lado-a-lado" class="section level3 hasAnchor" number="16.10.3">
-<h3><span class="header-section-number">16.10.3</span> Ejercicio 3. <code>%&gt;%</code> y <code>|&gt;</code> lado a lado<a href="pipes.html#ejercicio-3.-y-lado-a-lado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="ejercicio">
-<p>Datos: <code>millas</code>. Escribe <strong>la misma</strong> cadena dos veces, una con <code>%&gt;%</code> y otra con
-<code>|&gt;</code>: filtra los vehículos de 2008, agrupa por <code>clase</code>, calcula el promedio de
-<code>autopista</code> y ordena de mayor a menor. Después intenta escribir <code>millas %&gt;% nrow</code>
-y <code>millas |&gt; nrow</code> (sin paréntesis) y mira qué pasa.</p>
-<p><strong>Verificación:</strong> las dos cadenas deben dar exactamente la misma tabla; una de
-las dos versiones de <code>nrow</code> sin paréntesis da error.</p>
-<p><strong>En palabras:</strong> ¿cuál de las dos falló y por qué? ¿Cuál de los dos pipes usarías
-por defecto, y en qué caso cambiarías de opinión?</p>
-</div>
-<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="pipes.html#cb687-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
-</div>
-<div id="ejercicio-4.-con-una-función-que-quiere-vectores" class="section level3 hasAnchor" number="16.10.4">
-<h3><span class="header-section-number">16.10.4</span> Ejercicio 4. <code>%$%</code> con una función que quiere vectores<a href="pipes.html#ejercicio-4.-con-una-funci%C3%B3n-que-quiere-vectores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="ejercicio">
-<p>Datos: <code>millas</code>. Calcula la correlación entre <code>cilindrada</code> y <code>autopista</code> de tres
-maneras: con <code>cor(millas$cilindrada, millas$autopista)</code>, con <code>%$%</code>, y con
-<code>summarise()</code> dentro de una cadena normal. Prueba también qué pasa si usas <code>%&gt;%</code>
-en vez de <code>%$%</code>.</p>
-<p><strong>Verificación:</strong> las tres maneras que funcionan dan el mismo número, negativo y
-con valor absoluto mayor que 0.7.</p>
-<p><strong>En palabras:</strong> ¿qué mensaje da la versión con <code>%&gt;%</code> y por qué? ¿Cuál de las
-tres versiones que sí funcionan usarías en un análisis tuyo?</p>
-</div>
-<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="pipes.html#cb688-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
-</div>
-<div id="ejercicio-5.-por-qué-es-peligroso" class="section level3 hasAnchor" number="16.10.5">
-<h3><span class="header-section-number">16.10.5</span> Ejercicio 5. Por qué <code>%&lt;&gt;%</code> es peligroso<a href="pipes.html#ejercicio-5.-por-qu%C3%A9-es-peligroso" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="ejercicio">
-<p>Haz una copia: <code>millas_copia &lt;- millas</code>. Aplícale
-<code>millas_copia$autopista %&lt;&gt;% sqrt</code> y mira el resultado. Después <strong>corre la misma
-línea otra vez</strong> y vuelve a mirar.</p>
-<p><strong>Verificación:</strong> <code>millas</code> sin tocar sigue igual, pero los valores de
-<code>millas_copia</code> cambiaron <strong>las dos veces</strong>.</p>
-<p><strong>En palabras:</strong> explica por qué esto rompe la reproducibilidad de un script.
-Escribe debajo la versión con <code>mutate()</code> que hace lo mismo sin ese problema.</p>
-</div>
-<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="pipes.html#cb689-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
-</div>
-<div id="ejercicio-6.-t-el-paso-de-lado" class="section level3 hasAnchor" number="16.10.6">
-<h3><span class="header-section-number">16.10.6</span> Ejercicio 6. <code>%T&gt;%</code>, el paso de lado<a href="pipes.html#ejercicio-6.-t-el-paso-de-lado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="ejercicio">
-<p>Datos: <code>millas</code>. En <strong>una sola cadena</strong>: toma <code>millas</code>, quédate con <code>cilindrada</code>
-y <code>autopista</code>, dibuja el par con <code>plot()</code> en el medio de la cadena usando
-<code>%T&gt;%</code>, y termina calculando el promedio de las dos columnas con <code>colMeans()</code>.
-Prueba primero con <code>%&gt;%</code> en vez de <code>%T&gt;%</code> para ver el error.</p>
-<p><strong>Verificación:</strong> con <code>%T&gt;%</code> sale la gráfica <strong>y</strong> un vector de dos promedios.</p>
-<p><strong>En palabras:</strong> ¿qué recibió <code>colMeans()</code> cuando usaste <code>%&gt;%</code>? ¿Por qué?</p>
-</div>
-<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="pipes.html#cb690-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
-</div>
-<div id="ejercicio-7-bono.-in-no-es-un-pipe" class="section level3 hasAnchor" number="16.10.7">
-<h3><span class="header-section-number">16.10.7</span> Ejercicio 7 (BONO). <code>%in%</code> no es un pipe<a href="pipes.html#ejercicio-7-bono.-in-no-es-un-pipe" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="ejercicio">
-<p>Datos: <code>paises</code> del año 2007. Filtra los países de tres continentes de dos
-maneras: con <code>|</code> repetido tres veces, y con <code>%in%</code>. Después contesta con código:
-¿qué devuelve <code>NA %in% c(1, 2)</code> y qué devuelve <code>NA == 1</code>?</p>
-<p><strong>Verificación:</strong> las dos maneras de filtrar dan la misma tabla.</p>
-<p><strong>En palabras:</strong> <code>%in%</code> se escribe como un pipe pero no lo es. Explica en una
-oración qué hace realmente, y por qué la diferencia entre <code>NA %in% ...</code> y
-<code>NA == ...</code> puede cambiar el resultado de un filtro.</p>
-</div>
-<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="pipes.html#cb691-1" tabindex="-1"></a><span class="co"># Escribe tu código aquí</span></span></code></pre></div>
 
-</div>
 </div>
 </div>
             </section>
@@ -1685,8 +1424,8 @@ oración qué hace realmente, y por qué la diferencia entre <code>NA %in% ...</
           </div>
         </div>
       </div>
-<a href="análisis-exploratorio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="tibbles.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="apéndice-a-covid-19-acumulativo.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -1717,7 +1456,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/RaymondLTremblay/Ciencia_Datos_R/edit/main/14-Pipes.Rmd",
+    "link": "https://github.com/RaymondLTremblay/Ciencia_Datos_R/edit/main/36-Apendice-Datos.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -1725,7 +1464,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/RaymondLTremblay/Ciencia_Datos_R/blob/main/14-Pipes.Rmd",
+    "link": "https://github.com/RaymondLTremblay/Ciencia_Datos_R/blob/main/36-Apendice-Datos.Rmd",
     "text": null
   },
   "download": null,
